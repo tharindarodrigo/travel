@@ -22,7 +22,7 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => '192.168.2.226',
+			'host'      => 'localhost',
 			'database'  => 'travel',
 			'username'  => 'root',
 			'password'  => '',
@@ -30,6 +30,7 @@ return array(
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 		),
+
 
 	),
 

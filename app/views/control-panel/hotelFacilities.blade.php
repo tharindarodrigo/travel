@@ -1,4 +1,4 @@
-@extends('......layout.main')
+@extends('control-panel.layout.main')
 
 {{--Title--}}
 @section('control-title')
@@ -7,13 +7,13 @@
 
 {{--Sub Title--}}
 @section('control-sub-title')
-    {{'Hotel Categories'}}
+    {{'Facilities'}}
 @endsection
 
 {{--Breadcrumbs--}}
 @section('bread-crumbs')
     <li class="active">Hotels</li>
-    <li class="active">Categories</li>
+    <li class="active">Hotel Facilities</li>
 @endsection
 
 {{--Active Main Menu Item--}}
@@ -22,9 +22,10 @@
 @endsection
 
 {{--Active Sub menu Item--}}
-@section('active-hotel-categories')
+@section('active-hotel-facilities')
  {{ 'active' }}
 @endsection
+
 
 @section('content')
 
@@ -34,7 +35,7 @@
             <div class="box box-primary ">
                 <div class="box-header">
                     <h3 class="box-title">
-                         Create Hotel Category
+                         Create Hotel Facility
                     </h3>
                 </div>
 
@@ -43,15 +44,15 @@
                     <div class="box-body">
 
                         <div class="form-group">
-                            <label for="hotel_category">Category</label>
-                            <input id="hotel_category" class="form-control" type="text"/>
+                            <label for="facilities">Facility</label>
+                            <input id="facilities" class="form-control" type="text"/>
                         </div>
 
                         <div class="form-group">
-                            <button type="button" class="btn btn-primary">Create Hotel Category</button>
+                            <button type="button" class="btn btn-primary">Create Hotel Facility</button>
                         </div>
                         <div class="form-group">
-                            <button type="button" class="btn btn-primary">Update Hotel Category</button>
+                            <button type="button" class="btn btn-group btn-primary">Update Hotel Facility</button>
                             <button type="button" class="btn btn-group btn-info">Cancel</button>
                         </div>
                     </div>
@@ -62,7 +63,7 @@
         <div class="col-md-8">
             <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title"><b>Search / Update / Delete</b> Hotel Categories</h3>
+                    <h3 class="box-title"><b>Search / Update / Delete</b> Hotel Facilities</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body table-responsive">
                     <table id="qweasd" class="table table-bordered table-striped">
@@ -99,6 +100,7 @@
                 <script type="text/javascript">
                     $(function() {
                         $("#qweasd").dataTable();
+
                     });
                 </script>
 
