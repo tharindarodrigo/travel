@@ -1,4 +1,4 @@
-@extends('......layout.main')
+@extends('control-panel.layout.main')
 
 @section('content')
 
