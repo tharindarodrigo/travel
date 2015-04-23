@@ -80,74 +80,6 @@ Route::group(array("prefix" => "type"), function () {
 
 
 
-
-
-/*-------------------------Authenticated group-------------------------------*/
-
-Route::group(array('before' => 'auth'), function () {
-
-    Route::group(array('before' => 'csrf'), function () {
-
-        /*
-             Change Password (POST)
-         */
-
-        Route::post('/profile/edit-user', array(
-            'as' => 'profile-edit-user-post',
-            'uses' => 'AccountController@postChangePassword',
-        ));
-
-    });
-
-    //Change password
-
-    Route::get('account/change-password', array(
-        'as' => 'account-change-password',
-        'uses' => 'AccountController@getChangePassword'
-    ));
-
-    //Sign Out
-
-    /*
-        Change password (GET)
-    */
-
-    Route::get('/profile/edit-user', array(
-        'as' => 'profile-edit-user',
-        'uses' => 'AccountController@getChangePassword',
-    ));
-
-    /*
-        My Properties
-    */
-
-    Route::get('/profile/my-properties', array(
-        'as' => 'profile-my-properties',
-        'uses' => 'AccountController@myProperties',
-    ));
-
-    /*
-        Delete Properties
-    */
-
-    Route::post('/profile/my-properties-delete', array(
-        'as' => 'profile-my-properties-delete',
-        'uses' => 'AccountController@destroy',
-    ));
-
-    /*
-        Sign out (GET)
-    */
-
-    Route::get('/account/sign-out', array(
-        'as' => 'account-sign-out',
-        'uses' => 'AccountController@getSignOut',
-    ));
-
-
-});
-
-
 /*----------------------------Unauthenticated group---------------------------*/
 
 Route::group(array('before' => 'guest'), function () {
@@ -252,8 +184,70 @@ Route::group(array('before' => 'guest'), function () {
 });
 
 
+/*-------------------------Authenticated group-------------------------------*/
+
+Route::group(array('before' => 'auth'), function () {
+
+    Route::group(array('before' => 'csrf'), function () {
+
+        /*
+             Change Password (POST)
+         */
+
+        Route::post('/profile/edit-user', array(
+            'as' => 'profile-edit-user-post',
+            'uses' => 'AccountController@postChangePassword',
+        ));
+
+    });
+
+    //Change password
+
+    Route::get('account/change-password', array(
+        'as' => 'account-change-password',
+        'uses' => 'AccountController@getChangePassword'
+    ));
+
+    //Sign Out
+
+    /*
+        Change password (GET)
+    */
+
+    Route::get('/profile/edit-user', array(
+        'as' => 'profile-edit-user',
+        'uses' => 'AccountController@getChangePassword',
+    ));
+
+    /*
+        My Properties
+    */
+
+    Route::get('/profile/my-properties', array(
+        'as' => 'profile-my-properties',
+        'uses' => 'AccountController@myProperties',
+    ));
+
+    /*
+        Delete Properties
+    */
+
+    Route::post('/profile/my-properties-delete', array(
+        'as' => 'profile-my-properties-delete',
+        'uses' => 'AccountController@destroy',
+    ));
+
+    /*
+        Sign out (GET)
+    */
+
+    Route::get('/account/sign-out', array(
+        'as' => 'account-sign-out',
+        'uses' => 'AccountController@getSignOut',
+    ));
 
 
+});
 
 
 //=====================================================================================================================|
