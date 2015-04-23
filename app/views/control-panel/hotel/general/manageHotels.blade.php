@@ -1,4 +1,4 @@
-@extends('control-panel.layout.main')
+@extends('......layout.main')
 
 {{--Title--}}
 @section('control-title')

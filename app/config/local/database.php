@@ -31,7 +31,6 @@ return array(
 			'prefix'    => '',
 		),
 
-
 	),
 
 );
