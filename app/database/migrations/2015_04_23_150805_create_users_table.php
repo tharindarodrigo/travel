@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration {
             $table->string('password_temp', 60);
             $table->string('code', 50);
             $table->integer('role_id')->unsigned();
+            $table->string('address')->nullable();
             $table->boolean('active');
             $table->timestamps();
 
