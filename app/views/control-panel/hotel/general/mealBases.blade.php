@@ -1,4 +1,9 @@
-@extends('......layout.main')
+@extends('control-panel.layout.main')
+
+@section('head-scripts')
+    {{ HTML::style('//cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css')}}
+    {{ HTML::script('//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js')}}
+@endsection
 
 {{--Title--}}
 @section('control-title')
@@ -74,26 +79,35 @@
                     <h3 class="box-title"><b>Search / Update / Delete</b> Meal Bases</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body table-responsive">
-                    <table id="qweasd" class="table table-bordered table-striped">
+                    <table id="meal-bases-table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Category</th>
+                                <th>Basis</th>
+                                <th>Basis Name</th>
+                                <th>Description</th>
                                 <th></th>
 
                             </tr>
                         </thead>
                         <tbody>
 
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>ID</th>
-                                <th>Category</th>
-                                <th></th>
+                            @foreach($mealbases as $mealbasis)
+                                <tr>
+                                    <td>{{ $mealbasis->id }}</td>
+                                    <td>{{ $mealbasis->meal_basis }}</td>
+                                    <td>{{ $mealbasis->meal_basis_name }}</td>
+                                    <td>{{ $mealbasis->description }}</td>
+                                    <td>
+                                        <button class="btn-xs btn-group btn-primary">Edit</button>
+                                        <button class="btn-xs btn-group btn-danger">Edit</button>
+                                    </td>
 
-                            </tr>
-                        </tfoot>
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+
                     </table>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -107,7 +121,7 @@
 
     <script type="text/javascript">
         $(function() {
-            $("#qweasd").dataTable();
+            $("#meal-bases-table").dataTable();
         });
     </script>
 
