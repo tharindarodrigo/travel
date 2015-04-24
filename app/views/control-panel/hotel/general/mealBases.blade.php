@@ -86,7 +86,7 @@
                                 <th>Basis</th>
                                 <th>Basis Name</th>
                                 <th>Description</th>
-                                <th></th>
+                                <th style="width:70px;"></th>
 
                             </tr>
                         </thead>
@@ -99,10 +99,11 @@
                                     <td>{{ $mealbasis->meal_basis_name }}</td>
                                     <td>{{ $mealbasis->description }}</td>
                                     <td>
-                                        <button class="btn-xs btn-group btn-primary">Edit</button>
-                                        <button class="btn-xs btn-group btn-danger">Edit</button>
+                                    <div class="btn-group">
+                                        <button class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i></button>
+                                        <button class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+                                    </div>
                                     </td>
-
                                 </tr>
                             @endforeach
 

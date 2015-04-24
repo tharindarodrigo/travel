@@ -1,5 +1,5 @@
 <style type="text/css">
-    .logo{
+    .logo {
         height: 50px;;
     }
 </style>
@@ -37,20 +37,23 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li class="dropdown active">
+                    <li>
                         <a href="{{URL::route('index')}}">Home</a>
-
                     </li>
 
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#"> Hotels </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" style="margin-right: -100px; padding: 5px 20px">
                             <li class="dropdown-header"> Select Accommodation</li>
-
-                            <li><a href="hotel_list.php">List page 1</a></li>
-                            <li><a href="hotel_list.php">List page 2</a></li>
-                            <li><a href="hotel_list.php">List page 3</a></li>
-                            <li><a href="hotel_list.php">List page 4</a></li>
+                            <?php
+                            $hotel_type = DB::table('hotel_categories')
+                                    ->get();
+                            ?>
+                            @foreach($hotel_type as $hotel_categories)
+                                <li>
+                                    <a href="{{URL::to('/accommodation/'.str_replace(' ', '-',$hotel_categories->name)) }}">{{ $hotel_categories->name }}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     </li>
 

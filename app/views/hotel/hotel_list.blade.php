@@ -8,11 +8,14 @@
 
 @endsection
 
-@section('cistom_style')
+@section('custom_style')
 
     <!-- bin/jquery.slider.min.css -->
     {{ HTML::style('plugins/jslider/css/jslider.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
     {{ HTML::style('plugins/jslider/css/jslider.round.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+
+    <!-- jQuery -->
+    {{ HTML::style('assets/js/jquery.v2.0.3.js') }}
 
     <!-- bin/jquery.slider.min.js -->
     {{ HTML::script('plugins/jslider/js/jshashtable-2.1_src.js') }}
@@ -1591,9 +1594,7 @@
 
                 <div class="clearfix"></div>
 
-
                 <div class="itemscontainer offset-1">
-
 
                     <div class="offset-2">
                         <div class="col-md-4 offset-0">
@@ -1646,224 +1647,10 @@
                     </div>
 
                     <div class="clearfix"></div>
+
                     <div class="offset-2">
                         <hr class="featurette-divider3">
                     </div>
-
-                    <div class="offset-2">
-                        <div class="col-md-4 offset-0">
-                            <div class="listitem2">
-                                <a href="images/items/item11.jpg" data-footer="A custom footer text"
-                                   data-title="A random title" data-gallery="multiimages" data-toggle="lightbox"><img
-                                            src="images/items/item11.jpg" alt=""/></a>
-
-                                <div class="liover"></div>
-                                <a class="fav-icon" href="#"></a>
-                                <a class="book-icon" href="details.html"></a>
-                            </div>
-                        </div>
-                        <div class="col-md-8 offset-0">
-                            <div class="itemlabel3">
-                                <div class="labelright">
-                                    <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
-                                    <img src="images/user-rating-5.png" width="60" alt=""/><br/>
-                                    <span class="size11 grey">18 Reviews</span><br/><br/>
-                                    <span class="green size18"><b>$39.00</b></span><br/>
-                                    <span class="size11 grey">avg/night</span><br/><br/><br/>
-
-                                    <form action="details.html">
-                                        <button class="bookbtn mt1" type="submit">Book</button>
-                                    </form>
-                                </div>
-                                <div class="labelleft2">
-                                    <b>Mabely Grand Hotel</b><br/><br/><br/>
-
-                                    <p class="grey">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec semper
-                                        lectus. Suspendisse placerat enim mauris, eget lobortis nisi egestas et.
-                                        Donec elementum metus et mi aliquam eleifend. Suspendisse volutpat egestas
-                                        rhoncus.</p><br/>
-                                    <ul class="hotelpreferences">
-                                        <li class="icohp-hairdryer"></li>
-                                        <li class="icohp-garden"></li>
-                                        <li class="icohp-grill"></li>
-                                        <li class="icohp-kitchen"></li>
-                                        <li class="icohp-bar"></li>
-                                        <li class="icohp-living"></li>
-                                        <li class="icohp-tv"></li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="clearfix"></div>
-                    <div class="offset-2">
-                        <hr class="featurette-divider3">
-                    </div>
-
-                    <div class="offset-2">
-                        <div class="col-md-4 offset-0">
-                            <div class="listitem2">
-                                <a href="images/items/item1.jpg" data-footer="A custom footer text"
-                                   data-title="A random title" data-gallery="multiimages" data-toggle="lightbox"><img
-                                            src="images/items/item1.jpg" alt=""/></a>
-
-                                <div class="liover"></div>
-                                <a class="fav-icon" href="#"></a>
-                                <a class="book-icon" href="details.html"></a>
-                            </div>
-                        </div>
-                        <div class="col-md-8 offset-0">
-                            <div class="itemlabel3">
-                                <div class="labelright">
-                                    <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
-                                    <img src="images/user-rating-5.png" width="60" alt=""/><br/>
-                                    <span class="size11 grey">18 Reviews</span><br/><br/>
-                                    <span class="green size18"><b>$45.00</b></span><br/>
-                                    <span class="size11 grey">avg/night</span><br/><br/><br/>
-
-                                    <form action="details.html">
-                                        <button class="bookbtn mt1" type="submit">Book</button>
-                                    </form>
-                                </div>
-                                <div class="labelleft2">
-                                    <b>Mabely Grand Hotel</b><br/><br/><br/>
-
-                                    <p class="grey">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec semper
-                                        lectus. Suspendisse placerat enim mauris, eget lobortis nisi egestas et.
-                                        Donec elementum metus et mi aliquam eleifend. Suspendisse volutpat egestas
-                                        rhoncus.</p><br/>
-                                    <ul class="hotelpreferences">
-                                        <li class="icohp-fridge"></li>
-                                        <li class="icohp-microwave"></li>
-                                        <li class="icohp-washing"></li>
-                                        <li class="icohp-roomservice"></li>
-                                        <li class="icohp-safe"></li>
-                                        <li class="icohp-playground"></li>
-                                        <li class="icohp-conferenceroom"></li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="clearfix"></div>
-                    <div class="offset-2">
-                        <hr class="featurette-divider3">
-                    </div>
-
-                    <div class="offset-2">
-                        <div class="col-md-4 offset-0">
-                            <div class="listitem2">
-                                <a href="images/items/item5.jpg" data-footer="A custom footer text"
-                                   data-title="A random title" data-gallery="multiimages" data-toggle="lightbox"><img
-                                            src="images/items/item5.jpg" alt=""/></a>
-
-                                <div class="liover"></div>
-                                <a class="fav-icon" href="#"></a>
-                                <a class="book-icon" href="details.html"></a>
-                            </div>
-                        </div>
-                        <div class="col-md-8 offset-0">
-                            <div class="itemlabel3">
-                                <div class="labelright">
-                                    <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
-                                    <img src="images/user-rating-5.png" width="60" alt=""/><br/>
-                                    <span class="size11 grey">18 Reviews</span><br/><br/>
-                                    <span class="green size18"><b>$49.00</b></span><br/>
-                                    <span class="size11 grey">avg/night</span><br/><br/><br/>
-
-                                    <form action="details.html">
-                                        <button class="bookbtn mt1" type="submit">Book</button>
-                                    </form>
-                                </div>
-                                <div class="labelleft2">
-                                    <b>Mabely Grand Hotel</b><br/><br/><br/>
-
-                                    <p class="grey">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec semper
-                                        lectus. Suspendisse placerat enim mauris, eget lobortis nisi egestas et.
-                                        Donec elementum metus et mi aliquam eleifend. Suspendisse volutpat egestas
-                                        rhoncus.</p><br/>
-                                    <ul class="hotelpreferences">
-                                        <li class="icohp-internet"></li>
-                                        <li class="icohp-air"></li>
-                                        <li class="icohp-pool"></li>
-                                        <li class="icohp-childcare"></li>
-                                        <li class="icohp-fitness"></li>
-                                        <li class="icohp-breakfast"></li>
-                                        <li class="icohp-parking"></li>
-                                        <li class="icohp-pets"></li>
-                                        <li class="icohp-spa"></li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="clearfix"></div>
-                    <div class="offset-2">
-                        <hr class="featurette-divider3">
-                    </div>
-
-                    <div class="offset-2">
-                        <div class="col-md-4 offset-0">
-                            <div class="listitem2">
-                                <a href="images/items/item2.jpg" data-footer="A custom footer text"
-                                   data-title="A random title" data-gallery="multiimages" data-toggle="lightbox"><img
-                                            src="images/items/item2.jpg" alt=""/></a>
-
-                                <div class="liover"></div>
-                                <a class="fav-icon" href="#"></a>
-                                <a class="book-icon" href="details.html"></a>
-                            </div>
-                        </div>
-                        <div class="col-md-8 offset-0">
-                            <div class="itemlabel3">
-                                <div class="labelright">
-                                    <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
-                                    <img src="images/user-rating-5.png" width="60" alt=""/><br/>
-                                    <span class="size11 grey">18 Reviews</span><br/><br/>
-                                    <span class="green size18"><b>$49.00</b></span><br/>
-                                    <span class="size11 grey">avg/night</span><br/><br/><br/>
-
-                                    <form action="details.html">
-                                        <button class="bookbtn mt1" type="submit">Book</button>
-                                    </form>
-                                </div>
-                                <div class="labelleft2">
-                                    <b>Mabely Grand Hotel</b><br/><br/><br/>
-
-                                    <p class="grey">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec semper
-                                        lectus. Suspendisse placerat enim mauris, eget lobortis nisi egestas et.
-                                        Donec elementum metus et mi aliquam eleifend. Suspendisse volutpat egestas
-                                        rhoncus.</p><br/>
-                                    <ul class="hotelpreferences">
-                                        <li class="icohp-fridge"></li>
-                                        <li class="icohp-microwave"></li>
-                                        <li class="icohp-washing"></li>
-                                        <li class="icohp-roomservice"></li>
-                                        <li class="icohp-safe"></li>
-                                        <li class="icohp-playground"></li>
-                                        <li class="icohp-conferenceroom"></li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="clearfix"></div>
-                    <div class="offset-2">
-                        <hr class="featurette-divider3">
-                    </div>
-
 
                 </div>
                 <!-- End of offset1-->
@@ -1914,34 +1701,3 @@
 </body>
 
 @stop
-
-<ul>
-
-
-
-
-    <li><a href="accommodation.php?sub=2">Beach Selections</a></li>
-
-
-    <li><a href="accommodation.php?sub=6">Business Hotels</a></li>
-
-
-    <li><a href="accommodation.php?sub=5">Villas &amp; Boutique Hotels</a></li>
-
-
-    <li><a href="accommodation.php?sub=11">Luxury Hotels</a></li>
-
-
-    <li><a href="accommodation.php?sub=14">Comfort Hotels</a></li>
-
-
-    <li><a href="accommodation.php?sub=12">Standard Hotels</a></li>
-
-
-    <li><a href="accommodation.php?sub=15">Budget Hotels</a></li>
-
-
-    <li><a href="accommodation.php?sub=7">Wildlife &amp; Eco Hotel</a></li>
-
-
-</ul>
