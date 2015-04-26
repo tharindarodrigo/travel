@@ -15,6 +15,7 @@ class CreateHotelFacilitiesTable extends Migration {
 		Schema::create('hotel_facilities', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('hotel_facility');
 			$table->timestamps();
 		});
 	}

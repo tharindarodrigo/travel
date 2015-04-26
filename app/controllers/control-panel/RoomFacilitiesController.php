@@ -11,7 +11,7 @@ class RoomFacilitiesController extends \BaseController {
 	{
 		$roomfacilities = Roomfacility::all();
 
-		return View::make('roomfacilities.index', compact('roomfacilities'));
+		return View::make('control-panel.hotel.general.roomFacilities', compact('roomfacilities'));
 	}
 
 	/**

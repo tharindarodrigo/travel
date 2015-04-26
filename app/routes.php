@@ -270,7 +270,8 @@ Route::group(array('prefix' => 'control-panel'), function () {
         return View::make('control-panel.index');
     });
 
-    /*-------------------------------------------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------------------------------------------
      *  control-panel/hotel
      *-------------------------------------------------------------------------------------------------------------*/
 
@@ -279,6 +280,9 @@ Route::group(array('prefix' => 'control-panel'), function () {
          *  Meal Bases
          */
         Route::resource('meal-bases', 'MealBasesController');
+        Route::resource('room-facilities', 'RoomFacilitiesController');
+        Route::resource('hotel-facilities', 'HotelFacilitiesController');
+        //Route::resource('meal-bases', 'MealBasesController');
     });
 
     /*-------------------------------------------------------------------------------------------------------------

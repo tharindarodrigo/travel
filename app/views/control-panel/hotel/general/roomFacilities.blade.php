@@ -1,4 +1,4 @@
-@extends('......layout.main')
+@extends('control-panel.layout.main')
 
 {{--Title--}}
 @section('control-title')
@@ -76,14 +76,15 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Facility</th>
-                                <th style="width: 100px;"></th>
+                                <th style="width: 120px;"></th>
 
                             </tr>
                         </thead>
                         <tbody id="table_room_facilities_body">
-                            <tr id="1">
-                                <td>1</td>
-                                <td>Hot Water</td>
+                        @foreach($roomfacilities as $roomfacility)
+                            <tr id="">
+                                <td>{{ $roomfacility->id }}</td>
+                                <td>{{ $roomfacility->facility }}</td>
                                 <td>
                                     <div class="btn-group btn-group-xs">
                                         <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-edit edit-item"></span></button>
@@ -93,6 +94,7 @@
                                     </div>
                                 </td>
                             </tr>
+                        @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
