@@ -270,6 +270,11 @@ Route::group(array('prefix' => 'control-panel'), function () {
         return View::make('control-panel.index');
     });
 
+    Route::group(array('prefix' => 'general'), function () {
+
+        Route::resource('cities', 'CitiesController');
+    });
+
     /**
      * -------------------------------------------------------------------------------------------------------------
      *  control-panel/hotel
@@ -282,6 +287,11 @@ Route::group(array('prefix' => 'control-panel'), function () {
         Route::resource('meal-bases', 'MealBasesController');
 
         /**
+         *  Room Types
+         */
+        Route::resource('room_types', 'RoomTypesController');
+
+        /**
          *  Room Facilities
          */
         Route::resource('room-facilities', 'RoomFacilitiesController');
@@ -290,6 +300,8 @@ Route::group(array('prefix' => 'control-panel'), function () {
          *  hotel facilities
          */
         Route::resource('hotel-facilities', 'HotelFacilitiesController');
+
+
         //Route::resource('meal-bases', 'MealBasesController');
     });
 
