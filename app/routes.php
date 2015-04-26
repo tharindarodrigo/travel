@@ -280,7 +280,15 @@ Route::group(array('prefix' => 'control-panel'), function () {
          *  Meal Bases
          */
         Route::resource('meal-bases', 'MealBasesController');
+
+        /**
+         *  Room Facilities
+         */
         Route::resource('room-facilities', 'RoomFacilitiesController');
+
+        /**
+         *  hotel facilities
+         */
         Route::resource('hotel-facilities', 'HotelFacilitiesController');
         //Route::resource('meal-bases', 'MealBasesController');
     });
