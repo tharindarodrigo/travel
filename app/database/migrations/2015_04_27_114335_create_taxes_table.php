@@ -21,9 +21,14 @@ class CreateTaxesTable extends Migration {
             $table->double('handling_fee');
             $table->boolean('discount_type');
             $table->double('discount');
+            $table->integer('room_type_id')->unsigned();
 
 			$table->timestamps();
-		});
+
+            $table->foreign('room_type_id')->references('id')->on('room_types');
+
+
+        });
 	}
 
 
