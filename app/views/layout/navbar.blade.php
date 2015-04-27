@@ -11,7 +11,11 @@
             <tr>
                 <th style="padding: 10px;"><a href="" style="text-decoration: none">Language</a></th>
                 <th style="padding: 10px;"><a href="" style="text-decoration: none">USD</a></th>
-                <th style="padding: 10px;"><a href="" style="text-decoration: none">Sign in or Sign up</a></th>
+                <th style="padding: 10px;">
+                    <a href="" style="text-decoration: none">Sign in</a>
+                    or
+                    <a href="" style="text-decoration: none">Sign up</a>
+                </th>
             </tr>
         </table>
     </div>
