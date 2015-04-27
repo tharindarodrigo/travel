@@ -55,7 +55,7 @@ return array(
     'CreateHotelCategoriesTable' => $baseDir . '/app/database/migrations/2015_04_27_063741_create_hotel_categories_table.php',
     'CreateHotelFacilitiesTable' => $baseDir . '/app/database/migrations/2015_04_24_174750_create_hotel_facilities_table.php',
     'CreateHotelHotelCategoryTable' => $baseDir . '/app/database/migrations/2015_04_27_070649_create_hotel_hotel_category_table.php',
-    'CreateHotelHotelFailityTable' => $baseDir . '/app/database/migrations/2015_04_27_081343_create_hotel_hotel_faility_table.php',
+    'CreateHotelHotelFacilityTable' => $baseDir . '/app/database/migrations/2015_04_27_084831_create_hotel_hotel_facility_table.php',
     'CreateHotelsTable' => $baseDir . '/app/database/migrations/2015_04_27_044130_create_hotels_table.php',
     'CreateMarketsTable' => $baseDir . '/app/database/migrations/2015_04_27_072850_create_markets_table.php',
     'CreateMealBasesTable' => $baseDir . '/app/database/migrations/2015_04_24_084347_create_meal_bases_table.php',
