@@ -38,6 +38,7 @@ class CreateRatesTable extends Migration {
             $table->foreign('market_id')->references('id')->on('markets');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('meal_basis_id')->references('id')->on('meal_bases');
+
 		});
 	}
 
