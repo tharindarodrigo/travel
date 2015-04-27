@@ -15,8 +15,8 @@ class CreateRatesTable extends Migration {
 		Schema::create('rates', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->date('fdate');
-            $table->date('tdate');
+            $table->date('from');
+            $table->date('to');
             $table->double('sgl');
             $table->double('dbl');
             $table->double('tpl');
