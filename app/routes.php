@@ -17,8 +17,6 @@
 //=====================================================================================================================|
 
 
-/*-------------------- Route for navbar --------------------*/
-
 
 Route::get('/', array(
     'as' => 'index',
@@ -50,7 +48,7 @@ Route::post('/contact', array(
 
 Route::get('/message', array(
     'as' => 'default-message',
-    'uses' => 'ContactController@message'
+    'uses' => 'HomeController@message'
 ));
 
 /*------------------------- Errors -------------------------*/
@@ -62,12 +60,21 @@ Route::get('/403', function () {
 
 /*------------------------------ Hotel List --------------------------------*/
 
-Route::group(array("prefix" => "type"), function () {
+/************* navbar link ********************/
 
-    Route::get('/hotel-list', array(
-        'as' => 'hotel-list',
-        'uses' => 'HotelController@index'
+Route::get('accommodation/{hotel_type?}', array(
+    'as' => 'hotel-list',
+    'uses' => 'HotelController@hotel_list'
+));
+
+
+Route::group(array("prefix" => "hotel"), function () {
+
+    Route::get('{name?}', array(
+        'as' => 'hotel-details',
+        'uses' => 'HotelController@hotelDetail'
     ));
+
 
 });
 
@@ -77,9 +84,6 @@ Route::group(array("prefix" => "type"), function () {
 
 
 /*------------------------------ Sign in & Register --------------------------------*/
-
-
-
 
 
 /*-------------------------Authenticated group-------------------------------*/
@@ -250,8 +254,6 @@ Route::group(array('before' => 'guest'), function () {
     ));
 
 });
-
-
 
 
 
