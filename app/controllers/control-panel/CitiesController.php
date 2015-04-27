@@ -11,7 +11,7 @@ class CitiesController extends \BaseController {
 	{
 		$cities = City::all();
 
-		return View::make('cities.index', compact('cities'));
+		return View::make('control-panel.general.cities', compact('cities'));
 	}
 
 	/**
