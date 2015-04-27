@@ -17,12 +17,12 @@ class CreateRoomTypesTable extends Migration {
 			$table->increments('id');
 			$table->string('room_type');
 			$table->text('description');
-			$table->integer('users_id');
-			$table->integer('hotel_id');
+			$table->integer('user_id')->unsigned();
+			$table->integer('hotel_id')->unsigned();
 			$table->boolean('val');
 			$table->timestamps();
 
-            $table->foreign('users_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('hotel_id')->references('id')->on('hotels');
 
         });
