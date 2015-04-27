@@ -17,11 +17,33 @@ class CreateHotelsTable extends Migration {
 			$table->increments('id');
             $table->string('name');
             $table->string('address');
-            $table->string('stars');
+            $table->integer('city_id')->unsigned();
+            $table->integer('users_id')->unsigned();
+            $table->integer('stars');
+            $table->boolean('val');
+
             $table->double('longitude');
             $table->double('latitude');
-			$table->timestamps();
-		});
+
+            $table->string('meta_keywords');
+            $table->string('meta_description');
+
+            $table->text('overview');
+
+            $table->string('rooms');
+            $table->string('terms_and_conditions');
+            $table->string('infant_age');
+            $table->string('infant_charge');
+
+            $table->string('child_age');
+            $table->string('child_charge');
+
+            $table->timestamps();
+
+            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('users_id')->references('id')->on('users');
+
+        });
 	}
 
 
