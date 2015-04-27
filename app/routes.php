@@ -270,6 +270,11 @@ Route::group(array('prefix' => 'control-panel'), function () {
         return View::make('control-panel.index');
     });
 
+    Route::group(array('prefix' => 'general'), function(){
+        Route::resource('cities', 'CitiesController');
+    });
+
+
     /**
      * -------------------------------------------------------------------------------------------------------------
      *  control-panel/hotel
