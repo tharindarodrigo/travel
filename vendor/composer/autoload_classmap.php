@@ -7,7 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AccountController' => $baseDir . '/app/controllers/AccountController.php',
-    'AddCityColumnToCitiesTable' => $baseDir . '/app/database/migrations/2015_04_28_073120_add_city_column_to_cities_table.php',
+    'AddValColumnToMealBasesTable' => $baseDir . '/app/database/migrations/2015_04_28_132517_add_val_column_to_meal_bases_table.php',
     'Barryvdh\\LaravelIdeHelper\\Alias' => $vendorDir . '/barryvdh/laravel-ide-helper/src/Alias.php',
     'Barryvdh\\LaravelIdeHelper\\Console\\GeneratorCommand' => $vendorDir . '/barryvdh/laravel-ide-helper/src/Console/GeneratorCommand.php',
     'Barryvdh\\LaravelIdeHelper\\Console\\MetaCommand' => $vendorDir . '/barryvdh/laravel-ide-helper/src/Console/MetaCommand.php',
@@ -1449,6 +1449,7 @@ return array(
     'Stack\\StackedHttpKernel' => $vendorDir . '/stack/builder/src/Stack/StackedHttpKernel.php',
     'StarCategoriesController' => $baseDir . '/app/controllers/StarCategoriesController.php',
     'StarCategory' => $baseDir . '/app/models/StarCategory.php',
+    'Stars' => $baseDir . '/app/models/Star.php',
     'Symfony\\Component\\BrowserKit\\Client' => $vendorDir . '/symfony/browser-kit/Symfony/Component/BrowserKit/Client.php',
     'Symfony\\Component\\BrowserKit\\Cookie' => $vendorDir . '/symfony/browser-kit/Symfony/Component/BrowserKit/Cookie.php',
     'Symfony\\Component\\BrowserKit\\CookieJar' => $vendorDir . '/symfony/browser-kit/Symfony/Component/BrowserKit/CookieJar.php',
