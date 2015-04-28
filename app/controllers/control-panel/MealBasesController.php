@@ -21,7 +21,9 @@ class MealBasesController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('mealbases.create');
+//		return View::make('control-panel.hotel.general.mealBases');
+
+        return $this->index();
 	}
 
 	/**
@@ -40,7 +42,7 @@ class MealBasesController extends \BaseController {
 
 		Mealbasis::create($data);
 
-		return Redirect::route('mealbases.index');
+		return Redirect::route('control-panel.hotel.general.mealBases');
 	}
 
 	/**

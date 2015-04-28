@@ -2,7 +2,7 @@
 
 @section('head-scripts')
     {{ HTML::style('//cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css')}}
-    {{ HTML::script('//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js')}}
+    {{ HTML::link('//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js')}}
 @endsection
 
 {{--Title--}}
@@ -44,7 +44,7 @@
                     </h3>
                 </div>
 
-                <form action="" role="form">
+                <form action="{{ link_to_route('') }}" role="form">
 
                     <div class="box-body">
 
@@ -53,7 +53,7 @@
                             <input id="meal_basis" class="form-control" type="text"/>
                         </div>
                         <div class="form-group">
-                            <label for="abbreviation">Abbreviation</label>
+                            <label for="abbreviation">Meal Basis</label>
                             <input id="abbreviation" class="form-control" type="text"/>
                         </div>
                         <div class="form-group">
@@ -86,8 +86,8 @@
                                 <th>Basis</th>
                                 <th>Basis Name</th>
                                 <th>Description</th>
-                                <th style="width:70px;"></th>
-
+                                <th style="width:70px;">Status</th>
+                                <th style="width:110px;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -98,10 +98,18 @@
                                     <td>{{ $mealbasis->meal_basis }}</td>
                                     <td>{{ $mealbasis->meal_basis_name }}</td>
                                     <td>{{ $mealbasis->description }}</td>
+                                    <td>{{ $mealbasis->val == 0 ? 'Inactive' : 'Active' }}</td>
                                     <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i></button>
-                                        <button class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+                                        <a href="{{ Url::route('control-panel.hotel.general.mealBases') }}" class="btn btn-xs btn-flat btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
+                                        <a href="{{ Url::route('control-panel.hotel.general.mealBases') }}" class="btn btn-xs btn-flat btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                                         @if($mealbasis->val == 0)
+                                            <button class="btn btn-xs btn-flat btn-success activate-item" type="button"><span class="glyphicon glyphicon-ok-circle"></span></button>
+                                            <button class="btn btn-xs btn-flat btn-default disabled deactivate-item" type="button"><span class="glyphicon glyphicon-remove-circle"></span></button>
+                                        @else
+                                            <button class="btn btn-xs btn-flat btn-default disabled activate-item" type="button"><span class="glyphicon glyphicon-ok-circle"></span></button>
+                                            <button class="btn btn-xs btn-flat btn-warning deactivate-item" type="button" ><span class="glyphicon glyphicon-remove-circle"></span></button>
+                                        @endif
                                     </div>
                                     </td>
                                 </tr>
