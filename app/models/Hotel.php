@@ -20,10 +20,10 @@ class Hotel extends \Eloquent {
         return $this->belongsTo('City');
     }
 
-    public function stars()
-    {
-        return $this->has('Star');
-
-    }
+//    public function star()
+//    {
+//        return $this->has('Star');
+//
+//    }
 
 }

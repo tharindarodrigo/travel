@@ -1,0 +1,1 @@
+C:\wamp\www\travel\app/views/star_categories/index.blade.php

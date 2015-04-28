@@ -1,6 +1,6 @@
 <?php
 
-class HotelCategory extends \Eloquent {
+class StarCategory extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
@@ -10,8 +10,9 @@ class HotelCategory extends \Eloquent {
 	// Don't forget to fill this array
 	protected $fillable = [];
 
-    public function hotels(){
-        return $this->hasMany('Hotel');
-    }
-
+//    public function hotel(){
+//
+//        return $this->belongsTo('Hotel');
+//
+//    }
 }

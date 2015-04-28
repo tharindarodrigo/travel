@@ -79,7 +79,7 @@
                     @endforeach
                     </tbody>
 
-                    {{ dd(DB::getQueryLog()) }}
+                    {{--{{ dd(DB::getQueryLog()) }}--}}
 
                 </table>
             </div><!-- /.box-body -->
