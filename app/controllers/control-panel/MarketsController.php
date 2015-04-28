@@ -11,7 +11,7 @@ class MarketsController extends \BaseController {
 	{
 		$markets = Market::all();
 
-		return View::make('markets.index', compact('markets'));
+		return View::make('control-panel.general.markets', compact('markets'));
 	}
 
 	/**

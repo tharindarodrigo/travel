@@ -22,6 +22,8 @@
         {{ HTML::script("//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js")}}
         {{ HTML::script("//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js")}}
     <![endif]-->
+        {{ HTML::style('//cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css')}}
+        {{ HTML::script('//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js')}}
 
     @yield('head-scripts')
   </head>
@@ -200,51 +202,47 @@
                 <i class="fa fa-dashboard "></i> <span>Dashboard</span> </i>
               </a>
             </li>
-            <li class="treeview">
+            <li class="treeview @yield('active-hotels')">
               <a href="#">
-                <i class="fa fa-files-o"></i>
-                <span>Layout Options</span>
-                <span class="label label-primary pull-right">4</span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="../layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-                <li><a href="../layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                <li><a href="../layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                <li><a href="../layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="../widgets.html">
-                <i class="fa fa-th"></i> <span>Widgets</span> <small class="label pull-right bg-green">Hot</small>
-              </a>
-            </li>            
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-pie-chart"></i>
-                <span>Charts</span>
+                <i class="fa fa-cutlery"></i>
+                <span> Hotels </span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="../charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-                <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-                <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+                <li class="@yield('active-hotel-list')"><a href="{{ Url::route('control-panel.hotel.hotels.index') }}"><i class="fa fa-circle-o"></i> Hotel List</a></li>
+                <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Add hotel</a></li>
+                <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Hotel Categories</a></li>
+                <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Hotel Facilities</a></li>
+                <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Meal Bases</a></li>
+                <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Star Categories</a></li>
+                <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Room Facilities</a></li>
               </ul>
-            </li>            
-            <li class="treeview">
+            </li>
+            <li class="treeview @yield('active-general')">
               <a href="#">
-                <i class="fa fa-laptop"></i>
-                <span>UI Elements</span>
+                <i class="fa fa-arrows-alt"></i>
+                <span>General</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="../UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-                <li><a href="../UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-                <li><a href="../UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-                <li><a href="../UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-                <li><a href="../UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-                <li><a href="../UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
+                <li class="@yield('active-general-cities')"><a href="{{ Url::route('control-panel.general.cities.index') }}"><i class="fa fa-circle-o"></i> Cities</a></li>
+                <li class="@yield('active-general-countries')"><a href="{{ Url::route('control-panel.general.countries.index') }}"><i class="fa fa-circle-o"></i> Countries</a></li>
+                <li class="@yield('active-general-markets')"><a href="{{ Url::route('control-panel.general.markets.index') }}"><i class="fa fa-circle-o"></i> Markets</a></li>
+              </ul>
+            </li>            
+            <li class="treeview @yield('active-agent')">
+              <a href="#">
+                <i class="fa fa-user"></i>
+                <span>Agent</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="@yield('active-general-cities')"><a href="#"><i class="fa fa-circle-o"></i> Cities</a></li>
+                <li class="@yield('active-general-countries')"><a href="#"><i class="fa fa-circle-o"></i> Countries</a></li>
+                <li class="@yield('active-general-markets')"><a href="#"><i class="fa fa-circle-o"></i> Markets</a></li>
               </ul>
             </li>
+
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-edit"></i> <span>Forms</span>

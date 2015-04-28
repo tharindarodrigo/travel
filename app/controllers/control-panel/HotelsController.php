@@ -9,9 +9,9 @@ class HotelsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$hotels = Hotel::all();
+		$hotels = Hotel::with('city', '')->get();
 
-		return View::make('hotels.index', compact('hotels'));
+		return View::make('control-panel.hotel.general.hotelList', compact('hotels'));
 	}
 
 	/**
