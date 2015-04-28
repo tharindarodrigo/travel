@@ -26,9 +26,9 @@
             width: 205px !important;
         }
 
-        #error {
+        .error {
             font-weight: bold;
-            color: #555;
+            color: #555 !important;
             border-radius: 10px;
             font-family: Tahoma, Geneva, Arial, sans-serif;
             font-size: 11px;
@@ -115,7 +115,7 @@
                             </div>
                             <div>
                                 @if($errors->has('log_email'))
-                                    {{ $errors->First('log_email', '<small id=error>:message</small>') }}
+                                    {{ $errors->First('log_email', '<small style=color:#ffffff>:message</small>') }}
                                 @endif
                             </div>
 
@@ -127,7 +127,7 @@
                             </div>
                             <div>
                                 @if($errors->has('log_password'))
-                                    {{ $errors->First('log_password', '<small id=error>:message</small>') }}
+                                    {{ $errors->First('log_password', '<small style=color:#ffffff>:message</small>') }}
                                 @endif
                             </div>
 

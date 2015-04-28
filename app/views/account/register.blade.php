@@ -116,7 +116,7 @@
                             </div>
                             <div>
                                 @if ($errors->has('first_name'))
-                                    {{ $errors->First('first_name', '<small class=error>:message</small>') }}
+                                    {{ $errors->First('first_name', '<small style=color:#ffffff>:message</small>') }}
                                 @endif
                             </div>
 
@@ -128,7 +128,7 @@
                             </div>
                             <div>
                                 @if($errors->has('last_name'))
-                                    {{ $errors->First('last_name', '<small class=error>:message</small>') }}
+                                    {{ $errors->First('last_name', '<small style=color:#ffffff>:message</small>') }}
                                 @endif
                             </div>
 
@@ -140,7 +140,7 @@
                             </div>
                             <div>
                                 @if($errors->has('email'))
-                                    {{ $errors->First('email', '<small class=error>:message</small>') }}
+                                    {{ $errors->First('email', '<small style=color:#ffffff>:message</small>') }}
                                 @endif
                             </div>
 
@@ -152,7 +152,7 @@
                             </div>
                             <div>
                                 @if($errors->has('password'))
-                                    {{ $errors->First('password', '<small class=error>:message</small>') }}
+                                    {{ $errors->First('password', '<small style=color:#ffffff>:message</small>') }}
                                 @endif
                             </div>
 
@@ -164,7 +164,7 @@
                             </div>
                             <div>
                                 @if($errors->has('password_conf'))
-                                    {{ $errors->First('password_conf', '<small class=error>:message</small>') }}
+                                    {{ $errors->First('password_conf', '<small style=color:#ffffff>:message</small>') }}
                                 @endif
                             </div>
 
