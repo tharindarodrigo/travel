@@ -26,7 +26,7 @@
             width: 205px !important;
         }
 
-        .error {
+        #error {
             font-weight: bold;
             color: #555;
             border-radius: 10px;
@@ -115,7 +115,7 @@
                             </div>
                             <div>
                                 @if($errors->has('log_email'))
-                                    {{ $errors->First('log_email', '<small class=error>:message</small>') }}
+                                    {{ $errors->First('log_email', '<small id=error>:message</small>') }}
                                 @endif
                             </div>
 
@@ -127,7 +127,7 @@
                             </div>
                             <div>
                                 @if($errors->has('log_password'))
-                                    {{ $errors->First('log_password', '<small class=error>:message</small>') }}
+                                    {{ $errors->First('log_password', '<small id=error>:message</small>') }}
                                 @endif
                             </div>
 

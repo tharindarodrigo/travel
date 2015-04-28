@@ -66,78 +66,64 @@ class AccountController extends \BaseController
 
     public function postCreate()
     {
+        // Your code here to handle a successful verification
 
-        require_once('../public/recaptcha/recaptchalib.php');
-        $private_key = "6LeVCwQTAAAAAH2YdeUDkHYimX8bzRrc2KVYobqR";
-        $resp = recaptcha_check_answer($private_key,
-            $_SERVER["REMOTE_ADDR"],
-            $_POST["recaptcha_challenge_field"],
-            $_POST["recaptcha_response_field"]);
+        $validator = Validator::make(Input::all(),
 
-        if (!$resp->is_valid) {
-            // What happens when the CAPTCHA was entered incorrectly
+            array(
+                'first_name' => 'required|max:50',
+                'last_name' => 'required|max:50',
+                'email' => 'required|max:50|email|unique:users',
+                'phone' => 'required|max:12',
+                'password' => 'required|min:6',
+                'password_conf' => 'required|same:password',
+            )
+        );
+
+        if ($validator->fails()) {
+
             return Redirect::route('account-create')
-                ->with('global', 'Human user verification did not match. Try again!');
+                ->withInput()
+                ->withErrors($validator);
 
         } else {
-            // Your code here to handle a successful verification
 
-            $validator = Validator::make(Input::all(),
+            $first_name = Input::get('first_name');
+            $last_name = Input::get('last_name');
+            $email = Input::get('email');
+            $phone = Input::get('phone');
+            $address = Input::get('address');
+            $password = Input::get('password');
 
-                array(
-                    'first_name' => 'required|max:50',
-                    'last_name' => 'required|max:50',
-                    'email' => 'required|max:50|email|unique:users',
-                    'phone' => 'required|max:12',
-                    'password' => 'required|min:6',
-                    'password_conf' => 'required|same:password',
-                )
-            );
+            // Activation Code
 
-            if ($validator->fails()) {
+            $code = str_random(60);
 
-                return Redirect::route('account-create')
-                    ->withInput()
-                    ->withErrors($validator);
+            $user = User::create(array(
+                'first_name' => $first_name,
+                'last_name' => $last_name,
+                'email' => $email,
+                'phone' => $phone,
+                'address' => $address,
+                'password' => Hash::make($password),
+                'code' => $code,
+                'val' => 0
+            ));
 
-            } else {
+            if ($user) {
 
-                $first_name = Input::get('first_name');
-                $last_name = Input::get('last_name');
-                $email = Input::get('email');
-                $phone = Input::get('phone');
-                $address = Input::get('address');
-                $password = Input::get('password');
+                // send email
 
-                // Activation Code
+                Mail::send('emails.auth.activate', array('link' => URL::route('account-activate', $code), 'first_name' => $first_name), function ($massage) use ($user) {
+                    $massage->to($user->email, $user->first_name)->subject('Activate your account');
 
-                $code = str_random(60);
+                });
 
-                $user = User::create(array(
-                    'first_name' => $first_name,
-                    'last_name' => $last_name,
-                    'email' => $email,
-                    'phone' => $phone,
-                    'address' => $address,
-                    'password' => Hash::make($password),
-                    'code' => $code,
-                    'val' => 0
-                ));
-
-                if ($user) {
-
-                    // send email
-
-                    Mail::send('emails.auth.activate', array('link' => URL::route('account-activate', $code), 'first_name' => $first_name), function ($massage) use ($user) {
-                        $massage->to($user->email, $user->first_name)->subject('Activate your account');
-
-                    });
-
-                    return Redirect::route('profile-activate')
-                        ->with('global', 'Your account has been created! We have sent you an email to activate your account');
-                }
+                return Redirect::route('profile-activate')
+                    ->with('global', 'Your account has been created! We have sent you an email to activate your account');
             }
         }
+
     }
 
     public function profileActive()
