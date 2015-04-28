@@ -22,8 +22,6 @@
         {{ HTML::script("//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js")}}
         {{ HTML::script("//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js")}}
     <![endif]-->
-        {{ HTML::style('//cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css')}}
-        {{ HTML::script('//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js')}}
 
     @yield('head-scripts')
   </head>
@@ -213,7 +211,7 @@
                 <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Add hotel</a></li>
                 <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Hotel Categories</a></li>
                 <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Hotel Facilities</a></li>
-                <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Meal Bases</a></li>
+                <li class="@yield('active-hotel-meal-bases')"><a href="{{ URL::route('control-panel.hotel.meal-bases.index') }}"><i class="fa fa-circle-o"></i> Meal Bases</a></li>
                 <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Star Categories</a></li>
                 <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Room Facilities</a></li>
               </ul>
@@ -370,6 +368,8 @@
     <!-- Bootstrap 3.3.2 JS -->
     {{ HTML::script("control-panel-assets/bootstrap/js/bootstrap.min.js" )}}
     <!-- SlimScroll -->
+    {{ HTML::script("//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js")}}
+
     {{ HTML::script("control-panel-assets/plugins/slimScroll/jquery.slimScroll.min.js" )}}
     <!-- FastClick -->
     {{ HTML::script("plugins/fastclick/fastclick.min.js" )}}
