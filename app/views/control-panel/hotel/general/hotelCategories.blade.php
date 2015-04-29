@@ -22,14 +22,13 @@
 @endsection
 
 {{--Active Sub menu Item--}}
-@section('active-hotel-categories')
+@section('active-hotel-hotel-categories')
  {{ 'active' }}
 @endsection
 
 @section('content')
 
 <section>
-    <div class="row">
         <div class="col-md-4">
             <div class="box box-primary ">
                 <div class="box-header">
@@ -65,41 +64,55 @@
                     <h3 class="box-title"><b>Search / Update / Delete</b> Hotel Categories</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body table-responsive">
-                    <table id="qweasd" class="table table-bordered table-striped">
+                    <table id="hotel-categories-table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Category</th>
-                                <th></th>
-
+                                <th>Status</th>
+                                <th style="width:120px;"></th>
                             </tr>
                         </thead>
                         <tbody>
 
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>ID</th>
-                                <th>Category</th>
-                                <th></th>
+                            @foreach($hotelcategories as $category)
+                                <tr>
+                                    <td>{{ $category->id }}</td>
+                                    <td>{{ $category->hotel_category }}</td>
+                                    <td>{{ $category->val == 0 ? 'Inactive' : 'Active' }}</td>
+                                    <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="btn btn-xs btn-flat btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
+                                        <a href="#" class="btn btn-xs btn-flat btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                                         @if($category->val == 0)
+                                            <button class="btn btn-xs btn-flat btn-success activate-item" type="button"><span class="glyphicon glyphicon-ok-circle"></span></button>
+                                            <button class="btn btn-xs btn-flat btn-default disabled deactivate-item" type="button"><span class="glyphicon glyphicon-remove-circle"></span></button>
+                                         @else
+                                            <button class="btn btn-xs btn-flat btn-default disabled activate-item" type="button"><span class="glyphicon glyphicon-ok-circle"></span></button>
+                                            <button class="btn btn-xs btn-flat btn-warning deactivate-item" type="button" ><span class="glyphicon glyphicon-remove-circle"></span></button>
+                                         @endif
+                                    </div>
+                                    </td>
+                                </tr>
+                            @endforeach
 
-                            </tr>
-                        </tfoot>
+                        </tbody>
+
                     </table>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
         </div>
-    </div>
 </section>
 
 @endsection
 
+
 @section('scripts')
 
-                <script type="text/javascript">
-                    $(function() {
-                        $("#qweasd").dataTable();
-                    });
-                </script>
+    <script type="text/javascript">
+        $(function() {
+            $("#hotel-categories-table").dataTable();
+        });
+    </script>
 
 @endsection

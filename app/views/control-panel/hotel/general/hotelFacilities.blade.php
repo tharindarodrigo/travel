@@ -63,29 +63,41 @@
         <div class="col-md-8">
             <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title"><b>Search / Update / Delete</b> Hotel Facilities</h3>
+                    <h3 class="box-title"><b>Search / Update / Delete</b> Meal Bases</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body table-responsive">
-                    <table id="qweasd" class="table table-bordered table-striped">
+                    <table id="meal-bases-table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Category</th>
-                                <th></th>
-
+                                <th>Facility</th>
+                                <th style="width:110px;"></th>
                             </tr>
                         </thead>
                         <tbody>
 
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>ID</th>
-                                <th>Category</th>
-                                <th></th>
+                            @foreach($hotelfacilities as $facility)
+                                <tr>
+                                    <td>{{ $facility->id }}</td>
+                                    <td>{{ $facility->hotel_facility}}</td>
+                                    <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="btn btn-xs btn-flat btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
+                                        <a href="#" class="btn btn-xs btn-flat btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                                         {{--@if($mealbasis->val == 0)--}}
+                                            {{--<button class="btn btn-xs btn-flat btn-success activate-item" type="button"><span class="glyphicon glyphicon-ok-circle"></span></button>--}}
+                                            {{--<button class="btn btn-xs btn-flat btn-default disabled deactivate-item" type="button"><span class="glyphicon glyphicon-remove-circle"></span></button>--}}
+                                        {{--@else--}}
+                                            {{--<button class="btn btn-xs btn-flat btn-default disabled activate-item" type="button"><span class="glyphicon glyphicon-ok-circle"></span></button>--}}
+                                            {{--<button class="btn btn-xs btn-flat btn-warning deactivate-item" type="button" ><span class="glyphicon glyphicon-remove-circle"></span></button>--}}
+                                        {{--@endif--}}
+                                    </div>
+                                    </td>
+                                </tr>
+                            @endforeach
 
-                            </tr>
-                        </tfoot>
+                        </tbody>
+
                     </table>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -99,7 +111,7 @@
 
                 <script type="text/javascript">
                     $(function() {
-                        $("#qweasd").dataTable();
+                        $("#hotel-facility-table").dataTable();
 
                     });
                 </script>
