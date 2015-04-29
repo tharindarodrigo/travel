@@ -31,7 +31,7 @@ class AccountController extends \BaseController
             $auth = Auth::attempt(array(
                 'email' => Input::get('log_email'),
                 'password' => Input::get('log_password'),
-                'val' => 1
+                'active' => 1
             ), $remember);
 
             if ($auth) {
@@ -103,7 +103,7 @@ class AccountController extends \BaseController
                 'password' => Hash::make($password),
                 'code' => $code,
                 'role_id' => 1,
-                'val' => 0
+                'active' => 0
             ));
 
             if ($user) {
@@ -124,19 +124,19 @@ class AccountController extends \BaseController
 
     public function profileActive()
     {
-        return View::make('account.user');
+        return View::make('pages.message');
     }
 
     public function getActivate($code)
     {
-        $user = User::where('code', '=', $code)->where('val', '=', 0);
+        $user = User::where('code', '=', $code)->where('active', '=', 0);
 
         if ($user->count()) {
             $user = $user->first();
 
             //update user to active state
 
-            $user->val = 1;
+            $user->active = 1;
             $user->code = '';
 
             if ($user->save()) {

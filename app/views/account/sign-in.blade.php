@@ -131,6 +131,10 @@
                                 @endif
                             </div>
 
+                            @if(Session::get('global'))
+                                <small style="color:#ffffff"> {{ Session::get('global')}} </small>
+                            @endif
+<br/>
                             <button type="submit" class="btn"> Sign In</button>
                             {{ Form::token() }}
                         </form>

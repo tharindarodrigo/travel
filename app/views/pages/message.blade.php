@@ -27,7 +27,7 @@
             <div class="left">
                 <ul class="bcrumbs">
                     <li>/</li>
-                    <li><a href="#" class="active">About us</a></li>
+                    <li><a href="{{URL::route('index')}}" class="active"> Home </a></li>
                 </ul>
             </div>
             <a class="backbtn right" href="#"></a>
@@ -44,15 +44,16 @@
             <!-- CONTENT -->
             <div class="col-md-12 pagecontainer2 offset-0">
                 <div class="hpadding50c">
-                    <p class="lato size30 slim">Meet the team</p>
-
+                    @if(Session::has('global'))
+                        <h4>{{ Session::get('global') }} </h4>
+                    @endif
                     <p class="aboutarrow"></p>
                 </div>
                 <div class="line3"></div>
 
                 <div class="hpadding50c">
 
-                    <h2>Welcome</h2>
+                    <h2 style="font-size: 30px; color: #72bf66; text-align: center" ><i class="fa fa-fa fa-check"></i> successfully completed  </h2>
 
                 </div>
 

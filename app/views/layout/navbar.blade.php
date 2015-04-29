@@ -131,6 +131,11 @@
         border-color: #1CA347;
     }
 
+    /*.dropdown-menu li:hover ul {*/
+    /* Display the dropdown on hover */
+    /*display: block;*/
+    /*position: absolute;*/
+    /*}*/
 </style>
 
 <script type="text/javascript">
@@ -157,21 +162,39 @@
 
 <div class="row">
     <div class="col-md-7"></div>
-    <div class="col-md-5">
+    <div class="col-md-5" style=" overflow-x: visible !important; overflow-y: visible !important;">
         <table align="center">
             <tr>
                 <th style="padding: 10px;"><a href="" style="text-decoration: none">Language</a></th>
                 <th style="padding: 10px;"><a href="" style="text-decoration: none">USD</a></th>
-                <th style="padding: 10px;">
+                <th>
+                    @if(Auth::check())
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                    {{(Auth::user()->first_name)}} {{(Auth::user()->last_name)}}</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href=""> Dashboard </a></li>
+                                    <li><a href=""> My Booking </a></li>
+                                    <li><a href=""> Reviews </a></li>
+                                    <li><a href=""> Settings </a></li>
+                                    <li>
+                                        <a href="{{ URL::route('account-sign-out')}}"><i class="fa fa-check-circle"></i>
+                                            Sign Out</a>
+                                    </li>
+                                </ul>
+                            </li>
 
-                    <a style="text-decoration: none" href="{{URL::to('/account/sign-in')}}">
-                        Sign in
-                    </a>
-                    or
-                    <a style="text-decoration: none" href="{{URL::to('/account/create')}}">
-                        Sign up
-                    </a>
-
+                        </ul>
+                    @else
+                        <a style="text-decoration: none" href="{{URL::to('/account/sign-in')}}">
+                            Sign in
+                        </a>
+                        or
+                        <a style="text-decoration: none" href="{{URL::to('/account/create')}}">
+                            Sign up
+                        </a>
+                    @endif
                 </th>
             </tr>
         </table>
@@ -179,7 +202,7 @@
 </div>
 
 <div class="container">
-    <div class="navbar mtnav">
+    <div class="">
 
         <div class="container offset-3">
             <!-- Navigation-->
@@ -225,9 +248,9 @@
 
                     <li><a href="#">Transportation</a></li>
 
-                    <li><a href="#">Flights</a></li>
+                    {{--<li><a href="#">Flights</a></li>--}}
 
-                    <li><a href="special_offers.php">Special Offers</a></li>
+                    <li><a href="special_offers.php"> Hot Deals </a></li>
 
                     <li><a href="{{URL::to('/contact')}}">Contact Us</a></li>
 
