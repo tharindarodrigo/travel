@@ -11,7 +11,7 @@ class HotelCategoriesController extends \BaseController {
 	{
 		$hotelcategories = Hotelcategory::all();
 
-		return View::make('hotelcategories.index', compact('hotelcategories'));
+		return View::make('control-panel.hotel.general.hotelCategories', compact('hotelcategories'));
 	}
 
 	/**

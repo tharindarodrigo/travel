@@ -23,6 +23,9 @@
         {{ HTML::script("//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js")}}
     <![endif]-->
 
+{{ HTML::style('//cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css')}}
+<script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js" type="javascript"></script>
+
     @yield('head-scripts')
   </head>
   <body class="skin-blue">
@@ -207,14 +210,14 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li class="@yield('active-hotel-list')"><a href="{{ Url::route('control-panel.hotel.hotels.index') }}"><i class="fa fa-circle-o"></i> Hotel List</a></li>
-                <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Add hotel</a></li>
-                <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Hotel Categories</a></li>
-                <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Hotel Facilities</a></li>
-                <li class="@yield('active-hotel-meal-bases')"><a href="{{ URL::route('control-panel.hotel.meal-bases.index') }}"><i class="fa fa-circle-o"></i> Meal Bases</a></li>
-                <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Star Categories</a></li>
-                <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Room Facilities</a></li>
-              </ul>
+               <li class="@yield('active-hotel-list')"><a href="{{ Url::route('control-panel.hotel.hotels.index') }}"><i class="fa fa-circle-o"></i> Hotel List</a></li>
+               <li class="@yield('active-hotel-')"><a href="{{ '' }}"><i class="fa fa-circle-o"></i> Add hotel</a></li>
+               <li class="@yield('active-hotel-hotel-categories')"><a href="{{ Url::route('control-panel.hotel.hotel_categories.index') }}"><i class="fa fa-circle-o"></i> Hotel Categories</a></li>
+               <li class="@yield('active-hotel-hotel-facilities')"><a href="{{ Url::route('control-panel.hotel.hotel-facilities.index') }}"><i class="fa fa-circle-o"></i> Hotel Facilities</a></li>
+               <li class="@yield('active-hotel-meal-bases')"><a href="{{ Url::route('control-panel.hotel.meal-bases.index') }}"><i class="fa fa-circle-o"></i> Meal Bases</a></li>
+               <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Star Categories</a></li>
+               <li class="@yield('active-hotel-room-facilities')"><a href="{{ Url::route('control-panel.hotel.room-facilities.index') }}"><i class="fa fa-circle-o"></i> Room Facilities</a></li>
+             </ul>
             </li>
             <li class="treeview @yield('active-general')">
               <a href="#">

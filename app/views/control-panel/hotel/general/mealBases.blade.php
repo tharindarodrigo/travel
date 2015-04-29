@@ -1,8 +1,7 @@
 @extends('control-panel.layout.main')
 
 @section('head-scripts')
-{{ HTML::style('//cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css')}}
-<script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js" type="javascript"></script>
+
 @endsection
 
 {{--Title--}}
@@ -27,7 +26,7 @@
 @endsection
 
 {{--Active Sub menu Item--}}
-@section('active-meal-bases')
+@section('active-hotel-meal-bases')
  {{ 'active' }}
 @endsection
 

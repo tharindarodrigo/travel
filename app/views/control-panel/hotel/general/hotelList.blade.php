@@ -55,7 +55,7 @@
                         <td>{{ $hotel->stars }}</td>
                         <td>
                         @foreach($hotel->category as $cat)
-                            {{ $cat->hotel_category.',' }}
+                            {{ $cat->hotel_category.' | ' }}
                         @endforeach
                         </td>
                         <td>
