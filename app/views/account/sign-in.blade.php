@@ -109,7 +109,7 @@
                               class="">
                             <div class="form-group">
                                 <label class="sr-only" for="form-email">Email</label>
-                                <input type="text" placeholder="Email..."
+                                <input type="email" placeholder="Email..."
                                        class="form-email form-control" id="form-email"
                                        name="log_email"{{ (Input::old('log_email')) ? ' value="' . e(Input::old('log_email'))  . '"' : ''  }}>
                             </div>
@@ -133,9 +133,17 @@
 
                             @if(Session::get('global'))
                                 <small style="color:#ffffff"> {{ Session::get('global')}} </small>
+                                <br/>
                             @endif
-<br/>
-                            <button type="submit" class="btn"> Sign In</button>
+
+                            <p style="color: #ffffff">
+                                <input type="checkbox" style="color: #ffffff" name="remember"> Remember Me!
+                            </p>
+
+                            <button type="submit" class="btn"> Sign In</button>  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                            <a href="{{ URL::route('account-forgot-password')}}">Forgot your password?</a>
+
                             {{ Form::token() }}
                         </form>
                     </div>

@@ -184,7 +184,6 @@
                                     </li>
                                 </ul>
                             </li>
-
                         </ul>
                     @else
                         <a style="text-decoration: none" href="{{URL::to('/account/sign-in')}}">
@@ -212,7 +211,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="index.php" class="navbar-brand">
+                <a href="{{URL::route('index')}}" class="navbar-brand">
                     {{ HTML::image('images/site/logo.png', '',  array('class' => 'logo')) }}
                 </a>
             </div>

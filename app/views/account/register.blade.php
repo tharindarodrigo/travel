@@ -134,7 +134,7 @@
 
                             <div class="form-group">
                                 <label class="sr-only" for="form-email">Email</label>
-                                <input type="text" placeholder="Email..."
+                                <input type="email" placeholder="Email..."
                                        class="form-email form-control" id="form-email"
                                        name="email"{{ (Input::old('email')) ? ' value="' . e(Input::old('email'))  . '"' : ''  }}>
                             </div>

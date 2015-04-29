@@ -151,7 +151,7 @@ class AccountController extends \BaseController
 
     public function getChangePassword()
     {
-        return View::make('profile.my_profile');
+        return View::make('account.forgot');
     }
 
     public function postChangePassword()
