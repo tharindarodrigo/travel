@@ -74,7 +74,6 @@ class AccountController extends \BaseController
                 'first_name' => 'required|max:50',
                 'last_name' => 'required|max:50',
                 'email' => 'required|max:50|email|unique:users',
-                'phone' => 'required|max:12',
                 'password' => 'required|min:6',
                 'password_conf' => 'required|same:password',
             )
@@ -91,8 +90,6 @@ class AccountController extends \BaseController
             $first_name = Input::get('first_name');
             $last_name = Input::get('last_name');
             $email = Input::get('email');
-            $phone = Input::get('phone');
-            $address = Input::get('address');
             $password = Input::get('password');
 
             // Activation Code
@@ -103,10 +100,9 @@ class AccountController extends \BaseController
                 'first_name' => $first_name,
                 'last_name' => $last_name,
                 'email' => $email,
-                'phone' => $phone,
-                'address' => $address,
                 'password' => Hash::make($password),
                 'code' => $code,
+                'role_id' => 1,
                 'val' => 0
             ));
 

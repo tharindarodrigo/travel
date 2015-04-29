@@ -121,7 +121,7 @@
 
                             <div class="form-group">
                                 <label class="sr-only" for="form-password"> Password </label>
-                                <input type="text" placeholder="Password..."
+                                <input type="password" placeholder="Password..."
                                        class="form-password form-control" id="form-password"
                                        name="log_password"{{ (Input::old('log_password')) ? ' value="' . e(Input::old('log_password'))  . '"' : ''  }}>
                             </div>

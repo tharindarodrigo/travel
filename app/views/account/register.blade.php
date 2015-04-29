@@ -146,7 +146,7 @@
 
                             <div class="form-group">
                                 <label class="sr-only" for="form-password"> Password </label>
-                                <input type="text" placeholder="Password..."
+                                <input type="password" placeholder="Password..."
                                        class="form-password form-control" id="form-password"
                                        name="password"{{ (Input::old('password')) ? ' value="' . e(Input::old('password'))  . '"' : ''  }}>
                             </div>
@@ -158,7 +158,7 @@
 
                             <div class="form-group">
                                 <label class="sr-only" for="form-password"> Password </label>
-                                <input type="text" placeholder="Confirm Password..."
+                                <input type="password" placeholder="Confirm Password..."
                                        class="form-password form-control" id="form-password"
                                        name="password_conf"{{ (Input::old('password_conf')) ? ' value="' . e(Input::old('password_conf'))  . '"' : ''  }}>
                             </div>
