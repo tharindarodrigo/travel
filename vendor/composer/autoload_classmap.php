@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AccountController' => $baseDir . '/app/controllers/AccountController.php',
+    'AddRememberTokenToUsersTable' => $baseDir . '/app/database/migrations/2015_04_29_130500_add_remember_token_to_users_table.php',
     'AddValColumnToHotelFacilitiesTable' => $baseDir . '/app/database/migrations/2015_04_29_125107_add_val_column_to_hotel_facilities_table.php',
     'AddValColumnToMealBasesTable' => $baseDir . '/app/database/migrations/2015_04_28_132517_add_val_column_to_meal_bases_table.php',
     'Barryvdh\\LaravelIdeHelper\\Alias' => $vendorDir . '/barryvdh/laravel-ide-helper/src/Alias.php',
