@@ -31,7 +31,7 @@
 
             <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title"><b>Search / Update / Delete</b> Meal Bases</h3>
+                    <h3 class="box-title"><b>Search / Update / Delete</b> Hotel List</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body table-responsive">
                     <table id="hotel-list" class="table table-bordered table-striped">

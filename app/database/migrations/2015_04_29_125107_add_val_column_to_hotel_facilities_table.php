@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddValColumnToMealBasesTable extends Migration {
+class AddValColumnToHotelFacilitiesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class AddValColumnToMealBasesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('meal_bases', function($table){
+		Schema::table('hotel_facilities', function($table){
             $table->boolean('val');
         });
 	}
@@ -24,7 +24,7 @@ class AddValColumnToMealBasesTable extends Migration {
 	 */
 	public function down()
 	{
-        Schema::table('meal_bases', function($table){
+        Schema::table('hotel_facilities', function($table){
             $table->dropColumn('val');
         });
 	}

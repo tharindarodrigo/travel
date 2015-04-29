@@ -211,7 +211,7 @@
               </a>
               <ul class="treeview-menu">
                <li class="@yield('active-hotel-list')"><a href="{{ Url::route('control-panel.hotel.hotels.index') }}"><i class="fa fa-circle-o"></i> Hotel List</a></li>
-               <li class="@yield('active-hotel-')"><a href="{{ '' }}"><i class="fa fa-circle-o"></i> Add hotel</a></li>
+               <li class="@yield('active-hotel-')"><a href="{{ Url::route('control-panel.hotel.hotel-facilities.index') }}"><i class="fa fa-circle-o"></i> Add hotel</a></li>
                <li class="@yield('active-hotel-hotel-categories')"><a href="{{ Url::route('control-panel.hotel.hotel_categories.index') }}"><i class="fa fa-circle-o"></i> Hotel Categories</a></li>
                <li class="@yield('active-hotel-hotel-facilities')"><a href="{{ Url::route('control-panel.hotel.hotel-facilities.index') }}"><i class="fa fa-circle-o"></i> Hotel Facilities</a></li>
                <li class="@yield('active-hotel-meal-bases')"><a href="{{ Url::route('control-panel.hotel.meal-bases.index') }}"><i class="fa fa-circle-o"></i> Meal Bases</a></li>
@@ -317,9 +317,9 @@
             </li>
             <li><a href="documentation/index.html"><i class="fa fa-book"></i> Documentation</a></li>
             <li class="header">LABELS</li>
-            <li><a href="#"><i class="fa fa-circle-o text-danger"></i> Important</a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-warning"></i> Warning</a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-info"></i> Information</a></li>
+            <li><a href="#"><i class="fa fa-circle-o text-danger"></i> Important </a></li>
+            <li><a href="#"><i class="fa fa-circle-o text-warning"></i> Warning </a></li>
+            <li><a href="#"><i class="fa fa-circle-o text-info"></i> Information </a></li>
           </ul>
         </section>
         <!-- /.sidebar -->

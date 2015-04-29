@@ -22,7 +22,7 @@
 @endsection
 
 {{--Active Sub menu Item--}}
-@section('active-hotel-facilities')
+@section('active-hotel-hotel-facilities')
  {{ 'active' }}
 @endsection
 
@@ -39,7 +39,7 @@
                     </h3>
                 </div>
 
-                <form action="" role="form">
+                <form action="{{ Url::route('control-panel.hotel.room-facilities.store') }}" role="form">
 
                     <div class="box-body">
 
@@ -49,7 +49,7 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="button" class="btn btn-primary">Create Hotel Facility</button>
+                            <button type="submit" class="btn btn-primary">Create Hotel Facility</button>
                         </div>
                         <div class="form-group">
                             <button type="button" class="btn btn-group btn-primary">Update Hotel Facility</button>
