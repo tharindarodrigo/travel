@@ -5,7 +5,7 @@ class AccountController extends \BaseController
 
     public function  getSignIn()
     {
-        return View::make('account.sign-in');
+        return View::make('account.login');
     }
 
     public function  postSignIn()
