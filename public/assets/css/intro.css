@@ -62,9 +62,9 @@ img.full-vacations{height:100%; position:absolute; bottom:0px; left:-220px; z-in
 .aniflights{ width:90px; height:60px; text-align:center; position:absolute; float:left; left:-110px; margin-top:-10px;}
 .aniflights img{display:block;width:20px;height:21px;background:url('../../images/sprite.png') 0px -180px; margin:0 auto;}
 .anihotels{ width:90px; height:60px; text-align:center; position:absolute; float:left; left:-110px; margin-top:-10px;}
-.anihotels img{display:block;width:15px;height:21px;background:url('../../images/sprite.png') -28px -180px; margin:0 auto;}
+.anihotels img{display:block;width:15px;height:21px; margin:0 auto;}
 .anivacations{ width:90px; height:60px; text-align:center; position:absolute; float:left; left:-110px; margin-top:-10px;}
-.anivacations img{display:block;width:26px;height:21px;background:url('../../images/sprite.png') -48px -180px; margin:0 auto;}
+.anivacations img{display:block;width:26px;height:21px; margin:0 auto;}
 .anicars{ width:90px; height:60px; text-align:center; position:absolute; float:left; left:-110px; margin-top:-10px;}
 .anicars img{display:block;width:28px;height:21px;background:url('../../images/sprite.png') -78px -180px; margin:0 auto;}
 .anicruises{ width:90px; height:60px; text-align:center; position:absolute; float:left; left:-110px; margin-top:-10px;}
@@ -84,7 +84,7 @@ img.full-vacations{height:100%; position:absolute; bottom:0px; left:-220px; z-in
 .tabs li a.active{background:#fff; color:#fff;}
 
 #tab1{width:300px; position:absolute; z-index:1000; top:35%; left:30%; opacity:0;}
-#tab2{width:300px; position:absolute; z-index:1000; top:35%; left:30%; opacity:1;}
+#tab2{width:300px; position:absolute; z-index:1000; top:25%; left:30%; opacity:1;}
 #tab3{width:300px; position:absolute; z-index:1000; top:35%; left:30%; opacity:1;}
 #tab4{width:300px; position:absolute; z-index:1000; top:35%; left:30%; opacity:1;}
 #tab5{width:300px; position:absolute; z-index:1000; top:35%; left:30%; opacity:1;}
@@ -92,7 +92,7 @@ img.full-vacations{height:100%; position:absolute; bottom:0px; left:-220px; z-in
 
 @media (max-width: 320px)  {
 img.logointro{top:5%!important;}
-.tabscontainer{top:30%!important;}
+.tabscontainer{top:5%!important;}
 .tabs li a{margin-bottom:30px!important;}
 
 #tab1,#tab2,#tab3,#tab4,#tab5{top:25%!important;}
@@ -187,9 +187,9 @@ img.logointro{width:50px;position:absolute; left:10px; top:10%; opacity:0;}
 .aniflights{ width:80px; height:60px; text-align:center; position:relative; float:left; left:0px; margin-top:-10px;}
 .aniflights img{display:block;width:20px;height:21px;background:url('../../images/sprite.png') 0px -180px; margin:0 auto;}
 .anihotels{ width:80px; height:60px; text-align:center; position:relative; float:left; left: 0px; margin-top:-10px;}
-.anihotels img{display:block;width:15px;height:21px;background:url('../../images/sprite.png') -28px -180px; margin:0 auto;}
+.anihotels img{display:block;width:15px;height:21px; margin:0 auto;}
 .anivacations{ width:80px; height:60px; text-align:center; position:relative; float:left; left:0px; margin-top:-10px;}
-.anivacations img{display:block;width:24px;height:21px;background:url('../../images/sprite.png') -49px -180px; margin:0 auto;}
+.anivacations img{display:block;width:24px;height:21px;margin:0 auto;}
 .anicars{ width:80px; height:60px; text-align:center; position:relative; float:left; left:0px; margin-top:-10px;}
 .anicars img{display:block;width:28px;height:21px;background:url('../../images/sprite.png') -78px -180px; margin:0 auto;}
 .anicruises{ width:80px; height:60px; text-align:center; position:relative; float:left; left:0px; margin-top:-10px;}

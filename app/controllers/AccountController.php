@@ -5,7 +5,7 @@ class AccountController extends \BaseController
 
     public function  getSignIn()
     {
-        return View::make('account.login');
+        return View::make('account.sign_in_new');
     }
 
     public function  postSignIn()
@@ -61,11 +61,14 @@ class AccountController extends \BaseController
 
     public function getCreate()
     {
-        return View::make('account.register');
+        return View::make('account.sign_in_new');
     }
 
     public function postCreate()
     {
+
+        Session::put('register', 'register');
+
         // Your code here to handle a successful verification
 
         $validator = Validator::make(Input::all(),
