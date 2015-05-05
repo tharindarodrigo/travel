@@ -93,9 +93,10 @@
 <div class="whitediv">
 
     <!--HOME OBJECTS -->
-    <img class="couple" src="images/couple.png" alt=""/>
-    <img class="girl" src="images/girl.png" alt=""/>
-    <img class="girl2" src="images/girl2.png" alt=""/>
+
+    {{ HTML::image('images/couple.png', '', array('class'=>'couple')) }}
+    {{ HTML::image('images/girl.png', '', array('class'=>'girl')) }}
+    {{ HTML::image('images/girl2.png', '', array('class'=>'girl2')) }}
     <img class="girl-car" src="images/girl-car.png" alt=""/>
     <img class="car" src="images/car.png" alt=""/>
     <img class="girl-cruise" src="images/girl-cruise.png" alt=""/>
