@@ -69,7 +69,7 @@
             </div>
         </div>
 
-        <div class="col-md-8">
+        <div class="col-md-8 ">
             <div class="box box-primary">
                 <div class="box-header">
                     <h3 class="box-title"><b>Search / Update / Delete</b> Hotel Categories</h3>
@@ -81,7 +81,7 @@
                                 <th>ID</th>
                                 <th>Category</th>
                                 <th>Status</th>
-                                <th style="width:120px;"></th>
+                                <th style="width:80px;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,29 +93,34 @@
                                     <td>{{ $category->val == 0 ? 'Inactive' : 'Active' }}</td>
                                     <td>
                                         <div class="">
+                                        {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.edit',$category->id), 'method' =>'put' )) }}
+                                            <a type="submit" class="btn btn-xs btn-flat btn-primary col-md-3"><i class="glyphicon glyphicon-edit"></i></a>
+                                        {{ Form::close() }}
 
-                                        {{--{{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.edit',$category->id), 'method' =>'delete', 'class' => 'form-horizontal')) }}--}}
-                                            {{--<a type="submit" class="btn btn-xs btn-flat btn-primary col-xs-3"><i class="glyphicon glyphicon-edit"></i></a>--}}
-                                        {{--{{ Form::close() }}--}}
                                         {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
-                                            {{--<button type="submit" class="btn btn-xs btn-flat btn-danger"><i class="glyphicon glyphicon-trash"></i></button>--}}
-                                            {{ Form::submit('delete') }}
+                                            <button type="submit" class="btn btn-xs btn-flat btn-danger "><i class="glyphicon glyphicon-trash"></i></button>
                                         {{ Form::close() }}
 
                                         @if($category->val == 0)
                                         {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
-                                            <a class="btn btn-xs btn-flat btn-success activate-item col-xs-3" type="button"><i class="glyphicon glyphicon-ok-circle"></i></a>
-                                            <a class="btn btn-xs btn-flat btn-default disabled deactivate-item col-xs-3" type="button"><i class="glyphicon glyphicon-remove-circle"></i></a>
+                                            <a class="btn btn-xs btn-flat btn-success activate-item" type="button"><i class="glyphicon glyphicon-ok-circle"></i></a>
+                                            <a class="btn btn-xs btn-flat btn-default disabled deactivate-item" type="button"><i class="glyphicon glyphicon-remove-circle"></i></a>
                                         {{ Form::close() }}
 
                                         @else
-                                        {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete', 'class' => 'form-horizontal')) }}
-                                            <a class="btn btn-xs btn-flat btn-default disabled activate-item col-md-3" type="button"><i class="glyphicon glyphicon-ok-circle"></i></a>
-                                            <a class="btn btn-xs btn-flat btn-warning deactivate-item col-md-3" type="button" ><i class="glyphicon glyphicon-remove-circle"></i></a>
+                                        {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
+                                            <a class="btn btn-xs btn-flat btn-default disabled activate-item " type="button"><i class="glyphicon glyphicon-ok-circle"></i></a>
+                                            <a class="btn btn-xs btn-flat btn-warning deactivate-item " type="button" ><i class="glyphicon glyphicon-remove-circle"></i></a>
                                         {{ Form::close() }}
 
                                         @endif
-                                    </div>
+
+                                        {{--<a type="submit" class="btn btn-xs btn-flat btn-primary  "><i class="glyphicon glyphicon-edit"></i></a>--}}
+                                        {{--<a type="submit" class="btn btn-xs btn-flat btn-danger  "><i class="glyphicon glyphicon-edit"></i></a>--}}
+                                        {{--<a type="submit" class="btn btn-xs btn-flat btn-success  "><i class="glyphicon glyphicon-edit"></i></a>--}}
+                                        {{--<a type="submit" class="btn btn-xs btn-flat btn-warning  "><i class="glyphicon glyphicon-edit"></i></a>--}}
+
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -136,6 +141,27 @@
     <script type="text/javascript">
         $(function() {
             $("#hotel-categories-table").dataTable();
+
+            var url = 'control-panel/hotel/hotel_categories/destroy/';
+
+            $.ajax({
+                url: url,
+                method: 'delete',
+                processData: false,
+                contentType: false,
+                cache: false,
+                dataType: 'json',
+                data: formData,
+                success: function(data){
+
+                },
+                error: function(){
+
+                }
+
+            });
+
+
         });
     </script>
 

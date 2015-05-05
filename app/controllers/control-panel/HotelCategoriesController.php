@@ -40,7 +40,7 @@ class HotelCategoriesController extends \BaseController {
 
 		Hotelcategory::create($data);
 
-		return Redirect::route('control-panel.hotel.general.hotelCategories.index');
+		return Redirect::route('control-panel.hotel.hotel_categories.index');
 	}
 
 	/**
