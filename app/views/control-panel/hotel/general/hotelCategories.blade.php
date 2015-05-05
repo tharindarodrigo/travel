@@ -93,24 +93,24 @@
                                 <td>{{ $category->hotel_category }}</td>
                                 <td>{{ $category->val == 0 ? 'Inactive' : 'Active' }}</td>
                                 <td>
-                                    <div class="" style="display: inline;">
+                                    <div class="">
 
                                         {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.edit',$category->id), 'method' =>'put' )) }}
-                                        <a type="submit" class="btn btn-xs btn-flat btn-primary"><i
+                                        <a type="submit" class="btn btn-xs btn-flat btn-primary col-md-3"><i
                                                     class="glyphicon glyphicon-edit"></i></a>
                                         {{ Form::close() }}
 
                                         {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
-                                        <button type="submit" class="btn btn-xs btn-flat btn-danger "><i
+                                        <button type="submit" class="btn btn-xs btn-flat btn-danger col-md-3"><i
                                                     class="glyphicon glyphicon-trash"></i></button>
                                         {{ Form::close() }}
 
                                         @if($category->val == 0)
                                             <div class="hidden-md hidden-sm hidden-xs">
                                                 {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
-                                                <a class="btn btn-xs btn-flat btn-success activate-item"
+                                                <a class="btn btn-xs btn-flat btn-success activate-item col-md-3"
                                                    type="button"><i class="glyphicon glyphicon-ok-circle"></i></a>
-                                                <a class="btn btn-xs btn-flat btn-default disabled deactivate-item"
+                                                <a class="btn btn-xs btn-flat btn-default disabled deactivate-item col-md-3"
                                                    type="button"><i class="glyphicon glyphicon-remove-circle"></i></a>
                                                 {{ Form::close() }}
                                             </div>
