@@ -13,45 +13,67 @@ class AccountController extends \BaseController
         $validator = Validator::make(Input::all(),
 
             array(
-                'log_email' => 'required|email',
-                'log_password' => 'required',
+                'email' => 'required|email',
+                'password' => 'required',
             )
         );
 
         if ($validator->fails()) {
 
             // Redirect to the sign in page
-            return Redirect::route('account-sign-in')
-                ->withErrors($validator)
-                ->withInput();
+//            return Redirect::route('account-sign-in')
+//                ->withErrors($validator)
+//                ->withInput();
+
+            $array = array(
+                'validation' => false,
+                'errors' => $validator->errors()->toArray()
+            );
+
+            return Response::json($array);
+
         } else {
 
             $remember = (Input::has('remember')) ? true : false;
 
             $auth = Auth::attempt(array(
-                'email' => Input::get('log_email'),
-                'password' => Input::get('log_password'),
+                'email' => Input::get('email'),
+                'password' => Input::get('password'),
                 'active' => 1
             ), $remember);
 
             if ($auth) {
                 // Redirect to the intend page
-                return Redirect::intended('/');
+//                return Redirect::intended('/');
+                $array = array(
+                    'validation' => true,
+                    'success' => true,
+                    'alert' => 'You are logged in'
+                );
+                return Response::json($array);
             } else {
-                return Redirect::route('account-sign-in')
-                    ->with('global', 'Email/Password wrong, or account not activated');
+//                return Redirect::route('account-sign-in')
+//                    ->with('global', 'Email/Password wrong, or account not activated');
+                $array = array(
+                    'validation' => true,
+                    'success' => false,
+                    'alert' => 'Wrong Email/Password, or account not activated'
+                );
+                return Response::json($array);
             }
         }
 
-        return Redirect::route('account-sign-in')
-            ->with('global', 'There was a problem signing in you');
+//        return Redirect::route('account-sign-in')
+//            ->with('global', 'There was a problem signing in you');
+//        $array = array('');
+//
+//        return Response::json()
     }
 
     public function getSignOut()
     {
         Auth::logout();
         return Redirect::route('index');
-
     }
 
     public function postSignOut()
@@ -67,7 +89,6 @@ class AccountController extends \BaseController
     public function postCreate()
     {
 
-        Session::put('register', 'register');
 
         // Your code here to handle a successful verification
 
@@ -78,15 +99,21 @@ class AccountController extends \BaseController
                 'last_name' => 'required|max:50',
                 'email' => 'required|max:50|email|unique:users',
                 'password' => 'required|min:6',
-                'password_conf' => 'required|same:password',
+                'confirm_password' => 'required|same:password',
             )
         );
 
         if ($validator->fails()) {
 
-            return Redirect::route('account-create')
-                ->withInput()
-                ->withErrors($validator);
+//            return Redirect::route('account-create')
+//                ->withInput()
+//                ->withErrors($validator);
+            $array = array(
+                'validation' => false,
+                'errors' => $validator->errors()->toArray()
+            );
+
+            return Response::json($array);
 
         } else {
 
@@ -118,9 +145,21 @@ class AccountController extends \BaseController
 
                 });
 
-                return Redirect::route('profile-activate')
-                    ->with('global', 'Your account has been created! We have sent you an email to activate your account');
+                $array = array(
+                    'success' => true,
+                    'alert' => 'Your account has been created! We have sent you an email to activate your account'
+                );
+
+                return Response::json($array);
+
             }
+
+            $array = array(
+                'success' => true,
+                'alert' => 'Your account has been created! We have sent you an email to activate your account'
+            );
+
+            return Response::json($array);
         }
 
     }

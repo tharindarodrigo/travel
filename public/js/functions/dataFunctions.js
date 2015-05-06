@@ -1,0 +1,40 @@
+/**
+ * Created by Tharinda on 2015-05-06.
+ */
+function postData(url, method, prefix, formData , successpage){
+    $.ajax({
+        url: url,
+        method: method,
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: 'json',
+        data: formData,
+        success: function(data){
+            if(!data.validation){
+                $.each(data.errors, function(index, error){
+                    var id = '#'+prefix+index;
+                    var div = $(id).closest('div').next('.custom_validation');
+                    div.html(error);
+
+                    div.slideDown(200);
+                });
+            } else {
+                //alert('asdasd');
+
+                if(data.success){
+
+                } else {
+                    $('.unsuccess_alert').html(data.alert).slideDown(200);
+                }
+
+            }
+
+        },
+
+        error: function(){
+            alert('data didnt pass');
+        }
+
+    });
+}

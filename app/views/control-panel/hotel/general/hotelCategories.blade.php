@@ -82,7 +82,7 @@
                             <th>ID</th>
                             <th>Category</th>
                             <th>Status</th>
-                            <th width="150px">Controls</th>
+                            <th style="width:80px;"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -93,50 +93,36 @@
                                 <td>{{ $category->hotel_category }}</td>
                                 <td>{{ $category->val == 0 ? 'Inactive' : 'Active' }}</td>
                                 <td>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="col-md-6">
-                                                {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.edit',$category->id), 'method' =>'put' )) }}
-                                                <a type="submit" class="btn btn-xs btn-flat btn-primary"><i
-                                                            class="glyphicon glyphicon-edit"></i></a>
-                                                {{ Form::close() }}
-                                            </div>
-                                            <div class="col-md-6">
-                                                {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
-                                                <button type="submit" class="btn btn-xs btn-flat btn-danger"><i
-                                                            class="glyphicon glyphicon-trash"></i></button>
-                                                {{ Form::close() }}
-                                            </div>
-                                        </div>
+                                    <div class="">
+
+                                        {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.edit',$category->id), 'method' =>'put' )) }}
+                                        <a type="submit" class="btn btn-xs btn-flat btn-primary col-md-3"><i
+                                                    class="glyphicon glyphicon-edit"></i></a>
+                                        {{ Form::close() }}
+
+                                        {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
+                                        <button type="submit" class="btn btn-xs btn-flat btn-danger col-md-3"><i
+                                                    class="glyphicon glyphicon-trash"></i></button>
+                                        {{ Form::close() }}
 
                                         @if($category->val == 0)
-                                            <div class="col-md-6">
+                                            <div class="hidden-md hidden-sm hidden-xs">
                                                 {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
-                                                <div class="col-md-6">
-                                                    <a class="btn btn-xs btn-flat btn-success activate-item"
-                                                       type="button"><i class="glyphicon glyphicon-ok-circle"></i></a>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <a class="btn btn-xs btn-flat btn-default disabled deactivate-item"
-                                                       type="button"><i
-                                                                class="glyphicon glyphicon-remove-circle"></i></a>
-                                                </div>
+                                                <a class="btn btn-xs btn-flat btn-success activate-item col-md-3"
+                                                   type="button"><i class="glyphicon glyphicon-ok-circle"></i></a>
+                                                <a class="btn btn-xs btn-flat btn-default disabled deactivate-item col-md-3"
+                                                   type="button"><i class="glyphicon glyphicon-remove-circle"></i></a>
                                                 {{ Form::close() }}
                                             </div>
+
                                         @else
-                                            <div class="col-md-6">
-                                                {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
-                                                <div class="col-md-6">
-                                                    <a class="btn btn-xs btn-flat btn-default disabled activate-item "
-                                                       type="button"><i class="glyphicon glyphicon-ok-circle"></i></a>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <a class="btn btn-xs btn-flat btn-warning deactivate-item "
-                                                       type="button"><i
-                                                                class="glyphicon glyphicon-remove-circle"></i></a>
-                                                </div>
-                                                {{ Form::close() }}
-                                            </div>
+                                            {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
+                                            <a class="btn btn-xs btn-flat btn-default disabled activate-item "
+                                               type="button"><i class="glyphicon glyphicon-ok-circle"></i></a>
+                                            <a class="btn btn-xs btn-flat btn-warning deactivate-item " type="button"><i
+                                                        class="glyphicon glyphicon-remove-circle"></i></a>
+                                            {{ Form::close() }}
+
                                         @endif
 
                                         {{--<a type="submit" class="btn btn-xs btn-flat btn-primary  "><i class="glyphicon glyphicon-edit"></i></a>--}}

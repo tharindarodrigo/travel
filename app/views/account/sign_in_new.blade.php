@@ -108,70 +108,41 @@
     <img class="cruise" src="images/cruise.jpg" alt=""/>
 
     <!--TAB 1 -->
-    <div id="tab2" {{ Session::get('register')  == 'register' ?  'class="active"': '' }}>
+    <div id="tab2">
 
         <form role="form" action="{{ URL::route('account-create-post') }}" method="post" id="form1"
               class="">
 
             <div class="form-group">
                 <span class="opensans size18"> First name </span>
-                <input type="text" placeholder="First name..." class="form-first-name form-control"
-                       id="form-first-name"
-                       name="first_name"{{ (Input::old('first_name')) ? ' value="' . e(Input::old('first_name'))  . '"' : ''  }}>
+                <input type="text" placeholder="First name..." class="form-first-name form-control" id="first_name" name="first_name">
             </div>
-            <div>
-                @if ($errors->has('first_name'))
-                    {{ $errors->First('first_name', '<small style=color:#000000>:message</small>') }}
-                @endif
-            </div>
+            <div class="custom_validation" style="color: firebrick; font-style: italic; font-size: small; "></div>
 
             <div class="form-group">
                 <span class="opensans size18"> Last name </span>
-                <input type="text" placeholder="Last name..." class="form-last-name form-control"
-                       id="form-last-name"
-                       name="last_name"{{ (Input::old('last_name')) ? ' value="' . e(Input::old('last_name'))  . '"' : ''  }}>
+                <input type="text" placeholder="Last name..." class="form-last-name form-control" id="last_name" name="last_name"{{ (Input::old('last_name')) ? ' value="' . e(Input::old('last_name'))  . '"' : ''  }}>
             </div>
-            <div>
-                @if($errors->has('last_name'))
-                    {{ $errors->First('last_name', '<small style=color:#000000>:message</small>') }}
-                @endif
-            </div>
+            <div class="custom_validation" style="color: firebrick; font-style: italic; font-size: small; "></div>
 
             <div class="form-group">
                 <span class="opensans size18"> Email </span>
-                <input type="email" placeholder="Email..."
-                       class="form-email form-control" id="form-email"
-                       name="email"{{ (Input::old('email')) ? ' value="' . e(Input::old('email'))  . '"' : ''  }}>
+                <input type="text" placeholder="Email..." class="form-email form-control" id="email" name="email">
             </div>
-            <div>
-                @if($errors->has('email'))
-                    {{ $errors->First('email', '<small style=color:#000000>:message</small>') }}
-                @endif
-            </div>
+            <div class="custom_validation" style="color: firebrick; font-style: italic; font-size: small; "></div>
 
             <div class="form-group">
                 <span class="opensans size18"> Password </span>
-                <input type="password" placeholder="Password..."
-                       class="form-password form-control" id="form-password"
-                       name="password"{{ (Input::old('password')) ? ' value="' . e(Input::old('password'))  . '"' : ''  }}>
+                <input type="password" placeholder="Password..." class="form-password form-control" id="password" name="password">
             </div>
-            <div>
-                @if($errors->has('password'))
-                    {{ $errors->First('password', '<small style=color:#000000>:message</small>') }}
-                @endif
-            </div>
+            <div class="custom_validation" style="color: firebrick; font-style: italic; font-size: small; "></div>
+
 
             <div class="form-group">
                 <span class="opensans size18"> Confirm Password </span>
-                <input type="password" placeholder="Confirm Password..."
-                       class="form-password form-control" id="form-password"
-                       name="password_conf"{{ (Input::old('password_conf')) ? ' value="' . e(Input::old('password_conf'))  . '"' : ''  }}>
+                <input type="password" placeholder="Confirm Password..." class="form-password form-control" id="confirm_password" name="confirm_password">
             </div>
-            <div>
-                @if($errors->has('password_conf'))
-                    {{ $errors->First('password_conf', '<small style=color:#000000>:message</small>') }}
-                @endif
-            </div>
+            <div class="custom_validation" style="color: firebrick; font-style: italic; font-size: small; "></div>
 
             <button type="submit" class="btn-search2" id="sub1"> Register</button>
 
@@ -183,49 +154,33 @@
     <!-- END OF TAB1 -->
 
     <!--TAB 2 -->
-    <div id="tab1" {{ Session::get('register') == 'register' ? '' : 'class="active"' }}>
+    <div id="tab1" >
 
-        <form role="form" action="{{ URL::route('account-sign-in-post') }}" method="post"
-              class="">
+        <form role="form" action="{{ URL::route('account-sign-in-post') }}" method="post" class="" id="form2">
             <div class="form-group">
                 <span class="opensans size18"> Email </span>
-                <input type="email" placeholder="Email..."
-                       class="form-email form-control" id="form-email"
-                       name="log_email"{{ (Input::old('log_email')) ? ' value="' . e(Input::old('log_email'))  . '"' : ''  }}>
+                <input type="text" placeholder="Email..." class="form-email form-control" id="log_email" name="email">
             </div>
-            <div>
-                @if($errors->has('log_email'))
-                    {{ $errors->First('log_email', '<small style=color:#000000>:message</small>') }}
-                @endif
-            </div>
+            <div class="custom_validation" style="color: firebrick; font-style: italic; font-size: small; "></div>
 
             <div class="form-group">
                 <span class="opensans size18"> Password </span>
-                <input type="password" placeholder="Password..."
-                       class="form-password form-control" id="form-password"
-                       name="log_password"{{ (Input::old('log_password')) ? ' value="' . e(Input::old('log_password'))  . '"' : ''  }}>
+                <input type="password" placeholder="Password..." class="form-password form-control" id="log_password" name="password"{{ (Input::old('log_password')) ? ' value="' . e(Input::old('log_password'))  . '"' : ''  }}>
             </div>
-            <div>
-                @if($errors->has('log_password'))
-                    {{ $errors->First('log_password', '<small style=color:#000000>:message</small>') }}
-                @endif
-            </div>
-
-            @if(Session::get('global'))
-                <small style="color:#ffffff"> {{ Session::get('global')}} </small>
-                <br/>
-            @endif
+            <div class="custom_validation" style="color: firebrick; font-style: italic; font-size: small; "></div>
 
             <p>
-                <span class="opensans size18"> <input type="checkbox" name="remember"> Remember Me! </span>
+                <span class="opensans size18"> <input type="checkbox" name="remember" id="remember"> Remember Me! </span>
             </p>
+            <div class="unsuccess_alert" style="color: firebrick; font-style: italic; font-size:medium; font-weight: bold "></div>
+
 
             <button type="submit" class="btn-search2"> Sign In</button>
             &nbsp;&nbsp;&nbsp;&nbsp;
 
             <a href="{{ URL::route('account-forgot-password')}}">Forgot your password?</a>
 
-            {{ Form::token() }}
+            {{--{{ Form::token() }}--}}
         </form>
 
     </div>
@@ -265,6 +220,56 @@
 {{ HTML::script('assets/js/helper-plugins/jquery.mousewheel.min.js') }}
 {{ HTML::script('assets/js/helper-plugins/jquery.transit.min.js') }}
 {{ HTML::script('assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js') }}
+
+{{ HTML::script('js/functions/dataFunctions.js')}}
+
+<script type="text/javascript">
+
+    $(function(){
+
+        $('.custom_validation').hide();
+        $('.unsuccess_alert').hide();
+
+        $('#form1').submit(function(e){
+            var url = 'create';
+            var method = 'post';
+            var prefix = '';
+            var successpage = '';
+
+            $('.custom_validation').slideUp(200);
+
+            e.preventDefault();
+            var formData = new FormData;
+            formData.append('first_name', $('#first_name').val());
+            formData.append('last_name', $('#last_name').val());
+            formData.append('email', $('#email').val());
+            formData.append('password', $('#password').val());
+            formData.append('confirm_password', $('#confirm_password').val());
+
+            postData(url, method, prefix, formData, successpage);
+        });
+
+        $('#form2').submit(function(e){
+            var url = 'sign-in';
+            var method = 'post';
+            var prefix = 'log_';
+            var successpage = '';
+
+
+            e.preventDefault();
+
+            $('.custom_validation').slideUp(200);
+            var formData =new FormData;
+            formData.append('email', $('#log_email').val());
+            formData.append('password', $('#log_password').val());
+            formData.append('remember', $('#remember').val());
+
+            postData(url, method, prefix, formData, successpage);
+
+        });
+    });
+
+</script>
 
 </body>
 </html>
