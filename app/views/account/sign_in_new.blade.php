@@ -234,7 +234,8 @@
             var url = 'create';
             var method = 'post';
             var prefix = '';
-            var successpage = '';
+            var successpage = 'http://localhost:8000';
+            var defaultPage = 'http://localhost:8000';
 
             $('.custom_validation').slideUp(200);
 
@@ -246,25 +247,28 @@
             formData.append('password', $('#password').val());
             formData.append('confirm_password', $('#confirm_password').val());
 
-            postData(url, method, prefix, formData, successpage);
+            postData(url, method, prefix, formData, successpage, defaultPage);
         });
 
         $('#form2').submit(function(e){
             var url = 'sign-in';
             var method = 'post';
             var prefix = 'log_';
-            var successpage = '';
+            var successpage = 'http://localhost:8000';
+            var defaultPage = 'http://localhost:8000';
 
 
             e.preventDefault();
 
             $('.custom_validation').slideUp(200);
+            $('.unsuccess_alert').slideUp();
+
             var formData =new FormData;
             formData.append('email', $('#log_email').val());
             formData.append('password', $('#log_password').val());
             formData.append('remember', $('#remember').val());
 
-            postData(url, method, prefix, formData, successpage);
+            postData(url, method, prefix, formData, successpage, defaultPage);
 
         });
     });

@@ -1,7 +1,7 @@
 /**
  * Created by Tharinda on 2015-05-06.
  */
-function postData(url, method, prefix, formData , successpage){
+function postData(url, method, prefix, formData , successpage, defaultPage){
     $.ajax({
         url: url,
         method: method,
@@ -23,7 +23,7 @@ function postData(url, method, prefix, formData , successpage){
                 //alert('asdasd');
 
                 if(data.success){
-
+                    window.location.href = successpage;
                 } else {
                     $('.unsuccess_alert').html(data.alert).slideDown(200);
                 }
@@ -33,8 +33,9 @@ function postData(url, method, prefix, formData , successpage){
         },
 
         error: function(){
-            alert('data didnt pass');
+            window.location.href = defaultPage;
         }
 
     });
 }
+
