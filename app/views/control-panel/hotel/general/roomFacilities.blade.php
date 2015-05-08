@@ -45,8 +45,8 @@
                     <div class="box-body">
 
                         <div class="form-group">
-                            <label for="room_facility_name">Room Facility Name</label>
-                            <input id="room_facility_name" class="form-control" type="text"/>
+                            <label for="room_facility">Room Facility Name</label>
+                            <input id="room_facility" class="form-control" type="text"/>
                         </div>
 
                         <div class="form-group customValidationAlert"></div>

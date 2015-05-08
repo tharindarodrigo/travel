@@ -310,7 +310,7 @@ Route::group(array('prefix' => 'control-panel'), function () {
         /**
          *  hotel categories
          */
-        Route::resource('hotel_categories', 'HotelCategoriesController')->except('create');
+        Route::resource('hotel_categories', 'HotelCategoriesController');
 
         //Route::resource('meal-bases', 'MealBasesController');
     });
