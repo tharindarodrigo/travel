@@ -39,7 +39,7 @@
                 @if(!Session::has('edit'))
                     {{ Form::open(array('route' => array('control-panel.hotel.hotel_categories.store'))) }}
                 @else
-                    {{ Form::open(array('route' => array('control-panel.hotel.hotel_categories.update'))) }}
+                    {{ Form::open(array('route' => array('control-panel.hotel.hotel_categories.update',$Hotelcategory->id), 'method' => 'put')) }}
                 @endif
 
                 <div class="box-body">
@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label for="hotel_category">Category</label>
                         {{--<input id="hotel_category" name="hotel_category" class="form-control" type="text"/>--}}
-                        {{ Form::text('hotel_category', null, array('class' => 'form-control')) }}
+                        {{ Form::text('hotel_category', Session::get('edit')=='edit' ? $Hotelcategory->hotel_category : '', array('class' => 'form-control')) }}
                         {{ $errors->first('title', '<p style="color=#900000">:message</p>') }}
                     </div>
                     @if(!Session::has('edit'))
@@ -57,8 +57,9 @@
                         </div>
                     @else
                         <div class="form-group">
-                            <button type="button" class="btn btn-primary">Update Hotel Category</button>
-                            <button type="button" class="btn btn-group btn-info">Cancel</button>
+                            {{ Form::submit('Update Hotel Category', array('class' => 'btn btn-primary')) }}
+
+                            <a href="{{ URL::route('control-panel.hotel.hotel_categories.index') }}" class="btn btn-group btn-info">Cancel</a>
                         </div>
                     @endif
                 </div>
@@ -74,6 +75,8 @@
                 <div class="box-header">
                     <h3 class="box-title"><b>Search / Update / Delete</b> Hotel Categories</h3>
                 </div>
+
+                
                 <!-- /.box-header -->
                 <div class="box-body table-responsive">
                     <table id="hotel-categories-table" class="table table-bordered table-striped">
@@ -82,7 +85,7 @@
                             <th>ID</th>
                             <th>Category</th>
                             <th>Status</th>
-                            <th style="width:80px;"></th>
+                            <th style="width:120px;"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -94,10 +97,9 @@
                                 <td>{{ $category->val == 0 ? 'Inactive' : 'Active' }}</td>
                                 <td>
                                     <div class="">
-
-                                        {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.edit',$category->id), 'method' =>'put' )) }}
-                                        <a type="submit" class="btn btn-xs btn-flat btn-primary col-md-3"><i
-                                                    class="glyphicon glyphicon-edit"></i></a>
+                                        {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.edit',$category->id), 'method' =>'get' )) }}
+                                        <button type="submit" class="btn btn-xs btn-flat btn-primary col-md-3"><i
+                                                    class="glyphicon glyphicon-edit"></i></button>
                                         {{ Form::close() }}
 
                                         {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
@@ -105,25 +107,29 @@
                                                     class="glyphicon glyphicon-trash"></i></button>
                                         {{ Form::close() }}
 
+
+
                                         @if($category->val == 0)
-                                            <div class="hidden-md hidden-sm hidden-xs">
-                                                {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
-                                                <a class="btn btn-xs btn-flat btn-success activate-item col-md-3"
-                                                   type="button"><i class="glyphicon glyphicon-ok-circle"></i></a>
-                                                <a class="btn btn-xs btn-flat btn-default disabled deactivate-item col-md-3"
-                                                   type="button"><i class="glyphicon glyphicon-remove-circle"></i></a>
+                                            <div class="">
+                                                {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.update',$category->id), 'method' =>'patch')) }}
+                                                <button class="btn btn-xs btn-flat btn-success activate-item col-md-3"
+                                                   type="submit" name="val" value="1"><i class="glyphicon glyphicon-ok-circle "></i></button>
+                                                <button class="btn btn-xs btn-flat btn-default disabled deactivate-item col-md-3"
+                                                   type="button"><i class="glyphicon glyphicon-remove-circle"></i></button>
                                                 {{ Form::close() }}
                                             </div>
 
                                         @else
-                                            {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
-                                            <a class="btn btn-xs btn-flat btn-default disabled activate-item "
-                                               type="button"><i class="glyphicon glyphicon-ok-circle"></i></a>
-                                            <a class="btn btn-xs btn-flat btn-warning deactivate-item " type="button"><i
-                                                        class="glyphicon glyphicon-remove-circle"></i></a>
+                                            {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.update',$category->id), 'method' =>'patch')) }}
+                                            <button class="btn btn-xs btn-flat btn-default disabled activate-item "
+                                                type="button"><i class="glyphicon glyphicon-ok-circle"></i></button>
+                                            <button class="btn btn-xs btn-flat btn-warning deactivate-item"
+                                                type="submit" name="val" value="0"><i class="glyphicon glyphicon-remove-circle"></i></button>
                                             {{ Form::close() }}
 
                                         @endif
+
+
 
                                         {{--<a type="submit" class="btn btn-xs btn-flat btn-primary  "><i class="glyphicon glyphicon-edit"></i></a>--}}
                                         {{--<a type="submit" class="btn btn-xs btn-flat btn-danger  "><i class="glyphicon glyphicon-edit"></i></a>--}}
