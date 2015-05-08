@@ -39,7 +39,9 @@ class HotelCategoriesController extends \BaseController
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        Hotelcategory::create($data);
+        if(Hotelcategory::create($data)){
+            Session::flash('successful-action', 'Item was updated Successfully');
+        }
 
         return Redirect::route('control-panel.hotel.hotel_categories.index');
     }
@@ -104,7 +106,11 @@ class HotelCategoriesController extends \BaseController
         }
 
 
-        $hotelcategory->update($data);
+        if($hotelcategory->update($data)){
+
+            Session::flash('successful-action', 'Item was updated Successfully');
+
+        }
 
         return Redirect::route('control-panel.hotel.hotel_categories.index');
     }
@@ -117,7 +123,11 @@ class HotelCategoriesController extends \BaseController
      */
     public function destroy($id)
     {
-        Hotelcategory::destroy($id);
+        $delete = Hotelcategory::destroy($id);
+
+        if($delete){
+            Session::flash('successful-action', 'Item was deleted Successfully');
+        }
 
         Session::flash('message', 'Successfully Deleted Hotel Category');
 

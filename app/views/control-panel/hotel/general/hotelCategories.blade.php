@@ -48,8 +48,8 @@
                         <label for="hotel_category">Category</label>
                         {{--<input id="hotel_category" name="hotel_category" class="form-control" type="text"/>--}}
                         {{ Form::text('hotel_category', Session::get('edit')=='edit' ? $Hotelcategory->hotel_category : '', array('class' => 'form-control')) }}
-                        {{ $errors->first('title', '<p style="color=#900000">:message</p>') }}
                     </div>
+                    {{ $errors->first('hotel_category', '<div class="form-group text-red">:message</div>') }}
                     @if(!Session::has('edit'))
                         <div class="form-group">
                             {{--<button type="submit" class="btn btn-primary">control-panel.hotel.general.hotelCategories</button>--}}
@@ -73,19 +73,22 @@
             <div class="box box-primary">
                 <div class="box-header">
                     <h3 class="box-title"><b>Search / Update / Delete</b> Hotel Categories</h3>
-                    {{--<div class="alert alert-success alert-dismissable">--}}
-                        {{--<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>--}}
-                        {{--<h4>	<i class="icon fa fa-check"></i> Alert!</h4>--}}
-                        {{--Success alert preview. This alert is dismissable.--}}
-                    {{--</div>--}}
                 </div>
                 <div class="box-body">
-                <div class="callout callout-success">
-                    <h4>I am a success callout!</h4>
-                    <p>This is a green callout.</p>
-                  </div>
+                @if(Session::has('successful-action'))
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4>	<i class="icon fa fa-check"></i> Alert!</h4>
+                    {{ Session::get('successful-action') }}
                 </div>
-
+                @endif
+                @if(Session::has('unsuccessful-action'))
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4>	<i class="icon fa fa-check"></i> Alert!</h4>
+                    {{ Session::get('unsuccessful-action') }}
+                </div>
+                @endif
 
                 
                 <!-- /.box-header -->
@@ -95,7 +98,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Category</th>
-                            <th>Status</th>
+                            <th style="width:60px;">Status</th>
                             <th style="width:120px;"></th>
                         </tr>
                         </thead>
@@ -105,7 +108,7 @@
                             <tr>
                                 <td>{{ $category->id }}</td>
                                 <td>{{ $category->hotel_category }}</td>
-                                <td>{{ $category->val == 0 ? 'Inactive' : 'Active' }}</td>
+                                <td style="text-align: center;">{{ $category->val == 0 ? 'Inactive' : 'Active' }}</td>
                                 <td>
                                     <div class="">
                                         {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.edit',$category->id), 'method' =>'get' )) }}
@@ -113,9 +116,8 @@
                                                     class="glyphicon glyphicon-edit"></i></button>
                                         {{ Form::close() }}
 
-                                        {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete', )) }}
-                                        <a type="" class="btn btn-xs btn-flat btn-danger col-md-3" onclick="confirm('Are Sure You want to delete this item')")><i
-                                                class="glyphicon glyphicon-trash"></i></a>
+                                        {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
+                                        <a type="" class="btn btn-xs btn-flat btn-danger delete-button col-md-3"><i class="glyphicon glyphicon-trash"></i></a>
                                         {{ Form::close() }}
 
                                         @if($category->val == 0)
@@ -138,12 +140,6 @@
 
                                         @endif
 
-
-
-                                        {{--<a type="submit" class="btn btn-xs btn-flat btn-primary  "><i class="glyphicon glyphicon-edit"></i></a>--}}
-                                        {{--<a type="submit" class="btn btn-xs btn-flat btn-danger  "><i class="glyphicon glyphicon-edit"></i></a>--}}
-                                        {{--<a type="submit" class="btn btn-xs btn-flat btn-success  "><i class="glyphicon glyphicon-edit"></i></a>--}}
-                                        {{--<a type="submit" class="btn btn-xs btn-flat btn-warning  "><i class="glyphicon glyphicon-edit"></i></a>--}}
 
                                     </div>
                                 </td>
@@ -169,25 +165,12 @@
         $(function () {
             $("#hotel-categories-table").dataTable();
 
-            var url = 'control-panel/hotel/hotel_categories/destroy/';
-
-            $.ajax({
-                url: url,
-                method: 'delete',
-                processData: false,
-                contentType: false,
-                cache: false,
-                dataType: 'json',
-                data: formData,
-                success: function (data) {
-
-                },
-                error: function () {
-
-                }
-
+            $('.delete-button').click(function(){
+                var deleteButton =$(this);
+                confirm("Delete Record", 'Do you really want to delete this Item?', 'No', 'Yes', function() {
+                    deleteButton.closest('form').submit();
+                });
             });
-
 
         });
     </script>

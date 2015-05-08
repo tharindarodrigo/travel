@@ -35,8 +35,8 @@ function confirm(heading, question, cancelButtonTxt, okButtonTxt, callback1, cal
     '<p>' + question + '</p>' +
     '</div>' +
     '<div class="modal-footer">' +
-    '<button type="button" class="btn btn-default" data-dismiss="modal" id="cancelbtn">' + cancelButtonTxt + '</button>' +
-    '<button type="button" class="btn btn-primary " id="okButton">' + okButtonTxt + '</button>' +
+    '<button type="button" class="btn btn-outline pull-left" data-dismiss="modal" id="cancelbtn">' + cancelButtonTxt + '</button>' +
+    '<button type="button" class="btn btn-outline" id="okButton">' + okButtonTxt + '</button>' +
     '</div>' +
     '</div>' +
     '</div>' +
