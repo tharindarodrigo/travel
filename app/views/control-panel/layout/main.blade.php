@@ -22,6 +22,9 @@
         {{ HTML::script("//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js")}}
         {{ HTML::script("//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js")}}
     <![endif]-->
+        {{ HTML::script("control-panel-assets/ajax/commonFunctions.js", array("type" => "text/javascript"))}}
+
+
 
 {{ HTML::style('//cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css')}}
 <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js" type="javascript"></script>
@@ -377,6 +380,7 @@
     {{ HTML::script("plugins/fastclick/fastclick.min.js" )}}
     <!-- AdminLTE App -->
     {{ HTML::script("control-panel-assets/dist/js/app.min.js" )}}
+
 
     @yield('scripts')
 
