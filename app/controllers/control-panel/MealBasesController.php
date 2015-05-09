@@ -1,109 +1,149 @@
 <?php
 
-class MealBasesController extends \BaseController {
+class MealBasesController extends \BaseController
+{
 
-	/**
-	 * Display a listing of mealbases
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$mealbases = Mealbasis::all();
+    /**
+     * Display a listing of mealbases
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        Session::forget('edit');
 
-		return View::make('control-panel.hotel.general.mealBases', compact('mealbases'));
-	}
+        $mealbases = Mealbasis::all();
 
-	/**
-	 * Show the form for creating a new mealbasis
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('control-panel.hotel.general.mealBases');
+        return View::make('control-panel.hotel.general.mealBases', compact('mealbases'));
+    }
 
-//        return $this->index();
-	}
+    /**
+     * Show the form for creating a new mealbasis
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return View::make('mealbases.create');
+    }
 
-	/**
-	 * Store a newly created mealbasis in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), Mealbasis::$rules);
+    /**
+     * Store a newly created mealbasis in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+        $validator = Validator::make($data = Input::all(), Mealbasis::$rules);
 
-		Mealbasis::create($data);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-		return Redirect::route('control-panel.hotel.general.mealBases');
-	}
 
-	/**
-	 * Display the specified mealbasis.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$mealbasis = Mealbasis::findOrFail($id);
+        if ($mealbasis = Mealbasis::create($data)) {
+            
+            Session::flash('successful-action', 'Hotel Facility was created Successfully');
+        } else {
+            Session::flash('unsuccessful-action', 'Creating Hotel Facility was Unsuccessful');
+        }
 
-		return View::make('mealbases.show', compact('mealbasis'));
-	}
+        return Redirect::route('control-panel.hotel.meal-bases.index');
+    }
 
-	/**
-	 * Show the form for editing the specified mealbasis.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$mealbasis = Mealbasis::find($id);
+    /**
+     * Display the specified mealbasis.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $mealbasis = Mealbasis::findOrFail($id);
 
-		return View::make('mealbases.edit', compact('mealbasis'));
-	}
+        return View::make('mealbases.show', compact('mealbasis'));
+    }
 
-	/**
-	 * Update the specified mealbasis in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$mealbasis = Mealbasis::findOrFail($id);
+    /**
+     * Show the form for editing the specified mealbasis.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $Roomfacility = Mealbasis::find($id);
+        $mealbases = Mealbasis::all();
+        Session::put('edit', 'edit');
 
-		$validator = Validator::make($data = Input::all(), Mealbasis::$rules);
+        return View::make('control-panel.hotel.general.mealbases')
+            ->with(array(
+                'mealbases' => $mealbases,
+                'Mealbasis' => $Roomfacility
+            ));
+    }
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+    /**
+     * Update the specified mealbasis in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
 
-		$mealbasis->update($data);
+        $mealbasis = Mealbasis::findOrFail($id);
 
-		return Redirect::route('mealbases.index');
-	}
+        $data = Input::all();
 
-	/**
-	 * Remove the specified mealbasis from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Mealbasis::destroy($id);
+        if (!Input::has('val')) {
+            $rules = MealBasis::$rules;
+        } else {
+            $rules = ['val'];
+        }
 
-		return Redirect::route('mealbases.index');
-	}
+        $validator = Validator::make($data, $rules);
+
+//        dd('dasda');
+
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+
+        if ($mealbasis->update($data)) {
+
+            Session::flash('successful-action', 'Hotel Facility was updated Successfully');
+
+        } else {
+            Session::flash('unsuccessful-action', 'Hotel Facility update was Unsuccessful');
+        }
+
+        return Redirect::route('control-panel.hotel.meal-bases.index');
+    }
+
+    /**
+     * Remove the specified mealbasis from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        if ($delete = Mealbasis::destroy($id)) {
+
+            //Delete the icon with respect to the record
+            File::delete('public/control-panel-assets/images/meal-bases/'.$id.'.png');
+
+            Session::flash('successful-action', 'Item was deleted Successfully');
+        } else {
+            {
+                Session::flash('unsuccessful-action', 'Item deletion was Unsuccessful <h3>:(</h3>');
+            }
+        }
+
+        return Redirect::route('control-panel.hotel.meal-bases.index');
+    }
 
 }

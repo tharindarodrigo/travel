@@ -43,11 +43,14 @@ class RoomFacilitiesController extends \BaseController
 
 
         if ($roomfacility = Roomfacility::create($data)) {
-            Image::make(Input::file('icon'))
-                ->encode('png')
-                ->resize(32, 32, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save('public/control-panel-assets/images/room-facilities/'.$roomfacility->id.'.png');
+            if(Input::file('icon')){
+
+                Image::make(Input::file('icon'))
+                    ->encode('png')
+                    ->resize(32, 32, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save('public/control-panel-assets/images/room-facilities/'.$roomfacility->id.'.png');
+            }
 
             Session::flash('successful-action', 'Room Facility was created Successfully');
         } else {

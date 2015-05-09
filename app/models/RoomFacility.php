@@ -9,7 +9,7 @@ class RoomFacility extends \Eloquent {
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = ['room_facility', 'icon','val'];
+	protected $fillable = ['room_facility', 'val'];
 
 
 

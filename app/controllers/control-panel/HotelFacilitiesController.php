@@ -1,107 +1,165 @@
 <?php
 
-class HotelFacilitiesController extends \BaseController {
+class HotelFacilitiesController extends \BaseController
+{
 
-	/**
-	 * Display a listing of hotelfacilities
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$hotelfacilities = Hotelfacility::all();
+    /**
+     * Display a listing of hotelfacilities
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        Session::forget('edit');
 
-		return View::make('control-panel.hotel.general.hotelFacilities', compact('hotelfacilities'));
-	}
+        $hotelfacilities = Hotelfacility::all();
 
-	/**
-	 * Show the form for creating a new hotelfacility
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('hotelfacilities.create');
-	}
+        return View::make('control-panel.hotel.general.hotelFacilities', compact('hotelfacilities'));
+    }
 
-	/**
-	 * Store a newly created hotelfacility in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), Hotelfacility::$rules);
+    /**
+     * Show the form for creating a new hotelfacility
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return View::make('hotelfacilities.create');
+    }
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput() ;
-		}
+    /**
+     * Store a newly created hotelfacility in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
 
-		Hotelfacility::create($data);
+        $validator = Validator::make($data = Input::all(), Hotelfacility::$rules);
 
-		return Redirect::route('hotelfacilities.index');
-	}
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-	/**
-	 * Display the specified hotelfacility.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$hotelfacility = Hotelfacility::findOrFail($id);
 
-		return View::make('hotelfacilities.show', compact('hotelfacility'));
-	}
+        if ($hotelfacility = Hotelfacility::create($data)) {
+            Image::make(Input::file('icon'))
+                ->encode('png')
+                ->resize(32, 32, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save('public/control-panel-assets/images/hotel-facilities/'.$hotelfacility->id.'.png');
 
-	/**
-	 * Show the form for editing the specified hotelfacility.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$hotelfacility = Hotelfacility::find($id);
+            Session::flash('successful-action', 'Hotel Facility was created Successfully');
+        } else {
+            Session::flash('unsuccessful-action', 'Creating Hotel Facility was Unsuccessful');
+        }
 
-		return View::make('hotelfacilities.edit', compact('hotelfacility'));
-	}
+        return Redirect::route('control-panel.hotel.hotel-facilities.index');
+    }
 
-	/**
-	 * Update the specified hotelfacility in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$hotelfacility = Hotelfacility::findOrFail($id);
+    /**
+     * Display the specified hotelfacility.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $hotelfacility = Hotelfacility::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Hotelfacility::$rules);
+        return View::make('hotelfacilities.show', compact('hotelfacility'));
+    }
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+    /**
+     * Show the form for editing the specified hotelfacility.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $Hotelfacility = Hotelfacility::find($id);
+        $hotelfacilities = Hotelfacility::all();
+        Session::put('edit', 'edit');
 
-		$hotelfacility->update($data);
+        return View::make('control-panel.hotel.general.hotelfacilities')
+            ->with(array(
+                'hotelfacilities' => $hotelfacilities,
+                'Hotelfacility' => $Hotelfacility
+            ));
+    }
 
-		return Redirect::route('hotelfacilities.index');
-	}
+    /**
+     * Update the specified hotelfacility in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
 
-	/**
-	 * Remove the specified hotelfacility from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Hotelfacility::destroy($id);
+        $hotelfacility = Hotelfacility::findOrFail($id);
 
-		return Redirect::route('hotelfacilities.index');
-	}
+        $data = Input::all();
+
+        if (!Input::has('val')) {
+            $rules = HotelFacility::$rules;
+        } else {
+            $rules = ['val'];
+        }
+
+        $validator = Validator::make($data, $rules);
+
+//        dd('dasda');
+
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+
+        if ($hotelfacility->update($data)) {
+
+            if(Input::file('icon')){
+
+//                dd('asdasd');
+                File::delete('public/control-panel-assets/images/hotel-facilities/'.$id.'.png');
+
+                Image::make(Input::file('icon'))
+                    ->encode('png')
+                    ->resize(32, 32, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save('public/control-panel-assets/images/hotel-facilities/'.$id.'.png');
+            }
+            Session::flash('successful-action', 'Hotel Facility was updated Successfully');
+
+        } else {
+            Session::flash('unsuccessful-action', 'Hotel Facility update was Unsuccessful');
+        }
+
+        return Redirect::route('control-panel.hotel.hotel-facilities.index');
+    }
+
+    /**
+     * Remove the specified hotelfacility from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        if ($delete = Hotelfacility::destroy($id)) {
+
+            //Delete the icon with respect to the record
+            File::delete('public/control-panel-assets/images/hotel-facilities/'.$id.'.png');
+
+            Session::flash('successful-action', 'Item was deleted Successfully');
+        } else {
+            {
+                Session::flash('unsuccessful-action', 'Item deletion was Unsuccessful <h3>:(</h3>');
+            }
+        }
+
+        return Redirect::route('control-panel.hotel.hotel-facilities.index');
+    }
 
 }
