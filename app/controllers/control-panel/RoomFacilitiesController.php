@@ -34,6 +34,7 @@ class RoomFacilitiesController extends \BaseController
      */
     public function store()
     {
+
         $validator = Validator::make($data = Input::all(), Roomfacility::$rules);
 
         if ($validator->fails()) {
@@ -41,10 +42,16 @@ class RoomFacilitiesController extends \BaseController
         }
 
 
-        if (Roomfacility::create($data)) {
+        if ($roomfacility = Roomfacility::create($data)) {
+            Image::make(Input::file('icon'))
+                ->encode('png')
+                ->resize(32, 32, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save('public/control-panel-assets/images/room-facilities/'.$roomfacility->id.'.png');
+
             Session::flash('successful-action', 'Room Facility was created Successfully');
         } else {
-            Session::flash('unsuccessful-action', 'Creating Room Facility was Unsuccessful <h3>:(</h3>');
+            Session::flash('unsuccessful-action', 'Creating Room Facility was Unsuccessful');
         }
 
         return Redirect::route('control-panel.hotel.room-facilities.index');
@@ -111,6 +118,18 @@ class RoomFacilitiesController extends \BaseController
 
 
         if ($roomfacility->update($data)) {
+
+            if(Input::file('icon')){
+
+//                dd('asdasd');
+                File::delete('public/control-panel-assets/images/room-facilities/'.$id.'.png');
+
+                Image::make(Input::file('icon'))
+                    ->encode('png')
+                    ->resize(32, 32, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save('public/control-panel-assets/images/room-facilities/'.$id.'.png');
+            }
             Session::flash('successful-action', 'Room Facility was updated Successfully');
 
         } else {
@@ -128,8 +147,11 @@ class RoomFacilitiesController extends \BaseController
      */
     public function destroy($id)
     {
+        if ($delete = Roomfacility::destroy($id)) {
 
-        if (Roomfacility::destroy($id)) {
+            //Delete the icon with respect to the record
+            File::delete('public/control-panel-assets/images/room-facilities/'.$id.'.png');
+
             Session::flash('successful-action', 'Item was deleted Successfully');
         } else {
             {

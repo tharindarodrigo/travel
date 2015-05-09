@@ -41,9 +41,9 @@
                 </div>
 
                 @if(!Session::has('edit'))
-                    {{ Form::open(array('route' => array('control-panel.hotel.room-facilities.store'))) }}
+                    {{ Form::open(array('route' => array('control-panel.hotel.room-facilities.store'), 'files' => true)) }}
                 @else
-                    {{ Form::open(array('route' => array('control-panel.hotel.room-facilities.update',$Roomfacility->id), 'method' => 'put')) }}
+                    {{ Form::open(array('route' => array('control-panel.hotel.room-facilities.update',$Roomfacility->id), 'files' => true, 'method' => 'put')) }}
                 @endif
 
 
@@ -54,6 +54,11 @@
                             {{ Form::text('room_facility',Session::get('edit')=='edit' ? $Roomfacility->room_facility : '', array('class' => 'form-control')) }}
                         </div>
                         {{ $errors->first('room_facility', '<div class="form-group text-red">:message</div>') }}
+                        <div class="form-group">
+                            <label for="room_facility">Facility Icon</label>
+                            {{ Form::file('icon')}}
+                        </div>
+                        {{ $errors->first('icon', '<div class="form-group text-red">:message</div>') }}
 
                         @if(!Session::has('edit'))
                             <div class="form-group">
@@ -96,7 +101,8 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Category</th>
+                                <th>Room Facility</th>
+                                <th style="width:20px;">Icon</th>
                                 <th style="width:60px;">Status</th>
                                 <th style="width:120px;"></th>
                             </tr>
@@ -106,6 +112,7 @@
                                 <tr id="">
                                     <td>{{ $roomfacility->id }}</td>
                                     <td>{{ $roomfacility->room_facility }}</td>
+                                    <td style="text-align: center">{{ HTML::image('control-panel-assets/images/room-facilities/'.$roomfacility->id.'.png','icon') }}</td>
                                     <td style="text-align: center;">{{ $roomfacility->val == 0 ? 'Inactive' : 'Active' }}</td>
 
                                     <td>

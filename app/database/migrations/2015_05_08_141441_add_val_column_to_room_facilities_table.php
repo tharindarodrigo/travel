@@ -15,6 +15,7 @@ class AddValColumnToRoomFacilitiesTable extends Migration {
 		Schema::table('room_facilities', function(Blueprint $table)
 		{
 			$table->boolean('val')->default(1);
+			$table->binary('icon')->nullable();
 		});
 	}
 
@@ -28,7 +29,8 @@ class AddValColumnToRoomFacilitiesTable extends Migration {
 	{
 		Schema::table('room_facilities', function(Blueprint $table)
 		{
-			$table->dropColumn('val');
+            $table->dropColumn('val');
+            $table->dropColumn('icon');
 		});
 	}
 
