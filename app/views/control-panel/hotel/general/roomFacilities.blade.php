@@ -31,7 +31,7 @@
 
 
 <section>
-    <div class="row">
+
         <div class="col-md-4">
             <div class="box box-primary ">
                 <div class="box-header">
@@ -40,26 +40,34 @@
                     </h3>
                 </div>
 
-                <form action="" role="form" id="meal_basis_form">
+                @if(!Session::has('edit'))
+                    {{ Form::open(array('route' => array('control-panel.hotel.room-facilities.store'))) }}
+                @else
+                    {{ Form::open(array('route' => array('control-panel.hotel.room-facilities.update',$Roomfacility->id), 'method' => 'put')) }}
+                @endif
+
 
                     <div class="box-body">
 
                         <div class="form-group">
                             <label for="room_facility">Room Facility Name</label>
-                            <input id="room_facility" class="form-control" type="text"/>
+                            {{ Form::text('room_facility',Session::get('edit')=='edit' ? $Roomfacility->room_facility : '', array('class' => 'form-control')) }}
                         </div>
+                        {{ $errors->first('room_facility', '<div class="form-group text-red">:message</div>') }}
 
-                        <div class="form-group customValidationAlert"></div>
-
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary" id="btn_create_room_facility">Create Room Facility</button>
-                        </div>
-                        <div class="form-group">
-                            <button type="button" class="btn btn-group btn-primary" id="btn_update_room_facility">Update Room Facility</button>
-                            <button type="button" class="btn btn-group btn-info" id="btn_cancel_room_facility">Cancel</button>
-                        </div>
+                        @if(!Session::has('edit'))
+                            <div class="form-group">
+                                {{--<button type="submit" class="btn btn-primary">control-panel.hotel.general.hotelCategories</button>--}}
+                                {{ Form::submit('Create Room Facility', array('class' => 'btn btn-primary')) }}
+                            </div>
+                        @else
+                            <div class="form-group">
+                                {{ Form::submit('Update Room Facility', array('class' => 'btn btn-primary')) }}
+                                <a href="{{ URL::route('control-panel.hotel.room-facilities.index') }}" class="btn btn-group btn-info">Cancel</a>
+                            </div>
+                        @endif
                     </div>
-                </form>
+                {{ Form::close() }}
             </div>
         </div>
 
@@ -68,31 +76,68 @@
                 <div class="box-header">
                     <h3 class="box-title"><b>Search / Update / Delete</b> Room Facilities</h3>
                 </div><!-- /.box-header -->
+                <div class="box-body">
+                    @if(Session::has('successful-action'))
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4>	<i class="icon fa fa-check"></i> Alert!</h4>
+                        {{ Session::get('successful-action') }}
+                    </div>
+                    @endif
+                    @if(Session::has('unsuccessful-action'))
+                    <div class="alert alert-warning alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4>	<i class="icon fa fa-check"></i> Alert!</h4>
+                        {{ Session::get('unsuccessful-action') }}
+                    </div>
+                    @endif
                 <div class="box-body table-responsive">
                     <table id="room-facilities-table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Room Facility</th>
-                                <th style="width:110px;"></th>
+                                <th>Category</th>
+                                <th style="width:60px;">Status</th>
+                                <th style="width:120px;"></th>
                             </tr>
                         </thead>
-                        <tbody id="table_room_facilities_body">
+                        <tbody>
                             @foreach($roomfacilities as $roomfacility)
                                 <tr id="">
                                     <td>{{ $roomfacility->id }}</td>
                                     <td>{{ $roomfacility->room_facility }}</td>
+                                    <td style="text-align: center;">{{ $roomfacility->val == 0 ? 'Inactive' : 'Active' }}</td>
+
                                     <td>
-                                    <div class="btn-group">
-                                        <a href="#" class="btn btn-xs btn-flat btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
-                                        <a href="#" class="btn btn-xs btn-flat btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
-                                         @if($roomfacility->val == 0)
-                                            <button class="btn btn-xs btn-flat btn-success activate-item" type="button"><span class="glyphicon glyphicon-ok-circle"></span></button>
-                                            <button class="btn btn-xs btn-flat btn-default disabled deactivate-item" type="button"><span class="glyphicon glyphicon-remove-circle"></span></button>
-                                         @else
-                                            <button class="btn btn-xs btn-flat btn-default disabled activate-item" type="button"><span class="glyphicon glyphicon-ok-circle"></span></button>
-                                            <button class="btn btn-xs btn-flat btn-warning deactivate-item" type="button" ><span class="glyphicon glyphicon-remove-circle"></span></button>
-                                         @endif
+                                    <div class="">
+                                        {{ Form::open(array('route'=> array('control-panel.hotel.room-facilities.edit',$roomfacility->id), 'method' =>'get' )) }}
+                                        <button type="submit" class="btn btn-xs btn-flat btn-primary col-md-3"><i
+                                                    class="glyphicon glyphicon-edit"></i></button>
+                                        {{ Form::close() }}
+
+                                        {{ Form::open(array('route'=> array('control-panel.hotel.room-facilities.destroy',$roomfacility->id), 'method' =>'delete')) }}
+                                        <a type="" class="btn btn-xs btn-flat btn-danger delete-button col-md-3"><i class="glyphicon glyphicon-trash"></i></a>
+                                        {{ Form::close() }}
+
+                                        @if($roomfacility->val == 0)
+                                            <div class="">
+                                                {{ Form::open(array('route'=> array('control-panel.hotel.room-facilities.update',$roomfacility->id), 'method' =>'patch')) }}
+                                                <button class="btn btn-xs btn-flat btn-success activate-item col-md-3"
+                                                   type="submit" name="val" value="1"><i class="glyphicon glyphicon-ok-circle"></i></button>
+                                                <button class="btn btn-xs btn-flat btn-default disabled deactivate-item col-md-3"
+                                                   type="button"><i class="glyphicon glyphicon-remove-circle"></i></button>
+                                                {{ Form::close() }}
+                                            </div>
+
+                                        @else
+                                            {{ Form::open(array('route'=> array('control-panel.hotel.room-facilities.update',$roomfacility->id), 'method' =>'patch')) }}
+                                            <button class="btn btn-xs btn-flat btn-default disabled activate-item col-md-3"
+                                                type="button"><i class="glyphicon glyphicon-ok-circle"></i></button>
+                                            <button class="btn btn-xs btn-flat btn-warning deactivate-item col-md-3"
+                                                type="submit" name="val" value="0"><i class="glyphicon glyphicon-remove-circle"></i></button>
+                                            {{ Form::close() }}
+
+                                        @endif
                                     </div>
                                     </td>
                                 </tr>
@@ -103,7 +148,6 @@
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
         </div>
-    </div>
 </section>
 
 
@@ -114,7 +158,9 @@
 
     <script type="text/javascript">
         $(function() {
-            $("#table_room_facilities").dataTable();
+            $("#room-facilities-table").dataTable();
+
+            confirmDeleteItem();
         });
 
 

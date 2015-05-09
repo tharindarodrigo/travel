@@ -4,10 +4,12 @@ class RoomFacility extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
-		// 'title' => 'required'
+		 'room_facility' => 'required'
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = [];
+	protected $fillable = ['room_facility', 'val'];
+
+
 
 }

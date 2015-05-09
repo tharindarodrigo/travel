@@ -51,3 +51,12 @@ function confirm(heading, question, cancelButtonTxt, okButtonTxt, callback1, cal
     });
     confirmModal.modal('show');
 }
+
+function confirmDeleteItem(){
+    $('.delete-button').click(function(){
+        var deleteButton =$(this);
+        confirm("Delete Record", 'Do you really want to delete this Item?', 'No', 'Yes', function() {
+            deleteButton.closest('form').submit();
+        });
+    });
+}

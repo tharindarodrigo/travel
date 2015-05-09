@@ -40,9 +40,9 @@ class HotelCategoriesController extends \BaseController
         }
 
         if (Hotelcategory::create($data)) {
-            Session::flash('successful-action', 'Item was updated Successfully');
+            Session::flash('successful-action', 'Hotel Category was created Successfully');
         } else {
-            Session::flash('unsuccessful-action', 'Item update was Unsuccessful <h3>:(</h3>');
+            Session::flash('unsuccessful-action', 'Creating Hotel Category was Unsuccessful <h3>:(</h3>');
         }
 
         return Redirect::route('control-panel.hotel.hotel_categories.index');
@@ -109,12 +109,12 @@ class HotelCategoriesController extends \BaseController
 
 
         if ($hotelcategory->update($data)) {
-
-            Session::flash('successful-action', 'Item was updated Successfully');
+            Session::flash('successful-action', 'Hotel Category was updated Successfully');
 
         } else {
-            Session::flash('unsuccessful-action', 'Item update was Unsuccessful');
+            Session::flash('unsuccessful-action', 'Hotel Category update was Unsuccessful');
         }
+
 
         return Redirect::route('control-panel.hotel.hotel_categories.index');
     }
@@ -127,9 +127,8 @@ class HotelCategoriesController extends \BaseController
      */
     public function destroy($id)
     {
-        $delete = Hotelcategory::destroy($id);
 
-        if ($delete) {
+        if (Hotelcategory::destroy($id)) {
             Session::flash('successful-action', 'Item was deleted Successfully');
         } else {
             {

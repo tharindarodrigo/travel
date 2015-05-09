@@ -1,107 +1,143 @@
 <?php
 
-class RoomFacilitiesController extends \BaseController {
+class RoomFacilitiesController extends \BaseController
+{
 
-	/**
-	 * Display a listing of roomfacilities
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$roomfacilities = Roomfacility::all();
+    /**
+     * Display a listing of roomfacilities
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        Session::forget('edit');
 
-		return View::make('control-panel.hotel.general.roomFacilities', compact('roomfacilities'));
-	}
+        $roomfacilities = Roomfacility::all();
 
-	/**
-	 * Show the form for creating a new roomfacility
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('roomfacilities.create');
-	}
+        return View::make('control-panel.hotel.general.roomFacilities', compact('roomfacilities'));
+    }
 
-	/**
-	 * Store a newly created roomfacility in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), Roomfacility::$rules);
+    /**
+     * Show the form for creating a new roomfacility
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return View::make('roomfacilities.create');
+    }
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+    /**
+     * Store a newly created roomfacility in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        $validator = Validator::make($data = Input::all(), Roomfacility::$rules);
 
-		Roomfacility::create($data);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-		return Redirect::route('roomfacilities.index');
-	}
 
-	/**
-	 * Display the specified roomfacility.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$roomfacility = Roomfacility::findOrFail($id);
+        if (Roomfacility::create($data)) {
+            Session::flash('successful-action', 'Room Facility was created Successfully');
+        } else {
+            Session::flash('unsuccessful-action', 'Creating Room Facility was Unsuccessful <h3>:(</h3>');
+        }
 
-		return View::make('roomfacilities.show', compact('roomfacility'));
-	}
+        return Redirect::route('control-panel.hotel.room-facilities.index');
+    }
 
-	/**
-	 * Show the form for editing the specified roomfacility.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$roomfacility = Roomfacility::find($id);
+    /**
+     * Display the specified roomfacility.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $roomfacility = Roomfacility::findOrFail($id);
 
-		return View::make('roomfacilities.edit', compact('roomfacility'));
-	}
+        return View::make('roomfacilities.show', compact('roomfacility'));
+    }
 
-	/**
-	 * Update the specified roomfacility in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$roomfacility = Roomfacility::findOrFail($id);
+    /**
+     * Show the form for editing the specified roomfacility.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $Roomfacility = Roomfacility::find($id);
+        $roomfacilities = Roomfacility::all();
+        Session::put('edit', 'edit');
 
-		$validator = Validator::make($data = Input::all(), Roomfacility::$rules);
+        return View::make('control-panel.hotel.general.roomfacilities')
+            ->with(array(
+                'roomfacilities' => $roomfacilities,
+                'Roomfacility' => $Roomfacility
+            ));
+    }
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+    /**
+     * Update the specified roomfacility in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
 
-		$roomfacility->update($data);
+        $roomfacility = Roomfacility::findOrFail($id);
 
-		return Redirect::route('roomfacilities.index');
-	}
+        $data = Input::all();
 
-	/**
-	 * Remove the specified roomfacility from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Roomfacility::destroy($id);
+        if (!Input::has('val')) {
+            $rules = RoomFacility::$rules;
+        } else {
+            $rules = ['val'];
+        }
 
-		return Redirect::route('roomfacilities.index');
-	}
+        $validator = Validator::make($data, $rules);
+
+//        dd('dasda');
+
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+
+        if ($roomfacility->update($data)) {
+            Session::flash('successful-action', 'Room Facility was updated Successfully');
+
+        } else {
+            Session::flash('unsuccessful-action', 'Room Facility update was Unsuccessful');
+        }
+
+        return Redirect::route('control-panel.hotel.room-facilities.index');
+    }
+
+    /**
+     * Remove the specified roomfacility from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+
+        if (Roomfacility::destroy($id)) {
+            Session::flash('successful-action', 'Item was deleted Successfully');
+        } else {
+            {
+                Session::flash('unsuccessful-action', 'Item deletion was Unsuccessful <h3>:(</h3>');
+            }
+        }
+
+        return Redirect::route('control-panel.hotel.room-facilities.index');
+    }
 
 }

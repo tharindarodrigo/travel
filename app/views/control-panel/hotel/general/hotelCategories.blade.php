@@ -154,6 +154,7 @@
             </div>
             <!-- /.box -->
         </div>
+        </div>
     </section>
 
 @endsection
@@ -165,12 +166,7 @@
         $(function () {
             $("#hotel-categories-table").dataTable();
 
-            $('.delete-button').click(function(){
-                var deleteButton =$(this);
-                confirm("Delete Record", 'Do you really want to delete this Item?', 'No', 'Yes', function() {
-                    deleteButton.closest('form').submit();
-                });
-            });
+            confirmDeleteItem();
 
         });
     </script>
