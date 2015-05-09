@@ -312,6 +312,11 @@ Route::group(array('prefix' => 'control-panel'), function () {
          */
         Route::resource('hotel_categories', 'HotelCategoriesController');
 
+        /**
+         *  star categories
+         */
+        Route::resource('star-categories', 'StarCategoriesController');
+
         //Route::resource('meal-bases', 'MealBasesController');
     });
 
