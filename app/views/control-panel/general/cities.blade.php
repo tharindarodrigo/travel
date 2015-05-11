@@ -27,81 +27,166 @@
 @endsection
 
 
+
 @section('content')
 
-<section>
-    <div class="row">
+    <section>
         <div class="col-md-4">
             <div class="box box-primary ">
                 <div class="box-header">
                     <h3 class="box-title">
-                         Create Hotel Facility
+                        Create City
                     </h3>
                 </div>
+                @if(!Session::has('edit'))
+                    {{ Form::open(array('route' => array('control-panel.general.cities.store'))) }}
+                @else
+                    {{ Form::open(array('route' => array('control-panel.general.cities.update',$City->id), 'method' => 'put')) }}
+                @endif
 
-                <form action="" role="form">
+                <div class="box-body">
 
-                    <div class="box-body">
-
-                        <div class="form-group">
-                            <label for="facilities">Cities</label>
-                            <input id="facilities" class="form-control" type="text"/>
-                        </div>
-
-                        <div class="form-group">
-                            <button type="button" class="btn btn-primary">Create Hotel Facility</button>
-                        </div>
-                        <div class="form-group">
-                            <button type="button" class="btn btn-group btn-primary">Update Hotel Facility</button>
-                            <button type="button" class="btn btn-group btn-info">Cancel</button>
-                        </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        {{--<input id="hotel_category" name="hotel_category" class="form-control" type="text"/>--}}
+                        {{ Form::text('city', Session::get('edit')=='edit' ? $City->city : '', array('class' => 'form-control')) }}
                     </div>
-                </form>
+                    {{ $errors->first('city', '<div class="form-group text-red">:message</div>') }}
+                    <div class="form-group">
+                        <label for="longitude">Longitude</label>
+                        {{--<input id="hotel_category" name="hotel_category" class="form-control" type="text"/>--}}
+                        {{ Form::text('longitude', Session::get('edit')=='edit' ? $City->longitude : '', array('class' => 'form-control')) }}
+                    </div>
+                    {{ $errors->first('longitude', '<div class="form-group text-red">:message</div>') }}
+                    <div class="form-group">
+                        <label for="latitude">Latitude</label>
+                        {{--<input id="hotel_category" name="hotel_category" class="form-control" type="text"/>--}}
+                        {{ Form::text('latitude', Session::get('edit')=='edit' ? $City->latitude : '', array('class' => 'form-control')) }}
+                    </div>
+                    {{ $errors->first('latitude', '<div class="form-group text-red">:message</div>') }}
+                    @if(!Session::has('edit'))
+                        <div class="form-group">
+                            {{--<button type="submit" class="btn btn-primary">control-panel.hotel.general.hotelCategories</button>--}}
+                            {{ Form::submit('Create City', array('class' => 'btn btn-primary')) }}
+                        </div>
+                    @else
+                        <div class="form-group">
+                            {{ Form::submit('Update City', array('class' => 'btn btn-primary')) }}
+                            <a href="{{ URL::route('control-panel.general.cities.index') }}" class="btn btn-group btn-info">Cancel</a>
+                        </div>
+                    @endif
+                </div>
+
+                {{ Form::close() }}
+
+
             </div>
         </div>
 
-        <div class="col-md-8">
+        <div class="col-md-8 ">
             <div class="box box-primary">
                 <div class="box-header">
                     <h3 class="box-title"><b>Search / Update / Delete</b> Cities</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body table-responsive">
-                    <table id="qweasd" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Category</th>
-                                <th></th>
+                </div>
+                <div class="box-body">
+                @if(Session::has('successful-action'))
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 
-                            </tr>
+                    {{ Session::get('successful-action') }}
+                </div>
+                @endif
+                @if(Session::has('unsuccessful-action'))
+                <div class="alert alert-warning alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+
+                    {{ Session::get('unsuccessful-action') }}
+                </div>
+                @endif
+
+
+                <!-- /.box-header -->
+                <div class="box-body table-responsive">
+                    <table id="cities-table" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>City</th>
+                            <th>Longitude</th>
+                            <th>Latitude</th>
+                            <th style="width:60px;">Status</th>
+                            <th style="width:120px;"></th>
+                        </tr>
                         </thead>
                         <tbody>
 
-                        </tbody>
-                        <tfoot>
+                        @foreach($cities as $city)
                             <tr>
-                                <th>ID</th>
-                                <th>Category</th>
-                                <th></th>
+                                <td>{{ $city->id }}</td>
+                                <td>{{ $city->city }}</td>
+                                <td>{{ $city->longitude }}</td>
+                                <td>{{ $city->latitude }}</td>
+                                <td style="text-align: center;">{{ $city->val == 0 ? 'Inactive' : 'Active' }}</td>
+                                <td>
+                                    <div class="">
+                                        {{ Form::open(array('route'=> array('control-panel.general.cities.edit',$city->id), 'method' =>'get' )) }}
+                                        <button type="submit" class="btn btn-xs btn-flat btn-primary col-md-3"><i
+                                                    class="glyphicon glyphicon-edit"></i></button>
+                                        {{ Form::close() }}
 
+                                        {{ Form::open(array('route'=> array('control-panel.general.cities.destroy',$city->id), 'method' =>'delete')) }}
+                                        <a type="" class="btn btn-xs btn-flat btn-danger delete-button col-md-3"><i class="glyphicon glyphicon-trash"></i></a>
+                                        {{ Form::close() }}
+
+                                        @if($city->val == 0)
+                                            <div class="">
+                                                {{ Form::open(array('route'=> array('control-panel.general.cities.update',$city->id), 'method' =>'patch')) }}
+                                                <button class="btn btn-xs btn-flat btn-success activate-item col-md-3"
+                                                   type="submit" name="val" value="1"><i class="glyphicon glyphicon-ok-circle"></i></button>
+                                                <button class="btn btn-xs btn-flat btn-default disabled deactivate-item col-md-3"
+                                                   type="button"><i class="glyphicon glyphicon-remove-circle"></i></button>
+                                                {{ Form::close() }}
+                                            </div>
+
+                                        @else
+                                            {{ Form::open(array('route'=> array('control-panel.general.cities.update',$city->id), 'method' =>'patch')) }}
+                                            <button class="btn btn-xs btn-flat btn-default disabled activate-item col-md-3"
+                                                type="button"><i class="glyphicon glyphicon-ok-circle"></i></button>
+                                            <button class="btn btn-xs btn-flat btn-warning deactivate-item col-md-3"
+                                                type="submit" name="val" value="0"><i class="glyphicon glyphicon-remove-circle"></i></button>
+                                            {{ Form::close() }}
+
+                                        @endif
+
+
+                                    </div>
+                                </td>
                             </tr>
-                        </tfoot>
+                        @endforeach
+
+                        </tbody>
+
                     </table>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
         </div>
-    </div>
-</section>
+        </div>
+    </section>
 
 @endsection
 
+
 @section('scripts')
 
-                <script type="text/javascript">
-                    $(function() {
-                        $("#qweasd").dataTable();
+    <script type="text/javascript">
+        $(function () {
+            $("#cities-table").dataTable();
 
-                    });
-                </script>
+            confirmDeleteItem();
+
+        });
+    </script>
 
 @endsection

@@ -4,11 +4,13 @@ class City extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
-		// 'title' => 'required'
+		'city' => 'required',
+        'longitude' => 'numeric',
+        'latitude' => 'numeric'
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = [];
+	protected $fillable = ['city','longitude', 'latitude','val'];
 
     public function hotel()
     {

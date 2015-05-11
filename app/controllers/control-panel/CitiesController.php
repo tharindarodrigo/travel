@@ -1,107 +1,135 @@
 <?php
 
-class CitiesController extends \BaseController {
+class CitiesController extends \BaseController
+{
 
-	/**
-	 * Display a listing of cities
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$cities = City::all();
+    /**
+     * Display a listing of cities
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        Session::forget('edit');
 
-		return View::make('control-panel.general.cities', compact('cities'));
-	}
+        $cities = City::all();
 
-	/**
-	 * Show the form for creating a new city
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('cities.create');
-	}
+        return View::make('control-panel.general.cities', compact('cities'));
+    }
 
-	/**
-	 * Store a newly created city in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), City::$rules);
+    /**
+     * Show the form for creating a new city
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return View::make('cities.create');
+    }
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+    /**
+     * Store a newly created city in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        $validator = Validator::make($data = Input::all(), City::$rules);
 
-		City::create($data);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-		return Redirect::route('cities.index');
-	}
+        if (City::create($data)) {
+            Session::flash('successful-action', 'Hotel Facility was created Successfully');
+        } else {
+            Session::flash('unsuccessful-action', 'Creating Hotel Facility was Unsuccessful');
+        }
 
-	/**
-	 * Display the specified city.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$city = City::findOrFail($id);
+        return Redirect::route('control-panel.general.cities.index');
+    }
 
-		return View::make('cities.show', compact('city'));
-	}
+    /**
+     * Display the specified city.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $market = City::findOrFail($id);
 
-	/**
-	 * Show the form for editing the specified city.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$city = City::find($id);
+        return View::make('cities.show', compact('city'));
+    }
 
-		return View::make('cities.edit', compact('city'));
-	}
+    /**
+     * Show the form for editing the specified city.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $City = City::find($id);
+        $cities = City::all();
+        Session::put('edit', 'edit');
 
-	/**
-	 * Update the specified city in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$city = City::findOrFail($id);
+        return View::make('control-panel.general.cities')
+            ->with(array(
+                'cities' => $cities,
+                'City' => $City
+            ));
+    }
 
-		$validator = Validator::make($data = Input::all(), City::$rules);
+    /**
+     * Update the specified city in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        $city = City::findOrFail($id);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+        $data = Input::all();
 
-		$city->update($data);
+        if (!Input::has('val')) {
+            $rules = City::$rules;
+        } else {
+            $rules = ['val'];
+        }
 
-		return Redirect::route('cities.index');
-	}
+        $validator = Validator::make($data, $rules);
 
-	/**
-	 * Remove the specified city from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		City::destroy($id);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-		return Redirect::route('cities.index');
-	}
+        if ($city->update($data)) {
+            Session::flash('successful-action', 'City was updated Successfully');
+
+        } else {
+            Session::flash('unsuccessful-action', 'City update was Unsuccessful');
+        }
+
+        return Redirect::route('control-panel.general.cities.index');
+    }
+
+    /**
+     * Remove the specified city from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        if (City::destroy($id)) {
+            Session::flash('successful-action', 'Item was deleted Successfully');
+        } else {
+            Session::flash('unsuccessful-action', 'Item deletion was Unsuccessful');
+        }
+
+        return Redirect::route('control-panel.general.cities.index');
+    }
 
 }

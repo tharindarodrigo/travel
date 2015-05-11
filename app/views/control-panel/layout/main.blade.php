@@ -214,11 +214,11 @@
               </a>
               <ul class="treeview-menu">
                <li class="@yield('active-hotel-list')"><a href="{{ Url::route('control-panel.hotel.hotels.index') }}"><i class="fa fa-circle-o"></i> Hotel List</a></li>
-               <li class="@yield('active-hotel-')"><a href="{{ Url::route('control-panel.hotel.hotel-facilities.index') }}"><i class="fa fa-circle-o"></i> Add hotel</a></li>
+               <li class="@yield('active-hotel-add-hotel')"><a href="{{ Url::route('control-panel.hotel.hotel-facilities.index') }}"><i class="fa fa-circle-o"></i> Add hotel</a></li>
                <li class="@yield('active-hotel-hotel-categories')"><a href="{{ Url::route('control-panel.hotel.hotel_categories.index') }}"><i class="fa fa-circle-o"></i> Hotel Categories</a></li>
                <li class="@yield('active-hotel-hotel-facilities')"><a href="{{ Url::route('control-panel.hotel.hotel-facilities.index') }}"><i class="fa fa-circle-o"></i> Hotel Facilities</a></li>
                <li class="@yield('active-hotel-meal-bases')"><a href="{{ Url::route('control-panel.hotel.meal-bases.index') }}"><i class="fa fa-circle-o"></i> Meal Bases</a></li>
-               <li class="@yield('active-hotel-')"><a href="#"><i class="fa fa-circle-o"></i> Star Categories</a></li>
+               <li class="@yield('active-hotel-star-categories')"><a href="{{ Url::route('control-panel.hotel.star-categories.index') }}"><i class="fa fa-circle-o"></i> Star Categories</a></li>
                <li class="@yield('active-hotel-room-facilities')"><a href="{{ Url::route('control-panel.hotel.room-facilities.index') }}"><i class="fa fa-circle-o"></i> Room Facilities</a></li>
              </ul>
             </li>
@@ -280,7 +280,7 @@
                 <small class="label pull-right bg-yellow">12</small>
               </a>
             </li>
-            <li class="treeview active">
+            <li class="treeview">
               <a href="#">
                 <i class="fa fa-folder"></i> <span>Examples</span>
                 <i class="fa fa-angle-left pull-right"></i>
@@ -292,7 +292,7 @@
                 <li><a href="lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
                 <li><a href="404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
                 <li><a href="500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                <li class="active"><a href="blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
+                <li class=""><a href="blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
               </ul>
             </li>
             <li class="treeview">

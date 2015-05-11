@@ -1,107 +1,136 @@
 <?php
 
-class MarketsController extends \BaseController {
+class MarketsController extends \BaseController
+{
 
-	/**
-	 * Display a listing of markets
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$markets = Market::all();
+    /**
+     * Display a listing of markets
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        Session::forget('edit');
 
-		return View::make('control-panel.general.markets', compact('markets'));
-	}
+        $markets = Market::all();
 
-	/**
-	 * Show the form for creating a new market
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('markets.create');
-	}
+        return View::make('control-panel.general.markets', compact('markets'));
+    }
 
-	/**
-	 * Store a newly created market in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), Market::$rules);
+    /**
+     * Show the form for creating a new market
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return View::make('markets.create');
+    }
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+    /**
+     * Store a newly created market in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        $validator = Validator::make($data = Input::all(), Market::$rules);
 
-		Market::create($data);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-		return Redirect::route('markets.index');
-	}
+        if (Market::create($data)) {
+            Session::flash('successful-action', 'Hotel Facility was created Successfully');
+        } else {
+            Session::flash('unsuccessful-action', 'Creating Hotel Facility was Unsuccessful');
+        }
 
-	/**
-	 * Display the specified market.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$market = Market::findOrFail($id);
+        return Redirect::route('control-panel.general.markets.index');
+    }
 
-		return View::make('markets.show', compact('market'));
-	}
+    /**
+     * Display the specified market.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $market = Market::findOrFail($id);
 
-	/**
-	 * Show the form for editing the specified market.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$market = Market::find($id);
+        return View::make('markets.show', compact('market'));
+    }
 
-		return View::make('markets.edit', compact('market'));
-	}
+    /**
+     * Show the form for editing the specified market.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $Market = Market::find($id);
+        $markets = Market::all();
+        Session::put('edit', 'edit');
 
-	/**
-	 * Update the specified market in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$market = Market::findOrFail($id);
+        return View::make('control-panel.general.markets')
+            ->with(array(
+                'markets' => $markets,
+                'Market' => $Market
+            ));
+    }
 
-		$validator = Validator::make($data = Input::all(), Market::$rules);
+    /**
+     * Update the specified market in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        $market = Market::findOrFail($id);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
 
-		$market->update($data);
+        $data = Input::all();
 
-		return Redirect::route('markets.index');
-	}
+        if (!Input::has('val')) {
+            $rules = Market::$rules;
+        } else {
+            $rules = ['val'];
+        }
 
-	/**
-	 * Remove the specified market from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Market::destroy($id);
+        $validator = Validator::make($data, $rules);
 
-		return Redirect::route('markets.index');
-	}
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+        if ($market->update($data)) {
+            Session::flash('successful-action', 'Market was updated Successfully');
+
+        } else {
+            Session::flash('unsuccessful-action', 'Market update was Unsuccessful');
+        }
+
+        return Redirect::route('control-panel.general.markets.index');
+    }
+
+    /**
+     * Remove the specified market from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        if (Market::destroy($id)) {
+            Session::flash('successful-action', 'Item was deleted Successfully');
+        } else {
+            Session::flash('unsuccessful-action', 'Item deletion was Unsuccessful');
+        }
+
+        return Redirect::route('control-panel.general.markets.index');
+    }
 
 }

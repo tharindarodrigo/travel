@@ -105,8 +105,6 @@ class MealBasesController extends \BaseController
 
         $validator = Validator::make($data, $rules);
 
-//        dd('dasda');
-
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }

@@ -16,8 +16,8 @@ class CreateCitiesTable extends Migration {
 		{
 			$table->increments('id');
             $table->string('city');
-            $table->double('longitude');
-            $table->double('latitude');
+            $table->double('longitude')->nullable();
+            $table->double('latitude')->nullable();
 			$table->timestamps();
 		});
 	}
