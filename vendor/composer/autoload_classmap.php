@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AccountController' => $baseDir . '/app/controllers/AccountController.php',
     'AddRememberTokenToUsersTable' => $baseDir . '/app/database/migrations/2015_04_29_130500_add_remember_token_to_users_table.php',
+    'AddStarIdColumnToHotelsTable' => $baseDir . '/app/database/migrations/2015_05_11_131743_add_star_id_column_to_hotels_table.php',
     'AddValColumnToCitiesTable' => $baseDir . '/app/database/migrations/2015_05_10_111230_add_val_column_to_cities_table.php',
     'AddValColumnToHotelCategoriesTable' => $baseDir . '/app/database/migrations/2015_05_08_072837_add_val_column_to_hotel_categories_table.php',
     'AddValColumnToHotelFacilitiesTable' => $baseDir . '/app/database/migrations/2015_04_29_125107_add_val_column_to_hotel_facilities_table.php',
@@ -48,6 +49,7 @@ return array(
     'HotelController' => $baseDir . '/app/controllers/HotelController.php',
     'HotelFacilitiesController' => $baseDir . '/app/controllers/control-panel/Hotel/HotelFacilitiesController.php',
     'HotelFacility' => $baseDir . '/app/models/HotelFacility.php',
+    'HotelProfilesController' => $baseDir . '/app/controllers/control-panel/HotelAssets/HotelProfilesController.php',
     'HotelReview' => $baseDir . '/app/models/HotelReview.php',
     'HotelReviewsController' => $baseDir . '/app/controllers/control-panel/Hotel/HotelReviewsController.php',
     'HotelsController' => $baseDir . '/app/controllers/control-panel/Hotel/HotelsController.php',

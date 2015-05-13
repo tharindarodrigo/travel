@@ -1,29 +1,43 @@
 <?php
 
-class Hotel extends \Eloquent {
+class Hotel extends \Eloquent
+{
 
-	// Add your validation rules here
-	public static $rules = [
-		// 'title' => 'required'
-	];
+    // Add your validation rules here
+    public static $rules = [
+        'name' => 'required',
+        'city_id' => 'required',
+        'address' => 'required',
+        'star_category_id' => 'required',
+//         'hotel_categories' => 'required'
+    ];
 
-	// Don't forget to fill this array
-	protected $fillable = [];
+    public static $updaterules = [
 
-    public function category()
-    {
-        return $this->belongsToMany('HotelCategory');
-    }
+    ];
 
-    public function city()
-    {
-        return $this->belongsTo('City');
-    }
+    // Don't forget to fill this array
+    protected $fillable = ['name', 'city_id', 'address', 'star_category_id', 'users_id'];
 
-//    public function star()
+//    public function category()
 //    {
-//        return $this->has('Star');
-//
+//        return $this->belongsToMany('HotelCategory');
 //    }
+//
+//    public function city()
+//    {
+//        return $this->belongsTo('City');
+//    }
+
+    public function stars()
+    {
+        return $this->belongsTo('StarCategory');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('users_id');
+    }
+
 
 }

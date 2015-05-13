@@ -1,48 +1,63 @@
-<div class="row">
-    <form class="form" action="">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="" for="hotel_name">HOTEL NAME *</label>
-                <input class="form-control" name="hotel_name" id="hotel_name" type="text"/>
-            </div>
-        </div>
 
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="hotel_name">Stars</label>
-                <select class="form-control " name="stars" id="stars">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-        </div>
+    {{ Form::open(array('route' => array('control-panel.hotel.hotels.store'))) }}
 
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea class="form-control" name="search_keywords" id="search_keywords" rows="5"></textarea>
-            </div>
-        </div>
+                        <div class="col-md-6">
 
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="search_keywords">Search Keywords</label>
-                <textarea class="form-control" name="search_keywords" id="search_keywords" rows="5"></textarea>
-            </div>
-        </div>
+                            <div class="form-group">
+                                <label for="name">Hotel Name</label>
+                                {{ Form::text('name', null , array('class' => 'form-control'))}}
+                            </div>
+                            {{ $errors->first('name', '<div class="form-group text-red"><em>:message</em></div>') }}
+
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                {{ Form::text('address', null , array('class' => 'form-control'))}}
+                            </div>
+                            {{ $errors->first('address', '<div class="form-group text-red"><em>:message</em></div>') }}
+
+                            <div class="form-group">
+                                <label for="star_category_id">Star Category</label>
+                                {{ Form::select('star_category_id', StarCategory::lists('stars', 'id'), null, array('class' => 'form-control')) }}
+                            </div>
+
+                            {{ $errors->first('star_category_id', '<div class="form-group text-red">:message</div>') }}
+                            <div class="form-group">
+                                <label for="star_id">City</label>
+                                {{ Form::select('city_id', City::lists('city', 'id'), null, array('class' => 'form-control')) }}
+
+                            </div>
+                            {{ $errors->first('city_id', '<div class="form-group text-red">:message</div>') }}
 
 
-        <div class="col-md-12">
-            <div class="form-group">
-                <button type="button" class="btn btn-primary">Create Hotel Category</button>
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary">Update Hotel Category</button>
-                <button type="button" class="btn btn-group btn-info">Cancel</button>
-            </div>
-        </div>
-    </form>
-</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+
+                                <div class="form-group">
+                                {{ Form::label('Hotel Categories') }}
+
+                                @foreach(HotelCategory::get(array('hotel_category', 'id')) as $HotelCategory)
+                                    <div class="checkbox">
+
+                                    <label for="">
+                                        {{ Form::checkbox('category_id[]', $HotelCategory->id) }}
+                                        {{ $HotelCategory->hotel_category }}
+
+                                    </label>
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <p class="text-bold text-primary"><em>Check the categories to which the hotel belongs to...</em></p>
+                            </div>
+                        </div>
+
+
+                    <div class="row">
+                        <div class="col-md-offset-4 col-md-4 ">
+                            {{ Form::submit('Create Hotel', array('class' => 'btn btn-primary btn-block'))}}
+                        </div>
+                    </div>
+
+
+
+        {{ Form::close() }}

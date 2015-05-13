@@ -52,18 +52,21 @@
                     <tr>
                         <td>{{ $hotel->id }}</td>
                         <td>{{ $hotel->name }}</td>
-                        <td>{{ $hotel->stars }}</td>
+                        <td>{{ $hotel->stars}}</td>
                         <td>
-                        @foreach($hotel->category as $cat)
-                            {{ $cat->hotel_category.' | ' }}
-                        @endforeach
+                        {{--@foreach($hotel->category as $cat)--}}
+                            {{--{{ $cat->hotel_category.' | ' }}--}}
+                        {{--@endforeach--}}
                         </td>
                         <td>
-                            {{ $hotel->city->city  }}
+                            {{--{{ $hotel->city->city  }}--}}
                         </td>
                         <td>{{ $hotel->val== 0 ? 'Inactive' : 'Active' }}</td>
                         <td>
                             <div class="btn-group btn-group-xs">
+                            {{ Form::open(array('route'=>'')) }}
+                                <button class="btn btn-github" type="submit"> Manage </button>
+                            {{ Form::close() }}
                                 <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-edit edit-item"></span></button>
                                 <button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-trash delete-item"></span></button>
                                 @if($hotel->val == 0)

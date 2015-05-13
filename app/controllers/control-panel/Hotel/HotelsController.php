@@ -11,6 +11,8 @@ class HotelsController extends \BaseController {
 	{
 		$hotels = Hotel::all();
 
+//        dd($hotels);
+
 		return View::make('control-panel.hotel.general.hotelList', compact('hotels'));
 	}
 
@@ -31,14 +33,31 @@ class HotelsController extends \BaseController {
 	 */
 	public function store()
 	{
+
+//        dd(Input::all());
+
 		$validator = Validator::make($data = Input::all(), Hotel::$rules);
 
 		if ($validator->fails())
 		{
+//            dd($validator->errors());
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		Hotel::create($data);
+        $data['users_id'] = Auth::user()->id;
+
+		$hotel = Hotel::create($data);
+
+        $categories = Input::get('category_id');
+        foreach($categories  as $category_id){
+
+            // Enter data into pivot table
+            $hotel_hotel_category_data = array(
+                'hotel_id' => $hotel->id,
+                'hotel_category_id' => $category_id
+            );
+            DB::table('hotel_hotel_category')->insert($hotel_hotel_category_data);
+        }
 
 		return Redirect::route('hotels.index');
 	}

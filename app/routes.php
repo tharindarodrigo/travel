@@ -288,6 +288,11 @@ Route::group(array('prefix' => 'control-panel'), function () {
     Route::group(array('prefix' => 'hotel'), function () {
 
         /**
+         *  Hotel Profile
+         */
+        Route::resource('hotel_profile', 'HotelProfilesController');
+
+        /**
          *  Hotel List
          */
         Route::resource('hotels', 'HotelsController');

@@ -19,7 +19,7 @@ class CreateHotelsTable extends Migration {
             $table->string('address');
             $table->integer('city_id')->unsigned();
             $table->integer('users_id')->unsigned();
-            $table->integer('stars');
+            $table->integer('stars_id')->unsigned();
             $table->boolean('val');
 
             $table->double('longitude');
@@ -42,6 +42,7 @@ class CreateHotelsTable extends Migration {
 
             $table->foreign('city_id')->references('id')->on('cities');
             $table->foreign('users_id')->references('id')->on('users');
+            $table->foreign('star_id')->references('id')->on('stars');
 
         });
 	}

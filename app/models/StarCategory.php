@@ -11,9 +11,9 @@ class StarCategory extends \Eloquent {
 	// Don't forget to fill this array
 	protected $fillable = ['stars','star_name', 'val'];
 
-//    public function hotel(){
-//
-//        return $this->belongsTo('Hotel');
-//
-//    }
+    public function hotel()
+    {
+        return $this->hasMany('Hotel');
+    }
+
 }

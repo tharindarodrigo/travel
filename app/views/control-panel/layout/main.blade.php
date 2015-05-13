@@ -15,6 +15,7 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     {{ HTML::style("control-panel-assets/dist/css/skins/_all-skins.min.css" ) }}
+    {{ HTML::style("control-panel-assets/plugins/iCheck/all.css" ) }}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -214,7 +215,7 @@
               </a>
               <ul class="treeview-menu">
                <li class="@yield('active-hotel-list')"><a href="{{ Url::route('control-panel.hotel.hotels.index') }}"><i class="fa fa-circle-o"></i> Hotel List</a></li>
-               <li class="@yield('active-hotel-add-hotel')"><a href="{{ Url::route('control-panel.hotel.hotel-facilities.index') }}"><i class="fa fa-circle-o"></i> Add hotel</a></li>
+               <li class="@yield('active-hotel-create-hotel')"><a href="{{ Url::route('control-panel.hotel.hotels.create') }}"><i class="fa fa-circle-o"></i> Create Hotel</a></li>
                <li class="@yield('active-hotel-hotel-categories')"><a href="{{ Url::route('control-panel.hotel.hotel_categories.index') }}"><i class="fa fa-circle-o"></i> Hotel Categories</a></li>
                <li class="@yield('active-hotel-hotel-facilities')"><a href="{{ Url::route('control-panel.hotel.hotel-facilities.index') }}"><i class="fa fa-circle-o"></i> Hotel Facilities</a></li>
                <li class="@yield('active-hotel-meal-bases')"><a href="{{ Url::route('control-panel.hotel.meal-bases.index') }}"><i class="fa fa-circle-o"></i> Meal Bases</a></li>
@@ -350,7 +351,7 @@
         <!--=================================================================================-->
         <section class="content">
         <div class="row">
-                    @yield('content')
+            @yield('content')
         </div>
 
         </section><!-- /.content -->
@@ -380,6 +381,7 @@
     {{ HTML::script("plugins/fastclick/fastclick.min.js" )}}
     <!-- AdminLTE App -->
     {{ HTML::script("control-panel-assets/dist/js/app.min.js" )}}
+    {{ HTML::script("control-panel-assets/plugins/iCheck/icheck.js" )}}
 
 
     @yield('scripts')
