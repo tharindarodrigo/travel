@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration {
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->string('password_temp', 60);
+            $table->string('remember_token',60)->nullable();
             $table->string('code', 50);
             $table->integer('role_id')->unsigned();
             $table->string('address')->nullable();

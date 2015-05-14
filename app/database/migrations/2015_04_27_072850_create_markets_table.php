@@ -16,6 +16,7 @@ class CreateMarketsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('market');
+            $table->boolean('val');
 			$table->timestamps();
 		});
 	}

@@ -1,3 +1,8 @@
+{{--
+    This page allows you to Update the Hotel Profile
+    The page
+--}}
+
 @extends('control-panel.layout.main')
 
 {{--Title--}}
@@ -40,18 +45,23 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="tab_1">
+            {{--Hotel Details Page--}}
             @include('control-panel.hotel.profile.hotelDetails')
         </div><!-- /.tab-pane -->
         <div class="tab-pane" id="tab_2">
+            {{--Location Details--}}
             @include('control-panel.hotel.profile.location')
         </div><!-- /.tab-pane -->
         <div class="tab-pane" id="tab_3">
+            {{--Hotel facility list--}}
             @include('control-panel.hotel.profile.facilities')
         </div><!-- /.tab-pane -->
         <div class="tab-pane" id="tab_4">
+                    {{--Hotel Policies--}}
             @include('control-panel.hotel.profile.policies')
         </div><!-- /.tab-pane -->
         <div class="tab-pane" id="tab_5">
+
             @include('control-panel.hotel.profile.termsAndConditions')
         </div><!-- /.tab-pane -->
     </div><!-- /.tab-content -->

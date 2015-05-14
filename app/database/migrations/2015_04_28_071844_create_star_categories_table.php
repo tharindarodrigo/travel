@@ -17,6 +17,7 @@ class CreateStarCategoriesTable extends Migration {
 			$table->increments('id');
 			$table->double('stars');
 			$table->string('star_name');
+            $table->boolean('val');
 			$table->timestamps();
 		});
 	}

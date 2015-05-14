@@ -16,6 +16,7 @@ class CreateHotelCategoriesTable extends Migration {
 		{
 			$table->increments('id');
             $table->string('hotel_category');
+            $table->boolean('val');
 			$table->timestamps();
 		});
 	}

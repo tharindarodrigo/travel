@@ -18,6 +18,7 @@ class CreateMealBasesTable extends Migration {
 			$table->string('meal_basis', 2);
 			$table->string('meal_basis_name');
 			$table->text('description');
+            $table->boolean('val');
 			$table->timestamps();
 		});
 	}
