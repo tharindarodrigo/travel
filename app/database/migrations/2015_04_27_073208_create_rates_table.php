@@ -17,20 +17,14 @@ class CreateRatesTable extends Migration {
 			$table->increments('id');
             $table->date('from');
             $table->date('to');
-            $table->double('sgl');
-            $table->double('dbl');
-            $table->double('tpl');
-            $table->double('qpl');
-            $table->double('child_with_extra_bed');
-            $table->double('child_without_extra_bed');
-            $table->double('guide_rate');
             $table->double('count');
+            $table->double('rate');
             $table->integer('val');
             $table->integer('hotel_id')->unsigned();
             $table->integer('room_type_id')->unsigned();
             $table->integer('market_id')->unsigned();
-            $table->integer('user_id')->unsigned();
             $table->integer('meal_basis_id')->unsigned();
+            $table->integer('user_id')->unsigned();
 			$table->timestamps();
 
             $table->foreign('hotel_id')->references('id')->on('hotels');

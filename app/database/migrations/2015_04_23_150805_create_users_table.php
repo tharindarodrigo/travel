@@ -28,7 +28,6 @@ class CreateUsersTable extends Migration {
             $table->boolean('active');
             $table->timestamps();
 
-            $table->foreign('role_id')->references('id')->on('roles');
 		});
 	}
 

@@ -123,7 +123,8 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Way\Generators\GeneratorsServiceProvider',
         'Chumper\Datatable\DatatableServiceProvider',
-        'Intervention\Image\ImageServiceProvider'
+        'Intervention\Image\ImageServiceProvider',
+        'Zizaco\Entrust\EntrustServiceProvider'
 
 	),
 
@@ -191,7 +192,8 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-        'Image'           => 'Intervention\Image\Facades\Image'
+        'Image'           => 'Intervention\Image\Facades\Image',
+        'Entrust'         => 'Zizaco\Entrust\EntrustFacade'
 
 	),
 

@@ -398,67 +398,6 @@
         "homepage": "http://symfony.com"
     },
     {
-        "name": "symfony/event-dispatcher",
-        "version": "v2.6.6",
-        "version_normalized": "2.6.6.0",
-        "target-dir": "Symfony/Component/EventDispatcher",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/EventDispatcher.git",
-            "reference": "70f7c8478739ad21e3deef0d977b38c77f1fb284"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/70f7c8478739ad21e3deef0d977b38c77f1fb284",
-            "reference": "70f7c8478739ad21e3deef0d977b38c77f1fb284",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "require-dev": {
-            "psr/log": "~1.0",
-            "symfony/config": "~2.0,>=2.0.5",
-            "symfony/dependency-injection": "~2.6",
-            "symfony/expression-language": "~2.6",
-            "symfony/phpunit-bridge": "~2.7",
-            "symfony/stopwatch": "~2.3"
-        },
-        "suggest": {
-            "symfony/dependency-injection": "",
-            "symfony/http-kernel": ""
-        },
-        "time": "2015-03-13 17:37:22",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.6-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Symfony\\Component\\EventDispatcher\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Symfony Community",
-                "homepage": "http://symfony.com/contributors"
-            },
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            }
-        ],
-        "description": "Symfony EventDispatcher Component",
-        "homepage": "http://symfony.com"
-    },
-    {
         "name": "symfony/http-kernel",
         "version": "v2.5.11",
         "version_normalized": "2.5.11.0",
@@ -1423,58 +1362,6 @@
         "notification-url": "https://packagist.org/downloads/"
     },
     {
-        "name": "symfony/filesystem",
-        "version": "v2.6.6",
-        "version_normalized": "2.6.6.0",
-        "target-dir": "Symfony/Component/Filesystem",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/Filesystem.git",
-            "reference": "4983964b3693e4f13449cb3800c64a9112c301b4"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Filesystem/zipball/4983964b3693e4f13449cb3800c64a9112c301b4",
-            "reference": "4983964b3693e4f13449cb3800c64a9112c301b4",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "require-dev": {
-            "symfony/phpunit-bridge": "~2.7"
-        },
-        "time": "2015-03-22 16:55:57",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.6-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Symfony\\Component\\Filesystem\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Symfony Community",
-                "homepage": "http://symfony.com/contributors"
-            },
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            }
-        ],
-        "description": "Symfony Filesystem Component",
-        "homepage": "http://symfony.com"
-    },
-    {
         "name": "classpreloader/classpreloader",
         "version": "1.0.2",
         "version_normalized": "1.0.2.0",
@@ -1639,59 +1526,6 @@
             "framework",
             "laravel"
         ]
-    },
-    {
-        "name": "symfony/class-loader",
-        "version": "v2.6.6",
-        "version_normalized": "2.6.6.0",
-        "target-dir": "Symfony/Component/ClassLoader",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/ClassLoader.git",
-            "reference": "861765b3e5f32979de5bd19ad2577cbb830a29d5"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/861765b3e5f32979de5bd19ad2577cbb830a29d5",
-            "reference": "861765b3e5f32979de5bd19ad2577cbb830a29d5",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "require-dev": {
-            "symfony/finder": "~2.0,>=2.0.5",
-            "symfony/phpunit-bridge": "~2.7"
-        },
-        "time": "2015-03-27 10:19:51",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.6-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Symfony\\Component\\ClassLoader\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Symfony Community",
-                "homepage": "http://symfony.com/contributors"
-            },
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            }
-        ],
-        "description": "Symfony ClassLoader Component",
-        "homepage": "http://symfony.com"
     },
     {
         "name": "phpdocumentor/reflection-docblock",
@@ -2028,18 +1862,312 @@
         ]
     },
     {
+        "name": "symfony/class-loader",
+        "version": "v2.6.7",
+        "version_normalized": "2.6.7.0",
+        "target-dir": "Symfony/Component/ClassLoader",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/ClassLoader.git",
+            "reference": "695134c9b39559297fa5d1dcff6a9054bb56facb"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/695134c9b39559297fa5d1dcff6a9054bb56facb",
+            "reference": "695134c9b39559297fa5d1dcff6a9054bb56facb",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "symfony/finder": "~2.0,>=2.0.5",
+            "symfony/phpunit-bridge": "~2.7"
+        },
+        "time": "2015-05-02 15:18:45",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.6-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\ClassLoader\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony ClassLoader Component",
+        "homepage": "https://symfony.com"
+    },
+    {
+        "name": "symfony/event-dispatcher",
+        "version": "v2.6.7",
+        "version_normalized": "2.6.7.0",
+        "target-dir": "Symfony/Component/EventDispatcher",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/EventDispatcher.git",
+            "reference": "672593bc4b0043a0acf91903bb75a1c82d8f2e02"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/672593bc4b0043a0acf91903bb75a1c82d8f2e02",
+            "reference": "672593bc4b0043a0acf91903bb75a1c82d8f2e02",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "psr/log": "~1.0",
+            "symfony/config": "~2.0,>=2.0.5",
+            "symfony/dependency-injection": "~2.6",
+            "symfony/expression-language": "~2.6",
+            "symfony/phpunit-bridge": "~2.7",
+            "symfony/stopwatch": "~2.3"
+        },
+        "suggest": {
+            "symfony/dependency-injection": "",
+            "symfony/http-kernel": ""
+        },
+        "time": "2015-05-02 15:18:45",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.6-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\EventDispatcher\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony EventDispatcher Component",
+        "homepage": "https://symfony.com"
+    },
+    {
+        "name": "symfony/filesystem",
+        "version": "v2.6.7",
+        "version_normalized": "2.6.7.0",
+        "target-dir": "Symfony/Component/Filesystem",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/Filesystem.git",
+            "reference": "f73904bd2dae525c42ea1f0340c7c98480ecacde"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/Filesystem/zipball/f73904bd2dae525c42ea1f0340c7c98480ecacde",
+            "reference": "f73904bd2dae525c42ea1f0340c7c98480ecacde",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "symfony/phpunit-bridge": "~2.7"
+        },
+        "time": "2015-05-08 00:09:07",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.6-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\Filesystem\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Filesystem Component",
+        "homepage": "https://symfony.com"
+    },
+    {
+        "name": "laravelbook/ardent",
+        "version": "v2.4.2",
+        "version_normalized": "2.4.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/laravelbook/ardent.git",
+            "reference": "0a0238b8040abc1c71401ce27a8edf2619fa5bed"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/laravelbook/ardent/zipball/0a0238b8040abc1c71401ce27a8edf2619fa5bed",
+            "reference": "0a0238b8040abc1c71401ce27a8edf2619fa5bed",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/database": "~4.1",
+            "illuminate/support": "~4.1",
+            "illuminate/validation": "~4.1",
+            "php": ">=5.3.0"
+        },
+        "time": "2014-02-25 20:39:04",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "LaravelBook\\Ardent": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Max Ehsan",
+                "email": "contact@laravelbook.com",
+                "homepage": "http://laravelbook.com/",
+                "role": "Maintainer"
+            },
+            {
+                "name": "Igor Santos",
+                "email": "igorsantos07+dev@gmail.com",
+                "homepage": "http://www.igorsantos.com.br",
+                "role": "Developer"
+            }
+        ],
+        "description": "Self-validating smart models for Laravel 4's Eloquent O/RM",
+        "homepage": "http://laravelbook.com/",
+        "keywords": [
+            "Active Record",
+            "activerecord",
+            "database",
+            "eloquent",
+            "framework",
+            "laravel",
+            "orm",
+            "sql",
+            "validation"
+        ]
+    },
+    {
+        "name": "zizaco/entrust",
+        "version": "1.2.5",
+        "version_normalized": "1.2.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Zizaco/entrust.git",
+            "reference": "e3145e2435bbc095f8af85218b78d5fc5d5faf0f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Zizaco/entrust/zipball/e3145e2435bbc095f8af85218b78d5fc5d5faf0f",
+            "reference": "e3145e2435bbc095f8af85218b78d5fc5d5faf0f",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/support": "~4.0|~5.0",
+            "laravelbook/ardent": "~2.4",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "illuminate/database": "~4.0",
+            "mockery/mockery": "~0.9",
+            "phpunit/phpunit": "~4.0",
+            "symfony/process": "~2.3"
+        },
+        "suggest": {
+            "zizaco/confide": "Confide is an authentication solution for Laravel 4 that couples very well with Entrust"
+        },
+        "time": "2014-09-24 02:20:26",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/commands"
+            ],
+            "psr-4": {
+                "Zizaco\\Entrust\\": "src/Entrust/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Andrew Elkins",
+                "homepage": "http://www.andrewelkins.com"
+            },
+            {
+                "name": "Zizaco Zizuini",
+                "email": "zizaco@gmail.com"
+            }
+        ],
+        "description": "This package provides a flexible way to add Role-based Permissions to Laravel 4",
+        "keywords": [
+            "auth",
+            "illuminate",
+            "laravel",
+            "roles"
+        ]
+    },
+    {
         "name": "intervention/image",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/Intervention/image.git",
-            "reference": "6626d7624ac0895137a38c123943afedd0827efc"
+            "reference": "79f0a35da7d4f75bb85d9c04513dd5929e21f75e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Intervention/image/zipball/6626d7624ac0895137a38c123943afedd0827efc",
-            "reference": "6626d7624ac0895137a38c123943afedd0827efc",
+            "url": "https://api.github.com/repos/Intervention/image/zipball/79f0a35da7d4f75bb85d9c04513dd5929e21f75e",
+            "reference": "79f0a35da7d4f75bb85d9c04513dd5929e21f75e",
             "shasum": ""
         },
         "require": {
@@ -2055,7 +2183,7 @@
             "ext-imagick": "to use Imagick based image processing.",
             "intervention/imagecache": "Caching extension for the Intervention Image library"
         },
-        "time": "2015-04-24 14:50:48",
+        "time": "2015-05-09 16:06:30",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
