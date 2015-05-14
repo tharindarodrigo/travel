@@ -1,5 +1,6 @@
 <?php
 
+use Zizaco\Entrust\HasRole;
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
@@ -9,7 +10,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $fillable = array('email','first_name', 'last_name', 'password', 'password_temp', 'code', 'role_id' );
 
-	use UserTrait, RemindableTrait;
+	use UserTrait, RemindableTrait, HasRole;
 
 	/**
 	 * The database table used by the model.
