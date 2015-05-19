@@ -90,6 +90,7 @@ class AccountController extends \BaseController
     {
 
 
+
         // Your code here to handle a successful verification
 
         $validator = Validator::make(Input::all(),
@@ -126,15 +127,17 @@ class AccountController extends \BaseController
 
             $code = str_random(60);
 
+
             $user = User::create(array(
                 'first_name' => $first_name,
                 'last_name' => $last_name,
                 'email' => $email,
                 'password' => Hash::make($password),
                 'code' => $code,
-                'role_id' => 1,
                 'active' => 0
             ));
+
+
 
             if ($user) {
 
@@ -161,6 +164,8 @@ class AccountController extends \BaseController
 
             return Response::json($array);
         }
+
+
 
     }
 

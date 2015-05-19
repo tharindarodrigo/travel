@@ -283,14 +283,15 @@ Route::group(array('prefix' => 'control-panel'), function () {
     /**
      * -------------------------------------------------------------------------------------------------------------
      *  control-panel/hotel
-     *-------------------------------------------------------------------------------------------------------------*/
+     *--------------------------------------------------------------------------------------------------------------
+     */
 
     Route::group(array('prefix' => 'hotel'), function () {
 
         /**
          *  Hotel Profile
          */
-        Route::resource('hotel_profile', 'HotelProfilesController');
+        Route::resource('hotel-profile', 'HotelProfilesController');
 
         /**
          *  Hotel List

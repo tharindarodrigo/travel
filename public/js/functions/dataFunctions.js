@@ -11,6 +11,7 @@ function postData(url, method, prefix, formData , successpage, defaultPage){
         dataType: 'json',
         data: formData,
         success: function(data){
+            alert(data);
             if(!data.validation){
                 $.each(data.errors, function(index, error){
                     var id = '#'+prefix+index;
@@ -33,7 +34,7 @@ function postData(url, method, prefix, formData , successpage, defaultPage){
         },
 
         error: function(){
-            window.location.href = defaultPage;
+            alert('huta');
         }
 
     });

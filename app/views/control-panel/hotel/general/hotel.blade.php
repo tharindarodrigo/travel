@@ -77,7 +77,7 @@
                             <div class="form-group">
                             {{ Form::label('Hotel Categories') }}
 
-                            @foreach(HotelCategory::get(array('hotel_category', 'id')) as $HotelCategory)
+                            @foreach($hotelcategories as $HotelCategory)
                                 <div class="checkbox">
 
                                 <label for="">
@@ -94,7 +94,7 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-md-offset-4 col-md-4 ">
+                    <div class="col-md-offset-4 col-md-4">
                         {{ Form::submit('Create Hotel', array('class' => 'btn btn-primary btn-block'))}}
                     </div>
                 </div>

@@ -24,19 +24,24 @@ class Hotel extends \Eloquent
 //        return $this->belongsToMany('HotelCategory');
 //    }
 //
-//    public function city()
-//    {
-//        return $this->belongsTo('City');
-//    }
 
-    public function stars()
+
+    public function starCategory()
     {
         return $this->belongsTo('StarCategory');
     }
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo('users_id');
+        return $this->belongsTo('User');
+    }
+
+    public function city(){
+        return $this->belongsTo('City');
+    }
+
+    public function hotelCategory(){
+        return $this->belongsToMany('hotelCategory');
     }
 
 

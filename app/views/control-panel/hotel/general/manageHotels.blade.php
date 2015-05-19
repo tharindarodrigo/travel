@@ -67,12 +67,12 @@
                 <!-- /.tab-pane -->
 
                 <div class="tab-pane" id="tab_5">
-                    @include('dashboard.hotel.manageHotel.policies')
+                    {{--@include('dashboard.hotel.manageHotel.policies')--}}
 
                 </div>
                 <!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_6">
-                    @include('dashboard.hotel.manageHotel.termsAndConditions')
+                    {{--@include('dashboard.hotel.manageHotel.termsAndConditions')--}}
                 </div>
                 <!-- /.tab-pane -->
             </div>

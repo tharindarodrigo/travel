@@ -9,6 +9,6 @@ class HotelFacility extends \Eloquent {
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = ['hotel','val'];
+	protected $fillable = ['hotel_facility','val'];
 
 }

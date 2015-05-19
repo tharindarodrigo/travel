@@ -31,7 +31,7 @@
 @section('content')
 
     <section>
-        <div class="col-md-4">
+        <div class="col-md-12">
             <div class="box box-primary ">
                 <div class="box-header">
                     <h3 class="box-title">
@@ -46,12 +46,20 @@
 
                 <div class="box-body">
 
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        {{--<input id="hotel_category" name="hotel_category" class="form-control" type="text"/>--}}
+                        {{ Form::select('country_id',Country::lists('country','id'), null, array('class' => 'form-control'))}}
+                    </div>
                     <div class="form-group">
                         <label for="city">City</label>
                         {{--<input id="hotel_category" name="hotel_category" class="form-control" type="text"/>--}}
                         {{ Form::text('city', Session::get('edit')=='edit' ? $City->city : '', array('class' => 'form-control')) }}
                     </div>
                     {{ $errors->first('city', '<div class="form-group text-red">:message</div>') }}
+                    </div>
+                    <div class="col-md-6">
                     <div class="form-group">
                         <label for="longitude">Longitude</label>
                         {{--<input id="hotel_category" name="hotel_category" class="form-control" type="text"/>--}}
@@ -63,7 +71,10 @@
                         {{--<input id="hotel_category" name="hotel_category" class="form-control" type="text"/>--}}
                         {{ Form::text('latitude', Session::get('edit')=='edit' ? $City->latitude : '', array('class' => 'form-control')) }}
                     </div>
+                    </div>
                     {{ $errors->first('latitude', '<div class="form-group text-red">:message</div>') }}
+                    <div class="row">
+                    <div class="col-md-12">
                     @if(!Session::has('edit'))
                         <div class="form-group">
                             {{--<button type="submit" class="btn btn-primary">control-panel.hotel.general.hotelCategories</button>--}}
@@ -75,6 +86,8 @@
                             <a href="{{ URL::route('control-panel.general.cities.index') }}" class="btn btn-group btn-info">Cancel</a>
                         </div>
                     @endif
+                    </div>
+                    </div>
                 </div>
 
                 {{ Form::close() }}
@@ -83,7 +96,7 @@
             </div>
         </div>
 
-        <div class="col-md-8 ">
+        <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header">
                     <h3 class="box-title"><b>Search / Update / Delete</b> Cities</h3>
@@ -112,6 +125,7 @@
                         <tr>
                             <th>ID</th>
                             <th>City</th>
+                            <th>Country</th>
                             <th>Longitude</th>
                             <th>Latitude</th>
                             <th style="width:60px;">Status</th>
@@ -124,18 +138,19 @@
                             <tr>
                                 <td>{{ $city->id }}</td>
                                 <td>{{ $city->city }}</td>
+                                <td>{{ $city->country->country }}</td>
                                 <td>{{ $city->longitude }}</td>
                                 <td>{{ $city->latitude }}</td>
                                 <td style="text-align: center;">{{ $city->val == 0 ? 'Inactive' : 'Active' }}</td>
                                 <td>
                                     <div class="">
-                                        {{ Form::open(array('route'=> array('control-panel.general.cities.edit',$city->id), 'method' =>'get' )) }}
-                                        <button type="submit" class="btn btn-xs btn-flat btn-primary col-md-3"><i
+                                        {{ Form::open(array('route'=> array('control-panel.general.cities.edit',$city->id), 'method' =>'get')) }}
+                                        <button type="submit" class="btn btn-xs btn-flat btn-primary col-md-3" style="float: left"><i
                                                     class="glyphicon glyphicon-edit"></i></button>
                                         {{ Form::close() }}
 
-                                        {{ Form::open(array('route'=> array('control-panel.general.cities.destroy',$city->id), 'method' =>'delete')) }}
-                                        <a type="" class="btn btn-xs btn-flat btn-danger delete-button col-md-3"><i class="glyphicon glyphicon-trash"></i></a>
+                                        {{ Form::open(array('route'=> array('control-panel.general.cities.destroy',$city->id), 'method' =>'delete', 'style'=>'float-left')) }}
+                                        <button class="btn btn-xs btn-flat btn-danger delete-button col-md-3" stlye="float: left"><i class="glyphicon glyphicon-trash"></i></button>
                                         {{ Form::close() }}
 
                                         @if($city->val == 0)
@@ -143,7 +158,7 @@
                                                 {{ Form::open(array('route'=> array('control-panel.general.cities.update',$city->id), 'method' =>'patch')) }}
                                                 <button class="btn btn-xs btn-flat btn-success activate-item col-md-3"
                                                    type="submit" name="val" value="1"><i class="glyphicon glyphicon-ok-circle"></i></button>
-                                                <button class="btn btn-xs btn-flat btn-default disabled deactivate-item col-md-3"
+                                                <button class="btn btn-xs btn-flat btn-default float-left disabled deactivate-item col-md-3"
                                                    type="button"><i class="glyphicon glyphicon-remove-circle"></i></button>
                                                 {{ Form::close() }}
                                             </div>

@@ -1,4 +1,4 @@
-{{Form::open()}}
+{{Form::model($hotelprofile ,array('route'=>'control-panel.hotel.hotel-profile.store',$hotelprofile->id))}}
 <h4>Child Policy</h4>
 
 <table class="table">
@@ -11,14 +11,14 @@
     </thead>
     <tbody>
         <tr>
-        <th>Infant</th>
-            <td><input class="form-control" type="text"/></td>
-            <td><input class="form-control" type="text"/></td>
+            <th>Infant</th>
+            <td>{{Form::text('infant_age',null, array('class'=>'form-control'))}}</td>
+            <td>{{Form::text('infant_charge',null, array('class'=>'form-control'))}}</td>
         </tr>
         <tr>
             <th>Child</th>
-            <td><input class="form-control" type="text"/></td>
-            <td><input class="form-control" type="text"/></td>
+            <td>{{Form::text('child_age',null, array('class'=>'form-control'))}}</td>
+            <td>{{Form::text('child_charge',null, array('class'=>'form-control'))}}</td>
         </tr>
 
     </tbody>
@@ -52,10 +52,6 @@
         </tbody>
     </table>
     <div class="form-group">
-        <button type="button" class="btn btn-primary">Add Terms & Conditions</button>
-    </div>
-    <div class="form-group">
-        <button type="button" class="btn btn-primary">Update Terms & Conditions</button>
-        <button type="button" class="btn btn-group btn-info">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add Terms & Conditions</button>
     </div>
 {{Form::close()}}

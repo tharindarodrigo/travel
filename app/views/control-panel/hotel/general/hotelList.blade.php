@@ -42,6 +42,7 @@
                             <th>Star Category</th>
                             <th>Hotel Category</th>
                             <th>City</th>
+                            <th>Created By</th>
                             <th style="width:60px;">Status</th>
                             <th>Manage</th>
 
@@ -52,21 +53,25 @@
                     <tr>
                         <td>{{ $hotel->id }}</td>
                         <td>{{ $hotel->name }}</td>
-                        <td>{{ $hotel->stars}}</td>
+                        <td>{{ $hotel->starCategory->stars }}</td>
                         <td>
-                        {{--@foreach($hotel->category as $cat)--}}
-                            {{--{{ $cat->hotel_category.' | ' }}--}}
-                        {{--@endforeach--}}
+
+                        @foreach($hotel->HotelCategory as $cat)
+                            {{ $cat->hotel_category.' | ' }}
+                        @endforeach
                         </td>
                         <td>
-                            {{--{{ $hotel->city->city  }}--}}
+                            {{ $hotel->city->city }}
+                        </td>
+                        <td>
+                            {{ $hotel->users->first_name.' '.$hotel->users->last_name }}
                         </td>
                         <td>{{ $hotel->val== 0 ? 'Inactive' : 'Active' }}</td>
                         <td>
                             <div class="btn-group btn-group-xs">
-                            {{ Form::open(array('route'=>'')) }}
-                                <button class="btn btn-github" type="submit"> Manage </button>
-                            {{ Form::close() }}
+
+                                {{link_to_route('control-panel.hotel.hotel-profile.edit','Manage',array($hotel->id))}}
+
                                 <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-edit edit-item"></span></button>
                                 <button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-trash delete-item"></span></button>
                                 @if($hotel->val == 0)

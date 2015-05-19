@@ -10,7 +10,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $fillable = array('email','first_name', 'last_name', 'password', 'password_temp', 'code', 'role_id' );
 
-	use UserTrait, RemindableTrait, HasRole;
+	use UserTrait, RemindableTrait;
 
 	/**
 	 * The database table used by the model.
@@ -39,7 +39,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			if($key == 'agent'){
 				$x = 2;
 			}
-
 
 			if($user->user_categories_id == $x){
 				return true;

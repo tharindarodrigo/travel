@@ -1,24 +1,25 @@
-{{Form::open()}}
+{{ Form::model($hotelprofile, array('route' => array('control-panel.hotel.hotels.store', $hotelprofile->id), 'method'=> 'put')) }}
+
 
         <div class="form-group ">
-        @for ($i = 1; $i < 10; $i++)
-            <label class="col-md-3">
-                  <input type="checkbox" class="minimal"><ins class="iCheck-helper"></ins>
-                  {{ 'Facility'.$i }}
+
+        @foreach(HotelFacility::get(array('hotel_facility', 'id')) as $HotelFacility)
+            <div class="col-md-2">
+            <label for="">
+                {{ Form::checkbox('hotel_facility_id[]', $HotelFacility->id, in_array($HotelFacility->id,$checkedhotelfacilities)) }}
+                {{ $HotelFacility->hotel_facility }}
             </label>
-        @endfor
+            </div>
+        @endforeach
             <div class="col-lg-12">
                 <div class="form-group">
                     &nbsp;
                 </div>
             </div>
         <div class="form-group">
-            <button type="button" class="btn btn-primary">Add Hotel Facilities</button>
-        </div>
 
-        <div class="form-group">
-            <button type="button" class="btn btn-primary">Update Hotel Facilities</button>
-            <button type="button" class="btn btn-group btn-info">Cancel</button>
+            <button type="submit" class="btn btn-primary">Update Hotel Facilities</button>
+
         </div>
         </div>
 

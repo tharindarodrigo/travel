@@ -44,6 +44,8 @@ class HotelsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
+//        dd($data);
+
         $data['users_id'] = Auth::user()->id;
 
 		$hotel = Hotel::create($data);
@@ -59,7 +61,7 @@ class HotelsController extends \BaseController {
             DB::table('hotel_hotel_category')->insert($hotel_hotel_category_data);
         }
 
-		return Redirect::route('hotels.index');
+		return Redirect::route('control-panel.hotel.hotels.index');
 	}
 
 	/**

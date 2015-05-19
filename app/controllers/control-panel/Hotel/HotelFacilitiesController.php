@@ -43,11 +43,13 @@ class HotelFacilitiesController extends \BaseController
 
 
         if ($hotelfacility = Hotelfacility::create($data)) {
-            Image::make(Input::file('icon'))
-                ->encode('png')
-                ->resize(32, 32, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save('public/control-panel-assets/images/hotel-facilities/'.$hotelfacility->id.'.png');
+            if(Input::file('icon')){
+                Image::make(Input::file('icon'))
+                    ->encode('png')
+                    ->resize(32, 32, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save('public/control-panel-assets/images/hotel-facilities/'.$hotelfacility->id.'.png');
+            }
 
             Session::flash('successful-action', 'Hotel Facility was created Successfully');
         } else {

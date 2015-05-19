@@ -19,7 +19,7 @@ class CreateHotelsTable extends Migration {
             $table->string('address');
             $table->integer('city_id')->unsigned();
             $table->integer('users_id')->unsigned();
-            $table->integer('star_id')->unsigned();
+            $table->integer('star_category_id')->unsigned();
             $table->boolean('val');
 
             $table->double('longitude');
@@ -31,18 +31,20 @@ class CreateHotelsTable extends Migration {
             $table->text('overview');
 
             $table->string('rooms');
-            $table->string('terms_and_conditions');
-            $table->string('infant_age');
-            $table->string('infant_charge');
+            $table->string('terms_and_conditions')->nullable();
+            $table->string('infant_age')->nullable();
+            $table->string('infant_charge')->nullable();
 
-            $table->string('child_age');
-            $table->string('child_charge');
+            $table->string('child_age')->nullable();
+            $table->string('child_charge')->nullable();
+            $table->time('check_in_time')->nullable();
+            $table->time('check_out_time')->nullable();
 
             $table->timestamps();
 
             $table->foreign('city_id')->references('id')->on('cities');
             $table->foreign('users_id')->references('id')->on('users');
-            $table->foreign('star_id')->references('id')->on('star_categories');
+            $table->foreign('star_category_id')->references('id')->on('star_categories');
 
         });
 	}

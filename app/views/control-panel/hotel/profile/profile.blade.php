@@ -42,27 +42,30 @@
         <li class=""><a aria-expanded="false" href="#tab_3" data-toggle="tab">Facilities</a></li>
         <li class=""><a aria-expanded="false" href="#tab_4" data-toggle="tab">Policies</a></li>
         <li class=""><a aria-expanded="false" href="#tab_5" data-toggle="tab">Terms & Conditions</a></li>
+        <li class=""><a aria-expanded="false" href="#tab_6" data-toggle="tab">Hotel Images</a></li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane active" id="tab_1">
+        <div class="tab-pane {{{ !Session::has('manage') ? 'active':'' }}}" id="tab_1">
             {{--Hotel Details Page--}}
-            @include('control-panel.hotel.profile.hotelDetails')
+            @include('control-panel.hotel.profile.hotelOverview')
         </div><!-- /.tab-pane -->
-        <div class="tab-pane" id="tab_2">
+        <div class="tab-pane {{{ Session::get('manage')=='location'? 'active':'' }}}" id="tab_2">
             {{--Location Details--}}
             @include('control-panel.hotel.profile.location')
         </div><!-- /.tab-pane -->
-        <div class="tab-pane" id="tab_3">
+        <div class="tab-pane {{{ Session::get('manage')=='facilities'? 'active':'' }}}" id="tab_3">
             {{--Hotel facility list--}}
             @include('control-panel.hotel.profile.facilities')
         </div><!-- /.tab-pane -->
-        <div class="tab-pane" id="tab_4">
+        <div class="tab-pane {{{ Session::get('manage')=='policies'? 'active':'' }}}" id="tab_4">
                     {{--Hotel Policies--}}
             @include('control-panel.hotel.profile.policies')
         </div><!-- /.tab-pane -->
-        <div class="tab-pane" id="tab_5">
-
+        <div class="tab-pane {{{ Session::get('manage')=='termsAndConditions'? 'active':'' }}}" id="tab_5">
             @include('control-panel.hotel.profile.termsAndConditions')
+        </div><!-- /.tab-pane -->
+        <div class="tab-pane {{{ Session::get('manage')=='images'? 'active':'' }}}" id="tab_6">
+            {{--@include('control-panel.hotel.profile.termsAndConditions')--}}
         </div><!-- /.tab-pane -->
     </div><!-- /.tab-content -->
 </div>

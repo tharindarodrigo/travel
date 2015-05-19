@@ -2,18 +2,18 @@
 
 class StarCategory extends \Eloquent {
 
-	// Add your validation rules here
-	public static $rules = [
-		'stars' => 'required',
-		'star_name' => 'required'
-	];
+    // Add your validation rules here
+    public static $rules = [
+        'stars' => 'required',
+        'star_name' => 'required'
+    ];
 
-	// Don't forget to fill this array
-	protected $fillable = ['stars','star_name', 'val'];
+    // Don't forget to fill this array
+    protected $fillable = ['stars','star_name', 'val'];
 
     public function hotel()
     {
-        return $this->hasMany('Hotel');
+        return $this->has('Hotel');
     }
 
 }

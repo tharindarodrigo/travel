@@ -51,7 +51,7 @@ class HotelProfilesController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$hotelprofile = Hotelprofile::findOrFail($id);
+		$hotelprofile = Hotel::findOrFail($id);
 
 		return View::make('hotelprofiles.show', compact('hotelprofile'));
 	}
@@ -64,9 +64,32 @@ class HotelProfilesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$hotelprofile = Hotelprofile::find($id);
+		$hotelprofile = Hotel::find($id);
 
-		return View::make('hotelprofiles.edit', compact('hotelprofile'));
+        $hotelcategorieslist = HotelCategory::all();
+        $hotelcategories = DB::table('hotel_hotel_category')->where('hotel_id',$id)->get(array('hotel_category_id'));
+        $checkedhotelcategories = array();
+        foreach($hotelcategories as $hotelcategory){
+            $checkedhotelcategories[] =$hotelcategory->hotel_category_id;
+        }
+
+        $hotelfacilitieslist = HotelFacility::all();
+        $hotelfacilities = DB::table('hotel_hotel_facility')->where('hotel_id',$id)->get(array('hotel_facility_id'));
+        $checkedhotelfacilities = array();
+        foreach($hotelfacilities as $hotelfacility){
+            $checkedhotelfacilities[] = $hotelfacility->hotel_facility_id;
+        }
+//        dd(print_r($array));
+        return View::make('control-panel.hotel.profile.profile')
+            ->with(
+                array(
+                    'hotelprofile' => $hotelprofile,
+                    'hotelcategorieslist'=>$hotelcategorieslist,
+                    'checkedhotelcategories' => $checkedhotelcategories,
+                    '$checkedhotelfacilities' => $hotelfacilitieslist,
+                    'checkedhotelfacilities' => $checkedhotelfacilities
+                )
+            );
 	}
 
 	/**
