@@ -9,7 +9,8 @@ class Hotel extends \Eloquent
         'city_id' => 'required',
         'address' => 'required',
         'star_category_id' => 'required',
-//         'hotel_categories' => 'required'
+        'longitude' => 'numeric',
+        'latitude' => 'numeric'
     ];
 
     public static $updaterules = [
@@ -17,14 +18,14 @@ class Hotel extends \Eloquent
     ];
 
     // Don't forget to fill this array
-    protected $fillable = ['name', 'city_id', 'address', 'star_category_id', 'users_id'];
+    protected $fillable = ['name', 'city_id', 'address', 'star_category_id', 'users_id','longitude','latitude',
+        'search_keywords', 'search_description', 'overview', 'terms_and_conditions', 'infant_age', 'infant_charge',
+        'child_age', 'child_charge', 'check_in_time', 'check_out_time', 'val'];
 
-//    public function category()
-//    {
-//        return $this->belongsToMany('HotelCategory');
-//    }
-//
 
+    /**
+     * Relationships
+     */
 
     public function starCategory()
     {

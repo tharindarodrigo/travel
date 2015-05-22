@@ -79,15 +79,19 @@ class HotelProfilesController extends \BaseController {
         foreach($hotelfacilities as $hotelfacility){
             $checkedhotelfacilities[] = $hotelfacility->hotel_facility_id;
         }
-//        dd(print_r($array));
+
+        $hotelpolicies = CancellationPolicy::where('hotel_id', $id)->get();
+
+
         return View::make('control-panel.hotel.profile.profile')
             ->with(
                 array(
                     'hotelprofile' => $hotelprofile,
                     'hotelcategorieslist'=>$hotelcategorieslist,
                     'checkedhotelcategories' => $checkedhotelcategories,
-                    '$checkedhotelfacilities' => $hotelfacilitieslist,
-                    'checkedhotelfacilities' => $checkedhotelfacilities
+                    'hotelfacilitieslist' => $hotelfacilitieslist,
+                    'checkedhotelfacilities' => $checkedhotelfacilities,
+                    'hotelpolicies' => $hotelpolicies
                 )
             );
 	}
@@ -99,19 +103,80 @@ class HotelProfilesController extends \BaseController {
 	 * @return Response
 	 */
 	public function update($id)
-	{
-		$hotelprofile = Hotelprofile::findOrFail($id);
+    {
 
-		$validator = Validator::make($data = Input::all(), Hotelprofile::$rules);
+//        dd(Input::get('hotel_facility_id'));
+        if ($hotelfacilties = Input::get('hotel_facility_id')){
+
+            Session::put('manage', 'facilities');
+
+            DB::table('hotel_hotel_facility')->where('hotel_id', $id)->delete();
+            foreach ($hotelfacilties as $hotelfacility) {
+                DB::table('hotel_hotel_facility')->insert(
+                    array(
+                        'hotel_facility_id' => $hotelfacility,
+                        'hotel_id' => $id
+                    )
+                );
+            }
+
+            return Redirect::back()->with(
+                array(
+                    'successmessage' => 'successfully updated'
+                )
+            );
+
+        }
+
+
+        if (Input::has('update_location')) {
+            Session::put('manage', 'location');
+        }
+
+//        dd(0);
+
+		$hotelprofile = Hotel::findOrFail($id);
+
+		$validator = Validator::make($data = Input::all(), Hotel::$updaterules);
 
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		$hotelprofile->update($data);
 
-		return Redirect::route('hotelprofiles.index');
+		if($hotelprofile->update($data)){
+
+            if(Input::has('update_hotel')){
+                Session::forget('manage');
+                $hotelcategories = Input::get('category_id');
+                DB::table('hotel_hotel_category')->where('hotel_id',$id)->delete();
+
+                if(!empty($hotelcategories)){
+                    foreach($hotelcategories as $hotelcategory){
+                        DB::table('hotel_hotel_category')->insert(
+                            array(
+                                'hotel_id' => $id,
+                                'hotel_category_id' => $hotelcategory
+                            )
+                        );
+                    }
+                }
+            }
+
+            if(Input::has('update_policies')){
+                Session::put('manage', 'policies');
+            }
+        }
+
+
+
+
+		return Redirect::back()->with(
+            array(
+                'successmessage' => 'successfully updated'
+            )
+        );
 	}
 
 	/**

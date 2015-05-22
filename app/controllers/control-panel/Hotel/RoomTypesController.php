@@ -7,11 +7,14 @@ class RoomTypesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($hotelid)
 	{
-		$roomtypes = Roomtype::all();
+		$roomtypes = Roomtype::where('hotel_id',$hotelid)->get();
 
-		return View::make('roomtypes.index', compact('roomtypes'));
+		return View::make('control-panel.hotel.rooms.room')->with(array(
+            'hotelid' => $hotelid,
+            'roomtypes' => $roomtypes
+        ));
 	}
 
 	/**

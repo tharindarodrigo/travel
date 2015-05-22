@@ -294,6 +294,11 @@ Route::group(array('prefix' => 'control-panel'), function () {
         Route::resource('hotel-profile', 'HotelProfilesController');
 
         /**
+         *  Hotel Cancellation Policies
+         */
+        Route::resource('cancellation-policies', 'CancellationPoliciesController');
+
+        /**
          *  Hotel List
          */
         Route::resource('hotels', 'HotelsController');
@@ -307,6 +312,11 @@ Route::group(array('prefix' => 'control-panel'), function () {
          *  Room Facilities
          */
         Route::resource('room-facilities', 'RoomFacilitiesController');
+
+        /**
+         *  Room Types
+         */
+        Route::resource('hotels.room-types', 'RoomTypesController');
 
         /**
          *  hotel facilities

@@ -2,14 +2,9 @@
 <div class="col-md-12">
 <h4>Cancelation Policy</h4>
     <div class="col-md-4">
-        @if(!Session::has('edit'))
-            {{ Form::open(array('route' => array('control-panel.hotel.cancellation-policies.store'), 'files' => true)) }}
-            {{Form::hidden('hotel_id', $hotelprofile->id)}}
-        @else
-            {{ Form::model($cancellationpolicy, array('route' => array('control-panel.hotel.cancellation-policies.update',$cancellationpolicy->id), 'method' => 'put')) }}
-        @endif
+
         <div class="form-group">
-            {{Form::label('from', 'From')}}
+            {{Form::label('room_type', 'Room Type')}}
             {{Form::text('from', null, array('class'=>'form-control'))}}
         </div>
         <div class="form-group">

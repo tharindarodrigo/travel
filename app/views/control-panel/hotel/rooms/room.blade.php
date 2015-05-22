@@ -6,8 +6,8 @@
 @extends('control-panel.layout.main')
 
 @section('hotel-nav-bar')
-<li class="active">{{link_to_route('control-panel.hotel.hotel-profile.edit','Hotel Profile',array($hotelprofile->id))}}</li>
-<li class="">{{link_to_route('control-panel.hotel.hotels.room-types.index' ,'Rooms', array($hotelprofile->id))}}</li>
+<li class="">{{link_to_route('control-panel.hotel.hotel-profile.edit','Hotel Profile',array($hotelid))}}</li>
+<li class="active">{{link_to_route('control-panel.hotel.hotels.room-types.index' ,'Rooms', array($hotelid))}}</li>
 <li class=""><a href="#" >Rates</a></li>
 @endsection
 
@@ -53,22 +53,17 @@
     <div class="tab-content">
         <div class="tab-pane {{{ !Session::has('manage') ? 'active':'' }}}" id="tab_1">
             {{--Hotel Details Page--}}
-            @include('control-panel.hotel.profile.hotelOverview')
         </div><!-- /.tab-pane -->
         <div class="tab-pane {{{ Session::get('manage')=='location'? 'active':'' }}}" id="tab_2">
             {{--Location Details--}}
-            @include('control-panel.hotel.profile.location')
         </div><!-- /.tab-pane -->
         <div class="tab-pane {{{ Session::get('manage')=='facilities'? 'active':'' }}}" id="tab_3">
             {{--Hotel facility list--}}
-            @include('control-panel.hotel.profile.facilities')
         </div><!-- /.tab-pane -->
         <div class="tab-pane {{{ Session::get('manage')=='policies'? 'active':'' }}}" id="tab_4">
                     {{--Hotel Policies--}}
-            @include('control-panel.hotel.profile.policies')
         </div><!-- /.tab-pane -->
         <div class="tab-pane {{{ Session::get('manage')=='termsAndConditions'? 'active':'' }}}" id="tab_5">
-            @include('control-panel.hotel.profile.termsAndConditions')
         </div><!-- /.tab-pane -->
         <div class="tab-pane {{{ Session::get('manage')=='images'? 'active':'' }}}" id="tab_6">
             {{--@include('control-panel.hotel.profile.termsAndConditions')--}}
