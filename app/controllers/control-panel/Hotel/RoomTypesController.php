@@ -11,7 +11,7 @@ class RoomTypesController extends \BaseController {
 	{
 		$roomtypes = Roomtype::where('hotel_id',$hotelid)->get();
 
-		return View::make('control-panel.hotel.rooms.room')->with(array(
+		return View::make('control-panel.hotel.rooms.index')->with(array(
             'hotelid' => $hotelid,
             'roomtypes' => $roomtypes
         ));

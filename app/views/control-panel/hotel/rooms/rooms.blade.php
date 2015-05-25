@@ -1,92 +1,65 @@
-<div class="row">
-    <form class="form" action="">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="room_type">Room Type</label>
-                <input class="form-control" name="room_category" id="room_category" type="text"/>
-            </div>
+{{--
+    This page allows you to Update the Hotel Profile
+    The page
+--}}
 
-            <div class="form-group">
-                <label for="room_description">Room Description</label>
-                <textarea class="form-control" name="room_description" id="room_description" ></textarea>
-            </div>
-            <div class="form-group">
-                <label for="facilities"><h4>Room Facilities </h4></label>
-            </div>
-            <div class="form-group ">
-                <label class="col-md-3">
-                      <input type="checkbox" class="minimal"><ins class="iCheck-helper"></ins>
-                      Facility 1
-                </label><label class="col-md-3">
-                      <input type="checkbox" class="minimal"><ins class="iCheck-helper"></ins>
-                      Facility 1
-                </label><label class="col-md-3">
-                      <input type="checkbox" class="minimal"><ins class="iCheck-helper"></ins>
-                      Facility 1
-                </label><label class="col-md-3">
-                      <input type="checkbox" class="minimal"><ins class="iCheck-helper"></ins>
-                      Facility 1
-                </label><label class="col-md-3">
-                      <input type="checkbox" class="minimal"><ins class="iCheck-helper"></ins>
-                      Facility 1
-                </label><label class="col-md-3">
-                      <input type="checkbox" class="minimal"><ins class="iCheck-helper"></ins>
-                      Facility 1
-                </label><label class="col-md-3">
-                      <input type="checkbox" class="minimal"><ins class="iCheck-helper"></ins>
-                      Facility 1
-                </label><label class="col-md-3">
-                      <input type="checkbox" class="minimal"><ins class="iCheck-helper"></ins>
-                      Facility 1
-                </label><label class="col-md-3">
-                      <input type="checkbox" class="minimal"><ins class="iCheck-helper"></ins>
-                      Facility 1
-                </label><label class="col-md-3">
-                      <input type="checkbox" class="minimal"><ins class="iCheck-helper"></ins>
-                      Facility 1
-                </label>
-            </div>
-            
-            <div class="col-lg-12">
-                <div class="form-group">
-                    &nbsp;
-                </div>
-            </div>
+@extends('control-panel.layout.main')
 
-            <div class="form-group">
-                <button type="button" class="btn btn-primary">Create Room Type</button>
-            </div>
+@section('hotel-nav-bar')
+<li class="">{{link_to_route('control-panel.hotel.hotel-profile.edit','Hotel Profile',array($hotelid))}}</li>
+<li class="active">{{link_to_route('control-panel.hotel.hotels.room-types.index' ,'Rooms', array($hotelid))}}</li>
+<li class=""><a href="#" >Rates</a></li>
+@endsection
 
-            <div class="form-group">
-                <button type="button" class="btn btn-primary">Update Terms & Conditions</button>
-                <button type="button" class="btn btn-group btn-info">Cancel</button>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Room</th>
-                        <th style="width:160px;">Manage</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Deluxe</td>
-                        <td>
-                            <div class="btn-group btn-group-xs">
-                                <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-edit"></span></button>
-                                <button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-trash"></span></button>
-                                <button class="btn btn-success" type="button"><span class="glyphicon glyphicon-ok"></span></button>
-                                <button class="btn bg-yellow" type="button"><span class="glyphicon glyphicon-remove-circle"></span></button>
-                            </div>
-                        </td>
-                    </tr>
+{{--Title--}}
+@section('control-title')
+    {{'Rooms'}}
+@endsection
 
-                </tbody>
-            </table>
-        </div>
-    </form>
+{{--Sub Title--}}
+@section('control-sub-title')
+    {{'Profile'}}
+@endsection
+
+{{--Breadcrumbs--}}
+@section('bread-crumbs')
+    <li class="active">Hotel</li>
+    <li class="active">Profile</li>
+    <li class="active">Details</li>
+@endsection
+
+{{--Active Main Menu Item--}}
+@section('active-hotels')
+    {{ 'active' }}
+@endsection
+
+{{--Active Sub menu Item--}}
+@section('active-hotel-create-hotel')
+    {{ 'active' }}
+@endsection
+
+@section('content')
+<div class="col-md-12">
+    <div class="row">
+        @yield('room-content')
+    </div>
 </div>
+@endsection
+
+@section('scripts1')
+<script type="text/javascript">
+
+    $('#check_in_time').timepicker({
+        minuteStep: 5,
+        showInputs: false,
+        disableFocus: true
+    });
+
+    $('#check_out_time').timepicker({
+         minuteStep: 5,
+         showInputs: false,
+         disableFocus: true
+    });
+
+</script>
+@stop
