@@ -279,6 +279,15 @@ Route::group(array('prefix' => 'control-panel'), function () {
 
     });
 
+    Route::get('image-uploads',array(
+        'as' => 'post-image-upload',
+        'uses' => 'ImageController@getUploadForm'
+    ));
+    Route::post('image-upload',array(
+        'as' => 'get-image-upload',
+        'uses' => 'ImageController@uploadImages'
+    ));
+
 
     /**
      * -------------------------------------------------------------------------------------------------------------
@@ -288,6 +297,11 @@ Route::group(array('prefix' => 'control-panel'), function () {
 
     Route::group(array('prefix' => 'hotel'), function () {
 
+        /**
+         *
+         */
+
+        Route::resource('room_specifications', 'RoomSpecificationsController');
         /**
          *  Hotel Profile
          */

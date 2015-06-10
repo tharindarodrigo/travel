@@ -47,7 +47,63 @@
 @endsection
 
 @section('scripts1')
+{{HTML::script('control-panel-assets/ajax/imageUpload.js')}}
+@yield('scriptXX')
 <script type="text/javascript">
+//    $(document).ready(function(){
+//        $.get('http://localhost:8000/control-panel/hotel/room_specifications',null,function(data,status){
+//            if(status=="success"){
+//
+//                createTableAndList(data);
+//                $('#add_room_spec').click(function(e){
+//                    e.preventDefault();
+//                    $.post('http://localhost:8000/control-panel/hotel/room_specifications/create',null,function(data, status){
+//                        createTableAndList(data);
+//                    });
+//                });
+//
+//            }
+//
+//        }, 'json');
+//
+//
+//    });
+//
+//    function createTableAndList(data){
+//    var table = '';
+//                var list = '';
+//                var data1 = data[0];
+//                var data2 = data[1];
+//                    $.each(data1,function(i,item){
+//                        table+='<tr>'+
+//                        '<td>'+ ++i +'</td>'+
+//                        '<td>'+item.room_specification+'</td>'+
+//                        '<td>'+item.adults+'</td>'+
+//                        '<td>'+item.children+'</td>'+
+//                        '<td>'+'<a href="" class="btn btn-xs btn-danger"><b>x</b></button>'+'</td>'+
+//                        '</tr>';
+//                    });
+//                    $.each(data2,function(i,item){
+//                        list += '<option value='+item.id+'>'+item.room_specification+'</option>';
+//                    });
+//
+//                    $('tbody').html(table);
+//                    $('#room_spec').html(list);
+//    }
+//    $('#add_room_spec').click(function(){
+//        $.ajax({
+//            url: ,
+//            method: 'post',
+//            processData: false,
+//            contentType: false,
+//            cache: false,
+//            dataType: 'json',
+//            data: formData,
+//            success : function(data){
+//
+//            }
+//        });
+//    });
 
     $('#check_in_time').timepicker({
         minuteStep: 5,
@@ -61,5 +117,7 @@
          disableFocus: true
     });
 
+
 </script>
-@stop
+
+@endsection

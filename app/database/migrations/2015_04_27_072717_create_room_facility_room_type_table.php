@@ -20,6 +20,7 @@ class CreateRoomFacilityRoomTypeTable extends Migration {
 			$table->integer('room_type_id')->unsigned()->index();
 			$table->foreign('room_type_id')->references('id')->on('room_types')->onDelete('cascade');
 			$table->timestamps();
+
 		});
 	}
 

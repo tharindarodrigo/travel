@@ -145,7 +145,6 @@ class AccountController extends \BaseController
 
                 Mail::send('emails.auth.activate', array('link' => URL::route('account-activate', $code), 'first_name' => $first_name), function ($massage) use ($user) {
                     $massage->to($user->email, $user->first_name)->subject('Activate your account');
-
                 });
 
                 $array = array(
@@ -164,8 +163,6 @@ class AccountController extends \BaseController
 
             return Response::json($array);
         }
-
-
 
     }
 

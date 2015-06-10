@@ -53,6 +53,7 @@ class RoomFacilitiesController extends \BaseController
             }
 
             Session::flash('successful-action', 'Room Facility was created Successfully');
+
         } else {
             Session::flash('unsuccessful-action', 'Creating Room Facility was Unsuccessful');
         }

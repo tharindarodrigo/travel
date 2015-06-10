@@ -11,7 +11,10 @@ class RoomTypesController extends \BaseController {
 	{
 		$roomtypes = Roomtype::where('hotel_id',$hotelid)->get();
 
-		return View::make('control-panel.hotel.rooms.index')->with(array(
+//        dd($roomspecifications);
+
+
+        return View::make('control-panel.hotel.rooms.index')->with(array(
             'hotelid' => $hotelid,
             'roomtypes' => $roomtypes
         ));
@@ -22,9 +25,16 @@ class RoomTypesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create($id)
 	{
-		return View::make('roomtypes.create');
+
+//        Session::put('roomspec',array(1,3,5));
+//        $roomspecs = DB::table('room_specifications')->whereIn('id',Session::get('roomspec'))->get();
+        $roomspecifications = RoomSpecification::all();
+        $roomfacilities = RoomFacility::all();
+        $hotelid = $id;
+		return View::make('control-panel.hotel.rooms.create', compact('hotelid','roomfacilities','roomspecifications'));
+
 	}
 
 	/**
@@ -32,18 +42,68 @@ class RoomTypesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($hotel_id)
 	{
-		$validator = Validator::make($data = Input::all(), Roomtype::$rules);
+
+//        dd(Input::all());
+
+        $data = Input::all();
+        $data['hotel_id'] = $hotel_id;
+        $data['user_id'] = Auth::user()->id;
+        $data['val'] = 1;
+
+
+        $validator = Validator::make($data, Roomtype::$rules);
 
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		Roomtype::create($data);
+		if($roomType = Roomtype::create($data)){
 
-		return Redirect::route('roomtypes.index');
+//            dd('success');
+
+            if($roomFacilities = Input::get('room_facility_id')){
+                foreach($roomFacilities as $roomFacility){
+                    DB::table('room_facility_room_type')->insert(
+                        array(
+                            'room_facility_id'=> $roomFacility,
+                            'room_type_id' => $roomType->id
+                        )
+                    );
+                }
+            }
+
+            if($data['room_specification']){
+                foreach($data['room_specification'] as $roomSpecification){
+                    DB::table('room_specification_room_type')->insert(
+                        array(
+                            'room_specification_id'=> $roomSpecification,
+                            'room_type_id' => $roomType->id
+                        )
+                    );
+                }
+            }
+
+            $images = Input::file('images');
+//            dd(count($images));
+            if(count($images)>1){
+                $x=1;
+                foreach($images as $image){
+                    Image::make($image)
+                        ->encode('jpg')
+                        ->resize(1000, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                        })->save('public/control-panel-assets/images/rooms/'.$roomType->id.'_'.$x.'.jpg');
+                }
+            }
+
+
+        }
+
+
+		return Redirect::route('control-panel.hotel.hotels.room-types.create',$hotel_id);
 	}
 
 	/**
