@@ -23,7 +23,8 @@ class HotelsController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('control-panel.hotel.general.hotel');
+        $hotelcategories = HotelCategory::all();
+		return View::make('control-panel.hotel.general.hotel',compact('hotelcategories'));
 	}
 
 	/**

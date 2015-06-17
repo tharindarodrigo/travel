@@ -22,6 +22,7 @@ class CreateRatesTable extends Migration {
             $table->integer('val');
             $table->integer('hotel_id')->unsigned();
             $table->integer('room_type_id')->unsigned();
+            $table->integer('room_specification_id')->unsigned();
             $table->integer('market_id')->unsigned();
             $table->integer('meal_basis_id')->unsigned();
             $table->integer('user_id')->unsigned();
@@ -29,6 +30,7 @@ class CreateRatesTable extends Migration {
 
             $table->foreign('hotel_id')->references('id')->on('hotels');
             $table->foreign('room_type_id')->references('id')->on('room_types');
+            $table->foreign('room_specification_id')->references('id')->on('room_specifications');
             $table->foreign('market_id')->references('id')->on('markets');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('meal_basis_id')->references('id')->on('meal_bases');

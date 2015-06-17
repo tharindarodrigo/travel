@@ -1,107 +1,116 @@
 <?php
 
-class RatesController extends \BaseController {
+class RatesController extends \BaseController
+{
 
-	/**
-	 * Display a listing of rates
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$rates = Rate::all();
+    /**
+     * Display a listing of rates
+     *
+     * @return Response
+     */
+    public function index($hotelid)
+    {
+        $rates = Rate::all();
 
-		return View::make('rates.index', compact('rates'));
-	}
+        return View::make('control-panel.hotel.rates.index', compact('hotelid', 'rates'));
+    }
 
-	/**
-	 * Show the form for creating a new rate
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('rates.create');
-	}
+    /**
+     * Show the form for creating a new rate
+     *
+     * @return Response
+     */
+    public function create($hotelid)
+    {
 
-	/**
-	 * Store a newly created rate in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), Rate::$rules);
+//        return Response::json(['fuck']);
+        $rates = Rate::all();
+        return View::make('control-panel.hotel.rates.create', compact('hotelid', 'rates'));
+    }
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+    /**
+     * Store a newly created rate in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        $validator = Validator::make($data = Input::all(), Rate::$rules);
 
-		Rate::create($data);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-		return Redirect::route('rates.index');
-	}
+        Rate::create($data);
 
-	/**
-	 * Display the specified rate.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$rate = Rate::findOrFail($id);
+        return Redirect::route('rates.index');
+    }
 
-		return View::make('rates.show', compact('rate'));
-	}
+    /**
+     * Display the specified rate.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $rate = Rate::findOrFail($id);
 
-	/**
-	 * Show the form for editing the specified rate.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$rate = Rate::find($id);
+        return View::make('control-panel.hotel.rates.show', compact('rate'));
+    }
 
-		return View::make('rates.edit', compact('rate'));
-	}
+    /**
+     * Show the form for editing the specified rate.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $rate = Rate::find($id);
 
-	/**
-	 * Update the specified rate in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$rate = Rate::findOrFail($id);
+        return View::make('rates.edit', compact('rate'));
+    }
 
-		$validator = Validator::make($data = Input::all(), Rate::$rules);
+    /**
+     * Update the specified rate in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        $rate = Rate::findOrFail($id);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+        $validator = Validator::make($data = Input::all(), Rate::$rules);
 
-		$rate->update($data);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-		return Redirect::route('rates.index');
-	}
+        $rate->update($data);
 
-	/**
-	 * Remove the specified rate from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Rate::destroy($id);
+        return Redirect::route('rates.index');
+    }
 
-		return Redirect::route('rates.index');
-	}
+    /**
+     * Remove the specified rate from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        Rate::destroy($id);
+        return Redirect::route('rates.index');
+    }
+
+    public function getRateData()
+    {
+        $room_id = Input::get('room_type_id');
+        $roomspaces = RoomType::with('roomSpecification')->find($room_id);
+        return Response::json($roomspaces);
+    }
+
 
 }

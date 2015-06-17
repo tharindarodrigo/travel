@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCancelationPoliciesTable extends Migration {
+class CreateCancellationPoliciesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateCancelationPoliciesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('cancelation_policies', function(Blueprint $table)
+		Schema::create('cancellation_policies', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('hotel_id')->unsigned();

@@ -52,6 +52,8 @@ class RoomTypesController extends \BaseController {
         $data['user_id'] = Auth::user()->id;
         $data['val'] = 1;
 
+//        dd($data);
+
 
         $validator = Validator::make($data, Roomtype::$rules);
 
@@ -75,8 +77,8 @@ class RoomTypesController extends \BaseController {
                 }
             }
 
-            if($data['room_specification']){
-                foreach($data['room_specification'] as $roomSpecification){
+            if($roomspecifications = Input::get('room_specification')){
+                foreach($roomspecifications as $roomSpecification){
                     DB::table('room_specification_room_type')->insert(
                         array(
                             'room_specification_id'=> $roomSpecification,
@@ -98,8 +100,6 @@ class RoomTypesController extends \BaseController {
                         })->save('public/control-panel-assets/images/rooms/'.$roomType->id.'_'.$x.'.jpg');
                 }
             }
-
-
         }
 
 

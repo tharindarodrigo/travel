@@ -75,8 +75,6 @@ Route::group(array("prefix" => "hotel"), function () {
         'as' => 'hotel-details',
         'uses' => 'HotelController@hotelDetail'
     ));
-
-
 });
 
 
@@ -96,15 +94,15 @@ Route::group(array('before' => 'auth'), function () {
         /*
              Change Password (POST)
          */
-
         Route::post('/profile/edit-user', array(
             'as' => 'profile-edit-user-post',
             'uses' => 'AccountController@postChangePassword',
         ));
 
-    });
 
+    });
     //Change password
+
 
     Route::get('account/change-password', array(
         'as' => 'account-change-password',
@@ -298,10 +296,21 @@ Route::group(array('prefix' => 'control-panel'), function () {
     Route::group(array('prefix' => 'hotel'), function () {
 
         /**
-         *
+         *  Rates
          */
+        Route::resource('hotels.rates', 'RatesController');
+        Route::post('hotels/rates/get-rates', 'RatesController@getRateData');
 
+        /**
+         *  Room Types
+         */
+        Route::resource('hotels.room-types', 'RoomTypesController');
+
+        /**
+         * Room Specifications
+         */
         Route::resource('room_specifications', 'RoomSpecificationsController');
+
         /**
          *  Hotel Profile
          */

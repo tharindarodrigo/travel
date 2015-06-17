@@ -5,10 +5,12 @@
 
 @extends('control-panel.layout.main')
 
+
+
 @section('hotel-nav-bar')
 <li class="">{{link_to_route('control-panel.hotel.hotel-profile.edit','Hotel Profile',array($hotelid))}}</li>
 <li class="active">{{link_to_route('control-panel.hotel.hotels.room-types.index' ,'Rooms', array($hotelid))}}</li>
-<li class=""><a href="#" >Rates</a></li>
+<li class="">{{link_to_route('control-panel.hotel.hotels.rates.index' ,'Rates',array($hotelid))}}</li>
 @endsection
 
 {{--Title--}}
@@ -47,7 +49,10 @@
 @endsection
 
 @section('scripts1')
-{{HTML::script('control-panel-assets/ajax/imageUpload.js')}}
+{{ HTML::script('control-panel-assets/ajax/imageUpload.js')}}
+
+
+
 @yield('scriptXX')
 <script type="text/javascript">
 //    $(document).ready(function(){

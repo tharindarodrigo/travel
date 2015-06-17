@@ -10,4 +10,12 @@ class RoomSpecification extends \Eloquent {
 	// Don't forget to fill this array
 	protected $fillable = [];
 
+    public function rate(){
+        return $this->has('Rate');
+    }
+
+    public function roomType(){
+        return $this->belongsToMany('RoomType');
+    }
+
 }

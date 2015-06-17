@@ -150,21 +150,21 @@
 @endsection
 
 @section('scriptXX')
-<script src="http://malsup.github.com/jquery.form.js"></script>
+{{--<script src="http://malsup.github.com/jquery.form.js"></script>--}}
 
-<script>
-    // wait for the DOM to be loaded
-    $(document).ready(function() {
-        // bind 'myForm' and provide a simple callback function
-        $('#form').ajaxForm(function() {
-            alert("Thank you for your comment!");
-        });
+{{--<script>--}}
+    {{--// wait for the DOM to be loaded--}}
+    {{--$(document).ready(function() {--}}
+        {{--// bind 'myForm' and provide a simple callback function--}}
+        {{--$('#form').ajaxForm(function() {--}}
+            {{--alert("Thank you for your comment!");--}}
+        {{--});--}}
 
-        $("#images").change(function(){
-            $('#form').submit();
-        });
-    });
-</script>
+        {{--$("#images").change(function(){--}}
+            {{--$('#form').submit();--}}
+        {{--});--}}
+    {{--});--}}
+{{--</script>--}}
 
     <script TYPE="text/javascript">
 //        $(function(){

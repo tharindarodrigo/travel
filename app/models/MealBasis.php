@@ -11,4 +11,8 @@ class MealBasis extends \Eloquent {
 	// Don't forget to fill this array
 	protected $fillable = ['meal_basis', 'meal_basis_name', 'description', 'val'];
 
+    public function rate(){
+        return $this->has('Rate');
+    }
+
 }

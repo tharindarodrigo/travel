@@ -83,7 +83,6 @@
                                 <label for="">
                                     {{ Form::checkbox('category_id[]', $HotelCategory->id) }}
                                     {{ $HotelCategory->hotel_category }}
-
                                 </label>
                                 </div>
                             @endforeach

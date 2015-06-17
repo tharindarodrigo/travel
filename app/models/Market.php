@@ -11,4 +11,9 @@ class Market extends \Eloquent {
 	// Don't forget to fill this array
 	protected $fillable = ['market', 'val'];
 
+    public function rate()
+    {
+        return $this->has('rate');
+    }
+
 }
