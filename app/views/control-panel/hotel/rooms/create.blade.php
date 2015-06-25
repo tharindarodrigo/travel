@@ -46,7 +46,8 @@
                     <div class="row">
                     @foreach($roomfacilities as $roomfacility)
                     <div class="col-md-4">
-                        <label for="">
+                        <
+                        >
                             {{ Form::checkbox('room_facility_id[]', $roomfacility->id) }}
                             {{ $roomfacility->room_facility }}
                         </label>
