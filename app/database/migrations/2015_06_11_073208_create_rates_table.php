@@ -17,7 +17,8 @@ class CreateRatesTable extends Migration {
 			$table->increments('id');
             $table->date('from');
             $table->date('to');
-            $table->double('count');
+            $table->double('count')->nullable();
+//            $table->double('allotment')->nullable();
             $table->double('rate');
             $table->integer('val');
             $table->integer('hotel_id')->unsigned();

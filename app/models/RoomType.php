@@ -20,5 +20,4 @@ class RoomType extends \Eloquent {
         return $this->belongsToMany('RoomSpecification');
     }
 
-
 }
