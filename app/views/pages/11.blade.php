@@ -1,140 +1,171 @@
-<!-- jQuery OnlineLink -->
-{{ HTML::script('//code.jquery.com/jquery-1.11.2.min.js') }}
-{{ HTML::script('//code.jquery.com/jquery-migrate-1.2.1.min.js') }}
+<?php
 
-<!-- Bootstrap -->
-{{ HTML::style('dist/css/bootstrap.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
-{{ HTML::style('assets/css/custom.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+class HotelController extends \BaseController {
 
-{{ HTML::script('dist/js/bootstrap.min.js') }}
+/**
+ * Display a listing of the resource.
+ *
+ * @return Response
+*/
+public function hotel_list()
+{
+return View::make('hotel.hotel_list');
+}
 
-<div class="container">
-    <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        <div class="panel panel-info" >
-            <div class="panel-heading">
-                <div class="panel-title">Sign In</div>
-                <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
-            </div>
+public function listView($type_name = '', $status_id = '', $city_id = '', $area_id = '')
+{
+Session::put('view_type','list');
+try{
+$property_results = $this->viewProperty($type_name, $status_id, $city_id, $area_id);
 
-            <div style="padding-top:30px" class="panel-body" >
+return View::make('property.property_list')
+->with($property_results);
+}catch(Exception $e){
 
-                <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+return View::make('property.no_results');
+}
+}
 
-                <form id="loginform" class="form-horizontal" role="form">
+public function gridView($type_name = '', $status_id = '', $city_id = '', $area_id = '')
+{
+Session::put('view_type','grid');
+try{
+$property_results = $this->viewProperty($type_name, $status_id, $city_id, $area_id);
+return View::make('property.property')
+->with($property_results);
+}catch(Exception $e){
 
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="username or email">
-                    </div>
+return View::make('property.no_results');
 
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="login-password" type="password" class="form-control" name="password" placeholder="password">
-                    </div>
+}
+}
 
+public function viewProperty($type_name = '', $status_name = '', $city_name = '', $area_name = '')
+{
 
+$path = array();
 
-                    <div class="input-group">
-                        <div class="checkbox">
-                            <label>
-                                <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
-                            </label>
-                        </div>
-                    </div>
+if (empty($type_name)) {
+$type_id = '%';
+} else {
+$get_type_id = DB::table('property_type')->where('name', 'LIKE', $type_name)->first();
+if (!empty($get_type_id)) {
+$type_id = $get_type_id->id;
+} else {
+$type_id = 0;
+}
+}
 
+if (empty($status_name)) {
+$status_id = '%';
+} else {
+$get_status_id = DB::table('property_status')->where('name', 'LIKE', $status_name)->first();
+empty($get_status_id) ? $status_id = 0 : $status_id = $get_status_id->id;
 
-                    <div style="margin-top:10px" class="form-group">
-                        <!-- Button -->
+}
 
-                        <div class="col-sm-12 controls">
-                            <a id="btn-login" href="#" class="btn btn-success">Login  </a>
-                            <a id="btn-fblogin" href="#" class="btn btn-primary"> Sign Up </a>
+if (empty($city_name)) {
+$city_id = '%';
+} elseif (!empty($city_name)) {
+$city_name = str_replace('-', ' ', $city_name);
+$get_city_id = DB::table('cities')->where('city_name', 'LIKE', $city_name)->first();
+empty($get_city_id) ? $city_id = 0 : $city_id = $get_city_id->id;
 
-                        </div>
-                    </div>
+}
 
-                    <div class="form-group">
-                        <div class="col-md-12 control">
-                            <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
-                                Don't have an account!
-                                <a href="#" onClick="$('#loginbox').hide(); $('#signupbox').show()">
-                                    Sign Up Here
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+if (empty($area_name)) {
+$area_id = '%';
+} else {
+$area_name = str_replace('-', ' ', $area_name);
+$get_area_id = DB::table('area')->where('area_name', 'LIKE', $area_name)->first();
 
+if (!empty($get_area_id)) {
+$area_id = $get_area_id->id;
+} else {
+$area_id = '0';
+}
 
+}
 
-            </div>
-        </div>
-    </div>
-    <div id="signupbox" style="display:none; margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <div class="panel-title">Sign Up</div>
-                <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="#" onclick="$('#signupbox').hide(); $('#loginbox').show()">Sign In</a></div>
-            </div>
-            <div class="panel-body" >
-                <form id="signupform" class="form-horizontal" role="form">
-
-                    <div id="signupalert" style="display:none" class="alert alert-danger">
-                        <p>Error:</p>
-                        <span></span>
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <label for="email" class="col-md-3 control-label">Email</label>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" name="email" placeholder="Email Address">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="firstname" class="col-md-3 control-label">First Name</label>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" name="firstname" placeholder="First Name">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastname" class="col-md-3 control-label">Last Name</label>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" name="lastname" placeholder="Last Name">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="col-md-3 control-label">Password</label>
-                        <div class="col-md-9">
-                            <input type="password" class="form-control" name="passwd" placeholder="Password">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="icode" class="col-md-3 control-label">Invitation Code</label>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" name="icode" placeholder="">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <!-- Button -->
-                        <div class="col-md-offset-3 col-md-9">
-                            <button id="btn-signup" type="button" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
-                            <span style="margin-left:8px;">or</span>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-        </div>
+if (!$property->count()) {
+return Redirect::to('/403');
+}
+return
+array(
 
 
+);
+
+}
+
+/**
+* Show the form for creating a new resource.
+*
+* @return Response
+*/
+public function create()
+{
+//
+}
 
 
-    </div>
-</div>
+/**
+* Store a newly created resource in storage.
+*
+* @return Response
+*/
+public function store()
+{
+//
+}
 
 
+/**
+* Display the specified resource.
+*
+* @param  int  $id
+* @return Response
+*/
+public function hotelDetail($id)
+{
+return View::make('hotel.hotel_details');
+}
+
+
+/**
+* Show the form for editing the specified resource.
+*
+* @param  int  $id
+* @return Response
+*/
+public function edit($id)
+{
+//
+}
+
+
+/**
+* Update the specified resource in storage.
+*
+* @param  int  $id
+* @return Response
+*/
+public function update($id)
+{
+//
+}
+
+
+/**
+* Remove the specified resource from storage.
+*
+* @param  int  $id
+* @return Response
+*/
+public function destroy($id)
+{
+//
+}
+
+
+}

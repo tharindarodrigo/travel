@@ -62,11 +62,10 @@
             <!-- FILTERS -->
             <div class="col-md-3 filters offset-0">
 
-
                 <!-- TOP TIP -->
                 <div class="filtertip">
                     <div class="padding20">
-                        <p class="size13"><span class="size18 bold counthotel">53</span> Hotels starting at</p>
+                        <p class="size13"><span class="size18 bold counthotel">53</span> Hotels starting at </p>
 
                         <p class="size30 bold">$<span class="countprice"></span></p>
 
@@ -75,9 +74,7 @@
                     <div class="tip-arrow"></div>
                 </div>
 
-
                 <div class="bookfilters hpadding20">
-
 
                     <div class="w50percent">
                         <div class="radio">
@@ -1599,9 +1596,22 @@
                     <div class="offset-2">
                         <div class="col-md-4 offset-0">
                             <div class="listitem2">
-                                <a href="images/items/item7.jpg" data-footer="A custom footer text"
-                                   data-title="A random title" data-gallery="multiimages" data-toggle="lightbox"><img
-                                            src="images/items/item7.jpg" alt=""/></a>
+
+                                <?php
+                              //  $directory = 'images/hotel_images/';
+                              //  $images = glob($directory . $Prop->ad_id . "_" . "*.*");
+                             //   $img_path = array_shift($images);
+                                ?>
+
+                                <a href="images/hotel_images/bentota.jpg" data-footer="A custom footer text"
+                                   data-title="A random title" data-gallery="multiimages" data-toggle="lightbox">
+                                    {{--@if(count($img_path)>0)--}}
+                                        {{--{{ HTML::image('images/hotel_images/s.jpg') }}--}}
+                                    {{--@else--}}
+                                        {{--{{ HTML::image('images/no-image.jpg', $Prop->title, array('class' => 'property_img_2')) }}--}}
+                                    {{--@endif--}}
+                                    {{ HTML::image('images/hotel_images/s.jpg') }}
+                                </a>
 
                                 <div class="liover"></div>
                                 <a class="fav-icon" href="#"></a>
