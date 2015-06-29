@@ -161,51 +161,51 @@ class RatesController extends \BaseController
                      *              a         <        x      <       b         <         y
                      */
 
-//                    $existing_condition_1 = Rate::where($conditions)->where('from', '<=', $from)->where('to', '>=', $from)->where('to', '<=', $to)->first();
-//
-//                    if (!empty($existing_condition_1->id)) {
-//
-//                        Rate::where('id', $existing_condition_1->id)->delete();
-//
-//                        $newperiods[] =
-//                            array(
-//                                'from' => $existing_condition_1->from,
-//                                'to' => $from,
-//                                'rate' => $existing_condition_1->rate
-//                            );
-//
-//                        $newperiods[] =
-//                            array(
-//                                'from' => $from,
-//                                'to' => $to,
-//                                'rate' => $rate
-//                            );
-//                    }
+                    $existing_condition_1 = Rate::where($conditions)->where('from', '<=', $from)->where('to', '>=', $from)->where('to', '<=', $to)->first();
+
+                    if (!empty($existing_condition_1->id)) {
+
+                        Rate::where('id', $existing_condition_1->id)->delete();
+
+                        $newperiods[] =
+                            array(
+                                'from' => $existing_condition_1->from,
+                                'to' => $from,
+                                'rate' => $existing_condition_1->rate
+                            );
+
+                        $newperiods[] =
+                            array(
+                                'from' => $from,
+                                'to' => $to,
+                                'rate' => $rate
+                            );
+                    }
 
                     /*
                      * <------------|------------------|--------------|-------------------|----------------->
                      *              x         <        a      <       y         <         b
                      */
 
-                    $existing_condition_2 = Rate::where($conditions)->where('from', '>=', $from)->where('from', '<=', $to)->where('to', '>=', $to)->first();
-
-                    if (!empty($existing_condition_2->id)) {
-
-                        Rate::where('id', $existing_condition_2->id)->delete();
-
-                        $newperiods[] =
-                            array(
-                                'from' => $from,
-                                'to' => $existing_condition_2->from,
-                                'rate' => $existing_condition_2->rate
-                            );
-
-                        $newperiods[] = array(
-                            'from' => $from,
-                            'to' => $to,
-                            'rate' => $data["rate"]
-                        );
-                    }
+//                    $existing_condition_2 = Rate::where($conditions)->where('from', '>=', $from)->where('from', '<=', $to)->where('to', '>=', $to)->first();
+//
+//                    if (!empty($existing_condition_2->id)) {
+//
+//                        Rate::where('id', $existing_condition_1->id)->delete();
+//
+//                        $newperiods[] =
+//                            array(
+//                                'from' => $from,
+//                                'to' => $existing_condition_2->from,
+//                                'rate' => $existing_condition_2->rate
+//                            );
+//
+//                        $newperiods[] = array(
+//                            'from' => $from,
+//                            'to' => $to,
+//                            'rate' => $data["rate"]
+//                        );
+//                    }
 
 
 //                    $conflictingdata = Rate::where($conditions)->where('from', '>=', $from)->where('from', '<=', $to)->get();

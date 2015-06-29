@@ -61,7 +61,7 @@
     <div class="loader">{{ HTML::image('images/loading.gif') }}</div>
 
     <br/> <br/>
-    <a href="{{ URL::route('index') }}">{{ HTML::image('images/site/logo.png', '', array('class' => 'logo')) }}</a>
+    <a href="intro2.html">{{ HTML::image('images/site/logo.png', '', array('class' => 'logo')) }}</a>
 
     <div class="tabscontainer">
         <ul class='tabs'>
