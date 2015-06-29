@@ -49,7 +49,6 @@
                             {{ Form::text('name', null , array('class' => 'form-control'))}}
                         </div>
                         {{ $errors->first('name', '<div class="form-group text-red"><em>:message</em></div>') }}
-
                         <div class="form-group">
                             <label for="address">Address</label>
                             {{ Form::text('address', null , array('class' => 'form-control'))}}

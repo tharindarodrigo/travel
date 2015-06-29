@@ -88,6 +88,8 @@ class RatesController extends \BaseController
                     'market_id' => $market
                 );
 
+                $newperiods = array();
+
                 $newperiods[] = array(
 
                     'from' => $from,
@@ -100,9 +102,7 @@ class RatesController extends \BaseController
                  *              a         <        x      <       y         <         b
                  */
 
-                $existing = Rate::where($conditions)->where('from', '<=', $from)->where('to', '>=', $to)->first();
-
-                $newperiods = array();
+                $existing = Rate::where($conditions)->where('from', '<', $from)->where('to', '>', $to)->first();
 
 
                 if (!empty($existing->id)) {
@@ -128,6 +128,7 @@ class RatesController extends \BaseController
 
                 } else {
 
+
                     /*
                      * <------------|------------------|--------------|-------------------|----------------->
                      *              x         <        a      <       b         <         y
@@ -135,7 +136,7 @@ class RatesController extends \BaseController
 
                     $existing1 = Rate::where($conditions)->where('from', '>=', $from)->where('to', '<=', $to)->get();
 
-                    if (count($existing1)) {
+                    if (!empty($existing1)) {
 
                         $conflicting_ids = array();
 
@@ -160,51 +161,51 @@ class RatesController extends \BaseController
                      *              a         <        x      <       b         <         y
                      */
 
-                    $existing_condition_1 = Rate::where($conditions)->where('from', '<=', $from)->where('to', '>=', $from)->where('to', '<=', $to)->first();
-
-                    if (count($existing_condition_1->id)) {
-
-                        Rate::where('id',$existing_condition_1->id)->delete();
-
-                        $newperiods = array(
-                            array(
-                                'from' => $existing_condition_1->from,
-                                'to' => $from,
-                                'rate' => $existing_condition_1->rate
-                            ),
-                            array(
-                                'from' => $from,
-                                'to' => $to,
-                                'rate' => $data["rate"]
-                            )
-                        );
-                    }
+//                    $existing_condition_1 = Rate::where($conditions)->where('from', '<=', $from)->where('to', '>=', $from)->where('to', '<=', $to)->first();
+//
+//                    if (!empty($existing_condition_1->id)) {
+//
+//                        Rate::where('id', $existing_condition_1->id)->delete();
+//
+//                        $newperiods[] =
+//                            array(
+//                                'from' => $existing_condition_1->from,
+//                                'to' => $from,
+//                                'rate' => $existing_condition_1->rate
+//                            );
+//
+//                        $newperiods[] =
+//                            array(
+//                                'from' => $from,
+//                                'to' => $to,
+//                                'rate' => $rate
+//                            );
+//                    }
 
                     /*
                      * <------------|------------------|--------------|-------------------|----------------->
                      *              x         <        a      <       y         <         b
                      */
 
-                    /*$existing_condition_2 = Rate::where($conditions)->where('from', '>=', $from)->where('from', '<=', $to)->where('to', '>=', $to)->first();
+                    $existing_condition_2 = Rate::where($conditions)->where('from', '>=', $from)->where('from', '<=', $to)->where('to', '>=', $to)->first();
 
-                    if (count($existing_condition_2->id)) {
+                    if (!empty($existing_condition_2->id)) {
 
-                        Rate::where('id',$existing_condition_1->id)->delete();
+                        Rate::where('id', $existing_condition_2->id)->delete();
 
-                        $newperiods = array(
+                        $newperiods[] =
                             array(
                                 'from' => $from,
                                 'to' => $existing_condition_2->from,
                                 'rate' => $existing_condition_2->rate
-                            ),
+                            );
 
-                            array(
-                                'from' => $from,
-                                'to' => $to,
-                                'rate' => $data["rate"]
-                            )
+                        $newperiods[] = array(
+                            'from' => $from,
+                            'to' => $to,
+                            'rate' => $data["rate"]
                         );
-                    }*/
+                    }
 
 
 //                    $conflictingdata = Rate::where($conditions)->where('from', '>=', $from)->where('from', '<=', $to)->get();
@@ -221,13 +222,13 @@ class RatesController extends \BaseController
 //                        );
 //                    }
 
-
-
                 }
 
-//                dd($newperiods);
+
 
                 foreach ($newperiods as $newperiod) {
+
+//                    dd($newperiods);
 
                     $data = array_merge($data, $newperiod);
 

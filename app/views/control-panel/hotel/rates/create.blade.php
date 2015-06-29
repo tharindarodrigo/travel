@@ -105,7 +105,7 @@
 
         var hotel_id;
 
-        $('#room_type_id').change(function(){
+        $('#room_type_id').click(function(){
 
             hideItems();
 
@@ -125,6 +125,7 @@
                 data: formData,
                 success: function(data){
                     var x = (data[0].room_specification);
+
                     var tablebody ='';
                     hotel_id = data[0].hotel_id;
 
