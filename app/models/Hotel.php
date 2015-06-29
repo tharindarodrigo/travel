@@ -45,5 +45,9 @@ class Hotel extends \Eloquent
         return $this->belongsToMany('hotelCategory');
     }
 
+    public function hotelReview(){
+        return $this->hasMany('hotelReview');
+    }
+
 
 }
