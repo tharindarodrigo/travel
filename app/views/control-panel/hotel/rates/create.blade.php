@@ -43,9 +43,13 @@
                     {{ Form::label('market', 'Markets')}}
                     @foreach(Market::where('val',1)->get() as $market)
                         <p>
-                            {{Form::checkbox('markets[]', $market->id)}}
+                        <label for="">
+                            {{Form::checkbox('markets[]', $market->id, null ,array('class' => 'form-group'))}}
                             {{ $market->market }}
-                        <p>
+                        </label>
+
+
+                        </p>
                     @endforeach
                 </div>
                 <input id="hotelid" value="{{$hotelid}}" type="hidden"/>
@@ -94,7 +98,6 @@
 
         hideItems();
 
-
         $('#from').datepicker({
             format: 'yyyy-mm-dd'
         });
@@ -133,7 +136,7 @@
                     var row = '<tr>';
                         row +='<th>'+x[i]["room_specification"]+'</th>';
                         for(var j=0; j<data[1].length; j++){
-                            row+='<td><input name="rates[]" id="'+data[1][j].id+'-'+x[i].id+'" type="text" class="form-control"></td>';
+                            row+='<td><input name="rates[]" id="'+data[1][j].id+'-'+x[i].id+'" type="text" class="form-control mask"></td>';
                         }
                         row += '</tr>';
                         tablebody +=row;
@@ -144,6 +147,9 @@
                     });
 
                     $('tbody').html(tablebody);
+
+                    $('.mask').mask("9999");
+
                     $('#room_type_id').attr('disabled', true);
                     $('tbody').slideDown(200);
                     $('#submit').slideDown(200);
@@ -158,6 +164,8 @@
         });
 
         $('#submit').click(function(){
+
+            $('.validation').slideUp(200);
 
             var values = $('input[name="rates[]"]').map(function(){
                     return ($(this).val());

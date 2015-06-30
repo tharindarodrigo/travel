@@ -97,12 +97,18 @@ class RatesController extends \BaseController
                     'rate' => $rate
                 );
 
+                $from_date = new DateTime($from);
+                $to_date = new DateTime($to);
+
+                $from_date->sub(new DateInterval('P1D'));
+                $to_date->add(new DateInterval('P1D'));
+
                 /*
                  * <------------|------------------|--------------|-------------------|----------------->
                  *              a         <        x      <       y         <         b
                  */
 
-                $existing = Rate::where($conditions)->where('from', '<', $from)->where('to', '>', $to)->first();
+                $existing = Rate::where($conditions)->where('from', '<=', $from)->where('to', '>=', $to)->first();
 
 
                 if (!empty($existing->id)) {
@@ -110,24 +116,25 @@ class RatesController extends \BaseController
                     $newperiods = array(
                         array(
                             "from" => $existing["from"],
-                            "to" => $from,
+                            "to" => $from_date->format('Y-m-d'),
                             "rate" => $existing->rate
                         ), array(
                             "from" => $from,
                             "to" => $to,
                             "rate" => $rate
                         ), array(
-                            "from" => $to,
+                            "from" => $to_date->format('Y-m-d'),
                             "to" => $existing->to,
                             "rate" => $existing->rate
                         )
                     );
 
+                    $this->insertRates($newperiods, $data);
+
 
                     Rate::where("id", $existing->id)->delete();
 
                 } else {
-
 
                     /*
                      * <------------|------------------|--------------|-------------------|----------------->
@@ -136,7 +143,7 @@ class RatesController extends \BaseController
 
                     $existing1 = Rate::where($conditions)->where('from', '>=', $from)->where('to', '<=', $to)->get();
 
-                    if (!empty($existing1)) {
+                    if ($existing1->count()) {
 
                         $conflicting_ids = array();
 
@@ -153,6 +160,9 @@ class RatesController extends \BaseController
                                 'rate' => $rate
                             )
                         );
+
+                        $this->insertRates($newperiods, $data);
+
                     }
 
 
@@ -161,25 +171,26 @@ class RatesController extends \BaseController
                      *              a         <        x      <       b         <         y
                      */
 
-                    $existing_condition_1 = Rate::where($conditions)->where('from', '<=', $from)->where('to', '>=', $from)->where('to', '<=', $to)->first();
+                    $existing_condition_1 = Rate::where($conditions)->where('from', '<=', $from)->where('to', '>=', $from)->where('to', '<', $to)->first();
 
                     if (!empty($existing_condition_1->id)) {
 
                         Rate::where('id', $existing_condition_1->id)->delete();
 
-                        $newperiods[] =
+                        $newperiods = array(
                             array(
                                 'from' => $existing_condition_1->from,
-                                'to' => $from,
+                                'to' => $from_date->format('Y-m-d'),
                                 'rate' => $existing_condition_1->rate
-                            );
-
-                        $newperiods[] =
+                            ),
                             array(
                                 'from' => $from,
                                 'to' => $to,
                                 'rate' => $rate
-                            );
+                            )
+                        );
+
+                        $this->insertRates($newperiods, $data);
                     }
 
                     /*
@@ -187,58 +198,36 @@ class RatesController extends \BaseController
                      *              x         <        a      <       y         <         b
                      */
 
-//                    $existing_condition_2 = Rate::where($conditions)->where('from', '>=', $from)->where('from', '<=', $to)->where('to', '>=', $to)->first();
-//
-//                    if (!empty($existing_condition_2->id)) {
-//
-//                        Rate::where('id', $existing_condition_1->id)->delete();
-//
-//                        $newperiods[] =
-//                            array(
-//                                'from' => $from,
-//                                'to' => $existing_condition_2->from,
-//                                'rate' => $existing_condition_2->rate
-//                            );
-//
-//                        $newperiods[] = array(
-//                            'from' => $from,
-//                            'to' => $to,
-//                            'rate' => $data["rate"]
-//                        );
-//                    }
+                    $existing_condition_2 = Rate::where($conditions)->where('from', '>=', $from)->where('from', '<=', $to)->where('to', '>', $to)->first();
 
+                    if (!empty($existing_condition_2->id)) {
 
-//                    $conflictingdata = Rate::where($conditions)->where('from', '>=', $from)->where('from', '<=', $to)->get();
-//
-//                    Rate::where('id',$conflictingdata->id)->delete();
-//
-//                    if (count($conflictingdata)) {
-//
-//                        $newperiods = array(
-//
-//                                'from' => $from,
-//                                'to' => $to,
-//                                'rate' => $data["rate"]
-//                        );
-//                    }
+                        Rate::where('id', $existing_condition_2->id)->delete();
 
-                }
+                        $newperiods = array(
 
+                            array(
+                                'from' => $from,
+                                'to' => $to,
+                                'rate' => $rate
+                            ), array(
+                                'from' => $to_date->format('Y-m-d'),
+                                'to' => $existing_condition_2->to,
+                                'rate' => $existing_condition_2->rate
+                            )
+                        );
 
+                        $this->insertRates($newperiods, $data);
 
-                foreach ($newperiods as $newperiod) {
-
-//                    dd($newperiods);
-
-                    $data = array_merge($data, $newperiod);
-
-                    if ($insertion = Rate::create($data)) {
-                        $inserted_ids[] = $insertion->id;
                     } else {
-                        Rate::whereIn('id', $inserted_ids)->delete();
-                        return Response::json(array('error' => 'There was an error entering rates. Please Contact Your Administrator'));
+
+                        $this->insertRates($newperiods, $data);
+
                     }
+
+
                 }
+
             }
 
         }
@@ -247,82 +236,28 @@ class RatesController extends \BaseController
 
     }
 
-//    public function breakPeriods($array){
-//
-//        /*
-//         * $array contains fields
-//         * "from", "to", "room_type_id", "room_specification_id","meal_basis_id","market_id"
-//        */
-//
-//
-//
-//
-//        $newdaterange = array();
-//
-//        if($from >= $existing->from && $to <= $existing->to ){
-//            $newdaterange = array(
-//                array(
-//                    "from" => $existing->from,
-//                    "to" => $array["from"],
-//                    "rate" => $existing["rate"]
-//                ),
-//
-//                array(
-//                    "from" => $array["from"],
-//                    "to" => $array["to"],
-//                    "rate" => $existing["rate"]
-//                ),
-//
-//                array(
-//                    "from" => $existing->$array["to"],
-//                    "to" => $existing->to,
-//                    "rate" => $existing["rate"]
-//                )
-//            );
-//        }
-//
-//        /*
-//         *
-//         * The variables below are written analogous to coinside the dates with a number line
-//         *
-//         */
-//
-//
-//        if(( $existing->from <= $from && $from <= $existing->to) && $to <= $existing->to){
-//
-//        /*
-//         * <------------|------------------|--------------|-------------------|----------------->
-//         *              a         <        x      <       b         <         y
-//         */
-//
-//            $conflictingRecords = Rate::whereBetween('from', array($existing->from, $existing->to))->where($array)->get();
-//
-////            $otheConflictingRecords = Rate::where('from','<=', $to)->where('')->
-//        }
-//
-//        else if(($from <= $existing->from) && ( $existing->from <= $to && $to <= $existing->to)){
-//
-//        /*
-//         * <------------|------------------|--------------|-------------------|----------------->
-//         *              x         <        a      <       y          <        b
-//         */
-//
-//
-//        }
-//
-//        else if($from <= $existing->from && $existing->to <= $to ){
-//
-//        /*
-//         * <------------|------------------|--------------|-------------------|----------------->
-//         *              x         <        a      <       b          <        y
-//         */
-//
-//        }
-//
-//
-//
-//
-//    }
+
+    public function insertRates($newperiods, $data)
+    {
+        foreach ($newperiods as $newperiod) {
+
+            $data_wo_user_id = $data = array_merge($data, $newperiod);
+
+            unset($data_wo_user_id['user_id']);
+
+            $duplicate_rate = Rate::where($data_wo_user_id)->get();
+
+            if($duplicate_rate->count() == 0){
+                if ($insertion = Rate::create($data)) {
+                    $inserted_ids[] = $insertion->id;
+                } else {
+                    Rate::whereIn('id', $inserted_ids)->delete();
+                    return Response::json(array('error' => 'There was an error entering rates. Please Contact Your Administrator'));
+                }
+            }
+
+        }
+    }
 
     /**
      * Display the specified rate.

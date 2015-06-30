@@ -54,5 +54,6 @@
 @yield('rate-scripts')
 
 {{ HTML::script('control-panel-assets/plugins/datepicker/bootstrap-datepicker.js')}}
+{{ HTML::script('control-panel-assets/ajax/maskedInput.js')}}
 
 @stop
