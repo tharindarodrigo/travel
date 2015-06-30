@@ -34,7 +34,7 @@ class Hotel extends \Eloquent
 
     public function users()
     {
-        return $this->belongsTo('User');
+        return $this->belongsToMany('User');
     }
 
     public function city(){

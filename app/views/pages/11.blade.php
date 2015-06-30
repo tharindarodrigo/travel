@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <!-- jQuery OnlineLink -->
 {{ HTML::script('//code.jquery.com/jquery-1.11.2.min.js') }}
 {{ HTML::script('//code.jquery.com/jquery-migrate-1.2.1.min.js') }}
@@ -138,3 +139,24 @@
 </div>
 
 
+=======
+<?php $aa = Hotel::where('id', 1)->first();
+
+       foreach ($aa->hotelReview->user as $bb){
+           echo $bb->first_name;
+}
+
+$cc = Hotel::with('productdetails')
+        ->whereHas('categories', function ($query) use ($submenu_id) {
+            $query->where('categories.id', '=', $submenu_id);
+        })
+        ->whereHas('types', function ($query) use ($type_id) {
+            $query->where('types.id', $type_id); // side note: operator '=' is deafult, so can be ommited
+        })
+        ->get();
+
+//echo $aa->starCategory->id;
+
+
+?>
+>>>>>>> Stashed changes
