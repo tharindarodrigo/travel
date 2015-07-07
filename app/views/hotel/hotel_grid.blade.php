@@ -4,7 +4,7 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Hotel list </title>
+    <title> srilankahotel.travel - Hotel Grid </title>
 
 @endsection
 
@@ -60,7 +60,6 @@
             <!-- FILTERS -->
             <div class="col-md-3 filters offset-0">
 
-
                 <!-- TOP TIP -->
                 <div class="filtertip">
                     <div class="padding20">
@@ -75,7 +74,6 @@
 
 
                 <div class="bookfilters hpadding20">
-
 
                     <div class="w50percent">
                         <div class="radio">
@@ -1579,8 +1577,8 @@
                             <button class="popularbtn left">Most Popular</button>
                             <div class="right">
                                 <button class="gridbtn" onClick="window.open('list2.html','_self');">&nbsp;</button>
-                                <button class="listbtn active">&nbsp;</button>
-                                <button class="grid2btn" onClick="window.open('list3.html','_self');">&nbsp;</button>
+                                <button class="listbtn" onClick="window.open('list4.html','_self');">&nbsp;</button>
+                                <button class="grid2btn active">&nbsp;</button>
                             </div>
                         </div>
                     </div>
@@ -1592,60 +1590,267 @@
 
                 <div class="clearfix"></div>
 
+
                 <div class="itemscontainer offset-1">
 
-                    <div class="offset-2">
-                        <div class="col-md-4 offset-0">
-                            <div class="listitem2">
-                                <a href="images/items/item7.jpg" data-footer="A custom footer text"
-                                   data-title="A random title" data-gallery="multiimages" data-toggle="lightbox"><img
-                                            src="images/items/item7.jpg" alt=""/></a>
 
-                                <div class="liover"></div>
-                                <a class="fav-icon" href="#"></a>
-                                <a class="book-icon" href="details.html"></a>
+                    <div class="col-md-4">
+                        <div class="listitem">
+                            <img src="images/items/item1.jpg" alt=""/>
+
+                            <div class="liover"></div>
+                            <a class="fav-icon" href="#"></a>
+                            <a class="book-icon" href="#"></a>
+                        </div>
+                        <div class="itemlabel2">
+                            <div class="labelright">
+                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
+                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
+                                <span class="size11 grey">18 Reviews</span><br/><br/>
+                                <span class="green size18"><b>$16.00</b></span><br/>
+                                <span class="size11 grey">avg/night</span><br/><br/><br/>
+                                <button class="bookbtn mt1">Book</button>
+                            </div>
+                            <div class="labelleft">
+                                <b>Mabely Grand Hotel</b><br/><br/><br/>
+
+                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
+                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
+                                    malesuada.
+                                </p>
                             </div>
                         </div>
-                        <div class="col-md-8 offset-0">
-                            <div class="itemlabel3">
-                                <div class="labelright">
-                                    <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
-                                    <img src="images/user-rating-5.png" width="60" alt=""/><br/>
-                                    <span class="size11 grey">18 Reviews</span><br/><br/>
-                                    <span class="green size18"><b>$36.00</b></span><br/>
-                                    <span class="size11 grey">avg/night</span><br/><br/><br/>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="listitem">
+                            <img src="images/items/item2.jpg" alt=""/>
 
-                                    <form action="details.html">
-                                        <button class="bookbtn mt1" type="submit">Book</button>
-                                    </form>
-                                </div>
-                                <div class="labelleft2">
-                                    <b>Mabely Grand Hotel</b><br/><br/><br/>
+                            <div class="liover"></div>
+                            <a class="fav-icon" href="#"></a>
+                            <a class="book-icon" href="#"></a>
+                        </div>
+                        <div class="itemlabel2">
+                            <div class="labelright">
+                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
+                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
+                                <span class="size11 grey">18 Reviews</span><br/><br/>
+                                <span class="green size18"><b>$16.00</b></span><br/>
+                                <span class="size11 grey">avg/night</span><br/><br/><br/>
+                                <button class="bookbtn mt1">Book</button>
+                            </div>
+                            <div class="labelleft">
+                                <b>Mabely Grand Hotel</b><br/><br/><br/>
 
-                                    <p class="grey">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec semper
-                                        lectus. Suspendisse placerat enim mauris, eget lobortis nisi egestas et.
-                                        Donec elementum metus et mi aliquam eleifend. Suspendisse volutpat egestas
-                                        rhoncus.</p><br/>
-                                    <ul class="hotelpreferences">
-                                        <li class="icohp-internet"></li>
-                                        <li class="icohp-air"></li>
-                                        <li class="icohp-pool"></li>
-                                        <li class="icohp-childcare"></li>
-                                        <li class="icohp-fitness"></li>
-                                        <li class="icohp-breakfast"></li>
-                                        <li class="icohp-parking"></li>
-                                        <li class="icohp-pets"></li>
-                                        <li class="icohp-spa"></li>
-                                    </ul>
+                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
+                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
+                                    malesuada.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="listitem">
+                            <img src="images/items/item3.jpg" alt=""/>
 
-                                </div>
+                            <div class="liover"></div>
+                            <a class="fav-icon" href="#"></a>
+                            <a class="book-icon" href="#"></a>
+                        </div>
+                        <div class="itemlabel2">
+                            <div class="labelright">
+                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
+                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
+                                <span class="size11 grey">18 Reviews</span><br/><br/>
+                                <span class="green size18"><b>$16.00</b></span><br/>
+                                <span class="size11 grey">avg/night</span><br/><br/><br/>
+                                <button class="bookbtn mt1">Book</button>
+                            </div>
+                            <div class="labelleft">
+                                <b>Mabely Grand Hotel</b><br/><br/><br/>
+
+                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
+                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
+                                    malesuada.
+                                </p>
                             </div>
                         </div>
                     </div>
 
                     <div class="clearfix"></div>
+                    <div class="offset-2">
+                        <hr class="featurette-divider3">
+                    </div>
 
+                    <div class="col-md-4">
+                        <div class="listitem">
+                            <img src="images/items/item4.jpg" alt=""/>
+
+                            <div class="liover"></div>
+                            <a class="fav-icon" href="#"></a>
+                            <a class="book-icon" href="#"></a>
+                        </div>
+                        <div class="itemlabel2">
+                            <div class="labelright">
+                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
+                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
+                                <span class="size11 grey">18 Reviews</span><br/><br/>
+                                <span class="green size18"><b>$16.00</b></span><br/>
+                                <span class="size11 grey">avg/night</span><br/><br/><br/>
+                                <button class="bookbtn mt1">Book</button>
+                            </div>
+                            <div class="labelleft">
+                                <b>Mabely Grand Hotel</b><br/><br/><br/>
+
+                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
+                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
+                                    malesuada.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="listitem">
+                            <img src="images/items/item5.jpg" alt=""/>
+
+                            <div class="liover"></div>
+                            <a class="fav-icon" href="#"></a>
+                            <a class="book-icon" href="#"></a>
+                        </div>
+                        <div class="itemlabel2">
+                            <div class="labelright">
+                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
+                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
+                                <span class="size11 grey">18 Reviews</span><br/><br/>
+                                <span class="green size18"><b>$16.00</b></span><br/>
+                                <span class="size11 grey">avg/night</span><br/><br/><br/>
+                                <button class="bookbtn mt1">Book</button>
+                            </div>
+                            <div class="labelleft">
+                                <b>Mabely Grand Hotel</b><br/><br/><br/>
+
+                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
+                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
+                                    malesuada.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="listitem">
+                            <img src="images/items/item6.jpg" alt=""/>
+
+                            <div class="liover"></div>
+                            <a class="fav-icon" href="#"></a>
+                            <a class="book-icon" href="#"></a>
+                        </div>
+                        <div class="itemlabel2">
+                            <div class="labelright">
+                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
+                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
+                                <span class="size11 grey">18 Reviews</span><br/><br/>
+                                <span class="green size18"><b>$16.00</b></span><br/>
+                                <span class="size11 grey">avg/night</span><br/><br/><br/>
+                                <button class="bookbtn mt1">Book</button>
+                            </div>
+                            <div class="labelleft">
+                                <b>Mabely Grand Hotel</b><br/><br/><br/>
+
+                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
+                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
+                                    malesuada.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="offset-2">
+                        <hr class="featurette-divider3">
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="listitem">
+                            <img src="images/items/item7.jpg" alt=""/>
+
+                            <div class="liover"></div>
+                            <a class="fav-icon" href="#"></a>
+                            <a class="book-icon" href="#"></a>
+                        </div>
+                        <div class="itemlabel2">
+                            <div class="labelright">
+                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
+                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
+                                <span class="size11 grey">18 Reviews</span><br/><br/>
+                                <span class="green size18"><b>$16.00</b></span><br/>
+                                <span class="size11 grey">avg/night</span><br/><br/><br/>
+                                <button class="bookbtn mt1">Book</button>
+                            </div>
+                            <div class="labelleft">
+                                <b>Mabely Grand Hotel</b><br/><br/><br/>
+
+                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
+                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
+                                    malesuada.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="listitem">
+                            <img src="images/items/item8.jpg" alt=""/>
+
+                            <div class="liover"></div>
+                            <a class="fav-icon" href="#"></a>
+                            <a class="book-icon" href="#"></a>
+                        </div>
+                        <div class="itemlabel2">
+                            <div class="labelright">
+                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
+                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
+                                <span class="size11 grey">18 Reviews</span><br/><br/>
+                                <span class="green size18"><b>$16.00</b></span><br/>
+                                <span class="size11 grey">avg/night</span><br/><br/><br/>
+                                <button class="bookbtn mt1">Book</button>
+                            </div>
+                            <div class="labelleft">
+                                <b>Mabely Grand Hotel</b><br/><br/><br/>
+
+                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
+                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
+                                    malesuada.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="listitem">
+                            <img src="images/items/item9.jpg" alt=""/>
+
+                            <div class="liover"></div>
+                            <a class="fav-icon" href="#"></a>
+                            <a class="book-icon" href="#"></a>
+                        </div>
+                        <div class="itemlabel2">
+                            <div class="labelright">
+                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
+                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
+                                <span class="size11 grey">18 Reviews</span><br/><br/>
+                                <span class="green size18"><b>$16.00</b></span><br/>
+                                <span class="size11 grey">avg/night</span><br/><br/><br/>
+                                <button class="bookbtn mt1">Book</button>
+                            </div>
+                            <div class="labelleft">
+                                <b>Mabely Grand Hotel</b><br/><br/><br/>
+
+                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
+                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
+                                    malesuada.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
                     <div class="offset-2">
                         <hr class="featurette-divider3">
                     </div>
@@ -1682,16 +1887,10 @@
 @section('script')
 
     <!-- Javascript -->
-    {{ HTML::script('assets/js/js-list4.js') }}
-
-    <!-- Custom Select -->
-    {{ HTML::script('js/lightbox.js') }}
+    {{ HTML::script('assets/js/js-list3.js') }}
 
     <!-- Counter -->
     {{ HTML::script('assets/js/counter.js') }}
-
-    <!-- Picker -->
-    {{ HTML::script('assets/js/jquery-ui.js') }}
 
 @endsection
 

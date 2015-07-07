@@ -38,7 +38,6 @@ Route::get('/contact', array(
     'uses' => 'ContactController@getContact'
 ));
 
-
 Route::post('/contact', array(
     'as' => 'post-contact',
     'uses' => 'ContactController@postContact'

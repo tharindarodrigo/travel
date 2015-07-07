@@ -12,6 +12,7 @@
     <!-- Carousel -->
     {{ HTML::style('examples/carousel/carousel.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
     <!--[if lt IE 9]>
     {{ HTML::script('assets/js/html5shiv.js') }}
     {{ HTML::script('assets/js/respond.min.js') }}

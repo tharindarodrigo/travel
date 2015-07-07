@@ -7,6 +7,7 @@ class HotelController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+
 	public function hotel_list()
 	{
 		return View::make('hotel.hotel_list');
@@ -43,39 +44,21 @@ class HotelController extends \BaseController {
     public function index()
     {
 
-        $beds = Input::get('beds');
-        $bath = Input::get('bath');
-        $min = Input::get('min');
-        $max = Input::get('max');
-
-        $attributes = array(
-            'beds'=>$beds,
-            'bath'=>$bath,
-            'min'=>$min,
-            'max'=>$max
-        );
-
-        Session::put('attributes', $attributes);
-
-
         $hotel_name = Input::get('type') . '/';
+
         $hotel_category = Input::get('status') . '/';
+
         if (Input::get('city') == '%') {
             $city_name = '';
         } else {
             $city_name = Input::get('city') . '/';
 
         }
-        if (Input::get('area') == '%') {
-            $area_name = '';
-        } else {
-            $area_name = Input::get('area');
 
-        }
 
-        $route = '/property/' . $hotel_name . $hotel_category . $city_name . $area_name;
+        $route = '/property/' . $hotel_name . $hotel_category . $city_name;
         if(Session::get('view_type')=='list'){
-            $route = '/property/list/' . $hotel_name . $hotel_category . $city_name . $area_name;
+            $route = '/property/list/' . $hotel_name . $hotel_category . $city_name;
         }
 
 
@@ -85,7 +68,7 @@ class HotelController extends \BaseController {
         return Redirect::to($route);
     }
 
-    public function viewProperty($hotel_name = '', $hotel_category = '', $city_name = '')
+    public function viewHotel($hotel_name = '', $hotel_category = '', $city_name = '')
     {
 
         $hotel_url = $hotel_name ;
