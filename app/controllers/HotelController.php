@@ -12,27 +12,27 @@ class HotelController extends \BaseController {
 		return View::make('hotel.hotel_list');
 	}
 
-	public function listView($type_name = '', $status_id = '', $city_id = '', $area_id = '')
+	public function listView($hotel_name = '', $hotel_category = '', $city_name = '')
 	{
 		Session::put('view_type','list');
 		try{
-			$property_results = $this->viewProperty($type_name, $status_id, $city_id, $area_id);
+			$hotel_results = $this->viewHotel($hotel_name, $hotel_category, $city_name);
 
-			return View::make('property.property_list')
-				->with($property_results);
+			return View::make('hotel.hotel_list')
+				->with($hotel_results);
 		}catch(Exception $e){
 
-			return View::make('property.no_results');
+			return View::make('hotel.no_results');
 		}
 	}
 
-	public function gridView($type_name = '', $status_id = '', $city_id = '', $area_id = '')
+	public function gridView($hotel_name = '', $hotel_category = '', $city_name = '')
 	{
 		Session::put('view_type','grid');
 		try{
-			$property_results = $this->viewProperty($type_name, $status_id, $city_id, $area_id);
+			$hotel_results = $this->viewHotel($hotel_name, $hotel_category, $city_name);
 			return View::make('property.property')
-				->with($property_results);
+				->with($hotel_results);
 		}catch(Exception $e){
 
 			return View::make('property.no_results');
@@ -40,65 +40,141 @@ class HotelController extends \BaseController {
 		}
 	}
 
-	public function viewProperty($type_name = '', $status_name = '', $city_name = '', $area_name = '')
-	{
+    public function index()
+    {
 
-		$path = array();
+        $beds = Input::get('beds');
+        $bath = Input::get('bath');
+        $min = Input::get('min');
+        $max = Input::get('max');
 
-		if (empty($type_name)) {
-			$type_id = '%';
-		} else {
-			$get_type_id = DB::table('property_type')->where('name', 'LIKE', $type_name)->first();
-			if (!empty($get_type_id)) {
-				$type_id = $get_type_id->id;
-			} else {
-				$type_id = 0;
-			}
-		}
+        $attributes = array(
+            'beds'=>$beds,
+            'bath'=>$bath,
+            'min'=>$min,
+            'max'=>$max
+        );
 
-		if (empty($status_name)) {
-			$status_id = '%';
-		} else {
-			$get_status_id = DB::table('property_status')->where('name', 'LIKE', $status_name)->first();
-			empty($get_status_id) ? $status_id = 0 : $status_id = $get_status_id->id;
-
-		}
-
-		if (empty($city_name)) {
-			$city_id = '%';
-		} elseif (!empty($city_name)) {
-			$city_name = str_replace('-', ' ', $city_name);
-			$get_city_id = DB::table('cities')->where('city_name', 'LIKE', $city_name)->first();
-			empty($get_city_id) ? $city_id = 0 : $city_id = $get_city_id->id;
-
-		}
-
-		if (empty($area_name)) {
-			$area_id = '%';
-		} else {
-			$area_name = str_replace('-', ' ', $area_name);
-			$get_area_id = DB::table('area')->where('area_name', 'LIKE', $area_name)->first();
-
-			if (!empty($get_area_id)) {
-				$area_id = $get_area_id->id;
-			} else {
-				$area_id = '0';
-			}
-
-		}
-
-		if (!$property->count()) {
-			return Redirect::to('/403');
-		}
-		return
-			array(
+        Session::put('attributes', $attributes);
 
 
-			);
+        $hotel_name = Input::get('type') . '/';
+        $hotel_category = Input::get('status') . '/';
+        if (Input::get('city') == '%') {
+            $city_name = '';
+        } else {
+            $city_name = Input::get('city') . '/';
 
-	}
+        }
+        if (Input::get('area') == '%') {
+            $area_name = '';
+        } else {
+            $area_name = Input::get('area');
 
-	/**
+        }
+
+        $route = '/property/' . $hotel_name . $hotel_category . $city_name . $area_name;
+        if(Session::get('view_type')=='list'){
+            $route = '/property/list/' . $hotel_name . $hotel_category . $city_name . $area_name;
+        }
+
+
+//        return View::make('property.property')
+//            ->with($this->viewProperty($hotel_name, $category_id, $city_id, $area_id));
+
+        return Redirect::to($route);
+    }
+
+    public function viewProperty($hotel_name = '', $hotel_category = '', $city_name = '')
+    {
+
+        $hotel_url = $hotel_name ;
+        $category_url = $hotel_category ;
+        $city_url = $city_name;
+
+        $page_title ='';
+
+        if($hotel_url !=''){
+            $hotel_url.='/';
+            $page_title.=$hotel_name;
+
+        }
+        if($category_url !=''){
+            $category_url.='/';
+            $page_title.=' for '.$hotel_category;
+
+        }
+        if($city_url !=''){
+            $city_url.='/';
+            $page_title.=' in '.$city_name;
+
+        }
+
+        $list_url = '/hotel/list/' . $hotel_url . $category_url . $city_url;
+        $grid_url = '/hotel/' . $hotel_url . $category_url . $city_url;
+
+
+        $path = array();
+
+        if (empty($hotel_name)) {
+            $hotel_id = '%';
+        } else {
+            $get_hotel_id = DB::table('property_type')->where('name', 'LIKE', $hotel_name)->first();
+            if (!empty($get_type_id)) {
+                $hotel_id = $get_type_id->id;
+            } else {
+                $hotel_id = 0;
+            }
+        }
+
+        if (empty($hotel_category)) {
+            $category_id = '%';
+        } else {
+            $get_status_id = DB::table('property_status')->where('name', 'LIKE', $hotel_category)->first();
+            empty($get_status_id) ? $category_id = 0 : $category_id = $get_status_id->id;
+
+        }
+
+        if (empty($city_name)) {
+            $city_id = '%';
+        } elseif (!empty($city_name)) {
+            $city_name = str_replace('-', ' ', $city_name);
+            $get_city_id = DB::table('cities')->where('city_name', 'LIKE', $city_name)->first();
+            empty($get_city_id) ? $city_id = 0 : $city_id = $get_city_id->id;
+
+        }
+
+
+        $attributes = Session::pull('attributes');
+
+
+        /*-----------     Property Details     ------------*/
+
+
+        //$Property_details = DB::table('ad')->where('id', '=', $id)->first();
+
+        $hotels = Hotel::all();
+
+        if (!$hotels->count()) {
+            return Redirect::to('/403');
+        }
+        return
+            array(
+
+                'path' => $path,
+                'type_id' => $hotel_id,
+                'status_id' => $category_id,
+                'hotels' => $hotels,
+                'grid_url' => $grid_url,
+                'list_url' => $list_url,
+                'page_title' => $page_title
+
+            );
+
+    }
+
+
+    /**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
