@@ -25,9 +25,9 @@
 
 @endsection
 
-<body id="top" class="thebg">
-
 @section('content')
+
+    <body id="top" class="thebg">
 
     <div class="navbar-wrapper2 navbar-fixed-top">
         @include('layout.navbar')
@@ -60,11 +60,10 @@
             <!-- FILTERS -->
             <div class="col-md-3 filters offset-0">
 
-
                 <!-- TOP TIP -->
                 <div class="filtertip">
                     <div class="padding20">
-                        <p class="size13"><span class="size18 bold counthotel">53</span> Hotels starting at</p>
+                        <p class="size13"><span class="size18 bold counthotel">53</span> Hotels starting at </p>
 
                         <p class="size30 bold">$<span class="countprice"></span></p>
 
@@ -73,9 +72,7 @@
                     <div class="tip-arrow"></div>
                 </div>
 
-
                 <div class="bookfilters hpadding20">
-
 
                     <div class="w50percent">
                         <div class="radio">
@@ -1537,6 +1534,7 @@
             <div class="rightcontent col-md-9 offset-0">
 
                 <div class="hpadding20">
+
                     <!-- Top filters -->
                     <div class="topsortby">
                         <div class="col-md-4 offset-0">
@@ -1578,9 +1576,10 @@
                         <div class="col-md-4 offset-0">
                             <button class="popularbtn left">Most Popular</button>
                             <div class="right">
-                                <button class="gridbtn" onClick="window.open('list2.html','_self');">&nbsp;</button>
-                                <button class="listbtn active">&nbsp;</button>
-                                <button class="grid2btn" onClick="window.open('list3.html','_self');">&nbsp;</button>
+                                <a class="listbtn active" href="{{URL::to('home')}}"></a>
+                                <a class="gridbtn" href="{{URL::to('home')}}"></a>
+                                {{--<button class="listbtn active" onclick="location.href='http://google.com';">&nbsp;</button>--}}
+                                {{--<button class="gridbtn" onclick="location.href='http://google.com';"">&nbsp;</button>--}}
                             </div>
                         </div>
                     </div>
@@ -1592,66 +1591,73 @@
 
                 <div class="clearfix"></div>
 
-                <div class="itemscontainer offset-1">
+                @foreach($hotels as $hotel)
+{{ $hotel->count().'asdasd' }}
+                    <div class="itemscontainer offset-1">
 
-                    <div class="offset-2">
-                        <div class="col-md-4 offset-0">
-                            <div class="listitem2">
-                                <a href="images/items/item7.jpg" data-footer="A custom footer text"
-                                   data-title="A random title" data-gallery="multiimages" data-toggle="lightbox"><img
-                                            src="images/items/item7.jpg" alt=""/></a>
+                        <div class="offset-2">
+                            <div class="col-md-4 offset-0">
+                                <div class="listitem2">
+                                    <a href="images/items/item7.jpg" data-footer="A custom footer text"
+                                       data-title="A random title" data-gallery="multiimages" data-toggle="lightbox">
+                                        <img src="images/items/item7.jpg" alt=""/></a>
 
-                                <div class="liover"></div>
-                                <a class="fav-icon" href="#"></a>
-                                <a class="book-icon" href="details.html"></a>
-                            </div>
-                        </div>
-                        <div class="col-md-8 offset-0">
-                            <div class="itemlabel3">
-                                <div class="labelright">
-                                    <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
-                                    <img src="images/user-rating-5.png" width="60" alt=""/><br/>
-                                    <span class="size11 grey">18 Reviews</span><br/><br/>
-                                    <span class="green size18"><b>$36.00</b></span><br/>
-                                    <span class="size11 grey">avg/night</span><br/><br/><br/>
-
-                                    <form action="details.html">
-                                        <button class="bookbtn mt1" type="submit">Book</button>
-                                    </form>
-                                </div>
-                                <div class="labelleft2">
-                                    <b>Mabely Grand Hotel</b><br/><br/><br/>
-
-                                    <p class="grey">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec semper
-                                        lectus. Suspendisse placerat enim mauris, eget lobortis nisi egestas et.
-                                        Donec elementum metus et mi aliquam eleifend. Suspendisse volutpat egestas
-                                        rhoncus.</p><br/>
-                                    <ul class="hotelpreferences">
-                                        <li class="icohp-internet"></li>
-                                        <li class="icohp-air"></li>
-                                        <li class="icohp-pool"></li>
-                                        <li class="icohp-childcare"></li>
-                                        <li class="icohp-fitness"></li>
-                                        <li class="icohp-breakfast"></li>
-                                        <li class="icohp-parking"></li>
-                                        <li class="icohp-pets"></li>
-                                        <li class="icohp-spa"></li>
-                                    </ul>
-
+                                    <div class="liover"></div>
+                                    <a class="fav-icon" href="#"></a>
+                                    <a class="book-icon" href="details.html"></a>
                                 </div>
                             </div>
+                            <div class="col-md-8 offset-0">
+                                <div class="itemlabel3">
+                                    <div class="labelright">
+                                        <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
+                                        <img src="images/user-rating-5.png" width="60" alt=""/><br/>
+                                        <span class="size11 grey">18 Reviews</span><br/><br/>
+                                        <span class="green size18"><b>$36.00</b></span><br/>
+                                        <span class="size11 grey">avg/night</span><br/><br/><br/>
+
+                                        <form action="details.html">
+                                            <button class="bookbtn mt1" type="submit"> Book</button>
+                                        </form>
+                                    </div>
+
+                                    <div class="labelleft2">
+                                        <b> {{ $hotel->name }} </b><br/><br/><br/>
+
+                                        <p class="grey">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec
+                                            semper
+                                            lectus. Suspendisse placerat enim mauris, eget lobortis nisi egestas et.
+                                            Donec elementum metus et mi aliquam eleifend. Suspendisse volutpat egestas
+                                            rhoncus.</p><br/>
+                                        <ul class="hotelpreferences">
+                                            <li class="icohp-internet"></li>
+                                            <li class="icohp-air"></li>
+                                            <li class="icohp-pool"></li>
+                                            <li class="icohp-childcare"></li>
+                                            <li class="icohp-fitness"></li>
+                                            <li class="icohp-breakfast"></li>
+                                            <li class="icohp-parking"></li>
+                                            <li class="icohp-pets"></li>
+                                            <li class="icohp-spa"></li>
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="offset-2">
+                            <hr class="featurette-divider3">
+                        </div>
+
                     </div>
+                    <!-- End of offset1-->
 
-                    <div class="clearfix"></div>
-
-                    <div class="offset-2">
-                        <hr class="featurette-divider3">
-                    </div>
-
-                </div>
-                <!-- End of offset1-->
+                @endforeach
 
                 <div class="hpadding20">
 
@@ -1670,31 +1676,29 @@
             </div>
             <!-- END OF LIST CONTENT-->
 
-
         </div>
         <!-- END OF container-->
 
     </div>
     <!-- END OF CONTENT -->
 
-@endsection
+    @endsection
 
-@section('script')
+    @section('script')
 
-    <!-- Javascript -->
-    {{ HTML::script('assets/js/js-list4.js') }}
+        <!-- Javascript -->
+        {{ HTML::script('assets/js/js-list4.js') }}
 
-    <!-- Custom Select -->
-    {{ HTML::script('js/lightbox.js') }}
+        <!-- Custom Select -->
+        {{ HTML::script('js/lightbox.js') }}
 
-    <!-- Counter -->
-    {{ HTML::script('assets/js/counter.js') }}
+        <!-- Counter -->
+        {{ HTML::script('assets/js/counter.js') }}
 
-    <!-- Picker -->
-    {{ HTML::script('assets/js/jquery-ui.js') }}
+        <!-- Picker -->
+        {{ HTML::script('assets/js/jquery-ui.js') }}
 
-@endsection
+    @endsection
 
-</body>
-
+    </body>
 @stop

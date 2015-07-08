@@ -19,9 +19,9 @@
 
 @endsection
 
-<body id="top">
-
 @section('content')
+
+    <body id="top">
 
     <!-- navbar -->
     <div class="navbar-wrapper2 navbar-fixed-top">

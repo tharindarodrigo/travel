@@ -27,9 +27,9 @@
     <!-- end -->
 @endsection
 
-<body id="top" class="thebg">
-
 @section('content')
+
+    <body id="top" class="thebg">
 
     <div class="navbar-wrapper2 navbar-fixed-top">
         @include('layout.navbar')

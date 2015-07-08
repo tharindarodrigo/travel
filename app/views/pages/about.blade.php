@@ -8,9 +8,9 @@
 
 @endsection
 
-<body id="top" class="thebg">
-
 @section('content')
+
+    <body id="top" class="thebg">
 
     <!-- navbar -->
     <div class="navbar-wrapper2 navbar-fixed-top">
@@ -260,18 +260,18 @@
     </div>
     <!-- END OF CONTENT -->
 
-@endsection
+    @endsection
 
-@section('script')
+    @section('script')
 
-    <!-- Javascript  -->
-    {{ HTML::script('assets/js/js-about.js') }}
+        <!-- Javascript  -->
+        {{ HTML::script('assets/js/js-about.js') }}
 
-    <!-- Easy Pie Chart  -->
-    {{ HTML::script('assets/js/jquery.easy-pie-chart.js') }}
+        <!-- Easy Pie Chart  -->
+        {{ HTML::script('assets/js/jquery.easy-pie-chart.js') }}
 
-@endsection
+    @endsection
 
-</body>
+    </body>
 
 @stop

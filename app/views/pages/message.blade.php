@@ -8,9 +8,9 @@
 
 @endsection
 
-<body id="top" class="thebg">
-
 @section('content')
+
+    <body id="top" class="thebg">
 
     <!-- navbar -->
     <div class="navbar-wrapper2 navbar-fixed-top">

@@ -20,7 +20,7 @@
 
 <style type="text/css">
     body {
-        padding-top: 90px;
+        padding-top: 50px;
     }
 
     .panel-login {
