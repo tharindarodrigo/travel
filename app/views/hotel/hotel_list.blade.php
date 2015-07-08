@@ -25,9 +25,9 @@
 
 @endsection
 
-<body id="top" class="thebg">
-
 @section('content')
+
+    <body id="top" class="thebg">
 
     <div class="navbar-wrapper2 navbar-fixed-top">
         @include('layout.navbar')
@@ -1578,9 +1578,10 @@
                         <div class="col-md-4 offset-0">
                             <button class="popularbtn left">Most Popular</button>
                             <div class="right">
-                                <button class="gridbtn" onClick="window.open('list2.html','_self');">&nbsp;</button>
-                                <button class="listbtn active">&nbsp;</button>
-                                <button class="grid2btn" onClick="window.open('list3.html','_self');">&nbsp;</button>
+                                <a class="listbtn active" href="{{URL::to('home')}}"></a>
+                                <a class="gridbtn" href="{{URL::to('home')}}"></a>
+                                {{--<button class="listbtn active" onclick="location.href='http://google.com';">&nbsp;</button>--}}
+                                {{--<button class="gridbtn" onclick="location.href='http://google.com';"">&nbsp;</button>--}}
                             </div>
                         </div>
                     </div>
@@ -1677,24 +1678,23 @@
     </div>
     <!-- END OF CONTENT -->
 
-@endsection
+    @endsection
 
-@section('script')
+    @section('script')
 
-    <!-- Javascript -->
-    {{ HTML::script('assets/js/js-list4.js') }}
+        <!-- Javascript -->
+        {{ HTML::script('assets/js/js-list4.js') }}
 
-    <!-- Custom Select -->
-    {{ HTML::script('js/lightbox.js') }}
+        <!-- Custom Select -->
+        {{ HTML::script('js/lightbox.js') }}
 
-    <!-- Counter -->
-    {{ HTML::script('assets/js/counter.js') }}
+        <!-- Counter -->
+        {{ HTML::script('assets/js/counter.js') }}
 
-    <!-- Picker -->
-    {{ HTML::script('assets/js/jquery-ui.js') }}
+        <!-- Picker -->
+        {{ HTML::script('assets/js/jquery-ui.js') }}
 
-@endsection
+    @endsection
 
-</body>
-
+    </body>
 @stop

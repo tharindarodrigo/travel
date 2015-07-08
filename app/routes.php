@@ -60,11 +60,24 @@ Route::get('/403', function () {
 
 /*------------------------------ Hotel List --------------------------------*/
 
+Route::post('/hotel/{accommodationORcity?}', array(
+    'as' => 'hotel-list',
+    'uses' => 'HotelController@index'
+));
+
 /************* navbar link ********************/
 
 Route::get('accommodation/{hotel_type?}', array(
-    'as' => 'hotel-list',
-    'uses' => 'HotelController@hotel_list'
+    'as' => 'accommodation-hotel-list',
+    'uses' => 'HotelController@viewAccommodation'
+));
+
+/************* End Of Navbar Link ********************/
+
+
+Route::get('city/{city?}', array(
+    'as' => 'city-hotel-list',
+    'uses' => 'HotelController@viewCity'
 ));
 
 
@@ -76,9 +89,7 @@ Route::group(array("prefix" => "hotel"), function () {
     ));
 });
 
-
-/*------------------------- /Hotel List -------------------------------*/
-
+/*------------------------- End Of Hotel List -------------------------------*/
 
 
 /*------------------------------ Sign in & Register --------------------------------*/
