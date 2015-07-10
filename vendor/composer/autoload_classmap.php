@@ -14,6 +14,7 @@ return array(
     'City' => $baseDir . '/app/models/City.php',
     'ContactController' => $baseDir . '/app/controllers/ContactController.php',
     'CountriesController' => $baseDir . '/app/controllers/control-panel/CountriesController.php',
+    'CountriesTableSeeder' => $baseDir . '/app/database/seeds/CountriesTableSeeder.php',
     'Country' => $baseDir . '/app/models/Country.php',
     'CreateCancellationPoliciesTable' => $baseDir . '/app/database/migrations/2015_05_18_111308_create_cancellation_policies_table.php',
     'CreateCitiesTable' => $baseDir . '/app/database/migrations/2015_04_27_015348_create_cities_table.php',

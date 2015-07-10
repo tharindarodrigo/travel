@@ -20,7 +20,7 @@
 
 <style type="text/css">
     body {
-        padding-top: 50px;
+        /*padding-top: 10px;*/
     }
 
     .panel-login {
@@ -233,7 +233,7 @@
                             ?>
                             @foreach($hotel_type as $hotel_categories)
                                 <li>
-                                    <a href="{{URL::to('/hotel/'.str_replace(' ', '-',$hotel_categories->hotel_category)) }}">{{ $hotel_categories->hotel_category }}</a>
+                                    <a href="{{URL::to('/accommodation/'.str_replace(' ', '-',$hotel_categories->hotel_category)) }}">{{ $hotel_categories->hotel_category }}</a>
                                 </li>
                             @endforeach
                         </ul>

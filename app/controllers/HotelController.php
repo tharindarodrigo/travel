@@ -75,7 +75,7 @@ class HotelController extends \BaseController
         }
     }
 
-    public function viewHotel($hotel_category = '', $city_name = '')
+    public function viewHotel($hotel_category = '', $city_name = '', $chk_in = '', $chk_out = '', $adult = '', $child = '')
     {
 
         $category_url = $hotel_category;
@@ -117,8 +117,6 @@ class HotelController extends \BaseController
 
         $hotels = Hotel::all();
 
-
-
         if (!$hotels->count()) {
             return Redirect::to('/403');
         }
@@ -131,12 +129,23 @@ class HotelController extends \BaseController
                 'hotels' => $hotels,
                 'grid_url' => $grid_url,
                 'list_url' => $list_url,
-                'page_title' => $page_title
+                'page_title' => $page_title,
 
             );
 
     }
 
+    public function viewSearch($city_name = '', $chk_in = '', $chk_out = '', $adult = '', $child = '')
+    {
+        try {
+            $hotel_results = $this->viewHotel($city_name, $chk_in, $chk_out, $adult, $child);
+
+            return View::make('hotel.hotel_list')
+                ->with($hotel_results);
+        } catch (Exception $e) {
+            return View::make('hotel.no_results');
+        }
+    }
 
     /**
      * Show the form for creating a new resource.

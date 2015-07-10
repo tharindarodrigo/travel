@@ -23,6 +23,7 @@
           rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet'
           type='text/css'>
+
     <!-- Font-Awesome -->
     {{ HTML::style('assets/css/font-awesome.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
     <!--[if lt IE 7]>

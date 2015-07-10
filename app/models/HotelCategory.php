@@ -10,7 +10,7 @@ class HotelCategory extends \Eloquent {
 	// Don't forget to fill this array
 	protected $fillable = ['hotel_category', 'val'];
 
-    public function hotels(){
+    public function hotel(){
         return $this->hasMany('Hotel');
     }
 

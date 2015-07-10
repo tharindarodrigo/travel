@@ -77,7 +77,7 @@ Route::get('accommodation/{hotel_type?}', array(
 
 Route::get('city/{city?}', array(
     'as' => 'city-hotel-list',
-    'uses' => 'HotelController@viewCity'
+    'uses' => 'HotelController@viewSearch'
 ));
 
 

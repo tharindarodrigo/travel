@@ -11,4 +11,8 @@ class HotelFacility extends \Eloquent {
 	// Don't forget to fill this array
 	protected $fillable = ['hotel_facility','val'];
 
+    public function hotel(){
+        return $this->belongsToMany('Hotel');
+    }
+
 }
