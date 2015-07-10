@@ -48,7 +48,7 @@ class Hotel extends \Eloquent
     }
 
     public function hotelFacility(){
-        return $this->hasMany('hotelFacility');
+        return $this->belongsToMany('hotelFacility');
     }
 
 

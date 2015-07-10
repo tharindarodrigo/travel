@@ -703,8 +703,9 @@
                                     $img_path = array_shift($images);
                                     ?>
 
-                                    <a href="<?php echo 'http://localhost/travel/public/'.$img_path; ?>"
-                                       data-title="{{ $hotel->name }}" data-gallery="multiimages" data-toggle="lightbox">
+                                    <a href="<?php echo 'http://localhost/travel/public/' . $img_path; ?>"
+                                       data-title="{{ $hotel->name }}" data-gallery="multiimages"
+                                       data-toggle="lightbox">
 
 
                                         @if(count($img_path)>0)
@@ -716,7 +717,7 @@
                                         <div class="liover"></div>
                                         <a class="fav-icon" href="#"></a>
                                         <a class="book-icon" href="details.html"></a>
-                                        </a>
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-md-8 offset-0">
@@ -752,15 +753,15 @@
                                         </p>
                                         <br/>
                                         <ul class="hotelpreferences">
-                                            <li class="icohp-internet"></li>
-                                            <li class="icohp-air"></li>
-                                            <li class="icohp-pool"></li>
-                                            <li class="icohp-childcare"></li>
-                                            <li class="icohp-fitness"></li>
-                                            <li class="icohp-breakfast"></li>
-                                            <li class="icohp-parking"></li>
-                                            <li class="icohp-pets"></li>
-                                            <li class="icohp-spa"></li>
+                                            <?php
+                                            $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
+                                            ?>
+                                            @foreach($hotel_facilities->hotelFacility as $hotel_facility)
+
+                                                <li class="{{ $hotel_facility->name; }}"></li>
+
+                                            @endforeach
+
                                         </ul>
 
                                     </div>
