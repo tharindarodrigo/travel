@@ -261,7 +261,7 @@
                     </div>
                     <!-- END OF HOTELS TAB -->
 
-                    <!-- CARS TAB -->
+                    <!-- TRANSPORT TAB -->
                     <div class="carstab2 none">
                         <div class="w50percent">
                             <div class="wh90percent textleft">
@@ -414,7 +414,7 @@
                         <div class="clearfix"></div>
                         <button type="submit" class="btn-search3">Search</button>
                     </div>
-                    <!-- END OF CARS TAB -->
+                    <!-- END OF TRANSPORT TAB -->
 
                 </div>
                 <!-- END OF BOOK FILTERS -->
@@ -433,32 +433,37 @@
                     <div class="hpadding20">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox"><img src="images/filter-rating-5.png" class="imgpos1" alt=""/> 5
-                                Stars
+                                <input type="checkbox">
+                                {{ HTML::image('images/filter-rating-5.png', '', array('class' => 'imgpos1'))}}
+                                5 Stars
                             </label>
                         </div>
                         <div class="checkbox">
+                            <input type="checkbox">
                             <label>
-                                <input type="checkbox"><img src="images/filter-rating-4.png" class="imgpos1" alt=""/> 4
-                                Stars
+                                {{ HTML::image('images/filter-rating-4.png', '', array('class' => 'imgpos1'))}}
+                                4 Stars
                             </label>
                         </div>
                         <div class="checkbox">
+                            <input type="checkbox">
                             <label>
-                                <input type="checkbox"><img src="images/filter-rating-3.png" class="imgpos1" alt=""/> 3
-                                Stars
+                                {{ HTML::image('images/filter-rating-3.png', '', array('class' => 'imgpos1'))}}
+                                3 Stars
                             </label>
                         </div>
                         <div class="checkbox">
+                            <input type="checkbox">
                             <label>
-                                <input type="checkbox"><img src="images/filter-rating-2.png" class="imgpos1" alt=""/> 2
-                                Stars
+                                {{ HTML::image('images/filter-rating-2.png', '', array('class' => 'imgpos1'))}}
+                                2 Stars
                             </label>
                         </div>
                         <div class="checkbox">
+                            <input type="checkbox">
                             <label>
-                                <input type="checkbox"><img src="images/filter-rating-1.png" class="imgpos1" alt=""/> 1
-                                Star
+                                {{ HTML::image('images/filter-rating-1.png', '', array('class' => 'imgpos1'))}}
+                                1 Star
                             </label>
                         </div>
                     </div>
@@ -476,12 +481,19 @@
                 <div id="collapse2" class="collapse in">
                     <div class="padding20">
                         <div class="layout-slider wh100percent">
-                            <span class="cstyle09"><input id="Slider1" type="slider" name="price"
-                                                          value="400;700"/></span>
+                            <span class="cstyle09">
+                                <input id="Slider1" type="slider" name="price" value="200;700"/>
+                            </span>
                         </div>
+
+                        <!-- bin/jquery.slider.min.js -->
+                        {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
+                        {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
+                        <!-- end -->
+
                         <script type="text/javascript">
                             jQuery("#Slider1").slider({
-                                from: 100,
+                                from: 10,
                                 to: 1000,
                                 step: 5,
                                 smooth: true,
@@ -496,49 +508,24 @@
 
                 <div class="line2"></div>
 
-                <!-- Acomodations -->
+                <!-- Accommodation -->
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
-                    Acomodation type <span class="collapsearrow"></span>
+                    Accommodation type <span class="collapsearrow"></span>
                 </button>
 
                 <div id="collapse3" class="collapse in">
                     <div class="hpadding20">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios2" id="Acomodation1" value="option1" checked>
-                                All
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios2" id="Acomodation2" value="option2">
-                                Hotel
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios2" id="Acomodation3" value="option3">
-                                Bed & Breakfast
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios2" id="Acomodation4" value="option4">
-                                Apartment
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios2" id="Acomodation5" value="option5">
-                                Condo
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios2" id="Acomodation6" value="option6">
-                                All-Inclusive Resort
-                            </label>
-                        </div>
+                        <?php $x = 1; ?>
+                        @foreach($hotel_type as $accommodation)
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios2" id="Acomodation{{ $x }}"
+                                           value="option{{ $x }}">
+                                    {{ $accommodation->hotel_category }}
+                                </label>
+                            </div>
+                            <?php $x++ ?>
+                        @endforeach
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -548,82 +535,48 @@
 
                 <!-- Hotel Preferences -->
                 <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse4">
-                    Hotel Preferences <span class="collapsearrow"></span>
+                    Hotel Facilities <span class="collapsearrow"></span>
                 </button>
                 <div id="collapse4" class="collapse in">
                     <div class="hpadding20">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">High-speed Internet (41)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Air conditioning (52)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Swimming pool (55)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Childcare (12)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Fitness equipment (49)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Free breakfast (14)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Free parking (11)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Hair dryer (48)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Pets allowed (16)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Restaurant in hotel (47)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Room service (38)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Spa services on site (57)
-                            </label>
-                        </div>
-
+                        @foreach($hotel_facilities as $facility)
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox">
+                                    {{ $facility->hotel_facility }}
+                                </label>
+                            </div>
+                        @endforeach
                     </div>
                     <div class="clearfix"></div>
                 </div>
                 <!-- End of Hotel Preferences -->
+                <div class="line2"></div>
+
+                <!-- Cities -->
+                <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse5">
+                    Hotel Preferences <span class="collapsearrow"></span>
+                </button>
+                <div id="collapse5" class="collapse in">
+                    <div class="hpadding20">
+                        @foreach($hotel_cities as $city)
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox">
+                                    {{ $city->city }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- End of Cities -->
 
                 <div class="line2"></div>
                 <div class="clearfix"></div>
                 <br/>
                 <br/>
                 <br/>
-
 
             </div>
             <!-- END OF FILTERS -->
@@ -711,7 +664,7 @@
                                         @if(count($img_path)>0)
                                             {{ HTML::image($img_path, '', array('class' => 'hotel_img_1'))}}
                                         @else
-                                            {{ HTML::image('images/no-image.png', '', array('class' => 'property_img_1')) }}
+                                            {{ HTML::image('images/no-image.jpg', '', array('class' => 'property_img_1')) }}
                                         @endif
 
                                         <div class="liover"></div>
@@ -781,18 +734,8 @@
 
                 @endforeach
 
-                <div class="hpadding20">
-
-                    <ul class="pagination right paddingbtm20">
-                        <li class="disabled"><a href="#">&laquo;</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
-
+                <div class="hpadding20" align="right">
+                    {{ $hotels->links() }}
                 </div>
 
             </div>

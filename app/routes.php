@@ -60,11 +60,6 @@ Route::get('/403', function () {
 
 /*------------------------------ Hotel List --------------------------------*/
 
-Route::post('/hotel/{accommodationORcity?}', array(
-    'as' => 'hotel-list',
-    'uses' => 'HotelController@index'
-));
-
 /************* navbar link ********************/
 
 Route::get('accommodation/{hotel_type?}', array(

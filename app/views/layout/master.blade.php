@@ -50,18 +50,16 @@
 
 @extends('layout.footer')
 
-@yield('script')
-
 <!-- Javascript -->
 
 <!-- This page JS -->
-{{ HTML::script('assets/js/js-index.js') }}
+{{--{{ HTML::script('assets/js/js-index.js') }}--}}
 
 <!-- Custom functions -->
 {{ HTML::script('assets/js/functions.js') }}
 
 <!-- Picker UI-->
-{{ HTML::script('assets/js/jquery-ui.js') }}
+{{--{{ HTML::script('assets/js/jquery-ui.js') }}--}}
 
 <!-- Easing -->
 {{ HTML::script('assets/js/jquery.easing.js') }}
@@ -84,5 +82,7 @@
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 {{ HTML::script('dist/js/bootstrap.min.js') }}
+
+@yield('script')
 
 </html>

@@ -14,33 +14,33 @@ class HotelController extends \BaseController
         return View::make('hotel.hotel_list');
     }
 
-//    public function listView($hotel_category = '', $city_name = '')
-//    {
-//        Session::put('view_type', 'list');
-//        try {
-//            $hotel_results = $this->viewHotel($hotel_category, $city_name);
-//
-//            return View::make('hotel.hotel_list')
-//                ->with($hotel_results);
-//        } catch (Exception $e) {
-//
-//            return View::make('hotel.no_results');
-//        }
-//    }
-//
-//    public function gridView($hotel_category = '', $city_name = '')
-//    {
-//        Session::put('view_type', 'grid');
-//        try {
-//            $hotel_results = $this->viewHotel($hotel_category, $city_name);
-//            return View::make('property.property')
-//                ->with($hotel_results);
-//        } catch (Exception $e) {
-//
-//            return View::make('property.no_results');
-//
-//        }
-//    }
+    public function listView($hotel_category = '', $city_name = '', $chk_in = '', $chk_out = '', $min_price = '', $max_price = '', $adult = '', $child = '', $star = '', $facilities = '')
+    {
+        Session::put('view_type', 'list');
+        try {
+            $hotel_results = $this->viewHotel($hotel_category, $city_name, $chk_in, $chk_out, $min_price, $max_price, $adult, $child, $star, $facilities);
+
+            return View::make('hotel.hotel_list')
+                ->with($hotel_results);
+        } catch (Exception $e) {
+
+            return View::make('hotel.no_results');
+        }
+    }
+
+    public function gridView($hotel_category = '', $city_name = '', $chk_in = '', $chk_out = '', $min_price = '', $max_price = '', $adult = '', $child = '', $star = '', $facilities = '')
+    {
+        Session::put('view_type', 'grid');
+        try {
+            $hotel_results = $this->viewHotel($hotel_category, $city_name, $chk_in, $chk_out, $min_price, $max_price, $adult, $child, $star, $facilities);
+            return View::make('property.property')
+                ->with($hotel_results);
+        } catch (Exception $e) {
+
+            return View::make('property.no_results');
+
+        }
+    }
 
     public function index()
     {
@@ -75,8 +75,16 @@ class HotelController extends \BaseController
         }
     }
 
-    public function viewHotel($hotel_category = '', $city_name = '', $chk_in = '', $chk_out = '', $adult = '', $child = '')
+    public function viewHotel($hotel_category = '', $city_name = '', $chk_in = '', $chk_out = '', $min_price = '', $max_price = '', $adult = '', $child = '', $star = '', $facilities = '')
     {
+
+        // Filtering
+
+        $hotel_type = DB::table('hotel_categories')->get();
+        $hotel_cities = DB::table('cities')->get();
+        $hotel_facilities = DB::table('hotel_facilities')->get();
+
+
 
         $category_url = $hotel_category;
         $city_url = $city_name;
@@ -115,7 +123,7 @@ class HotelController extends \BaseController
             $city_id = $get_city_id->id;
         }
 
-        $hotels = Hotel::all();
+        $hotels = Hotel::paginate(5);
 
         if (!$hotels->count()) {
             return Redirect::to('/403');
@@ -130,6 +138,9 @@ class HotelController extends \BaseController
                 'grid_url' => $grid_url,
                 'list_url' => $list_url,
                 'page_title' => $page_title,
+                'hotel_type' => $hotel_type,
+                'hotel_cities' => $hotel_cities,
+                'hotel_facilities' => $hotel_facilities
 
             );
 
