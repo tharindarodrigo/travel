@@ -1714,7 +1714,7 @@ a:hover.backbtn{
     text-align:left;
     padding-left:20px;
     padding-right:20px;
-    color:#666;
+    /*color:#666;*/
     font-family:"Open Sans";
     font-size:14px;
     font-weight:700;

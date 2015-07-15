@@ -24,6 +24,12 @@
         h4 {
             color: #006699;
         }
+
+        .no_result{
+            width: auto;
+            height: auto;
+        }
+
     </style>
 
     <!-- bin/jquery.slider.min.css -->
@@ -651,102 +657,16 @@
 
                 <div class="clearfix"></div>
 
-                @foreach($hotels as $hotel)
+                <div class="itemscontainer offset-1">
+                    <br/><br/>
 
-                    <div class="itemscontainer offset-1">
-
-                        <div class="offset-2">
-                            <div class="col-md-4 offset-0">
-                                <div class="listitem2">
-
-                                    <?php
-                                    $directory = 'images/hotel_images/';
-                                    $images = glob($directory . $hotel->id . "_" . "*.*");
-                                    $img_path = array_shift($images);
-                                    ?>
-
-                                    <a href="<?php echo 'http://localhost/travel/public/' . $img_path; ?>"
-                                       data-title="{{ $hotel->name }}" data-gallery="multiimages"
-                                       data-toggle="lightbox">
-
-
-                                        @if(count($img_path)>0)
-                                            {{ HTML::image($img_path, '', array('class' => 'hotel_img_1'))}}
-                                        @else
-                                            {{ HTML::image('images/no-image.jpg', '', array('class' => 'property_img_1')) }}
-                                        @endif
-
-                                        <div class="liover"></div>
-                                        <a class="fav-icon" href="#"></a>
-                                        <a class="book-icon" href="details.html"></a>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-8 offset-0">
-                                <div class="itemlabel3">
-
-                                    <div class="labelright">
-                                        <?php
-                                        $stars = $hotel->star_category_id;
-                                        $star = DB::table('star_categories')->where('id', $stars)->first();
-                                        $hotel_star = $star->stars;
-
-                                        ?>
-
-                                        {{ Star::star_loop($hotel_star)}}<br/><br/><br/>
-
-                                        {{ HTML::image('images/user-rating-5.png', '')}}<br/><br/>
-                                        @foreach($hotel->hotelReview as $review)
-                                            <span class="size11 grey">{{ $review->count(); }} Reviews </span><br/><br/>
-                                        @endforeach
-
-                                        <span class="green size18"><b>$36.00</b></span><br/>
-                                        <span class="size11 grey">avg/night</span><br/><br/><br/>
-
-                                        <form action="details.html">
-                                            <button class="bookbtn mt1" type="submit"> Book</button>
-                                        </form>
-                                    </div>
-
-                                    <div class="labelleft2">
-                                        <a href="" style="text-decoration: none"><h4> {{ $hotel->name }} </h4><br/></a>
-
-                                        <p class="grey">
-                                            {{ $hotel->overview; }}
-                                        </p>
-                                        <br/>
-                                        <ul class="hotelpreferences">
-                                            <?php
-                                            $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
-                                            ?>
-                                            @foreach($hotel_facilities->hotelFacility as $hotel_facility)
-
-                                                <li class="{{ $hotel_facility->name; }}"></li>
-
-                                            @endforeach
-
-                                        </ul>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="clearfix"></div>
-
-                        <div class="offset-2">
-                            <hr class="featurette-divider3">
-                        </div>
-
+                    <div style="padding: 10%" class="container offset-2" >
+                        {{ HTML::image('images/no-result-found.jpg', '', array('class' => 'no_result'))}}
                     </div>
-                    <!-- End of offset1-->
-
-                @endforeach
-
-                <div class="hpadding20" align="right">
-                    {{ $hotels->links() }}
+                    <div class="clearfix"></div>
                 </div>
+                <!-- End of offset1-->
+
 
             </div>
             <!-- END OF LIST CONTENT-->

@@ -233,7 +233,7 @@
                             ?>
                             @foreach($hotel_type as $hotel_categories)
                                 <li>
-                                    <a href="{{URL::to('/accommodation/'.str_replace(' ', '-',$hotel_categories->hotel_category)) }}">{{ $hotel_categories->hotel_category }}</a>
+                                    <a href="{{URL::to('/sri-lanka/'.str_replace(' ', '-',$hotel_categories->hotel_category)) }}">{{ $hotel_categories->hotel_category }}</a>
                                 </li>
                             @endforeach
                         </ul>

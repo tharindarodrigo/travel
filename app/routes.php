@@ -67,11 +67,16 @@ Route::get('accommodation/{hotel_type?}', array(
     'uses' => 'HotelController@viewAccommodation'
 ));
 
+Route::get('city/{city?}', array(
+    'as' => 'city-hotel-list',
+    'uses' => 'HotelController@viewCity'
+));
+
 /************* End Of Navbar Link ********************/
 
 
-Route::get('city/{city?}', array(
-    'as' => 'city-hotel-list',
+Route::get('/{country?}/{city_name_OR_accommodation?}/{hotel_name?}', array(
+    'as' => 'hotel-list',
     'uses' => 'HotelController@viewSearch'
 ));
 
