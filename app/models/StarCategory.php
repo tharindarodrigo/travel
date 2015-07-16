@@ -16,4 +16,5 @@ class StarCategory extends \Eloquent {
         return $this->has('Hotel');
     }
 
+
 }

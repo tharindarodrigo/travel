@@ -6,11 +6,11 @@ class Rate extends \Eloquent {
 	public static $rules = [
 		 'from' => 'required|date',
 		 'to' => 'required|date|after:from',
-//		 'allotment' => 'numeric'
+		 'market_id' => 'required'
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = ['from', 'to','val', 'room_type_id', 'room_specification_id', 'market_id', 'meal_basis_id', 'user_id', 'hotel_id', 'rate'];
+	protected $fillable = ['from', 'to', 'val', 'room_type_id', 'room_specification_id', 'market_id', 'meal_basis_id', 'user_id', 'hotel_id', 'rate'];
 
     public function roomType(){
         return $this->belongsTo('RoomType');

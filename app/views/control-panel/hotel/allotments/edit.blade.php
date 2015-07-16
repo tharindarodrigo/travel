@@ -1,0 +1,1 @@
+C:\wamp\www\travel\app/views/allotments/edit.blade.php

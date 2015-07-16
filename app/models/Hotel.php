@@ -27,12 +27,14 @@ class Hotel extends \Eloquent
      * Relationships
      */
 
-    public function starCategory(){
+    public function starCategory()
+    {
         return $this->belongsTo('StarCategory');
     }
 
-    public function users(){
-        return $this->belongsToMany('User');
+    public function users()
+    {
+        return $this->belongsTo('User');
     }
 
     public function city(){

@@ -30,6 +30,18 @@
         {{ HTML::style('//cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css')}}
 <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js" type="javascript"></script>
 
+    <style type="text/css">
+        th {
+            text-align: center;
+        }
+
+        td {
+            vertical-align: middle;
+        }
+
+
+    </style>
+
     @yield('head-scripts')
   </head>
   <body class="skin-blue">
@@ -411,6 +423,7 @@
 
     @yield('scripts')
     @yield('scripts1')
+
 
 
   </body>

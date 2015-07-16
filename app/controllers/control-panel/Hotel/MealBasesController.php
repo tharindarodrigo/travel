@@ -136,7 +136,7 @@ class MealBasesController extends \BaseController
 
             Session::flash('successful-action', 'Item was deleted Successfully');
         } else {
-                Session::flash('unsuccessful-action', 'Item deletion was Unsuccessful');
+            Session::flash('unsuccessful-action', 'Item deletion was Unsuccessful');
         }
 
         return Redirect::route('control-panel.hotel.meal-bases.index');

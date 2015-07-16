@@ -13,7 +13,7 @@ class Market extends \Eloquent {
 
     public function rate()
     {
-        return $this->has('rate');
+        return $this->hasMany('Rate');
     }
 
 }

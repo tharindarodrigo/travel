@@ -293,6 +293,7 @@ Route::group(array('prefix' => 'control-panel'), function () {
         Route::resource('markets', 'MarketsController');
         Route::resource('countries', 'CountriesController');
 
+
     });
 
     Route::get('image-uploads',array(
@@ -316,8 +317,15 @@ Route::group(array('prefix' => 'control-panel'), function () {
         /**
          *  Rates
          */
+
         Route::resource('hotels.rates', 'RatesController');
         Route::post('hotels/rates/get-rates', 'RatesController@getRateData');
+        Route::post('hotels/{hotelid}/rates/update-rates', 'RatesController@updateRates');
+
+        Route::resource('hotels.supplement-rates', 'SupplementRatesController');
+        Route::post('hotels/supplement-rates/get-rates', 'SupplementRatesController@getRateData');
+        Route::post('hotels/{hotelid}/supplement-rates/update-rates', 'SupplementRatesController@updateSupplementRates');
+
 
         /**
          *  Room Types

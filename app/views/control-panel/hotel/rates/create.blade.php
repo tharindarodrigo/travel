@@ -15,7 +15,7 @@
             <div class="box-body table-responsive">
                 <div class="form-group">
                     {{Form::label('room_type','Room Type')}}
-                    {{Form::select('room_type_id',RoomType::where('hotel_id', $hotelid)->lists('room_type','id'), 'Select Room', array('class' => 'form-control', 'id'=>'room_type_id'))}}
+                    {{Form::select('room_type_id', array('0' => 'Select a Room Type')+RoomType::where('hotel_id', $hotelid)->lists('room_type','id'), 'Select Room', array('class' => 'form-control', 'id'=>'room_type_id'))}}
                 </div>
 
                 <div class="form-group">
@@ -33,12 +33,6 @@
                 </div>
                 <div class="form-group validation" style="color: #a04606"></div>
 
-                {{--<div class="form-group">--}}
-                    {{--{{Form::label('allotment','Allotment')}}--}}
-                    {{--{{Form::text('allotment', null, array('class'=>'form-control'))}}--}}
-                {{--</div>--}}
-                {{--<div class="form-group validation" style="color: #a04606"></div>--}}
-
                 <div class="form-group">
                     {{ Form::label('market', 'Markets')}}
                     @foreach(Market::where('val',1)->get() as $market)
@@ -47,8 +41,6 @@
                             {{Form::checkbox('markets[]', $market->id, null ,array('class' => 'form-group'))}}
                             {{ $market->market }}
                         </label>
-
-
                         </p>
                     @endforeach
                 </div>
@@ -108,16 +100,14 @@
 
         var hotel_id;
 
-        $('#room_type_id').click(function(){
+        $('#room_type_id').change(function(){
 
             hideItems();
 
             $("#change_room").slideDown(200);
             var url = 'http://'+window.location.host+'/control-panel/hotel/hotels/rates/get-rates';
-            //alert(url);
             var formData = new FormData();
             formData.append('room_type_id', $(this).val());
-//            alert(formData);
             $.ajax({
                 url: url,
                 method: 'post',
@@ -148,7 +138,7 @@
 
                     $('tbody').html(tablebody);
 
-                    $('.mask').mask("9999");
+                    $('.mask').mask("?9999");
 
                     $('#room_type_id').attr('disabled', true);
                     $('tbody').slideDown(200);
@@ -197,7 +187,7 @@
             formObj.append('room_type_id',$('#room_type_id').val());
             formObj.append('rates', rates);
             formObj.append('keys', keys);
-            formObj.append('markets', markets);
+            formObj.append('market_id', markets);
 
             var url1 = 'http://'+window.location.host+'/control-panel/hotel/hotels/'+hotel_id+'/rates';
             $.ajax({
@@ -213,6 +203,16 @@
                         $.each(data.errors,function(j, error){
                             $("#"+j).closest('div').next('.validation').html(error).slideDown(200);
                         });
+                    }
+
+                    else {
+//                        alert("successfully added");
+                        $("input[type=text]").val("");
+                        $('input:checkbox').removeAttr('checked');
+                        $('#change_room').hide();
+                        $('#room_type_id').removeAttr("disabled");
+                        $('#room_type_id').val(0);
+
                     }
 
                     if(data.error) {
