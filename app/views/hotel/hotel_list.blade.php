@@ -217,13 +217,16 @@
 
                     <div class="clearfix"></div>
 
-                    {{ Form::open(array('url' => '', 'files'=> true, 'id' => 'searchform')) }}
+                    {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'searchform', 'method' => 'GET', )) }}
+
+                    {{--<form action="{{ URL::route('ho') }}" method="POST">--}}
 
                     <!-- HOTELS TAB -->
                     <div class="hotelstab2 none">
                         <span class="opensans size13">Where do you want to go?</span>
 
-                        <input type="text" class="form-control" id="inputString" onkeyup="lookup(this.value);"/>
+                        <input type="text" class="form-control" name="txt-search" id="inputString" category=""
+                               onkeyup="lookup(this.value);" autocomplete="off"/>
 
                         <div id="suggestions"></div>
 
@@ -377,7 +380,9 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
+
                         <button type="submit" class="btn-search3">Search</button>
+
                     </div>
                     <!-- END OF HOTELS TAB -->
 
@@ -791,7 +796,12 @@
 
                                         <div class="liover"></div>
                                         <a class="fav-icon" href="#"></a>
-                                        <a class="book-icon" href="details.html"></a>
+                                        <?php
+                                        $city_id = $hotel->city_id;
+                                        $get_city = DB::table('cities')->where('id', $city_id)->first();
+                                        $city = $get_city->city;
+                                        ?>
+                                        <a class="book-icon" href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"></a>
                                     </a>
                                 </div>
                             </div>
@@ -803,7 +813,6 @@
                                         $stars = $hotel->star_category_id;
                                         $star = DB::table('star_categories')->where('id', $stars)->first();
                                         $hotel_star = $star->stars;
-
                                         ?>
 
                                         {{ Star::star_loop($hotel_star)}}<br/><br/><br/>
@@ -816,13 +825,13 @@
                                         <span class="green size18"><b>$36.00</b></span><br/>
                                         <span class="size11 grey">avg/night</span><br/><br/><br/>
 
-                                        <form action="details.html">
+                                        <form action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
                                             <button class="bookbtn mt1" type="submit"> Book</button>
                                         </form>
                                     </div>
 
                                     <div class="labelleft2">
-                                        <a href="" style="text-decoration: none"><h4> {{ $hotel->name }} </h4><br/></a>
+                                        <a href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}" style="text-decoration: none"><h4> {{ $hotel->name }} </h4><br/></a>
 
                                         <p class="grey">
                                             {{ $hotel->overview; }}
@@ -899,7 +908,9 @@
 
                         $('a').click(function () {
                             $value = $(this).attr('value');
+                            $category = $(this).attr('category');
                             $('#inputString').val($value);
+                            $('#inputString').attr('category', $category);
                             $('#suggestions').fadeOut();
                         });
                     });
