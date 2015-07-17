@@ -59,7 +59,7 @@ class HotelController extends \BaseController
      Hotel list page
     */
 
-    public function viewHotel($country = '', $city_or_accommodation = '', $hotel_name = '')
+    public function viewHotelList($country = '', $city_or_accommodation = '')
     {
 
         $path = array();
@@ -89,34 +89,9 @@ class HotelController extends \BaseController
             }
         }
 
-
-        if (!empty($hotel_name)) {
-            $hotel_name = str_replace('-', ' ', $hotel_name);
-            $get_hotel_id = DB::table('hotels')->where('name', 'LIKE', $hotel_name)->first();
-            $hotel_id = $get_hotel_id->id;
-        }
-
-
         $country_url = $country;
         $city_or_accommodation_url = $city_or_accommodation;
-        $hotel_name_url = $hotel_name;
 
-        $page_title = '';
-
-        if ($country_url != '') {
-            $country_url .= '/';
-            $page_title .= ' for ' . $country;
-        }
-
-        if ($city_or_accommodation_url != '') {
-            $city_or_accommodation_url .= '/';
-            $page_title .= ' in ' . $city_or_accommodation;
-        }
-
-        if ($hotel_name_url != '') {
-            $hotel_name_url .= '/';
-            $page_title .= ' in ' . $hotel_name;
-        }
 
 //        if (!empty($hotel_category)) {
 //            $list_url = '/hotel/' . $category_url;
@@ -147,7 +122,6 @@ class HotelController extends \BaseController
             return Redirect::to('/403');
         }
 
-
         return
             array(
 
@@ -165,11 +139,11 @@ class HotelController extends \BaseController
      Hotel list page redirect page
     */
 
-    public function viewSearch($country = '', $city_or_accommodation = '', $hotel_name = '')
+    public function hotelList($country = '', $city_or_accommodation = '')
     {
         try {
-            $hotel_results = $this->viewHotel($country, $city_or_accommodation, $hotel_name);
 
+            $hotel_results = $this->viewHotelList($country, $city_or_accommodation);
             return View::make('hotel.hotel_list')
                 ->with($hotel_results);
         } catch (Exception $e) {
@@ -180,8 +154,8 @@ class HotelController extends \BaseController
     }
 
     /*
-     no result page
-    */
+     *no result page
+     */
     public function viewNoResult()
     {
         // Filtering
@@ -195,6 +169,46 @@ class HotelController extends \BaseController
                 'hotel_cities' => $hotel_cities,
                 'hotel_facilities' => $hotel_facilities
             );
+    }
+
+    /*
+     *no result page
+     */
+    public function viewSearch()
+    {
+
+        $get_city_or_accommodation = Input::get('txt-search');
+
+        if (!empty($get_city_or_accommodation)) {
+
+            $city_or_hotel = $get_city_or_accommodation;
+
+            $get_city_or_hotel_id = DB::table('cities')->where('city', 'LIKE', $city_or_hotel)->first();
+
+            if (!is_null($get_city_or_hotel_id)) {
+                $city_id = $get_city_or_hotel_id->id;
+                $city = str_replace(' ', '-', $get_city_or_accommodation);
+                $url = 'sri-lanka/' . $city;
+            } else {
+                $get_city_or_hotel_id = DB::table('hotels')->where('name', 'LIKE', $city_or_hotel)->first();
+                $hotel_id = $get_city_or_hotel_id->id;
+                $hotel = str_replace(' ', '-', $get_city_or_accommodation);
+
+                $city_id = $get_city_or_hotel_id->city_id;
+                $get_city = DB::table('cities')->where('id', '=', $city_id)->first();
+                $city_name = $get_city->city;
+                $city = str_replace(' ', '-', $city_name);
+
+                $url = 'sri-lanka/' . $city . '/' . $hotel;
+                //dd($url);
+            }
+            return Redirect::to($url);
+        } else {
+            $no_result = $this->viewNoResult();
+            return View::make('hotel.no_results')
+                ->with($no_result);
+        }
+
     }
 
 
@@ -226,9 +240,37 @@ class HotelController extends \BaseController
      * @param  int $id
      * @return Response
      */
-    public function hotelDetail($id)
+    public function hotelDetail($country = '', $city = '', $hotel_name)
     {
-        return View::make('hotel.hotel_details');
+
+        // Filtering
+        $hotel_type = DB::table('hotel_categories')->get();
+        $hotel_cities = DB::table('cities')->get();
+        $hotel_facilities = DB::table('hotel_facilities')->get();
+
+        if (!empty($hotel_name)) {
+            $hotel_name = str_replace('-', ' ', $hotel_name);
+            $get_hotel_id = DB::table('hotels')->where('name', 'LIKE', $hotel_name)->first();
+            $hotel_id = $get_hotel_id->id;
+        }
+
+        $hotel = Hotel::where('id', '=', $hotel_id)->get();
+
+        if (!$hotel->count()) {
+            return Redirect::to('/403');
+        }
+
+        return View::make('hotel.hotel_details')
+            ->with(
+                array(
+
+                    'hotel' => $hotel,
+                    'hotel_type' => $hotel_type,
+                    'hotel_cities' => $hotel_cities,
+                    'hotel_facilities' => $hotel_facilities
+
+                )
+            );
     }
 
 
@@ -271,31 +313,6 @@ class HotelController extends \BaseController
     *For the auto complete option
     */
 
-    public function autoComplete_1()
-    {
-
-        $data = array();
-        $result = [];
-
-        $term = Input::get('term');
-
-        $hotel_cities = DB::table('cities')->get();
-
-        foreach ($hotel_cities as $cities) {
-            $data[] = 'echo<img src="images/delete.png" alt="delete"/>' . $cities->city;
-        }
-
-
-        foreach ($data as $color) {
-            if (strpos(Str::lower($color), $term) !== false) {
-                $result[] = ['value' => $color];
-            }
-        }
-
-        return Response::json($result);
-
-    }
-
     public function autoComplete()
     {
 
@@ -306,45 +323,74 @@ class HotelController extends \BaseController
             // Is the string length greater than 0?
             if (strlen($queryString) > 0) {
 
-                $query = City::where('city', 'LIKE', '%' . $queryString . '%')->get();
+                $hotels = Hotel::where('name', 'LIKE', '%' . $queryString . '%')->get();
+                $cities = City::where('city', 'LIKE', '%' . $queryString . '%')->get();
 
-                if ($query) {
-                    // While there are results loop through them - fetching an Object.
+                //dd(DB::getQueryLog());
 
-                    // Store the category id
+                if (!is_null($hotels)) {
+                    if ($hotels) {
+                        // While there are results loop through them - fetching an Object.
 
-                    foreach ($query as $hotels) {
+                        foreach ($hotels as $hotel) {
 
-                        $directory = 'images/hotel_images/';
-                        $images = glob($directory . $hotels->id . "_" . "*.*");
-                        $img_path = array_shift($images);
+                            $directory = 'images/hotel_images/';
+                            $images = glob($directory . $hotel->id . "_" . "*.*");
+                            $img_path = array_shift($images);
 
-                        echo '
+                            echo '
                         <div class="auto_complete">
-                            <a href="#" value="'.$hotels->city.'">
+                            <a href="#" value="' . $hotel->name . '" category="hotel">
 
                              <span class="search_thumb">
                              <img class="search_thumb" src="../' . $img_path . '" alt="" />
                              </span>
 
-                            <span class="category">' . $hotels->city . '
+                            <span class="category">' . $hotel->name . '
                             </span>
 
                             </a>
                             </div>';
 
+                        }
                     }
-
-                } else {
-                    echo 'ERROR: There was a problem with the query.';
                 }
+
+                if (!is_null($cities)) {
+                    if ($cities) {
+                        // While there are results loop through them - fetching an Object.
+
+                        foreach ($cities as $city) {
+
+                            $directory = 'images/hotel_images/';
+                            $images = glob($directory . $city->id . "_" . "*.*");
+                            $img_path = array_shift($images);
+
+                            echo '
+                        <div class="auto_complete">
+                            <a href="#" value="' . $city->city . '" category="city">
+
+                             <span class="search_thumb">
+                             <img class="search_thumb" src="../' . $img_path . '" alt="" />
+                             </span>
+
+                            <span class="category">' . $city->city . '
+                            </span>
+
+                            </a>
+                            </div>';
+
+                        }
+
+                    }
+                }
+
             } else {
-                // Dont do anything.
+                echo 'Please Type Again To Start The Search';
             } // There is a queryString.
         } else {
             echo 'There should be no direct access to this script!';
         }
-
 
     }
 }
