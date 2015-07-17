@@ -26,6 +26,111 @@
         }
     </style>
 
+    <style type="text/css">
+        .search_thumb {
+            width: 25px;
+            height: 25px;
+        }
+
+        /* SEARCH FORM */
+
+        #suggestions {
+            color: #FFFFFF !important;
+            background: #FFFFFF;
+            position: relative;
+            top: 5px;
+            left: 0px;
+            /*width: 100%;*/
+            display: none;
+        }
+
+        div .auto_complete:hover {
+            width: 100%;
+            background: #006699;
+        }
+
+        .auto_complete:hover a {
+            text-decoration: none;
+            color: #FFFFFF !important;
+        }
+
+        /* SEARCHRESULTS */
+
+        #searchresults {
+            border-width: 1px;
+            border-color: #919191;
+            border-style: solid;
+            width: 320px;
+            background-color: #a0a0a0;
+            font-size: 10px;
+            line-height: 14px;
+        }
+
+        #searchresults a {
+            display: block;
+            background-color: #e4e4e4;
+            clear: left;
+            height: 56px;
+            text-decoration: none;
+        }
+
+        #searchresults a:hover {
+            background-color: #FFFFFF;
+            text-decoration: none;
+            color: #000000 !important;
+        }
+
+        #searchresults a img {
+            float: left;
+            padding: 5px 10px;
+        }
+
+        #searchresults a span.searchheading {
+            display: block;
+            font-weight: bold;
+            padding-top: 5px;
+            color: #191919;
+        }
+
+        #searchresults a:hover span.searchheading {
+            color: #000000;
+        }
+
+        #searchresults a span {
+            color: #555555;
+        }
+
+        #searchresults a:hover span {
+            background: #000066;
+            color: #FFFFFF !important;
+        }
+
+        #searchresults span.category {
+            font-size: 11px;
+            margin: 5px;
+            display: block;
+            color: #000000;
+        }
+
+        #searchresults span.seperator {
+            float: right;
+            padding-right: 15px;
+            margin-right: 5px;
+            background-image: url(../images/shortcuts_arrow.gif);
+            background-repeat: no-repeat;
+            background-position: right;
+        }
+
+        #searchresults span.seperator a {
+            background-color: transparent;
+            display: block;
+            margin: 5px;
+            height: auto;
+            color: #000000;
+        }
+
+    </style>
+
     <!-- bin/jquery.slider.min.css -->
     {{ HTML::style('plugins/jslider/css/jslider.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
     {{ HTML::style('plugins/jslider/css/jslider.round.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
@@ -38,6 +143,8 @@
     {{ HTML::script('plugins/jslider/js/draggable-0.1.js') }}
     {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
     <!-- end -->
+
+    {{--<script type="text/javascript" src="http://www.google.com/jsapi"></script>--}}
 
 @endsection
 
@@ -109,12 +216,16 @@
                     </div>
 
                     <div class="clearfix"></div>
-                    <br/>
+
+                    {{ Form::open(array('url' => '', 'files'=> true, 'id' => 'searchform')) }}
 
                     <!-- HOTELS TAB -->
                     <div class="hotelstab2 none">
                         <span class="opensans size13">Where do you want to go?</span>
-                        <input type="text" class="form-control" placeholder="Greece">
+
+                        <input type="text" class="form-control" id="inputString" onkeyup="lookup(this.value);"/>
+
+                        <div id="suggestions"></div>
 
                         <div class="clearfix pbottom15"></div>
 
@@ -269,6 +380,8 @@
                         <button type="submit" class="btn-search3">Search</button>
                     </div>
                     <!-- END OF HOTELS TAB -->
+
+                    {{Form::close()}}
 
                     <!-- TRANSPORT TAB -->
                     <div class="carstab2 none">
@@ -772,6 +885,27 @@
 
         <!-- Picker -->
         {{ HTML::script('assets/js/jquery-ui.js') }}
+
+        {{--for the auto complete option--}}
+        <script>
+
+            function lookup(inputString) {
+                if (inputString.length == 0) {
+                    $('#suggestions').fadeOut(); // Hide the suggestions box
+                } else {
+                    $.post("http://localhost/travel/public/auto-complete", {queryString: "" + inputString + ""}, function (data) { // Do an AJAX call
+                        $('#suggestions').fadeIn(); // Show the suggestions box
+                        $('#suggestions').html(data); // Fill the suggestions box
+
+                        $('a').click(function () {
+                            $value = $(this).attr('value');
+                            $('#inputString').val($value);
+                            $('#suggestions').fadeOut();
+                        });
+                    });
+                }
+            }
+        </script>
 
     @endsection
 

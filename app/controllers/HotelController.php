@@ -175,7 +175,7 @@ class HotelController extends \BaseController
         } catch (Exception $e) {
             $no_result = $this->viewNoResult();
             return View::make('hotel.no_results')
-                ->with($no_result);;
+                ->with($no_result);
         }
     }
 
@@ -267,5 +267,84 @@ class HotelController extends \BaseController
         //
     }
 
+    /*
+    *For the auto complete option
+    */
 
+    public function autoComplete_1()
+    {
+
+        $data = array();
+        $result = [];
+
+        $term = Input::get('term');
+
+        $hotel_cities = DB::table('cities')->get();
+
+        foreach ($hotel_cities as $cities) {
+            $data[] = 'echo<img src="images/delete.png" alt="delete"/>' . $cities->city;
+        }
+
+
+        foreach ($data as $color) {
+            if (strpos(Str::lower($color), $term) !== false) {
+                $result[] = ['value' => $color];
+            }
+        }
+
+        return Response::json($result);
+
+    }
+
+    public function autoComplete()
+    {
+
+        if (isset($_POST['queryString'])) {
+
+            $queryString = $_POST['queryString'];
+
+            // Is the string length greater than 0?
+            if (strlen($queryString) > 0) {
+
+                $query = City::where('city', 'LIKE', '%' . $queryString . '%')->get();
+
+                if ($query) {
+                    // While there are results loop through them - fetching an Object.
+
+                    // Store the category id
+
+                    foreach ($query as $hotels) {
+
+                        $directory = 'images/hotel_images/';
+                        $images = glob($directory . $hotels->id . "_" . "*.*");
+                        $img_path = array_shift($images);
+
+                        echo '
+                        <div class="auto_complete">
+                            <a href="#" value="'.$hotels->city.'">
+
+                             <span class="search_thumb">
+                             <img class="search_thumb" src="../' . $img_path . '" alt="" />
+                             </span>
+
+                            <span class="category">' . $hotels->city . '
+                            </span>
+
+                            </a>
+                            </div>';
+
+                    }
+
+                } else {
+                    echo 'ERROR: There was a problem with the query.';
+                }
+            } else {
+                // Dont do anything.
+            } // There is a queryString.
+        } else {
+            echo 'There should be no direct access to this script!';
+        }
+
+
+    }
 }

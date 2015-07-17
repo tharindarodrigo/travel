@@ -49,17 +49,17 @@
 @yield('content')
 
 @extends('layout.footer')
-
+0
 <!-- Javascript -->
 
-<!-- This page JS -->
+<!-- This page JS --02>0100
 {{--{{ HTML::script('assets/js/js-index.js') }}--}}
 
 <!-- Custom functions -->
 {{ HTML::script('assets/js/functions.js') }}
 
 <!-- Picker UI-->
-{{--{{ HTML::script('assets/js/jquery-ui.js') }}--}}
+{{ HTML::script('assets/js/jquery-ui.js') }}
 
 <!-- Easing -->
 {{ HTML::script('assets/js/jquery.easing.js') }}
