@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -12,10 +11,9 @@
 */
 
 
-
 Route::post('auto-complete', array(
-    'as' => 'auto-complete',
-    'uses' => 'HotelController@autoComplete'
+'as' => 'auto-complete',
+'uses' => 'HotelController@autoComplete'
 ));
 
 
@@ -25,77 +23,71 @@ Route::post('auto-complete', array(
 //=====================================================================================================================|
 
 Route::get('/', array(
-    'as' => 'index',
-    'uses' => 'HomeController@index'
+'as' => 'index',
+'uses' => 'HomeController@index'
 ));
 
 Route::get('/11', function () {
-    return View::make('pages.11');
+return View::make('pages.11');
 });
 
 /****** Route for about us ******/
 
 Route::get('/about', function () {
-    return View::make('pages.about');
+return View::make('pages.about');
 });
 
 /****** Route for contact us ******/
 
 Route::get('/contact', array(
-    'as' => 'get-contact',
-    'uses' => 'ContactController@getContact'
+'as' => 'get-contact',
+'uses' => 'ContactController@getContact'
 ));
 
 Route::post('/contact', array(
-    'as' => 'post-contact',
-    'uses' => 'ContactController@postContact'
+'as' => 'post-contact',
+'uses' => 'ContactController@postContact'
 ));
 
 
 /************* Route to default page ********************/
 
 Route::get('/message', array(
-    'as' => 'default-message',
-    'uses' => 'HomeController@message'
+'as' => 'default-message',
+'uses' => 'HomeController@message'
 ));
 
 /*------------------------- Errors -------------------------*/
 
 Route::get('/403', function () {
-    return View::make('errors.403');
+return View::make('errors.403');
 });
 
 
 /*------------------------------ Hotel List --------------------------------*/
 
-/************* navbar link ********************/
+/************* search link ********************/
 
-Route::get('accommodation/{hotel_type?}', array(
-    'as' => 'accommodation-hotel-list',
-    'uses' => 'HotelController@viewAccommodation'
-));
-
-Route::get('city/{city?}', array(
-    'as' => 'city-hotel-list',
-    'uses' => 'HotelController@viewCity'
+Route::get('sri-lanka/search', array(
+'as' => 'search',
+'uses' => 'HotelController@viewSearch'
 ));
 
 /************* End Of Navbar Link ********************/
 
+// Hotel List
 
-Route::get('/{country?}/{city_name_OR_accommodation?}/{hotel_name?}', array(
-    'as' => 'hotel-list',
-    'uses' => 'HotelController@viewSearch'
+Route::get('/{country?}/{city_name_OR_accommodation?}', array(
+'as' => 'hotel-list',
+'uses' => 'HotelController@hotelList'
 ));
 
+// Single Hotel
 
-Route::group(array("prefix" => "hotel"), function () {
-
-    Route::get('{name?}', array(
-        'as' => 'hotel-details',
-        'uses' => 'HotelController@hotelDetail'
-    ));
-});
+Route::get('/{country?}/{city_name?}/{hotel_name?}', array(
+'as' => 'hotel-details',
+'uses' => 'HotelController@hotelDetail'
+));
 
 /*------------------------- End Of Hotel List -------------------------------*/
 
