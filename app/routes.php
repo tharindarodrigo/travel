@@ -313,6 +313,11 @@ Route::group(array('prefix' => 'control-panel'), function () {
      */
 
     Route::group(array('prefix' => 'hotel'), function () {
+        /**
+         *  Allotments
+         */
+
+        Route::resource('hotels.allotments', 'AllotmentsController');
 
         /**
          *  Rates

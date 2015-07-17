@@ -7,11 +7,12 @@ class AllotmentsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($hotelid)
 	{
+        Session::forget('edit');
 		$allotments = Allotment::all();
 
-		return View::make('allotments.index', compact('allotments'));
+		return View::make('control-panel.hotel.allotments.index', compact('allotments', 'hotelid'));
 	}
 
 	/**
@@ -19,9 +20,10 @@ class AllotmentsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create($hotelid)
 	{
-		return View::make('allotments.create');
+        $allotments = Allotment::all();
+		return View::make('control-panel.hotel.allotments.index', compact('hotelid', 'allotments'));
 	}
 
 	/**
@@ -40,7 +42,7 @@ class AllotmentsController extends \BaseController {
 
 		Allotment::create($data);
 
-		return Redirect::route('allotments.index');
+		return Redirect::route('control-panel.hotel.allotments.index');
 	}
 
 	/**
@@ -53,7 +55,7 @@ class AllotmentsController extends \BaseController {
 	{
 		$allotment = Allotment::findOrFail($id);
 
-		return View::make('allotments.show', compact('allotment'));
+		return View::make('control-panel.hotel.allotments.show', compact('allotment'));
 	}
 
 	/**
@@ -62,11 +64,13 @@ class AllotmentsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($hotelid,$id)
 	{
+        $allotments = Allotment::all();
 		$allotment = Allotment::find($id);
+        Session::flash('edit','edit');
 
-		return View::make('allotments.edit', compact('allotment'));
+		return View::make('control-panel.hotel.allotments.allotments', compact('hotelid','allotment', 'allotments'));
 	}
 
 	/**
@@ -88,7 +92,7 @@ class AllotmentsController extends \BaseController {
 
 		$allotment->update($data);
 
-		return Redirect::route('allotments.index');
+		return Redirect::route('control-panel.hotel.allotments.index');
 	}
 
 	/**
@@ -101,7 +105,7 @@ class AllotmentsController extends \BaseController {
 	{
 		Allotment::destroy($id);
 
-		return Redirect::route('allotments.index');
+		return Redirect::route('control-panel.hotel.allotments.index');
 	}
 
 }

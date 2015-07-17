@@ -7,7 +7,6 @@ class CreateAllotmentsTable extends Migration {
 
 	/**
 	 * Run the migrations.
-	 *
 	 * @return void
 	 */
 	public function up()
@@ -21,6 +20,7 @@ class CreateAllotmentsTable extends Migration {
 
             $table->integer('room_type_id');
             $table->integer('hotel_id');
+            $table->boolean('val');
 
 			$table->timestamps();
 		});

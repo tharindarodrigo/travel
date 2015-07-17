@@ -20,4 +20,9 @@ class RoomType extends \Eloquent {
         return $this->belongsToMany('RoomSpecification');
     }
 
+    public function allotment(){
+        return $this->belongsToMany('Allotment');
+
+    }
+
 }
