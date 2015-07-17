@@ -10,57 +10,188 @@
 |
 */
 
+//=====================================================================================================================|
+//    Control Panel                                                                                                    |
+//=====================================================================================================================|
 
-Route::post('auto-complete', array(
-'as' => 'auto-complete',
-'uses' => 'HotelController@autoComplete'
-));
+Route::group(array('prefix' => 'control-panel'), function () {
+
+    /*
+     * Dashboard
+     */
+
+    Route::get('/', function(){
+        return View::make('control-panel.index');
+    });
+
+    Route::group(array('prefix' => 'general'), function(){
+
+        Route::resource('cities', 'CitiesController');
+        Route::resource('markets', 'MarketsController');
+        Route::resource('countries', 'CountriesController');
 
 
+    });
+
+    Route::get('image-uploads',array(
+        'as' => 'post-image-upload',
+        'uses' => 'ImageController@getUploadForm'
+    ));
+    Route::post('image-upload',array(
+        'as' => 'get-image-upload',
+        'uses' => 'ImageController@uploadImages'
+    ));
+
+
+    /**
+     * -------------------------------------------------------------------------------------------------------------
+     *  control-panel/hotel
+     *--------------------------------------------------------------------------------------------------------------
+     */
+
+    Route::group(array('prefix' => 'hotel'), function () {
+        /**
+         *  Allotments
+         */
+
+        Route::resource('hotels.allotments', 'AllotmentsController');
+
+        /**
+         *  Rates
+         */
+
+        Route::resource('hotels.rates', 'RatesController');
+        Route::post('hotels/rates/get-rates', 'RatesController@getRateData');
+        Route::post('hotels/{hotelid}/rates/update-rates', 'RatesController@updateRates');
+
+        Route::resource('hotels.supplement-rates', 'SupplementRatesController');
+        Route::post('hotels/supplement-rates/get-rates', 'SupplementRatesController@getRateData');
+        Route::post('hotels/{hotelid}/supplement-rates/update-rates', 'SupplementRatesController@updateSupplementRates');
+
+
+        /**
+         *  Room Types
+         */
+        Route::resource('hotels.room-types', 'RoomTypesController');
+
+        /**
+         * Room Specifications
+         */
+        Route::resource('room_specifications', 'RoomSpecificationsController');
+
+        /**
+         *  Hotel Profile
+         */
+        Route::resource('hotel-profile', 'HotelProfilesController');
+
+        /**
+         *  Hotel Cancellation Policies
+         */
+        Route::resource('cancellation-policies', 'CancellationPoliciesController');
+
+        /**
+         *  Hotel List
+         */
+        Route::resource('hotels', 'HotelsController');
+
+        /**
+         *  Meal Bases
+         */
+        Route::resource('meal-bases', 'MealBasesController');
+
+        /**
+         *  Room Facilities
+         */
+        Route::resource('room-facilities', 'RoomFacilitiesController');
+
+        /**
+         *  Room Types
+         */
+        Route::resource('hotels.room-types', 'RoomTypesController');
+
+        /**
+         *  hotel facilities
+         */
+        Route::resource('hotel-facilities', 'HotelFacilitiesController');
+
+        /**
+         *  hotel categories
+         */
+        Route::resource('hotel_categories', 'HotelCategoriesController');
+
+        /**
+         *  star categories
+         */
+        Route::resource('star-categories', 'StarCategoriesController');
+
+        //Route::resource('meal-bases', 'MealBasesController');
+    });
+
+    /*-------------------------------------------------------------------------------------------------------------
+     *  End control-panel/hotel
+     *-------------------------------------------------------------------------------------------------------------*/
+
+});
+
+
+//=====================================================================================================================|
+//    End Control Panel                                                                                                |
+//=====================================================================================================================|
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
 
 //=====================================================================================================================|
 //    Front End                                                                                                    |
 //=====================================================================================================================|
 
+
+Route::post('auto-complete', array(
+    'as' => 'auto-complete',
+    'uses' => 'HotelController@autoComplete'
+));
+
+
+
 Route::get('/', array(
-'as' => 'index',
-'uses' => 'HomeController@index'
+    'as' => 'index',
+    'uses' => 'HomeController@index'
 ));
 
 Route::get('/11', function () {
-return View::make('pages.11');
+    return View::make('pages.11');
 });
 
 /****** Route for about us ******/
 
 Route::get('/about', function () {
-return View::make('pages.about');
+    return View::make('pages.about');
 });
 
 /****** Route for contact us ******/
 
 Route::get('/contact', array(
-'as' => 'get-contact',
-'uses' => 'ContactController@getContact'
+    'as' => 'get-contact',
+    'uses' => 'ContactController@getContact'
 ));
 
 Route::post('/contact', array(
-'as' => 'post-contact',
-'uses' => 'ContactController@postContact'
+    'as' => 'post-contact',
+    'uses' => 'ContactController@postContact'
 ));
 
 
 /************* Route to default page ********************/
 
 Route::get('/message', array(
-'as' => 'default-message',
-'uses' => 'HomeController@message'
+    'as' => 'default-message',
+    'uses' => 'HomeController@message'
 ));
 
 /*------------------------- Errors -------------------------*/
 
 Route::get('/403', function () {
-return View::make('errors.403');
+    return View::make('errors.403');
 });
 
 
@@ -69,8 +200,8 @@ return View::make('errors.403');
 /************* search link ********************/
 
 Route::get('sri-lanka/search', array(
-'as' => 'search',
-'uses' => 'HotelController@viewSearch'
+    'as' => 'search',
+    'uses' => 'HotelController@viewSearch'
 ));
 
 /************* End Of Navbar Link ********************/
@@ -78,15 +209,15 @@ Route::get('sri-lanka/search', array(
 // Hotel List
 
 Route::get('/{country?}/{city_name_OR_accommodation?}', array(
-'as' => 'hotel-list',
-'uses' => 'HotelController@hotelList'
+    'as' => 'hotel-list',
+    'uses' => 'HotelController@hotelList'
 ));
 
 // Single Hotel
 
 Route::get('/{country?}/{city_name?}/{hotel_name?}', array(
-'as' => 'hotel-details',
-'uses' => 'HotelController@hotelDetail'
+    'as' => 'hotel-details',
+    'uses' => 'HotelController@hotelDetail'
 ));
 
 /*------------------------- End Of Hotel List -------------------------------*/
@@ -264,131 +395,3 @@ Route::group(array('before' => 'guest'), function () {
 
 });
 
-
-//=====================================================================================================================|
-//    Control Panel                                                                                                    |
-//=====================================================================================================================|
-
-Route::group(array('prefix' => 'control-panel'), function () {
-
-    /*
-     * Dashboard
-     */
-
-    Route::get('/', function(){
-        return View::make('control-panel.index');
-    });
-
-    Route::group(array('prefix' => 'general'), function(){
-
-        Route::resource('cities', 'CitiesController');
-        Route::resource('markets', 'MarketsController');
-        Route::resource('countries', 'CountriesController');
-
-
-    });
-
-    Route::get('image-uploads',array(
-        'as' => 'post-image-upload',
-        'uses' => 'ImageController@getUploadForm'
-    ));
-    Route::post('image-upload',array(
-        'as' => 'get-image-upload',
-        'uses' => 'ImageController@uploadImages'
-    ));
-
-
-    /**
-     * -------------------------------------------------------------------------------------------------------------
-     *  control-panel/hotel
-     *--------------------------------------------------------------------------------------------------------------
-     */
-
-    Route::group(array('prefix' => 'hotel'), function () {
-        /**
-         *  Allotments
-         */
-
-        Route::resource('hotels.allotments', 'AllotmentsController');
-
-        /**
-         *  Rates
-         */
-
-        Route::resource('hotels.rates', 'RatesController');
-        Route::post('hotels/rates/get-rates', 'RatesController@getRateData');
-        Route::post('hotels/{hotelid}/rates/update-rates', 'RatesController@updateRates');
-
-        Route::resource('hotels.supplement-rates', 'SupplementRatesController');
-        Route::post('hotels/supplement-rates/get-rates', 'SupplementRatesController@getRateData');
-        Route::post('hotels/{hotelid}/supplement-rates/update-rates', 'SupplementRatesController@updateSupplementRates');
-
-
-        /**
-         *  Room Types
-         */
-        Route::resource('hotels.room-types', 'RoomTypesController');
-
-        /**
-         * Room Specifications
-         */
-        Route::resource('room_specifications', 'RoomSpecificationsController');
-
-        /**
-         *  Hotel Profile
-         */
-        Route::resource('hotel-profile', 'HotelProfilesController');
-
-        /**
-         *  Hotel Cancellation Policies
-         */
-        Route::resource('cancellation-policies', 'CancellationPoliciesController');
-
-        /**
-         *  Hotel List
-         */
-        Route::resource('hotels', 'HotelsController');
-
-        /**
-         *  Meal Bases
-         */
-        Route::resource('meal-bases', 'MealBasesController');
-
-        /**
-         *  Room Facilities
-         */
-        Route::resource('room-facilities', 'RoomFacilitiesController');
-
-        /**
-         *  Room Types
-         */
-        Route::resource('hotels.room-types', 'RoomTypesController');
-
-        /**
-         *  hotel facilities
-         */
-        Route::resource('hotel-facilities', 'HotelFacilitiesController');
-
-        /**
-         *  hotel categories
-         */
-        Route::resource('hotel_categories', 'HotelCategoriesController');
-
-        /**
-         *  star categories
-         */
-        Route::resource('star-categories', 'StarCategoriesController');
-
-        //Route::resource('meal-bases', 'MealBasesController');
-    });
-
-    /*-------------------------------------------------------------------------------------------------------------
-     *  End control-panel/hotel
-     *-------------------------------------------------------------------------------------------------------------*/
-
-});
-
-
-//=====================================================================================================================|
-//    End Control Panel                                                                                                |
-//=====================================================================================================================|
