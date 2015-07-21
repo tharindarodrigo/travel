@@ -9,10 +9,20 @@
 class Star
 {
 
-    public static function star_loop($stars)
+    public static function star_loop_blue($stars)
     {
         for ($x = 0; $x < $stars; $x++) {
             $img_path = 'images/star_list.png';
+
+            echo HTML::image($img_path, '');
+
+        }
+    }
+
+    public static function star_loop_yellow($stars)
+    {
+        for ($x = 0; $x < $stars; $x++) {
+            $img_path = 'images/star_yellow.png';
 
             echo HTML::image($img_path, '');
 

@@ -4,7 +4,7 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Hotel list </title>
+    <title> srilankahotel.travel - Hotel Details </title>
 
 @endsection
 
@@ -12,10 +12,11 @@
 
     <!-- bin/jquery.slider.min.css -->
     {{ HTML::style('plugins/jslider/css/jslider.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
-    {{ HTML::style('plugins/jslider/css/jslider.round.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+    {{ HTML::style('plugins/jslider/css/jslider.round-blue.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
     <!-- jQuery -->
-    {{ HTML::style('assets/js/jquery.v2.0.3.js') }}
+    {{--{{ HTML::style('assets/js/jquery.v2.0.3.js') }}--}}
+    {{ HTML::style('assets/js/jquery-ui.js') }}
 
     <!-- bin/jquery.slider.min.js -->
     {{ HTML::script('plugins/jslider/js/jshashtable-2.1_src.js') }}
@@ -25,6 +26,10 @@
     {{ HTML::script('plugins/jslider/js/draggable-0.1.js') }}
     {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
     <!-- end -->
+
+    <!-- Javascript -->
+    {{ HTML::script('assets/js/js-details.js') }}
+
 @endsection
 
 @section('content')
@@ -34,7 +39,6 @@
     <div class="navbar-wrapper2 navbar-fixed-top">
         @include('layout.navbar')
     </div>
-
 
     <div class="container breadcrub">
         <div>
@@ -53,64 +57,78 @@
             <a class="backbtn right" href="#"></a>
         </div>
         <div class="clearfix"></div>
-        <div class="brlines"></div>
+
     </div>
 
-    @foreach($hotel as $details)
-        <!-- CONTENT -->
-        <div class="container">
-            <div class="container pagecontainer offset-0">
+    <!-- CONTENT -->
+    <div class="container">
+        <div class="container pagecontainer offset-0">
+
+            @foreach($hotel as $details)
 
                 <!-- SLIDER -->
-                <div class="col-md-8 details-slider">
 
-                    <div id="c-carousel">
-                        <div id="wrapper">
-                            <div id="inner">
-                                <div id="caroufredsel_wrapper2">
-                                    <div id="carousel">
-                                        <img src="images/details-slider/slide1.jpg" alt=""/>
-                                        <img src="images/details-slider/slide2.jpg" alt=""/>
-                                        <img src="images/details-slider/slide3.jpg" alt=""/>
-                                        <img src="images/details-slider/slide4.jpg" alt=""/>
-                                        <img src="images/details-slider/slide5.jpg" alt=""/>
-                                        <img src="images/details-slider/slide6.jpg" alt=""/>
-                                    </div>
-                                </div>
-                                <div id="pager-wrapper">
-                                    <div id="pager">
-                                        <img src="images/details-slider/slide1.jpg" width="120" height="68" alt=""/>
-                                        <img src="images/details-slider/slide2.jpg" width="120" height="68" alt=""/>
-                                        <img src="images/details-slider/slide3.jpg" width="120" height="68" alt=""/>
-                                        <img src="images/details-slider/slide4.jpg" width="120" height="68" alt=""/>
-                                        <img src="images/details-slider/slide5.jpg" width="120" height="68" alt=""/>
-                                        <img src="images/details-slider/slide6.jpg" width="120" height="68" alt=""/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <button id="prev_btn2" class="prev2"><img src="images/spacer.png" alt=""/></button>
-                            <button id="next_btn2" class="next2"><img src="images/spacer.png" alt=""/></button>
+                {{--<div class="col-md-8 details-slider">--}}
 
-                        </div>
-                    </div>
-                    <!-- /c-carousel -->
+                {{--<div id="c-carousel">--}}
+                {{--<div id="wrapper">--}}
+                {{--<div id="inner">--}}
+                {{--<div id="caroufredsel_wrapper2">--}}
+                {{--<div id="carousel">--}}
+                {{--@foreach ($path as $img_path)--}}
+                {{--{{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}--}}
+                {{--@endforeach--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--<div id="pager-wrapper">--}}
+                {{--<div id="pager">--}}
+                {{--@foreach ($path as $img_path)--}}
+                {{--{{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}--}}
+                {{--@endforeach--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="clearfix"></div>--}}
+                {{--<button id="prev_btn2" class="prev2">--}}
+                {{--{{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}--}}
+                {{--</button>--}}
+                {{--<button id="next_btn2" class="next2">--}}
+                {{--{{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}--}}
+                {{--</button>--}}
 
-                </div>
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--<!-- /c-carousel -->--}}
+
+                {{--</div>--}}
+
                 <!-- END OF SLIDER -->
 
-                <!-- RIGHT INFO -->
+                @endforeach
+
+                        <!-- RIGHT INFO -->
                 <div class="col-md-4 detailsright offset-0">
                     <div class="padding20">
-                        <h4 class="lh1">{{ $details->name }}</h4>
-                        <img src="images/smallrating-5.png" alt=""/>
+
+                        <h2 class="lh1" style="color: #006699">{{ $details->name }}</h2>
+                        <?php
+                        $stars = $details->star_category_id;
+                        $star = DB::table('star_categories')->where('id', $stars)->first();
+                        $hotel_star = $star->stars;
+                        ?>
+
+                        {{ Star::star_loop_yellow($hotel_star)}}
+
                     </div>
 
                     <div class="line3"></div>
 
-                    <div class="hpadding20">
-                        <h2 class="opensans slim green2">Wonderful!</h2>
-                    </div>
+                    @foreach($details->hotelReview as $review)
+                        <div class="hpadding20">
+                            <h2 class="opensans slim green2">{{ $review->review.' !'; }}</h2>
+                        </div>
+                        <?php break; ?>
+                    @endforeach
 
                     <div class="line3 margtop20"></div>
 
@@ -122,10 +140,12 @@
                         <span class="opensans size30 bold grey2">4.5</span>/5<br/>
                         guest ratings
                     </div>
-
+                    <?php
+                    $get_reviews_count = DB::table('hotel_reviews')->where('hotel_id', $hotel_id)->count();
+                    ?>
                     <div class="col-md-6 bordertype3">
                         <img src="images/user-rating-4.png" alt=""/><br/>
-                        18 reviews
+                        {{ $get_reviews_count }} reviews
                     </div>
                     <div class="col-md-6 bordertype3">
                         <a href="#" class="grey">+Add review</a>
@@ -137,83 +157,45 @@
                         <a href="#" class="add2fav margtop5">Add to favourite</a>
                         <a href="#" class="booknow margtop20 btnmarg">Book now</a>
                     </div>
+
                 </div>
                 <!-- END OF RIGHT INFO -->
 
-            </div>
-            <!-- END OF container-->
+        </div>
+        <!-- END OF container-->
 
-            <div class="container mt25 offset-0">
+        <div class="container mt25 offset-0">
 
-                <div class="col-md-8 pagecontainer2 offset-0">
-                    <div class="cstyle10"></div>
+            <div class="col-md-8 pagecontainer2 offset-0">
+                <div class="cstyle10"></div>
 
-                    <ul class="nav nav-tabs" id="myTab">
-                        <li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#summary"><span
-                                        class="summary"></span><span class="hidetext">Summary</span>&nbsp;</a></li>
-                        <li onclick="mySelectUpdate()" class="active"><a data-toggle="tab" href="#roomrates"><span
-                                        class="rates"></span><span class="hidetext">Room rates</span>&nbsp;</a></li>
-                        <li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#preferences"><span
-                                        class="preferences"></span><span class="hidetext">Preferences</span>&nbsp;</a>
-                        </li>
-                        <li onclick="loadScript()" class=""><a data-toggle="tab" href="#maps"><span
-                                        class="maps"></span><span
-                                        class="hidetext">Maps</span>&nbsp;</a></li>
-                        <li onclick="mySelectUpdate(); trigerJslider(); trigerJslider2(); trigerJslider3(); trigerJslider4(); trigerJslider5(); trigerJslider6();"
-                            class=""><a data-toggle="tab" href="#reviews"><span class="reviews"></span><span
-                                        class="hidetext">Reviews</span>&nbsp;
-                            </a></li>
-                        <li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#thingstodo"><span
-                                        class="thingstodo"></span><span class="hidetext">Things to do</span>&nbsp;</a>
-                        </li>
+                <ul class="nav nav-tabs" id="myTab">
+                    <li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#summary"><span
+                                    class="summary"></span><span class="hidetext">Summary</span>&nbsp;</a></li>
+                    <li onclick="mySelectUpdate()" class="active"><a data-toggle="tab" href="#roomrates"><span
+                                    class="rates"></span><span class="hidetext">Room rates</span>&nbsp;</a></li>
+                    <li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#preferences"><span
+                                    class="preferences"></span><span class="hidetext">Preferences</span>&nbsp;</a>
+                    </li>
+                    <li onclick="loadScript()" class=""><a data-toggle="tab" href="#maps" id=""><span
+                                    class="maps"></span><span
+                                    class="hidetext">Maps</span>&nbsp;</a></li>
+                    <li onclick="mySelectUpdate(); trigerJslider(); trigerJslider2(); trigerJslider3(); trigerJslider4(); trigerJslider5(); trigerJslider6();"
+                        class=""><a data-toggle="tab" href="#reviews"><span class="reviews"></span><span
+                                    class="hidetext">Reviews</span>&nbsp;
+                        </a></li>
 
-                    </ul>
-                    <div class="tab-content4">
+                </ul>
+
+                <div class="tab-content4">
+
+                    @foreach($rooms as $room)
+
                         <!-- TAB 1 -->
                         <div id="summary" class="tab-pane fade ">
                             <p class="hpadding20">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor aliquam felis,
-                                sit
-                                amet
-                                tempus nibh ullamcorper nec. Maecenas suscipit dolor at blandit congue. Sed adipiscing,
-                                odio
-                                feugiat pellentesque tincidunt, est leo vestibulum erat, ac pharetra massa justo ac
-                                lorem.
+                                {{ $room->description }}
                             </p>
-
-                            <div class="line4"></div>
-
-                            <!-- Collapse 1 -->
-                            <button type="button" class="collapsebtn2" data-toggle="collapse" data-target="#collapse1">
-                                Malaga <span class="collapsearrow"></span>
-                            </button>
-
-                            <div id="collapse1" class="collapse in">
-                                <div class="hpadding20">
-                                    Situated near the sea, this hotel is close to Centre de Arte Contemporaneo, Malaga
-                                    Cathedral, and Malaga Amphitheatre. Also nearby are Alcazaba and Picasso's
-                                    Birthplace.
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <!-- End of collapse 1 -->
-
-                            <div class="line4"></div>
-
-                            <!-- Collapse 2 -->
-                            <button type="button" class="collapsebtn2" data-toggle="collapse" data-target="#collapse2">
-                                2 restaurants, a bar/lounge <span class="collapsearrow"></span>
-                            </button>
-
-                            <div id="collapse2" class="collapse in">
-                                <div class="hpadding20">
-                                    Situated near the sea, this hotel is close to Centre de Arte Contemporaneo, Malaga
-                                    Cathedral, and Malaga Amphitheatre. Also nearby are Alcazaba and Picasso's
-                                    Birthplace.
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <!-- End of collapse 2 -->
 
                             <div class="line4"></div>
 
@@ -265,44 +247,31 @@
 
                             <div class="line4"></div>
 
-                            <!-- Collapse 6 -->
-                            <button type="button" class="collapsebtn2" data-toggle="collapse" data-target="#collapse6">
-                                Room Amenities <span class="collapsearrow"></span>
-                            </button>
+                            @foreach($room->roomFacility as $facilities)
+                                <!-- Collapse 6 -->
+                                <button type="button" class="collapsebtn2" data-toggle="collapse"
+                                        data-target="#collapse6">
+                                    Room Facility <span class="collapsearrow"></span>
+                                </button>
 
-                            <div id="collapse6" class="collapse in">
-                                <div class="hpadding20">
-                                    <div class="col-md-4">
-                                        <ul class="checklist">
-                                            <li>Climate control</li>
-                                            <li>Air conditioning</li>
-                                            <li>Direct-dial phone</li>
-                                            <li>Minibar</li>
-                                        </ul>
+                                <div id="collapse6" class="collapse in">
+                                    <div class="hpadding20">
+                                        <div class="col-md-4">
+                                            <ul class="checklist">
+                                                <li> {{ 'as' }} </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <ul class="checklist">
-                                            <li>Wake-up calls</li>
-                                            <li>Daily housekeeping</li>
-                                            <li>Private bathroom</li>
-                                            <li>Hair dryer</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="checklist">
-                                            <li>Makeup/shaving mirror</li>
-                                            <li>Shower/tub combination</li>
-                                            <li>Satellite TV service</li>
-                                            <li>Electronic/magnetic keys</li>
-                                        </ul>
-                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <!-- End of collapse 6 -->
+                                <!-- End of collapse 6 -->
+                            @endforeach
 
                         </div>
-                        <!-- TAB 2 -->
+
+                        @endforeach
+
+                                <!-- TAB 2 -->
                         <div id="roomrates" class="tab-pane fade active in">
                             <div class="hpadding20">
                                 <p class="dark">Your travel rates</p>
@@ -471,144 +440,59 @@
                             </div>
                             <br/>
 
-                            <p class="hpadding20 dark">Room type</p>
+                            <p class="hpadding20 dark">Room Types</p>
 
                             <div class="line2"></div>
 
-                            <div class="padding20">
-                                <div class="col-md-4 offset-0">
-                                    <a href="#"><img src="images/items2/item1.jpg" alt="" class="fwimg"/></a>
-                                </div>
-                                <div class="col-md-8 offset-0">
-                                    <div class="col-md-8 mediafix1">
-                                        <h4 class="opensans dark bold margtop1 lh1">Standard Double room</h4>
-                                        Max Occupancy: 2 adults
-                                        <ul class="hotelpreferences margtop10">
-                                            <li class="icohp-internet"></li>
-                                            <li class="icohp-air"></li>
-                                            <li class="icohp-pool"></li>
-                                            <li class="icohp-childcare"></li>
-                                            <li class="icohp-fitness"></li>
-                                            <li class="icohp-breakfast"></li>
-                                            <li class="icohp-parking"></li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                        <ul class="checklist2 margtop10">
-                                            <li>FREE Cancellation</li>
-                                            <li>Pay at hotel or pay today</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4 center bordertype4">
-                                        <span class="opensans green size24">$49.51</span><br/>
-                                        <span class="opensans lightgrey size12">avg/night</span><br/><br/>
-                                        <span class="lred bold">3 left</span><br/><br/>
-                                        <button class="bookbtn mt1">Book</button>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="line2"></div>
+                            @foreach($rooms as $room)
 
-                            <div class="padding20">
-                                <div class="col-md-4 offset-0">
-                                    <a href="#"><img src="images/items2/item2.jpg" alt="" class="fwimg"/></a>
-                                </div>
-                                <div class="col-md-8 offset-0">
-                                    <div class="col-md-8">
-                                        <h4 class="opensans dark bold margtop1 lh1">Double Room with Town View</h4>
-                                        Max Occupancy: 3 adults
-                                        <ul class="hotelpreferences margtop10">
-                                            <li class="icohp-hairdryer"></li>
-                                            <li class="icohp-garden"></li>
-                                            <li class="icohp-grill"></li>
-                                            <li class="icohp-kitchen"></li>
-                                            <li class="icohp-bar"></li>
-                                            <li class="icohp-living"></li>
-                                            <li class="icohp-tv"></li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                        <ul class="checklist2 margtop10">
-                                            <li>FREE Cancellation</li>
-                                            <li>Pay at hotel or pay today</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4 center bordertype4">
-                                        <span class="opensans green size24">$105.78</span><br/>
-                                        <span class="opensans lightgrey size12">avg/night</span><br/><br/>
-                                        <span class="">9 available</span><br/><br/>
-                                        <button class="bookbtn mt1">Book</button>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="line2"></div>
+                                <?php
+                                $directory = 'images/room_images/';
+                                $images = glob($directory . $room->id . "_" . "*.*");
+                                $img_path = array_shift($images);
+                                ?>
 
-                            <div class="padding20">
-                                <div class="col-md-4 offset-0">
-                                    <a href="#"><img src="images/items2/item3.jpg" alt="" class="fwimg"/></a>
-                                </div>
-                                <div class="col-md-8 offset-0">
-                                    <div class="col-md-8">
-                                        <h4 class="opensans dark bold margtop1 lh1">Family Suite</h4>
-                                        Max Occupancy: 4 adults
-                                        <ul class="hotelpreferences margtop10">
-                                            <li class="icohp-fridge"></li>
-                                            <li class="icohp-microwave"></li>
-                                            <li class="icohp-washing"></li>
-                                            <li class="icohp-roomservice"></li>
-                                            <li class="icohp-safe"></li>
-                                            <li class="icohp-playground"></li>
-                                            <li class="icohp-conferenceroom"></li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                        <ul class="checklist2 margtop10">
-                                            <li>FREE Cancellation</li>
-                                            <li>Pay at hotel or pay today</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4 center bordertype4">
-                                        <span class="opensans green size24">$186.18</span><br/>
-                                        <span class="opensans lightgrey size12">avg/night</span><br/><br/>
-                                        <span class="red bold">booked</span><br/><br/>
-                                        <button class="bookbtn mt1 cunvailable">Book</button>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="line2"></div>
+                                <div class="padding20">
 
-                            <div class="padding20">
-                                <div class="col-md-4 offset-0">
-                                    <a href="#"><img src="images/items2/item4.jpg" alt="" class="fwimg"/></a>
-                                </div>
-                                <div class="col-md-8 offset-0">
-                                    <div class="col-md-8">
-                                        <h4 class="opensans dark bold margtop1 lh1">Superior, Sea View</h4>
-                                        Max Occupancy: 3 adults
-                                        <ul class="hotelpreferences margtop10">
-                                            <li class="icohp-internet"></li>
-                                            <li class="icohp-air"></li>
-                                            <li class="icohp-pool"></li>
-                                            <li class="icohp-childcare"></li>
-                                            <li class="icohp-fitness"></li>
-                                            <li class="icohp-breakfast"></li>
-                                            <li class="icohp-parking"></li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                        <ul class="checklist2 margtop10">
-                                            <li>FREE Cancellation</li>
-                                            <li>Pay at hotel or pay today</li>
-                                        </ul>
+                                    <div class="col-md-4 offset-0">
+                                        <a href="#">
+                                            @if(count($img_path)>0)
+                                                {{ HTML::image($img_path, '', array('class' => 'fwimg'))}}
+                                            @else
+                                                {{ HTML::image('images/no-image.jpg', '', array('class' => 'fwimg')) }}
+                                            @endif
+                                        </a>
                                     </div>
-                                    <div class="col-md-4 center bordertype4">
-                                        <span class="opensans green size24">$211.57</span><br/>
-                                        <span class="opensans lightgrey size12">avg/night</span><br/><br/>
-                                        <span class="">12 available</span><br/><br/>
-                                        <button class="bookbtn mt1">Book</button>
+
+                                    <div class="col-md-8 offset-0">
+                                        <div class="col-md-8 mediafix1">
+                                            <h4 class="opensans dark bold margtop1 lh1"> {{ $room->room_type }} </h4>
+                                            Max Occupancy: 2 adults
+                                            <ul class="hotelpreferences margtop10">
+                                                <li class="icohp-internet"></li>
+                                                <li class="icohp-air"></li>
+                                                <li class="icohp-pool"></li>
+                                                <li class="icohp-childcare"></li>
+                                                <li class="icohp-fitness"></li>
+                                                <li class="icohp-breakfast"></li>
+                                                <li class="icohp-parking"></li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                            <ul class="checklist2 margtop10">
+                                                <li>FREE Cancellation</li>
+                                                <li>Pay at hotel or pay today</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4 center bordertype4">
+                                            <span class="opensans green size24">$49.51</span><br/>
+                                            <span class="opensans lightgrey size12">avg/night</span><br/><br/>
+                                            <span class="lred bold">3 left</span><br/><br/>
+                                            <button class="bookbtn mt1">Book</button>
+                                        </div>
                                     </div>
+                                    <div class="clearfix"></div>
                                 </div>
-                                <div class="clearfix"></div>
-                            </div>
+                            @endforeach
                             <div class="line2"></div>
 
                         </div>
@@ -716,35 +600,17 @@
 
                             <div id="collapse8" class="collapse in">
                                 <div class="hpadding20">
-                                    <div class="col-md-4">
-                                        <ul class="checklist">
-                                            <li>Climate control</li>
-                                            <li>Air conditioning</li>
-                                            <li>Direct-dial phone</li>
-                                            <li>Minibar</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="checklist">
-                                            <li>Wake-up calls</li>
-                                            <li>Daily housekeeping</li>
-                                            <li>Private bathroom</li>
-                                            <li>Hair dryer</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="checklist">
-                                            <li>Makeup/shaving mirror</li>
-                                            <li>Shower/tub combination</li>
-                                            <li>Satellite TV service</li>
-                                            <li>Electronic/magnetic keys</li>
-                                        </ul>
-                                    </div>
+                                    @foreach($room->roomFacility as $facilities)
+                                        <div class="col-md-4">
+                                            <ul class="checklist">
+                                                <li> {{ $facilities->room_facility }} </li>
+                                            </ul>
+                                        </div>
+                                    @endforeach
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
                             <!-- End of collapse 8 -->
-
 
                         </div>
 
@@ -753,6 +619,7 @@
                             <div class="hpadding20">
                                 <div id="map-canvas"></div>
                             </div>
+                            <input type="hidden" id="get_map" value="{{ $hotel_id }}">
                         </div>
 
                         <!-- TAB 5 -->
@@ -964,6 +831,12 @@
                                     <li>Comment</li>
                                 </ul>
                             </div>
+
+                            <!-- bin/jquery.slider.min.js -->
+                            {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
+                            {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
+                            <!-- end -->
+
                             <div class="wh66percent right offset-0">
                                 <script>
                                     //This is a fix for when the slider is used in a hidden div
@@ -1109,207 +982,82 @@
 
                         </div>
 
-                        <!-- TAB 6 -->
-                        <div id="thingstodo" class="tab-pane fade">
+                </div>
 
-                            <p class="hpadding20 opensans size16 dark bold">Attractions travelers recommend</p>
+            </div>
 
-                            <div class="line2"></div>
+            <div class="col-md-4">
 
-                            <div class="padding20">
-                                <div class="col-md-4 offset-0">
-                                    <a href="#"><img src="images/items2/item5.jpg" alt="" class="fwimg"/></a>
-                                </div>
-                                <div class="col-md-8 offset-0">
-                                    <div class="col-md-8 mediafix1">
-                                        <span class="opensans dark size16 margtop1 margtop-5">Porto Limnionas Beach</span><br/>
-                                        <span class="lblue">“Just Great!!!”</span> 08/27/2013<br/>
+                <div class="pagecontainer2 testimonialbox">
+                    <div class="cpadding0 mt-10">
+                        <span class="icon-quote"></span>
 
-                                        <p class="margtop10">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Nam
-                                            velit
-                                            augue, placerat quis est eget, cursus dictum felis. Morbi non dui vitae nisl
-                                            pharetra placerat.</p>
-
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="col-md-4 center bordertype4">
-                                        <img src="images/user-rating-4.png" alt=""/><br/>
-                                        <span class="opensans grey size14">31 reviews</span>
-                                        <br/><br/><br/><br/>
-                                        <button class="bookbtn mt1">More</button>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="line2"></div>
-
-                            <div class="padding20">
-                                <div class="col-md-4 offset-0">
-                                    <a href="#"><img src="images/items2/item6.jpg" alt="" class="fwimg"/></a>
-                                </div>
-                                <div class="col-md-8 offset-0">
-                                    <div class="col-md-8 mediafix1">
-                                        <span class="opensans dark size16 margtop1 margtop-5">Marathonissi (Turtle Island), Laganas</span><br/>
-                                        <span class="lblue">“Beautiful”</span> 08/27/2013<br/>
-
-                                        <p class="margtop10">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Nam
-                                            velit
-                                            augue, placerat quis est eget, cursus dictum felis. Morbi non dui vitae nisl
-                                            pharetra placerat.</p>
-
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="col-md-4 center bordertype4">
-                                        <img src="images/user-rating-5.png" alt=""/><br/>
-                                        <span class="opensans grey size14">23 reviews</span>
-                                        <br/><br/><br/><br/>
-                                        <button class="bookbtn mt1">More</button>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="line2"></div>
-
-                            <div class="padding20">
-                                <div class="col-md-4 offset-0">
-                                    <a href="#"><img src="images/items2/item7.jpg" alt="" class="fwimg"/></a>
-                                </div>
-                                <div class="col-md-8 offset-0">
-                                    <div class="col-md-8 mediafix1">
-                                        <span class="opensans dark size16 margtop1 margtop-5">Navagio Beach (Shipwreck Beach)</span><br/>
-                                        <span class="lblue">“like being on a tropical island”</span> 08/27/2013<br/>
-
-                                        <p class="margtop10">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Nam
-                                            velit
-                                            augue, placerat quis est eget, cursus dictum felis. Morbi non dui vitae nisl
-                                            pharetra placerat.</p>
-
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="col-md-4 center bordertype4">
-                                        <img src="images/user-rating-3.png" alt=""/><br/>
-                                        <span class="opensans grey size14">17 reviews</span>
-                                        <br/><br/><br/><br/>
-                                        <button class="bookbtn mt1">More</button>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="line2"></div>
-
-                            <div class="padding20">
-                                <div class="col-md-4 offset-0">
-                                    <a href="#"><img src="images/items2/item8.jpg" alt="" class="fwimg"/></a>
-                                </div>
-                                <div class="col-md-8 offset-0">
-                                    <div class="col-md-8 mediafix1">
-                                        <span class="opensans dark size16 margtop1 margtop-5">Blue Caves</span><br/>
-                                        <span class="lblue">“A must see”</span> 08/27/2013<br/>
-
-                                        <p class="margtop10">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Nam
-                                            velit
-                                            augue, placerat quis est eget, cursus dictum felis. Morbi non dui vitae nisl
-                                            pharetra placerat.</p>
-
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="col-md-4 center bordertype4">
-                                        <img src="images/user-rating-4.png" alt=""/><br/>
-                                        <span class="opensans grey size14">10 reviews</span>
-                                        <br/><br/><br/><br/>
-                                        <button class="bookbtn mt1">More</button>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="line2"></div>
-
-
-                        </div>
+                        <p class="opensans size16 grey2">It was very comfortable to stay and staff were pleasant and
+                            welcoming.<br/>
+                            <span class="lato lblue bold size13"><i>by Ellison from United Kingdom</i></span></p>
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="pagecontainer2 mt20 needassistancebox">
+                    <div class="cpadding1">
+                        <span class="icon-help"></span>
 
-                    <div class="pagecontainer2 testimonialbox">
-                        <div class="cpadding0 mt-10">
-                            <span class="icon-quote"></span>
+                        <h3 class="opensans">Need Assistance?</h3>
 
-                            <p class="opensans size16 grey2">It was very comfortable to stay and staff were pleasant and
-                                welcoming.<br/>
-                                <span class="lato lblue bold size13"><i>by Ellison from United Kingdom</i></span></p>
-                        </div>
+                        <p class="size14 grey">Our team is 24/7 at your service to help you with your booking issues
+                            or
+                            answer any related questions</p>
+
+                        <p class="opensans size30 lblue xslim">1-866-599-6674</p>
                     </div>
+                </div>
+                <br/>
 
-                    <div class="pagecontainer2 mt20 needassistancebox">
-                        <div class="cpadding1">
-                            <span class="icon-help"></span>
+                <div class="pagecontainer2 mt20 alsolikebox">
+                    <div class="cpadding1">
+                        <span class="icon-location"></span>
 
-                            <h3 class="opensans">Need Assistance?</h3>
+                        <h3 class="opensans">You May Also Like</h3>
 
-                            <p class="size14 grey">Our team is 24/7 at your service to help you with your booking issues
-                                or
-                                answer any related questions</p>
-
-                            <p class="opensans size30 lblue xslim">1-866-599-6674</p>
-                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="cpadding1 ">
+                        <a href="#"><img src="images/smallthumb-1.jpg" class="left mr20" alt=""/></a>
+                        <a href="#" class="dark"><b>Hotel Amaragua</b></a><br/>
+                        <span class="opensans green bold size14">$36-$160</span> <span
+                                class="grey">avg/night</span><br/>
+                        <img src="images/filter-rating-5.png" alt=""/>
+                    </div>
+                    <div class="line5"></div>
+                    <div class="cpadding1 ">
+                        <a href="#"><img src="images/smallthumb-2.jpg" class="left mr20" alt=""/></a>
+                        <a href="#" class="dark"><b>Hotel Amaragua</b></a><br/>
+                        <span class="opensans green bold size14">$36-$160</span> <span
+                                class="grey">avg/night</span><br/>
+                        <img src="images/filter-rating-5.png" alt=""/>
+                    </div>
+                    <div class="line5"></div>
+                    <div class="cpadding1 ">
+                        <a href="#"><img src="images/smallthumb-3.jpg" class="left mr20" alt=""/></a>
+                        <a href="#" class="dark"><b>Hotel Amaragua</b></a><br/>
+                        <span class="opensans green bold size14">$36-$160</span> <span
+                                class="grey">avg/night</span><br/>
+                        <img src="images/filter-rating-5.png" alt=""/>
                     </div>
                     <br/>
 
-                    <div class="pagecontainer2 mt20 alsolikebox">
-                        <div class="cpadding1">
-                            <span class="icon-location"></span>
-
-                            <h3 class="opensans">You May Also Like</h3>
-
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="cpadding1 ">
-                            <a href="#"><img src="images/smallthumb-1.jpg" class="left mr20" alt=""/></a>
-                            <a href="#" class="dark"><b>Hotel Amaragua</b></a><br/>
-                            <span class="opensans green bold size14">$36-$160</span> <span
-                                    class="grey">avg/night</span><br/>
-                            <img src="images/filter-rating-5.png" alt=""/>
-                        </div>
-                        <div class="line5"></div>
-                        <div class="cpadding1 ">
-                            <a href="#"><img src="images/smallthumb-2.jpg" class="left mr20" alt=""/></a>
-                            <a href="#" class="dark"><b>Hotel Amaragua</b></a><br/>
-                            <span class="opensans green bold size14">$36-$160</span> <span
-                                    class="grey">avg/night</span><br/>
-                            <img src="images/filter-rating-5.png" alt=""/>
-                        </div>
-                        <div class="line5"></div>
-                        <div class="cpadding1 ">
-                            <a href="#"><img src="images/smallthumb-3.jpg" class="left mr20" alt=""/></a>
-                            <a href="#" class="dark"><b>Hotel Amaragua</b></a><br/>
-                            <span class="opensans green bold size14">$36-$160</span> <span
-                                    class="grey">avg/night</span><br/>
-                            <img src="images/filter-rating-5.png" alt=""/>
-                        </div>
-                        <br/>
-
-
-                    </div>
 
                 </div>
+
             </div>
-
-
         </div>
-        <!-- END OF CONTENT -->
-    @endforeach
+
+    </div>
+    <!-- END OF CONTENT -->
 
     @endsection
 
     @section('script')
-
-        <!-- Javascript -->
-        {{ HTML::script('assets/js/js-details.js') }}
 
         <!-- Googlemap -->
         {{ HTML::script('assets/js/initialize-google-map.js') }}

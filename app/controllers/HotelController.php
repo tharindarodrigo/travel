@@ -243,10 +243,24 @@ class HotelController extends \BaseController
     public function hotelDetail($country = '', $city = '', $hotel_name)
     {
 
+
         // Filtering
         $hotel_type = DB::table('hotel_categories')->get();
         $hotel_cities = DB::table('cities')->get();
         $hotel_facilities = DB::table('hotel_facilities')->get();
+
+        if (!empty($country)) {
+            $country = str_replace('-', ' ', $country);
+            $get_country_id = DB::table('countries')->where('country', 'LIKE', $country)->first();
+            $country_id = $get_country_id->id;
+        }
+
+        if (!empty($city)) {
+            $city = str_replace('-', ' ', $city);
+            $city = DB::table('cities')->where('city', 'LIKE', $city)->first();
+            $city_id = $city->id;
+
+        }
 
         if (!empty($hotel_name)) {
             $hotel_name = str_replace('-', ' ', $hotel_name);
@@ -254,7 +268,29 @@ class HotelController extends \BaseController
             $hotel_id = $get_hotel_id->id;
         }
 
+        $path = array();
+
+        $directory = 'images/hotel_images/';
+
+        $images = glob($directory . $hotel_id . "_" . "*.*");
+
+        foreach ($images as $image) {
+
+            $path[] = $image;
+        }
+
         $hotel = Hotel::where('id', '=', $hotel_id)->get();
+
+        $rooms = RoomType::where('hotel_id', '=', $hotel_id)->get();
+
+
+//        $room_facility = roomFacility::whereHas('Hotel', function ($query) use ($hotel_id) {
+//            $query->where('hotel_id', '=', $hotel_id);
+////            $query->where('room_type_id', '=', 6);
+//        })
+//            ->get();
+
+//        dd(DB::getQueryLog());
 
         if (!$hotel->count()) {
             return Redirect::to('/403');
@@ -265,9 +301,13 @@ class HotelController extends \BaseController
                 array(
 
                     'hotel' => $hotel,
+                    'hotel_id' => $hotel_id,
                     'hotel_type' => $hotel_type,
                     'hotel_cities' => $hotel_cities,
-                    'hotel_facilities' => $hotel_facilities
+                    'hotel_facilities' => $hotel_facilities,
+                    'path' => $path,
+                    //'room_facility' => $room_facility,
+                    'rooms' => $rooms,
 
                 )
             );
@@ -283,6 +323,18 @@ class HotelController extends \BaseController
     public function edit($id)
     {
         //
+    }
+
+    /* To Load The Map */
+
+    public function getMap()
+    {
+        $hotel_id = Input::get('hotel_id');
+
+        $hotel = Hotel::where('id', '=', $hotel_id)->select('latitude', 'longitude')->first();;
+
+        return Response::json($hotel);
+
     }
 
 

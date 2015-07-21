@@ -25,4 +25,12 @@ class RoomType extends \Eloquent {
 
     }
 
+    public function roomFacility(){
+        return $this->belongsToMany('RoomFacility');
+    }
+
+    public function hotel(){
+        return $this->belongsTo('Hotel');
+    }
+
 }

@@ -801,7 +801,8 @@
                                         $get_city = DB::table('cities')->where('id', $city_id)->first();
                                         $city = $get_city->city;
                                         ?>
-                                        <a class="book-icon" href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"></a>
+                                        <a class="book-icon"
+                                           href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"></a>
                                     </a>
                                 </div>
                             </div>
@@ -815,7 +816,7 @@
                                         $hotel_star = $star->stars;
                                         ?>
 
-                                        {{ Star::star_loop($hotel_star)}}<br/><br/><br/>
+                                        {{ Star::star_loop_blue($hotel_star)}}<br/><br/><br/>
 
                                         {{ HTML::image('images/user-rating-5.png', '')}}<br/><br/>
                                         @foreach($hotel->hotelReview as $review)
@@ -831,7 +832,8 @@
                                     </div>
 
                                     <div class="labelleft2">
-                                        <a href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}" style="text-decoration: none"><h4> {{ $hotel->name }} </h4><br/></a>
+                                        <a href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"
+                                           style="text-decoration: none"><h4> {{ $hotel->name }} </h4><br/></a>
 
                                         <p class="grey">
                                             {{ $hotel->overview; }}
@@ -844,9 +846,7 @@
                                             @foreach($hotel_facilities->hotelFacility as $hotel_facility)
 
                                                 <li class="{{ $hotel_facility->name; }}"></li>
-
                                             @endforeach
-
                                         </ul>
 
                                     </div>

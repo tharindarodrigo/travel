@@ -53,5 +53,12 @@ class Hotel extends \Eloquent
         return $this->belongsToMany('hotelFacility');
     }
 
+    public function roomFacility(){
+        return $this->belongsToMany('roomFacility');
+    }
+
+    public function roomType(){
+        return $this->hasMany('RoomType');
+    }
 
 }

@@ -14,8 +14,8 @@
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
     <!--[if lt IE 9]>
-    {{ HTML::script('assets/js/html5shiv.js') }}
-    {{ HTML::script('assets/js/respond.min.js') }}
+    <!--{{ HTML::script('assets/js/html5shiv.js') }}-->
+    <!--{{ HTML::script('assets/js/respond.min.js') }}-->
     <![endif]-->
 
     <!-- Fonts -->
@@ -49,11 +49,12 @@
 @yield('content')
 
 @extends('layout.footer')
-0
+
 <!-- Javascript -->
 
-<!-- This page JS --02>0100
-{{--{{ HTML::script('assets/js/js-index.js') }}--}}
+<!-- This page JS --02>
+
+@yield('script')
 
 <!-- Custom functions -->
 {{ HTML::script('assets/js/functions.js') }}
@@ -83,6 +84,5 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 {{ HTML::script('dist/js/bootstrap.min.js') }}
 
-@yield('script')
 
 </html>
