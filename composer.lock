@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "41aa99ba0e148cc3907232b04552e26b",
+    "hash": "260295d1f02752089a91e9efe454635d",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -260,6 +260,48 @@
                 "zf2"
             ],
             "time": "2015-06-29 05:42:04"
+        },
+        {
+            "name": "foxted/breadcrumb",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/foxted/Breadcrumb.git",
+                "reference": "db85596e76559d7b35c9207c5ff2644e0545a321"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/foxted/Breadcrumb/zipball/db85596e76559d7b35c9207c5ff2644e0545a321",
+                "reference": "db85596e76559d7b35c9207c5ff2644e0545a321",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=4.2",
+                "illuminate/view": ">=4.2"
+            },
+            "require-dev": {
+                "codeception/codeception": "*@dev",
+                "codeception/mockery-module": "*@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Foxted\\Breadcrumb": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Valentin PRUGNAUD",
+                    "email": "valentin@whatdafox.com"
+                }
+            ],
+            "description": "Small package to generate breadcrumbs easily in your Laravel app",
+            "abandoned": true,
+            "time": "2014-10-08 23:27:37"
         },
         {
             "name": "fzaninotto/faker",

@@ -129,6 +129,10 @@
             color: #000000;
         }
 
+        .grey:hover{
+            color: #000000;
+        }
+
     </style>
 
     <!-- bin/jquery.slider.min.css -->
@@ -670,7 +674,8 @@
                         @foreach($hotel_facilities as $facility)
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" value="{{ $facility->id }}" name="facility[]" class="hot_facility">
+                                    <input type="checkbox" value="{{ $facility->id }}" name="facility[]"
+                                           class="hot_facility">
                                     {{ $facility->hotel_facility }}
                                 </label>
                             </div>
@@ -823,10 +828,14 @@
                                         {{ Star::star_loop_blue($hotel_star)}}<br/><br/><br/>
 
                                         {{ HTML::image('images/user-rating-5.png', '')}}<br/><br/>
-                                        @foreach($hotel->hotelReview as $review)
-                                            <span class="size11 grey">{{ $review->count(); }} Reviews </span><br/><br/>
-                                        @endforeach
 
+                                        @if(!empty($hotel->hotelReview->count()))
+                                            <span class="size11 grey">{{ $hotel->hotelReview->count(); }}
+                                                Reviews </span><br/><br/>
+                                        @else
+                                            <span class="size11 grey">
+                                                No Reviews </span><br/><br/>
+                                        @endif
                                         <span class="green size18"><b>$36.00</b></span><br/>
                                         <span class="size11 grey">avg/night</span><br/><br/><br/>
 
@@ -843,6 +852,7 @@
                                             {{ $hotel->overview; }}
                                         </p>
                                         <br/>
+
                                         <ul class="hotelpreferences">
                                             <?php
                                             $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
