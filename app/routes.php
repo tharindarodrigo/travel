@@ -379,11 +379,18 @@ Route::get('sri-lanka/search', array(
     'uses' => 'HotelController@viewSearch'
 ));
 
+// Filtering part
+
+Route::post('/star_rating', array(
+    'as' => 'star-rating',
+    'uses' => 'HotelController@hotelList'
+));
+
 /************* End Of Navbar Link ********************/
 
 // Hotel List
 
-Route::get('/{country?}/{city_name_OR_accommodation?}', array(
+Route::any('/{country?}/{city_name_OR_accommodation?}', array(
     'as' => 'hotel-list',
     'uses' => 'HotelController@hotelList'
 ));
@@ -394,6 +401,8 @@ Route::get('/{country?}/{city_name?}/{hotel_name?}', array(
     'as' => 'hotel-details',
     'uses' => 'HotelController@hotelDetail'
 ));
+
+// to get latitude and longitude
 
 Route::post('/get_map', array(
     'as' => 'get-map',

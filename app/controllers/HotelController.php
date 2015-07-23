@@ -61,8 +61,37 @@ class HotelController extends \BaseController
 
     public function viewHotelList($country = '', $city_or_accommodation = '')
     {
-
+        $x = 0;
         $path = array();
+        $star_id = array();
+        $facility_id = array();
+
+        if (Input::has('star_rating')) {
+            $star = Input::get('star_rating');
+            $get_star_ids = StarCategory::whereIn('stars', $star)->select('id')->get();
+            foreach ($get_star_ids as $get_star_id) {
+                $star_id[] = $get_star_id->id;
+            }
+        } else {
+            $get_star_ids = StarCategory::select('id')->get();
+            foreach ($get_star_ids as $get_star_id) {
+                $star_id[] = $get_star_id->id;
+            }
+        }
+
+        if (Input::has('facility')) {
+            $facility = Input::get('facility');
+            $get_facility_ids = HotelFacility::whereIn('hotel_facility', $facility)->select('id')->get();
+            foreach ($get_facility_ids as $get_facility_id) {
+                $facility[] = $get_facility_id->id;
+            }
+        } else {
+            $get_facility_ids = HotelFacility::select('id')->get();
+            foreach ($get_facility_ids as $get_facility_id) {
+                $facility[] = $get_facility_id->id;
+            }
+        }
+
 
         // Filtering
         $hotel_type = DB::table('hotel_categories')->get();
@@ -77,41 +106,59 @@ class HotelController extends \BaseController
         }
 
         if (!empty($city_or_accommodation)) {
+
             $city_or_accommodation = str_replace('-', ' ', $city_or_accommodation);
-            $get_city_or_accommodation_id = DB::table('hotel_categories')->where('hotel_category', 'LIKE', $city_or_accommodation)->first();
+
+            if (Input::has('accommodation')) {
+                $get_accommodation = Input::get('accommodation');
+                $accommodation = DB::table('hotel_categories')->where('id', '=', $get_accommodation)->first();
+                $city_or_accommodation = $accommodation->hotel_category;
+                $get_city_or_accommodation_id = DB::table('hotel_categories')->where('hotel_category', 'LIKE', $city_or_accommodation)->first();
+            } else {
+                $get_city_or_accommodation_id = DB::table('hotel_categories')->where('hotel_category', 'LIKE', $city_or_accommodation)->first();
+            }
 
             if (!is_null($get_city_or_accommodation_id)) {
                 $accommodation_id = $get_city_or_accommodation_id->id;
-            } else {
 
+            } elseif (Input::has('city')) {
+
+                $get_city = Input::get('city');
+                $city = DB::table('cities')->where('id', '=', $get_city)->first();
+                $city_or_accommodation = $city->city;
+                $get_city_or_accommodation_id = DB::table('cities')->where('city', 'LIKE', $city_or_accommodation)->first();
+                $city_id = $get_city_or_accommodation_id->id;
+
+            } else {
                 $get_city_or_accommodation_id = DB::table('cities')->where('city', 'LIKE', $city_or_accommodation)->first();
                 $city_id = $get_city_or_accommodation_id->id;
             }
         }
 
-        $country_url = $country;
-        $city_or_accommodation_url = $city_or_accommodation;
-
-
-//        if (!empty($hotel_category)) {
-//            $list_url = '/hotel/' . $category_url;
-//            $grid_url = '/hotel/grid/' . $category_url;
-//        }
-//
-//        if (!empty($city_or_accommodation)){
-//            $list_url = '/hotel/' . $city_or_accommodation_url;
-//            $grid_url = '/hotel/grid/' . $city_or_accommodation_url;
-//        }
 
         if (!empty($city_id)) {
-            $hotels = Hotel::where('city_id', '=', $city_id)->paginate(5);
+
+            $hotels = Hotel::where('city_id', '=', $city_id)
+                ->whereIn('star_category_id', $star_id)
+                ->whereHas('HotelFacility',function($q) use($facility)
+                {
+                    $q->whereIn('hotel_facility_id', $facility);
+                })
+                ->paginate(6);
+
         }
 
         if (!empty($accommodation_id)) {
-            $hotels = Hotel::whereHas('hotelCategory', function ($query) use ($accommodation_id) {
+            $hotels = Hotel::whereHas('hotelCategory', function ($query) use ($accommodation_id, $star_id) {
                 $query->where('hotel_category_id', '=', $accommodation_id);
+                $query->whereIn('star_category_id', $star_id);
+
             })
-                ->paginate(5);
+                ->whereHas('HotelFacility',function($q) use($facility)
+                {
+                    $q->whereIn('hotel_facility_id', $facility);
+                })
+                ->paginate(6);
 
             // dd(DB::getQueryLog());
             // $hotels = Hotel::with('hotelCategory')->where('hotel_category_id', '=', $accommodation_id)->paginate(1);

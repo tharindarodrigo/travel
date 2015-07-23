@@ -547,7 +547,7 @@
                 <!-- END OF BOOK FILTERS -->
 
                 <div class="line2"></div>
-
+                <?php $city_or_acc = Request::segment(2); ?>
                 <div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
                 <div class="line2"></div>
 
@@ -555,39 +555,39 @@
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse1">
                     Star rating <span class="collapsearrow"></span>
                 </button>
-
+                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'star_rating_form')) }}
                 <div id="collapse1" class="collapse in">
                     <div class="hpadding20">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox">
+                                <input type="checkbox" value="5" name="star_rating[]" class="star_category">
                                 {{ HTML::image('images/filter-rating-5.png', '', array('class' => 'imgpos1'))}}
                                 5 Stars
                             </label>
                         </div>
                         <div class="checkbox">
-                            <input type="checkbox">
+                            <input type="checkbox" value="4" name="star_rating[]" class="star_category">
                             <label>
                                 {{ HTML::image('images/filter-rating-4.png', '', array('class' => 'imgpos1'))}}
                                 4 Stars
                             </label>
                         </div>
                         <div class="checkbox">
-                            <input type="checkbox">
+                            <input type="checkbox" value="3" name="star_rating[]" class="star_category">
                             <label>
                                 {{ HTML::image('images/filter-rating-3.png', '', array('class' => 'imgpos1'))}}
                                 3 Stars
                             </label>
                         </div>
                         <div class="checkbox">
-                            <input type="checkbox">
+                            <input type="checkbox" value="2" name="star_rating[]" class="star_category">
                             <label>
                                 {{ HTML::image('images/filter-rating-2.png', '', array('class' => 'imgpos1'))}}
                                 2 Stars
                             </label>
                         </div>
                         <div class="checkbox">
-                            <input type="checkbox">
+                            <input type="checkbox" value="1" name="star_rating[]" class="star_category">
                             <label>
                                 {{ HTML::image('images/filter-rating-1.png', '', array('class' => 'imgpos1'))}}
                                 1 Star
@@ -597,6 +597,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <!-- End of Star ratings -->
+                {{ Form::close() }}
 
                 <div class="line2"></div>
 
@@ -604,7 +605,6 @@
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
                     Price range <span class="collapsearrow"></span>
                 </button>
-
                 <div id="collapse2" class="collapse in">
                     <div class="padding20">
                         <div class="layout-slider wh100percent">
@@ -639,15 +639,15 @@
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
                     Accommodation type <span class="collapsearrow"></span>
                 </button>
-
+                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'accommodation_form')) }}
                 <div id="collapse3" class="collapse in">
                     <div class="hpadding20">
                         <?php $x = 1; ?>
                         @foreach($hotel_type as $accommodation)
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="optionsRadios2" id="Acomodation{{ $x }}"
-                                           value="option{{ $x }}">
+                                    <input type="radio" name="accommodation" id="Acomodation{{ $x }}"
+                                           value="{{ $accommodation->id }}" class="acc_select">
                                     {{ $accommodation->hotel_category }}
                                 </label>
                             </div>
@@ -656,20 +656,21 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <!-- End of Acomodations -->
-
+                <!-- End of Accommodations -->
+                {{ Form::close() }}
                 <div class="line2"></div>
 
                 <!-- Hotel Preferences -->
                 <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse4">
                     Hotel Facilities <span class="collapsearrow"></span>
                 </button>
+                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'facility_form')) }}
                 <div id="collapse4" class="collapse in">
                     <div class="hpadding20">
                         @foreach($hotel_facilities as $facility)
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox">
+                                    <input type="checkbox" value="{{ $facility->id }}" name="facility[]" class="hot_facility">
                                     {{ $facility->hotel_facility }}
                                 </label>
                             </div>
@@ -678,18 +679,21 @@
                     <div class="clearfix"></div>
                 </div>
                 <!-- End of Hotel Preferences -->
+                {{ Form::close() }}
                 <div class="line2"></div>
 
                 <!-- Cities -->
                 <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse5">
-                    Hotel Preferences <span class="collapsearrow"></span>
+                    Cities <span class="collapsearrow"></span>
                 </button>
+                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'city_form')) }}
                 <div id="collapse5" class="collapse in">
                     <div class="hpadding20">
                         @foreach($hotel_cities as $city)
-                            <div class="checkbox">
+                            <div class="radio">
                                 <label>
-                                    <input type="checkbox">
+                                    <input type="radio" name="city" id="City{{ $x }}"
+                                           value="{{ $city->id }}" class="city_select">
                                     {{ $city->city }}
                                 </label>
                             </div>
@@ -698,7 +702,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <!-- End of Cities -->
-
+                {{ Form::close() }}
                 <div class="line2"></div>
                 <div class="clearfix"></div>
                 <br/>
@@ -896,7 +900,7 @@
         {{ HTML::script('assets/js/jquery-ui.js') }}
 
         {{--for the auto complete option--}}
-        <script>
+        <script type="text/javascript">
 
             function lookup(inputString) {
                 if (inputString.length == 0) {
@@ -916,6 +920,42 @@
                     });
                 }
             }
+        </script>
+
+        <script type="text/javascript">
+            $('.star_category').click(function () {
+                var star = $('input[name=star_rating]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+                $('#star_rating_form').submit()
+            });
+        </script>
+
+        <script type="text/javascript">
+            $('.acc_select').click(function () {
+                var accommodation = $('input[name=accommodation]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+                $('#accommodation_form').submit()
+            });
+        </script>
+
+        <script type="text/javascript">
+            $('.city_select').click(function () {
+                var city = $('input[name=city]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+                $('#city_form').submit()
+            });
+        </script>
+
+        <script type="text/javascript">
+            $('.hot_facility').click(function () {
+                var facilities = $('input[name=facility]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+                $('#facility_form').submit()
+            });
         </script>
 
     @endsection
