@@ -46,9 +46,19 @@
                 <div class="box-body">
 
                     <div class="form-group">
-                        <label for="market">Market</label>
+                        {{Form::label('market', 'Market')}}
                         {{--<input id="hotel_category" name="hotel_category" class="form-control" type="text"/>--}}
                         {{ Form::text('market', Session::get('edit')=='edit' ? $Market->market : '', array('class' => 'form-control')) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{Form::label('tax', 'Tax')}}
+                        {{ Form::text('market', Session::get('edit')=='edit' ? $Market->tax : '', array('class' => 'form-control')) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{Form::label('handling_fee_type', 'Handling Fee')}}
+                        {{ Form::text('handling_fee_type', Session::get('edit')=='edit' ? $Market->handling_fee_type : '', array('class' => 'form-control')) }}
                     </div>
                     {{ $errors->first('market', '<div class="form-group text-red">:message</div>') }}
                     @if(!Session::has('edit'))
@@ -98,7 +108,9 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Category</th>
+                            <th>Market</th>
+                            <th style="width:60px;">Handling Fee</th>
+                            <th>Tax</th>
                             <th style="width:60px;">Status</th>
                             <th style="width:120px;"></th>
                         </tr>
@@ -109,6 +121,8 @@
                             <tr>
                                 <td>{{ $market->id }}</td>
                                 <td>{{ $market->market }}</td>
+                                <td style="text-align: right;">{{ $market->handling_fee_type == 1 ? '$ '.$market->handling_fee : $market->handling_fee.' %' }}</td>
+                                <td style="text-align: right;">{{ $market->tax_type == 1 ? '$ '.$market->tax : $market->tax.' %'}}</td>
                                 <td style="text-align: center;">{{ $market->val == 0 ? 'Inactive' : 'Active' }}</td>
                                 <td>
                                     <div class="">
