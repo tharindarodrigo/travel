@@ -47,18 +47,71 @@
 
                     <div class="form-group">
                         {{Form::label('market', 'Market')}}
-                        {{--<input id="hotel_category" name="hotel_category" class="form-control" type="text"/>--}}
-                        {{ Form::text('market', Session::get('edit')=='edit' ? $Market->market : '', array('class' => 'form-control')) }}
+                        {{Form::text('market', Session::get('edit')=='edit' ? $Market->market : '', array('class' => 'form-control')) }}
+
                     </div>
 
                     <div class="form-group">
                         {{Form::label('tax', 'Tax')}}
-                        {{ Form::text('market', Session::get('edit')=='edit' ? $Market->tax : '', array('class' => 'form-control')) }}
+                        {{Form::text('tax', Session::get('edit')=='edit' ? $Market->tax : '', array('class' => 'form-control')) }}
+                        {{Form::label('tax_type', 'Tax Type')}}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label for="">
+                                    @if(Session::get('edit')=='edit')
+                                        {{ Form::radio('tax_type', 1, $Market->tax_type ==1? true : false ).'$' }}
+                                    @else
+                                        {{ Form::radio('tax_type', 1, false ).'$' }}
+                                    @endif
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label for="">
+                                     @if(Session::get('edit')=='edit')
+                                        {{ Form::radio('tax_type',0, $Market->tax_type ==0? true : false ). '%' }}
+                                     @else
+                                        {{ Form::radio('tax_type',0, true ). '%' }}
+                                     @endif
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="form-group">
-                        {{Form::label('handling_fee_type', 'Handling Fee')}}
-                        {{ Form::text('handling_fee_type', Session::get('edit')=='edit' ? $Market->handling_fee_type : '', array('class' => 'form-control')) }}
+                        {{Form::label('handling_fee', 'Handling Fee')}}
+                        {{ Form::text('handling_fee', Session::get('edit')=='edit' ? $Market->handling_fee : '', array('class' => 'form-control')) }}
+                        <h5>Handling Fee Type</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label for="">
+                                    @if(Session::get('edit')=='edit')
+                                        {{ Form::radio('handling_fee_type', 1, $Market->handling_fee_type ==1? true : false ).'$' }}
+                                    @else
+                                        {{ Form::radio('handling_fee_type', 1, true ).'$' }}
+                                    @endif
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label for="">
+                                     @if(Session::get('edit')=='edit')
+                                        {{ Form::radio('handling_fee_type', 0, $Market->handling_fee_type ==0? true : false ). '%' }}
+                                     @else
+                                        {{ Form::radio('handling_fee_type', 0, false). '%' }}
+                                     @endif
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     {{ $errors->first('market', '<div class="form-group text-red">:message</div>') }}
                     @if(!Session::has('edit'))

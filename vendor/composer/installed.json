@@ -2332,49 +2332,5 @@
             "thumbnail",
             "watermark"
         ]
-    },
-    {
-        "name": "foxted/breadcrumb",
-        "version": "1.0.1",
-        "version_normalized": "1.0.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/foxted/Breadcrumb.git",
-            "reference": "db85596e76559d7b35c9207c5ff2644e0545a321"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/foxted/Breadcrumb/zipball/db85596e76559d7b35c9207c5ff2644e0545a321",
-            "reference": "db85596e76559d7b35c9207c5ff2644e0545a321",
-            "shasum": ""
-        },
-        "require": {
-            "illuminate/support": ">=4.2",
-            "illuminate/view": ">=4.2"
-        },
-        "require-dev": {
-            "codeception/codeception": "*@dev",
-            "codeception/mockery-module": "*@dev"
-        },
-        "time": "2014-10-08 23:27:37",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Foxted\\Breadcrumb": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Valentin PRUGNAUD",
-                "email": "valentin@whatdafox.com"
-            }
-        ],
-        "description": "Small package to generate breadcrumbs easily in your Laravel app",
-        "abandoned": true
     }
 ]

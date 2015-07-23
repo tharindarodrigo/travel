@@ -13,8 +13,7 @@
     "fzaninotto/faker": "1.5.*@dev",
     "chumper/datatable": "2.*",
     "Intervention/image": "dev-master",
-    "zizaco/entrust": "1.2.*@dev",
-    "foxted/breadcrumb": "~1.0"
+    "zizaco/entrust": "1.2.*@dev"
   },
   "autoload": {
     "classmap": [
