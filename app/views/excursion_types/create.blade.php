@@ -1,0 +1,1 @@
+C:\wamp\www\travel\app/views/excursion_types/create.blade.php
