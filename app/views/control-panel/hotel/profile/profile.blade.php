@@ -8,8 +8,8 @@
 @section('hotel-nav-bar')
 <li class="active">{{link_to_route('control-panel.hotel.hotel-profile.edit','Hotel Profile',array($hotelprofile->id))}}</li>
 <li class="">{{link_to_route('control-panel.hotel.hotels.room-types.index' ,'Rooms', array($hotelprofile->id))}}</li>
-<li class="">{{link_to_route('control-panel.hotel.hotels.rates.index','Rates' ,array($hotelid))}}</li>
-<li class="">{{link_to_route('control-panel.hotel.hotels.supplement-rates.index','Supplement Rates' ,array($hotelid))}}</li>
+<li class="">{{link_to_route('control-panel.hotel.hotels.rates.index','Rates' ,array($hotelprofile->id))}}</li>
+<li class="">{{link_to_route('control-panel.hotel.hotels.supplement-rates.index','Supplement Rates' ,array($hotelprofile->id))}}</li>
 
 @endsection
 

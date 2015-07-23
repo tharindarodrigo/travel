@@ -11,9 +11,7 @@ class HotelsController extends \BaseController {
 	{
 		$hotels = Hotel::all();
 
-//        dd($hotels);
-
-		return View::make('control-panel.hotel.general.hotelList', compact('hotels'));
+		return View::make('control-panel.hotel.hotels.index', compact('hotels'));
 	}
 
 	/**
@@ -34,9 +32,7 @@ class HotelsController extends \BaseController {
 	 */
 	public function store()
 	{
-
 //        dd(Input::all());
-
 		$validator = Validator::make($data = Input::all(), Hotel::$rules);
 
 		if ($validator->fails())
@@ -44,7 +40,6 @@ class HotelsController extends \BaseController {
 //            dd($validator->errors());
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
-
 //        dd($data);
 
         $data['users_id'] = Auth::user()->id;
@@ -99,18 +94,38 @@ class HotelsController extends \BaseController {
 	 */
 	public function update($id)
 	{
+
 		$hotel = Hotel::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Hotel::$rules);
+        if(Input::has('val')){
+            $rules = ['val'];
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+            $data = array(
+                'val' => Input::get('val')
+            );
 
-		$hotel->update($data);
+            $validator = Validator::make($data, $rules);
 
-		return Redirect::route('hotels.index');
+            if ($validator->fails())
+            {
+                return Redirect::back()->withErrors($validator)->withInput();
+            }
+
+            $hotel->update($data);
+
+            return Redirect::back();
+        }
+
+//		$validator = Validator::make($data = Input::all(), Hotel::$rules);
+//
+//		if ($validator->fails())
+//		{
+//			return Redirect::back()->withErrors($validator)->withInput();
+//		}
+//
+//		$hotel->update($data);
+//
+//		return Redirect::route('hotels.index');
 	}
 
 	/**
@@ -123,7 +138,7 @@ class HotelsController extends \BaseController {
 	{
 		Hotel::destroy($id);
 
-		return Redirect::route('hotels.index');
+		return Redirect::back();
 	}
 
 }

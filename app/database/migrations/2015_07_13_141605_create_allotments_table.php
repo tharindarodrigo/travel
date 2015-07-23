@@ -17,12 +17,15 @@ class CreateAllotmentsTable extends Migration {
             $table->date('from');
             $table->date('to');
             $table->integer('rooms');
-
-            $table->integer('room_type_id');
-            $table->integer('hotel_id');
+            $table->integer('room_type_id')->unsigned();
+            $table->integer('hotel_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->boolean('val');
-
 			$table->timestamps();
+
+            $table->foreign('hotel_id')->references('id')->on('hotels');
+            $table->foreign('room_type_id')->references('id')->on('room_types');
+            $table->foreign('user_id')->references('id')->on('users');
 		});
 	}
 

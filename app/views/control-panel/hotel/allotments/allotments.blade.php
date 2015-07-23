@@ -57,8 +57,16 @@
                <div class="box-body table-responsive">
 
                    <div class="form-group">
-                       {{Form::label('room_type','Room Type')}}
-                       {{Form::select('room_type_id', array('0' => 'Select a Room Type')+RoomType::where('hotel_id', $hotelid)->lists('room_type','id'), 'Select Room', array('class' => 'form-control', 'id'=>'room_type_id'))}}
+                       {{Form::label('room_type_id','Room Type')}}
+                       @if(!Session::has('edit'))
+                          {{Form::select('room_type_id', array('' => 'Select a Room Type')+RoomType::where('hotel_id', $hotelid)->lists('room_type','id'), 'Select Room', array('class' => 'form-control', 'id'=>'room_type_id'))}}
+                       @else
+                      {{--{{dd('asdasd')}}--}}
+                          <p>{{$allotment->roomType->room_type}}</p>
+                          <input name="room_type_id" value="{{$allotment->room_type_id}}" type="hidden"/>
+
+                       @endif
+
                    </div>
                    {{ $errors->first('room_type_id', '<div class="form-group text-red">:message</div>') }}
 
@@ -88,7 +96,7 @@
                    @else
                        <div class="form-group">
                            {{ Form::submit('Update Allotment', array('class' => 'btn btn-primary')) }}
-                           <a href="{{ URL::route('control-panel.general.cities.index') }}" class="btn btn-group btn-info">Cancel</a>
+                           <a href="{{ URL::route('control-panel.hotel.hotels.allotments.index', $hotelid) }}" class="btn btn-group btn-info">Cancel</a>
                        </div>
                    @endif
 
@@ -157,7 +165,7 @@
 
                                        @if($allotment->val == 0)
                                            <div class="">
-                                               {{ Form::open(array('route'=> array('control-panel.hotel.hotels.allotments.update',$allotment->id), 'method' =>'patch')) }}
+                                               {{ Form::open(array('route'=> array('control-panel.hotel.hotels.allotments.update',$hotelid,$allotment->id), 'method' =>'patch')) }}
                                                <button class="btn btn-xs btn-flat btn-success activate-item col-md-3"
                                                   type="submit" name="val" value="1"><i class="glyphicon glyphicon-ok-circle"></i></button>
                                                <button class="btn btn-xs btn-flat btn-default disabled deactivate-item col-md-3"
@@ -166,7 +174,7 @@
                                            </div>
 
                                        @else
-                                           {{ Form::open(array('route'=> array('control-panel.hotel.hotels.allotments.update',$allotment->id), 'method' =>'patch')) }}
+                                           {{ Form::open(array('route'=> array('control-panel.hotel.hotels.allotments.update',$hotelid,$allotment->id), 'method' =>'patch')) }}
                                            <button class="btn btn-xs btn-flat btn-default disabled activate-item col-md-3"
                                                type="button"><i class="glyphicon glyphicon-ok-circle"></i></button>
                                            <button class="btn btn-xs btn-flat btn-warning deactivate-item col-md-3"
@@ -193,8 +201,23 @@
 @endsection
 
 @section('scripts')
+<script>
+$(function(){
 
-@yield('rate-scripts')
+    $('#from').datepicker({
+        format: 'yyyy-mm-dd'
+    });
+
+    $('#to').datepicker({
+        format: 'yyyy-mm-dd'
+    });
+
+    confirmDeleteItem();
+
+
+});
+</script>
+
 
 {{ HTML::script('control-panel-assets/plugins/datepicker/bootstrap-datepicker.js')}}
 {{ HTML::script('control-panel-assets/ajax/maskedInput.js')}}

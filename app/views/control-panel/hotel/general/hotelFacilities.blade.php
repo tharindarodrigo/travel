@@ -45,7 +45,6 @@
                     {{ Form::open(array('route' => array('control-panel.hotel.hotel-facilities.update',$Hotelfacility->id), 'files' => true, 'method' => 'put')) }}
                 @endif
 
-
                     <div class="box-body">
 
                         <div class="form-group">

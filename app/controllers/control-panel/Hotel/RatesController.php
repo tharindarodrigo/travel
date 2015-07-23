@@ -308,7 +308,7 @@ class RatesController extends \BaseController
         if (Input::has('val')) {
             $rules = ['val'];
         } else {
-            return $this->store($hotelid);
+            //return $this->store($hotelid);
         }
 
         $rate = Rate::findOrFail($id);

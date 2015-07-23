@@ -16,6 +16,7 @@ class CreateHotelFacilitiesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('hotel_facility');
+			$table->string('icon_class');
             $table->boolean('val');
 			$table->timestamps();
 		});

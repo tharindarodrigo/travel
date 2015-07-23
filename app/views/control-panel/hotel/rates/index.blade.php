@@ -1,7 +1,6 @@
 @extends('control-panel.hotel.rates.rates')
 
 
-
 @section('rate-content')
 
     <div class="col-md-12">
@@ -41,7 +40,7 @@
 
                             {{ Form::open(array('route'=> array('control-panel.hotel.hotels.rates.destroy', $hotelid, $rate->id), 'method' =>'delete' )) }}
 
-                            <button type="submit" class="btn btn-xs btn-flat btn-danger delete-button col-md-3"><i class="glyphicon glyphicon-trash"></i></button>
+                            <a type="" class="btn btn-xs btn-flat btn-danger delete-button col-md-3"><i class="glyphicon glyphicon-trash"></i></a>
                             {{ Form::close() }}
 
                             @if($rate->val == 0)
