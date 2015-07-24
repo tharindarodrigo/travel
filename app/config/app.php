@@ -125,6 +125,7 @@ return array(
         'Chumper\Datatable\DatatableServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
+        'DaveJamesMiller\Breadcrumbs\ServiceProvider',
 
     ),
 
@@ -194,6 +195,7 @@ return array(
         'View' => 'Illuminate\Support\Facades\View',
         'Image' => 'Intervention\Image\Facades\Image',
         'Entrust' => 'Zizaco\Entrust\EntrustFacade',
+        'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
 
     ),
 

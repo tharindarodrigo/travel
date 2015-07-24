@@ -61,6 +61,9 @@ class HotelController extends \BaseController
 
     public function viewHotelList($country = '', $city_or_accommodation = '')
     {
+
+
+
         $x = 0;
         $path = array();
         $star_id = array();

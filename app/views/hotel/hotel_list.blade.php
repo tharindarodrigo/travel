@@ -167,7 +167,7 @@
             <div class="left">
                 <ul class="bcrumbs">
                     <li>/</li>
-                    <li><a href="#">Hotels</a></li>
+                    <li><a href="#">{{ Breadcrumbs::render('home') }}</a></li>
                     <li>/</li>
                     <li><a href="#">U.S.A.</a></li>
                     <li>/</li>
@@ -179,6 +179,8 @@
         <div class="clearfix"></div>
         {{--<div class="brlines"></div>--}}
     </div>
+
+
 
     <!-- CONTENT -->
     <div class="container">
