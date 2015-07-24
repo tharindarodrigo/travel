@@ -180,7 +180,7 @@
         {{--<div class="brlines"></div>--}}
     </div>
 
-
+{{ Rate::lowestRate(1) }}
 
     <!-- CONTENT -->
     <div class="container">
