@@ -41,9 +41,10 @@
                         {{ $hotel->users->first_name.' '.$hotel->users->last_name }}
                     </td>
                     <td>{{ $hotel->val== 0 ? 'Inactive' : 'Active' }}</td>
+
                         <td style="width: 170px">
 
-                            {{ Form::open(array('route'=> array('control-panel.hotel.hotel-profile.edit', $hotel->id), 'method' =>'get' )) }}
+                            {{ Form::open(array('route'=> array('control-panel.hotel.hotels.edit', $hotel->id), 'method' =>'get' )) }}
                             <button type="submit" class="btn btn-xs btn-flat btn-primary col-md-3"><i class="glyphicon glyphicon-edit"></i></button>
                             {{ Form::close() }}
 
@@ -62,9 +63,9 @@
                                 </div>
                             @else
                                 {{ Form::open(array('route'=> array('control-panel.hotel.hotels.update', $hotel->id), 'method' =>'patch')) }}
-                                <button class="btn btn-xs btn-flat btn-default disabled activate-item col-md-3"
+                                     <button class="btn btn-xs btn-flat btn-default disabled activate-item col-md-3"
                                     type="button"><i class="glyphicon glyphicon-ok-circle"></i></button>
-                                <button class="btn btn-xs btn-flat btn-warning deactivate-item col-md-3"
+                                    <button class="btn btn-xs btn-flat btn-warning deactivate-item col-md-3"
                                     type="submit" name="val" value="0"><i class="glyphicon glyphicon-remove-circle"></i></button>
                                 {{ Form::close() }}
                             @endif

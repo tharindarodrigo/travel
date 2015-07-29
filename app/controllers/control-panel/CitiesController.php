@@ -81,6 +81,12 @@ class CitiesController extends \BaseController
             ));
     }
 
+    public function getCitiesList($country_id){
+        $cityList = City::where('country_id', $country_id)->select('id', 'city')->orderBy('city')->get();
+        return Response::json($cityList);
+
+    }
+
     /**
      * Update the specified city in storage.
      *

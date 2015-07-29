@@ -202,6 +202,9 @@ Route::group(array('prefix' => 'control-panel'), function () {
     Route::group(array('prefix' => 'general'), function(){
 
         Route::resource('cities', 'CitiesController');
+
+        Route::post('cities/get-cities/{country_id}', 'CitiesController@getCitiesList');
+
         Route::resource('markets', 'MarketsController');
         Route::resource('countries', 'CountriesController');
 
@@ -265,7 +268,7 @@ Route::group(array('prefix' => 'control-panel'), function () {
         Route::resource('cancellation-policies', 'CancellationPoliciesController');
 
         /**
-         *  Hotel List
+         *  Hotels
          */
         Route::resource('hotels', 'HotelsController');
 

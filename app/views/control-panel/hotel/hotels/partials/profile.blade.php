@@ -3,7 +3,7 @@
     The page
 --}}
 
-@extends('control-panel.layout.main')
+@extends('.........layout.main')
 
 @section('hotel-nav-bar')
 <li class="active">{{link_to_route('control-panel.hotel.hotel-profile.edit','Hotel Profile',array($hotelprofile->id))}}</li>
@@ -55,62 +55,22 @@
     <div class="tab-content">
         <div class="tab-pane {{{ !Session::has('manage') ? 'active':'' }}}" id="tab_1">
             {{--Hotel Details Page--}}
-            {{ Form::model($hotelprofile, array('route' => array('control-panel.hotel.hotels.update',$hotelprofile->id), 'method'=>'put')) }}
-            @include('control-panel.hotel.hotels.partials.hotelOverview')
-            <div class="row">
-                <div class="col-md-offset-4 col-md-4 ">
-                    {{ Form::submit('Update Hotel', array('class' => 'btn btn-primary btn-block', 'name'=> 'update_hotel' ))}}
-                </div>
-            </div>
-            {{Form::close()}}
+            @include('......profile.hotelOverview')
         </div><!-- /.tab-pane -->
         <div class="tab-pane {{{ Session::get('manage')=='location'? 'active':'' }}}" id="tab_2">
             {{--Location Details--}}
-
-            {{ Form::model($hotelprofile, array('route' => array('control-panel.hotel.hotels.update',$hotelprofile->id), 'method'=>'put')) }}
-            <div class="row">
-
-                @include('control-panel.hotel.hotels.partials.location')
-                <div class="form-group">
-                    {{ Form::submit('Update Location', array('class' => 'btn btn-primary' , 'name' => 'update_location' )) }}
-                </div>
-
-            </div>
-            {{Form::close()}}
-
+            @include('......profile.location')
         </div><!-- /.tab-pane -->
         <div class="tab-pane {{{ Session::get('manage')=='facilities'? 'active':'' }}}" id="tab_3">
             {{--Hotel facility list--}}
-                {{ Form::open(array('route' => array('control-panel.hotel.hotels.update', $hotelprofile->id), 'method'=> 'put')) }}
-            <div class="row">
-
-                @include('control-panel.hotel.hotels.partials.facilities')
-                &nbsp;
-                <br/>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    {{ Form::submit('Update Hotel Facilities', array('class' => 'btn btn-primary' , 'name' => 'update_hotel_facilities' )) }}
-                </div>
-            </div>
-            {{Form::close()}}
-
+            @include('......profile.facilities')
         </div><!-- /.tab-pane -->
         <div class="tab-pane {{{ Session::get('manage')=='policies'? 'active':'' }}}" id="tab_4">
-            {{--Hotel Policies--}}
-            @include('control-panel.hotel.hotels.partials.policies')
-
+                    {{--Hotel Policies--}}
+            @include('......profile.policies')
         </div><!-- /.tab-pane -->
         <div class="tab-pane {{{ Session::get('manage')=='termsAndConditions'? 'active':'' }}}" id="tab_5">
-            {{ Form::model($hotelprofile, array('route' => array('control-panel.hotel.hotel-profile.update', $hotelprofile->id), 'method'=> 'put')) }}
-            @include('control-panel.hotel.hotels.partials.termsAndConditions')
-            <div class="row">
-            <div class="col-md-4">
-                {{ Form::submit('Update Terms & Conditions', array('class' => 'btn btn-primary' , 'name' => 'update_terms' )) }}
-            </div>
-            {{Form::close()}}
-            </div>
-
+            @include('......profile.termsAndConditions')
         </div><!-- /.tab-pane -->
         <div class="tab-pane {{{ Session::get('manage')=='images'? 'active':'' }}}" id="tab_6">
             {{--@include('control-panel.hotel.profile.termsAndConditions')--}}

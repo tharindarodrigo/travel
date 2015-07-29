@@ -133,8 +133,6 @@ class HotelProfilesController extends \BaseController {
             Session::put('manage', 'location');
         }
 
-//        dd(0);
-
 		$hotelprofile = Hotel::findOrFail($id);
 
 		$validator = Validator::make($data = Input::all(), Hotel::$updaterules);
@@ -168,8 +166,6 @@ class HotelProfilesController extends \BaseController {
                 Session::put('manage', 'policies');
             }
         }
-
-
 
 
 		return Redirect::back()->with(

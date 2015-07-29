@@ -44,21 +44,18 @@
                     </div>
                     <div style="display: block;" class="box-body">
                     <div class="row">
+
                     @foreach($roomfacilities as $roomfacility)
                     <div class="col-md-4">
-                        <
-                        >
+                        <label for="">
                             {{ Form::checkbox('room_facility_id[]', $roomfacility->id) }}
                             {{ $roomfacility->room_facility }}
                         </label>
                     </div>
                     @endforeach
 
-
                     </div>
                     </div><!-- /.box-body -->
-
-
                 </div>
             </div>
             <div class="nav-tabs-custom">

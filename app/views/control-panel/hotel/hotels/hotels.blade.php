@@ -36,12 +36,17 @@
 
 @endsection
 
+
 @section('scripts')
 
     <script type="text/javascript">
-        $(function() {
+
+        $(function(){
+
             $("#hotel-list").dataTable();
         });
+
     </script>
 
 @endsection
+
