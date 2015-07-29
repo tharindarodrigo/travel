@@ -406,7 +406,7 @@ Route::any('/{country?}/{city_name_OR_accommodation?}', array(
 
 // Single Hotel
 
-Route::get('/{country?}/{city_name?}/{hotel_name?}', array(
+Route::any('/{country?}/{city_name?}/{hotel_name?}', array(
     'as' => 'hotel-details',
     'uses' => 'HotelController@hotelDetail'
 ));

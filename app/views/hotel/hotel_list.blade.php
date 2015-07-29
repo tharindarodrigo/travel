@@ -129,7 +129,7 @@
             color: #000000;
         }
 
-        .grey:hover{
+        .grey:hover {
             color: #000000;
         }
 
@@ -167,7 +167,7 @@
             <div class="left">
                 <ul class="bcrumbs">
                     <li>/</li>
-                    <li><a href="#">{{ Breadcrumbs::render('home') }}</a></li>
+                    {{--                    <li><a href="#">{{ Breadcrumbs::render('home') }}</a></li>--}}
                     <li>/</li>
                     <li><a href="#">U.S.A.</a></li>
                     <li>/</li>
@@ -180,7 +180,7 @@
         {{--<div class="brlines"></div>--}}
     </div>
 
-{{ Rate::lowestRate(1) }}
+    {{--{{ RoomRates::lowestRate(1,2015-06-20,2015-07-01) }}--}}
 
     <!-- CONTENT -->
     <div class="container">
@@ -240,17 +240,19 @@
 
                         <div class="w50percent">
                             <div class="wh90percent textleft">
-                                <span class="opensans size13">Check in date</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker"
-                                       placeholder="mm/dd/yyyy"/>
+                                <span class="opensans size13">Check In Date</span>
+                                <input type="text" name="check_in_date" class="form-control mySelectCalendar"
+                                       id="datepicker"
+                                       value="{{ Session::has('st_date') ? Session::get('st_date') : $st_date }}"/>
                             </div>
                         </div>
 
                         <div class="w50percentlast">
                             <div class="wh90percent textleft right">
-                                <span class="opensans size13">Check in date</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker2"
-                                       placeholder="mm/dd/yyyy"/>
+                                <span class="opensans size13">Check Out Date</span>
+                                <input type="text" name="check_out_date" class="form-control mySelectCalendar"
+                                       id="datepicker2"
+                                       value="{{ Session::has('ed_date') ? Session::get('ed_date') : $ed_date }}"/>
                             </div>
                         </div>
 
@@ -838,8 +840,23 @@
                                             <span class="size11 grey">
                                                 No Reviews </span><br/><br/>
                                         @endif
-                                        <span class="green size18"><b>$36.00</b></span><br/>
-                                        <span class="size11 grey">avg/night</span><br/><br/><br/>
+
+                                            <?php $low_hotel_rate = RoomRates::lowestHotelRate($hotel->id, $st_date, $ed_date); ?>
+
+                                        @if(!empty($low_hotel_rate))
+                                            <span class="green size18">
+                                            <b>
+                                                USD {{ $low_hotel_rate }}
+                                            </b>
+                                            </span>
+                                            <br/>
+                                            <span class="size11 grey">avg/night</span><br/><br/>
+                                        @else
+                                            <span class="green">
+                                                No Rate Available
+                                                <br/><br/>
+                                            </span>
+                                        @endif
 
                                         <form action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
                                             <button class="bookbtn mt1" type="submit"> Book</button>

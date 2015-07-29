@@ -68,39 +68,39 @@
 
                 <!-- SLIDER -->
 
-                <div class="col-md-8 details-slider">
+                {{--<div class="col-md-8 details-slider">--}}
 
-                    <div id="c-carousel">
-                        <div id="wrapper">
-                            <div id="inner">
-                                <div id="caroufredsel_wrapper2">
-                                    <div id="carousel">
-                                        @foreach ($path as $img_path)
-                                            {{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div id="pager-wrapper">
-                                    <div id="pager">
-                                        @foreach ($path as $img_path)
-                                            {{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <button id="prev_btn2" class="prev2">
-                                {{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}
-                            </button>
-                            <button id="next_btn2" class="next2">
-                                {{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}
-                            </button>
+                    {{--<div id="c-carousel">--}}
+                        {{--<div id="wrapper">--}}
+                            {{--<div id="inner">--}}
+                                {{--<div id="caroufredsel_wrapper2">--}}
+                                    {{--<div id="carousel">--}}
+                                        {{--@foreach ($path as $img_path)--}}
+                                            {{--{{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}--}}
+                                        {{--@endforeach--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div id="pager-wrapper">--}}
+                                    {{--<div id="pager">--}}
+                                        {{--@foreach ($path as $img_path)--}}
+                                            {{--{{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}--}}
+                                        {{--@endforeach--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="clearfix"></div>--}}
+                            {{--<button id="prev_btn2" class="prev2">--}}
+                                {{--{{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}--}}
+                            {{--</button>--}}
+                            {{--<button id="next_btn2" class="next2">--}}
+                                {{--{{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}--}}
+                            {{--</button>--}}
 
-                        </div>
-                    </div>
-                    <!-- /c-carousel -->
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<!-- /c-carousel -->--}}
 
-                </div>
+                {{--</div>--}}
 
                 <!-- END OF SLIDER -->
 
@@ -275,24 +275,31 @@
                         <div id="roomrates" class="tab-pane fade active in">
                             <div class="hpadding20">
                                 <p class="dark">Your travel rates</p>
+                                <?php  $city = Request::segment(2); ?>
+                                {{ Form::open(array('url' => '/sri-lanka/'.$city.'/'.str_replace(' ', '-', $details->name), 'method' => 'POST', 'id'=>'details_form')) }}
 
-                                <div class="col-md-4 offset-0">
+                                <div id="select_your_date" class="col-md-4 offset-0">
                                     <div class="w50percent">
                                         <div class="wh90percent textleft">
                                             <span class="opensans size13"><b>Check in</b></span>
-                                            <input type="text" class="form-control mySelectCalendar" id="datepicker"
-                                                   placeholder="mm/dd/yyyy"/>
+                                            <input type="text" name="check_in_date"
+                                                   class="form-control mySelectCalendar"
+                                                   id="datepicker"
+                                                   value="{{ Session::has('st_date') ? Session::get('st_date') : '' }}"/>
                                         </div>
                                     </div>
 
                                     <div class="w50percentlast">
                                         <div class="wh90percent textleft right">
                                             <span class="opensans size13"><b>Check out</b></span>
-                                            <input type="text" class="form-control mySelectCalendar" id="datepicker2"
-                                                   placeholder="mm/dd/yyyy"/>
+                                            <input type="text" name="check_out_date"
+                                                   class="form-control mySelectCalendar"
+                                                   id="datepicker2"
+                                                   value="{{ Session::has('ed_date') ? Session::get('ed_date') : '' }}"/>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-8 offset-0">
                                     <div class="col-md-8 ">
                                         <div class="room1">
@@ -437,6 +444,9 @@
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
+
+                                {{ Form::close() }}
+
                             </div>
                             <br/>
 
@@ -483,13 +493,26 @@
                                                 <li>Pay at hotel or pay today</li>
                                             </ul>
                                         </div>
-                                        <div class="col-md-4 center bordertype4">
-                                            <span class="opensans green size24">$49.51</span><br/>
-                                            <span class="opensans lightgrey size12">avg/night</span><br/><br/>
-                                            <span class="lred bold">3 left</span><br/><br/>
-                                            <button class="bookbtn mt1">Book</button>
-                                        </div>
+                                        @if(Session::has('st_date'))
+                                            <?php $low_room_rate = RoomRates::lowestRoomRate($room->hotel_id, $room->id, $st_date, $ed_date); ?>
+                                            <div class="col-md-4 center bordertype4">
+                                                @if($low_room_rate > 0 )
+                                                    <span class="opensans green size24">USD {{ $low_room_rate }} </span><br/>
+                                                    <span class="opensans lightgrey size12">avg/night</span><br/><br/>
+                                                    <span class="lred bold">3 left</span><br/><br/>
+                                                    <button class="bookbtn mt1">Book</button>
+                                                @else
+                                                    <span class="opensans lred size18">Rate Not Available</span><br/>
+                                                @endif
+
+                                            </div>
+                                        @else
+                                            <div class="col-md-4 center bordertype4">
+                                                <button id="date_select_button" class="bookbtn mt1">Select Date</button>
+                                            </div>
+                                        @endif
                                     </div>
+
                                     <div class="clearfix"></div>
                                 </div>
                             @endforeach
@@ -1064,6 +1087,27 @@
 
         <!-- Carousel-->
         {{ HTML::script('assets/js/initialize-carousel-detailspage.js') }}
+
+        <script type="text/javascript">
+
+            $(function() {
+                $('#datepicker').change(function(){
+                    $('#details_form').submit();
+                })
+
+            });
+        </script>
+
+        <script type="text/javascript">
+
+            $(function() {
+                $('#datepicker2').change(function(){
+                    $('#details_form').submit();
+                })
+
+            });
+        </script>
+
 
     @endsection
 
