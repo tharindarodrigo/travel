@@ -108,15 +108,22 @@
             <div class="col-md-4">
                 {{ Form::submit('Update Terms & Conditions', array('class' => 'btn btn-primary' , 'name' => 'update_terms' )) }}
             </div>
-            {{Form::close()}}
             </div>
+            {{Form::close()}}
 
         </div><!-- /.tab-pane -->
         <div class="tab-pane {{{ Session::get('manage')=='images'? 'active':'' }}}" id="tab_6">
             {{--@include('control-panel.hotel.profile.termsAndConditions')--}}
-        </div><!-- /.tab-pane -->
-    </div><!-- /.tab-content -->
-</div>
+            <div class="row">
+            <div class="col-md-12">
+            {{ Form::model($hotelprofile, array('route' => array('control-panel.hotel.hotels.update', $hotelprofile->id), 'method'=> 'put')) }}
+                @include('control-panel.hotel.hotels.partials.photos')
+
+            {{Form::close()}}
+            </div>
+            </div>
+            <!-- /.tab-content -->
+        </div>
 
 </div>
 @endsection

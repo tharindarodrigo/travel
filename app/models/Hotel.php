@@ -5,7 +5,7 @@ class Hotel extends \Eloquent
 
     // Add your validation rules here
     public static $rules = [
-        'name' => 'required|unique:hotels',
+        'name' => 'required',
         'city_id' => 'required',
         'address' => 'required',
         'category_id'=>'required',

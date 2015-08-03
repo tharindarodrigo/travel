@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-    {{ Form::open(array('route' => array('control-panel.hotel.hotels.store'))) }}
+    {{ Form::open(array('route' => array('control-panel.hotel.hotels.store'), 'files'=>true)) }}
     <div class="col-md-12">
             <div class="nav-tabs-custom">
                 <div class="box">
@@ -102,14 +102,13 @@
                     </div>
                     <div style="display: block;" class="box-body">
                         <div class="row">
-                            @include('control-panel.hotel.hotels.partials.photos')
+                            @include('control-panel.hotel.hotels.partials.images')
                         </div>
                     </div>
                 </div>
             </div>
 
             <button class="btn btn-primary">Create Hotel</button>
-
 
         </div>
     </div>

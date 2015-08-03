@@ -1,58 +1,76 @@
 <?php
 
-class HotelsController extends \BaseController {
+class HotelsController extends \BaseController
+{
 
-	/**
-	 * Display a listing of hotels
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$hotels = Hotel::all();
+    /**
+     * Display a listing of hotels
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $hotels = Hotel::all();
 
-		return View::make('control-panel.hotel.hotels.index', compact('hotels'));
-	}
+        return View::make('control-panel.hotel.hotels.index', compact('hotels'));
+    }
 
-	/**
-	 * Show the form for creating a new hotel
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
+    /**
+     * Show the form for creating a new hotel
+     *
+     * @return Response
+     */
+    public function create()
+    {
         $hotelcategorieslist = HotelCategory::all();
         $hotelcategories = HotelCategory::all();
         $hotelfacilitieslist = HotelFacility::all();
-        $checkedhotelfacilities =array();
+        $checkedhotelfacilities = array();
         $checkedhotelcategories = array();
 
-		return View::make('control-panel.hotel.hotels.create',compact('hotelcategories','hotelcategorieslist', 'checkedhotelcategories','hotelfacilitieslist', 'checkedhotelfacilities'));
-	}
+        return View::make('control-panel.hotel.hotels.create', compact('hotelcategories', 'hotelcategorieslist', 'checkedhotelcategories', 'hotelfacilitieslist', 'checkedhotelfacilities'));
+    }
 
-	/**
-	 * Store a newly created hotel in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-//        dd(Input::all());
-		$validator = Validator::make($data = Input::all(), Hotel::$rules);
+    /**
+     * Store a newly created hotel in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+//        dd(Input::get('images'));
+        $validator = Validator::make($data = Input::all(), Hotel::$rules);
 
-		if ($validator->fails())
-		{
+        if ($validator->fails()) {
             dd($validator->errors());
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 //        dd($data);
 
         $data['users_id'] = Auth::user()->id;
 
-		$hotel = Hotel::create($data);
+        if ($hotel = Hotel::create($data)) {
+
+
+            if (Input::hasFile('images')) {
+
+                $files = Input::file('images');
+
+                $x=0;
+
+                foreach($files as $file){
+                    Image::make($file)
+                        ->encode('jpg')
+                        ->save('public/control-panel-assets/images/hotel-images/' . $hotel->id . '_' . ++$x . '.jpg');
+                }
+            }
+
+
+        }
+
 
         $categories = Input::get('category_id');
-        foreach($categories  as $category_id){
+        foreach ($categories as $category_id) {
 
             // Enter data into pivot table
             $hotel_hotel_category_data = array(
@@ -62,9 +80,10 @@ class HotelsController extends \BaseController {
             DB::table('hotel_hotel_category')->insert($hotel_hotel_category_data);
         }
 
+
         $facilities = Input::get('hotel_facility_id');
 
-        foreach($facilities  as $facility_id){
+        foreach ($facilities as $facility_id) {
 
             // Enter data into pivot table
             $hotel_hotel_facility_data = array(
@@ -74,43 +93,48 @@ class HotelsController extends \BaseController {
             DB::table('hotel_hotel_facility')->insert($hotel_hotel_facility_data);
         }
 
-		return Redirect::route('control-panel.hotel.hotels.index');
-	}
+        return Redirect::route('control-panel.hotel.hotels.index');
+    }
 
-	/**
-	 * Display the specified hotel.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$hotel = Hotel::findOrFail($id);
+    /**
+     * Display the specified hotel.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $hotel = Hotel::findOrFail($id);
 
-		return View::make('hotels.show', compact('hotel'));
-	}
+        return View::make('hotels.show', compact('hotel'));
+    }
 
-	/**
-	 * Show the form for editing the specified hotel.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
+    /**
+     * Show the form for editing the specified hotel.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
         $hotelprofile = Hotel::find($id);
+        $hotelImages = array();
+        $hotelimages = File::glob('public/control-panel-assets/images/hotel-images/'.$hotelprofile->id.'_*');
+        foreach($hotelimages as $hotelimage){
+            $hotelImages[] = basename($hotelimage);
+        }
 
         $hotelcategorieslist = HotelCategory::all();
-        $hotelcategories = DB::table('hotel_hotel_category')->where('hotel_id',$id)->get(array('hotel_category_id'));
+        $hotelcategories = DB::table('hotel_hotel_category')->where('hotel_id', $id)->get(array('hotel_category_id'));
         $checkedhotelcategories = array();
-        foreach($hotelcategories as $hotelcategory){
-            $checkedhotelcategories[] =$hotelcategory->hotel_category_id;
+        foreach ($hotelcategories as $hotelcategory) {
+            $checkedhotelcategories[] = $hotelcategory->hotel_category_id;
         }
 
         $hotelfacilitieslist = HotelFacility::all();
-        $hotelfacilities = DB::table('hotel_hotel_facility')->where('hotel_id',$id)->get(array('hotel_facility_id'));
+        $hotelfacilities = DB::table('hotel_hotel_facility')->where('hotel_id', $id)->get(array('hotel_facility_id'));
         $checkedhotelfacilities = array();
-        foreach($hotelfacilities as $hotelfacility){
+        foreach ($hotelfacilities as $hotelfacility) {
             $checkedhotelfacilities[] = $hotelfacility->hotel_facility_id;
         }
 
@@ -121,27 +145,28 @@ class HotelsController extends \BaseController {
             ->with(
                 array(
                     'hotelprofile' => $hotelprofile,
-                    'hotelcategorieslist'=>$hotelcategorieslist,
+                    'hotelcategorieslist' => $hotelcategorieslist,
                     'checkedhotelcategories' => $checkedhotelcategories,
                     'hotelfacilitieslist' => $hotelfacilitieslist,
                     'checkedhotelfacilities' => $checkedhotelfacilities,
-                    'hotelpolicies' => $hotelpolicies
+                    'hotelpolicies' => $hotelpolicies,
+                    'hotelImages' => $hotelImages
                 )
             );
-	}
+    }
 
-	/**
-	 * Update the specified hotel in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
+    /**
+     * Update the specified hotel in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
 
-		$hotel = Hotel::findOrFail($id);
+        $hotel = Hotel::findOrFail($id);
 
-        if(Input::has('val')){
+        if (Input::has('val')) {
             $rules = ['val'];
 
             $data = array(
@@ -150,12 +175,11 @@ class HotelsController extends \BaseController {
 
             $validator = Validator::make($data, $rules);
 
-            if ($validator->fails())
-            {
+            if ($validator->fails()) {
                 return Redirect::back()->withErrors($validator)->withInput();
             }
 
-            if($hotel->update($data)){
+            if ($hotel->update($data)) {
 
                 return Redirect::back()->with(
                     array(
@@ -168,23 +192,22 @@ class HotelsController extends \BaseController {
             return Redirect::back();
         }
 
-        if(Input::has('update_hotel')){
+        if (Input::has('update_hotel')) {
             Session::forget('manage');
 
-            $data =Input::all();
+            $data = Input::all();
 
             $validator = Validator::make($data, Hotel::$updateOverviewRules);
 
-            if ($validator->fails())
-            {
+            if ($validator->fails()) {
                 return Redirect::back()->withErrors($validator)->withInput();
             }
 
             $hotelcategories = Input::get('category_id');
-            DB::table('hotel_hotel_category')->where('hotel_id',$id)->delete();
+            DB::table('hotel_hotel_category')->where('hotel_id', $id)->delete();
 
-            if(!empty($hotelcategories)){
-                foreach($hotelcategories as $hotelcategory){
+            if (!empty($hotelcategories)) {
+                foreach ($hotelcategories as $hotelcategory) {
                     DB::table('hotel_hotel_category')->insert(
                         array(
                             'hotel_id' => $id,
@@ -198,16 +221,15 @@ class HotelsController extends \BaseController {
         if (Input::has('update_location')) {
             Session::put('manage', 'location');
 
-            $data =Input::all();
+            $data = Input::all();
 
             $validator = Validator::make($data, Hotel::$updateLocationRules);
 
-            if ($validator->fails())
-            {
+            if ($validator->fails()) {
                 return Redirect::back()->withErrors($validator)->withInput();
             }
 
-            if($hotel->update($data)){
+            if ($hotel->update($data)) {
 
                 return Redirect::back()->with(
                     array(
@@ -220,7 +242,7 @@ class HotelsController extends \BaseController {
         }
 
 
-        if ($hotelfacilties = Input::get('hotel_facility_id')){
+        if ($hotelfacilties = Input::get('hotel_facility_id')) {
 
             Session::put('manage', 'facilities');
 
@@ -242,7 +264,7 @@ class HotelsController extends \BaseController {
 
         }
 
-        if(Input::has('update_policies')){
+        if (Input::has('update_policies')) {
             Session::put('manage', 'policies');
         }
 
@@ -258,27 +280,26 @@ class HotelsController extends \BaseController {
 //
 
 
-
         return Redirect::back()->with(
             array(
                 'successmessage' => 'successfully updated'
             )
         );
 
-	}
+    }
 
-	/**
-	 * Remove the specified hotel from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Remove the specified hotel from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
 
-	public function destroy($id)
-	{
-		Hotel::destroy($id);
+    public function destroy($id)
+    {
+        Hotel::destroy($id);
 
-		return Redirect::back();
-	}
+        return Redirect::back();
+    }
 
 }
