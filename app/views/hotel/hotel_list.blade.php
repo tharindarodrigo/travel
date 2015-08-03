@@ -877,7 +877,6 @@
                                             $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
                                             ?>
                                             @foreach($hotel_facilities->hotelFacility as $hotel_facility)
-
                                                 <li class="{{ $hotel_facility->name; }}"></li>
                                             @endforeach
                                         </ul>

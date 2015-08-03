@@ -70,35 +70,35 @@
 
                 {{--<div class="col-md-8 details-slider">--}}
 
-                    {{--<div id="c-carousel">--}}
-                        {{--<div id="wrapper">--}}
-                            {{--<div id="inner">--}}
-                                {{--<div id="caroufredsel_wrapper2">--}}
-                                    {{--<div id="carousel">--}}
-                                        {{--@foreach ($path as $img_path)--}}
-                                            {{--{{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}--}}
-                                        {{--@endforeach--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div id="pager-wrapper">--}}
-                                    {{--<div id="pager">--}}
-                                        {{--@foreach ($path as $img_path)--}}
-                                            {{--{{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}--}}
-                                        {{--@endforeach--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="clearfix"></div>--}}
-                            {{--<button id="prev_btn2" class="prev2">--}}
-                                {{--{{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}--}}
-                            {{--</button>--}}
-                            {{--<button id="next_btn2" class="next2">--}}
-                                {{--{{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}--}}
-                            {{--</button>--}}
+                {{--<div id="c-carousel">--}}
+                {{--<div id="wrapper">--}}
+                {{--<div id="inner">--}}
+                {{--<div id="caroufredsel_wrapper2">--}}
+                {{--<div id="carousel">--}}
+                {{--@foreach ($path as $img_path)--}}
+                {{--{{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}--}}
+                {{--@endforeach--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--<div id="pager-wrapper">--}}
+                {{--<div id="pager">--}}
+                {{--@foreach ($path as $img_path)--}}
+                {{--{{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}--}}
+                {{--@endforeach--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="clearfix"></div>--}}
+                {{--<button id="prev_btn2" class="prev2">--}}
+                {{--{{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}--}}
+                {{--</button>--}}
+                {{--<button id="next_btn2" class="next2">--}}
+                {{--{{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}--}}
+                {{--</button>--}}
 
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<!-- /c-carousel -->--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--<!-- /c-carousel -->--}}
 
                 {{--</div>--}}
 
@@ -192,82 +192,83 @@
                     @foreach($rooms as $room)
 
                         <!-- TAB 1 -->
-                        <div id="summary" class="tab-pane fade ">
-                            <p class="hpadding20">
-                                {{ $room->description }}
-                            </p>
 
-                            <div class="line4"></div>
+                        {{--<div id="summary" class="tab-pane fade ">--}}
+                        {{--<p class="hpadding20">--}}
+                        {{--{{ $room->description }}--}}
+                        {{--</p>--}}
 
-                            <!-- Collapse 3 -->
-                            <button type="button" class="collapsebtn2 collapsed" data-toggle="collapse"
-                                    data-target="#collapse3">
-                                Complimentary Wi-Fi <span class="collapsearrow"></span>
-                            </button>
+                        {{--<div class="line4"></div>--}}
 
-                            <div id="collapse3" class="collapse">
-                                <div class="hpadding20">
-                                    Yes
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <!-- End of collapse 3 -->
+                        {{--<!-- Collapse 3 -->--}}
+                        {{--<button type="button" class="collapsebtn2 collapsed" data-toggle="collapse"--}}
+                        {{--data-target="#collapse3">--}}
+                        {{--Complimentary Wi-Fi <span class="collapsearrow"></span>--}}
+                        {{--</button>--}}
 
-                            <div class="line4"></div>
+                        {{--<div id="collapse3" class="collapse">--}}
+                        {{--<div class="hpadding20">--}}
+                        {{--Yes--}}
+                        {{--</div>--}}
+                        {{--<div class="clearfix"></div>--}}
+                        {{--</div>--}}
+                        {{--<!-- End of collapse 3 -->--}}
 
-                            <!-- Collapse 4 -->
-                            <button type="button" class="collapsebtn2 collapsed" data-toggle="collapse"
-                                    data-target="#collapse4">
-                                Internet <span class="collapsearrow"></span>
-                            </button>
+                        {{--<div class="line4"></div>--}}
 
-                            <div id="collapse4" class="collapse">
-                                <div class="hpadding20">
-                                    Yes
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <!-- End of collapse 4 -->
+                        {{--<!-- Collapse 4 -->--}}
+                        {{--<button type="button" class="collapsebtn2 collapsed" data-toggle="collapse"--}}
+                        {{--data-target="#collapse4">--}}
+                        {{--Internet <span class="collapsearrow"></span>--}}
+                        {{--</button>--}}
 
-                            <div class="line4"></div>
+                        {{--<div id="collapse4" class="collapse">--}}
+                        {{--<div class="hpadding20">--}}
+                        {{--Yes--}}
+                        {{--</div>--}}
+                        {{--<div class="clearfix"></div>--}}
+                        {{--</div>--}}
+                        {{--<!-- End of collapse 4 -->--}}
 
-                            <!-- Collapse 5 -->
-                            <button type="button" class="collapsebtn2 collapsed" data-toggle="collapse"
-                                    data-target="#collapse5">
-                                Parking <span class="collapsearrow"></span>
-                            </button>
+                        {{--<div class="line4"></div>--}}
 
-                            <div id="collapse5" class="collapse">
-                                <div class="hpadding20">
-                                    Yes
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <!-- End of collapse 5 -->
+                        {{--<!-- Collapse 5 -->--}}
+                        {{--<button type="button" class="collapsebtn2 collapsed" data-toggle="collapse"--}}
+                        {{--data-target="#collapse5">--}}
+                        {{--Parking <span class="collapsearrow"></span>--}}
+                        {{--</button>--}}
 
-                            <div class="line4"></div>
+                        {{--<div id="collapse5" class="collapse">--}}
+                        {{--<div class="hpadding20">--}}
+                        {{--Yes--}}
+                        {{--</div>--}}
+                        {{--<div class="clearfix"></div>--}}
+                        {{--</div>--}}
+                        {{--<!-- End of collapse 5 -->--}}
 
-                            @foreach($room->roomFacility as $facilities)
-                                <!-- Collapse 6 -->
-                                <button type="button" class="collapsebtn2" data-toggle="collapse"
-                                        data-target="#collapse6">
-                                    Room Facility <span class="collapsearrow"></span>
-                                </button>
+                        {{--<div class="line4"></div>--}}
 
-                                <div id="collapse6" class="collapse in">
-                                    <div class="hpadding20">
-                                        <div class="col-md-4">
-                                            <ul class="checklist">
-                                                <li> {{ 'as' }} </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <!-- End of collapse 6 -->
-                            @endforeach
+                        {{--@foreach($room->roomFacility as $facilities)--}}
+                        {{--<!-- Collapse 6 -->--}}
+                        {{--<button type="button" class="collapsebtn2" data-toggle="collapse"--}}
+                        {{--data-target="#collapse6">--}}
+                        {{--Room Facility <span class="collapsearrow"></span>--}}
+                        {{--</button>--}}
 
-                        </div>
+                        {{--<div id="collapse6" class="collapse in">--}}
+                        {{--<div class="hpadding20">--}}
+                        {{--<div class="col-md-4">--}}
+                        {{--<ul class="checklist">--}}
+                        {{--<li> {{ 'as' }} </li>--}}
+                        {{--</ul>--}}
+                        {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div class="clearfix"></div>--}}
+                        {{--</div>--}}
+                        {{--<!-- End of collapse 6 -->--}}
+                        {{--@endforeach--}}
+
+                        {{--</div>--}}
 
                         @endforeach
 
@@ -318,7 +319,8 @@
                                                     <div class="w50percent">
                                                         <div class="wh90percent textleft left">
                                                             <span class="opensans size13"><b>Adult</b></span>
-                                                            <select class="form-control mySelectBoxClass">
+                                                            <select class="form-control mySelectBoxClass" name="adult"
+                                                                    id="change_adult">
                                                                 <option>1</option>
                                                                 <option selected>2</option>
                                                                 <option>3</option>
@@ -330,7 +332,8 @@
                                                     <div class="w50percentlast">
                                                         <div class="wh90percent textleft right ohidden">
                                                             <span class="opensans size13"><b>Child</b></span>
-                                                            <select class="form-control mySelectBoxClass">
+                                                            <select class="form-control mySelectBoxClass" name="child"
+                                                                    id="change_child">
                                                                 <option>0</option>
                                                                 <option selected>1</option>
                                                                 <option>2</option>
@@ -454,67 +457,95 @@
 
                             <div class="line2"></div>
 
-                            @foreach($rooms as $room)
+                            @foreach($rooms as $hot_room)
 
                                 <?php
+                                $room_id = $hot_room->id;
+
+                                $room_types = RoomType::whereHas('Rate', function ($q) use ($room_id, $hotel_id) {
+                                    $q->where('hotel_id', '=', $hotel_id);
+                                    $q->where('room_type_id', '=', $room_id);
+                                })
+                                        ->whereHas('RoomSpecification', function ($b) use ($room_id) {
+                                            $b->where('room_type_id', '=', $room_id);
+                                        })
+                                        ->get();
+
                                 $directory = 'images/room_images/';
-                                $images = glob($directory . $room->id . "_" . "*.*");
+                                $images = glob($directory . $room_id . "_" . "*.*");
                                 $img_path = array_shift($images);
                                 ?>
 
-                                <div class="padding20">
+                                @foreach($room_types as $room)
 
-                                    <div class="col-md-4 offset-0">
-                                        <a href="#">
-                                            @if(count($img_path)>0)
-                                                {{ HTML::image($img_path, '', array('class' => 'fwimg'))}}
-                                            @else
-                                                {{ HTML::image('images/no-image.jpg', '', array('class' => 'fwimg')) }}
-                                            @endif
-                                        </a>
-                                    </div>
+                                    {{ $room->id }}
 
-                                    <div class="col-md-8 offset-0">
-                                        <div class="col-md-8 mediafix1">
-                                            <h4 class="opensans dark bold margtop1 lh1"> {{ $room->room_type }} </h4>
-                                            Max Occupancy: 2 adults
-                                            <ul class="hotelpreferences margtop10">
-                                                <li class="icohp-internet"></li>
-                                                <li class="icohp-air"></li>
-                                                <li class="icohp-pool"></li>
-                                                <li class="icohp-childcare"></li>
-                                                <li class="icohp-fitness"></li>
-                                                <li class="icohp-breakfast"></li>
-                                                <li class="icohp-parking"></li>
-                                            </ul>
-                                            <div class="clearfix"></div>
-                                            <ul class="checklist2 margtop10">
-                                                <li>FREE Cancellation</li>
-                                                <li>Pay at hotel or pay today</li>
-                                            </ul>
-                                        </div>
-                                        @if(Session::has('st_date'))
-                                            <?php $low_room_rate = RoomRates::lowestRoomRate($room->hotel_id, $room->id, $st_date, $ed_date); ?>
-                                            <div class="col-md-4 center bordertype4">
-                                                @if($low_room_rate > 0 )
-                                                    <span class="opensans green size24">USD {{ $low_room_rate }} </span><br/>
-                                                    <span class="opensans lightgrey size12">avg/night</span><br/><br/>
-                                                    <span class="lred bold">3 left</span><br/><br/>
-                                                    <button class="bookbtn mt1">Book</button>
+                                    <div class="padding20">
+
+                                        <div class="col-md-4 offset-0">
+                                            <a href="#">
+                                                @if(count($img_path)>0)
+                                                    {{ HTML::image($img_path, '', array('class' => 'fwimg'))}}
                                                 @else
-                                                    <span class="opensans lred size18">Rate Not Available</span><br/>
+                                                    {{ HTML::image('images/no-image.jpg', '', array('class' => 'fwimg')) }}
                                                 @endif
+                                            </a>
+                                        </div>
 
+                                        <div class="col-md-8 offset-0">
+                                            <div class="col-md-8 mediafix1">
+
+                                                <h4 class="opensans dark bold margtop1 lh1"> {{ $room->room_type }} </h4>
+
+
+                                                <h5> {{ 's' }} Room </h5>
+
+
+                                                <ul class="hotelpreferences margtop10">
+                                                    <li class="icohp-internet"></li>
+                                                    <li class="icohp-air"></li>
+                                                    <li class="icohp-pool"></li>
+                                                    <li class="icohp-childcare"></li>
+                                                    <li class="icohp-fitness"></li>
+                                                    <li class="icohp-breakfast"></li>
+                                                    <li class="icohp-parking"></li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                                <ul class="checklist2 margtop10">
+                                                    <li>FREE Cancellation</li>
+                                                    <li>Pay at hotel or pay today</li>
+                                                </ul>
                                             </div>
-                                        @else
-                                            <div class="col-md-4 center bordertype4">
-                                                <button id="date_select_button" class="bookbtn mt1">Select Date</button>
-                                            </div>
-                                        @endif
+                                            @if(Session::has('st_date'))
+                                                <?php $low_room_rate = RoomRates::lowestRoomRate($room->hotel_id, $room->id, $st_date, $ed_date); ?>
+                                                <div class="col-md-4 center bordertype4">
+                                                    @if($low_room_rate > 0 )
+                                                        <span class="opensans green size24">USD {{ $low_room_rate }} </span>
+                                                        <br/>
+                                                        <span class="opensans lightgrey size12">avg/night</span>
+                                                        <br/>
+                                                        <br/>
+                                                        <span class="lred bold">3 left</span><br/><br/>
+                                                        <button class="bookbtn mt1">Book</button>
+                                                    @else
+                                                        <span class="opensans lred size18">Rate Not Available</span>
+                                                        <br/>
+                                                    @endif
+
+                                                </div>
+                                            @else
+                                                <div class="col-md-4 center bordertype4">
+                                                    <button id="date_select_button" class="bookbtn mt1">Select Date
+                                                    </button>
+                                                </div>
+                                            @endif
+                                        </div>
+
+                                        <div class="clearfix"></div>
                                     </div>
 
-                                    <div class="clearfix"></div>
-                                </div>
+                                @endforeach
+
                             @endforeach
                             <div class="line2"></div>
 
@@ -1088,26 +1119,37 @@
         <!-- Carousel-->
         {{ HTML::script('assets/js/initialize-carousel-detailspage.js') }}
 
-        <script type="text/javascript">
+        {{--<script type="text/javascript">--}}
+        {{--$(function () {--}}
+        {{--$('#datepicker').change(function () {--}}
+        {{--$('#details_form').submit();--}}
+        {{--})--}}
+        {{--});--}}
+        {{--</script>--}}
 
-            $(function() {
-                $('#datepicker').change(function(){
+        <script type="text/javascript">
+            $(function () {
+                $('#datepicker2').change(function () {
                     $('#details_form').submit();
                 })
-
             });
         </script>
 
         <script type="text/javascript">
-
-            $(function() {
-                $('#datepicker2').change(function(){
+            $(function () {
+                $('#change_adult').change(function () {
                     $('#details_form').submit();
                 })
-
             });
         </script>
 
+        <script type="text/javascript">
+            $(function () {
+                $('#change_child').change(function () {
+                    $('#details_form').submit();
+                })
+            });
+        </script>
 
     @endsection
 

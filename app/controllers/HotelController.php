@@ -384,6 +384,11 @@ class HotelController extends \BaseController
 
         $rooms = RoomType::where('hotel_id', '=', $hotel_id)->get();
 
+//        $rooms = RoomSpecification::whereHas('Rate', function ($a) use ($hotel_id) {
+//            $a->where('hotel_id', '=', $hotel_id);
+//        })
+//            ->get();
+
 
 //        $room_facility = roomFacility::whereHas('Hotel', function ($query) use ($hotel_id) {
 //            $query->where('hotel_id', '=', $hotel_id);
@@ -407,6 +412,7 @@ class HotelController extends \BaseController
                     'hotel_cities' => $hotel_cities,
                     'hotel_facilities' => $hotel_facilities,
                     'path' => $path,
+                    //'bb' => $bb,
                     //'room_facility' => $room_facility,
                     'rooms' => $rooms,
                     'st_date' => $st_date,
