@@ -155,10 +155,70 @@ class HotelsController extends \BaseController {
                 return Redirect::back()->withErrors($validator)->withInput();
             }
 
-            $hotel->update($data);
+            if($hotel->update($data)){
+
+                return Redirect::back()->with(
+                    array(
+                        'successmessage' => 'Successfully Updated'
+                    )
+                );
+
+            }
 
             return Redirect::back();
         }
+
+        if(Input::has('update_hotel')){
+            Session::forget('manage');
+
+            $data =Input::all();
+
+            $validator = Validator::make($data, Hotel::$updateOverviewRules);
+
+            if ($validator->fails())
+            {
+                return Redirect::back()->withErrors($validator)->withInput();
+            }
+
+            $hotelcategories = Input::get('category_id');
+            DB::table('hotel_hotel_category')->where('hotel_id',$id)->delete();
+
+            if(!empty($hotelcategories)){
+                foreach($hotelcategories as $hotelcategory){
+                    DB::table('hotel_hotel_category')->insert(
+                        array(
+                            'hotel_id' => $id,
+                            'hotel_category_id' => $hotelcategory
+                        )
+                    );
+                }
+            }
+        }
+
+        if (Input::has('update_location')) {
+            Session::put('manage', 'location');
+
+            $data =Input::all();
+
+            $validator = Validator::make($data, Hotel::$updateLocationRules);
+
+            if ($validator->fails())
+            {
+                return Redirect::back()->withErrors($validator)->withInput();
+            }
+
+            if($hotel->update($data)){
+
+                return Redirect::back()->with(
+                    array(
+                        'successmessage' => 'Successfully Updated'
+                    )
+                );
+
+            }
+
+        }
+
 
         if ($hotelfacilties = Input::get('hotel_facility_id')){
 
@@ -182,43 +242,21 @@ class HotelsController extends \BaseController {
 
         }
 
-
-        if (Input::has('update_location')) {
-            Session::put('manage', 'location');
+        if(Input::has('update_policies')){
+            Session::put('manage', 'policies');
         }
 
-        $hotelprofile = Hotel::findOrFail($id);
 
-        $validator = Validator::make($data = Input::all(), Hotel::$updaterules);
+//        $hotelprofile = Hotel::findOrFail($id);
+//
+//        $validator = Validator::make($data = Input::all(), Hotel::$updaterules);
+//
+//        if ($validator->fails())
+//        {
+//            return Redirect::back()->withErrors($validator)->withInput();
+//        }
+//
 
-        if ($validator->fails())
-        {
-            return Redirect::back()->withErrors($validator)->withInput();
-        }
-
-        if($hotelprofile->update($data)){
-
-            if(Input::has('update_hotel')){
-                Session::forget('manage');
-                $hotelcategories = Input::get('category_id');
-                DB::table('hotel_hotel_category')->where('hotel_id',$id)->delete();
-
-                if(!empty($hotelcategories)){
-                    foreach($hotelcategories as $hotelcategory){
-                        DB::table('hotel_hotel_category')->insert(
-                            array(
-                                'hotel_id' => $id,
-                                'hotel_category_id' => $hotelcategory
-                            )
-                        );
-                    }
-                }
-            }
-
-            if(Input::has('update_policies')){
-                Session::put('manage', 'policies');
-            }
-        }
 
 
         return Redirect::back()->with(

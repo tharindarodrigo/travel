@@ -14,9 +14,20 @@ class Hotel extends \Eloquent
         'latitude' => 'numeric'
     ];
 
-    public static $updaterules = [
+    public static $updateOverviewRules = [
+        'name' => 'required',
+        'category_id'=>'required',
+        'star_category_id' => 'required'
 
     ];
+
+    public static $updateLocationRules=[
+        'city_id' => 'required',
+        'address' => 'required',
+        'longitude' => 'numeric',
+        'latitude' => 'numeric'
+    ];
+
 
     // Don't forget to fill this array
     protected $fillable = ['name', 'city_id', 'address', 'star_category_id', 'users_id','longitude','latitude',

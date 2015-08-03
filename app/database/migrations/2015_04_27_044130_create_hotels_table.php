@@ -17,16 +17,17 @@ class CreateHotelsTable extends Migration {
 			$table->increments('id');
             $table->string('name');
             $table->string('address');
+            $table->integer('country_id')->unsigned();
             $table->integer('city_id')->unsigned();
-            $table->integer('users_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('star_category_id')->unsigned();
             $table->boolean('val');
 
             $table->double('longitude');
             $table->double('latitude');
 
-            $table->string('meta_keywords');
-            $table->string('meta_description');
+            $table->string('search_keywords');
+            $table->string('search_description');
 
             $table->text('overview');
 
@@ -43,7 +44,7 @@ class CreateHotelsTable extends Migration {
             $table->timestamps();
 
             $table->foreign('city_id')->references('id')->on('cities');
-            $table->foreign('users_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('star_category_id')->references('id')->on('star_categories');
 
         });

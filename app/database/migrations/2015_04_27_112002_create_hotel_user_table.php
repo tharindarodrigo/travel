@@ -18,9 +18,10 @@ class CreateHotelUserTable extends Migration {
 			$table->integer('hotel_id')->unsigned()->index();
 			$table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
 			$table->integer('user_id')->unsigned()->index();
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-			$table->timestamps();
-		});
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
 	}
 
 

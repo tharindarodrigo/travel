@@ -7,7 +7,7 @@
 
     <div class="form-group">
         {{ Form::label('city_id','City')}}
-        <select class="form-control" name="city_id"></select>
+        <select class="form-control" name="city_id" id="city_id" city_id="{{{!empty($hotelprofile->id) ? $hotelprofile->city_id: ''}}}"></select>
     </div>
     {{ $errors->first('city_id', '<div class="form-group text-red"><em>:message</em></div>') }}
 

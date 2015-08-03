@@ -102,7 +102,7 @@
 
         </div><!-- /.tab-pane -->
         <div class="tab-pane {{{ Session::get('manage')=='termsAndConditions'? 'active':'' }}}" id="tab_5">
-            {{ Form::model($hotelprofile, array('route' => array('control-panel.hotel.hotel-profile.update', $hotelprofile->id), 'method'=> 'put')) }}
+            {{ Form::model($hotelprofile, array('route' => array('control-panel.hotel.hotels.update', $hotelprofile->id), 'method'=> 'put')) }}
             @include('control-panel.hotel.hotels.partials.termsAndConditions')
             <div class="row">
             <div class="col-md-4">
@@ -135,6 +135,42 @@
          showInputs: false,
          disableFocus: true
     });
+
+    $('#country_id').change(function(){
+        var country_id = $(this).val();
+        loadCities(country_id);
+    });
+
+    $('#country_id').trigger('change');
+
+    function loadCities(country_id){
+        var country_id = $('#country_id').val();
+        var url = 'http://'+window.location.host+'/control-panel/general/cities/get-cities/'+country_id;
+        var cities = '';
+        $.ajax({
+            url: url,
+            method: 'post',
+            processData: false,
+            contentType: false,
+            cache: false,
+            dataType: 'json',
+            success: function(data){
+                var city_id = 0;
+                $.each(data,function(i,item){
+                    if(item.id==$('#city_id').attr('city_id')){
+                        city_id = item.id;
+                    }
+                    cities += '<option value="'+item.id+'">'+item.city+'</option>';
+                });
+
+                $('select[name="city_id"]').html(cities);
+                $('#city_id').val(city_id);
+
+
+
+            }
+        });
+    }
 
 </script>
 @stop

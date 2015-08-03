@@ -7,6 +7,7 @@
             {{Form::hidden('hotel_id', $hotelprofile->id)}}
         @else
             {{ Form::model($cancellationpolicy, array('route' => array('control-panel.hotel.cancellation-policies.update',$cancellationpolicy->id), 'method' => 'put')) }}
+
         @endif
         <div class="form-group">
             {{Form::label('from', 'From')}}
@@ -42,7 +43,7 @@
                         <th>To</th>
                         <th>% Charged</th>
                         <th style="width:60px;">Status</th>
-                        <th style="width:120px;"></th>
+                        <th style="width:60px;"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,7 +57,7 @@
 
                             <td>
                             <div class="">
-                                {{ Form::open(array('route'=> array('control-panel.hotel.hotel-profile.edit',$hotelprofile->id), 'method' =>'get' )) }}
+                                {{ Form::open(array('route'=> array('control-panel.hotel.cancellation-policies.edit',$hotelprofile->id), 'method' =>'get' )) }}
                                 {{ Form::hidden('id', $hotelpolicy->id)}}
                                 <button type="submit" class="btn btn-xs btn-flat btn-primary col-md-3"><i
                                             class="glyphicon glyphicon-edit"></i></button>
@@ -127,9 +128,6 @@
 
             confirmDeleteItem();
         });
-
-
-
 
     </script>
 

@@ -73,8 +73,8 @@ class CancellationPoliciesController extends \BaseController {
         Session::put('manage','policies');
         Session::put('edit','policies');
 
-        $cancellationpolicy = CancellationPolicy::find($id);
-
+        $cancellationpolicy = CancellationPolicy::findOrFail($id);
+        dd($cancellationpolicy);
 		return Redirect::back()->with(
             array(
                 'cancellationpolicy'=>$cancellationpolicy

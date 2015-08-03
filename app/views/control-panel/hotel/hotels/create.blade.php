@@ -136,7 +136,6 @@
 
             $('#country_id').change(function(){
                 var country_id = $(this).val();
-//                alert(country_id);
                 loadCities(country_id);
             });
 

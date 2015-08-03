@@ -22,15 +22,15 @@
 
         <div class="form-group">
             {{ Form::label('search_keywords','Search Keywords')}}
-            {{ Form::textarea('meta_keywords', null, array('class' => 'form-control', 'rows'=>'4', 'placeholder'=>'Keywords by which your hotel needs to be searched on Google'))}}
+            {{ Form::textarea('search_keywords', null, array('class' => 'form-control', 'rows'=>'4', 'placeholder'=>'Keywords by which your hotel needs to be searched on Google'))}}
         </div>
-        {{ $errors->first('meta_keywords', '<div class="form-group text-red">:message</div>') }}
+        {{ $errors->first('search_keywords', '<div class="form-group text-red">:message</div>') }}
 
         <div class="form-group">
-            {{ Form::label('meta_description','Search Description')}}
-            {{ Form::textarea('meta_description', null, array('class' => 'form-control', 'rows'=>'4', 'placeholder'=>'Small Description about your hotel for Google search'))}}
+            {{ Form::label('search_description','Search Description')}}
+            {{ Form::textarea('search_description', null, array('class' => 'form-control', 'rows'=>'4', 'placeholder'=>'Small Description about your hotel for Google search'))}}
         </div>
-        {{ $errors->first('meta_description', '<div class="form-group text-red">:message</div>') }}
+        {{ $errors->first('search_description', '<div class="form-group text-red">:message</div>') }}
 
     </div>
     <div class="col-md-6">
