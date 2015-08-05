@@ -193,82 +193,51 @@
 
                         <!-- TAB 1 -->
 
-                        {{--<div id="summary" class="tab-pane fade ">--}}
-                        {{--<p class="hpadding20">--}}
-                        {{--{{ $room->description }}--}}
-                        {{--</p>--}}
+                        <div id="summary" class="tab-pane fade ">
+                            <p class="hpadding20">
+                                {{ $room->description }}
+                            </p>
 
-                        {{--<div class="line4"></div>--}}
+                            <div class="line4"></div>
 
-                        {{--<!-- Collapse 3 -->--}}
-                        {{--<button type="button" class="collapsebtn2 collapsed" data-toggle="collapse"--}}
-                        {{--data-target="#collapse3">--}}
-                        {{--Complimentary Wi-Fi <span class="collapsearrow"></span>--}}
-                        {{--</button>--}}
+                            <!-- Collapse 3 -->
+                            <button type="button" class="collapsebtn2 collapsed" data-toggle="collapse"
+                                    data-target="#collapse3">
+                                Hotel Facilities <span class="collapsearrow"></span>
+                            </button>
 
-                        {{--<div id="collapse3" class="collapse">--}}
-                        {{--<div class="hpadding20">--}}
-                        {{--Yes--}}
-                        {{--</div>--}}
-                        {{--<div class="clearfix"></div>--}}
-                        {{--</div>--}}
-                        {{--<!-- End of collapse 3 -->--}}
+                            <div id="collapse3" class="collapse">
+                                <div class="hpadding20">
+                                    Yes
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <!-- End of collapse 3 -->
 
-                        {{--<div class="line4"></div>--}}
+                            <div class="line4"></div>
 
-                        {{--<!-- Collapse 4 -->--}}
-                        {{--<button type="button" class="collapsebtn2 collapsed" data-toggle="collapse"--}}
-                        {{--data-target="#collapse4">--}}
-                        {{--Internet <span class="collapsearrow"></span>--}}
-                        {{--</button>--}}
+                            <!-- Collapse 6 -->
+                            <button type="button" class="collapsebtn2" data-toggle="collapse"
+                                    data-target="#collapse6">
+                                Room Facility <span class="collapsearrow"></span>
+                            </button>
 
-                        {{--<div id="collapse4" class="collapse">--}}
-                        {{--<div class="hpadding20">--}}
-                        {{--Yes--}}
-                        {{--</div>--}}
-                        {{--<div class="clearfix"></div>--}}
-                        {{--</div>--}}
-                        {{--<!-- End of collapse 4 -->--}}
+                            @foreach($room->RoomFacility as $facilities)
 
-                        {{--<div class="line4"></div>--}}
+                                <div id="collapse6" class="collapse in">
+                                    <div class="hpadding20">
+                                        <div class="col-md-4">
+                                            <ul class="checklist">
+                                                <li> {{ $facilities->room_facility }} </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <!-- End of collapse 6 -->
+                            @endforeach
 
-                        {{--<!-- Collapse 5 -->--}}
-                        {{--<button type="button" class="collapsebtn2 collapsed" data-toggle="collapse"--}}
-                        {{--data-target="#collapse5">--}}
-                        {{--Parking <span class="collapsearrow"></span>--}}
-                        {{--</button>--}}
-
-                        {{--<div id="collapse5" class="collapse">--}}
-                        {{--<div class="hpadding20">--}}
-                        {{--Yes--}}
-                        {{--</div>--}}
-                        {{--<div class="clearfix"></div>--}}
-                        {{--</div>--}}
-                        {{--<!-- End of collapse 5 -->--}}
-
-                        {{--<div class="line4"></div>--}}
-
-                        {{--@foreach($room->roomFacility as $facilities)--}}
-                        {{--<!-- Collapse 6 -->--}}
-                        {{--<button type="button" class="collapsebtn2" data-toggle="collapse"--}}
-                        {{--data-target="#collapse6">--}}
-                        {{--Room Facility <span class="collapsearrow"></span>--}}
-                        {{--</button>--}}
-
-                        {{--<div id="collapse6" class="collapse in">--}}
-                        {{--<div class="hpadding20">--}}
-                        {{--<div class="col-md-4">--}}
-                        {{--<ul class="checklist">--}}
-                        {{--<li> {{ 'as' }} </li>--}}
-                        {{--</ul>--}}
-                        {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<div class="clearfix"></div>--}}
-                        {{--</div>--}}
-                        {{--<!-- End of collapse 6 -->--}}
-                        {{--@endforeach--}}
-
-                        {{--</div>--}}
+                        </div>
 
                         @endforeach
 
@@ -303,16 +272,8 @@
 
                                 <div class="col-md-8 offset-0">
                                     <div class="col-md-8 ">
-                                        <div class="room1">
-                                            <div class="w50percent">
-                                                <div class="wh90percent textleft">
-                                                    <span class="opensans size13"><b>ROOM 1</b></span><br/>
 
-                                                    <div class="addroom1 block"><a onclick="addroom2()"
-                                                                                   class="grey cpointer">+
-                                                            Add room</a></div>
-                                                </div>
-                                            </div>
+                                        <div class="room1">
 
                                             <div class="w50percentlast">
                                                 <div class="wh90percent textleft right ohidden">
@@ -321,11 +282,21 @@
                                                             <span class="opensans size13"><b>Adult</b></span>
                                                             <select class="form-control mySelectBoxClass" name="adult"
                                                                     id="change_adult">
-                                                                <option>1</option>
-                                                                <option selected>2</option>
-                                                                <option>3</option>
-                                                                <option>4</option>
-                                                                <option>5</option>
+                                                                <option value="1" {{ Session::get('adult') == 1 ? 'selected' : '' }}>
+                                                                    1
+                                                                </option>
+                                                                <option value="2" {{ Session::get('adult') == 2 ? 'selected' : '' }}>
+                                                                    2
+                                                                </option>
+                                                                <option value="3" {{ Session::get('adult') == 3 ? 'selected' : '' }}>
+                                                                    3
+                                                                </option>
+                                                                <option value="4" {{ Session::get('adult') == 4 ? 'selected' : '' }}>
+                                                                    4
+                                                                </option>
+                                                                <option value="5" {{ Session::get('adult') == 5 ? 'selected' : '' }}>
+                                                                    5
+                                                                </option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -334,116 +305,30 @@
                                                             <span class="opensans size13"><b>Child</b></span>
                                                             <select class="form-control mySelectBoxClass" name="child"
                                                                     id="change_child">
-                                                                <option>0</option>
-                                                                <option selected>1</option>
-                                                                <option>2</option>
-                                                                <option>3</option>
-                                                                <option>4</option>
-                                                                <option>5</option>
+                                                                <option value="0" {{ Session::get('child') == 0 ? 'selected' : '' }}>
+                                                                    0
+                                                                </option>
+                                                                <option value="1" {{ Session::get('child') == 1 ? 'selected' : '' }}>
+                                                                    1
+                                                                </option>
+                                                                <option value="2" {{ Session::get('child') == 2 ? 'selected' : '' }}>
+                                                                    2
+                                                                </option>
+                                                                <option value="3" {{ Session::get('child') == 3 ? 'selected' : '' }}>
+                                                                    3
+                                                                </option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
 
-                                        <div class="room2 none">
-                                            <div class="clearfix"></div>
-                                            <div class="line1"></div>
-                                            <div class="w50percent">
-                                                <div class="wh90percent textleft">
-                                                    <span class="opensans size13"><b>ROOM 2</b></span><br/>
-
-                                                    <div class="addroom2 block grey"><a onclick="addroom3()"
-                                                                                        class="grey cpointer">+ Add
-                                                            room</a>
-                                                        |
-                                                        <a onclick="removeroom2()" class="orange cpointer"><img
-                                                                    src="images/delete.png" alt="delete"/></a></div>
-                                                </div>
-                                            </div>
-
-                                            <div class="w50percentlast">
-                                                <div class="wh90percent textleft right">
-                                                    <div class="w50percent">
-                                                        <div class="wh90percent textleft left">
-                                                            <span class="opensans size13"><b>Adult</b></span>
-                                                            <select class="form-control mySelectBoxClass">
-                                                                <option>1</option>
-                                                                <option>2</option>
-                                                                <option selected>3</option>
-                                                                <option>4</option>
-                                                                <option>5</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="w50percentlast">
-                                                        <div class="wh90percent textleft right">
-                                                            <span class="opensans size13"><b>Child</b></span>
-                                                            <select class="form-control mySelectBoxClass">
-                                                                <option selected>0</option>
-                                                                <option>1</option>
-                                                                <option>2</option>
-                                                                <option>3</option>
-                                                                <option>4</option>
-                                                                <option>5</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="room3 none">
-                                            <div class="clearfix"></div>
-                                            <div class="line1"></div>
-                                            <div class="w50percent">
-                                                <div class="wh90percent textleft">
-                                                    <span class="opensans size13"><b>ROOM 3</b></span><br/>
-
-                                                    <div class="addroom3 block grey"><a onclick="addroom3()"
-                                                                                        class="grey cpointer">+ Add
-                                                            room</a>
-                                                        |
-                                                        <a onclick="removeroom3()" class="orange cpointer"><img
-                                                                    src="images/delete.png" alt="delete"/></a></div>
-                                                </div>
-                                            </div>
-
-                                            <div class="w50percentlast">
-                                                <div class="wh90percent textleft right">
-                                                    <div class="w50percent">
-                                                        <div class="wh90percent textleft left">
-                                                            <span class="opensans size13"><b>Adult</b></span>
-                                                            <select class="form-control mySelectBoxClass">
-                                                                <option selected>1</option>
-                                                                <option>2</option>
-                                                                <option>3</option>
-                                                                <option>4</option>
-                                                                <option>5</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="w50percentlast">
-                                                        <div class="wh90percent textleft right">
-                                                            <span class="opensans size13"><b>Child</b></span>
-                                                            <select class="form-control mySelectBoxClass">
-                                                                <option selected>0</option>
-                                                                <option>1</option>
-                                                                <option>2</option>
-                                                                <option>3</option>
-                                                                <option>4</option>
-                                                                <option>5</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
 
                                     <div class="col-md-4 center offset-0 left">
-                                        <button class="updatebtn caps center margtop20">Update</button>
+                                        <input type="submit" value="Update" class="updatebtn caps center margtop20"/>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -462,13 +347,16 @@
                                 <?php
                                 $room_id = $hot_room->id;
 
-                                $room_types = RoomType::whereHas('Rate', function ($q) use ($room_id, $hotel_id) {
-                                    $q->where('hotel_id', '=', $hotel_id);
-                                    $q->where('room_type_id', '=', $room_id);
+                                $from_date = date('Y-m-d', strtotime(str_replace('-', '/', $st_date)));
+                                $to_date = date('Y-m-d', strtotime(str_replace('-', '/', $ed_date)));
+
+                                $room_types = Rate::whereHas('RoomSpecification', function ($a) {
+                                    $a->where('adults', Session::get('adult'));
+                                    $a->where('children', Session::get('child'));
                                 })
-                                        ->whereHas('RoomSpecification', function ($b) use ($room_id) {
-                                            $b->where('room_type_id', '=', $room_id);
-                                        })
+                                        ->where('room_type_id', '=', $room_id)
+                                        ->where('from', '<=', $from_date)
+                                        ->where('to', '>=', $from_date)
                                         ->get();
 
                                 $directory = 'images/room_images/';
@@ -476,76 +364,79 @@
                                 $img_path = array_shift($images);
                                 ?>
 
-                                @foreach($room_types as $room)
+                                @if(count($room_types) > 0)
 
-                                    {{ $room->id }}
+                                    @foreach($room_types as $room)
 
-                                    <div class="padding20">
+                                        <div class="padding20">
 
-                                        <div class="col-md-4 offset-0">
-                                            <a href="#">
-                                                @if(count($img_path)>0)
-                                                    {{ HTML::image($img_path, '', array('class' => 'fwimg'))}}
-                                                @else
-                                                    {{ HTML::image('images/no-image.jpg', '', array('class' => 'fwimg')) }}
-                                                @endif
-                                            </a>
-                                        </div>
-
-                                        <div class="col-md-8 offset-0">
-                                            <div class="col-md-8 mediafix1">
-
-                                                <h4 class="opensans dark bold margtop1 lh1"> {{ $room->room_type }} </h4>
-
-
-                                                <h5> {{ 's' }} Room </h5>
-
-
-                                                <ul class="hotelpreferences margtop10">
-                                                    <li class="icohp-internet"></li>
-                                                    <li class="icohp-air"></li>
-                                                    <li class="icohp-pool"></li>
-                                                    <li class="icohp-childcare"></li>
-                                                    <li class="icohp-fitness"></li>
-                                                    <li class="icohp-breakfast"></li>
-                                                    <li class="icohp-parking"></li>
-                                                </ul>
-                                                <div class="clearfix"></div>
-                                                <ul class="checklist2 margtop10">
-                                                    <li>FREE Cancellation</li>
-                                                    <li>Pay at hotel or pay today</li>
-                                                </ul>
-                                            </div>
-                                            @if(Session::has('st_date'))
-                                                <?php $low_room_rate = RoomRates::lowestRoomRate($room->hotel_id, $room->id, $st_date, $ed_date); ?>
-                                                <div class="col-md-4 center bordertype4">
-                                                    @if($low_room_rate > 0 )
-                                                        <span class="opensans green size24">USD {{ $low_room_rate }} </span>
-                                                        <br/>
-                                                        <span class="opensans lightgrey size12">avg/night</span>
-                                                        <br/>
-                                                        <br/>
-                                                        <span class="lred bold">3 left</span><br/><br/>
-                                                        <button class="bookbtn mt1">Book</button>
+                                            <div class="col-md-4 offset-0">
+                                                <a href="#">
+                                                    @if(count($img_path)>0)
+                                                        {{ HTML::image($img_path, '', array('class' => 'fwimg'))}}
                                                     @else
-                                                        <span class="opensans lred size18">Rate Not Available</span>
-                                                        <br/>
+                                                        {{ HTML::image('images/no-image.jpg', '', array('class' => 'fwimg')) }}
                                                     @endif
+                                                </a>
+                                            </div>
 
+                                            <div class="col-md-8 offset-0">
+                                                <div class="col-md-8 mediafix1">
+
+                                                    <h4 class="opensans dark bold margtop1 lh1"> {{ $room->RoomType->room_type }} </h4>
+
+                                                    <h5> {{ $room->RoomSpecification->room_specification }} Room </h5>
+                                                    <h5>{{ $room->MealBasis->meal_basis_name }}</h5>
+
+                                                    <ul class="hotelpreferences margtop10">
+                                                        <li class="icohp-internet"></li>
+                                                        <li class="icohp-air"></li>
+                                                        <li class="icohp-pool"></li>
+                                                        <li class="icohp-childcare"></li>
+                                                        <li class="icohp-fitness"></li>
+                                                        <li class="icohp-breakfast"></li>
+                                                        <li class="icohp-parking"></li>
+                                                    </ul>
+                                                    <div class="clearfix"></div>
+                                                    <ul class="checklist2 margtop10">
+                                                        <li>FREE Cancellation</li>
+                                                        <li>Pay at hotel or pay today</li>
+                                                    </ul>
                                                 </div>
-                                            @else
-                                                <div class="col-md-4 center bordertype4">
-                                                    <button id="date_select_button" class="bookbtn mt1">Select Date
-                                                    </button>
-                                                </div>
-                                            @endif
+
+                                                @if(Session::has('st_date'))
+                                                    <?php $low_room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room->room_specification_id, $room->meal_basis_id, $st_date, $ed_date); ?>
+                                                    <div class="col-md-4 center bordertype4">
+                                                        @if($low_room_rate > 0 )
+                                                            <span class="opensans green size24">USD {{ $low_room_rate }} </span>
+                                                            <br/>
+                                                            <span class="opensans lightgrey size12">avg/night</span>
+                                                            <br/>
+                                                            <br/>
+                                                            <span class="lred bold">3 left</span><br/><br/>
+                                                            <button class="bookbtn mt1">Book</button>
+                                                        @else
+                                                            <span class="opensans lred size18">Rate Not Available</span>
+                                                            <br/>
+                                                        @endif
+
+                                                    </div>
+                                                @else
+                                                    <div class="col-md-4 center bordertype4">
+                                                        <button id="date_select_button" class="bookbtn mt1">Select Date
+                                                        </button>
+                                                    </div>
+                                                @endif
+                                            </div>
+
+                                            <div class="clearfix"></div>
                                         </div>
 
-                                        <div class="clearfix"></div>
-                                    </div>
-
-                                @endforeach
-
+                                    @endforeach
+                                @else
+                                    {{ HTML::image('images/no-rate.png', '', array('class' => 'fwimg')) }}
+                                    <?php break; ?>
+                                @endif
                             @endforeach
                             <div class="line2"></div>
 
@@ -654,17 +545,20 @@
 
                             <div id="collapse8" class="collapse in">
                                 <div class="hpadding20">
-                                    @foreach($room->roomFacility as $facilities)
-                                        <div class="col-md-4">
-                                            <ul class="checklist">
-                                                <li> {{ $facilities->room_facility }} </li>
-                                            </ul>
-                                        </div>
-                                    @endforeach
+                                    @if (is_array($room->RoomFacility) || is_object($room->RoomFacility))
+                                        @foreach($room->RoomFacility as $facilities)
+                                            <div class="col-md-4">
+                                                <ul class="checklist">
+                                                    <li> {{ $facilities->room_facility }} </li>
+                                                </ul>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                            <!-- End of collapse 8 -->
+
+                            {{--<!-- End of collapse 8 -->--}}
 
                         </div>
 
@@ -1119,13 +1013,6 @@
         <!-- Carousel-->
         {{ HTML::script('assets/js/initialize-carousel-detailspage.js') }}
 
-        {{--<script type="text/javascript">--}}
-        {{--$(function () {--}}
-        {{--$('#datepicker').change(function () {--}}
-        {{--$('#details_form').submit();--}}
-        {{--})--}}
-        {{--});--}}
-        {{--</script>--}}
 
         <script type="text/javascript">
             $(function () {
@@ -1135,21 +1022,21 @@
             });
         </script>
 
-        <script type="text/javascript">
-            $(function () {
-                $('#change_adult').change(function () {
-                    $('#details_form').submit();
-                })
-            });
-        </script>
+        {{--<script type="text/javascript">--}}
+        {{--$(function () {--}}
+        {{--$('#change_adult').change(function () {--}}
+        {{--$('#details_form').submit();--}}
+        {{--})--}}
+        {{--});--}}
+        {{--</script>--}}
 
-        <script type="text/javascript">
-            $(function () {
-                $('#change_child').change(function () {
-                    $('#details_form').submit();
-                })
-            });
-        </script>
+        {{--<script type="text/javascript">--}}
+        {{--$(function () {--}}
+        {{--$('#change_child').change(function () {--}}
+        {{--$('#details_form').submit();--}}
+        {{--})--}}
+        {{--});--}}
+        {{--</script>--}}
 
     @endsection
 

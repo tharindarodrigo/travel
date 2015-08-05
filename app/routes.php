@@ -381,14 +381,27 @@ Route::get('/403', function () {
 
 /*------------------------------ Hotel List --------------------------------*/
 
+/************* Grid View ********************/
+
+Route::any('sri-lanka/grid/view/{grid_city_or_acc}', array(
+    'as' => 'search',
+    'uses' => 'HotelController@gridView'
+));
+
+
 /************* search link ********************/
 
-Route::get('sri-lanka/search', array(
+Route::any('sri-lanka/search', array(
     'as' => 'search',
     'uses' => 'HotelController@viewSearch'
 ));
 
 // Filtering part
+
+Route::any('sri-lanka/filter', array(
+    'as' => 'search',
+    'uses' => 'HotelController@viewFilter'
+));
 
 Route::post('/star_rating', array(
     'as' => 'star-rating',

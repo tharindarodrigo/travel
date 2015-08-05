@@ -26,8 +26,8 @@
         }
 
         .no_result{
-            width: auto;
-            height: auto;
+            width: 650px;
+            height: 400px;
         }
 
     </style>
@@ -676,7 +676,7 @@
                     <br/><br/>
 
                     <div style="padding: 10%" class="container offset-2" >
-                        {{ HTML::image('images/no-result-found.jpg', '', array('class' => 'no_result'))}}
+                        {{ HTML::image('images/no-result.png', '', array('class' => 'no_result'))}}
                     </div>
                     <div class="clearfix"></div>
                 </div>

@@ -26,8 +26,16 @@ class RoomRates
 
     }
 
-    public static function lowestRoomRate($hotel_id, $room_type_id, $st_date, $ed_date)
+    public static function lowestRoomRate($hotel_id, $room_type_id, $specification_id, $meal_basis_id, $st_date, $ed_date)
     {
+
+        if (Session::has('adult_child')) {
+            $adult = Session::get('adult');
+            $child = Session::get('child');
+        } else {
+            $adult = Session::get('adult');
+            $child = Session::get('child');
+        }
 
         $x = 0;
         $room_rates = 0;
@@ -42,6 +50,8 @@ class RoomRates
 
             $get_room_rate = Rate::where('hotel_id', '=', $hotel_id)
                 ->where('room_type_id', $room_type_id)
+                ->where('room_specification_id', $specification_id)
+                ->where('meal_basis_id', $meal_basis_id)
                 ->where('from', '<=', $from_date)
                 ->where('to', '>=', $from_date)
                 ->get();

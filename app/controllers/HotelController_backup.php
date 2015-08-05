@@ -9,24 +9,51 @@ class HotelController extends \BaseController
      * @return Response
      */
 
-    public function makeGrid()
+    public function hotel_list()
     {
-
-
+        return View::make('hotel.hotel_list');
     }
 
-    public function gridView($country = '', $city_or_accommodation = '')
+    public function listView($hotel_category = '', $city_or_accommodation = '', $chk_in = '', $chk_out = '', $min_price = '', $max_price = '', $adult = '', $child = '', $star = '', $facilities = '')
     {
+        Session::put('view_type', 'list');
         try {
-            $hotel_results = $this->viewHotelList($country, $city_or_accommodation);
-            return View::make('hotel.hotel_grid')
+            $hotel_results = $this->viewHotel($hotel_category, $city_or_accommodation, $chk_in, $chk_out, $min_price, $max_price, $adult, $child, $star, $facilities);
+
+            return View::make('hotel.hotel_list')
                 ->with($hotel_results);
         } catch (Exception $e) {
-            $no_result = $this->viewNoResult();
-            return View::make('hotel.no_results')
-                ->with($no_result);
+
+            return View::make('hotel.no_results');
         }
     }
+
+    public function gridView($hotel_category = '', $city_or_accommodation = '', $chk_in = '', $chk_out = '', $min_price = '', $max_price = '', $adult = '', $child = '', $star = '', $facilities = '')
+    {
+        Session::put('view_type', 'grid');
+        try {
+            $hotel_results = $this->viewHotel($hotel_category, $city_or_accommodation, $chk_in, $chk_out, $min_price, $max_price, $adult, $child, $star, $facilities);
+            return View::make('property.property')
+                ->with($hotel_results);
+        } catch (Exception $e) {
+
+            return View::make('property.no_results');
+
+        }
+    }
+
+    public function viewAccommodation($hotel_category = '')
+    {
+        try {
+            $hotel_results = $this->viewHotel($hotel_category);
+
+            return View::make('hotel.hotel_list')
+                ->with($hotel_results);
+        } catch (Exception $e) {
+            return View::make('hotel.no_results');
+        }
+    }
+
 
     /*
      Hotel list page
@@ -34,27 +61,6 @@ class HotelController extends \BaseController
 
     public function viewHotelList($country = '', $city_or_accommodation = '')
     {
-
-        $grid_url = 'sri-lanka/grid/view/'.$city_or_accommodation;
-        $list_url = 'sri-lanka/'.$city_or_accommodation;
-
-        if (Session::has('st_date')) {
-            $st_date = Session::get('st_date');
-        } else {
-            $st_date = date("Y/m/d");
-        }
-
-        //Session::flush();
-
-        if (Session::has('ed_date')) {
-            $ed_date = Session::get('ed_date');
-        } else {
-            $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
-        }
-
-        $from_date = date('Y-m-d', strtotime(str_replace('-', '/', $st_date)));
-        $to_date = date('Y-m-d', strtotime(str_replace('-', '/', $ed_date)));
-
         $x = 0;
         $path = array();
         $star_id = array();
@@ -85,6 +91,7 @@ class HotelController extends \BaseController
                 $facility[] = $get_facility_id->id;
             }
         }
+
 
         // Filtering
         $hotel_type = DB::table('hotel_categories')->get();
@@ -133,26 +140,22 @@ class HotelController extends \BaseController
 
             $hotels = Hotel::where('city_id', '=', $city_id)
                 ->whereIn('star_category_id', $star_id)
-                ->whereHas('HotelFacility', function ($q) use ($facility) {
+                ->whereHas('HotelFacility',function($q) use($facility)
+                {
                     $q->whereIn('hotel_facility_id', $facility);
                 })
-//                ->whereHas('Rate', function ($r) use ($from_date, $to_date) {
-//                    $r->whereBetween('from', array($from_date, $to_date));
-//                })
                 ->paginate(6);
 
         }
 
         if (!empty($accommodation_id)) {
-            $hotels = Hotel::whereHas('hotelCategory', function ($query) use ($accommodation_id, $star_id, $from_date, $to_date) {
+            $hotels = Hotel::whereHas('hotelCategory', function ($query) use ($accommodation_id, $star_id) {
                 $query->where('hotel_category_id', '=', $accommodation_id);
                 $query->whereIn('star_category_id', $star_id);
 
             })
-//                ->whereHas('Rate', function ($r) use ($from_date, $to_date) {
-//                    $r->whereBetween('from', array($from_date, $to_date));
-//                })
-                ->whereHas('HotelFacility', function ($q) use ($facility) {
+                ->whereHas('HotelFacility',function($q) use($facility)
+                {
                     $q->whereIn('hotel_facility_id', $facility);
                 })
                 ->paginate(6);
@@ -172,11 +175,7 @@ class HotelController extends \BaseController
                 'hotels' => $hotels,
                 'hotel_type' => $hotel_type,
                 'hotel_cities' => $hotel_cities,
-                'hotel_facilities' => $hotel_facilities,
-                'st_date' => $st_date,
-                'ed_date' => $ed_date,
-                'grid_url' => $grid_url,
-                'list_url' => $list_url,
+                'hotel_facilities' => $hotel_facilities
 
             );
 
@@ -190,6 +189,7 @@ class HotelController extends \BaseController
     public function hotelList($country = '', $city_or_accommodation = '')
     {
         try {
+
             $hotel_results = $this->viewHotelList($country, $city_or_accommodation);
             return View::make('hotel.hotel_list')
                 ->with($hotel_results);
@@ -224,36 +224,7 @@ class HotelController extends \BaseController
     public function viewSearch()
     {
 
-        $st_date = Input::get('check_in_date');
-        $ed_date = Input::get('check_out_date');
-
-        Session::put('st_date', $st_date);
-        Session::put('ed_date', $ed_date);
-
-        if (Input::has('adult')) {
-            $adult = Input::get('adult');
-            Session::put('adult', $adult);
-        } else {
-            $adult = 2;
-            Session::put('adult', $adult);
-        }
-
-        if (Input::has('child')) {
-            $child = Input::get('child');
-            Session::put('child', $child);
-        } else {
-            $child = 0;
-            Session::put('child', $child);
-        }
-
-        if (Input::has('txt-search')) {
-            $get_city_or_accommodation = Input::get('txt-search');
-        } else {
-            $get_city_or_accommodation = Input::get('city_or_acc_hidden');
-
-            $url = 'sri-lanka/' . $get_city_or_accommodation;
-            return Redirect::to($url);
-        }
+        $get_city_or_accommodation = Input::get('txt-search');
 
         if (!empty($get_city_or_accommodation)) {
 
@@ -287,43 +258,6 @@ class HotelController extends \BaseController
 
     }
 
-    /*
-     * Filter Page
-     */
-    public function viewFilter()
-    {
-
-        if ((Input::has('city')) || (Input::has('accommodation'))) {
-
-            if (Input::has('accommodation')) {
-                $get_city_or_accommodation = Input::get('accommodation');
-
-                $get_accommodation_name = DB::table('hotel_categories')->where('id', '=', $get_city_or_accommodation)->first();
-                $accommodation_name = $get_accommodation_name->hotel_category;
-                $accommodation = str_replace(' ', '-', $accommodation_name);
-
-                $url = 'sri-lanka/' . $accommodation;
-                return Redirect::to($url);
-            }
-
-            if (Input::has('city')) {
-                $get_city_or_accommodation = Input::get('city');
-
-                $get_city_name = DB::table('cities')->where('id', '=', $get_city_or_accommodation)->first();
-                $city_name = $get_city_name->city;
-                $city = str_replace(' ', '-', $city_name);
-
-                $url = 'sri-lanka/' . $city;
-                return Redirect::to($url);
-            }
-
-        } else {
-            $no_result = $this->viewNoResult();
-            return View::make('hotel.no_results')
-                ->with($no_result);
-        }
-
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -356,43 +290,6 @@ class HotelController extends \BaseController
     public function hotelDetail($country = '', $city = '', $hotel_name)
     {
 
-        if (Input::has('check_in_date')) {
-            $start = Input::get('check_in_date');
-            Session::put('st_date', $start);
-        }
-
-        if (Input::has('check_out_date')) {
-            $end = Input::get('check_out_date');
-            Session::put('ed_date', $end);
-        }
-
-        if (Input::has('adult')) {
-            $adult = Input::get('adult');
-            Session::put('adult', $adult);
-        } else {
-            $adult = Session::get('adult');
-        }
-
-        if (Input::has('child')) {
-            $child = Input::get('child');
-            Session::put('child', $child);
-        } else {
-            $child = Session::get('adult');
-        }
-
-        if (Session::has('st_date')) {
-            $st_date = Session::get('st_date');
-        } else {
-            $st_date = date("Y/m/d");
-        }
-
-        //Session::flush();
-
-        if (Session::has('ed_date')) {
-            $ed_date = Session::get('ed_date');
-        } else {
-            $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
-        }
 
         // Filtering
         $hotel_type = DB::table('hotel_categories')->get();
@@ -433,6 +330,13 @@ class HotelController extends \BaseController
 
         $rooms = RoomType::where('hotel_id', '=', $hotel_id)->get();
 
+
+//        $room_facility = roomFacility::whereHas('Hotel', function ($query) use ($hotel_id) {
+//            $query->where('hotel_id', '=', $hotel_id);
+////            $query->where('room_type_id', '=', 6);
+//        })
+//            ->get();
+
 //        dd(DB::getQueryLog());
 
         if (!$hotel->count()) {
@@ -449,11 +353,8 @@ class HotelController extends \BaseController
                     'hotel_cities' => $hotel_cities,
                     'hotel_facilities' => $hotel_facilities,
                     'path' => $path,
-                    //'bb' => $bb,
                     //'room_facility' => $room_facility,
                     'rooms' => $rooms,
-                    'st_date' => $st_date,
-                    'ed_date' => $ed_date
 
                 )
             );
@@ -477,7 +378,7 @@ class HotelController extends \BaseController
     {
         $hotel_id = Input::get('hotel_id');
 
-        $hotel = Hotel::where('id', '=', $hotel_id)->select('latitude', 'longitude')->first();
+        $hotel = Hotel::where('id', '=', $hotel_id)->select('latitude', 'longitude')->first();;
 
         return Response::json($hotel);
 

@@ -123,13 +123,13 @@ jQuery(document).ready(function() {
 			$('.room2').removeClass('none');
 			$('.addroom1').removeClass('block');
 			$('.addroom1').addClass('none');
-			
+
 		}
 		function removeroom2(){
 		"use strict";
 			$('.room2').addClass('none');
 			$('.room2').removeClass('block');
-			
+
 			$('.addroom1').removeClass('none');
 			$('.addroom1').addClass('block');
 		}
@@ -137,7 +137,7 @@ jQuery(document).ready(function() {
 		"use strict";
 			$('.room3').addClass('block');
 			$('.room3').removeClass('none');
-			
+
 			$('.addroom2').removeClass('block');
 			$('.addroom2').addClass('none');
 		}
@@ -145,12 +145,12 @@ jQuery(document).ready(function() {
 		"use strict";
 			$('.room3').addClass('none');
 			$('.room3').removeClass('block');
-			
+
 			$('.addroom2').removeClass('none');
-			$('.addroom2').addClass('block');			
+			$('.addroom2').addClass('block');
 		}
-	
-	
+
+
 
 	
 //------------------------------

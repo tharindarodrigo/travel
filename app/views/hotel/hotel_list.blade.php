@@ -180,8 +180,6 @@
         {{--<div class="brlines"></div>--}}
     </div>
 
-    {{--{{ RoomRates::lowestRate(1,2015-06-20,2015-07-01) }}--}}
-
     <!-- CONTENT -->
     <div class="container">
         <div class="container pagecontainer offset-0">
@@ -223,7 +221,7 @@
 
                     <div class="clearfix"></div>
 
-                    {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'searchform', 'method' => 'GET', )) }}
+                    {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'searchform', 'method' => 'POST', )) }}
 
                     {{--<form action="{{ URL::route('ho') }}" method="POST">--}}
 
@@ -258,138 +256,54 @@
 
                         <div class="clearfix pbottom15"></div>
 
-                        <div class="room1">
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 1</b></span><br/>
-
-                                    <div class="addroom1 block"><a onclick="addroom2()" class="grey cpointer">+ Add
-                                            room</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right ohidden">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>1</option>
-                                                <option selected>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right ohidden">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>0</option>
-                                                <option selected>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="w50percent">
+                            <div class="">
+                                <span class="opensans size13">Adult</span>
+                                <select class="form-control mySelectBoxClass" name="adult"
+                                        id="change_adult">
+                                    <option value="1" {{ Session::get('adult') == 1 ? 'selected' : '' }}>
+                                        1
+                                    </option>
+                                    <option value="2" {{ Session::get('adult') == 2 ? 'selected' : '' }}>
+                                        2
+                                    </option>
+                                    <option value="3" {{ Session::get('adult') == 3 ? 'selected' : '' }}>
+                                        3
+                                    </option>
+                                    <option value="4" {{ Session::get('adult') == 4 ? 'selected' : '' }}>
+                                        4
+                                    </option>
+                                    <option value="5" {{ Session::get('adult') == 5 ? 'selected' : '' }}>
+                                        5
+                                    </option>
+                                </select>
                             </div>
                         </div>
-
-                        <div class="room2 none">
-                            <div class="clearfix"></div>
-                            <div class="line1"></div>
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 2</b></span><br/>
-
-                                    <div class="addroom2 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add
-                                            room</a> | <a onclick="removeroom2()" class="orange cpointer"><img
-                                                    src="images/delete.png" alt="delete"/></a></div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option selected>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>0</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="w50percentlast">
+                            <div class="wh90percent textleft right ohidden">
+                                <span class="opensans size13">Child</span>
+                                <select class="form-control mySelectBoxClass" name="child"
+                                        id="change_child">
+                                    <option value="0" {{ Session::get('child') == 0 ? 'selected' : '' }}>
+                                        0
+                                    </option>
+                                    <option value="1" {{ Session::get('child') == 1 ? 'selected' : '' }}>
+                                        1
+                                    </option>
+                                    <option value="2" {{ Session::get('child') == 2 ? 'selected' : '' }}>
+                                        2
+                                    </option>
+                                    <option value="3" {{ Session::get('child') == 3 ? 'selected' : '' }}>
+                                        3
+                                    </option>
+                                </select>
                             </div>
                         </div>
-
-                        <div class="room3 none">
-                            <div class="clearfix"></div>
-                            <div class="line1"></div>
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 3</b></span><br/>
-
-                                    <div class="addroom3 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add
-                                            room</a> | <a onclick="removeroom3()" class="orange cpointer"><img
-                                                    src="images/delete.png" alt="delete"/></a></div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>0</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <input type="hidden" name="city_or_acc_hidden" value="{{ $city = Request::segment(2); }}"/>
                         <div class="clearfix"></div>
+                        <div class="clearfix pbottom15"></div>
 
-                        <button type="submit" class="btn-search3">Search</button>
+                        <button type="submit" class="btn-search3 right">Search</button>
 
                     </div>
                     <!-- END OF HOTELS TAB -->
@@ -647,7 +561,7 @@
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
                     Accommodation type <span class="collapsearrow"></span>
                 </button>
-                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'accommodation_form')) }}
+                {{ Form::open(array('url' => '/sri-lanka/filter', 'method' => 'POST', 'id'=>'accommodation_form')) }}
                 <div id="collapse3" class="collapse in">
                     <div class="hpadding20">
                         <?php $x = 1; ?>
@@ -695,7 +609,7 @@
                 <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse5">
                     Cities <span class="collapsearrow"></span>
                 </button>
-                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'city_form')) }}
+                {{ Form::open(array('url' => '/sri-lanka/filter', 'method' => 'POST', 'id'=>'city_form')) }}
                 <div id="collapse5" class="collapse in">
                     <div class="hpadding20">
                         @foreach($hotel_cities as $city)
@@ -768,9 +682,7 @@
                             <button class="popularbtn left">Most Popular</button>
                             <div class="right">
                                 <a class="listbtn active" href="{{URL::to('home')}}"></a>
-                                <a class="gridbtn" href="{{URL::to('home')}}"></a>
-                                {{--<button class="listbtn active" onclick="location.href='http://google.com';">&nbsp;</button>--}}
-                                {{--<button class="gridbtn" onclick="location.href='http://google.com';"">&nbsp;</button>--}}
+                                <a class="gridbtn" href="{{URL::to($grid_url)}}"></a>
                             </div>
                         </div>
                     </div>
@@ -841,7 +753,7 @@
                                                 No Reviews </span><br/><br/>
                                         @endif
 
-                                            <?php $low_hotel_rate = RoomRates::lowestHotelRate($hotel->id, $st_date, $ed_date); ?>
+                                        <?php $low_hotel_rate = RoomRates::lowestHotelRate($hotel->id, $st_date, $ed_date); ?>
 
                                         @if(!empty($low_hotel_rate))
                                             <span class="green size18">
@@ -955,7 +867,7 @@
                 var star = $('input[name=star_rating]:checked').map(function () {
                     return $(this).val();
                 }).get();
-                $('#star_rating_form').submit()
+                $('#star_rating_form').submit();
             });
         </script>
 
