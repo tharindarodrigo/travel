@@ -17,8 +17,6 @@ class Hotel extends \Eloquent
     public static $updateOverviewRules = [
         'name' => 'required',
         'category_id'=>'required',
-        'star_category_id' => 'required'
-
     ];
 
     public static $updateLocationRules=[
@@ -26,6 +24,11 @@ class Hotel extends \Eloquent
         'address' => 'required',
         'longitude' => 'numeric',
         'latitude' => 'numeric'
+    ];
+
+    public static $updateTermsRules=[
+        'check_in_time' => 'required',
+        'check_out_time' => 'required',
     ];
 
 

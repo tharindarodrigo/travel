@@ -1,0 +1,1 @@
+C:\wamp\www\travel\app/views/transfer_types/index.blade.php

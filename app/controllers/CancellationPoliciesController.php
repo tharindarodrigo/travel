@@ -7,14 +7,11 @@ class CancellationPoliciesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($id)
 	{
-//		$cancelationpolicies = CancellationPolicy::all();
+		$cancellationpolicies = CancellationPolicy::where('hotel_id'.$id);
 
-//		return View::make('cancelationpolicies.index', compact('cancelationpolicies'));
-        Session::forget('edit');
-
-        return Redirect::back();
+		return View::make('control-panel.hotel.cancellation-policies.index');
 
 	}
 

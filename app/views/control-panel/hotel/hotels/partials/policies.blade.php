@@ -1,83 +1,63 @@
-<div class="row">
-<div class="col-md-12">
-<h4>Cancelation Policy</h4>
-    <div class="col-md-4">
-        @if(!Session::has('edit'))
-            {{ Form::open(array('route' => array('control-panel.hotel.cancellation-policies.store'), 'files' => true)) }}
-            {{Form::hidden('hotel_id', $hotelprofile->id)}}
-        @else
-            {{ Form::model($cancellationpolicy, array('route' => array('control-panel.hotel.cancellation-policies.update',$cancellationpolicy->id), 'method' => 'put')) }}
+<section>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="box box-primary ">
+                <div class="box-header">
+                    <h3 class="box-title">
+                         Cities
+                    </h3>
+                </div>
 
-        @endif
-        <div class="form-group">
-            {{Form::label('from', 'From')}}
-            {{Form::text('from', null, array('class'=>'form-control'))}}
+                <form action="" role="form" id="cities_form">
+
+                    <div class="box-body">
+
+
+                        <div class="form-group">
+                            <label for="from">From</label>
+                            <input name="from" id="from" class="form-control" type="text"/>
+                        </div>
+                        <div class="form-group customValidationAlert text-red"></div>
+
+                        <div class="form-group">
+                            <label for="from">To</label>
+                            <input name="to" id="to" class="form-control" type="text"/>
+                        </div>
+                        <div class="form-group customValidationAlert text-red"></div>
+
+                        <div class="form-group">
+                            <label for="percentage">Percentage</label>
+                            <input name="percentage" id="percentage" class="form-control" type="text"/>
+                        </div>
+                        <div class="form-group customValidationAlert text-red"></div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary submit_btn">Add Cancellation Policy</button>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" id="btn_update_cancellataion_policy" class="btn btn-primary btn_update_item">Update Policy</button>
+                            <button type="button" id="btn_cancel_cancellataion_policy" class="btn btn-group btn-info btn_cancel_update_item">Cancel</button>
+                        </div>
+                        <input value="" id="temp_id" hidden="">
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            {{Form::label('to', 'To')}}
-            {{Form::text('to', null, array('class'=>'form-control'))}}
-        </div>
-        <div class="form-group">
-            {{Form::label('percentage_charged', 'Percentage Charged')}}
-            {{Form::text('percentage_charged', null, array('class'=>'form-control'))}}
-        </div>
 
-        <div class="form-group">
+        <div class="col-md-8">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title"><b>Search / Update / Delete</b> Cancellation Policies</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive">
 
-        @if(!Session::has('edit'))                {{--<button type="submit" class="btn btn-primary">control-panel.hotel.general.hotelCategories</button>--}}
-                {{ Form::submit('Add Cancellation Policy', array('class' => 'btn btn-primary')) }}
-        @else
-                {{ Form::submit('Update Cancellation Policy', array('class' => 'btn btn-primary')) }}
-                <a href="{{ URL::route('control-panel.hotel.cancellation-policies.index') }}" class="btn btn-group btn-info">Cancel</a>
-        @endif
-        </div>
-        {{Form::close()}}
-    </div>
-    <div class="col-md-8">
-        <div class="box-body table-responsive">
-            <table id="hotel-policies-table" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>% Charged</th>
-                        <th style="width:60px;">Status</th>
-                        <th style="width:60px;"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($hotelpolicies as $hotelpolicy)
-                        <tr>
-                            <td>{{ $hotelpolicy->id }}</td>
-                            <td>{{ $hotelpolicy->from}}</td>
-                            <td>{{ $hotelpolicy->to}}</td>
-                            <td>{{ $hotelpolicy->percentage_charged}}</td>
-                            <td style="text-align: center;">{{ $hotelpolicy->val == 0 ? 'Inactive' : 'Active' }}</td>
-
-                            <td>
-                            <div class="">
-                                {{ Form::open(array('route'=> array('control-panel.hotel.cancellation-policies.edit',$hotelprofile->id), 'method' =>'get' )) }}
-                                {{ Form::hidden('id', $hotelpolicy->id)}}
-                                <button type="submit" class="btn btn-xs btn-flat btn-primary col-md-3"><i
-                                            class="glyphicon glyphicon-edit"></i></button>
-                                            {{--{{Form::}}--}}
-                                {{ Form::close() }}
-
-                                {{ Form::open(array('route'=> array('control-panel.hotel.cancellation-policies.destroy',$hotelprofile->id), 'method' =>'delete')) }}
-                                <a type="" class="btn btn-xs btn-flat btn-danger delete-button col-md-3"><i class="glyphicon glyphicon-trash"></i></a>
-                                {{ Form::close() }}
-
-                            </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-
-            </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
         </div>
     </div>
-</div>
+</section>
+
 
 <div class="col-md-12">
 <hr/>
@@ -130,5 +110,74 @@
         });
 
     </script>
+
+@section('scripts')
+
+     <script type="text/javascript">
+
+             $('document').ready(function(){
+
+                 var update_city = $('#btn_update_city');
+                 var cancel_city = $('#btn_cancel_city');
+
+                 update_city.hide();
+                 cancel_city.hide();
+                 $('.customValidationAlert').hide();
+
+                 var table_id = 'table_cities';
+                 var url = 'cities/list';
+                 var array = {
+                     pages : { refresh : 'cities'},
+                     edit_url: 'cities/edit/',
+                     delete_url : 'cities/delete/',
+                     activate_url: 'cities/activate/',
+                     deactivate_url: 'cities/deactivate/',
+                     dataFields : ['city_name'],
+                     form_bindings : {form_fields : ['#city'], db_fields : ['city_name']}
+                 };
+
+                 getTable(url, table_id, array);
+
+                 var formId = '#cities_form';
+
+
+                 /*-----append FormData-----*/
+
+                 $(formId).submit(function(e){
+
+
+                    e.preventDefault();
+                    var formData = new FormData();
+                    formData.append('city', $('#city').val());
+
+                    postForm('cities', formData, 'insert');
+                    $.post('cities', {ajax: 'data'}, function(e) {
+                        getTable(url, table_id , array);
+                    });
+                 });
+
+//                 updateForm()
+
+                 $('.btn_update_item').click(function(){
+                    //alert($('#city').val());
+                    var formData = new FormData();
+                    formData.append('city', $('#city').val());
+
+                    var update_id = $('#temp_id').val();
+
+                    postForm('cities/update/'+update_id, formData, 'update');
+                    $.post('cities', {ajax: 'data'}, function(e) {
+                        getTable(url, table_id , array);
+                    });
+                    $('.btn_update_item, .btn_cancel_update_item').hide(300);
+                    $('.submit_btn').removeAttr("disabled");
+                    $('.submit_btn').fadeIn(300);
+                    $('.customValidationAlert').hide();
+
+                 });
+
+             });
+
+         </script>
 
 @endsection

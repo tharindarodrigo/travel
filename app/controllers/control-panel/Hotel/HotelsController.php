@@ -56,15 +56,13 @@ class HotelsController extends \BaseController
 
                 $files = Input::file('images');
 
-                $x=0;
 
                 foreach($files as $file){
                     Image::make($file)
                         ->encode('jpg')
-                        ->save('public/control-panel-assets/images/hotel-images/' . $hotel->id . '_' . ++$x . '.jpg');
+                        ->save('public/control-panel-assets/images/hotel-images/' . $hotel->id . '_' .str_random(10). '.jpg');
                 }
             }
-
 
         }
 
@@ -117,6 +115,8 @@ class HotelsController extends \BaseController
      */
     public function edit($id)
     {
+
+        //Session::forget('edit');
         $hotelprofile = Hotel::find($id);
         $hotelImages = array();
         $hotelimages = File::glob('public/control-panel-assets/images/hotel-images/'.$hotelprofile->id.'_*');
@@ -138,7 +138,7 @@ class HotelsController extends \BaseController
             $checkedhotelfacilities[] = $hotelfacility->hotel_facility_id;
         }
 
-        $hotelpolicies = CancellationPolicy::where('hotel_id', $id)->get();
+        $cancellationpolicies = CancellationPolicy::where('hotel_id', $id)->get();
 
 
         return View::make('control-panel.hotel.hotels.edit')
@@ -149,7 +149,7 @@ class HotelsController extends \BaseController
                     'checkedhotelcategories' => $checkedhotelcategories,
                     'hotelfacilitieslist' => $hotelfacilitieslist,
                     'checkedhotelfacilities' => $checkedhotelfacilities,
-                    'hotelpolicies' => $hotelpolicies,
+                    'cancellationpolicies' => $cancellationpolicies,
                     'hotelImages' => $hotelImages
                 )
             );
@@ -200,10 +200,15 @@ class HotelsController extends \BaseController
             $validator = Validator::make($data, Hotel::$updateOverviewRules);
 
             if ($validator->fails()) {
+
                 return Redirect::back()->withErrors($validator)->withInput();
             }
 
+
+            $hotel->update($data);
+
             $hotelcategories = Input::get('category_id');
+
             DB::table('hotel_hotel_category')->where('hotel_id', $id)->delete();
 
             if (!empty($hotelcategories)) {
@@ -217,6 +222,8 @@ class HotelsController extends \BaseController
                 }
             }
         }
+
+
 
         if (Input::has('update_location')) {
             Session::put('manage', 'location');
@@ -268,6 +275,53 @@ class HotelsController extends \BaseController
             Session::put('manage', 'policies');
         }
 
+        if(Input::has('add_more_images')){
+            if (Input::hasFile('images')) {
+
+                $files = Input::file('images');
+
+                foreach($files as $file){
+                    Image::make($file)
+                        ->encode('jpg')
+                        ->save('public/control-panel-assets/images/hotel-images/' . $hotel->id . '_' .str_random(10). '.jpg');
+                }
+            }
+        }
+
+        if(Input::has('delete_images')){
+
+            Session::put('manage', 'images');
+            $files = Input::get('files_to_delete');
+            foreach($files as $file){
+                File::delete('public/control-panel-assets/images/hotel-images/'.$file);
+            }
+
+            return Redirect::back();
+        }
+
+        if(Input::has('update_terms_and_conditions')){
+            Session::put('manage', 'termsAndConditions');
+
+            $data = Input::all();
+
+            $validator = Validator::make($data, Hotel::$updateTermsRules);
+
+            if ($validator->fails()) {
+                return Redirect::back()->withErrors($validator)->withInput();
+            }
+
+            if ($hotel->update($data)) {
+
+                return Redirect::back()->with(
+                    array(
+                        'successmessage' => 'Successfully Updated'
+                    )
+                );
+
+            }
+        }
+
+
 
 //        $hotelprofile = Hotel::findOrFail($id);
 //
@@ -301,5 +355,65 @@ class HotelsController extends \BaseController
 
         return Redirect::back();
     }
+
+    public function createCancellationPolicy($id)
+    {
+
+        $validator = Validator::make($data=Input::all(), CancellationPolicy::$rules);
+
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+        $data['hotel_id'] = $id;
+        CancellationPolicy::create($data);
+        return Redirect::back();
+    }
+
+    public function editCancellationPolicy($id, $policy_id)
+    {
+        Session::put('edit','editCancellationPolicies');
+        $cancellationpolicy = CancellationPolicy::findOrFail($policy_id);
+
+        return Redirect::back()->with(
+            array(
+                'cancellationpolicy' => $cancellationpolicy
+            )
+        );
+    }
+
+    public function updateCancellationPolicy($id, $policy_id)
+    {
+        if(Input::has('cancel_update')){
+            Session::forget('edit');
+            return Redirect::back();
+        }
+
+        Session::forget('edit');
+        $validator = Validator::make($data=Input::all(), CancellationPolicy::$rules);
+
+
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+        $data['hotel_id'] = $id;
+        $cancellation = CancellationPolicy::findOrFail($policy_id);
+        $cancellation->update($data);
+
+        $cancellationpolicies = CancellationPolicy::where('hotel_id', $id)->get();
+
+        return Redirect::back()->with(
+            array(
+                'cancellationpolicies' => $cancellationpolicies
+            )
+        );
+    }
+
+    public function deleteCancellationPolicy ($id, $policy_id){
+        CancellationPolicy::destroy($policy_id);
+        return Redirect::route('control-panel.hotel.hotels.edit',$id);
+    }
+
 
 }

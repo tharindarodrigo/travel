@@ -106,7 +106,7 @@
             @include('control-panel.hotel.hotels.partials.termsAndConditions')
             <div class="row">
             <div class="col-md-4">
-                {{ Form::submit('Update Terms & Conditions', array('class' => 'btn btn-primary' , 'name' => 'update_terms' )) }}
+                {{ Form::submit('Update Terms & Conditions', array('class' => 'btn btn-primary' , 'name' => 'update_terms_and_conditions' )) }}
             </div>
             </div>
             {{Form::close()}}
@@ -116,10 +116,10 @@
             {{--@include('control-panel.hotel.profile.termsAndConditions')--}}
             <div class="row">
             <div class="col-md-12">
-            {{ Form::model($hotelprofile, array('route' => array('control-panel.hotel.hotels.update', $hotelprofile->id), 'method'=> 'put')) }}
+            {{--{{ Form::model($hotelprofile, array('route' => array('control-panel.hotel.hotels.update', $hotelprofile->id), 'method'=> 'put')) }}--}}
                 @include('control-panel.hotel.hotels.partials.photos')
 
-            {{Form::close()}}
+            {{--{{Form::close()}}--}}
             </div>
             </div>
             <!-- /.tab-content -->

@@ -265,12 +265,18 @@ Route::group(array('prefix' => 'control-panel'), function () {
         /**
          *  Hotel Cancellation Policies
          */
-        Route::resource('cancellation-policies', 'CancellationPoliciesController');
+        Route::resource('hotels.cancellation-policies', 'CancellationPoliciesController');
 
         /**
          *  Hotels
          */
         Route::resource('hotels', 'HotelsController');
+
+        Route::post('hotels/{hotel_id}/cancellation-policies/create', 'HotelsController@createCancellationPolicy');
+        Route::get('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/edit', 'HotelsController@editCancellationPolicy');
+        Route::put('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/update', 'HotelsController@updateCancellationPolicy');
+        Route::delete('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/delete', 'HotelsController@deleteCancellationPolicy');
+
 
         /**
          *  Meal Bases
