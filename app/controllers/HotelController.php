@@ -17,6 +17,12 @@ class HotelController extends \BaseController
 
     public function gridView($country = '', $city_or_accommodation = '')
     {
+
+            Session::put('view', 2);
+
+
+
+
         try {
             $hotel_results = $this->viewHotelList($country, $city_or_accommodation);
             return View::make('hotel.hotel_grid')
@@ -35,8 +41,19 @@ class HotelController extends \BaseController
     public function viewHotelList($country = '', $city_or_accommodation = '')
     {
 
-        $grid_url = 'sri-lanka/grid/view/'.$city_or_accommodation;
-        $list_url = 'sri-lanka/'.$city_or_accommodation;
+        $country_url = $country;
+        $city_or_accommodation_url = $city_or_accommodation;
+
+        if ($country_url != '') {
+            $country_url .= '/';
+        }
+
+        if ($city_or_accommodation_url != '') {
+            $city_or_accommodation_url .= '/';
+        }
+
+        $grid_url = 'grid/view/' . $country_url . $city_or_accommodation_url;
+        $list_url = $country_url . $city_or_accommodation_url;
 
         if (Session::has('st_date')) {
             $st_date = Session::get('st_date');
@@ -189,6 +206,8 @@ class HotelController extends \BaseController
 
     public function hotelList($country = '', $city_or_accommodation = '')
     {
+        Session::put('view', 1);
+
         try {
             $hotel_results = $this->viewHotelList($country, $city_or_accommodation);
             return View::make('hotel.hotel_list')

@@ -383,7 +383,7 @@ Route::get('/403', function () {
 
 /************* Grid View ********************/
 
-Route::any('sri-lanka/grid/view/{grid_city_or_acc}', array(
+Route::any('grid/view/{country}/{grid_city_or_acc}', array(
     'as' => 'search',
     'uses' => 'HotelController@gridView'
 ));
@@ -392,14 +392,14 @@ Route::any('sri-lanka/grid/view/{grid_city_or_acc}', array(
 /************* search link ********************/
 
 Route::any('sri-lanka/search', array(
-    'as' => 'search',
+    'as' => 'search1',
     'uses' => 'HotelController@viewSearch'
 ));
 
 // Filtering part
 
 Route::any('sri-lanka/filter', array(
-    'as' => 'search',
+    'as' => 'search2',
     'uses' => 'HotelController@viewFilter'
 ));
 

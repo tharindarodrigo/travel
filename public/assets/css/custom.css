@@ -1655,7 +1655,7 @@ a:hover.backbtn{
 }
 
 .itemlabel3{background:#f2f2f2; width:100%; height:210px;  font-family:"Open Sans"; font-size:13px; line-height:15px; overflow:hidden;}
-.itemlabel2{background:#f2f2f2; width:100%; height:210px;  font-family:"Open Sans"; font-size:13px; line-height:15px; overflow:hidden;}
+.itemlabel2{background:#f2f2f2; width:100%; height:auto;  font-family:"Open Sans"; font-size:13px; line-height:15px; overflow:hidden;}
 .labelright{float:right; height:100%; padding:10px; border-left:1px solid #e8e8e8;}
 .labelleft{padding:10px 0 15px 15px;}
 .labelleft2{padding:10px 0 15px 15px;font-family:"Open Sans"; font-size:13px; line-height:18px;}

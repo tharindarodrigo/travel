@@ -23,6 +23,135 @@
     {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
     <!-- end -->
 
+    <style type="text/css">
+        a {
+            text-decoration: none !important;
+        }
+
+        .hotel_img_1 {
+            width: 325px;
+            height: 250px;
+        }
+
+        .collapsebtn {
+            background: #006699;
+            color: #FFFFFF;
+        }
+
+        h4 {
+            color: #006699;
+        }
+    </style>
+
+    <style type="text/css">
+        .search_thumb {
+            width: 25px;
+            height: 25px;
+        }
+
+        /* SEARCH FORM */
+
+        #suggestions {
+            color: #FFFFFF !important;
+            background: #FFFFFF;
+            position: relative;
+            top: 5px;
+            left: 0px;
+            /*width: 100%;*/
+            display: none;
+        }
+
+        div .auto_complete:hover {
+            width: 100%;
+            background: #006699;
+        }
+
+        .auto_complete:hover a {
+            text-decoration: none;
+            color: #FFFFFF !important;
+        }
+
+        /* SEARCHRESULTS */
+
+        #searchresults {
+            border-width: 1px;
+            border-color: #919191;
+            border-style: solid;
+            width: 320px;
+            background-color: #a0a0a0;
+            font-size: 10px;
+            line-height: 14px;
+        }
+
+        #searchresults a {
+            display: block;
+            background-color: #e4e4e4;
+            clear: left;
+            height: 56px;
+            text-decoration: none;
+        }
+
+        #searchresults a:hover {
+            background-color: #FFFFFF;
+            text-decoration: none;
+            color: #000000 !important;
+        }
+
+        #searchresults a img {
+            float: left;
+            padding: 5px 10px;
+        }
+
+        #searchresults a span.searchheading {
+            display: block;
+            font-weight: bold;
+            padding-top: 5px;
+            color: #191919;
+        }
+
+        #searchresults a:hover span.searchheading {
+            color: #000000;
+        }
+
+        #searchresults a span {
+            color: #555555;
+        }
+
+        #searchresults a:hover span {
+            background: #000066;
+            color: #FFFFFF !important;
+        }
+
+        #searchresults span.category {
+            font-size: 11px;
+            margin: 5px;
+            display: block;
+            color: #000000;
+        }
+
+        #searchresults span.seperator {
+            float: right;
+            padding-right: 15px;
+            margin-right: 5px;
+            background-image: url(../images/shortcuts_arrow.gif);
+            background-repeat: no-repeat;
+            background-position: right;
+        }
+
+        #searchresults span.seperator a {
+            background-color: transparent;
+            display: block;
+            margin: 5px;
+            height: auto;
+            color: #000000;
+        }
+
+        .grey:hover {
+            color: #000000;
+        }
+
+    </style>
+
 @endsection
 
 @section('content')
@@ -63,7 +192,7 @@
                 <!-- TOP TIP -->
                 <div class="filtertip">
                     <div class="padding20">
-                        <p class="size13"><span class="size18 bold counthotel">53</span> Hotels starting at</p>
+                        <p class="size13"><span class="size18 bold counthotel">53</span> Hotels starting at </p>
 
                         <p class="size30 bold">$<span class="countprice"></span></p>
 
@@ -71,7 +200,6 @@
                     </div>
                     <div class="tip-arrow"></div>
                 </div>
-
 
                 <div class="bookfilters hpadding20">
 
@@ -82,464 +210,110 @@
                                 <span class="hotel-ico"></span> Hotels
                             </label>
                         </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                <span class="flight-ico"></span> Flights
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                                <span class="suitcase-ico"></span> Vacations
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
-                                <span class="car-ico"></span> Cars
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios5" value="option5">
-                                <span class="cruise-ico"></span>Cruises
-                            </label>
-                        </div>
                     </div>
 
                     <div class="w50percentlast">
-                        <p class="cstyle08">Packages:</p>
-
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios6" value="option6">
-                                Flight+Hotel+Car
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios7" value="option7">
-                                Flight+Hotel
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios8" value="option8">
-                                Flight+Car
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios9" value="option9">
-                                Hotel+Car
+                                <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
+                                <span class="car-ico"></span> Transport
                             </label>
                         </div>
                     </div>
 
                     <div class="clearfix"></div>
-                    <br/>
+
+                    {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'searchform', 'method' => 'POST', )) }}
+
+                    {{--<form action="{{ URL::route('ho') }}" method="POST">--}}
 
                     <!-- HOTELS TAB -->
                     <div class="hotelstab2 none">
                         <span class="opensans size13">Where do you want to go?</span>
-                        <input type="text" class="form-control" placeholder="Greece">
+
+                        <input type="text" class="form-control" name="txt-search" id="inputString" category=""
+                               onkeyup="lookup(this.value);" autocomplete="off"/>
+
+                        <div id="suggestions"></div>
 
                         <div class="clearfix pbottom15"></div>
 
                         <div class="w50percent">
                             <div class="wh90percent textleft">
-                                <span class="opensans size13">Check in date</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker"
-                                       placeholder="mm/dd/yyyy"/>
+                                <span class="opensans size13">Check In Date</span>
+                                <input type="text" name="check_in_date" class="form-control mySelectCalendar"
+                                       id="datepicker"
+                                       value="{{ Session::has('st_date') ? Session::get('st_date') : $st_date }}"/>
                             </div>
                         </div>
 
                         <div class="w50percentlast">
                             <div class="wh90percent textleft right">
-                                <span class="opensans size13">Check in date</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker2"
-                                       placeholder="mm/dd/yyyy"/>
+                                <span class="opensans size13">Check Out Date</span>
+                                <input type="text" name="check_out_date" class="form-control mySelectCalendar"
+                                       id="datepicker2"
+                                       value="{{ Session::has('ed_date') ? Session::get('ed_date') : $ed_date }}"/>
                             </div>
                         </div>
 
                         <div class="clearfix pbottom15"></div>
 
-                        <div class="room1">
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 1</b></span><br/>
-
-                                    <div class="addroom1 block"><a onclick="addroom2()" class="grey cpointer">+ Add
-                                            room</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right ohidden">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>1</option>
-                                                <option selected>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right ohidden">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>0</option>
-                                                <option selected>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="w50percent">
+                            <div class="">
+                                <span class="opensans size13">Adult</span>
+                                <select class="form-control mySelectBoxClass" name="adult"
+                                        id="change_adult">
+                                    <option value="1" {{ Session::get('adult') == 1 ? 'selected' : '' }}>
+                                        1
+                                    </option>
+                                    <option value="2" {{ Session::get('adult') == 2 ? 'selected' : '' }}>
+                                        2
+                                    </option>
+                                    <option value="3" {{ Session::get('adult') == 3 ? 'selected' : '' }}>
+                                        3
+                                    </option>
+                                    <option value="4" {{ Session::get('adult') == 4 ? 'selected' : '' }}>
+                                        4
+                                    </option>
+                                    <option value="5" {{ Session::get('adult') == 5 ? 'selected' : '' }}>
+                                        5
+                                    </option>
+                                </select>
                             </div>
                         </div>
-
-                        <div class="room2 none">
-                            <div class="clearfix"></div>
-                            <div class="line1"></div>
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 2</b></span><br/>
-
-                                    <div class="addroom2 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add
-                                            room</a> | <a onclick="removeroom2()" class="orange cpointer"><img
-                                                    src="images/delete.png" alt="delete"/></a></div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option selected>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>0</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="w50percentlast">
+                            <div class="wh90percent textleft right ohidden">
+                                <span class="opensans size13">Child</span>
+                                <select class="form-control mySelectBoxClass" name="child"
+                                        id="change_child">
+                                    <option value="0" {{ Session::get('child') == 0 ? 'selected' : '' }}>
+                                        0
+                                    </option>
+                                    <option value="1" {{ Session::get('child') == 1 ? 'selected' : '' }}>
+                                        1
+                                    </option>
+                                    <option value="2" {{ Session::get('child') == 2 ? 'selected' : '' }}>
+                                        2
+                                    </option>
+                                    <option value="3" {{ Session::get('child') == 3 ? 'selected' : '' }}>
+                                        3
+                                    </option>
+                                </select>
                             </div>
                         </div>
+                        <input type="hidden" name="city_or_acc_hidden" value="{{ $city = Request::segment(2); }}"/>
 
-                        <div class="room3 none">
-                            <div class="clearfix"></div>
-                            <div class="line1"></div>
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 3</b></span><br/>
-
-                                    <div class="addroom3 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add
-                                            room</a> | <a onclick="removeroom3()" class="orange cpointer"><img
-                                                    src="images/delete.png" alt="delete"/></a></div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>0</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="clearfix"></div>
-                        <button type="submit" class="btn-search3">Search</button>
+                        <div class="clearfix pbottom15"></div>
+
+                        <button type="submit" class="btn-search3 right">Search</button>
+
                     </div>
                     <!-- END OF HOTELS TAB -->
 
-                    <!-- FLIGHTS TAB -->
-                    <div class="flightstab2 none">
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Flying from</span>
-                                <input type="text" class="form-control" placeholder="City or airport">
-                            </div>
-                        </div>
+                    {{Form::close()}}
 
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">To</span>
-                                <input type="text" class="form-control" placeholder="City or airport">
-                            </div>
-                        </div>
-
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Departing</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker3"
-                                       placeholder="mm/dd/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">Returning</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker4"
-                                       placeholder="mm/dd/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="room1">
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13">Adult</span>
-                                    <select class="form-control mySelectBoxClass">
-                                        <option>1</option>
-                                        <option selected>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <span class="opensans size13">Child</span>
-                                    <select class="form-control mySelectBoxClass">
-                                        <option>0</option>
-                                        <option selected>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <button type="submit" class="btn-search3">Search</button>
-                    </div>
-                    <!-- END OF FLIGHTS TAB -->
-
-                    <!-- VACATIONS TAB -->
-                    <div class="vacationstab2 none">
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Flying from</span>
-                                <input type="text" class="form-control" placeholder="City or airport">
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13"><b>To</b></span>
-                                <input type="text" class="form-control" placeholder="City or airport">
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Check in date</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker7"
-                                       placeholder="mm/dd/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">Check in date</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker8"
-                                       placeholder="mm/dd/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="room1">
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 1</b></span><br/>
-
-                                    <div class="addroom1 block"><a onclick="addroom2()" class="grey cpointer">+ Add
-                                            room</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>1</option>
-                                                <option selected>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>0</option>
-                                                <option selected>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="room2 none">
-                            <div class="clearfix"></div>
-                            <div class="line1"></div>
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 2</b></span><br/>
-
-                                    <div class="addroom2 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add
-                                            room</a> | <a onclick="removeroom2()" class="orange cpointer"><img
-                                                    src="images/delete.png" alt="delete"/></a></div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option selected>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>0</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="room3 none">
-                            <div class="clearfix"></div>
-                            <div class="line1"></div>
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 3</b></span><br/>
-
-                                    <div class="addroom3 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add
-                                            room</a> | <a onclick="removeroom3()" class="orange cpointer"><img
-                                                    src="images/delete.png" alt="delete"/></a></div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>0</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <button type="submit" class="btn-search3">Search</button>
-                    </div>
-                    <!-- END OF VACATIONS TAB -->
-
-                    <!-- CARS TAB -->
+                    <!-- TRANSPORT TAB -->
                     <div class="carstab2 none">
                         <div class="w50percent">
                             <div class="wh90percent textleft">
@@ -687,643 +461,18 @@
                                     </select>
                                 </div>
                             </div>
+
                         </div>
                         <div class="clearfix"></div>
                         <button type="submit" class="btn-search3">Search</button>
                     </div>
-                    <!-- END OF CARS TAB -->
-
-                    <!-- CRUISE TAB -->
-                    <div class="cruisestab2 none">
-                        <div class="fullwidth">
-                            <span class="opensans size13">Going to</span>
-                            <select class="form-control mySelectBoxClass">
-                                <option selected>Show all</option>
-                                <optgroup label="Most Popular">
-                                    <option>Caribbean</option>
-                                    <option>Bahamas</option>
-                                    <option>Mexico</option>
-                                    <option>Alaska</option>
-                                    <option>Europe</option>
-                                    <option>Bermuda</option>
-                                    <option>Hawaii</option>
-                                </optgroup>
-                                <optgroup label="Other Destinations">
-                                    <option>Africa</option>
-                                    <option>Arctic/Antartctic</option>
-                                    <option>Asia</option>
-                                    <option>Australia/New Zealand</option>
-                                    <option>Central America</option>
-                                    <option>Cruise to Nowhere</option>
-                                    <option>Galapagos</option>
-                                    <option>Greenland/Iceland</option>
-                                    <option>Middle East</option>
-                                    <option>Pacific Coastal</option>
-                                    <option>Panama Canal</option>
-                                    <option>South Africa</option>
-                                    <option>South Pacific</option>
-                                    <option>Tahiti</option>
-                                    <option>Transatlantic</option>
-                                    <option>World Cruises</option>
-                                </optgroup>
-                            </select>
-
-                            <div class="clearfix pbottom15"></div>
-
-                            <span class="opensans size13">Departure</span>
-                            <select class="form-control mySelectBoxClass">
-                                <option selected>Show all</option>
-                                <option>October 2013</option>
-                                <option>November 2013</option>
-                                <option>December 2013</option>
-                                <option>January 2014</option>
-                                <option>February 2014</option>
-                                <option>March 2014</option>
-                                <option>April 2014</option>
-                                <option>May 2014</option>
-                                <option>June 2014</option>
-                                <option>July 2014</option>
-                                <option>August 2014</option>
-                                <option>September 2014</option>
-                                <option>October 2014</option>
-                                <option>November 2014</option>
-                                <option>December 2014</option>
-                            </select>
-                        </div>
-                        <div class="clearfix"></div>
-                        <button type="submit" class="btn-search3">Search</button>
-                    </div>
-                    <!-- END OF CRUISE TAB -->
-
-
-                    <!-- FLIGHT+HOTEL+CAR TAB -->
-                    <div class="flighthotelcartab2 none">
-
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Flying from</span>
-                                <input type="text" class="form-control" placeholder="City or airport">
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">To</span>
-                                <input type="text" class="form-control" placeholder="City or airport">
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Departing</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker13"
-                                       placeholder="mm/dd/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">Returning</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker14"
-                                       placeholder="mm/dd/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="room1">
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 1</b></span><br/>
-
-                                    <div class="addroom1 block"><a onclick="addroom2()" class="grey cpointer">+ Add
-                                            room</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right ohidden">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>1</option>
-                                                <option selected>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right ohidden">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>0</option>
-                                                <option selected>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="room2 none">
-                            <div class="clearfix"></div>
-                            <div class="line1"></div>
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 2</b></span><br/>
-
-                                    <div class="addroom2 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add
-                                            room</a> | <a onclick="removeroom2()" class="orange cpointer"><img
-                                                    src="images/delete.png" alt="delete"/></a></div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option selected>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>0</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="room3 none">
-                            <div class="clearfix"></div>
-                            <div class="line1"></div>
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 3</b></span><br/>
-
-                                    <div class="addroom3 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add
-                                            room</a> | <a onclick="removeroom3()" class="orange cpointer"><img
-                                                    src="images/delete.png" alt="delete"/></a></div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>0</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="center size10 ca03">! An economy car will be added to your search. (You may change
-                            your
-                            car options later.)
-                        </div>
-                        <button type="submit" class="btn-search3">Search</button>
-                    </div>
-                    <!-- END OF FLIGHT+HOTE+CAR TAB -->
-
-
-                    <!-- FLIGHT+HOTEL TAB -->
-                    <div class="flighthoteltab2 none">
-
-
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Flying from</span>
-                                <input type="text" class="form-control" placeholder="City or airport">
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">To</span>
-                                <input type="text" class="form-control" placeholder="City or airport">
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Departing</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker10"
-                                       placeholder="mm/dd/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">Returning</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker9"
-                                       placeholder="mm/dd/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="room1">
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 1</b></span><br/>
-
-                                    <div class="addroom1 block"><a onclick="addroom2()" class="grey cpointer">+ Add
-                                            room</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right ohidden">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>1</option>
-                                                <option selected>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right ohidden">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>0</option>
-                                                <option selected>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="room2 none">
-                            <div class="clearfix"></div>
-                            <div class="line1"></div>
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 2</b></span><br/>
-
-                                    <div class="addroom2 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add
-                                            room</a> | <a onclick="removeroom2()" class="orange cpointer"><img
-                                                    src="images/delete.png" alt="delete"/></a></div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option selected>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>0</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="room3 none">
-                            <div class="clearfix"></div>
-                            <div class="line1"></div>
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 3</b></span><br/>
-
-                                    <div class="addroom3 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add
-                                            room</a> | <a onclick="removeroom3()" class="orange cpointer"><img
-                                                    src="images/delete.png" alt="delete"/></a></div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>0</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="clearfix"></div>
-                        <button type="submit" class="btn-search3">Search</button>
-                    </div>
-                    <!-- END OF FLIGHT+HOTE TAB -->
-
-                    <!-- FLIGHT+CAR TAB -->
-                    <div class="flightcartab2 none">
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Flying from</span>
-                                <input type="text" class="form-control" placeholder="City or airport">
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">To</span>
-                                <input type="text" class="form-control" placeholder="City or airport">
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Departing</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker11"
-                                       placeholder="mm/dd/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">Returning</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker12"
-                                       placeholder="mm/dd/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="center size10 ca03">! An economy car will be added to your search. (You may change
-                            your
-                            car options later.)
-                        </div>
-                        <div class="clearfix"></div>
-                        <button type="submit" class="btn-search3">Search</button>
-                    </div>
-                    <!-- END OF FLIGHT+CAR TAB -->
-
-                    <!-- HOTEL+CAR TAB -->
-                    <div class="hotelcartab2 none">
-
-                        <span class="opensans size13">Where do you want to go?</span>
-                        <input type="text" class="form-control" placeholder="Greece">
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Check in date</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker15"
-                                       placeholder="mm/dd/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">Check in date</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker16"
-                                       placeholder="mm/dd/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="room1">
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 1</b></span><br/>
-
-                                    <div class="addroom1 block"><a onclick="addroom2()" class="grey cpointer">+ Add
-                                            room</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right ohidden">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>1</option>
-                                                <option selected>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right ohidden">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>0</option>
-                                                <option selected>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="room2 none">
-                            <div class="clearfix"></div>
-                            <div class="line1"></div>
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 2</b></span><br/>
-
-                                    <div class="addroom2 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add
-                                            room</a> | <a onclick="removeroom2()" class="orange cpointer"><img
-                                                    src="images/delete.png" alt="delete"/></a></div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option selected>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>0</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="room3 none">
-                            <div class="clearfix"></div>
-                            <div class="line1"></div>
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13"><b>ROOM 3</b></span><br/>
-
-                                    <div class="addroom3 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add
-                                            room</a> | <a onclick="removeroom3()" class="orange cpointer"><img
-                                                    src="images/delete.png" alt="delete"/></a></div>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft left">
-                                            <span class="opensans size13">Adult</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right">
-                                            <span class="opensans size13">Child</span>
-                                            <select class="form-control mySelectBoxClass">
-                                                <option selected>0</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <br/>
-
-                        <div class="center size10 ca03">! An economy car will be added to your search. (You may change
-                            your
-                            car options later.)
-                        </div>
-                        <button type="submit" class="btn-search3">Search</button>
-                    </div>
-                    <!-- END OF HOTEL+CAR TAB -->
-
+                    <!-- END OF TRANSPORT TAB -->
 
                 </div>
                 <!-- END OF BOOK FILTERS -->
 
                 <div class="line2"></div>
-
+                <?php $city_or_acc = Request::segment(2); ?>
                 <div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
                 <div class="line2"></div>
 
@@ -1331,43 +480,49 @@
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse1">
                     Star rating <span class="collapsearrow"></span>
                 </button>
-
+                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'star_rating_form')) }}
                 <div id="collapse1" class="collapse in">
                     <div class="hpadding20">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox"><img src="images/filter-rating-5.png" class="imgpos1" alt=""/> 5
-                                Stars
+                                <input type="checkbox" value="5" name="star_rating[]" class="star_category">
+                                {{ HTML::image('images/filter-rating-5.png', '', array('class' => 'imgpos1'))}}
+                                5 Stars
                             </label>
                         </div>
                         <div class="checkbox">
+                            <input type="checkbox" value="4" name="star_rating[]" class="star_category">
                             <label>
-                                <input type="checkbox"><img src="images/filter-rating-4.png" class="imgpos1" alt=""/> 4
-                                Stars
+                                {{ HTML::image('images/filter-rating-4.png', '', array('class' => 'imgpos1'))}}
+                                4 Stars
                             </label>
                         </div>
                         <div class="checkbox">
+                            <input type="checkbox" value="3" name="star_rating[]" class="star_category">
                             <label>
-                                <input type="checkbox"><img src="images/filter-rating-3.png" class="imgpos1" alt=""/> 3
-                                Stars
+                                {{ HTML::image('images/filter-rating-3.png', '', array('class' => 'imgpos1'))}}
+                                3 Stars
                             </label>
                         </div>
                         <div class="checkbox">
+                            <input type="checkbox" value="2" name="star_rating[]" class="star_category">
                             <label>
-                                <input type="checkbox"><img src="images/filter-rating-2.png" class="imgpos1" alt=""/> 2
-                                Stars
+                                {{ HTML::image('images/filter-rating-2.png', '', array('class' => 'imgpos1'))}}
+                                2 Stars
                             </label>
                         </div>
                         <div class="checkbox">
+                            <input type="checkbox" value="1" name="star_rating[]" class="star_category">
                             <label>
-                                <input type="checkbox"><img src="images/filter-rating-1.png" class="imgpos1" alt=""/> 1
-                                Star
+                                {{ HTML::image('images/filter-rating-1.png', '', array('class' => 'imgpos1'))}}
+                                1 Star
                             </label>
                         </div>
                     </div>
                     <div class="clearfix"></div>
                 </div>
                 <!-- End of Star ratings -->
+                {{ Form::close() }}
 
                 <div class="line2"></div>
 
@@ -1375,16 +530,22 @@
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
                     Price range <span class="collapsearrow"></span>
                 </button>
-
                 <div id="collapse2" class="collapse in">
                     <div class="padding20">
                         <div class="layout-slider wh100percent">
-                            <span class="cstyle09"><input id="Slider1" type="slider" name="price"
-                                                          value="400;700"/></span>
+                            <span class="cstyle09">
+                                <input id="Slider1" type="slider" name="price" value="200;700"/>
+                            </span>
                         </div>
+
+                        <!-- bin/jquery.slider.min.js -->
+                        {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
+                        {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
+                        <!-- end -->
+
                         <script type="text/javascript">
                             jQuery("#Slider1").slider({
-                                from: 100,
+                                from: 10,
                                 to: 1000,
                                 step: 5,
                                 smooth: true,
@@ -1399,134 +560,80 @@
 
                 <div class="line2"></div>
 
-                <!-- Acomodations -->
+                <!-- Accommodation -->
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
-                    Acomodation type <span class="collapsearrow"></span>
+                    Accommodation type <span class="collapsearrow"></span>
                 </button>
-
+                {{ Form::open(array('url' => '/sri-lanka/filter', 'method' => 'POST', 'id'=>'accommodation_form')) }}
                 <div id="collapse3" class="collapse in">
                     <div class="hpadding20">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios2" id="Acomodation1" value="option1" checked>
-                                All
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios2" id="Acomodation2" value="option2">
-                                Hotel
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios2" id="Acomodation3" value="option3">
-                                Bed & Breakfast
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios2" id="Acomodation4" value="option4">
-                                Apartment
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios2" id="Acomodation5" value="option5">
-                                Condo
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios2" id="Acomodation6" value="option6">
-                                All-Inclusive Resort
-                            </label>
-                        </div>
+                        <?php $x = 1; ?>
+                        @foreach($hotel_type as $accommodation)
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="accommodation" id="Acomodation{{ $x }}"
+                                           value="{{ $accommodation->id }}" class="acc_select">
+                                    {{ $accommodation->hotel_category }}
+                                </label>
+                            </div>
+                            <?php $x++ ?>
+                        @endforeach
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <!-- End of Acomodations -->
-
+                <!-- End of Accommodations -->
+                {{ Form::close() }}
                 <div class="line2"></div>
 
                 <!-- Hotel Preferences -->
                 <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse4">
-                    Hotel Preferences <span class="collapsearrow"></span>
+                    Hotel Facilities <span class="collapsearrow"></span>
                 </button>
+                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'facility_form')) }}
                 <div id="collapse4" class="collapse in">
                     <div class="hpadding20">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">High-speed Internet (41)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Air conditioning (52)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Swimming pool (55)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Childcare (12)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Fitness equipment (49)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Free breakfast (14)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Free parking (11)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Hair dryer (48)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Pets allowed (16)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Restaurant in hotel (47)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Room service (38)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Spa services on site (57)
-                            </label>
-                        </div>
-
+                        @foreach($hotel_facilities as $facility)
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="{{ $facility->id }}" name="facility[]"
+                                           class="hot_facility">
+                                    {{ $facility->hotel_facility }}
+                                </label>
+                            </div>
+                        @endforeach
                     </div>
                     <div class="clearfix"></div>
                 </div>
                 <!-- End of Hotel Preferences -->
+                {{ Form::close() }}
+                <div class="line2"></div>
 
+                <!-- Cities -->
+                <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse5">
+                    Cities <span class="collapsearrow"></span>
+                </button>
+                {{ Form::open(array('url' => '/sri-lanka/filter', 'method' => 'POST', 'id'=>'city_form')) }}
+                <div id="collapse5" class="collapse in">
+                    <div class="hpadding20">
+                        @foreach($hotel_cities as $city)
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="city" id="City{{ $x }}"
+                                           value="{{ $city->id }}" class="city_select">
+                                    {{ $city->city }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- End of Cities -->
+                {{ Form::close() }}
                 <div class="line2"></div>
                 <div class="clearfix"></div>
                 <br/>
                 <br/>
                 <br/>
-
 
             </div>
             <!-- END OF FILTERS -->
@@ -1576,9 +683,8 @@
                         <div class="col-md-4 offset-0">
                             <button class="popularbtn left">Most Popular</button>
                             <div class="right">
-                                <button class="gridbtn" onClick="window.open('list2.html','_self');">&nbsp;</button>
-                                <button class="listbtn" onClick="window.open('list4.html','_self');">&nbsp;</button>
-                                <button class="grid2btn active">&nbsp;</button>
+                                <a class="listbtn {{ Session::get('view') == 1 ? 'active' : '' }}"  href="{{URL::to($list_url)}}"></a>
+                                <a class="gridbtn {{ Session::get('view') == 2 ? 'active' : '' }}" href="{{URL::to($grid_url)}}"></a>
                             </div>
                         </div>
                     </div>
@@ -1590,266 +696,89 @@
 
                 <div class="clearfix"></div>
 
-
                 <div class="itemscontainer offset-1">
+                    @foreach($hotels as $hotel)
+                        <div class="col-md-4">
 
+                            <?php
+                            $directory = 'images/hotel_images/';
+                            $images = glob($directory . $hotel->id . "_" . "*.*");
+                            $img_path = array_shift($images);
 
-                    <div class="col-md-4">
-                        <div class="listitem">
-                            <img src="images/items/item1.jpg" alt=""/>
+                            $city_id = $hotel->city_id;
+                            $get_city = DB::table('cities')->where('id', $city_id)->first();
+                            $city = $get_city->city;
+                            ?>
 
-                            <div class="liover"></div>
-                            <a class="fav-icon" href="#"></a>
-                            <a class="book-icon" href="#"></a>
-                        </div>
-                        <div class="itemlabel2">
-                            <div class="labelright">
-                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
-                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
-                                <span class="size11 grey">18 Reviews</span><br/><br/>
-                                <span class="green size18"><b>$16.00</b></span><br/>
-                                <span class="size11 grey">avg/night</span><br/><br/><br/>
-                                <button class="bookbtn mt1">Book</button>
+                            <div class="listitem">
+
+                                @if(count($img_path)>0)
+                                    {{ HTML::image($img_path, '', array('class' => 'hotel_img_1'))}}
+                                @else
+                                    {{ HTML::image('images/no-image.jpg', '', array('class' => 'property_img_1')) }}
+                                @endif
+
+                                <div class="liover"></div>
+                                <a class="fav-icon" href="#"></a>
+                                <a class="book-icon" href="#"></a>
+
                             </div>
-                            <div class="labelleft">
-                                <b>Mabely Grand Hotel</b><br/><br/><br/>
 
-                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
-                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
-                                    malesuada.
-                                </p>
+                            <div class="itemlabel2">
+                                <h4 style="color: #006699"><a
+                                            href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;{{ $hotel->name }}</a>
+                                </h4>
+
+                                <div class="labelright">
+                                    <?php
+                                    $stars = $hotel->star_category_id;
+                                    $star = DB::table('star_categories')->where('id', $stars)->first();
+                                    $hotel_star = $star->stars;
+                                    ?>
+
+                                    {{ Star::star_loop_blue($hotel_star)}}<br/><br/>
+
+                                    {{ HTML::image('images/user-rating-5.png', '')}}<br/><br/>
+
+                                    @if(!empty($hotel->hotelReview->count()))
+                                        <span class="size11 grey">{{ $hotel->hotelReview->count(); }}
+                                            Reviews </span><br/><br/>
+                                    @else
+                                        <span class="size11 grey">
+                                                No Reviews </span><br/><br/>
+                                    @endif
+
+                                    <?php $low_hotel_rate = RoomRates::lowestHotelRate($hotel->id, $st_date, $ed_date); ?>
+
+                                    @if(!empty($low_hotel_rate))
+                                        <span class="green size18">
+                                            <b>
+                                                USD {{ $low_hotel_rate }}
+                                            </b>
+                                            </span>
+                                        <br/>
+                                        <span class="size11 grey">avg/night</span><br/><br/>
+                                    @else
+                                        <span class="green">
+                                                No Rate Available
+                                                <br/><br/>
+                                            </span>
+                                    @endif
+
+                                    <a href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"
+                                       class="bookbtn mt1">Book</a>
+
+                                </div>
+                                <div class="labelleft">
+                                    <p class="grey">
+                                        {{ $hotel->overview }}
+                                    </p>
+                                </div>
                             </div>
+
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="listitem">
-                            <img src="images/items/item2.jpg" alt=""/>
-
-                            <div class="liover"></div>
-                            <a class="fav-icon" href="#"></a>
-                            <a class="book-icon" href="#"></a>
-                        </div>
-                        <div class="itemlabel2">
-                            <div class="labelright">
-                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
-                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
-                                <span class="size11 grey">18 Reviews</span><br/><br/>
-                                <span class="green size18"><b>$16.00</b></span><br/>
-                                <span class="size11 grey">avg/night</span><br/><br/><br/>
-                                <button class="bookbtn mt1">Book</button>
-                            </div>
-                            <div class="labelleft">
-                                <b>Mabely Grand Hotel</b><br/><br/><br/>
-
-                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
-                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
-                                    malesuada.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="listitem">
-                            <img src="images/items/item3.jpg" alt=""/>
-
-                            <div class="liover"></div>
-                            <a class="fav-icon" href="#"></a>
-                            <a class="book-icon" href="#"></a>
-                        </div>
-                        <div class="itemlabel2">
-                            <div class="labelright">
-                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
-                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
-                                <span class="size11 grey">18 Reviews</span><br/><br/>
-                                <span class="green size18"><b>$16.00</b></span><br/>
-                                <span class="size11 grey">avg/night</span><br/><br/><br/>
-                                <button class="bookbtn mt1">Book</button>
-                            </div>
-                            <div class="labelleft">
-                                <b>Mabely Grand Hotel</b><br/><br/><br/>
-
-                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
-                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
-                                    malesuada.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="clearfix"></div>
-                    <div class="offset-2">
-                        <hr class="featurette-divider3">
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="listitem">
-                            <img src="images/items/item4.jpg" alt=""/>
-
-                            <div class="liover"></div>
-                            <a class="fav-icon" href="#"></a>
-                            <a class="book-icon" href="#"></a>
-                        </div>
-                        <div class="itemlabel2">
-                            <div class="labelright">
-                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
-                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
-                                <span class="size11 grey">18 Reviews</span><br/><br/>
-                                <span class="green size18"><b>$16.00</b></span><br/>
-                                <span class="size11 grey">avg/night</span><br/><br/><br/>
-                                <button class="bookbtn mt1">Book</button>
-                            </div>
-                            <div class="labelleft">
-                                <b>Mabely Grand Hotel</b><br/><br/><br/>
-
-                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
-                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
-                                    malesuada.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="listitem">
-                            <img src="images/items/item5.jpg" alt=""/>
-
-                            <div class="liover"></div>
-                            <a class="fav-icon" href="#"></a>
-                            <a class="book-icon" href="#"></a>
-                        </div>
-                        <div class="itemlabel2">
-                            <div class="labelright">
-                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
-                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
-                                <span class="size11 grey">18 Reviews</span><br/><br/>
-                                <span class="green size18"><b>$16.00</b></span><br/>
-                                <span class="size11 grey">avg/night</span><br/><br/><br/>
-                                <button class="bookbtn mt1">Book</button>
-                            </div>
-                            <div class="labelleft">
-                                <b>Mabely Grand Hotel</b><br/><br/><br/>
-
-                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
-                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
-                                    malesuada.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="listitem">
-                            <img src="images/items/item6.jpg" alt=""/>
-
-                            <div class="liover"></div>
-                            <a class="fav-icon" href="#"></a>
-                            <a class="book-icon" href="#"></a>
-                        </div>
-                        <div class="itemlabel2">
-                            <div class="labelright">
-                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
-                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
-                                <span class="size11 grey">18 Reviews</span><br/><br/>
-                                <span class="green size18"><b>$16.00</b></span><br/>
-                                <span class="size11 grey">avg/night</span><br/><br/><br/>
-                                <button class="bookbtn mt1">Book</button>
-                            </div>
-                            <div class="labelleft">
-                                <b>Mabely Grand Hotel</b><br/><br/><br/>
-
-                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
-                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
-                                    malesuada.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="clearfix"></div>
-                    <div class="offset-2">
-                        <hr class="featurette-divider3">
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="listitem">
-                            <img src="images/items/item7.jpg" alt=""/>
-
-                            <div class="liover"></div>
-                            <a class="fav-icon" href="#"></a>
-                            <a class="book-icon" href="#"></a>
-                        </div>
-                        <div class="itemlabel2">
-                            <div class="labelright">
-                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
-                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
-                                <span class="size11 grey">18 Reviews</span><br/><br/>
-                                <span class="green size18"><b>$16.00</b></span><br/>
-                                <span class="size11 grey">avg/night</span><br/><br/><br/>
-                                <button class="bookbtn mt1">Book</button>
-                            </div>
-                            <div class="labelleft">
-                                <b>Mabely Grand Hotel</b><br/><br/><br/>
-
-                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
-                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
-                                    malesuada.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="listitem">
-                            <img src="images/items/item8.jpg" alt=""/>
-
-                            <div class="liover"></div>
-                            <a class="fav-icon" href="#"></a>
-                            <a class="book-icon" href="#"></a>
-                        </div>
-                        <div class="itemlabel2">
-                            <div class="labelright">
-                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
-                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
-                                <span class="size11 grey">18 Reviews</span><br/><br/>
-                                <span class="green size18"><b>$16.00</b></span><br/>
-                                <span class="size11 grey">avg/night</span><br/><br/><br/>
-                                <button class="bookbtn mt1">Book</button>
-                            </div>
-                            <div class="labelleft">
-                                <b>Mabely Grand Hotel</b><br/><br/><br/>
-
-                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
-                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
-                                    malesuada.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="listitem">
-                            <img src="images/items/item9.jpg" alt=""/>
-
-                            <div class="liover"></div>
-                            <a class="fav-icon" href="#"></a>
-                            <a class="book-icon" href="#"></a>
-                        </div>
-                        <div class="itemlabel2">
-                            <div class="labelright">
-                                <img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>
-                                <img src="images/user-rating-5.png" width="60" alt=""/><br/>
-                                <span class="size11 grey">18 Reviews</span><br/><br/>
-                                <span class="green size18"><b>$16.00</b></span><br/>
-                                <span class="size11 grey">avg/night</span><br/><br/><br/>
-                                <button class="bookbtn mt1">Book</button>
-                            </div>
-                            <div class="labelleft">
-                                <b>Mabely Grand Hotel</b><br/><br/><br/>
-
-                                <p class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/><br/>
-                                    Vestibulum vel risus at lectus rhoncus mattis. Sed id enim eu orci rhoncus
-                                    malesuada.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
+                    @endforeach
                     <div class="clearfix"></div>
                     <div class="offset-2">
                         <hr class="featurette-divider3">
@@ -1858,18 +787,8 @@
                 </div>
                 <!-- End of offset1-->
 
-                <div class="hpadding20">
-
-                    <ul class="pagination right paddingbtm20">
-                        <li class="disabled"><a href="#">&laquo;</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
-
+                <div class="hpadding20" align="right">
+                    {{ $hotels->links() }}
                 </div>
 
             </div>
@@ -1882,18 +801,77 @@
     </div>
     <!-- END OF CONTENT -->
 
-@endsection
+    @endsection
 
-@section('script')
+    @section('script')
 
-    <!-- Javascript -->
-    {{ HTML::script('assets/js/js-list3.js') }}
+        <!-- Javascript -->
+        {{ HTML::script('assets/js/js-list3.js') }}
 
-    <!-- Counter -->
-    {{ HTML::script('assets/js/counter.js') }}
+        <!-- Counter -->
+        {{ HTML::script('assets/js/counter.js') }}
 
-@endsection
+        {{--for the auto complete option--}}
+        <script type="text/javascript">
 
-</body>
+            function lookup(inputString) {
+                if (inputString.length == 0) {
+                    $('#suggestions').fadeOut(); // Hide the suggestions box
+                } else {
+                    $.post("http://localhost/travel/public/auto-complete", {queryString: "" + inputString + ""}, function (data) { // Do an AJAX call
+                        $('#suggestions').fadeIn(); // Show the suggestions box
+                        $('#suggestions').html(data); // Fill the suggestions box
+
+                        $('a').click(function () {
+                            $value = $(this).attr('value');
+                            $category = $(this).attr('category');
+                            $('#inputString').val($value);
+                            $('#inputString').attr('category', $category);
+                            $('#suggestions').fadeOut();
+                        });
+                    });
+                }
+            }
+        </script>
+
+        <script type="text/javascript">
+            $('.star_category').click(function () {
+                var star = $('input[name=star_rating]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+                $('#star_rating_form').submit();
+            });
+        </script>
+
+        <script type="text/javascript">
+            $('.acc_select').click(function () {
+                var accommodation = $('input[name=accommodation]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+                $('#accommodation_form').submit()
+            });
+        </script>
+
+        <script type="text/javascript">
+            $('.city_select').click(function () {
+                var city = $('input[name=city]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+                $('#city_form').submit()
+            });
+        </script>
+
+        <script type="text/javascript">
+            $('.hot_facility').click(function () {
+                var facilities = $('input[name=facility]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+                $('#facility_form').submit()
+            });
+        </script>
+
+    @endsection
+
+    </body>
 
 @stop
