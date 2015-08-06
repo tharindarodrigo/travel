@@ -16,7 +16,7 @@ class CreateTourTypesTable extends Migration {
 		{
 			$table->increments('id');
             $table->integer('tour_id')->unsigned();
-            $table->string('title');
+            $table->string('tour_type_title');
             $table->string('short_description');
             $table->string('description');
             $table->boolean('val');

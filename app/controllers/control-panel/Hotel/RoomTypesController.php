@@ -162,22 +162,32 @@ class RoomTypesController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($hotelid, $id)
 	{
 		$roomtype = Roomtype::findOrFail($id);
 
-        $Input::get();
 
-		$validator = Validator::make($data = Input::all(), Roomtype::$rules);
+        $data = array(
+            'room_type' => Input::get('room_type'),
+            'description' => Input::get('description'),
+            'user_id' => Auth::user()->id
+        );
+
+		$validator = Validator::make($data, Roomtype::$rules);
 
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
+        $roomfacilities = explode(',',Input::get('room_facility_id'));
+        $roomspecifications = explode(',',Input::get('room_specification_id'));
+
+
+
 		$roomtype->update($data);
 
-		return Redirect::route('roomtypes.index');
+		return Redirect::route('control-panel.hotel.hotels.room-types.index', $hotelid, $id);
 	}
 
 	/**
