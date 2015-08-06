@@ -125,11 +125,27 @@ class RoomTypesController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($hotelid,$id)
 	{
 		$roomtype = Roomtype::find($id);
 
-		return View::make('roomtypes.edit', compact('roomtype'));
+        $roomfacilitieslist = RoomFacility::all();
+        $roomfacilities = DB::table('room_facility_room_type')->where('room_type_id', $id)->select(array('room_facility_id'))->get();
+        $checkedroomfacilities = array();
+        foreach ($roomfacilities as $roomfacility) {
+            $checkedroomfacilities[] = $roomfacility->room_facility_id;
+        }
+
+        $roomspecificationlist = RoomSpecification::all();
+
+        $roomspecifications = DB::table('room_specification_room_type')->where('room_type_id', $id)->select(array('room_specification_id'))->get();
+        $checkedroomspecifications = array();
+        foreach ($roomspecifications as $roomspecification) {
+            $checkedroomspecifications[] = $roomspecification->room_specification_id;
+        }
+
+
+        return View::make('control-panel.hotel.rooms.edit', compact('roomtype', 'hotelid', 'roomfacilitieslist', 'checkedroomfacilities','roomspecificationlist', 'checkedroomspecifications'));
 	}
 
 	/**

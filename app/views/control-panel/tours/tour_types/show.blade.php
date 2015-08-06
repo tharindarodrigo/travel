@@ -1,0 +1,1 @@
+C:\wamp\www\travel\app/views/tour_types/show.blade.php
