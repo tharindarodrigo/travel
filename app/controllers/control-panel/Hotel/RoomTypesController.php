@@ -166,6 +166,7 @@ class RoomTypesController extends \BaseController {
 	{
 		$roomtype = Roomtype::findOrFail($id);
 
+        $Input::get();
 
 		$validator = Validator::make($data = Input::all(), Roomtype::$rules);
 
