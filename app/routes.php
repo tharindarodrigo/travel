@@ -311,6 +311,18 @@ Route::group(array('prefix' => 'control-panel'), function () {
         //Route::resource('meal-bases', 'MealBasesController');
     });
 
+    /**
+     * -------------------------------------------------------------------------------------------------------------
+     *  control-panel/excursions
+     *--------------------------------------------------------------------------------------------------------------
+     */
+
+    Route::group(array('prefix' => 'excursions'), function(){
+        Route::resource('excursion-types','ExcursionTypesController');
+        Route::resource('excursion_transport_types','ExcursionTransportTypesController');
+    });
+
+
     /*-------------------------------------------------------------------------------------------------------------
      *  End control-panel/hotel
      *-------------------------------------------------------------------------------------------------------------*/

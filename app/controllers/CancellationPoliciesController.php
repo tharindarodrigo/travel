@@ -30,7 +30,7 @@ class CancellationPoliciesController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($hotel_id)
 	{
         Session::put('manage','policies');
 
@@ -43,7 +43,7 @@ class CancellationPoliciesController extends \BaseController {
 
 		Cancellationpolicy::create($data);
 
-		return Redirect::back();
+        return Redirect::route('control-panel.hotel.hotels.edit',$hotel_id);
 	}
 
 	/**
@@ -85,9 +85,10 @@ class CancellationPoliciesController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($hotel_id,$id)
 	{
         Session::put('manage','policies');
+        Session::forget('edit');
 
         $cancelationpolicy = Cancellationpolicy::findOrFail($id);
 
@@ -100,7 +101,7 @@ class CancellationPoliciesController extends \BaseController {
 
 		$cancelationpolicy->update($data);
 
-		return Redirect::back();
+		return Redirect::route('control-panel.hotel.hotels.edit',$hotel_id);
 	}
 
 	/**
@@ -109,13 +110,13 @@ class CancellationPoliciesController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($hotel_id,$id)
 	{
         Session::put('manage','policies');
 
 		Cancellationpolicy::destroy($id);
 
-		return Redirect::back();
+        return Redirect::route('control-panel.hotel.hotels.edit',$hotel_id);
 	}
 
 }

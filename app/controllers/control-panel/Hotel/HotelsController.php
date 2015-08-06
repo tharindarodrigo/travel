@@ -116,12 +116,25 @@ class HotelsController extends \BaseController
     public function edit($id)
     {
 
-        //Session::forget('edit');
+
+        Session::forget('edit');
         $hotelprofile = Hotel::find($id);
+
+        $cancellationpolicy = null;
+
+        if (Input::has('policy_id')) {
+            Session::put('manage', 'policies');
+            Session::put('edit', 'policies');
+            $policy_id = Input::get('policy_id');
+//            dd($policy_id);
+            $cancellationpolicy = CancellationPolicy::where('id',$policy_id)->first();
+//            dd($cancellationpolicy);
+        }
+
         $hotelImages = array();
         $hotelimages = File::glob('public/control-panel-assets/images/hotel-images/'.$hotelprofile->id.'_*');
         foreach($hotelimages as $hotelimage){
-            $hotelImages[] = basename($hotelimage);
+            $hotelImages[] = basename($hotelimage) ;
         }
 
         $hotelcategorieslist = HotelCategory::all();
@@ -138,8 +151,8 @@ class HotelsController extends \BaseController
             $checkedhotelfacilities[] = $hotelfacility->hotel_facility_id;
         }
 
-        $cancellationpolicies = CancellationPolicy::where('hotel_id', $id)->get();
 
+        $cancellationpolicies = CancellationPolicy::where('hotel_id', $id)->get();
 
         return View::make('control-panel.hotel.hotels.edit')
             ->with(
@@ -150,6 +163,7 @@ class HotelsController extends \BaseController
                     'hotelfacilitieslist' => $hotelfacilitieslist,
                     'checkedhotelfacilities' => $checkedhotelfacilities,
                     'cancellationpolicies' => $cancellationpolicies,
+                    'cancellationpolicy' => $cancellationpolicy,
                     'hotelImages' => $hotelImages
                 )
             );
@@ -271,8 +285,16 @@ class HotelsController extends \BaseController
 
         }
 
-        if (Input::has('update_policies')) {
+        if (Input::has('update_child_policies')) {
             Session::put('manage', 'policies');
+            $data = Input::all();
+            $hotel->update($data);
+
+            return Redirect::back()->with(
+                array(
+                    'successmessage' => 'successfully updated'
+                )
+            );
         }
 
         if(Input::has('add_more_images')){
