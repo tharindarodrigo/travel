@@ -127,6 +127,8 @@ class RoomTypesController extends \BaseController {
 	 */
 	public function edit($hotelid,$id)
 	{
+
+
 		$roomtype = Roomtype::find($id);
 
         $roomfacilitieslist = RoomFacility::all();
@@ -144,6 +146,12 @@ class RoomTypesController extends \BaseController {
             $checkedroomspecifications[] = $roomspecification->room_specification_id;
         }
 
+        $hotelImages = array();
+        $hotelimages = File::glob('public/control-panel-assets/images/room-images/'.$id.'_*');
+        foreach($hotelimages as $hotelimage){
+            $hotelImages[] = basename($hotelimage);
+        }
+
 
         return View::make('control-panel.hotel.rooms.edit', compact('roomtype', 'hotelid', 'roomfacilitieslist', 'checkedroomfacilities','roomspecificationlist', 'checkedroomspecifications'));
 	}
@@ -157,6 +165,7 @@ class RoomTypesController extends \BaseController {
 	public function update($id)
 	{
 		$roomtype = Roomtype::findOrFail($id);
+
 
 		$validator = Validator::make($data = Input::all(), Roomtype::$rules);
 

@@ -3,7 +3,7 @@
 @section('room-content')
 <div class="row">
     <div class="col-md-12">
-    {{Form::model($roomtype, array('route'=>array('control-panel.hotel.hotels.room-types.store',$hotelid), 'id'=>'form','method'=> 'post', 'files'=>true))}}
+    {{Form::model($roomtype, array('route'=>array('control-panel.hotel.hotels.room-types.edit',$hotelid, $roomtype->id), 'id'=>'form','method'=> 'post', 'files'=>true))}}
         <div class="col-md-6">
 
             <div class="nav-tabs-custom">
@@ -82,7 +82,7 @@
                             Room Specifications table
                             @foreach($roomspecificationlist as $roomspecification)
                                 <tr>
-                                    <td>{{Form::checkbox('room_specification[]',$roomspecification->id,in_array($roomspecification->id,$checkedroomspecifications))}}</td>
+                                    <td>{{Form::checkbox('room_specification_id[]',$roomspecification->id,in_array($roomspecification->id,$checkedroomspecifications))}}</td>
                                     <td>{{$roomspecification->id}}</td>
                                     <td>{{$roomspecification->room_specification}}</td>
                                     <td>{{$roomspecification->adults}}</td>
@@ -91,20 +91,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                    </div>
-                    <div style="display: block;" class="box-footer">
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <select class="form-control" id="room_spec" name="room_spec" id="">
-
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <button id="add_room_spec" class="btn btn-primary btn-block" value="">Add Room Spec</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
