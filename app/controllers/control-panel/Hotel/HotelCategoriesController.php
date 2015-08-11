@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class HotelCategoriesController extends \BaseController
 {
@@ -70,15 +71,20 @@ class HotelCategoriesController extends \BaseController
      */
     public function edit($id)
     {
-        $Hotelcategory = Hotelcategory::find($id);
+
+        try{
+            $Hotelcategory = Hotelcategory::findOrFail($id);
+        } catch (ModelNotFoundException $e){
+            return Redirect::to('control-panel/errors/record-not-found');
+        }
         $hotelcategories = Hotelcategory::all();
         Session::put('edit', 'edit');
-//        dd(print_r($Hotelcategory));
-        return View::make('control-panel.hotel.general.hotelCategories')
-            ->with(array(
-                'hotelcategories' => $hotelcategories,
-                'Hotelcategory' => $Hotelcategory
-            ));
+
+        return View::make('control-panel.hotel.general.hotelCategories',compact('hotelcategories','Hotelcategory'));
+//            ->with(array(
+//                'hotelcategories' => $hotelcategories,
+//                'Hotelcategory' => $Hotelcategory
+//            ));
     }
 
     /**
@@ -89,9 +95,14 @@ class HotelCategoriesController extends \BaseController
      */
     public function update($id)
     {
-//        dd(Input::all());
 
-        $hotelcategory = Hotelcategory::findOrFail($id);
+
+
+        try{
+            $hotelcategory = Hotelcategory::findOrFail($id);
+        } catch (ModelNotFoundException $e){
+            return Redirect::to('control-panel/errors/record-not-found');
+        }
 
         $data = Input::all();
 

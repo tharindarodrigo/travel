@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 class HotelsController extends \BaseController
 {
 
@@ -118,7 +120,13 @@ class HotelsController extends \BaseController
 
 
         Session::forget('edit');
-        $hotelprofile = Hotel::find($id);
+
+        try{
+            $hotelprofile = Hotel::findOrFail($id);
+        } catch (ModelNotFoundException $e){
+            return Redirect::to('control-panel/errors/404');
+        }
+
 
         $cancellationpolicy = null;
 
@@ -178,7 +186,11 @@ class HotelsController extends \BaseController
     public function update($id)
     {
 
-        $hotel = Hotel::findOrFail($id);
+        try{
+            $hotel = Hotel::findOrFail($id);
+        } catch (ModelNotFoundException $e){
+            return Redirect::to('control-panel/errors/record-not-found');
+        }
 
         if (Input::has('val')) {
             $rules = ['val'];
@@ -373,9 +385,24 @@ class HotelsController extends \BaseController
 
     public function destroy($id)
     {
-        Hotel::destroy($id);
 
-        return Redirect::back();
+        try{
+            $delete = Hotel::destroy($id);
+
+            $files = File::glob('public/control-panel-assets/images/room-images/'.$id.'_*');
+
+            if(!empty($files)){
+                foreach($files as $file){
+                    File::delete('public/control-panel-assets/images/room-images/'.$file);
+                }
+            }
+
+            return Redirect::back();
+        } catch (Exception $e){
+
+            Session::flash('error-msg','You are not allowed to delete this Record. Instead You can deactivate the record');
+            return Redirect::back();
+        }
     }
 
     public function createCancellationPolicy($id)

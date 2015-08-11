@@ -62,6 +62,7 @@ class MealBasesController extends \BaseController
     {
         $mealbasis = Mealbasis::findOrFail($id);
 
+
         return View::make('mealbases.show', compact('mealbasis'));
     }
 

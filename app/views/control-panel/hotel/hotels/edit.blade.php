@@ -43,6 +43,10 @@
 @section('content')
 <div class="col-md-12">
 
+    <div class="callout callout-info">
+        <p><b><em>Note : </em></b>Make Sure you save changes before you switch to other tabs! Information may get lost</p>
+    </div>
+
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
         <li class="{{{ !Session::has('manage') ? 'active':'' }}}"><a aria-expanded="true" href="#tab_1" data-toggle="tab">Details</a></li>
@@ -52,6 +56,7 @@
         <li class="{{{ Session::get('manage')=='termsAndConditions'? 'active':'' }}}"><a aria-expanded="false" href="#tab_5" data-toggle="tab">Terms & Conditions</a></li>
         <li class="{{{ Session::get('manage')=='images'? 'active':'' }}}"><a aria-expanded="false" href="#tab_6" data-toggle="tab">Hotel Images</a></li>
     </ul>
+
     <div class="tab-content">
         <div class="tab-pane {{{ !Session::has('manage') ? 'active':'' }}}" id="tab_1">
             {{--Hotel Details Page--}}
@@ -68,14 +73,18 @@
             {{--Location Details--}}
 
             {{ Form::model($hotelprofile, array('route' => array('control-panel.hotel.hotels.update',$hotelprofile->id), 'method'=>'put')) }}
-            <div class="row">
+
 
                 @include('control-panel.hotel.hotels.partials.location')
-                <div class="form-group">
-                    {{ Form::submit('Update Location', array('class' => 'btn btn-primary' , 'name' => 'update_location' )) }}
-                </div>
 
-            </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md4">
+                            {{ Form::submit('Update Location', array('class' => 'btn btn-primary' , 'name' => 'update_location' )) }}
+
+                        </div>
+                    </div>
+                </div>
             {{Form::close()}}
 
         </div><!-- /.tab-pane -->
@@ -90,7 +99,9 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
+                    <div class="form-group">
                     {{ Form::submit('Update Hotel Facilities', array('class' => 'btn btn-primary' , 'name' => 'update_hotel_facilities' )) }}
+                    </div>
                 </div>
             </div>
             {{Form::close()}}
@@ -105,8 +116,10 @@
             {{ Form::model($hotelprofile, array('route' => array('control-panel.hotel.hotels.update', $hotelprofile->id), 'method'=> 'put')) }}
             @include('control-panel.hotel.hotels.partials.termsAndConditions')
             <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
+                <div class="col-md4">
                 {{ Form::submit('Update Terms & Conditions', array('class' => 'btn btn-primary' , 'name' => 'update_terms_and_conditions' )) }}
+                </div>
             </div>
             </div>
             {{Form::close()}}

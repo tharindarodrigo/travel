@@ -3,7 +3,8 @@
 @section('room-content')
 <div class="row">
     <div class="col-md-12">
-    {{Form::model($roomtype, array('route'=>array('control-panel.hotel.hotels.room-types.edit',$hotelid, $roomtype->id), 'id'=>'form','method'=> 'post', 'files'=>true))}}
+
+    {{Form::model($roomtype, array('route'=>array('control-panel.hotel.hotels.room-types.update',$hotelid, $roomtype->id), 'id'=>'form','method'=>'patch', 'files'=>true))}}
         <div class="col-md-6">
 
             <div class="nav-tabs-custom">
@@ -107,26 +108,66 @@
                         </div>
                     </div>
                     <div style="display: block;" class="box-body">
-                            <div id="images-to-upload" class="row">
 
-                            </div>
-                            <div class="form-group">
-                                {{ Form::file('images[]', array('multiple'=>true, 'id'=>'images')) }}
-                                {{--<input type="file" name="images[]" multiple/>--}}
+                        <div class="form-group">
+                            {{ Form::file('images[]', array('multiple'=>true, 'id'=>'images')) }}
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit" id="room_type_submit" value="">Update Room Type</button>
+                        </div>
+                    </div>
+            </div>
+        </div>
 
-                            </div>
+        </div>
+        {{Form::close()}}
+
+        {{Form::open(array('route' => array('control-panel.hotel.hotels.room-types.update',$hotelid, $roomtype->id), 'method'=>'patch'))}}
+
+        <div class="col-md-6">
+            <div class="nav-tabs-custom">
+                <div class="box">
+                    <div class="box-header with-border box-primary">
+                        <h3 class="box-title">Images</h3>
+                        <div class="box-tools pull-right">
+                            <button data-original-title="Collapse" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title=""><i class="fa fa-minus"></i></button>
+                            {{--<button data-original-title="Remove" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title=""><i class="fa fa-times"></i></button>--}}
+                        </div>
+                    </div>
+                    <div style="display: block;" class="box-body">
+
+                        <div class="form-group">
+                                @if(!empty($roomImages))
+                                    @foreach($roomImages as $image)
+
+                                        <div class="col-md-4">
+                                            <div class="checkbox">
+                                                {{ Form::checkbox('files_to_delete[]', $image) }}
+                                                {{ HTML::image('control-panel-assets/images/room-images/'.$image, 'a picture', array('class' => 'thumb', 'width'=>100, 'height'=>75)) }}
+                                            </div>
+                                        </div>
+
+                                    @endforeach
+                                @endif
+                        </div>
+
 
                     </div><!-- /.box-body -->
                     <div style="display: block;" class="box-footer">
-                        <button class="btn btn-primary" type="submit" id="room_type_submit">Add Room Type</button>
+                        <div class="form-group">
+                            {{Form::submit('Delete Selected Images',array('class'=>'btn btn-danger col-md-offset-4', 'name'=>'delete_images'))}}
+
+                        </div>
+
                     </div><!-- /.box-footer-->
 
                 </div>
             </div>
         </div>
-    {{Form::close()}}
-    </div>
 
+        {{Form::close()}}
+
+    </div>
 </div>
 
 

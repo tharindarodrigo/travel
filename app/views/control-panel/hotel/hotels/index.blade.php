@@ -3,11 +3,20 @@
 @section('content')
 
 <section>
+<div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header">
                 <h3 class="box-title"><b>Search / Update / Delete</b> Hotel List</h3>
+                {{link_to_route('control-panel.hotel.hotels.create', 'Create New Hotel', null, array('class' =>'btn btn-primary pull-right'))}}
             </div><!-- /.box-header -->
             <div class="box-body table-responsive">
+                @if(Session::has('error-msg'))
+                    <div class="alert alert-warning alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h5><i class="icon fa fa-warning"></i> Alert!</h5>
+                        {{Session::pull('error-msg')}}
+                     </div>
+                @endif
                 <table id="hotel-list" class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -77,5 +86,6 @@
             </table>
         </div><!-- /.box-body -->
     </div><!-- /.box -->
-
+</div>
+</section>
 @endsection

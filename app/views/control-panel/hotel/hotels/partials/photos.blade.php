@@ -4,7 +4,10 @@
 
 
         {{ Form::file('images[]', array('multiple'=>true)) }}
-        {{Form::submit('Add more Images', array('class'=>'btn btn-primary', 'name'=> 'add_more_images'))}}
+
+    </div>
+    <div class="form-group">
+            {{Form::submit('Add more Images', array('class'=>'btn btn-primary', 'name'=> 'add_more_images'))}}
 
     </div>
 </div>
@@ -24,8 +27,8 @@
             @endforeach
         @endif
     </div>
-
 </div>
+
 <div class="col-md-12">
     <div class="form-group">
         <div class="col-md-offset-5">

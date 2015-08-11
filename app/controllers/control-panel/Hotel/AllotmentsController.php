@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 class AllotmentsController extends \BaseController {
 
 	/**
@@ -243,7 +245,12 @@ class AllotmentsController extends \BaseController {
 	public function edit($hotelid,$id)
 	{
         $allotments = Allotment::all();
-		$allotment = Allotment::find($id);
+
+        try{
+            $allotment = Allotment::findOrFail($id);
+        } catch (ModelNotFoundException $e){
+            return Redirect::to('control-panel/errors/404');
+        }
         Session::flash('edit','edit');
 
 		return View::make('control-panel.hotel.allotments.allotments', compact('hotelid','allotment', 'allotments'));

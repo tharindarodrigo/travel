@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 class RoomTypesController extends \BaseController {
 
 	/**
@@ -44,15 +46,10 @@ class RoomTypesController extends \BaseController {
 	 */
 	public function store($hotel_id)
 	{
-
-//        dd(Input::all());
-
         $data = Input::all();
         $data['hotel_id'] = $hotel_id;
         $data['user_id'] = Auth::user()->id;
         $data['val'] = 1;
-
-//        dd($data);
 
 
         $validator = Validator::make($data, Roomtype::$rules);
@@ -89,7 +86,6 @@ class RoomTypesController extends \BaseController {
             }
 
             $images = Input::file('images');
-//            dd(count($images));
             if(count($images)>1){
                 $x=1;
                 foreach($images as $image){
@@ -105,6 +101,7 @@ class RoomTypesController extends \BaseController {
 
 		return Redirect::route('control-panel.hotel.hotels.room-types.create',$hotel_id);
 	}
+
 
 	/**
 	 * Display the specified roomtype.
@@ -128,8 +125,11 @@ class RoomTypesController extends \BaseController {
 	public function edit($hotelid,$id)
 	{
 
-
-		$roomtype = Roomtype::find($id);
+        try{
+            $roomtype = Roomtype::find($id);
+        } catch (ModelNotFoundException $e){
+            return Redirect::to('control-panel/errors/recordNotFound');
+        }
 
         $roomfacilitieslist = RoomFacility::all();
         $roomfacilities = DB::table('room_facility_room_type')->where('room_type_id', $id)->select(array('room_facility_id'))->get();
@@ -146,14 +146,14 @@ class RoomTypesController extends \BaseController {
             $checkedroomspecifications[] = $roomspecification->room_specification_id;
         }
 
-        $hotelImages = array();
-        $hotelimages = File::glob('public/control-panel-assets/images/room-images/'.$id.'_*');
-        foreach($hotelimages as $hotelimage){
-            $hotelImages[] = basename($hotelimage);
+        $roomImages = array();
+        $roomImageList = File::glob('public/control-panel-assets/images/room-images/'.$id.'_*');
+//        dd($roomImages);
+        foreach($roomImageList as $roomImage){
+            $roomImages[] = basename($roomImage);
         }
 
-
-        return View::make('control-panel.hotel.rooms.edit', compact('roomtype', 'hotelid', 'roomfacilitieslist', 'checkedroomfacilities','roomspecificationlist', 'checkedroomspecifications'));
+        return View::make('control-panel.hotel.rooms.edit', compact('roomtype', 'hotelid', 'roomfacilitieslist', 'checkedroomfacilities','roomspecificationlist', 'checkedroomspecifications', 'roomImages'));
 	}
 
 	/**
@@ -164,6 +164,17 @@ class RoomTypesController extends \BaseController {
 	 */
 	public function update($hotelid, $id)
 	{
+
+        if(Input::has('delete_images')){
+
+            $files = Input::get('files_to_delete');
+            foreach($files as $file){
+                File::delete('public/control-panel-assets/images/room-images/'.$file);
+            }
+
+            return Redirect::back();
+        }
+
 		$roomtype = Roomtype::findOrFail($id);
 
 
@@ -180,14 +191,48 @@ class RoomTypesController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-        $roomfacilities = explode(',',Input::get('room_facility_id'));
-        $roomspecifications = explode(',',Input::get('room_specification_id'));
+
+        if (Input::hasFile('images')) {
+            $files = Input::file('images');
+
+            foreach($files as $file){
+                Image::make($file)
+                    ->encode('jpg')
+                    ->save('public/control-panel-assets/images/room-images/' . $roomtype->id . '_' .str_random(10). '.jpg');
+            }
+        }
 
 
+
+        $roomfacilities = Input::get('room_facility_id');
+        DB::table('room_facility_room_type')->where('room_type_id', $id)->delete();
+
+        foreach($roomfacilities as $roomfacility){
+            $roomfacilitydata = array(
+                'room_facility_id' => $roomfacility,
+                'room_type_id' => $id
+            );
+
+            DB::table('room_facility_room_type')->insert($roomfacilitydata);
+        }
+
+
+
+        $roomspecifications = Input::get('room_specification_id');
+        DB::table('room_specification_room_type')->where('room_type_id', $id)->delete();
+
+        foreach($roomspecifications as $roomspecification){
+            $roomfacilitydata = array(
+                'room_specification_id' => $roomspecification,
+                'room_type_id' => $id
+            );
+
+            DB::table('room_specification_room_type')->insert($roomfacilitydata);
+        }
 
 		$roomtype->update($data);
 
-		return Redirect::route('control-panel.hotel.hotels.room-types.index', $hotelid, $id);
+		return Redirect::back();
 	}
 
 	/**
@@ -198,9 +243,30 @@ class RoomTypesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		Roomtype::destroy($id);
 
-		return Redirect::route('roomtypes.index');
-	}
+
+        try{
+
+            $delete = Roomtype::destroy($id);
+
+            $files = File::glob('public/control-panel-assets/images/room-images/'.$id.'_*');
+
+            if(!empty($files)){
+                foreach($files as $file){
+                    File::delete('public/control-panel-assets/images/room-images/'.$file);
+                }
+            }
+
+
+            return Redirect::back();
+
+        } catch (Exception $e){
+
+            Session::flash('error-msg','You are not allowed to delete this Record. Instead You can deactivate record');
+            return Redirect::back();
+        }
+
+
+    }
 
 }

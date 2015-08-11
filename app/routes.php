@@ -199,6 +199,7 @@ Route::group(array('prefix' => 'control-panel'), function () {
         return View::make('control-panel.index');
     });
 
+
     Route::group(array('prefix' => 'general'), function(){
 
         Route::resource('cities', 'CitiesController');
@@ -320,6 +321,23 @@ Route::group(array('prefix' => 'control-panel'), function () {
     Route::group(array('prefix' => 'excursions'), function(){
         Route::resource('excursion-types','ExcursionTypesController');
         Route::resource('excursion_transport_types','ExcursionTransportTypesController');
+    });
+
+    /**
+     * -------------------------------------------------------------------------------------------------------------
+     *  control-panel/errors
+     *--------------------------------------------------------------------------------------------------------------
+     */
+
+    Route::group(array('prefix'=>'errors'), function(){
+
+        Route::get('/404', function(){
+            return View::make('control-panel.errors.404');
+        });
+        Route::get('/record-not-found', function(){
+            return View::make('control-panel.errors.recordNotFound');
+        });
+
     });
 
 

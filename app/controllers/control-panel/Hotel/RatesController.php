@@ -278,7 +278,13 @@ class RatesController extends \BaseController
      */
     public function edit($hotelid, $id)
     {
-        $rate = Rate::find($id);
+
+        try{
+            $rate = Rate::findOrFail($id);
+        } catch (ModelNotFoundException $e){
+            return Redirect::to('control-panel/errors/404');
+        }
+
         $rates = Rate::where('from', $rate->from)->where('to', $rate->to)->where('room_type_id', $rate->room_type_id)->where('market_id',$rate->market_id)->get();
         $checkedmarketids = array();
 
@@ -311,7 +317,11 @@ class RatesController extends \BaseController
             //return $this->store($hotelid);
         }
 
-        $rate = Rate::findOrFail($id);
+        try{
+            $rate = Rate::findOrFail($id);
+        } catch (ModelNotFoundException $e){
+            return Redirect::to('control-panel/errors/record-not-found');
+        }
 
         $data = Input::all();
 
