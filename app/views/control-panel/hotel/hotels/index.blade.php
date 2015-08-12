@@ -47,7 +47,7 @@
                         {{ $hotel->city->city }}
                     </td>
                     <td>
-                        {{ $hotel->users->first_name.' '.$hotel->users->last_name }}
+                        {{--{{ $hotel->users->first_name.' '.$hotel->users->last_name }}--}}
                     </td>
                     <td>{{ $hotel->val== 0 ? 'Inactive' : 'Active' }}</td>
 

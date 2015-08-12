@@ -16,8 +16,8 @@ class CreateExcursionsTable extends Migration {
 		{
 			$table->increments('id');
             $table->string('excursion');
-            $table->string('short_description');
-            $table->string('description');
+            $table->text('short_description');
+            $table->text('description');
             $table->integer('excursion_type_id')->unsigned();
             $table->boolean('val');
 			$table->timestamps();

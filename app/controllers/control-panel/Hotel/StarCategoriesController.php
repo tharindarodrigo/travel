@@ -48,6 +48,7 @@ class StarCategoriesController extends \BaseController
         }
 
         return Redirect::route('control-panel.hotel.star-categories.index');
+
     }
 
     /**

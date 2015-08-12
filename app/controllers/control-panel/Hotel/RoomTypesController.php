@@ -98,7 +98,6 @@ class RoomTypesController extends \BaseController {
             }
         }
 
-
 		return Redirect::route('control-panel.hotel.hotels.room-types.create',$hotel_id);
 	}
 
@@ -243,7 +242,6 @@ class RoomTypesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-
 
         try{
 

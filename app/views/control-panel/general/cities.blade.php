@@ -41,7 +41,7 @@
                 @if(!Session::has('edit'))
                     {{ Form::open(array('route' => array('control-panel.general.cities.store'))) }}
                 @else
-                    {{ Form::open(array('route' => array('control-panel.general.cities.update',$City->id), 'method' => 'put')) }}
+                    {{ Form::model($City,array('route' => array('control-panel.general.cities.update',$City->id), 'method' => 'put')) }}
                 @endif
 
                 <div class="box-body">
@@ -55,7 +55,7 @@
                     <div class="form-group">
                         <label for="city">City</label>
                         {{--<input id="hotel_category" name="hotel_category" class="form-control" type="text"/>--}}
-                        {{ Form::text('city', Session::get('edit')=='edit' ? $City->city : '', array('class' => 'form-control')) }}
+                        {{ Form::text('city', null, array('class' => 'form-control')) }}
                     </div>
                     {{ $errors->first('city', '<div class="form-group text-red">:message</div>') }}
                     </div>
@@ -63,13 +63,13 @@
                     <div class="form-group">
                         <label for="longitude">Longitude</label>
                         {{--<input id="hotel_category" name="hotel_category" class="form-control" type="text"/>--}}
-                        {{ Form::text('longitude', Session::get('edit')=='edit' ? $City->longitude : '', array('class' => 'form-control')) }}
+                        {{ Form::text('longitude', null, array('class' => 'form-control')) }}
                     </div>
                     {{ $errors->first('longitude', '<div class="form-group text-red">:message</div>') }}
                     <div class="form-group">
                         <label for="latitude">Latitude</label>
                         {{--<input id="hotel_category" name="hotel_category" class="form-control" type="text"/>--}}
-                        {{ Form::text('latitude', Session::get('edit')=='edit' ? $City->latitude : '', array('class' => 'form-control')) }}
+                        {{ Form::text('latitude', null, array('class' => 'form-control')) }}
                     </div>
                     </div>
                     {{ $errors->first('latitude', '<div class="form-group text-red">:message</div>') }}

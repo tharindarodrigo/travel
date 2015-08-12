@@ -31,8 +31,8 @@ class CreateHotelsTable extends Migration {
 
             $table->text('overview');
 
-            $table->string('rooms');
-            $table->string('terms_and_conditions')->nullable();
+            $table->text('rooms');
+            $table->text('terms_and_conditions')->nullable();
             $table->string('infant_age')->nullable();
             $table->string('infant_charge')->nullable();
 
