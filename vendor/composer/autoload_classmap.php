@@ -105,6 +105,7 @@ return array(
     'TaxesController' => $baseDir . '/app/controllers/control-panel/Hotel/TaxesController.php',
     'TestCase' => $baseDir . '/app/tests/TestCase.php',
     'Tour' => $baseDir . '/app/models/Tour.php',
+    'TourController' => $baseDir . '/app/controllers/TourController.php',
     'TourType' => $baseDir . '/app/models/TourType.php',
     'TourTypesController' => $baseDir . '/app/controllers/control-panel/Tours/TourTypesController.php',
     'ToursController' => $baseDir . '/app/controllers/control-panel/Tours/ToursController.php',

@@ -4,16 +4,19 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Hotel list </title>
+    <title> srilankahotel.travel - Tour List </title>
 
 @endsection
 
 @section('custom_style')
 
     <style type="text/css">
-        .hotel_img_1 {
-            width: 325px;
-            height: 250px;
+        a {
+            text-decoration: none !important;
+        }
+
+        .grey:hover {
+            color: #000000;
         }
 
         .collapsebtn {
@@ -24,116 +27,11 @@
         h4 {
             color: #006699;
         }
-    </style>
-
-    <style type="text/css">
-        .search_thumb {
-            width: 25px;
-            height: 25px;
-        }
-
-        /* SEARCH FORM */
-
-        #suggestions {
-            color: #FFFFFF !important;
-            background: #FFFFFF;
-            position: relative;
-            top: 5px;
-            left: 0px;
-            /*width: 100%;*/
-            display: none;
-        }
-
-        div .auto_complete:hover {
-            width: 100%;
-            background: #006699;
-        }
-
-        .auto_complete:hover a {
-            text-decoration: none;
-            color: #FFFFFF !important;
-        }
-
-        /* SEARCHRESULTS */
-
-        #searchresults {
-            border-width: 1px;
-            border-color: #919191;
-            border-style: solid;
-            width: 320px;
-            background-color: #a0a0a0;
-            font-size: 10px;
-            line-height: 14px;
-        }
-
-        #searchresults a {
-            display: block;
-            background-color: #e4e4e4;
-            clear: left;
-            height: 56px;
-            text-decoration: none;
-        }
-
-        #searchresults a:hover {
-            background-color: #FFFFFF;
-            text-decoration: none;
-            color: #000000 !important;
-        }
-
-        #searchresults a img {
-            float: left;
-            padding: 5px 10px;
-        }
-
-        #searchresults a span.searchheading {
-            display: block;
-            font-weight: bold;
-            padding-top: 5px;
-            color: #191919;
-        }
-
-        #searchresults a:hover span.searchheading {
-            color: #000000;
-        }
-
-        #searchresults a span {
-            color: #555555;
-        }
-
-        #searchresults a:hover span {
-            background: #000066;
-            color: #FFFFFF !important;
-        }
-
-        #searchresults span.category {
-            font-size: 11px;
-            margin: 5px;
-            display: block;
-            color: #000000;
-        }
-
-        #searchresults span.seperator {
-            float: right;
-            padding-right: 15px;
-            margin-right: 5px;
-            background-image: url(../images/shortcuts_arrow.gif);
-            background-repeat: no-repeat;
-            background-position: right;
-        }
-
-        #searchresults span.seperator a {
-            background-color: transparent;
-            display: block;
-            margin: 5px;
-            height: auto;
-            color: #000000;
-        }
-
-        .grey:hover {
-            color: #000000;
-        }
 
     </style>
+
+    <!-- Updates -->
+    {{ HTML::style('updates/update1/css/style01.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
     <!-- bin/jquery.slider.min.css -->
     {{ HTML::style('plugins/jslider/css/jslider.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
@@ -147,8 +45,6 @@
     {{ HTML::script('plugins/jslider/js/draggable-0.1.js') }}
     {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
     <!-- end -->
-
-    {{--<script type="text/javascript" src="http://www.google.com/jsapi"></script>--}}
 
 @endsection
 
@@ -167,17 +63,17 @@
             <div class="left">
                 <ul class="bcrumbs">
                     <li>/</li>
-                    {{--                    <li><a href="#">{{ Breadcrumbs::render('home') }}</a></li>--}}
+                    <li><a href="#">Activities</a></li>
                     <li>/</li>
-                    <li><a href="#">U.S.A.</a></li>
+                    <li><a href="#">U.A.E.</a></li>
                     <li>/</li>
-                    <li><a href="#" class="active">New York</a></li>
+                    <li><a href="#" class="active">Dubai</a></li>
                 </ul>
             </div>
             <a class="backbtn right" href="#"></a>
         </div>
         <div class="clearfix"></div>
-        {{--<div class="brlines"></div>--}}
+        <div class="brlines"></div>
     </div>
 
     <!-- CONTENT -->
@@ -190,11 +86,14 @@
                 <!-- TOP TIP -->
                 <div class="filtertip">
                     <div class="padding20">
-                        <p class="size13"><span class="size18 bold counthotel">53</span> Hotels starting at </p>
+                        <p class="size13"><b
+                                    class="size30 bold"> {{ TourType::where('tour_id', '=', $tour_id)->count();}} </b>
+                            Results Found
 
-                        <p class="size30 bold">$<span class="countprice"></span></p>
+                        <p class="size30 bold"><span class="size13 normal darkblue">In</span>
+                            {{ str_replace('-', ' ', Request::segment(3)) }}
+                        </p>
 
-                        <p class="size13">Narrow results or <a href="#">view all</a></p>
                     </div>
                     <div class="tip-arrow"></div>
                 </div>
@@ -469,52 +368,31 @@
                 <!-- END OF BOOK FILTERS -->
 
                 <div class="line2"></div>
-                <?php $city_or_acc = Request::segment(2); ?>
+
                 <div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
+
                 <div class="line2"></div>
+
+                {{ Form::open(array('url' => 'sri-lanka/tour/filter', 'method' => 'POST', 'id'=>'tour_form')) }}
 
                 <!-- Star ratings -->
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse1">
-                    Star rating <span class="collapsearrow"></span>
+                    Tour Packages <span class="collapsearrow"></span>
                 </button>
-                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'star_rating_form')) }}
+
                 <div id="collapse1" class="collapse in">
                     <div class="hpadding20">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="5" name="star_rating[]" class="star_category">
-                                {{ HTML::image('images/filter-rating-5.png', '', array('class' => 'imgpos1'))}}
-                                5 Stars
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <input type="checkbox" value="4" name="star_rating[]" class="star_category">
-                            <label>
-                                {{ HTML::image('images/filter-rating-4.png', '', array('class' => 'imgpos1'))}}
-                                4 Stars
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <input type="checkbox" value="3" name="star_rating[]" class="star_category">
-                            <label>
-                                {{ HTML::image('images/filter-rating-3.png', '', array('class' => 'imgpos1'))}}
-                                3 Stars
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <input type="checkbox" value="2" name="star_rating[]" class="star_category">
-                            <label>
-                                {{ HTML::image('images/filter-rating-2.png', '', array('class' => 'imgpos1'))}}
-                                2 Stars
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <input type="checkbox" value="1" name="star_rating[]" class="star_category">
-                            <label>
-                                {{ HTML::image('images/filter-rating-1.png', '', array('class' => 'imgpos1'))}}
-                                1 Star
-                            </label>
-                        </div>
+                        <?php $x = 1; ?>
+                        @foreach($filter_tours as $tour)
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="tour" id="tour{{ $x }}"
+                                           value="{{ $tour->id }}" class="tour_select">
+                                    {{ $tour->tour_title }}
+                                </label>
+                            </div>
+                            <?php $x++ ?>
+                        @endforeach
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -523,100 +401,18 @@
 
                 <div class="line2"></div>
 
-                <!-- Price range -->
-                <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
-                    Price range <span class="collapsearrow"></span>
-                </button>
-                <div id="collapse2" class="collapse in">
-                    <div class="padding20">
-                        <div class="layout-slider wh100percent">
-                            <span class="cstyle09">
-                                <input id="Slider1" type="slider" name="price" value="200;700"/>
-                            </span>
-                        </div>
-
-                        <!-- bin/jquery.slider.min.js -->
-                        {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
-                        {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
-                        <!-- end -->
-
-                        <script type="text/javascript">
-                            jQuery("#Slider1").slider({
-                                from: 10,
-                                to: 1000,
-                                step: 5,
-                                smooth: true,
-                                round: 0,
-                                dimension: "&nbsp;$",
-                                skin: "round"
-                            });
-                        </script>
-                    </div>
-                </div>
-                <!-- End of Price range -->
-
-                <div class="line2"></div>
-
-                <!-- Accommodation -->
-                <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
-                    Accommodation type <span class="collapsearrow"></span>
-                </button>
-                {{ Form::open(array('url' => '/sri-lanka/filter', 'method' => 'POST', 'id'=>'accommodation_form')) }}
-                <div id="collapse3" class="collapse in">
-                    <div class="hpadding20">
-                        <?php $x = 1; ?>
-                        @foreach($hotel_type as $accommodation)
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="accommodation" id="Acomodation{{ $x }}"
-                                           value="{{ $accommodation->id }}" class="acc_select">
-                                    {{ $accommodation->hotel_category }}
-                                </label>
-                            </div>
-                            <?php $x++ ?>
-                        @endforeach
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <!-- End of Accommodations -->
-                {{ Form::close() }}
-                <div class="line2"></div>
-
-                <!-- Hotel Preferences -->
+                {{ Form::open(array('url' => 'sri-lanka/tour/filter', 'method' => 'POST', 'id'=>'tour_city_form')) }}
+                <!-- Activities type -->
                 <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse4">
-                    Hotel Facilities <span class="collapsearrow"></span>
+                    City <span class="collapsearrow"></span>
                 </button>
-                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'facility_form')) }}
                 <div id="collapse4" class="collapse in">
                     <div class="hpadding20">
-                        @foreach($hotel_facilities as $facility)
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="{{ $facility->id }}" name="facility[]"
-                                           class="hot_facility">
-                                    {{ $facility->hotel_facility }}
-                                </label>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <!-- End of Hotel Preferences -->
-                {{ Form::close() }}
-                <div class="line2"></div>
-
-                <!-- Cities -->
-                <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse5">
-                    Cities <span class="collapsearrow"></span>
-                </button>
-                {{ Form::open(array('url' => '/sri-lanka/filter', 'method' => 'POST', 'id'=>'city_form')) }}
-                <div id="collapse5" class="collapse in">
-                    <div class="hpadding20">
-                        @foreach($hotel_cities as $city)
+                        @foreach($filter_cities as $city)
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="city" id="City{{ $x }}"
-                                           value="{{ $city->id }}" class="city_select">
+                                    <input type="radio" name="tour_city" id="tour_city{{ $x }}"
+                                           value="{{ $city->id }}" class="tour_city_select">
                                     {{ $city->city }}
                                 </label>
                             </div>
@@ -624,8 +420,10 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <!-- End of Cities -->
+                <!-- End of Activities type  -->
+
                 {{ Form::close() }}
+
                 <div class="line2"></div>
                 <div class="clearfix"></div>
                 <br/>
@@ -640,53 +438,10 @@
 
                 <div class="hpadding20">
 
-                    <!-- Top filters -->
-                    <div class="topsortby">
-                        <div class="col-md-4 offset-0">
+                    <h1 style="color: #006699; font-family: 'Cinzel', serif; "> {{ str_replace('-', ' ', Request::segment(3)) }} </h1>
 
-                            <div class="left mt7"><b>Sort by:</b></div>
+                    <div class="line4"></div>
 
-                            <div class="right wh70percent">
-                                <select class="form-control mySelectBoxClass ">
-                                    <option selected>Guest rating</option>
-                                    <option>5 stars</option>
-                                    <option>4 stars</option>
-                                    <option>3 stars</option>
-                                    <option>2 stars</option>
-                                    <option>1 stars</option>
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="col-md-4">
-                            <div class="w50percent">
-                                <div class="wh90percent">
-                                    <select class="form-control mySelectBoxClass ">
-                                        <option selected>Name</option>
-                                        <option>A to Z</option>
-                                        <option>Z to A</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="w50percentlast">
-                                <div class="wh90percent">
-                                    <select class="form-control mySelectBoxClass ">
-                                        <option selected>Price</option>
-                                        <option>Ascending</option>
-                                        <option>Descending</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 offset-0">
-                            <button class="popularbtn left">Most Popular</button>
-                            <div class="right">
-                                <a class="listbtn {{ Session::get('hot_view') == 1 ? 'active' : '' }}"  href="{{URL::to($list_url)}}"></a>
-                                <a class="gridbtn {{ Session::get('hot_view') == 2 ? 'active' : '' }}" href="{{URL::to($grid_url)}}"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End of topfilters-->
                 </div>
                 <!-- End of padding -->
 
@@ -694,24 +449,23 @@
 
                 <div class="clearfix"></div>
 
-                    <div class="itemscontainer offset-1">
+                <div class="itemscontainer offset-1">
 
-                        @foreach($hotels as $hotel)
+                    @foreach($tours as $types)
+
+                        <?php
+                        $directory = 'images/tour_images/';
+                        $images = glob($directory . $types->id . "*.*");
+                        $img_path = array_shift($images);
+                        ?>
 
                         <div class="offset-2">
                             <div class="col-md-4 offset-0">
                                 <div class="listitem2">
 
-                                    <?php
-                                    $directory = 'images/hotel_images/';
-                                    $images = glob($directory . $hotel->id . "_" . "*.*");
-                                    $img_path = array_shift($images);
-                                    ?>
-
                                     <a href="<?php echo 'http://localhost/travel/public/' . $img_path; ?>"
-                                       data-title="{{ $hotel->name }}" data-gallery="multiimages"
+                                       data-title="{{ $types->tour_type_title }}" data-gallery="multiimages"
                                        data-toggle="lightbox">
-
 
                                         @if(count($img_path)>0)
                                             {{ HTML::image($img_path, '', array('class' => 'hotel_img_1'))}}
@@ -719,99 +473,66 @@
                                             {{ HTML::image('images/no-image.jpg', '', array('class' => 'property_img_1')) }}
                                         @endif
 
-                                        <div class="liover"></div>
-                                        <a class="fav-icon" href="#"></a>
-                                        <?php
-                                        $city_id = $hotel->city_id;
-                                        $get_city = DB::table('cities')->where('id', $city_id)->first();
-                                        $city = $get_city->city;
-                                        ?>
-                                        <a class="book-icon"
-                                           href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"></a>
                                     </a>
+
+                                    <div class="liover"></div>
+                                    <a class="fav-icon" href="#"></a>
+
+                                    <a class="book-icon"
+                                       href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $types->Tour->tour_title).'/'.str_replace(' ', '-', $types->tour_type_title))}}"></a>
+
                                 </div>
                             </div>
+
                             <div class="col-md-8 offset-0">
-                                <div class="itemlabel3">
-
+                                <div class="itemlabel4">
                                     <div class="labelright">
-                                        <?php
-                                        $stars = $hotel->star_category_id;
-                                        $star = DB::table('star_categories')->where('id', $stars)->first();
-                                        $hotel_star = $star->stars;
-                                        ?>
 
-                                        {{ Star::star_loop_blue($hotel_star)}}<br/><br/><br/>
+                                        {{--@if(!empty($types->rate))--}}
+                                        {{--<br/><span class="green size18"><b>{{ $types->rate }}</b></span><br/>--}}
+                                        {{--<span class="size11 grey">/person</span><br/><br/><br/>--}}
+                                        {{--@else--}}
+                                        {{--<span class="green size18"><b> No Rate Available </b></span><br/>--}}
+                                        {{--@endif--}}
 
-                                        {{ HTML::image('images/user-rating-5.png', '')}}<br/><br/>
+                                        {{--<span class="size11 grey"></span><br/><br/><br/>--}}
 
-                                        @if(!empty($hotel->hotelReview->count()))
-                                            <span class="size11 grey"> {{ $hotel->hotelReview->count(); }}
-                                                Reviews </span><br/><br/>
-                                        @else
-                                            <span class="size11 grey">
-                                                No Reviews </span><br/><br/>
-                                        @endif
+                                        <a class="bookbtn mt1"
+                                           href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $types->Tour->tour_title).'/'.str_replace(' ', '-', $types->tour_type_title))}}">
+                                            Book
+                                        </a>
 
-                                        <?php $low_hotel_rate = RoomRates::lowestHotelRate($hotel->id, $st_date, $ed_date); ?>
-
-                                        @if(!empty($low_hotel_rate))
-                                            <span class="green size18">
-                                            <b>
-                                                USD {{ $low_hotel_rate }}
-                                            </b>
-                                            </span>
-                                            <br/>
-                                            <span class="size11 grey">avg/night</span><br/><br/>
-                                        @else
-                                            <span class="green">
-                                                No Rate Available
-                                                <br/><br/>
-                                            </span>
-                                        @endif
-
-                                        <form action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
-                                            <button class="bookbtn mt1" type="submit"> Book</button>
-                                        </form>
                                     </div>
-
                                     <div class="labelleft2">
-                                        <a href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"
-                                           style="text-decoration: none"><h4> {{ $hotel->name }} </h4><br/></a>
 
-                                        <p class="grey">
-                                            {{ $hotel->overview; }}
-                                        </p>
-                                        <br/>
+                                        <a href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $types->tour->tour_title).'/'.str_replace(' ', '-', $types->tour_type_title))}}">
+                                            <span class="size16">
+                                                <h4 style="color: #006699; font-family: 'Play', sans-serif;">{{ $types->tour_type_title }}</h4>
+                                            </span>
+                                        </a>
 
-                                        <ul class="hotelpreferences">
-                                            <?php
-                                            $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
-                                            ?>
-                                            @foreach($hotel_facilities->hotelFacility as $hotel_facility)
-                                                <li class="{{ $hotel_facility->name; }}"></li>
-                                            @endforeach
-                                        </ul>
+                                        <div class="line4"></div>
+
+                                        <p class="grey size14 lh6">
+                                            {{ $types->short_description }}.
+                                        </p><br/>
 
                                     </div>
-
                                 </div>
                             </div>
                         </div>
 
                         <div class="clearfix"></div>
-
                         <div class="offset-2">
                             <hr class="featurette-divider3">
                         </div>
+                    @endforeach
 
-                        @endforeach
-
-                    </div>
-                    <!-- End of offset1-->
+                </div>
+                <!-- End of offset1-->
 
                 <div class="hpadding20" align="right">
-                    {{ $hotels->links() }}
+                    {{ $tours->links() }}
                 </div>
 
             </div>
@@ -836,13 +557,8 @@
         <!-- Counter -->
         {{ HTML::script('assets/js/counter.js') }}
 
-        <!-- Picker -->
-        {{ HTML::script('assets/js/jquery-ui.js') }}
-
         <!-- Custom js -->
         {{ HTML::script('js/my_script.js') }}
-
-
 
     @endsection
 

@@ -15,6 +15,11 @@
             width: 200px;
             height: 180px;
         }
+
+        .fwimg {
+            width: 797px;
+            height: 107px;
+        }
     </style>
 
 @endsection
@@ -125,14 +130,21 @@
 
                 <div class="col-md-4">
                     <div class="shadow cstyle05">
-                        <div class="fwi one"><img src="images/hotel_images/bentota.jpg" alt="" height="100%"/>
+                        <div class="fwi one">
+                            <img src="images/hotel_images/bentota.jpg" alt="" height="100%"/>
 
-                            <div class="mhover none"><span class="icon"><a href="list4.html"><img
-                                                src="images/spacer.png"
-                                                alt=""/></a></span></div>
+                            <div class="mhover none">
+                                <span class="icon">
+                                    <a href="list4.html">
+                                        <img src="images/spacer.png" alt=""/>
+                                    </a>
+                                </span>
+                            </div>
                         </div>
-                        <div class="ctitle" style="font-size: 16px;"> Bentota Beach Hotel <a href="list4.html"><img
-                                        src="images/spacer.png" alt=""/></a>
+                        <div class="ctitle" style="font-size: 16px;"> Bentota Beach Hotel
+                            <a href="list4.html">
+                                <img src="images/spacer.png" alt=""/>
+                            </a>
                             <span>$59.99</span>
                         </div>
                     </div>
@@ -140,14 +152,21 @@
 
                 <div class="col-md-4">
                     <div class="shadow cstyle05">
-                        <div class="fwi one"><img src="images/hotel_images/Hibiscus.jpg" alt="" height="100%"/>
+                        <div class="fwi one">
+                            <img src="images/hotel_images/bentota.jpg" alt="" height="100%"/>
 
-                            <div class="mhover none"><span class="icon"><a href="list4.html"><img
-                                                src="images/spacer.png"
-                                                alt=""/></a></span></div>
+                            <div class="mhover none">
+                                <span class="icon">
+                                    <a href="list4.html">
+                                        <img src="images/spacer.png" alt=""/>
+                                    </a>
+                                </span>
+                            </div>
                         </div>
-                        <div class="ctitle" style="font-size: 16px;"> Hibiscus Beach Hotel <a href="list4.html"><img
-                                        src="images/spacer.png" alt=""/></a>
+                        <div class="ctitle" style="font-size: 16px;"> Bentota Beach Hotel
+                            <a href="list4.html">
+                                <img src="images/spacer.png" alt=""/>
+                            </a>
                             <span>$59.99</span>
                         </div>
                     </div>
@@ -158,12 +177,12 @@
 
         <div class="lastminute3">
             <div class="container">
-                {{--<img src="images/rating-4.png" alt=""/> <br />--}}
-                {{--LAST MINUTE: <b>Barcelona</b> - 2 nights - Flight+4* Hotel, Dep 27h Aug from $209/person<br/>--}}
+                <img src="images/rating-4.png" alt=""/> <br/>
+                LAST MINUTE: <b>Barcelona</b> - 2 nights - Flight+4* Hotel, Dep 27h Aug from $209/person<br/>
 
-                {{--<form action="details.html">--}}
-                {{--<button class="btn iosbtn" type="submit">Read more</button>--}}
-                {{--</form>--}}
+                <form action="details.html">
+                    <button class="btn iosbtn" type="submit">Read more</button>
+                </form>
             </div>
         </div>
 
@@ -174,141 +193,113 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="lbl">
-                            <a href="list4.html"><img src="images/egypt-thumb.jpg" alt="" class="fwimg"></a>
+                            <a href="">
+                                {{ HTML::image('images/tour_images/tour_banner.png', '', array('class' => 'fwimg'))}}
+                            </a>
 
                             <div class="smallblacklabel">Tours</div>
                         </div>
+                        @foreach($tour as $tours)
+                            <div class="deal">
+                                <a href="#">
+                                    <img src="images/site/1.png" alt="" class="dealthumb"/>
+                                </a>
 
-                        <div class="deal">
-                            <a href="details.html"><img src="images/site/1.png" alt="" class="dealthumb"/></a>
-
-                            <div class="dealtitle">
-                                <p><a href="details.html" class="dark">Diana Hotel</a></p>
-                                <img src="images/smallrating-4.png" alt="" class="mt-10"/><span
-                                        class="size13 grey mt-9">Zakynthos</span>
+                                <div class="dealtitle">
+                                    <p>
+                                        <a href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $tours->tour_title))}}"
+                                           class="dark">{{ $tours->tour_title }}</a>
+                                    </p>
+                                    {{ HTML::image('images/smallrating-4.png', '', array('class' => 'mt-10'))}}
+                                </div>
                             </div>
-                            <div class="dealprice">
-                                <p class="size12 grey lh2">from<span class="price">$35</span><br/>per night</p>
-                            </div>
-                        </div>
-                        <div class="deal">
-                            <a href="details.html"><img src="images/site/1.png" alt="" class="dealthumb"/></a>
-
-                            <div class="dealtitle">
-                                <p><a href="details.html" class="dark">Village Inn Studios & Family Apartments</a></p>
-                                <img src="images/smallrating-3.png" alt="" class="mt-10"/><span
-                                        class="size13 grey mt-9">Zakynthos</span>
-                            </div>
-                            <div class="dealprice">
-                                <p class="size12 grey lh2">from<span class="price">$49</span><br/>per night</p>
-                            </div>
-                        </div>
-                        <div class="deal">
-                            <a href="details.html"><img src="images/site/1.png" alt="" class="dealthumb"/></a>
-
-                            <div class="dealtitle">
-                                <p><a href="details.html" class="dark">Palatino Hotel</a></p>
-                                <img src="images/smallrating-4.png" alt="" class="mt-10"/><span
-                                        class="size13 grey mt-9">Zakynthos</span>
-                            </div>
-                            <div class="dealprice">
-                                <p class="size12 grey lh2">from<span class="price">$90</span><br/>per night</p>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <!-- End of first row-->
 
                     <div class="col-md-4">
                         <div class="lbl">
-                            <a href="list4.html"><img src="images/egypt-thumb.jpg" alt="" class="fwimg"></a>
+                            <a href="">
+                                {{ HTML::image('images/excursion_images/excursion_banner.jpg', '', array('class' => 'fwimg'))}}
+                            </a>
 
                             <div class="smallblacklabel">Excursion</div>
                         </div>
+                        @foreach($excursion as $excursions)
+                            <div class="deal">
+                                <a href="#">
+                                    <img src="images/site/2.png" alt="" class="dealthumb"/>
+                                </a>
 
-                        <div class="deal">
-                            <a href="details.html"><img src="images/site/2.png" alt="" class="dealthumb"/></a>
+                                <div class="dealtitle">
+                                    <p>
+                                        <a href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursions->excursion_type))}}"
+                                           class="dark">
+                                            {{ $excursions->excursion_type }}
+                                        </a>
+                                    </p>
+                                    {{ HTML::image('images/smallrating-4.png', '', array('class' => 'mt-10'))}}
+                                </div>
+                            </div>
+                        @endforeach
 
-                            <div class="dealtitle">
-                                <p><a href="details.html" class="dark">Comfort Suites Paradise Island</a></p>
-                                <img src="images/smallrating-4.png" alt="" class="mt-10"/><span
-                                        class="size13 grey mt-9">Bahamas</span>
-                            </div>
-                            <div class="dealprice">
-                                <p class="size12 grey lh2">from<span class="price">$29</span><br/>per night</p>
-                            </div>
-                        </div>
-                        <div class="deal">
-                            <a href="details.html"><img src="images/site/2.png" alt="" class="dealthumb"/></a>
-
-                            <div class="dealtitle">
-                                <p><a href="details.html" class="dark">Barcelo Malaga</a></p>
-                                <img src="images/smallrating-3.png" alt="" class="mt-10"/><span
-                                        class="size13 grey mt-9">Spain</span>
-                            </div>
-                            <div class="dealprice">
-                                <p class="size12 grey lh2">from<span class="price">$32</span><br/>per night</p>
-                            </div>
-                        </div>
-                        <div class="deal">
-                            <a href="details.html"><img src="images/site/2.png" alt="" class="dealthumb"/></a>
-
-                            <div class="dealtitle">
-                                <p><a href="details.html" class="dark">Palatino Hotel</a></p>
-                                <img src="images/smallrating-3.png" alt="" class="mt-10"/><span
-                                        class="size13 grey mt-9">Zakynthos</span>
-                            </div>
-                            ``
-                            <div class="dealprice">
-                                <p class="size12 grey lh2">from<span class="price">$90</span><br/>per night</p>
-                            </div>
-                        </div>
                     </div>
                     <!-- End of first row-->
 
                     <div class="col-md-4">
 
                         <div class="lbl">
-                            <a href="list4.html"><img src="images/egypt-thumb.jpg" alt="" class="fwimg"></a>
+                            <a href="">
+                                {{ HTML::image('images/review_banner.png', '', array('class' => 'fwimg'))}}
+                            </a>
 
                             <div class="smallblacklabel">Guest Reviews</div>
                         </div>
 
-                        <div class="deal">
-                            <a href="details.html"><img src="images/site/3.png" alt="" class="dealthumb"/></a>
+                        @foreach($user_review as $reviews)
+                            <div class="deal">
+                                <a href="#">
+                                    <img src="images/site/3.png" alt="" class="dealthumb"/>
+                                </a>
 
-                            <div class="dealtitle">
-                                <p><a href="details.html" class="dark">Parayso Hotel And Spa</a></p>
-                                <img src="images/smallrating-4.png" alt="" class="mt-10"/><span
-                                        class="size13 grey mt-9">Zakynthos</span>
-                            </div>
-                            <div class="dealprice">
-                                <p class="size12 grey lh2">from<span class="price">$49</span><br/>per night</p>
-                            </div>
-                        </div>
-                        <div class="deal">
-                            <a href="details.html"><img src="images/site/3.png" alt="" class="dealthumb"/></a>
+                                <div class="dealtitle">
+                                    <p>
+                                        <?php
+                                        $get_city_id = DB::table('cities')->where('id', $reviews->hotel->id)->first();
+                                        $city = $get_city_id->city;
+                                        ?>
 
-                            <div class="dealtitle">
-                                <p><a href="details.html" class="dark">Village Inn Studios & Family Apartments</a></p>
-                                <img src="images/smallrating-3.png" alt="" class="mt-10"/><span
-                                        class="size13 grey mt-9">Zakynthos</span>
-                            </div>
-                            <div class="dealprice">
-                                <p class="size12 grey lh2">from<span class="price">$79</span><br/>per night</p>
-                            </div>
-                        </div>
-                        <div class="deal">
-                            <a href="details.html"><img src="images/site/3.png" alt="" class="dealthumb"/></a>
+                                        <a href="{{URL::to('sri-lanka/'.str_replace(' ', '-', $city).'/'.str_replace(' ', '-', $reviews->hotel->name))}}"
+                                           class="dark">{{ $reviews->review }}
+                                            - {{ $reviews->hotel->name }}</a>
 
-                            <div class="dealtitle">
-                                <p><a href="details.html" class="dark">Diana Hotel</a></p>
-                                <img src="images/smallrating-3.png" alt="" class="mt-10"/><span
-                                        class="size13 grey mt-9">Zakynthos</span>
+                                    </p>
+                                    <?php
+                                    $stars = $reviews->hotel->star_category_id;
+                                    $star = DB::table('star_categories')->where('id', $stars)->first();
+                                    $hotel_star = $star->stars;
+                                    ?>
+
+                                    {{ Star::star_loop_blue($hotel_star)}}
+
+                                </div>
+                                <div class="dealprice">
+
+                                    <?php $low_hotel_rate = RoomRates::lowestHotelRate($reviews->hotel_id, $st_date, $ed_date); ?>
+
+                                    @if(!empty($low_hotel_rate))
+                                        <span class="price">
+                                                $ {{ $low_hotel_rate }}
+                                        </span>
+                                    @else
+                                        <span class="price">
+                                                No rate
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="dealprice">
-                                <p class="size12 grey lh2">from<span class="price">$299</span><br/>per night</p>
-                            </div>
-                        </div>
+                        @endforeach
+
                     </div>
                     <!-- End of first row-->
                 </div>
@@ -332,7 +323,8 @@
                         <div class="list_carousel">
                             <ul id="foo">
                                 <li>
-                                    <a href="list4.html"><img src="images/site/kandy.jpg" alt="" class="top_destination"/></a>
+                                    <a href="list4.html"><img src="images/site/kandy.jpg" alt=""
+                                                              class="top_destination"/></a>
 
                                     <div class="m1">
                                         <h6 class="lh1 dark"><b>Visit the Hawaii Beaches</b></h6>
@@ -340,7 +332,8 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="list4.html"><img src="images/site/n_eliya.jpg" alt="" class="top_destination"/></a>
+                                    <a href="list4.html"><img src="images/site/n_eliya.jpg" alt=""
+                                                              class="top_destination"/></a>
 
                                     <div class="m1">
                                         <h6 class="lh1 dark"><b>Santorini - Greece</b></h6>
@@ -348,7 +341,8 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="list4.html"><img src="images/site/galle.jpg" alt="" class="top_destination"/></a>
+                                    <a href="list4.html"><img src="images/site/galle.jpg" alt=""
+                                                              class="top_destination"/></a>
 
                                     <div class="m1">
                                         <h6 class="lh1 dark"><b>Dubai</b></h6>
@@ -356,7 +350,8 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="list4.html"><img src="images/site/sigiriya.jpg" alt="" class="top_destination"/></a>
+                                    <a href="list4.html"><img src="images/site/sigiriya.jpg" alt=""
+                                                              class="top_destination"/></a>
 
                                     <div class="m1">
                                         <h6 class="lh1 dark"><b>Visit the Hawaii Beaches</b></h6>
@@ -364,7 +359,8 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="list4.html"><img src="images/site/kandy.jpg" alt="" class="top_destination"/></a>
+                                    <a href="list4.html"><img src="images/site/kandy.jpg" alt=""
+                                                              class="top_destination"/></a>
 
                                     <div class="m1">
                                         <h6 class="lh1 dark"><b>Santorini - Greece</b></h6>
@@ -372,7 +368,8 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="list4.html"><img src="images/site/n_eliya.jpg" alt="" class="top_destination"/></a>
+                                    <a href="list4.html"><img src="images/site/n_eliya.jpg" alt=""
+                                                              class="top_destination"/></a>
 
                                     <div class="m1">
                                         <h6 class="lh1 dark"><b>Dubai</b></h6>
@@ -405,22 +402,28 @@
                         <div class="list_carousel" style="height: 150px;">
                             <ul id="foo2">
                                 <li>
-                                    <a href="list3.html"><img src="images/site/101.jpg" style="padding-top: 50px;" alt="" /></a>
+                                    <a href="list3.html"><img src="images/site/101.jpg" style="padding-top: 50px;"
+                                                              alt=""/></a>
                                 </li>
                                 <li>
-                                    <a href="list3.html"><img src="images/site/102.jpg" style="padding-top: 50px;" alt=""/></a>
+                                    <a href="list3.html"><img src="images/site/102.jpg" style="padding-top: 50px;"
+                                                              alt=""/></a>
                                 </li>
                                 <li>
-                                    <a href="list3.html"><img src="images/site/103.jpg" style="padding-top: 50px;" alt=""/></a>
+                                    <a href="list3.html"><img src="images/site/103.jpg" style="padding-top: 50px;"
+                                                              alt=""/></a>
                                 </li>
                                 <li>
-                                    <a href="list3.html"><img src="images/site/104.jpg" style="padding-top: 50px;" alt=""/></a>
+                                    <a href="list3.html"><img src="images/site/104.jpg" style="padding-top: 50px;"
+                                                              alt=""/></a>
                                 </li>
                                 <li>
-                                    <a href="list3.html"><img src="images/site/105.jpg" style="padding-top: 50px;" alt=""/></a>
+                                    <a href="list3.html"><img src="images/site/105.jpg" style="padding-top: 50px;"
+                                                              alt=""/></a>
                                 </li>
                                 <li>
-                                    <a href="list3.html"><img src="images/site/108.jpg" style="padding-top: 50px;" alt=""/></a>
+                                    <a href="list3.html"><img src="images/site/108.jpg" style="padding-top: 50px;"
+                                                              alt=""/></a>
                                 </li>
                             </ul>
                             <div class="clearfix"></div>
@@ -433,18 +436,18 @@
             </div>
         </div>
 
-    <!-- / WRAP -->
+        <!-- / WRAP -->
 
-@endsection
-</div>
-@section('script')
+        @endsection
+    </div>
+    @section('script')
 
-    <!-- This page JS -->
-    {{ HTML::script('assets/js/js-index3.js') }}
+        <!-- This page JS -->
+        {{ HTML::script('assets/js/js-index3.js') }}
 
-@endsection
+    @endsection
 
-</body>
+    </body>
 
 @stop
 

@@ -683,8 +683,8 @@
                         <div class="col-md-4 offset-0">
                             <button class="popularbtn left">Most Popular</button>
                             <div class="right">
-                                <a class="listbtn {{ Session::get('view') == 1 ? 'active' : '' }}"  href="{{URL::to($list_url)}}"></a>
-                                <a class="gridbtn {{ Session::get('view') == 2 ? 'active' : '' }}" href="{{URL::to($grid_url)}}"></a>
+                                <a class="listbtn {{ Session::get('hot_view') == 1 ? 'active' : '' }}"  href="{{URL::to($list_url)}}"></a>
+                                <a class="gridbtn {{ Session::get('hot_view') == 2 ? 'active' : '' }}" href="{{URL::to($grid_url)}}"></a>
                             </div>
                         </div>
                     </div>

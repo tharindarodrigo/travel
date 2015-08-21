@@ -18,7 +18,37 @@ class HomeController extends BaseController
 
     public function index()
     {
-        return View::make('index');
+
+        if (Session::has('st_date')) {
+            $st_date = Session::get('st_date');
+        } else {
+            $st_date = date("Y/m/d");
+        }
+
+        //Session::flush();
+
+        if (Session::has('ed_date')) {
+            $ed_date = Session::get('ed_date');
+        } else {
+            $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
+        }
+
+
+        $tour = Tour::take(3)->get();
+        $excursion = ExcursionType::take(3)->get();
+        $user_review = HotelReview::take(3)->get();
+
+        return View::make('index')
+            ->with(
+                array(
+                    'tour' => $tour,
+                    'excursion' => $excursion,
+                    'user_review' => $user_review,
+                    'st_date' => $st_date,
+                    'ed_date' => $ed_date,
+
+                )
+            );
     }
 
     public function message()

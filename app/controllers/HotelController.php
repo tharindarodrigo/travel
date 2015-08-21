@@ -17,11 +17,7 @@ class HotelController extends \BaseController
 
     public function gridView($country = '', $city_or_accommodation = '')
     {
-
-            Session::put('view', 2);
-
-
-
+        Session::put('hot_view', 2);
 
         try {
             $hotel_results = $this->viewHotelList($country, $city_or_accommodation);
@@ -157,7 +153,6 @@ class HotelController extends \BaseController
 //                    $r->whereBetween('from', array($from_date, $to_date));
 //                })
                 ->paginate(6);
-
         }
 
         if (!empty($accommodation_id)) {
@@ -206,7 +201,7 @@ class HotelController extends \BaseController
 
     public function hotelList($country = '', $city_or_accommodation = '')
     {
-        Session::put('view', 1);
+        Session::put('hot_view', 1);
 
         try {
             $hotel_results = $this->viewHotelList($country, $city_or_accommodation);
@@ -418,6 +413,7 @@ class HotelController extends \BaseController
         $hotel_cities = DB::table('cities')->get();
         $hotel_facilities = DB::table('hotel_facilities')->get();
 
+
         if (!empty($country)) {
             $country = str_replace('-', ' ', $country);
             $get_country_id = DB::table('countries')->where('country', 'LIKE', $country)->first();
@@ -468,8 +464,6 @@ class HotelController extends \BaseController
                     'hotel_cities' => $hotel_cities,
                     'hotel_facilities' => $hotel_facilities,
                     'path' => $path,
-                    //'bb' => $bb,
-                    //'room_facility' => $room_facility,
                     'rooms' => $rooms,
                     'st_date' => $st_date,
                     'ed_date' => $ed_date

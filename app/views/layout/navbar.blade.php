@@ -226,7 +226,7 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#"> Hotels </a>
                         <ul class="dropdown-menu" style="margin-right: -100px; padding: 5px 20px">
-                            <li class="dropdown-header"> Select Accommodation</li>
+                            <li class="dropdown-header"> Select Accommodation </li>
                             <?php
                             $hotel_type = DB::table('hotel_categories')
                                     ->get();
@@ -239,11 +239,36 @@
                         </ul>
                     </li>
 
-                    <!--<li><a href="about.php">About Us</a></li>-->
-
-                    <li><a href="#">Tours</a></li>
-
-                    <li><a href="#">Excursions</a></li>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> Tours </a>
+                        <ul class="dropdown-menu" style="margin-right: -150px; padding: 5px 20px">
+                            <li class="dropdown-header"> Select Tours </li>
+                            <?php
+                            $tour_type = DB::table('tours')
+                                    ->get();
+                            ?>
+                            @foreach($tour_type as $tours)
+                                <li>
+                                    <a href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-',$tours->tour_title)) }}">{{ $tours->tour_title }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> Excursions </a>
+                        <ul class="dropdown-menu" style="margin-right: -100px; padding: 5px 20px">
+                            <li class="dropdown-header"> Select Excursions </li>
+                            <?php
+                            $excursion_type = DB::table('excursion_types')
+                                    ->get();
+                            ?>
+                            @foreach($excursion_type as $excursions)
+                                <li>
+                                    <a href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-',$excursions->excursion_type)) }}">{{ $excursions->excursion_type }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
 
                     <li><a href="#">Transportation</a></li>
 

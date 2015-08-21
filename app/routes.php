@@ -199,7 +199,6 @@ Route::group(array('prefix' => 'control-panel'), function () {
         return View::make('control-panel.index');
     });
 
-
     Route::group(array('prefix' => 'general'), function(){
 
         Route::resource('cities', 'CitiesController');
@@ -323,23 +322,6 @@ Route::group(array('prefix' => 'control-panel'), function () {
         Route::resource('excursion_transport_types','ExcursionTransportTypesController');
     });
 
-    /**
-     * -------------------------------------------------------------------------------------------------------------
-     *  control-panel/errors
-     *--------------------------------------------------------------------------------------------------------------
-     */
-
-    Route::group(array('prefix'=>'errors'), function(){
-
-        Route::get('/404', function(){
-            return View::make('control-panel.errors.404');
-        });
-        Route::get('/record-not-found', function(){
-            return View::make('control-panel.errors.recordNotFound');
-        });
-
-    });
-
 
     /*-------------------------------------------------------------------------------------------------------------
      *  End control-panel/hotel
@@ -364,8 +346,6 @@ Route::post('auto-complete', array(
     'as' => 'auto-complete',
     'uses' => 'HotelController@autoComplete'
 ));
-
-
 
 Route::get('/', array(
     'as' => 'index',
@@ -409,7 +389,61 @@ Route::get('/403', function () {
 });
 
 
+/**********************************************************************************/
+/*------------------------- Tour List -------------------------------*/
+/**********************************************************************************/
+
+Route::get('excursion/sri-lanka/{excursion_type_name?}', array(
+    'as' => 'excursion-list',
+    'uses' => 'ExcursionController@excursionList'
+));
+
+Route::get('excursion/{country?}/{excursion_type_name?}/{excursion_name?}', array(
+    'as' => 'excursion-details',
+    'uses' => 'ExcursionController@excursionDetail'
+));
+
+Route::any('sri-lanka/excursion/filter', array(
+    'as' => 'excursion-filter',
+    'uses' => 'ExcursionController@viewFilter'
+));
+
+
+/**********************************************************************************/
+/*------------------------- End Of Tour List -------------------------------*/
+/**********************************************************************************/
+
+
+
+/**********************************************************************************/
+/*------------------------- Tour List -------------------------------*/
+/**********************************************************************************/
+
+Route::any('tour/sri-lanka/{tour_name?}', array(
+    'as' => 'tour-list',
+    'uses' => 'TourController@tourList'
+));
+
+Route::get('tour/{country?}/{tour_name?}/{tour_type_name?}', array(
+    'as' => 'tour-details',
+    'uses' => 'TourController@tourDetail'
+));
+
+Route::any('sri-lanka/tour/filter', array(
+    'as' => 'tour-filter',
+    'uses' => 'TourController@viewFilter'
+));
+
+/**********************************************************************************/
+/*------------------------- End Of Tour List -------------------------------*/
+/**********************************************************************************/
+
+
+
+/**********************************************************************************/
 /*------------------------------ Hotel List --------------------------------*/
+/**********************************************************************************/
+
 
 /************* Grid View ********************/
 
@@ -429,7 +463,7 @@ Route::any('sri-lanka/search', array(
 // Filtering part
 
 Route::any('sri-lanka/filter', array(
-    'as' => 'search2',
+    'as' => 'hotel-filter',
     'uses' => 'HotelController@viewFilter'
 ));
 
@@ -438,9 +472,7 @@ Route::post('/star_rating', array(
     'uses' => 'HotelController@hotelList'
 ));
 
-/************* End Of Navbar Link ********************/
-
-// Hotel List
+// Hotel ListR
 
 Route::any('/{country?}/{city_name_OR_accommodation?}', array(
     'as' => 'hotel-list',
@@ -449,7 +481,7 @@ Route::any('/{country?}/{city_name_OR_accommodation?}', array(
 
 // Single Hotel
 
-Route::any('/{country?}/{city_name?}/{hotel_name?}', array(
+Route::any('/{country?}/{city_name?}/{hotel_name?}/{asd?}', array(
     'as' => 'hotel-details',
     'uses' => 'HotelController@hotelDetail'
 ));
@@ -461,4 +493,8 @@ Route::post('/get_map', array(
     'uses' => 'HotelController@getMap'
 ));
 
+
+/**********************************************************************************/
 /*------------------------- End Of Hotel List -------------------------------*/
+/**********************************************************************************/
+
