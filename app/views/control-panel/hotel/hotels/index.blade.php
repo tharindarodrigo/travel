@@ -58,7 +58,7 @@
                             {{ Form::close() }}
 
                             {{ Form::open(array('route'=> array('control-panel.hotel.hotels.destroy', $hotel->id), 'method' =>'delete' )) }}
-                            <button type="" class="btn btn-xs btn-flat btn-danger delete-button col-md-3"><i class="glyphicon glyphicon-trash"></i></button>
+                            <button type="button" class="btn btn-xs btn-flat btn-danger delete-button col-md-3"><i class="glyphicon glyphicon-trash"></i></button>
                             {{ Form::close() }}
 
                             @if($hotel->val == 0)
@@ -88,4 +88,13 @@
     </div><!-- /.box -->
 </div>
 </section>
+@endsection
+
+@section('script')
+<script type="text/javascript">
+$(function(){
+    confirmDelete();
+});
+
+</script>
 @endsection

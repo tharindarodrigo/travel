@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
+
 class HotelsController extends \BaseController
 {
 
@@ -49,7 +50,8 @@ class HotelsController extends \BaseController
         }
 //        dd($data);
 
-        $data['users_id'] = Auth::user()->id;
+        $data['user_id'] = Auth::user()->id;
+//        dd($data);
 
         if ($hotel = Hotel::create($data)) {
 
@@ -70,28 +72,32 @@ class HotelsController extends \BaseController
 
 
         $categories = Input::get('category_id');
-        foreach ($categories as $category_id) {
+        if(!empty($categories)){
+            foreach ($categories as $category_id) {
 
-            // Enter data into pivot table
-            $hotel_hotel_category_data = array(
-                'hotel_id' => $hotel->id,
-                'hotel_category_id' => $category_id
-            );
-            DB::table('hotel_hotel_category')->insert($hotel_hotel_category_data);
+                // Enter data into pivot table
+                $hotel_hotel_category_data = array(
+                    'hotel_id' => $hotel->id,
+                    'hotel_category_id' => $category_id
+                );
+                DB::table('hotel_hotel_category')->insert($hotel_hotel_category_data);
+            }
         }
 
 
         $facilities = Input::get('hotel_facility_id');
+        if(!empty($facilities)){
+            foreach ($facilities as $facility_id) {
 
-        foreach ($facilities as $facility_id) {
-
-            // Enter data into pivot table
-            $hotel_hotel_facility_data = array(
-                'hotel_id' => $hotel->id,
-                'hotel_facility_id' => $facility_id
-            );
-            DB::table('hotel_hotel_facility')->insert($hotel_hotel_facility_data);
+                // Enter data into pivot table
+                $hotel_hotel_facility_data = array(
+                    'hotel_id' => $hotel->id,
+                    'hotel_facility_id' => $facility_id
+                );
+                DB::table('hotel_hotel_facility')->insert($hotel_hotel_facility_data);
+            }
         }
+
 
         return Redirect::route('control-panel.hotel.hotels.index');
     }
@@ -172,7 +178,8 @@ class HotelsController extends \BaseController
                     'checkedhotelfacilities' => $checkedhotelfacilities,
                     'cancellationpolicies' => $cancellationpolicies,
                     'cancellationpolicy' => $cancellationpolicy,
-                    'hotelImages' => $hotelImages
+                    'hotelImages' => $hotelImages,
+                    'hotelid'=>$id
                 )
             );
     }
@@ -207,11 +214,9 @@ class HotelsController extends \BaseController
 
             if ($hotel->update($data)) {
 
-                return Redirect::back()->with(
-                    array(
-                        'successmessage' => 'Successfully Updated'
-                    )
-                );
+                Session::flash('successmessage', 'Hotel Successfully updated');
+
+                return Redirect::back();
 
             }
 
@@ -231,22 +236,28 @@ class HotelsController extends \BaseController
             }
 
 
-            $hotel->update($data);
+            if ($hotel->update($data)) {
 
-            $hotelcategories = Input::get('category_id');
+                $hotelcategories = Input::get('category_id');
 
-            DB::table('hotel_hotel_category')->where('hotel_id', $id)->delete();
+                DB::table('hotel_hotel_category')->where('hotel_id', $id)->delete();
 
-            if (!empty($hotelcategories)) {
-                foreach ($hotelcategories as $hotelcategory) {
-                    DB::table('hotel_hotel_category')->insert(
-                        array(
-                            'hotel_id' => $id,
-                            'hotel_category_id' => $hotelcategory
-                        )
-                    );
+                if (!count($hotelcategories)) {
+                    foreach ($hotelcategories as $hotelcategory) {
+                        DB::table('hotel_hotel_category')->insert(
+                            array(
+                                'hotel_id' => $id,
+                                'hotel_category_id' => $hotelcategory
+                            )
+                        );
+                    }
                 }
+
+                Session::put('successmessage', 'Hotel Successfully updated');
+                return Redirect::back();
+
             }
+
         }
 
 
@@ -263,12 +274,8 @@ class HotelsController extends \BaseController
             }
 
             if ($hotel->update($data)) {
-
-                return Redirect::back()->with(
-                    array(
-                        'successmessage' => 'Successfully Updated'
-                    )
-                );
+                Session::flash('successmessage', 'Hotel Successfully updated Hotel Location');
+                return Redirect::back();
 
             }
 
@@ -304,7 +311,7 @@ class HotelsController extends \BaseController
 
             return Redirect::back()->with(
                 array(
-                    'successmessage' => 'successfully updated'
+                    'successmessage' => 'successfully updated Child Policy'
                 )
             );
         }

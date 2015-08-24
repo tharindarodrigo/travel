@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AccountController' => $baseDir . '/app/controllers/AccountController.php',
+    'AddColumnsToMarketsTable' => $baseDir . '/app/database/migrations/2015_08_21_110008_add_columns_to_markets_table.php',
     'Agent' => $baseDir . '/app/models/Agent.php',
     'AgentsController' => $baseDir . '/app/controllers/AgentsController.php',
     'Allotment' => $baseDir . '/app/models/Allotment.php',
@@ -87,7 +88,6 @@ return array(
     'RatesController' => $baseDir . '/app/controllers/control-panel/Hotel/RatesController.php',
     'Role' => $baseDir . '/app/models/Role.php',
     'RoomAllotment' => $baseDir . '/app/models/RoomAllotment.php',
-    'RoomAllotmentsController' => $baseDir . '/app/controllers/control-panel/Hotel/RoomAllotmentsController.php',
     'RoomFacilitiesController' => $baseDir . '/app/controllers/control-panel/Hotel/RoomFacilitiesController.php',
     'RoomFacility' => $baseDir . '/app/models/RoomFacility.php',
     'RoomRates' => $baseDir . '/app/libraries/RoomRates.php',

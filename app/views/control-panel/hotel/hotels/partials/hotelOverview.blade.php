@@ -1,5 +1,3 @@
-
-
     <div class="col-md-6">
 
         <div class="form-group">
@@ -16,7 +14,14 @@
 
         <div class="form-group">
             {{ Form::label('Overview','overview')}}
-            {{ Form::textarea('overview', null, array('class' => 'form-control', 'rows'=>'4','placeholder'=>'Description about your hotel which will appear on the hotel profile'))}}
+            {{--{{ Form::textarea('overview', !empty($hotelprofile) ? $hotelprofile->overview : '', array('class' => 'form-control', 'id'=>'overview', 'rows'=>'4','placeholder'=>'Description about your hotel which will appear on the hotel profile','style'=>'visibility: hidden; display: none;'))}}--}}
+            <textarea id="overview" name="overview" rows="10" cols="80" style="visibility: hidden; display: none;">
+                {{!empty($hotelprofile) ? $hotelprofile->overview : ''}}
+            </textarea>
+            <script>
+                CKEDITOR.replace( 'overview' );
+            </script>
+
         </div>
         {{ $errors->first('overview', '<div class="form-group text-red">:message</div>') }}
 

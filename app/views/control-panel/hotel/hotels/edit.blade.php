@@ -1,43 +1,11 @@
-{{--
-    This page allows you to Update the Hotel Profile
-    The page
---}}
-
-@extends('control-panel.layout.main')
+@extends('control-panel.hotel.hotels.hotels')
 
 @section('hotel-nav-bar')
-<li class="active">{{link_to_route('control-panel.hotel.hotel-profile.edit','Hotel Profile',array($hotelprofile->id))}}</li>
-<li class="">{{link_to_route('control-panel.hotel.hotels.room-types.index' ,'Rooms', array($hotelprofile->id))}}</li>
-<li class="">{{link_to_route('control-panel.hotel.hotels.rates.index','Rates' ,array($hotelprofile->id))}}</li>
-<li class="">{{link_to_route('control-panel.hotel.hotels.supplement-rates.index','Supplement Rates' ,array($hotelprofile->id))}}</li>
-
-@endsection
-
-{{--Title--}}
-@section('control-title')
-    {{'Hotel'}}
-@endsection
-
-{{--Sub Title--}}
-@section('control-sub-title')
-    {{'Profile'}}
-@endsection
-
-{{--Breadcrumbs--}}
-@section('bread-crumbs')
-    <li class="active">Hotel</li>
-    <li class="active">Profile</li>
-    <li class="active">Details</li>
-@endsection
-
-{{--Active Main Menu Item--}}
-@section('active-hotels')
-    {{ 'active' }}
-@endsection
-
-{{--Active Sub menu Item--}}
-@section('active-hotel-create-hotel')
-    {{ 'active' }}
+<li class="active">{{link_to_route('control-panel.hotel.hotels.edit','Hotel Profile',array($hotelid))}}</li>
+<li class="">{{link_to_route('control-panel.hotel.hotels.room-types.index' ,'Rooms', array($hotelid))}}</li>
+<li class="">{{link_to_route('control-panel.hotel.hotels.rates.index','Rates' ,array($hotelid))}}</li>
+<li class="">{{link_to_route('control-panel.hotel.hotels.supplement-rates.index','Supplement Rates' ,array($hotelid))}}</li>
+<li class="">{{link_to_route('control-panel.hotel.hotels.allotments.index','Allotments' ,array($hotelid))}}</li>
 @endsection
 
 @section('content')
@@ -47,14 +15,20 @@
         <p><b><em>Note : </em></b>Make Sure you save changes before you switch to other tabs! Information may get lost</p>
     </div>
 
+    @if(Session::has('successmessage'))
+        <div class="callout callout-success">
+            <p>{{Session::pull('successmessage')}}</p>
+        </div>
+    @endif
+
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
-        <li class="{{{ !Session::has('manage') ? 'active':'' }}}"><a aria-expanded="true" href="#tab_1" data-toggle="tab">Details</a></li>
-        <li class="{{{ Session::get('manage')=='location'? 'active':'' }}}"><a aria-expanded="false" href="#tab_2" data-toggle="tab" onclick="">Location</a></li>
-        <li class="{{{ Session::get('manage')=='facilities'? 'active':'' }}}"><a aria-expanded="false" href="#tab_3" data-toggle="tab">Facilities</a></li>
-        <li class="{{{ Session::get('manage')=='policies'? 'active':'' }}}"><a aria-expanded="false" href="#tab_4" data-toggle="tab">Policies</a></li>
-        <li class="{{{ Session::get('manage')=='termsAndConditions'? 'active':'' }}}"><a aria-expanded="false" href="#tab_5" data-toggle="tab">Terms & Conditions</a></li>
-        <li class="{{{ Session::get('manage')=='images'? 'active':'' }}}"><a aria-expanded="false" href="#tab_6" data-toggle="tab">Hotel Images</a></li>
+        <li class="{{{ !Session::has('manage') ? 'active':'' }}} tab"><a aria-expanded="true" href="#tab_1" data-toggle="tab">Details</a></li>
+        <li class="{{{ Session::get('manage')=='location'? 'active':'' }}} tab"><a aria-expanded="false" href="#tab_2" data-toggle="tab" onclick="">Location</a></li>
+        <li class="{{{ Session::get('manage')=='facilities'? 'active':'' }}} tab"><a aria-expanded="false" href="#tab_3" data-toggle="tab">Facilities</a></li>
+        <li class="{{{ Session::get('manage')=='policies'? 'active':'' }}} tab"><a aria-expanded="false" href="#tab_4" data-toggle="tab">Policies</a></li>
+        <li class="{{{ Session::get('manage')=='termsAndConditions'? 'active':'' }}} tab"><a aria-expanded="false" href="#tab_5" data-toggle="tab">Terms & Conditions</a></li>
+        <li class="{{{ Session::get('manage')=='images'? 'active':'' }}} tab"><a aria-expanded="false" href="#tab_6" data-toggle="tab">Hotel Images</a></li>
     </ul>
 
     <div class="tab-content">
@@ -73,7 +47,6 @@
             {{--Location Details--}}
 
             {{ Form::model($hotelprofile, array('route' => array('control-panel.hotel.hotels.update',$hotelprofile->id), 'method'=>'put')) }}
-
 
                 @include('control-panel.hotel.hotels.partials.location')
 
@@ -114,7 +87,7 @@
         </div><!-- /.tab-pane -->
         <div class="tab-pane {{{ Session::get('manage')=='termsAndConditions'? 'active':'' }}}" id="tab_5">
             {{ Form::model($hotelprofile, array('route' => array('control-panel.hotel.hotels.update', $hotelprofile->id), 'method'=> 'put')) }}
-            @include('control-panel.hotel.hotels.partials.termsAndConditions')
+                @include('control-panel.hotel.hotels.partials.termsAndConditions')
             <div class="row">
             <div class="col-md-12">
                 <div class="col-md4">
@@ -137,12 +110,18 @@
             </div>
             <!-- /.tab-content -->
         </div>
+        </div>
+    </div>
 
 </div>
 @endsection
 
 @section('scripts1')
 <script type="text/javascript">
+
+    $('.tab').click(function(){
+        $('.callout-success').slideUp(200);
+    });
 
     $('#check_in_time').timepicker({
         minuteStep: 5,
@@ -193,4 +172,5 @@
     }
 
 </script>
-@stop
+
+@endsection

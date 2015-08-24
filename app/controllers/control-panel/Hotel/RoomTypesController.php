@@ -164,6 +164,7 @@ class RoomTypesController extends \BaseController {
 	public function update($hotelid, $id)
 	{
 
+        // Delete Images
         if(Input::has('delete_images')){
 
             $files = Input::get('files_to_delete');
@@ -200,7 +201,6 @@ class RoomTypesController extends \BaseController {
                     ->save('public/control-panel-assets/images/room-images/' . $roomtype->id . '_' .str_random(10). '.jpg');
             }
         }
-
 
 
         $roomfacilities = Input::get('room_facility_id');
@@ -240,8 +240,9 @@ class RoomTypesController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($hotel_id,$id)
 	{
+//        /dd()
 
         try{
 
@@ -254,7 +255,6 @@ class RoomTypesController extends \BaseController {
                     File::delete('public/control-panel-assets/images/room-images/'.$file);
                 }
             }
-
 
             return Redirect::back();
 

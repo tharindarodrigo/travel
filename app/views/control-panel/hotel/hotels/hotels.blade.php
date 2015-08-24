@@ -1,9 +1,14 @@
 @extends('control-panel.layout.main')
 
 
+@section('head-scripts')
+    {{HTML::script("//cdn.ckeditor.com/4.5.2/standard/ckeditor.js")}}
+@endsection
+
 @section('control-title')
     {{'Hotels'}}
 @endsection
+
 
 
 @section('control-sub-title')

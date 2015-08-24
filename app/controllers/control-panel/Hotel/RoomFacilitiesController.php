@@ -12,7 +12,7 @@ class RoomFacilitiesController extends \BaseController
     {
         Session::forget('edit');
 
-        $roomfacilities = Roomfacility::all();
+        $roomfacilities = Roomfacility::orderBy('room_facility','asc')->get();
 
         return View::make('control-panel.hotel.general.roomFacilities', compact('roomfacilities'));
     }

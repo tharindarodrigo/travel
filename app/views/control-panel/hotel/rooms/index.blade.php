@@ -4,7 +4,7 @@
     <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-header">
-                <h3 class="box-title"><b>Search / Update / Delete </b>Meal Bases</h3>
+                <h3 class="box-title"><b>Search / Update / Delete </b>Room Types</h3>
             </div><!-- /.box-header -->
 
             <div class="box-body table-responsive">
@@ -33,12 +33,11 @@
                             <td>
                                 <div class="">
                                     {{ Form::open(array('route'=> array('control-panel.hotel.hotels.room-types.edit',$hotelid,$roomtype->id), 'method' =>'get' )) }}
-                                    <button type="submit" class="btn btn-xs btn-flat btn-primary col-md-3"><i
-                                                class="glyphicon glyphicon-edit"></i></button>
+                                    <button type="submit" class="btn btn-xs btn-flat btn-primary col-md-3"><i class="glyphicon glyphicon-edit"></i></button>
                                     {{ Form::close() }}
 
                                     {{ Form::open(array('route'=> array('control-panel.hotel.hotels.room-types.destroy',$hotelid, $roomtype->id), 'method' =>'delete')) }}
-                                    <button type="submit" class="btn btn-xs btn-flat btn-danger delete-button col-md-3"><i class="glyphicon glyphicon-trash"></i></button>
+                                    <button type="button" class="btn btn-xs btn-flat btn-danger delete-button col-md-3"><i class="glyphicon glyphicon-trash"></i></button>
                                     {{ Form::close() }}
 
                                     @if($roomtype->val == 0)
@@ -81,4 +80,12 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(function(){
+            confirmDeleteItem();
+        });
+    </script>
 @endsection

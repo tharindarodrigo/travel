@@ -23,15 +23,15 @@ class CreateHotelsTable extends Migration {
             $table->integer('star_category_id')->unsigned();
             $table->boolean('val');
 
-            $table->double('longitude');
-            $table->double('latitude');
+            $table->double('longitude')->default(0.0);
+            $table->double('latitude')->default(0.0);
 
-            $table->string('search_keywords');
-            $table->string('search_description');
+            $table->string('search_keywords')->nullable();
+            $table->string('search_description')->nullable();
 
-            $table->text('overview');
+            $table->text('overview')->nullable();
 
-            $table->text('rooms');
+            $table->text('rooms')->nullable();
             $table->text('terms_and_conditions')->nullable();
             $table->string('infant_age')->nullable();
             $table->string('infant_charge')->nullable();

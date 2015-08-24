@@ -34,7 +34,7 @@ class CreateCancellationPoliciesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('cancelation_policies');
+		Schema::drop('cancellation_policies');
 	}
 
 }
