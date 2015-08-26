@@ -3,41 +3,41 @@
  */
 
 function postForm(url, formData, type){
-    $.ajax({
-        url: url,
-        method: 'post',
-        processData: false,
-        contentType: false,
-        cache: false,
-        dataType: 'json',
-        data: formData,
-        success: function(data){
-            if(!data.success){
-                $.each(data.errors, function(index, error){
-                    //alert(error);
-                    //$('input').find('#room_facility');
+        $.ajax({
+            url: url,
+            method: 'post',
+            processData: false,
+            contentType: false,
+            cache: false,
+            dataType: 'json',
+            data: formData,
+            success: function(data){
+                if(!data.success){
+                    $.each(data.errors, function(index, error){
+                        //alert(error);
+                        //$('input').find('#room_facility');
 
-                    var id = '#'+index;
-                    var div = $(id).closest('div').next('.customValidationAlert');
-                    div.html(error);
+                        var id = '#'+index;
+                        var div = $(id).closest('div').next('.customValidationAlert');
+                        div.html(error);
 
-                    div.slideDown(200);
-                });
+                        div.slideDown(200);
+                    });
 
-            } else {
-                $('.customValidationAlert').hide(100);
-                $('form').find('input[type=text], textarea').val('');
-                if(type === 'insert' ){
-                    toastr.success('successfully added!');
                 } else {
-                    toastr.success('successfully updated!');
+                    $('.customValidationAlert').hide(100);
+                    $('form').find('input[type=text], textarea').val('');
+                    if(type === 'insert' ){
+                        toastr.success('successfully added!');
+                    } else {
+                        toastr.success('successfully updated!');
+                    }
                 }
-            }
-        },
-        error: function(){
+            },
+            error: function(){
 
-        }
-    });
+            }
+        });
 }
 
 function getTable(url, table_id , array){

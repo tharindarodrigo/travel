@@ -68,39 +68,39 @@
 
                 <!-- SLIDER -->
 
-                <div class="col-md-8 details-slider">
+                {{--<div class="col-md-8 details-slider">--}}
 
-                    <div id="c-carousel">
-                        <div id="wrapper">
-                            <div id="inner">
-                                <div id="caroufredsel_wrapper2">
-                                    <div id="carousel">
-                                        @foreach ($path as $img_path)
-                                            {{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div id="pager-wrapper">
-                                    <div id="pager">
-                                        @foreach ($path as $img_path)
-                                            {{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <button id="prev_btn2" class="prev2">
-                                {{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}
-                            </button>
-                            <button id="next_btn2" class="next2">
-                                {{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}
-                            </button>
+                {{--<div id="c-carousel">--}}
+                {{--<div id="wrapper">--}}
+                {{--<div id="inner">--}}
+                {{--<div id="caroufredsel_wrapper2">--}}
+                {{--<div id="carousel">--}}
+                {{--@foreach ($path as $img_path)--}}
+                {{--{{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}--}}
+                {{--@endforeach--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--<div id="pager-wrapper">--}}
+                {{--<div id="pager">--}}
+                {{--@foreach ($path as $img_path)--}}
+                {{--{{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}--}}
+                {{--@endforeach--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="clearfix"></div>--}}
+                {{--<button id="prev_btn2" class="prev2">--}}
+                {{--{{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}--}}
+                {{--</button>--}}
+                {{--<button id="next_btn2" class="next2">--}}
+                {{--{{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}--}}
+                {{--</button>--}}
 
-                        </div>
-                    </div>
-                    <!-- /c-carousel -->
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--<!-- /c-carousel -->--}}
 
-                </div>
+                {{--</div>--}}
 
                 <!-- END OF SLIDER -->
 
@@ -350,95 +350,98 @@
                                 $from_date = date('Y-m-d', strtotime(str_replace('-', '/', $st_date)));
                                 $to_date = date('Y-m-d', strtotime(str_replace('-', '/', $ed_date)));
 
-                                $room_types = Rate::whereHas('RoomSpecification', function ($a) {
-                                    $a->where('adults', Session::get('adult'));
-                                    $a->where('children', Session::get('child'));
-                                })
-                                        ->where('room_type_id', '=', $room_id)
-                                        ->where('from', '<=', $from_date)
-                                        ->where('to', '>=', $from_date)
-                                        ->get();
+                                if (Session::has('st_date')) {
+
+                                    $room_types = Rate::whereHas('RoomSpecification', function ($a) {
+                                        $a->where('adults', 'LIKE', Session::get('adult'));
+                                        $a->where('children', 'LIKE', Session::get('child'));
+                                    })
+                                            ->where('room_type_id', '=', $room_id)
+                                            ->where('from', '<=', $from_date)
+                                            ->where('to', '>=', $from_date)
+                                            ->get();
+                                } else {
+                                    $room_types = Rate::with('RoomSpecification')
+                                            ->where('room_type_id', '=', $room_id)
+                                            ->get();
+                                }
 
                                 $directory = 'images/room_images/';
                                 $images = glob($directory . $room_id . "_" . "*.*");
                                 $img_path = array_shift($images);
                                 ?>
 
-                                @if(TRUE)
+                                @foreach($room_types as $room)
 
-                                    @foreach($room_types as $room)
+                                    <div class="padding20">
 
-                                        <div class="padding20">
-
-                                            <div class="col-md-4 offset-0">
-                                                <a href="#">
-                                                    @if(count($img_path)>0)
-                                                        {{ HTML::image($img_path, '', array('class' => 'fwimg'))}}
-                                                    @else
-                                                        {{ HTML::image('images/no-image.jpg', '', array('class' => 'fwimg')) }}
-                                                    @endif
-                                                </a>
-                                            </div>
-
-                                            <div class="col-md-8 offset-0">
-                                                <div class="col-md-8 mediafix1">
-
-                                                    <h4 class="opensans dark bold margtop1 lh1"> {{ $room->RoomType->room_type }} </h4>
-
-                                                    <h5> {{ $room->RoomSpecification->room_specification }} Room </h5>
-                                                    <h5>{{ $room->MealBasis->meal_basis_name }}</h5>
-
-                                                    <ul class="hotelpreferences margtop10">
-                                                        <li class="icohp-internet"></li>
-                                                        <li class="icohp-air"></li>
-                                                        <li class="icohp-pool"></li>
-                                                        <li class="icohp-childcare"></li>
-                                                        <li class="icohp-fitness"></li>
-                                                        <li class="icohp-breakfast"></li>
-                                                        <li class="icohp-parking"></li>
-                                                    </ul>
-                                                    <div class="clearfix"></div>
-                                                    <ul class="checklist2 margtop10">
-                                                        <li>FREE Cancellation</li>
-                                                        <li>Pay at hotel or pay today</li>
-                                                    </ul>
-                                                </div>
-
-                                                @if(Session::has('st_date'))
-                                                    <?php $low_room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room->room_specification_id, $room->meal_basis_id, $st_date, $ed_date); ?>
-                                                    <div class="col-md-4 center bordertype4">
-                                                        @if($low_room_rate > 0 )
-                                                            <span class="opensans green size24">USD {{ $low_room_rate }} </span>
-                                                            <br/>
-                                                            <span class="opensans lightgrey size12">avg/night</span>
-                                                            <br/>
-                                                            <br/>
-                                                            <span class="lred bold">3 left</span><br/><br/>
-                                                            <button class="bookbtn mt1">Book</button>
-                                                        @else
-                                                            <span class="opensans lred size18">Rate Not Available</span>
-                                                            <br/>
-                                                        @endif
-
-                                                    </div>
+                                        <div class="col-md-4 offset-0">
+                                            <a href="#">
+                                                @if(count($img_path)>0)
+                                                    {{ HTML::image($img_path, '', array('class' => 'fwimg'))}}
                                                 @else
-                                                    <div class="col-md-4 center bordertype4">
-                                                        <button id="date_select_button" class="bookbtn mt1">Select Date
-                                                        </button>
-                                                    </div>
+                                                    {{ HTML::image('images/no-image.jpg', '', array('class' => 'fwimg')) }}
                                                 @endif
-                                            </div>
-
-                                            <div class="clearfix"></div>
+                                            </a>
                                         </div>
 
-                                    @endforeach
-                                @else
-                                    {{ HTML::image('images/no-rate.png', '', array('class' => 'fwimg')) }}
-                                    <?php break; ?>
-                                @endif
+                                        <div class="col-md-8 offset-0">
+                                            <div class="col-md-8 mediafix1">
+
+                                                <h4 class="opensans dark bold margtop1 lh1"> {{ $room->RoomType->room_type }} </h4>
+
+                                                <h5> {{ $room->RoomSpecification->room_specification }} Room </h5>
+                                                <h5>{{ $room->MealBasis->meal_basis_name }}</h5>
+
+                                                <ul class="hotelpreferences margtop10">
+                                                    <li class="icohp-internet"></li>
+                                                    <li class="icohp-air"></li>
+                                                    <li class="icohp-pool"></li>
+                                                    <li class="icohp-childcare"></li>
+                                                    <li class="icohp-fitness"></li>
+                                                    <li class="icohp-breakfast"></li>
+                                                    <li class="icohp-parking"></li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                                <ul class="checklist2 margtop10">
+                                                    <li>FREE Cancellation</li>
+                                                    <li>Pay at hotel or pay today</li>
+                                                </ul>
+                                            </div>
+
+                                            @if(Session::has('st_date'))
+                                                <?php $low_room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room->room_specification_id, $room->meal_basis_id, $st_date, $ed_date); ?>
+                                                <div class="col-md-4 center bordertype4">
+                                                    @if($low_room_rate > 0 )
+                                                        <span class="opensans green size24">USD {{ $low_room_rate }} </span>
+                                                        <br/>
+                                                        <span class="opensans lightgrey size12">avg/night</span>
+                                                        <br/>
+                                                        <br/>
+                                                        <span class="lred bold">3 left</span><br/><br/>
+                                                        <button class="bookbtn mt1">Book</button>
+                                                    @else
+                                                        <span class="opensans lred size18">Rate Not Available</span>
+                                                        <br/>
+                                                    @endif
+
+                                                </div>
+                                            @else
+                                                <div class="col-md-4 center bordertype4">
+                                                    <button id="date_select_button" class="bookbtn mt1">Select Date
+                                                    </button>
+                                                </div>
+                                            @endif
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <div class="line2"></div>
+                                @endforeach
+
                             @endforeach
-                            <div class="line2"></div>
+
 
                         </div>
 

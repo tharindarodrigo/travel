@@ -11,7 +11,6 @@
 */
 
 
-
 /*------------------------------ Sign in & Register --------------------------------*/
 
 
@@ -195,11 +194,11 @@ Route::group(array('prefix' => 'control-panel'), function () {
      * Dashboard
      */
 
-    Route::get('/', function(){
+    Route::get('/', function () {
         return View::make('control-panel.index');
     });
 
-    Route::group(array('prefix' => 'general'), function(){
+    Route::group(array('prefix' => 'general'), function () {
 
         Route::resource('cities', 'CitiesController');
 
@@ -211,11 +210,11 @@ Route::group(array('prefix' => 'control-panel'), function () {
 
     });
 
-    Route::get('image-uploads',array(
+    Route::get('image-uploads', array(
         'as' => 'post-image-upload',
         'uses' => 'ImageController@getUploadForm'
     ));
-    Route::post('image-upload',array(
+    Route::post('image-upload', array(
         'as' => 'get-image-upload',
         'uses' => 'ImageController@uploadImages'
     ));
@@ -317,9 +316,9 @@ Route::group(array('prefix' => 'control-panel'), function () {
      *--------------------------------------------------------------------------------------------------------------
      */
 
-    Route::group(array('prefix' => 'excursions'), function(){
-        Route::resource('excursion-types','ExcursionTypesController');
-        Route::resource('excursion_transport_types','ExcursionTransportTypesController');
+    Route::group(array('prefix' => 'excursions'), function () {
+        Route::resource('excursion-types', 'ExcursionTypesController');
+        Route::resource('excursion_transport_types', 'ExcursionTransportTypesController');
     });
 
 
@@ -408,11 +407,20 @@ Route::any('sri-lanka/excursion/filter', array(
     'uses' => 'ExcursionController@viewFilter'
 ));
 
+Route::post('sri-lanka/set_excursion_transport', array(
+    'as' => 'excursion-set-transport',
+    'uses' => 'ExcursionController@excursionSetTransport'
+));
+
+Route::post('sri-lanka/get_excursion_total', array(
+    'as' => 'excursion-get-total',
+    'uses' => 'ExcursionController@excursionGetTotal'
+));
+
 
 /**********************************************************************************/
 /*------------------------- End Of Tour List -------------------------------*/
 /**********************************************************************************/
-
 
 
 /**********************************************************************************/
@@ -437,7 +445,6 @@ Route::any('sri-lanka/tour/filter', array(
 /**********************************************************************************/
 /*------------------------- End Of Tour List -------------------------------*/
 /**********************************************************************************/
-
 
 
 /**********************************************************************************/

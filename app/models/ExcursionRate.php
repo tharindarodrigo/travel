@@ -1,13 +1,24 @@
 <?php
 
-class ExcursionRate extends \Eloquent {
+class ExcursionRate extends \Eloquent
+{
 
-	// Add your validation rules here
-	public static $rules = [
-		// 'title' => 'required'
-	];
+    // Add your validation rules here
+    public static $rules = [
+        // 'title' => 'required'
+    ];
 
-	// Don't forget to fill this array
-	protected $fillable = [];
+    // Don't forget to fill this array
+    protected $fillable = [];
+
+    public function excursion()
+    {
+        return $this->belongsTo('excursion');
+    }
+
+    public function excursionTransport()
+    {
+        return $this->belongsTo('excursionTransport');
+    }
 
 }

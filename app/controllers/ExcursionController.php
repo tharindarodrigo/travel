@@ -121,6 +121,8 @@ class ExcursionController extends \BaseController
     public function excursionDetail($country = '', $excursion_type = '', $excursion = '')
     {
 
+        $x = 0;
+
         if (!empty($country)) {
             $country = str_replace('-', ' ', $country);
             $get_country_id = DB::table('countries')->where('country', 'LIKE', $country)->first();
@@ -139,12 +141,16 @@ class ExcursionController extends \BaseController
             $excursion_id = $get_excursion_id->id;
         }
 
+        $transport_type = ExcursionTransportType::where('excursion_type_id', '=', $excursion_type_id)->lists('transport_type', 'id');
 
         $path = array();
 
         $excursion = Excursion::where('id', '=', $excursion_id)->first();
 
         $excursion_type = ExcursionType::where('id', '=', $excursion_type_id)->first();
+
+        $excursion_rate = ExcursionRate::where('excursion_id', '=', $excursion_id)->get();
+
 
 //        dd(DB::getQueryLog());
 
@@ -156,11 +162,14 @@ class ExcursionController extends \BaseController
             ->with(
                 array(
 
+                    'x' => $x,
                     'excursion' => $excursion,
                     'excursion_id' => $excursion_id,
                     'excursion_type_id' => $excursion_type_id,
                     'path' => $path,
                     'excursion_type' => $excursion_type,
+                    'transport_type' => $transport_type,
+                    'excursion_rate' => $excursion_rate,
 
                 )
             );
@@ -181,5 +190,61 @@ class ExcursionController extends \BaseController
         }
 
     }
+
+    public function excursionSetTransport()
+    {
+
+        $transport_id = Input::get('transport_type');
+        $excursion = Input::get('ex_id');
+        $city_id = Input::get('hidden_ex_city_id');
+
+        $get_excursion_rate = ExcursionRate::where('excursion_id', '=', $excursion)
+            ->where('excursion_transport_type_id', '=', $transport_id)
+            ->where('city_id', '=', $city_id)
+            ->select('rate')
+            ->first();
+
+        $ex_rate = $get_excursion_rate->rate;
+
+        return Response::json($ex_rate);
+
+    }
+
+    public function excursionGetTotal()
+    {
+
+        $total_rate =0;
+        $price_details = array();
+
+        $price_box_transport_id = Input::get('price_box_transport_id');
+        $price_box_ex_id = Input::get('price_box_ex_id');
+        $price_box_city_id = Input::get('price_box_city_id');
+        $pax = Input::get('price_box_pax');
+
+        $city = City::where('id', $price_box_city_id)->first()->city;
+        $transport_type = ExcursionTransportType::where('id', $price_box_transport_id)->first()->transport_type;
+
+        $get_excursion_price = ExcursionRate::where('excursion_id', '=', $price_box_ex_id)
+            ->where('excursion_transport_type_id', '=', $price_box_transport_id)
+            ->where('city_id', '=', $price_box_city_id)
+            ->select('rate')
+            ->first();
+
+        $ex_rate = $get_excursion_price->rate;
+
+        $total_rate = $ex_rate * $pax;
+
+        $price_details = array(
+            'city' => $city,
+            'transport_type' => $transport_type,
+            'pax' => $pax,
+            'ex_rate' => $ex_rate,
+            'total_rate' => $total_rate,
+        );
+
+        return Response::json($price_details);
+
+    }
+
 
 }

@@ -384,14 +384,14 @@ class HotelController extends \BaseController
             $adult = Input::get('adult');
             Session::put('adult', $adult);
         } else {
-            $adult = Session::get('adult');
+            Session::put('adult', '%');
         }
 
         if (Input::has('child')) {
             $child = Input::get('child');
             Session::put('child', $child);
         } else {
-            $child = Session::get('adult');
+            Session::put('child', '%');
         }
 
         if (Session::has('st_date')) {
@@ -407,6 +407,10 @@ class HotelController extends \BaseController
         } else {
             $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
         }
+
+        $from_date = date('Y-m-d', strtotime(str_replace('-', '/', $st_date)));
+        $to_date = date('Y-m-d', strtotime(str_replace('-', '/', $ed_date)));
+
 
         // Filtering
         $hotel_type = DB::table('hotel_categories')->get();
@@ -466,8 +470,7 @@ class HotelController extends \BaseController
                     'path' => $path,
                     'rooms' => $rooms,
                     'st_date' => $st_date,
-                    'ed_date' => $ed_date
-
+                    'ed_date' => $ed_date,
                 )
             );
     }

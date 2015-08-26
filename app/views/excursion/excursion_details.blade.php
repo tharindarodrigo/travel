@@ -31,6 +31,22 @@
             height: 555px;
             width: 760px;
         }
+
+        .price-head {
+            border-radius: 20px 0px 20px 0px;
+            -moz-border-radius: 20px 0px 20px 0px;
+            -webkit-border-radius: 20px 0px 20px 0px;
+        }
+
+        .price-foot {
+            border-radius: 0px 20px 0px 20px;
+            -moz-border-radius: 0px 20px 0px 20px;
+            -webkit-border-radius: 0px 20px 0px 20px;
+        }
+
+        .table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
+            border: none !important;
+        }
     </style>
 
 @endsection
@@ -141,9 +157,7 @@
                                     class="rates"></span><span class="hidetext">Rates</span>&nbsp;</a></li>
                     <li onclick="loadScript()" class=""><a data-toggle="tab" href="#maps"><span
                                     class="maps"></span><span class="hidetext">Location</span>&nbsp;</a></li>
-                    <li onclick="mySelectUpdate(); trigerJslider(); trigerJslider2(); trigerJslider3(); trigerJslider4(); trigerJslider5(); trigerJslider6();"
-                        class=""><a data-toggle="tab" href="#reviews"><span class="reviews"></span><span
-                                    class="hidetext">Reviews</span>&nbsp;</a></li>
+
                 </ul>
                 <div class="tab-content4">
 
@@ -160,9 +174,6 @@
                     <div id="roomrates" class="tab-pane fade active in">
                         <div class="hpadding20">
                             <h3 class="dark bold"> Pricing and availability </h3>
-
-                            Trip dates: Wed Mar-5-2014 to Sat Mar-8-2014 (<a href="#" class="lblue">Select new trip
-                                dates</a>)
                         </div>
                         <br/>
 
@@ -170,26 +181,72 @@
 
                         <div class="padding20">
 
-                            <div class="col-md-2">
-                                <span class="green bold">$81.68</span> /each
-                            </div>
-                            <div class="col-md-8">
-                                <div class="wh50percent left">
-                                    <select class="form-control mySelectBoxClass">
-                                        <option>1 Person</option>
-                                        <option selected>2 Person</option>
-                                        <option>3 Person</option>
-                                        <option>4 Person</option>
-                                        <option>5 Person</option>
-                                    </select>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <span class="green bold" style="text-align: right"> From </span>
                                 </div>
-                                <div class="wh45percent right">
-                                    over 42 inches
+
+                                <div class="col-md-3">
+                                    <span class="green bold"> Type </span>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <span class="green bold"> Rate </span>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <span class="green bold"> Pax </span>
                                 </div>
                             </div>
-                            <div class="col-md-2 text-right">
-                                <button class="updatebtn">Book</button>
-                            </div>
+                            <div class="line2"></div>
+
+                            {{ Form::hidden('ex_id', $excursion_id , array('id' => 'hidden_ex_id') ) }}
+
+                            @foreach($excursion_rate as $excursion_rates)
+                                @if($x != $excursion_rates->city_id)
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <?php
+                                            $x = $excursion_rates->city_id;
+                                            $ex_city = City::where('id', '=', $excursion_rates->city_id)->select('city')->first();
+                                            echo $ex_city->city;
+                                            ?>
+
+                                        </div>
+
+                                        <div class="col-md-3 transport" value="122">
+
+                                            {{--{{ Form::open(array('url' => 'sri-lanka/set_excursion_transport', 'files'=> true, 'id' => 'transport_select_form', 'method' => 'POST', )) }}--}}
+                                            {{ Form::hidden('ex_city_id', $x , array('class' => 'hidden_ex_city_id') ) }}
+                                            {{ Form::select('transport_type', $transport_type, null, array('class' => 'form-control mySelectBoxClass transport_select', 'id' => 'ex_transport_type_'.$x)) }}
+                                            {{--{{ Form::close() }}--}}
+
+                                        </div>
+
+                                        <div class="col-md-3 ex_rate_show" id="city_{{ $x }}">
+                                            <?php
+                                            $ex_rate = ExcursionRate::where('excursion_id', '=', $excursion_id)
+                                                    ->where('excursion_transport_type_id', ExcursionTransportType::where('transport_type', 'Individual')->first()->id)
+                                                    ->where('city_id', '=', $x)
+                                                    ->select('rate')
+                                                    ->first();
+
+                                            echo $ex_rate->rate;
+                                            ?>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            {{ Form::selectRange('number', 1, 10, null, ['class' => 'form-control mySelectBoxClass pax', 'city_id' => $x]) }}
+                                        </div>
+
+                                    </div>
+
+                                    <div class="line2"></div>
+
+                                @endif
+                            @endforeach
+
                             <div class="clearfix"></div>
 
                         </div>
@@ -208,290 +265,63 @@
                         </div>
                     </div>
 
-                    <!-- TAB 5 -->
-                    <div id="reviews" class="tab-pane fade ">
-                        <div class="hpadding20">
-                            <div class="col-md-4 offset-0">
-                                <span class="opensans dark size60 slim lh3 ">4.5/5</span><br/>
-                                <img src="images/user-rating-4.png" alt=""/>
-                            </div>
-                            <div class="col-md-8 offset-0">
-                                <div class="progress progress-striped">
-                                    <div class="progress-bar progress-bar-success wh75percent" role="progressbar"
-                                         aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                        <span class="sr-only">4.5 out of 5</span>
-                                    </div>
-                                </div>
-                                <div class="progress progress-striped">
-                                    <div class="progress-bar progress-bar-success wh100percent" role="progressbar"
-                                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                        <span class="sr-only">100% of guests recommend</span>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                Ratings based on 5 Verified Reviews
-                            </div>
-                            <div class="clearfix"></div>
-                            <br/>
-                            <span class="opensans dark size16 bold">Average ratings</span>
-                        </div>
-
-
-                        <div class="line2"></div>
-
-                        <div class="hpadding20">
-                            <div class="col-md-4 offset-0 center">
-                                <div class="padding20">
-                                    <div class="bordertype5">
-                                        <div class="circlewrap">
-                                            <img src="images/user-avatar.jpg" class="circleimg" alt=""/>
-                                            <span>4.5</span>
-                                        </div>
-                                        <span class="dark">by Sena</span><br/>
-                                        from London, UK<br/>
-                                        <img src="images/check.png" alt=""/><br/>
-                                        <span class="green">Recommended<br/>for Everyone</span>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="col-md-8 offset-0">
-                                <div class="padding20">
-                                    <span class="opensans size16 dark">Great experience</span><br/>
-                                    <span class="opensans size13 lgrey">Posted Jun 02, 2013</span><br/>
-
-                                    <p>Excellent hotel, friendly staff would def go there again</p>
-                                    <ul class="circle-list">
-                                        <li>4.5</li>
-                                        <li>3.8</li>
-                                        <li>4.2</li>
-                                        <li>5.0</li>
-                                        <li>4.6</li>
-                                        <li>4.8</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-
-                        <div class="line2"></div>
-
-                        <div class="hpadding20">
-                            <div class="col-md-4 offset-0 center">
-                                <div class="padding20">
-                                    <div class="bordertype5">
-                                        <div class="circlewrap">
-                                            <img src="images/user-avatar.jpg" class="circleimg" alt=""/>
-                                            <span>4.5</span>
-                                        </div>
-                                        <span class="dark">by Sena</span><br/>
-                                        from London, UK<br/>
-                                        <img src="images/check.png" alt=""/><br/>
-                                        <span class="green">Recommended<br/>for Everyone</span>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="col-md-8 offset-0">
-                                <div class="padding20">
-                                    <span class="opensans size16 dark">Great experience</span><br/>
-                                    <span class="opensans size13 lgrey">Posted Jun 02, 2013</span><br/>
-
-                                    <p>The view from our balcony in room # 409, was terrific. It was centrally located
-                                        to everything on and around the port area. Wonderful service and everything was
-                                        very clean. The breakfast was below average, although not bad. If back in Zante
-                                        Town we would stay there again.</p>
-                                    <ul class="circle-list">
-                                        <li>4.5</li>
-                                        <li>3.8</li>
-                                        <li>4.2</li>
-                                        <li>5.0</li>
-                                        <li>4.6</li>
-                                        <li>4.8</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-
-                        <div class="line2"></div>
-
-                        <div class="hpadding20">
-                            <div class="col-md-4 offset-0 center">
-                                <div class="padding20">
-                                    <div class="bordertype5">
-                                        <div class="circlewrap">
-                                            <img src="images/user-avatar.jpg" class="circleimg" alt=""/>
-                                            <span>4.5</span>
-                                        </div>
-                                        <span class="dark">by Sena</span><br/>
-                                        from London, UK<br/>
-                                        <img src="images/check.png" alt=""/><br/>
-                                        <span class="green">Recommended<br/>for Everyone</span>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="col-md-8 offset-0">
-                                <div class="padding20">
-                                    <span class="opensans size16 dark">Great experience</span><br/>
-                                    <span class="opensans size13 lgrey">Posted Jun 02, 2013</span><br/>
-
-                                    <p>It is close to everything but if you go in the lower season the pool won't be
-                                        ready even though the temperature was quiet high already.</p>
-                                    <ul class="circle-list">
-                                        <li>4.5</li>
-                                        <li>3.8</li>
-                                        <li>4.2</li>
-                                        <li>5.0</li>
-                                        <li>4.6</li>
-                                        <li>4.8</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-
-                        <div class="line2"></div>
-                        <br/>
-                        <br/>
-
-                        <div class="hpadding20">
-                            <span class="opensans dark size16 bold">Reviews</span>
-                        </div>
-
-                        <div class="line2"></div>
-
-                        <div class="wh33percent left center">
-
-                            <br/>
-                            <ul class="jslidetext2">
-                                <li>Username</li>
-                                <li>Evaluation</li>
-                                <li>Title</li>
-                                <li>Comment</li>
-                            </ul>
-                        </div>
-                        <div class="wh66percent right offset-0">
-                            <script>
-                                //This is a fix for when the slider is used in a hidden div
-                                function testTriger() {
-                                    setTimeout(function () {
-                                        $(".cstyle01").resize();
-                                    }, 500);
-                                }
-                            </script>
-                            <div class="padding20 relative wh70percent">
-
-                                <input type="text" class="form-control margtop10" placeholder="">
-                                <select class="form-control mySelectBoxClass margtop10">
-                                    <option selected>Wonderful!</option>
-                                    <option>Nice</option>
-                                    <option>Neutral</option>
-                                    <option>Don't recommend</option>
-                                </select>
-                                <input type="text" class="form-control margtop10" placeholder="">
-
-                                <textarea class="form-control margtop10" rows="3"></textarea>
-
-                                <div class="clearfix"></div>
-                                <button type="submit" class="btn-search4 margtop20">Submit</button>
-
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-
-                    </div>
-
                 </div>
             </div>
 
             <div class="col-md-4">
 
-                <div class="pagecontainer2 testimonialbox">
-                    <div class="cpadding0 mt-10">
-                        <span class="icon-quote"></span>
+                <div class="price-box">
+                    <div style="background-color: #0099cc !important; padding: 10px; text-align: center"
+                         class="price-head">
 
-                        <p class="opensans size16 grey2">I've had the time of my life!!! Can wait the next vacation,
-                            definitely i will return here.<br/>
-                            <span class="lato lblue bold size13"><i>by Ellison from United Kingdom</i></span></p>
+                        <span style="color: #FFFFFF"
+                              class="opensans size18 dark bold"> {{ $excursion->excursion }} </span>
+                        <br/>
+                        {{ HTML::image('images/smallrating-5.png') }}
+
                     </div>
+
+                    <div class="line3"></div>
+
+                    <div class="hpadding30 pagecontainer2" style="">
+                        <br/>
+                        <table class="table table-bordered margbottom20" style="border: none !important;">
+                            <tbody>
+                            <tr>
+                                <td class="bold"> Form</td>
+                                <td class="center green bold city" id="excursion_city"></td>
+                            </tr>
+                            <tr>
+                                <td class="bold"> Transport Type</td>
+                                <td class="center green bold" id="excursion_transport"></td>
+                            </tr>
+                            <tr>
+                                <td class="bold"> Pax</td>
+                                <td class="center green bold" id="excursion_pax"></td>
+                            </tr>
+                            <tr>
+                                <td class="bold"> Rate</td>
+                                <td class="center green bold" id="excursion_rate"></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="line3"></div>
+
+                    <div style="background-color: #72bf66 !important; padding: 15px; text-align: right"
+                         class="price-head">
+                        <span style="color: #FFFFFF; text-align: right !important;" class="opensans size18 dark bold"> Excursion Total &nbsp;&nbsp;:&nbsp;&nbsp; </span>
+                        <span class="lred2 bold size18">$ <span class="lred2 bold size18" id="excursion_total"></span> </span>
+
+                        <div class="clearfix"></div>
+                    </div>
+
+
                 </div>
 
-                <div class="pagecontainer2 mt20 needassistancebox">
-                    <div class="cpadding1">
-                        <span class="icon-help"></span>
-
-                        <h3 class="opensans">Need Assistance?</h3>
-
-                        <p class="size14 grey">Our team is 24/7 at your service to help you with your booking issues or
-                            answer any related questions</p>
-
-                        <p class="opensans size30 lblue xslim">1-866-599-6674</p>
-                    </div>
-                </div>
                 <br/>
-
-                <div class="pagecontainer2 mt20 alsolikebox">
-                    <div class="cpadding1">
-                        <span class="icon-location"></span>
-
-                        <h3 class="opensans">You May Also Like</h3>
-
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="cpadding1 ">
-                        <div class="wh30percent left">
-                            <a href="#"><img src="updates/update1/img/activities/act01.jpg" width="80" class="left mr20"
-                                             alt=""/></a>
-                        </div>
-                        <div class="wh65percent right">
-                            <a href="#" class="dark"><b>4x4 Sunset Desert Safari and Dhow Cruise Dinner</b></a><br/>
-                            <span class="opensans green bold size14">$36-$160</span> <span
-                                    class="grey">/person</span><br/>
-                            <img src="images/filter-rating-5.png" alt=""/>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="line5"></div>
-                    <div class="cpadding1 ">
-                        <div class="wh30percent left">
-                            <a href="#"><img src="updates/update1/img/activities/act02.jpg" width="80" class="left mr20"
-                                             alt=""/></a>
-                        </div>
-                        <div class="wh65percent right">
-                            <a href="#" class="dark"><b>Aquaventure Waterpark and The Lost Chambers
-                                    Aquarium</b></a><br/>
-                            <span class="opensans green bold size14">$36-$160</span> <span
-                                    class="grey">/person</span><br/>
-                            <img src="images/filter-rating-5.png" alt=""/>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="line5"></div>
-                    <div class="cpadding1 ">
-                        <div class="wh30percent left">
-                            <a href="#"><img src="updates/update1/img/activities/act03.jpg" width="80" class="left mr20"
-                                             alt=""/></a>
-                        </div>
-                        <div class="wh65percent right">
-                            <a href="#" class="dark"><b>Yas Waterworld and Ferrari World Abu Dhabi</b></a><br/>
-                            <span class="opensans green bold size14">$36-$160</span> <span
-                                    class="grey">/person</span><br/>
-                            <img src="images/filter-rating-5.png" alt=""/>
-                        </div>
-                        <div class="clearfix"></div>
-
-                    </div>
-                    <br/>
-
-
-                </div>
 
             </div>
         </div>
@@ -514,6 +344,86 @@
 
         <!-- Carousel-->
         {{ HTML::script('assets/js/initialize-carousel-detailspage.js') }}
+
+
+        <script type="text/javascript">
+            $(function () {
+
+                $('.price-box').hide();
+
+                $('.transport_select').change(function () {
+                    var transport_value = $(this).val();
+                    var ex_id = $('#hidden_ex_id').val();
+                    var hidden_ex_city_id = $(this).prev('input:hidden').val();
+
+                    var formData = new FormData();
+
+                    formData.append('transport_type', transport_value);
+                    formData.append('ex_id', ex_id);
+                    formData.append('hidden_ex_city_id', hidden_ex_city_id);
+
+                    $.ajax({
+                        url: 'http://localhost/travel/public/sri-lanka/set_excursion_transport',
+                        method: 'post',
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        dataType: 'json',
+                        data: formData,
+                        success: function (data) {
+                            $('#city_' + hidden_ex_city_id).html(data);
+                        },
+                        error: function () {
+                            // alert('error');
+                        }
+                    });
+
+                });
+
+
+
+                $('.pax').change(function () {
+
+                    $('.price-box').show("blind", 500);
+
+                    var price_box_city_id = $(this).attr('city_id');
+                    var price_box_pax = $(this).val();
+                    var price_box_ex_id = $('#hidden_ex_id').val();
+                    var price_box_transport_id = $('#ex_transport_type_' + price_box_city_id).val();
+
+                    var priceData = new FormData();
+
+                    priceData.append('price_box_transport_id', price_box_transport_id);
+                    priceData.append('price_box_ex_id', price_box_ex_id);
+                    priceData.append('price_box_city_id', price_box_city_id);
+                    priceData.append('price_box_pax', price_box_pax);
+
+                    $.ajax({
+                        url: 'http://localhost/travel/public/sri-lanka/get_excursion_total',
+                        method: 'post',
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        dataType: 'json',
+                        data: priceData,
+                        success: function (data) {
+                            $('#excursion_total').html(data.total_rate);
+                            $('#excursion_city').html(data.city);
+                            $('#excursion_transport').html(data.transport_type);
+                            $('#excursion_pax').html(data.pax);
+                            $('#excursion_rate').html(data.ex_rate);
+                        },
+                        error: function () {
+                            // alert('error');
+                        }
+                    });
+
+
+                });
+
+            });
+        </script>
+
 
     @endsection
 

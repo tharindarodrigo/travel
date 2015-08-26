@@ -1,35 +1,41 @@
 <?php
 
-class RoomType extends \Eloquent {
+class RoomType extends \Eloquent
+{
 
-	// Add your validation rules here
-	public static $rules = [
-		// 'title' => 'required'
+    // Add your validation rules here
+    public static $rules = [
+        // 'title' => 'required'
         'room_type' => 'required',
 
-	];
+    ];
 
-	// Don't forget to fill this array
-	protected $fillable = ['room_type','description','hotel_id','user_id'];
+    // Don't forget to fill this array
+    protected $fillable = ['room_type', 'description', 'hotel_id', 'user_id'];
 
-    public function rate(){
+    public function rate()
+    {
         return $this->hasMany('Rate');
     }
 
-    public function roomSpecification(){
+    public function roomSpecification()
+    {
         return $this->belongsToMany('RoomSpecification');
     }
 
-    public function allotment(){
+    public function allotment()
+    {
         return $this->belongsToMany('Allotment');
 
     }
 
-    public function roomFacility(){
+    public function roomFacility()
+    {
         return $this->belongsToMany('RoomFacility');
     }
 
-    public function hotel(){
+    public function hotel()
+    {
         return $this->belongsTo('Hotel');
     }
 
