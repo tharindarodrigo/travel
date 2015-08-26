@@ -393,6 +393,8 @@ class HotelsController extends \BaseController
     public function destroy($id)
     {
 
+        dd('asdsad');
+
         try{
             $delete = Hotel::destroy($id);
 

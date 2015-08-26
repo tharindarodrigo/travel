@@ -93,7 +93,13 @@
 @section('script')
 <script type="text/javascript">
 $(function(){
-    confirmDelete();
+
+//    alert()
+
+
+    $("#hotel-list").dataTable({
+    function: confirmDelete()
+    });
 });
 
 </script>
