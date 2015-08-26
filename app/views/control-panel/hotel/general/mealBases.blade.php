@@ -157,7 +157,6 @@
 
 @section('scripts')
 
-
     <script type="text/javascript">
         $(function() {
             $("#meal-bases-table").dataTable();

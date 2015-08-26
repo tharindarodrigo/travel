@@ -41,17 +41,6 @@
 
 @endsection
 
-
 @section('scripts')
-
-    <script type="text/javascript">
-
-        $(function(){
-
-            $("#hotel-list").dataTable();
-        });
-
-    </script>
-
+    @yield('script')
 @endsection
-

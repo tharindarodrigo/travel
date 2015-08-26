@@ -72,10 +72,10 @@
                                 </div>
                             @else
                                 {{ Form::open(array('route'=> array('control-panel.hotel.hotels.update', $hotel->id), 'method' =>'patch')) }}
-                                     <button class="btn btn-xs btn-flat btn-default disabled activate-item col-md-3"
+                                    <button class="btn btn-xs btn-flat btn-default disabled activate-item col-md-3"
                                     type="button"><i class="glyphicon glyphicon-ok-circle"></i></button>
                                     <button class="btn btn-xs btn-flat btn-warning deactivate-item col-md-3"
-                                    type="submit" name="val" value="0"><i class="glyphicon glyphicon-remove-circle"></i></button>
+                                    type="button" name="val" value="0"><i class="glyphicon glyphicon-remove-circle"></i></button>
                                 {{ Form::close() }}
                             @endif
                         </td>
@@ -92,14 +92,11 @@
 
 @section('script')
 <script type="text/javascript">
-$(function(){
+$(document).ready(function(){
 
-//    alert()
-
-
-    $("#hotel-list").dataTable({
-    function: confirmDelete()
-    });
+    $("#hotel-list").dataTable(
+        confirmDeleteItem()
+    );
 });
 
 </script>

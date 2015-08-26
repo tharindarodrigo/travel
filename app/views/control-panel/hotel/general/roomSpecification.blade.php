@@ -128,7 +128,7 @@
                                         {{ Form::close() }}
 
                                         {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
-                                        <a type="" class="btn btn-xs btn-flat btn-danger delete-button col-md-3"><i class="glyphicon glyphicon-trash"></i></a>
+                                        <button type="" class="btn btn-xs btn-flat btn-danger delete-button col-md-3"><i class="glyphicon glyphicon-trash"></i></button>
                                         {{ Form::close() }}
 
                                         @if($category->val == 0)
@@ -148,7 +148,6 @@
                                             <button class="btn btn-xs btn-flat btn-warning deactivate-item col-md-3"
                                                 type="submit" name="val" value="0"><i class="glyphicon glyphicon-remove-circle"></i></button>
                                             {{ Form::close() }}
-
                                         @endif
 
 
