@@ -394,7 +394,7 @@ class HotelsController extends \BaseController
     {
 
         try{
-            $delete = Hotel::destroy($id);
+            Hotel::destroy($id);
 
             $files = File::glob('public/control-panel-assets/images/room-images/'.$id.'_*');
 
