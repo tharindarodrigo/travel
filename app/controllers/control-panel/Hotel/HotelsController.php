@@ -358,7 +358,6 @@ class HotelsController extends \BaseController
                         'successmessage' => 'Successfully Updated'
                     )
                 );
-
             }
         }
 
