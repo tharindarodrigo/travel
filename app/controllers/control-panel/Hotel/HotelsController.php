@@ -235,15 +235,14 @@ class HotelsController extends \BaseController
                 return Redirect::back()->withErrors($validator)->withInput();
             }
 
+            $hotelcategories = Input::get('category_id');
 
-            if ($hotel->update($data)) {
-
-                $hotelcategories = Input::get('category_id');
+            if (!empty($hotelcategories)){
 
                 DB::table('hotel_hotel_category')->where('hotel_id', $id)->delete();
 
-                if (!count($hotelcategories)) {
                     foreach ($hotelcategories as $hotelcategory) {
+
                         DB::table('hotel_hotel_category')->insert(
                             array(
                                 'hotel_id' => $id,
@@ -251,7 +250,6 @@ class HotelsController extends \BaseController
                             )
                         );
                     }
-                }
 
                 Session::put('successmessage', 'Hotel Successfully updated');
                 return Redirect::back();
