@@ -228,6 +228,8 @@ class HotelsController extends \BaseController
 
             $data = Input::all();
 
+//            dd($data);
+
             $validator = Validator::make($data, Hotel::$updateOverviewRules);
 
             if ($validator->fails()) {
@@ -237,7 +239,7 @@ class HotelsController extends \BaseController
 
             $hotelcategories = Input::get('category_id');
 
-            if (!empty($hotelcategories)){
+            if (!empty($hotelcategories) && $hotel->update($data)){
 
                 DB::table('hotel_hotel_category')->where('hotel_id', $id)->delete();
 

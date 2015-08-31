@@ -11,7 +11,7 @@ class AgentsController extends \BaseController {
 	{
 		$agents = Agent::all();
 
-		return View::make('agents.index', compact('agents'));
+		return View::make('control-panel.agents.index', compact('agents'));
 	}
 
 	/**
@@ -21,7 +21,7 @@ class AgentsController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('agents.create');
+		return View::make('control-panel.agents.create');
 	}
 
 	/**
@@ -40,7 +40,7 @@ class AgentsController extends \BaseController {
 
 		Agent::create($data);
 
-		return Redirect::route('agents.index');
+		return Redirect::route('control-panel.agents.index');
 	}
 
 	/**
@@ -53,7 +53,7 @@ class AgentsController extends \BaseController {
 	{
 		$agent = Agent::findOrFail($id);
 
-		return View::make('agents.show', compact('agent'));
+		return View::make('control-panel.agents.show', compact('agent'));
 	}
 
 	/**
@@ -66,7 +66,7 @@ class AgentsController extends \BaseController {
 	{
 		$agent = Agent::find($id);
 
-		return View::make('agents.edit', compact('agent'));
+		return View::make('control-panel.agents.edit', compact('agent'));
 	}
 
 	/**

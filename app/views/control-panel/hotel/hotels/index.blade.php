@@ -3,7 +3,7 @@
 @section('content')
 
 <section>
-<div class="col-md-12">
+    <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header">
                 <h3 class="box-title"><b>Search / Update / Delete</b> Hotel List</h3>
