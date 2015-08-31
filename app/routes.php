@@ -340,6 +340,28 @@ Route::group(array('prefix' => 'control-panel'), function () {
 //    Front End                                                                                                    |
 //=====================================================================================================================|
 
+//tourism details dowmload
+
+Route::get('/tdl-download', function()
+{
+    $file= public_path(). "/images/TDL.jpg";
+    $headers = array(
+        'Content-Type: image/jpeg',
+    );
+    return Response::download($file, 'TDL.jpg', $headers);
+});
+
+//ebrocher download
+
+Route::get('/ebrocher-download', function()
+{
+    $file= public_path(). "/images/ebrocher.pdf";
+    $headers = array(
+        'Content-Type: application/pdf',
+    );
+    return Response::download($file, 'ebrocher.pdf', $headers);
+});
+
 
 Route::post('auto-complete', array(
     'as' => 'auto-complete',
@@ -360,6 +382,49 @@ Route::get('/11', function () {
 Route::get('/about', function () {
     return View::make('pages.about');
 });
+
+
+/****** Route for tourism ******/
+
+Route::get('/tourism-in-srilanka', array(
+    'as' => 'tourism-in-srilanka',
+    'uses' => 'PageController@tourismInSrilanka'
+));
+
+/****** Route srilanka advice ******/
+
+Route::get('/sri-lanka-advice', array(
+    'as' => 'srilanka-advice',
+    'uses' => 'PageController@srilankaAdvance'
+));
+
+/****** Route for about-srilanka ******/
+
+Route::get('/about-srilanka', array(
+    'as' => 'about-srilanka',
+    'uses' => 'PageController@aboutSrilanka'
+));
+
+/****** Route for FAQ ******/
+
+Route::get('/faq', array(
+    'as' => 'faq',
+    'uses' => 'PageController@faq'
+));
+
+/****** Route for terms and conditions ******/
+
+Route::get('/terms-and-conditions', array(
+    'as' => 'terms-and-conditions',
+    'uses' => 'PageController@termsAndConditions'
+));
+
+/****** Route for terms and conditions ******/
+
+Route::get('/privacy-and-policy', array(
+    'as' => 'privacy-and-policy',
+    'uses' => 'PageController@privacyAndPolicy'
+));
 
 /****** Route for contact us ******/
 

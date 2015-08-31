@@ -4,44 +4,39 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Tour List </title>
+    <title> srilankahotel.travel - Tourism In Srilanka </title>
+
+    <style type="text/css">
+        .tourism {
+            width: 250px;;
+        }
+
+        strong{
+            font-family: "Lato";
+            font-style: italic;
+        }
+    </style>
 
 @endsection
 
 @section('custom_style')
 
+    <!-- PIECHART -->
+    {{ HTML::style('assets/css/jquery.easy-pie-chart.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+
+    <!-- Animo css-->
+    {{ HTML::style('plugins/animo/animate+animo.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+
     <style type="text/css">
-
-        .grey:hover {
-            color: #000000;
-        }
-
-        .collapsebtn {
-            background: #006699;
-            color: #FFFFFF;
-        }
-
-        h4 {
+        h1 {
             color: #006699;
+            font-family: 'Rokkitt', serif !important;
         }
 
+        h2 {
+            font-family: 'Arvo', serif;
+        }
     </style>
-
-    <!-- Updates -->
-    {{ HTML::style('updates/update1/css/style01.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
-
-    <!-- bin/jquery.slider.min.css -->
-    {{ HTML::style('plugins/jslider/css/jslider.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
-    {{ HTML::style('plugins/jslider/css/jslider.round.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
-
-    <!-- bin/jquery.slider.min.js -->
-    {{ HTML::script('plugins/jslider/js/jshashtable-2.1_src.js') }}
-    {{ HTML::script('plugins/jslider/js/jquery.numberformatter-1.2.3.js') }}
-    {{ HTML::script('plugins/jslider/js/tmpl.js') }}
-    {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
-    {{ HTML::script('plugins/jslider/js/draggable-0.1.js') }}
-    {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
-    <!-- end -->
 
     {{--my styles--}}
     {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
@@ -63,11 +58,7 @@
             <div class="left">
                 <ul class="bcrumbs">
                     <li>/</li>
-                    <li><a href="#">Activities</a></li>
-                    <li>/</li>
-                    <li><a href="#">U.A.E.</a></li>
-                    <li>/</li>
-                    <li><a href="#" class="active">Dubai</a></li>
+                    <li><a href="#" class="active">About us</a></li>
                 </ul>
             </div>
             <a class="backbtn right" href="#"></a>
@@ -78,6 +69,7 @@
 
     <!-- CONTENT -->
     <div class="container">
+
         <div class="container pagecontainer offset-0">
 
             <!-- FILTERS -->
@@ -87,11 +79,11 @@
                 <div class="filtertip">
                     <div class="padding20">
                         <p class="size13"><b
-                                    class="size30 bold"> {{ count($excursions);}} </b>
+                                    class="size30 bold"> </b>
                             Results Found
 
                         <p class="size30 bold"><span class="size13 normal darkblue">In</span>
-                            {{ str_replace('-', ' ', Request::segment(3)) }}
+
                         </p>
 
                     </div>
@@ -103,7 +95,8 @@
                     <div class="w50percent">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"
+                                       checked>
                                 <span class="hotel-ico"></span> Hotels
                             </label>
                         </div>
@@ -198,11 +191,13 @@
                                 </select>
                             </div>
                         </div>
-                        <input type="hidden" name="city_or_acc_hidden" value="{{ $city = Request::segment(2); }}"/>
+                        <input type="hidden" name="city_or_acc_hidden"
+                               value="{{ $city = Request::segment(2); }}"/>
+
                         <div class="clearfix"></div>
                         <div class="clearfix pbottom15"></div>
 
-                        <button type="submit" class="btn-search3 right">Search</button>
+                        <button type="submit" class="btn-search3 right"> Search</button>
 
                     </div>
                     <!-- END OF HOTELS TAB -->
@@ -369,55 +364,6 @@
 
                 <div class="line2"></div>
 
-                <!-- Excursion -->
-                <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
-                    Excursion type <span class="collapsearrow"></span>
-                </button>
-                {{ Form::open(array('url' => '/sri-lanka/excursion/filter', 'method' => 'POST', 'id'=>'excursion_form')) }}
-                <div id="collapse3" class="collapse in">
-                    <div class="hpadding20">
-                        <?php $x = 1; ?>
-                        @foreach($filter_excursion as $excursion)
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="excursion" id="Excursion{{ $x }}"
-                                           value="{{ $excursion->id }}" class="excursion_select">
-                                    {{ $excursion->excursion_type }}
-                                </label>
-                            </div>
-                            <?php $x++ ?>
-                        @endforeach
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <!-- End of Accommodations -->
-                {{ Form::close() }}
-                <div class="line2"></div>
-
-                <!-- Cities -->
-                <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse5">
-                    Cities <span class="collapsearrow"></span>
-                </button>
-                {{ Form::open(array('url' => '/sri-lanka/filter', 'method' => 'POST', 'id'=>'city_form')) }}
-                <div id="collapse5" class="collapse in">
-                    <div class="hpadding20">
-                        @foreach($filter_cities as $city)
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="city" id="City{{ $x }}"
-                                           value="{{ $city->id }}" class="city_select">
-                                    {{ $city->city }}
-                                </label>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <!-- End of Cities -->
-                {{ Form::close() }}
-
-
-                <div class="line2"></div>
                 <div class="clearfix"></div>
                 <br/>
                 <br/>
@@ -429,111 +375,61 @@
             <!-- LIST CONTENT-->
             <div class="rightcontent col-md-9 offset-0">
 
-                <div class="hpadding20">
+                <div class="hpadding50c">
+                    <h1> Tourism in Sri Lanka </h1>
 
-                    <h1 style="color: #006699; font-family: 'Cinzel', serif; "> {{ str_replace('-', ' ', Request::segment(3)) }} </h1>
-
-                    <div class="line4"></div>
-
+                    <p class="aboutarrow"></p>
                 </div>
-                <!-- End of padding -->
+                <div class="line3"></div>
 
-                <br/><br/>
+                <div class="hpadding50c">
 
-                <div class="clearfix"></div>
+                    <!-- LEFT IMG -->
+                    <div class="col-md-8 cpdd01 grey2">
 
-                <div class="itemscontainer offset-1">
+                        <P>
+                            While tourism is considered to be one of the key industries in Sri Lanka, its geographical
+                            setting allows tourists to choose from beaches, heritage sites, thick jungles or cooler
+                            climes in the hill country all within a short distance of each other.
+                        </p>
 
-                    @foreach($excursions as $excursion)
+                        <p>
+                            The island's beautiful beaches in the south and the eastern part of the island are a major
+                            tourist attraction, while the majority of tourists are from Europe and the surrounding Asian
+                            countries. Home to eight world heritage sites which include Kandy, Galle, Anuradhapura,
+                            Sigirya, Polonnaruwa, Dambulla, Nuwara Eliya and the Sinharaja tropical forest, there's
+                            plenty to experience in this miracle of Asia.
+                        </p>
 
-                        <?php
-                        $directory = 'images/tour_images/';
-                        $images = glob($directory . $excursion->id . "*.*");
-                        $img_path = array_shift($images);
-                        ?>
+                        <p>
+                            Kotte is the capital of the country, but Colombo is the island's 'Commercial Capital.' While
+                            the beaches and the sunny weather attract tourists especially during the European winter
+                            months, the National parks of Sri Lanka draw visitors who are eager to catch a glimpse of
+                            elephants and endemic species in the wild. According to the Kuoni poll conducted in the UK
+                            in January 2012, Sri Lanka was named as one of the top five destinations to visit. In
+                            addition, the island maintained the number one slot for destination weddings in the poll.
+                        </P>
+                        <br/><br/>
 
-                        <div class="offset-2">
-                            <div class="col-md-4 offset-0">
-                                <div class="listitem2">
+                    </div>
+                    <!-- END OF LEFT IMG -->
 
-                                    <a href="<?php echo 'http://localhost/travel/public/' . $img_path; ?>"
-                                       data-title="{{ $excursion->excursion }}" data-gallery="multiimages"
-                                       data-toggle="lightbox">
-
-                                        @if(count($img_path)>0)
-                                            {{ HTML::image($img_path, '', array('class' => 'hotel_img_1'))}}
-                                        @else
-                                            {{ HTML::image('images/no-image.jpg', '', array('class' => 'property_img_1')) }}
-                                        @endif
-
-                                    </a>
-
-                                    <div class="liover"></div>
-                                    <a class="fav-icon" href="#"></a>
-
-                                    <a class="book-icon"
-                                       href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursion->ExcursionType->excursion_type).'/'.str_replace(' ', '-', $excursion->excursion))}}"></a>
-
-                                </div>
-                            </div>
-
-                            <div class="col-md-8 offset-0">
-                                <div class="itemlabel4">
-                                    <div class="labelright">
-
-                                        {{--@if(!empty($types->rate))--}}
-                                        {{--<br/><span class="green size18"><b>{{ $types->rate }}</b></span><br/>--}}
-                                        {{--<span class="size11 grey">/person</span><br/><br/><br/>--}}
-                                        {{--@else--}}
-                                        {{--<span class="green size18"><b> No Rate Available </b></span><br/>--}}
-                                        {{--@endif--}}
-
-                                        {{--<span class="size11 grey"></span><br/><br/><br/>--}}
-
-                                        <a class="bookbtn mt1"
-                                           href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursion->ExcursionType->excursion_type).'/'.str_replace(' ', '-', $excursion->excursion))}}">
-                                            Book
-                                        </a>
-
-                                    </div>
-                                    <div class="labelleft2">
-
-                                        <a href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursion->ExcursionType->excursion_type).'/'.str_replace(' ', '-', $excursion->excursion))}}">
-                                            <span class="size16">
-                                                <h4 style="color: #006699; font-family: 'Play', sans-serif;">{{ $excursion->excursion }}</h4>
-                                            </span>
-                                        </a>
-
-                                        <div class="line4"></div>
-
-                                        <p class="grey size14 lh6">
-                                            {{ $excursion->short_description }}.
-                                        </p><br/>
-
-                                    </div>
-                                </div>
-                            </div>
+                    <!-- IMG RIGHT TEXT -->
+                    <div class="col-md-4 cpdd02">
+                        <div class="opensans grey">
+                            {{ HTML::image('images/tourism_in_srilanka.jpg', '', array('class' => 'tourism'))}}
                         </div>
-
-                        <div class="clearfix"></div>
-                        <div class="offset-2">
-                            <hr class="featurette-divider3">
-                        </div>
-                    @endforeach
+                    </div>
+                    <!-- END OF IMG RIGHT TEXT -->
+                    <div class="clearfix"></div>
+                    <br/><br/>
 
                 </div>
-                <!-- End of offset1-->
-
-                <div class="hpadding20" align="right">
-                    {{ $excursions->links() }}
-                </div>
-                <br/>
-
             </div>
             <!-- END OF LIST CONTENT-->
 
         </div>
-        <!-- END OF container-->
+        <!-- END CONTENT -->
 
     </div>
     <!-- END OF CONTENT -->
@@ -542,8 +438,14 @@
 
     @section('script')
 
-        <!-- Javascript -->
-        {{ HTML::script('assets/js/js-list4.js') }}
+        <!-- Javascript  -->
+        {{ HTML::script('assets/js/js-blog.js') }}
+
+        <!-- Easy Pie Chart  -->
+        {{ HTML::script('assets/js/jquery.easy-pie-chart.js') }}
+
+        <!-- Load Animo -->
+        {{ HTML::script('plugins/animo/animo.js') }}
 
         <!-- Custom Select -->
         {{ HTML::script('js/lightbox.js') }}
@@ -551,10 +453,16 @@
         <!-- Counter -->
         {{ HTML::script('assets/js/counter.js') }}
 
+        <!-- Javascript -->
+        {{ HTML::script('assets/js/js-list4.js') }}
+
         <!-- Custom js -->
         {{ HTML::script('js/my_script.js') }}
+
 
     @endsection
 
     </body>
+
 @stop
+

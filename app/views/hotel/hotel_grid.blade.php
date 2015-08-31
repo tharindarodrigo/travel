@@ -23,10 +23,10 @@
     {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
     <!-- end -->
 
+    {{--my styles--}}
+    {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+
     <style type="text/css">
-        a {
-            text-decoration: none !important;
-        }
 
         .hotel_img_1 {
             width: 325px;

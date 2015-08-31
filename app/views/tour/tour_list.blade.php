@@ -11,10 +11,6 @@
 @section('custom_style')
 
     <style type="text/css">
-        a {
-            text-decoration: none !important;
-        }
-
         .grey:hover {
             color: #000000;
         }
@@ -45,6 +41,9 @@
     {{ HTML::script('plugins/jslider/js/draggable-0.1.js') }}
     {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
     <!-- end -->
+
+    {{--my styles--}}
+    {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
 @endsection
 

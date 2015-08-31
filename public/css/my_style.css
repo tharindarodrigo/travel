@@ -1,0 +1,105 @@
+.search_thumb {
+    width: 25px;
+    height: 25px;
+}
+
+/* SEARCH FORM */
+
+#suggestions {
+    color: #FFFFFF !important;
+    background: #FFFFFF;
+    position: relative;
+    top: 5px;
+    left: 0px;
+    /*width: 100%;*/
+    display: none;
+}
+
+div .auto_complete:hover {
+    width: 100%;
+    background: #006699;
+}
+
+.auto_complete:hover a {
+    text-decoration: none;
+    color: #FFFFFF !important;
+}
+
+/* SEARCHRESULTS */
+
+#searchresults {
+    border-width: 1px;
+    border-color: #919191;
+    border-style: solid;
+    width: 320px;
+    background-color: #a0a0a0;
+    font-size: 10px;
+    line-height: 14px;
+}
+
+#searchresults a {
+    display: block;
+    background-color: #e4e4e4;
+    clear: left;
+    height: 56px;
+    text-decoration: none;
+}
+
+#searchresults a:hover {
+    background-color: #FFFFFF;
+    text-decoration: none;
+    color: #000000 !important;
+}
+
+#searchresults a img {
+    float: left;
+    padding: 5px 10px;
+}
+
+#searchresults a span.searchheading {
+    display: block;
+    font-weight: bold;
+    padding-top: 5px;
+    color: #191919;
+}
+
+#searchresults a:hover span.searchheading {
+    color: #000000;
+}
+
+#searchresults a span {
+    color: #555555;
+}
+
+#searchresults a:hover span {
+    background: #000066;
+    color: #FFFFFF !important;
+}
+
+#searchresults span.category {
+    font-size: 11px;
+    margin: 5px;
+    display: block;
+    color: #000000;
+}
+
+#searchresults span.seperator {
+    float: right;
+    padding-right: 15px;
+    margin-right: 5px;
+    background-image: url(../images/shortcuts_arrow.gif);
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+#searchresults span.seperator a {
+    background-color: transparent;
+    display: block;
+    margin: 5px;
+    height: auto;
+    color: #000000;
+}
+
+.grey:hover {
+    color: #000000;
+}

@@ -4,44 +4,39 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Tour List </title>
+    <title> srilankahotel.travel - Privacy And Policy </title>
+
+    <style type="text/css">
+        .tourism {
+            width: 250px;;
+        }
+
+        strong {
+            font-family: "Lato";
+            font-style: italic;
+        }
+    </style>
 
 @endsection
 
 @section('custom_style')
 
+    <!-- PIECHART -->
+    {{ HTML::style('assets/css/jquery.easy-pie-chart.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+
+    <!-- Animo css-->
+    {{ HTML::style('plugins/animo/animate+animo.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+
     <style type="text/css">
-
-        .grey:hover {
-            color: #000000;
-        }
-
-        .collapsebtn {
-            background: #006699;
-            color: #FFFFFF;
-        }
-
-        h4 {
+        h1 {
             color: #006699;
+            font-family: 'Rokkitt', serif !important;
         }
 
+        h2 {
+            font-family: 'Arvo', serif;
+        }
     </style>
-
-    <!-- Updates -->
-    {{ HTML::style('updates/update1/css/style01.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
-
-    <!-- bin/jquery.slider.min.css -->
-    {{ HTML::style('plugins/jslider/css/jslider.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
-    {{ HTML::style('plugins/jslider/css/jslider.round.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
-
-    <!-- bin/jquery.slider.min.js -->
-    {{ HTML::script('plugins/jslider/js/jshashtable-2.1_src.js') }}
-    {{ HTML::script('plugins/jslider/js/jquery.numberformatter-1.2.3.js') }}
-    {{ HTML::script('plugins/jslider/js/tmpl.js') }}
-    {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
-    {{ HTML::script('plugins/jslider/js/draggable-0.1.js') }}
-    {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
-    <!-- end -->
 
     {{--my styles--}}
     {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
@@ -63,11 +58,7 @@
             <div class="left">
                 <ul class="bcrumbs">
                     <li>/</li>
-                    <li><a href="#">Activities</a></li>
-                    <li>/</li>
-                    <li><a href="#">U.A.E.</a></li>
-                    <li>/</li>
-                    <li><a href="#" class="active">Dubai</a></li>
+                    <li><a href="#" class="active">About us</a></li>
                 </ul>
             </div>
             <a class="backbtn right" href="#"></a>
@@ -78,6 +69,7 @@
 
     <!-- CONTENT -->
     <div class="container">
+
         <div class="container pagecontainer offset-0">
 
             <!-- FILTERS -->
@@ -87,11 +79,11 @@
                 <div class="filtertip">
                     <div class="padding20">
                         <p class="size13"><b
-                                    class="size30 bold"> {{ count($excursions);}} </b>
+                                    class="size30 bold"> </b>
                             Results Found
 
                         <p class="size30 bold"><span class="size13 normal darkblue">In</span>
-                            {{ str_replace('-', ' ', Request::segment(3)) }}
+
                         </p>
 
                     </div>
@@ -103,7 +95,8 @@
                     <div class="w50percent">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"
+                                       checked>
                                 <span class="hotel-ico"></span> Hotels
                             </label>
                         </div>
@@ -198,11 +191,13 @@
                                 </select>
                             </div>
                         </div>
-                        <input type="hidden" name="city_or_acc_hidden" value="{{ $city = Request::segment(2); }}"/>
+                        <input type="hidden" name="city_or_acc_hidden"
+                               value="{{ $city = Request::segment(2); }}"/>
+
                         <div class="clearfix"></div>
                         <div class="clearfix pbottom15"></div>
 
-                        <button type="submit" class="btn-search3 right">Search</button>
+                        <button type="submit" class="btn-search3 right"> Search</button>
 
                     </div>
                     <!-- END OF HOTELS TAB -->
@@ -369,55 +364,6 @@
 
                 <div class="line2"></div>
 
-                <!-- Excursion -->
-                <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
-                    Excursion type <span class="collapsearrow"></span>
-                </button>
-                {{ Form::open(array('url' => '/sri-lanka/excursion/filter', 'method' => 'POST', 'id'=>'excursion_form')) }}
-                <div id="collapse3" class="collapse in">
-                    <div class="hpadding20">
-                        <?php $x = 1; ?>
-                        @foreach($filter_excursion as $excursion)
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="excursion" id="Excursion{{ $x }}"
-                                           value="{{ $excursion->id }}" class="excursion_select">
-                                    {{ $excursion->excursion_type }}
-                                </label>
-                            </div>
-                            <?php $x++ ?>
-                        @endforeach
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <!-- End of Accommodations -->
-                {{ Form::close() }}
-                <div class="line2"></div>
-
-                <!-- Cities -->
-                <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse5">
-                    Cities <span class="collapsearrow"></span>
-                </button>
-                {{ Form::open(array('url' => '/sri-lanka/filter', 'method' => 'POST', 'id'=>'city_form')) }}
-                <div id="collapse5" class="collapse in">
-                    <div class="hpadding20">
-                        @foreach($filter_cities as $city)
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="city" id="City{{ $x }}"
-                                           value="{{ $city->id }}" class="city_select">
-                                    {{ $city->city }}
-                                </label>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <!-- End of Cities -->
-                {{ Form::close() }}
-
-
-                <div class="line2"></div>
                 <div class="clearfix"></div>
                 <br/>
                 <br/>
@@ -429,111 +375,229 @@
             <!-- LIST CONTENT-->
             <div class="rightcontent col-md-9 offset-0">
 
-                <div class="hpadding20">
+                <div class="hpadding50c">
+                    <h1> Privacy And Policy </h1>
 
-                    <h1 style="color: #006699; font-family: 'Cinzel', serif; "> {{ str_replace('-', ' ', Request::segment(3)) }} </h1>
+                    <p class="aboutarrow"></p>
+                </div>
+                <div class="line3"></div>
 
-                    <div class="line4"></div>
+                <div class="hpadding50c">
+
+                    <!-- LEFT IMG -->
+                    <div class="cpdd01 grey2">
+
+                        <p style="margin-bottom: 0in">Exotic Holidays International (Pvt) Limited is using a secured Web
+                            Site for transaction of personal data communicated. We do not capture personal information
+                            without your knowledge or your permission. You will only be asked to provide personal
+                            information when you are taking advantage of this site's interactive products and services.
+                            Your credit card information is only acquired by the secure encrypted Internet payment
+                            gateway page of the bank our booking system is linked with. Exotic Holidays does not acquire
+                            or store your credit card information.</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p><strong> </strong></p>
+
+                        <p style="margin-bottom: 0in"><strong>Feedback</strong></p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">Exotic Holidays is free to use, reproduce, disclose and or
+                            distribute the information, ideas, and know-how in your feedback to others without
+                            limitation and for any purpose whatsoever.</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in"><strong>Other Terms</strong></p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">This Agreement constitutes the entire terms governing your access
+                            to dealings with and use of this Web Site. Separate arrangements may attach to products or
+                            services you obtain, purchase or use from the site. You can find details of these terms
+                            under those particular products or services, or from the service providers.</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in"><strong>Governing Law</strong></p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">The laws of the Democratic Socialist Republic of Sri Lanka govern
+                            the use of this Web Site and you irrevocably submit to the non-exclusive jurisdiction of the
+                            courts of Sri Lanka. In addition, in the event of a violation committed by you, Exotic
+                            Holidays reserves the right to bring proceedings against you in the country of your
+                            residence.</p>
+
+                        <p style="margin-bottom: 0in"><strong>&nbsp;</strong></p>
+
+                        <p style="margin-bottom: 0in"><strong><br/></strong></p>
+
+                        <p><strong> </strong></p>
+
+                        <p style="margin-bottom: 0in"><strong>The Principles of Data Protection</strong></p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">Exotic Holidays takes the protection of your privacy and your
+                            personal data very seriously. We would therefore like to explain what data we collect, what
+                            we use it for and how we protect your data. These data protection principles do not apply to
+                            Web Sites that may be accessed by clicking on hyperlinks on main web pages.</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in"><strong>&nbsp;</strong></p>
+
+                        <p><strong> </strong></p>
+
+                        <p style="margin-bottom: 0in"><strong>General information on data protection and the purpose of
+                                data storage:</strong></p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in"><strong>What data do we collect?</strong></p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in"><span
+                                    style="text-decoration: underline;">Bookings /Purchases</span></p>
+
+                        <p style="margin-bottom: 0in">&nbsp;Whenever you make a booking or purchase using the Exotic
+                            Holidays Web Site, we collect the data that we require to make the booking or sale,
+                            particularly your name, telephone number and e-mail address, your residential address
+                            ("contact details"), as well as your arrival and departure dates, booking details, etc.</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in"><span style="text-decoration: underline;">Contact</span></p>
+
+                        <p style="margin-bottom: 0in">General questions may be addressed to us using the Contact Us
+                            page. In order to be able to process your inquiries, we collect your contact details. This
+                            data is not disclosed to third parties or used for purposes other than handling your
+                            inquiry.</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p><strong> </strong></p>
+
+                        <p style="margin-bottom: 0in"><strong>Who gets my data?</strong></p>
+
+                        <p><strong> </strong></p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">Whenever you make a booking using Exotic Holidays Web Site, your
+                            booking details are passed onto the booking staff to enable the booking to be made. The
+                            technical staff members and subcontractors who handle the website may monitor data generated
+                            from the website for the sole purpose of ensuring error-free operations. All such staff and
+                            subcontractors are bound by a strict confidentiality agreement. Apart from this, your data
+                            is not passed on to any third parties. Under no circumstances will the Exotic Holidays Web
+                            Site sell or lend out your contact details. In exceptional circumstances, legal regulations,
+                            judicial or official orders may require us to hand data over to the relevant authority or
+                            court. However, this is only undertaken within the framework of our legal obligations.</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in"><strong>Information on data protection</strong></p>
+
+                        <p><strong> </strong></p>
+
+                        <p style="margin-bottom: 0in"><strong>&nbsp;</strong></p>
+
+                        <p><strong> </strong></p>
+
+                        <p style="margin-bottom: 0in"><strong>How safe is it to transfer data to Exotic Holidays Web
+                                Site?</strong></p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">All credit card data you provide to Exotic Holidays Web Site is
+                            encoded and transmitted using the SSL (Secure Sockets Layer) protocol. This is a
+                            tried-and-tested system used by browsers the world over to encrypt data automatically before
+                            transmitting it to the intended recipient.</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in"><strong>How secure is my data on the Exotic Holidays Web Site
+                                database?</strong></p>
+
+                        <p style="margin-bottom: 0in">We apply Exotic Holidays Web Site's strict safety standards for
+                            our database and Internet server in order to provide effective protection against loss,
+                            misuse, unauthorised divulgence, alteration and deletion of and unauthorized access to your
+                            data.</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in"><strong>Cookies</strong></p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p><strong> </strong></p>
+
+                        <p style="margin-bottom: 0in"><strong>What are cookies?</strong></p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">Cookies are small pieces of information that your browser stores
+                            on your computer's hard disk. They simplify bookings by automatically calling up frequently
+                            used data on sites you have already visited. You can set your computer to not store any
+                            cookies on your computer. However, this may prevent you using some of the functions we
+                            offer. The basic "search-and-reserve" functions can also be used without cookies.</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in"><strong>&nbsp;</strong></p>
+
+                        <p><strong> </strong></p>
+
+                        <p style="margin-bottom: 0in"><strong>Questions</strong></p>
+
+                        <p style="margin-bottom: 0in">&nbsp;</p>
+
+                        <p style="margin-bottom: 0in">You may ask to see your stored personal data at any time. You also
+                            have the right to correct, delete or (in the case of incorrect data) bar such data. Contact
+                            details should be amended in the Exotic Holidays Web Site. However, contractual and/or legal
+                            regulations, particularly those relating to accounting and payment, may prevent certain data
+                            from being deleted.</p>
+
+                        <p>&nbsp;</p>
+
+
+                        <br/><br/>
+
+                    </div>
+                    <!-- END OF LEFT IMG -->
+
+                    <div class="clearfix"></div>
+                    <br/><br/>
 
                 </div>
-                <!-- End of padding -->
-
-                <br/><br/>
-
-                <div class="clearfix"></div>
-
-                <div class="itemscontainer offset-1">
-
-                    @foreach($excursions as $excursion)
-
-                        <?php
-                        $directory = 'images/tour_images/';
-                        $images = glob($directory . $excursion->id . "*.*");
-                        $img_path = array_shift($images);
-                        ?>
-
-                        <div class="offset-2">
-                            <div class="col-md-4 offset-0">
-                                <div class="listitem2">
-
-                                    <a href="<?php echo 'http://localhost/travel/public/' . $img_path; ?>"
-                                       data-title="{{ $excursion->excursion }}" data-gallery="multiimages"
-                                       data-toggle="lightbox">
-
-                                        @if(count($img_path)>0)
-                                            {{ HTML::image($img_path, '', array('class' => 'hotel_img_1'))}}
-                                        @else
-                                            {{ HTML::image('images/no-image.jpg', '', array('class' => 'property_img_1')) }}
-                                        @endif
-
-                                    </a>
-
-                                    <div class="liover"></div>
-                                    <a class="fav-icon" href="#"></a>
-
-                                    <a class="book-icon"
-                                       href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursion->ExcursionType->excursion_type).'/'.str_replace(' ', '-', $excursion->excursion))}}"></a>
-
-                                </div>
-                            </div>
-
-                            <div class="col-md-8 offset-0">
-                                <div class="itemlabel4">
-                                    <div class="labelright">
-
-                                        {{--@if(!empty($types->rate))--}}
-                                        {{--<br/><span class="green size18"><b>{{ $types->rate }}</b></span><br/>--}}
-                                        {{--<span class="size11 grey">/person</span><br/><br/><br/>--}}
-                                        {{--@else--}}
-                                        {{--<span class="green size18"><b> No Rate Available </b></span><br/>--}}
-                                        {{--@endif--}}
-
-                                        {{--<span class="size11 grey"></span><br/><br/><br/>--}}
-
-                                        <a class="bookbtn mt1"
-                                           href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursion->ExcursionType->excursion_type).'/'.str_replace(' ', '-', $excursion->excursion))}}">
-                                            Book
-                                        </a>
-
-                                    </div>
-                                    <div class="labelleft2">
-
-                                        <a href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursion->ExcursionType->excursion_type).'/'.str_replace(' ', '-', $excursion->excursion))}}">
-                                            <span class="size16">
-                                                <h4 style="color: #006699; font-family: 'Play', sans-serif;">{{ $excursion->excursion }}</h4>
-                                            </span>
-                                        </a>
-
-                                        <div class="line4"></div>
-
-                                        <p class="grey size14 lh6">
-                                            {{ $excursion->short_description }}.
-                                        </p><br/>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="clearfix"></div>
-                        <div class="offset-2">
-                            <hr class="featurette-divider3">
-                        </div>
-                    @endforeach
-
-                </div>
-                <!-- End of offset1-->
-
-                <div class="hpadding20" align="right">
-                    {{ $excursions->links() }}
-                </div>
-                <br/>
-
             </div>
             <!-- END OF LIST CONTENT-->
 
         </div>
-        <!-- END OF container-->
+        <!-- END CONTENT -->
 
     </div>
     <!-- END OF CONTENT -->
@@ -542,8 +606,14 @@
 
     @section('script')
 
-        <!-- Javascript -->
-        {{ HTML::script('assets/js/js-list4.js') }}
+        <!-- Javascript  -->
+        {{ HTML::script('assets/js/js-blog.js') }}
+
+        <!-- Easy Pie Chart  -->
+        {{ HTML::script('assets/js/jquery.easy-pie-chart.js') }}
+
+        <!-- Load Animo -->
+        {{ HTML::script('plugins/animo/animo.js') }}
 
         <!-- Custom Select -->
         {{ HTML::script('js/lightbox.js') }}
@@ -551,10 +621,16 @@
         <!-- Counter -->
         {{ HTML::script('assets/js/counter.js') }}
 
+        <!-- Javascript -->
+        {{ HTML::script('assets/js/js-list4.js') }}
+
         <!-- Custom js -->
         {{ HTML::script('js/my_script.js') }}
+
 
     @endsection
 
     </body>
+
 @stop
+

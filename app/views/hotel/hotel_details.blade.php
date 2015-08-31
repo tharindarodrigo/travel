@@ -27,6 +27,9 @@
     {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
     <!-- end -->
 
+    {{--my styles--}}
+    {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+
     <!-- Javascript -->
     {{ HTML::script('assets/js/js-details.js') }}
 
@@ -1017,13 +1020,14 @@
         {{ HTML::script('assets/js/initialize-carousel-detailspage.js') }}
 
 
-        <script type="text/javascript">
-            $(function () {
-                $('#datepicker2').change(function () {
-                    $('#details_form').submit();
-                })
-            });
-        </script>
+        {{--<script type="text/javascript">--}}
+            {{--$(function () {--}}
+                {{--$('#datepicker2').change(function () {--}}
+                    {{--var = $(this).--}}
+                    {{--$('#details_form').submit();--}}
+                {{--})--}}
+            {{--});--}}
+        {{--</script>--}}
 
         {{--<script type="text/javascript">--}}
         {{--$(function () {--}}

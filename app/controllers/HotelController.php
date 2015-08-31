@@ -370,6 +370,7 @@ class HotelController extends \BaseController
     public function hotelDetail($country = '', $city = '', $hotel_name)
     {
 
+
         if (Input::has('check_in_date')) {
             $start = Input::get('check_in_date');
             Session::put('st_date', $start);
