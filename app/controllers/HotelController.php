@@ -455,7 +455,7 @@ class HotelController extends \BaseController
 
 //        dd(DB::getQueryLog());
 
-        if (!$hotel->count()) {
+        if (!$rooms->count()) {
             return Redirect::to('/403');
         }
 

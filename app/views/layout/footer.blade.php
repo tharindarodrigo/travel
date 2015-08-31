@@ -168,7 +168,7 @@
 
             <a href="{{URL::to('/tdl-download') }}">
                 <div class="col-md-4">
-                    {{ HTML::image('images/tourism.jpg', '', array('class' => 'property_img_1')) }}
+                    {{ HTML::image('images/tourism.jpg', '', array('class' => '')) }}
                 </div>
 
                 <div class="col-md-8">
@@ -180,23 +180,21 @@
 
         <div class="col-md-5" style="padding-top: 20px">
             <div class="container center grey">
-                <a href="index.php">Home</a> |
-                <a href="about.php">About</a> |
-                <a href="#">Last minute</a> |
-                <a href="#">Early booking</a> |
-                <a href="special_offers.php">Special offers</a> |
-                <a href="#">Blog</a> |
-                <a href="contact.php">Contact</a>
-                <a href="#top" class="gotop scroll"><img src="images/spacer.png" alt=""/></a>
+                <a href="{{URL::to('/')}}">Home</a> |
+                <a href="{{URL::to('/about')}}">About</a> |
+                <a href="contact.php"> Hot Deals </a> |
+                <a href="{{URL::to('/contact')}}">Contact</a> |
+                <a href="#top" class="gotop scroll">{{ HTML::image('images/spacer.png', '', array('class' => '')) }}</a>
             </div>
         </div>
 
         <div class="col-md-3">
             <span>
-                {{ HTML::image('images/cards1.jpg', '', array('class' => 'property_img_1')) }}
+                {{ HTML::image('images/cards1.jpg', '', array('class' => '')) }}
             </span>
+
             <span>
-                {{ HTML::image('images/cards2.jpg', '', array('class' => 'property_img_1')) }}
+                {{ HTML::image('images/cards2.jpg', '', array('class' => '')) }}
             </span>
 
         </div>

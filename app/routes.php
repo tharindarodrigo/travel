@@ -340,6 +340,13 @@ Route::group(array('prefix' => 'control-panel'), function () {
 //    Front End                                                                                                    |
 //=====================================================================================================================|
 
+
+Route::get('/', array(
+    'as' => 'index',
+    'uses' => 'HomeController@index'
+));
+
+
 //tourism details dowmload
 
 Route::get('/tdl-download', function()
@@ -362,16 +369,14 @@ Route::get('/ebrocher-download', function()
     return Response::download($file, 'ebrocher.pdf', $headers);
 });
 
+//auto complete route
 
 Route::post('auto-complete', array(
     'as' => 'auto-complete',
     'uses' => 'HotelController@autoComplete'
 ));
 
-Route::get('/', array(
-    'as' => 'index',
-    'uses' => 'HomeController@index'
-));
+//my testing page
 
 Route::get('/11', function () {
     return View::make('pages.11');
@@ -448,10 +453,10 @@ Route::get('/message', array(
 
 /*------------------------- Errors -------------------------*/
 
-Route::get('/403', function () {
-    return View::make('errors.403');
-});
-
+Route::get('/403', array(
+    'as' => '403-message',
+    'uses' => 'HomeController@view403'
+));
 
 /**********************************************************************************/
 /*------------------------- Tour List -------------------------------*/

@@ -24,10 +24,11 @@
         h4 {
             color: #006699;
         }
-    </style>
 
-    <style type="text/css">
-
+        .no_result{
+            width: 650px;
+            height: 400px;
+        }
 
     </style>
 
@@ -43,10 +44,6 @@
     {{ HTML::script('plugins/jslider/js/draggable-0.1.js') }}
     {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
     <!-- end -->
-
-    {{--my styles--}}
-    {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
-
 
 @endsection
 
@@ -65,7 +62,7 @@
             <div class="left">
                 <ul class="bcrumbs">
                     <li>/</li>
-                    {{--                    <li><a href="#">{{ Breadcrumbs::render('home') }}</a></li>--}}
+                    <li><a href="#">Hotels</a></li>
                     <li>/</li>
                     <li><a href="#">U.S.A.</a></li>
                     <li>/</li>
@@ -119,7 +116,7 @@
 
                     <div class="clearfix"></div>
 
-                    {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'searchform', 'method' => 'POST', )) }}
+                    {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'searchform', 'method' => 'GET', )) }}
 
                     {{--<form action="{{ URL::route('ho') }}" method="POST">--}}
 
@@ -136,72 +133,154 @@
 
                         <div class="w50percent">
                             <div class="wh90percent textleft">
-                                <span class="opensans size13">Check In Date</span>
-                                <input type="text" name="check_in_date" class="form-control mySelectCalendar"
-                                       id="datepicker"
-                                       value="{{ Session::has('st_date') ? Session::get('st_date') : $st_date }}"/>
+                                <span class="opensans size13">Check in date</span>
+                                <input type="text" class="form-control mySelectCalendar" id="datepicker"
+                                       placeholder="mm/dd/yyyy"/>
                             </div>
                         </div>
 
                         <div class="w50percentlast">
                             <div class="wh90percent textleft right">
-                                <span class="opensans size13">Check Out Date</span>
-                                <input type="text" name="check_out_date" class="form-control mySelectCalendar"
-                                       id="datepicker2"
-                                       value="{{ Session::has('ed_date') ? Session::get('ed_date') : $ed_date }}"/>
+                                <span class="opensans size13">Check in date</span>
+                                <input type="text" class="form-control mySelectCalendar" id="datepicker2"
+                                       placeholder="mm/dd/yyyy"/>
                             </div>
                         </div>
 
                         <div class="clearfix pbottom15"></div>
 
-                        <div class="w50percent">
-                            <div class="">
-                                <span class="opensans size13">Adult</span>
-                                <select class="form-control mySelectBoxClass" name="adult"
-                                        id="change_adult">
-                                    <option value="1" {{ Session::get('adult') == 1 ? 'selected' : '' }}>
-                                        1
-                                    </option>
-                                    <option value="2" {{ Session::get('adult') == 2 ? 'selected' : '' }}>
-                                        2
-                                    </option>
-                                    <option value="3" {{ Session::get('adult') == 3 ? 'selected' : '' }}>
-                                        3
-                                    </option>
-                                    <option value="4" {{ Session::get('adult') == 4 ? 'selected' : '' }}>
-                                        4
-                                    </option>
-                                    <option value="5" {{ Session::get('adult') == 5 ? 'selected' : '' }}>
-                                        5
-                                    </option>
-                                </select>
+                        <div class="room1">
+                            <div class="w50percent">
+                                <div class="wh90percent textleft">
+                                    <span class="opensans size13"><b>ROOM 1</b></span><br/>
+
+                                    <div class="addroom1 block"><a onclick="addroom2()" class="grey cpointer">+ Add
+                                            room</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w50percentlast">
+                                <div class="wh90percent textleft right ohidden">
+                                    <div class="w50percent">
+                                        <div class="wh90percent textleft left">
+                                            <span class="opensans size13">Adult</span>
+                                            <select class="form-control mySelectBoxClass">
+                                                <option>1</option>
+                                                <option selected>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="w50percentlast">
+                                        <div class="wh90percent textleft right ohidden">
+                                            <span class="opensans size13">Child</span>
+                                            <select class="form-control mySelectBoxClass">
+                                                <option>0</option>
+                                                <option selected>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right ohidden">
-                                <span class="opensans size13">Child</span>
-                                <select class="form-control mySelectBoxClass" name="child"
-                                        id="change_child">
-                                    <option value="0" {{ Session::get('child') == 0 ? 'selected' : '' }}>
-                                        0
-                                    </option>
-                                    <option value="1" {{ Session::get('child') == 1 ? 'selected' : '' }}>
-                                        1
-                                    </option>
-                                    <option value="2" {{ Session::get('child') == 2 ? 'selected' : '' }}>
-                                        2
-                                    </option>
-                                    <option value="3" {{ Session::get('child') == 3 ? 'selected' : '' }}>
-                                        3
-                                    </option>
-                                </select>
+
+                        <div class="room2 none">
+                            <div class="clearfix"></div>
+                            <div class="line1"></div>
+                            <div class="w50percent">
+                                <div class="wh90percent textleft">
+                                    <span class="opensans size13"><b>ROOM 2</b></span><br/>
+
+                                    <div class="addroom2 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add
+                                            room</a> | <a onclick="removeroom2()" class="orange cpointer"><img
+                                                    src="images/delete.png" alt="delete"/></a></div>
+                                </div>
+                            </div>
+
+                            <div class="w50percentlast">
+                                <div class="wh90percent textleft right">
+                                    <div class="w50percent">
+                                        <div class="wh90percent textleft left">
+                                            <span class="opensans size13">Adult</span>
+                                            <select class="form-control mySelectBoxClass">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option selected>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="w50percentlast">
+                                        <div class="wh90percent textleft right">
+                                            <span class="opensans size13">Child</span>
+                                            <select class="form-control mySelectBoxClass">
+                                                <option selected>0</option>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <input type="hidden" name="city_or_acc_hidden" value="{{ $city = Request::segment(2); }}"/>
+
+                        <div class="room3 none">
+                            <div class="clearfix"></div>
+                            <div class="line1"></div>
+                            <div class="w50percent">
+                                <div class="wh90percent textleft">
+                                    <span class="opensans size13"><b>ROOM 3</b></span><br/>
+
+                                    <div class="addroom3 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add
+                                            room</a> | <a onclick="removeroom3()" class="orange cpointer"><img
+                                                    src="images/delete.png" alt="delete"/></a></div>
+                                </div>
+                            </div>
+
+                            <div class="w50percentlast">
+                                <div class="wh90percent textleft right">
+                                    <div class="w50percent">
+                                        <div class="wh90percent textleft left">
+                                            <span class="opensans size13">Adult</span>
+                                            <select class="form-control mySelectBoxClass">
+                                                <option selected>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="w50percentlast">
+                                        <div class="wh90percent textleft right">
+                                            <span class="opensans size13">Child</span>
+                                            <select class="form-control mySelectBoxClass">
+                                                <option selected>0</option>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="clearfix"></div>
-                        <div class="clearfix pbottom15"></div>
 
-                        <button type="submit" class="btn-search3 right">Search</button>
+                        <button type="submit" class="btn-search3">Search</button>
 
                     </div>
                     <!-- END OF HOTELS TAB -->
@@ -459,7 +538,7 @@
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
                     Accommodation type <span class="collapsearrow"></span>
                 </button>
-                {{ Form::open(array('url' => '/sri-lanka/filter', 'method' => 'POST', 'id'=>'accommodation_form')) }}
+                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'accommodation_form')) }}
                 <div id="collapse3" class="collapse in">
                     <div class="hpadding20">
                         <?php $x = 1; ?>
@@ -490,8 +569,7 @@
                         @foreach($hotel_facilities as $facility)
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" value="{{ $facility->id }}" name="facility[]"
-                                           class="hot_facility">
+                                    <input type="checkbox" value="{{ $facility->id }}" name="facility[]" class="hot_facility">
                                     {{ $facility->hotel_facility }}
                                 </label>
                             </div>
@@ -507,7 +585,7 @@
                 <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse5">
                     Cities <span class="collapsearrow"></span>
                 </button>
-                {{ Form::open(array('url' => '/sri-lanka/filter', 'method' => 'POST', 'id'=>'city_form')) }}
+                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'city_form')) }}
                 <div id="collapse5" class="collapse in">
                     <div class="hpadding20">
                         @foreach($hotel_cities as $city)
@@ -579,8 +657,10 @@
                         <div class="col-md-4 offset-0">
                             <button class="popularbtn left">Most Popular</button>
                             <div class="right">
-                                <a class="listbtn {{ Session::get('hot_view') == 1 ? 'active' : '' }}"  href="{{URL::to($list_url)}}"></a>
-                                <a class="gridbtn {{ Session::get('hot_view') == 2 ? 'active' : '' }}" href="{{URL::to($grid_url)}}"></a>
+                                <a class="listbtn active" href="{{URL::to('home')}}"></a>
+                                <a class="gridbtn" href="{{URL::to('home')}}"></a>
+                                {{--<button class="listbtn active" onclick="location.href='http://google.com';">&nbsp;</button>--}}
+                                {{--<button class="gridbtn" onclick="location.href='http://google.com';"">&nbsp;</button>--}}
                             </div>
                         </div>
                     </div>
@@ -592,126 +672,16 @@
 
                 <div class="clearfix"></div>
 
-                    <div class="itemscontainer offset-1">
+                <div class="itemscontainer offset-1">
+                    <br/><br/>
 
-                        @foreach($hotels as $hotel)
-
-                        <div class="offset-2">
-                            <div class="col-md-4 offset-0">
-                                <div class="listitem2">
-
-                                    <?php
-                                    //echo public_path();
-                                    $directory = 'public/images/hotel_images/';
-                                    $images = glob($directory . $hotel->id . "_" . "*.*");
-                                    echo $img_path = array_shift($images);
-                                    ?>
-
-                                    <a href="<?php echo '/' . $img_path; ?>"
-                                       data-title="{{ $hotel->name }}" data-gallery="multiimages"
-                                       data-toggle="lightbox">
-
-
-                                        @if(count($img_path)>0)
-                                            {{ HTML::image($img_path, '', array('class' => 'hotel_img_1'))}}
-                                        @else
-                                            {{ HTML::image('images/no-image.jpg', '', array('class' => 'property_img_1')) }}
-                                        @endif
-
-                                        <div class="liover"></div>
-                                        <a class="fav-icon" href="#"></a>
-                                        <?php
-                                        $city_id = $hotel->city_id;
-                                        $get_city = DB::table('cities')->where('id', $city_id)->first();
-                                        $city = $get_city->city;
-                                        ?>
-                                        <a class="book-icon"
-                                           href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"></a>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-8 offset-0">
-                                <div class="itemlabel3">
-
-                                    <div class="labelright">
-                                        <?php
-                                        $stars = $hotel->star_category_id;
-                                        $star = DB::table('star_categories')->where('id', $stars)->first();
-                                        $hotel_star = $star->stars;
-                                        ?>
-
-                                        {{ Star::star_loop_blue($hotel_star)}}<br/><br/><br/>
-
-                                        {{ HTML::image('images/user-rating-5.png', '')}}<br/><br/>
-
-                                        @if(!empty($hotel->hotelReview->count()))
-                                            <span class="size11 grey"> {{ $hotel->hotelReview->count(); }}
-                                                Reviews </span><br/><br/>
-                                        @else
-                                            <span class="size11 grey">
-                                                No Reviews </span><br/><br/>
-                                        @endif
-
-                                        <?php $low_hotel_rate = RoomRates::lowestHotelRate($hotel->id, $st_date, $ed_date); ?>
-
-                                        @if(!empty($low_hotel_rate))
-                                            <span class="green size18">
-                                            <b>
-                                                USD {{ $low_hotel_rate }}
-                                            </b>
-                                            </span>
-                                            <br/>
-                                            <span class="size11 grey">avg/night</span><br/><br/>
-                                        @else
-                                            <span class="green">
-                                                No Rate Available
-                                                <br/><br/>
-                                            </span>
-                                        @endif
-
-                                        <form action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
-                                            <button class="bookbtn mt1" type="submit"> Book</button>
-                                        </form>
-                                    </div>
-
-                                    <div class="labelleft2">
-                                        <a href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"
-                                           style="text-decoration: none"><h4> {{ $hotel->name }} </h4><br/></a>
-
-                                        <p class="grey">
-                                            {{ $hotel->overview; }}
-                                        </p>
-                                        <br/>
-
-                                        <ul class="hotelpreferences">
-                                            <?php
-                                            $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
-                                            ?>
-                                            @foreach($hotel_facilities->hotelFacility as $hotel_facility)
-                                                <li class="{{ $hotel_facility->name; }}"></li>
-                                            @endforeach
-                                        </ul>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="clearfix"></div>
-
-                        <div class="offset-2">
-                            <hr class="featurette-divider3">
-                        </div>
-
-                        @endforeach
-
+                    <div style="padding: 10%" class="container offset-2" >
+                        {{ HTML::image('images/403.png', '', array('class' => 'no_result'))}}
                     </div>
-                    <!-- End of offset1-->
-
-                <div class="hpadding20" align="right">
-                    {{ $hotels->links() }}
+                    <div class="clearfix"></div>
                 </div>
+                <!-- End of offset1-->
+
 
             </div>
             <!-- END OF LIST CONTENT-->
@@ -738,10 +708,42 @@
         <!-- Picker -->
         {{ HTML::script('assets/js/jquery-ui.js') }}
 
-        <!-- Custom js -->
-        {{ HTML::script('js/my_script.js') }}
 
+        <script type="text/javascript">
+            $('.star_category').click(function () {
+                var star = $('input[name=star_rating]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+                $('#star_rating_form').submit()
+            });
+        </script>
 
+        <script type="text/javascript">
+            $('.acc_select').click(function () {
+                var accommodation = $('input[name=accommodation]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+                $('#accommodation_form').submit()
+            });
+        </script>
+
+        <script type="text/javascript">
+            $('.city_select').click(function () {
+                var city = $('input[name=city]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+                $('#city_form').submit()
+            });
+        </script>
+
+        <script type="text/javascript">
+            $('.hot_facility').click(function () {
+                var facilities = $('input[name=facility]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+                $('#facility_form').submit()
+            });
+        </script>
 
     @endsection
 

@@ -56,6 +56,25 @@ class HomeController extends BaseController
         return View::make('pages.message');
     }
 
+    /*
+ *no result page
+ */
+    public function view403()
+    {
+        // Filtering
+        $hotel_type = DB::table('hotel_categories')->get();
+        $hotel_cities = DB::table('cities')->get();
+        $hotel_facilities = DB::table('hotel_facilities')->get();
+
+        return View::make('errors.403')
+            ->with(
+                array(
+                    'hotel_type' => $hotel_type,
+                    'hotel_cities' => $hotel_cities,
+                    'hotel_facilities' => $hotel_facilities
+                )
+            );
+    }
 
 
 }
