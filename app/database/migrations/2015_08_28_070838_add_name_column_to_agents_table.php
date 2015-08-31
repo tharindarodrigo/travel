@@ -15,7 +15,10 @@ class AddNameColumnToAgentsTable extends Migration {
 		Schema::table('agents', function(Blueprint $table)
 		{
 			$table->string('name');
-		}) ;
+			$table->string('user_id');
+
+            $table->foreign('user_id')->references('id')->on('users');
+		});
 	}
 
 
