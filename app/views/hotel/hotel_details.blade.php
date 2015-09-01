@@ -79,14 +79,16 @@
                                 <div id="caroufredsel_wrapper2">
                                     <div id="carousel">
                                         @foreach ($path as $img_path)
-                                            {{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}
+                                            <?php $img_name = basename($img_path); ?>
+                                            {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'property_img_1')) }}
                                         @endforeach
                                     </div>
                                 </div>
                                 <div id="pager-wrapper">
                                     <div id="pager">
                                         @foreach ($path as $img_path)
-                                            {{ HTML::image($img_path, '', array('class' => 'property_img_1')) }}
+                                            <?php $img_name = basename($img_path); ?>
+                                            {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'property_img_1')) }}
                                         @endforeach
                                     </div>
                                 </div>
@@ -369,9 +371,10 @@
                                             ->get();
                                 }
 
-                                $directory = 'images/room_images/';
+                                $directory = 'public/images/room_images/';
                                 $images = glob($directory . $room_id . "_" . "*.*");
                                 $img_path = array_shift($images);
+                                $img_name = basename($img_path);
                                 ?>
 
                                 @foreach($room_types as $room)
@@ -381,7 +384,7 @@
                                         <div class="col-md-4 offset-0">
                                             <a href="#">
                                                 @if(count($img_path)>0)
-                                                    {{ HTML::image($img_path, '', array('class' => 'fwimg'))}}
+                                                    {{ HTML::image('images/room_images/'.$img_name, '', array('class' => 'fwimg'))}}
                                                 @else
                                                     {{ HTML::image('images/no-image.jpg', '', array('class' => 'fwimg')) }}
                                                 @endif

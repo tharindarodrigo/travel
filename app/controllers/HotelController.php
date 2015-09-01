@@ -440,7 +440,7 @@ class HotelController extends \BaseController
 
         $path = array();
 
-        $directory = 'images/hotel_images/';
+        $directory = 'public/images/hotel_images/';
 
         $images = glob($directory . $hotel_id . "_" . "*.*");
 

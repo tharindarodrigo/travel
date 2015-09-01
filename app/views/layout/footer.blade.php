@@ -181,9 +181,9 @@
         <div class="col-md-5" style="padding-top: 20px">
             <div class="container center grey">
                 <a href="{{URL::to('/')}}">Home</a> |
-                <a href="{{URL::to('/about')}}">About</a> |
+                <a href="{{URL::to('/about')}}">About Us</a> |
                 <a href="contact.php"> Hot Deals </a> |
-                <a href="{{URL::to('/contact')}}">Contact</a> |
+                <a href="{{URL::to('/contact')}}">Contact Us</a>
                 <a href="#top" class="gotop scroll">{{ HTML::image('images/spacer.png', '', array('class' => '')) }}</a>
             </div>
         </div>

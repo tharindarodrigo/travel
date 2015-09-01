@@ -603,17 +603,18 @@
                                     <?php
                                     //echo public_path();
                                     $directory = 'public/images/hotel_images/';
-                                    $images = glob($directory . $hotel->id . "_" . "*.*");
-                                    echo $img_path = array_shift($images);
+                                    $images = glob($directory . $hotel->id . "_*");
+                                    $img_path = array_shift($images);
+                                    $img_name = basename($img_path);
                                     ?>
 
-                                    <a href="<?php echo '/' . $img_path; ?>"
+                                    <a href="<?php echo '/' . $img_name; ?>"
                                        data-title="{{ $hotel->name }}" data-gallery="multiimages"
                                        data-toggle="lightbox">
 
 
                                         @if(count($img_path)>0)
-                                            {{ HTML::image($img_path, '', array('class' => 'hotel_img_1'))}}
+                                            {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'hotel_img_1'))}}
                                         @else
                                             {{ HTML::image('images/no-image.jpg', '', array('class' => 'property_img_1')) }}
                                         @endif
@@ -664,13 +665,13 @@
                                             <span class="size11 grey">avg/night</span><br/><br/>
                                         @else
                                             <span class="green">
-                                                No Rate Available
+                                                 Rate Not <br/> Available
                                                 <br/><br/>
                                             </span>
                                         @endif
 
                                         <form action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
-                                            <button class="bookbtn mt1" type="submit"> Book</button>
+                                            <button class="bookbtn mt1" type="submit"> Book </button>
                                         </form>
                                     </div>
 
@@ -679,7 +680,7 @@
                                            style="text-decoration: none"><h4> {{ $hotel->name }} </h4><br/></a>
 
                                         <p class="grey">
-                                            {{ $hotel->overview; }}
+                                            {{ Str::limit($hotel->overview, 150) }}
                                         </p>
                                         <br/>
 
