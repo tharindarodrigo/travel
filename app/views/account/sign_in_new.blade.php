@@ -235,7 +235,7 @@
             var method = 'post';
             var prefix = '';
             var successpage = 'http://localhost:8000';
-            var defaultPage = 'http://localhost:8000';
+            var defaultPage = 'http://'+window.location.host;
 
             $('.custom_validation').slideUp(200);
 

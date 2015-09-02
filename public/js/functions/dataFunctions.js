@@ -11,7 +11,6 @@ function postData(url, method, prefix, formData , successpage, defaultPage){
         dataType: 'json',
         data: formData,
         success: function(data){
-            alert(data);
             if(!data.validation){
                 $.each(data.errors, function(index, error){
                     var id = '#'+prefix+index;
@@ -21,7 +20,6 @@ function postData(url, method, prefix, formData , successpage, defaultPage){
                     div.slideDown(200);
                 });
             } else {
-                //alert('asdasd');
 
                 if(data.success){
                     window.location.href = successpage;
@@ -34,7 +32,7 @@ function postData(url, method, prefix, formData , successpage, defaultPage){
         },
 
         error: function(){
-            alert('huta');
+            alert('There was an error signing In');
         }
 
     });

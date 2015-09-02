@@ -28,7 +28,7 @@
                             <th>Controls</th>
                         </tr>
                     </thead>
-                    <body>
+                    <tbody>
                         @foreach($agents as $agent)
                             <tr>
                                 <td>{{$agent->id}}</td>
@@ -37,8 +37,7 @@
                                 <td>{{$agent->user_id}}</td>
                             </tr>
                         @endforeach
-
-                    </body>
+                    </tbody>
                 </table>
             </div>
         </div>

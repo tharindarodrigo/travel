@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\File;
 
 
 class HotelsController extends \BaseController
@@ -64,7 +65,7 @@ class HotelsController extends \BaseController
                 foreach($files as $file){
                     Image::make($file)
                         ->encode('jpg')
-                        ->save('public/control-panel-assets/images/hotel-images/' . $hotel->id . '_' .str_random(10). '.jpg');
+                        ->save('public/images/hotel_images/' . $hotel->id . '_' .str_random(10). '.jpg');
                 }
             }
 
@@ -97,7 +98,6 @@ class HotelsController extends \BaseController
                 DB::table('hotel_hotel_facility')->insert($hotel_hotel_facility_data);
             }
         }
-
 
         return Redirect::route('control-panel.hotel.hotels.index');
     }
@@ -146,9 +146,10 @@ class HotelsController extends \BaseController
         }
 
         $hotelImages = array();
-        $hotelimages = File::glob('public/control-panel-assets/images/hotel-images/'.$hotelprofile->id.'_*');
+        $hotelimages = File::glob('public/images/hotel_images/'.$hotelprofile->id.'_*');
+
         foreach($hotelimages as $hotelimage){
-            $hotelImages[] = basename($hotelimage) ;
+            $hotelImages[] = basename($hotelimage);
         }
 
         $hotelcategorieslist = HotelCategory::all();
@@ -228,8 +229,6 @@ class HotelsController extends \BaseController
 
             $data = Input::all();
 
-//            dd($data);
-
             $validator = Validator::make($data, Hotel::$updateOverviewRules);
 
             if ($validator->fails()) {
@@ -238,8 +237,8 @@ class HotelsController extends \BaseController
             }
 
             $hotelcategories = Input::get('category_id');
-
-            if (!empty($hotelcategories) && $hotel->update($data)){
+            $hotel->update($data);
+            if (!empty($hotelcategories)){
 
                 DB::table('hotel_hotel_category')->where('hotel_id', $id)->delete();
 
@@ -260,14 +259,12 @@ class HotelsController extends \BaseController
 
         }
 
-
-
         if (Input::has('update_location')) {
             Session::put('manage', 'location');
 
             $data = Input::all();
 
-            $validator = Validator::make($data, Hotel::$updateLocationRules);
+            $validator = Validator::make($data, Hotel::$updateLocationRules) ;
 
             if ($validator->fails()) {
                 return Redirect::back()->withErrors($validator)->withInput();
@@ -324,7 +321,7 @@ class HotelsController extends \BaseController
                 foreach($files as $file){
                     Image::make($file)
                         ->encode('jpg')
-                        ->save('public/control-panel-assets/images/hotel-images/' . $hotel->id . '_' .str_random(10). '.jpg');
+                        ->save('public/images/hotel_images/' . $hotel->id . '_' .str_random(10). '.jpg');
                 }
             }
         }
@@ -334,7 +331,7 @@ class HotelsController extends \BaseController
             Session::put('manage', 'images');
             $files = Input::get('files_to_delete');
             foreach($files as $file){
-                File::delete('public/control-panel-assets/images/hotel-images/'.$file);
+                File::delete('public/images/hotel_images/'.$file);
             }
 
             return Redirect::back();
