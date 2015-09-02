@@ -192,8 +192,7 @@
                 <!-- TOP TIP -->
                 <div class="filtertip">
                     <div class="padding20">
-                        <p class="size13"><span class="size18 bold counthotel">{{ count($hotels); }}</span> Hotels
-                            starting at </p>
+                        <p class="size13"><span class="size18 bold counthotel">53</span> Hotels starting at </p>
 
                         <p class="size30 bold">$<span class="countprice"></span></p>
 
@@ -684,10 +683,8 @@
                         <div class="col-md-4 offset-0">
                             <button class="popularbtn left">Most Popular</button>
                             <div class="right">
-                                <a class="listbtn {{ Session::get('hot_view') == 1 ? 'active' : '' }}"
-                                   href="{{URL::to($list_url)}}"></a>
-                                <a class="gridbtn {{ Session::get('hot_view') == 2 ? 'active' : '' }}"
-                                   href="{{URL::to($grid_url)}}"></a>
+                                <a class="listbtn {{ Session::get('hot_view') == 1 ? 'active' : '' }}"  href="{{URL::to($list_url)}}"></a>
+                                <a class="gridbtn {{ Session::get('hot_view') == 2 ? 'active' : '' }}" href="{{URL::to($grid_url)}}"></a>
                             </div>
                         </div>
                     </div>
@@ -728,10 +725,9 @@
                             </div>
 
                             <div class="itemlabel2">
-                                <h4>
-                                    <a  style="color: #006699" href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;{{ $hotel->name }}
-                                    </a>
+                                <h4 style="color: #006699"><a
+                                            href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;{{ $hotel->name }}</a>
                                 </h4>
 
                                 <div class="labelright">
@@ -765,18 +761,18 @@
                                         <span class="size11 grey">avg/night</span><br/><br/>
                                     @else
                                         <span class="green">
-                                                No Rate <br/> Available
+                                                No Rate Available
                                                 <br/><br/>
                                             </span>
                                     @endif
 
                                     <a href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"
                                        class="bookbtn mt1">Book</a>
-                                    <br/> <br/>
+
                                 </div>
                                 <div class="labelleft">
                                     <p class="grey">
-                                        {{ Str::limit($hotel->overview, 150) }}
+                                        {{ $hotel->overview }}
                                     </p>
                                 </div>
                             </div>
@@ -797,6 +793,7 @@
 
             </div>
             <!-- END OF LIST CONTENT-->
+
 
         </div>
         <!-- END OF container-->

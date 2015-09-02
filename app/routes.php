@@ -27,11 +27,8 @@ Route::group(array('before' => 'auth'), function () {
             'as' => 'profile-edit-user-post',
             'uses' => 'AccountController@postChangePassword',
         ));
-
-
     });
     //Change password
-
 
     Route::get('account/change-password', array(
         'as' => 'account-change-password',
@@ -227,7 +224,8 @@ Route::group(array('prefix' => 'control-panel'), function () {
      *--------------------------------------------------------------------------------------------------------------
      */
 
-    Route::resource('agents', 'AgentsController');
+
+
 
 
     /**
@@ -274,7 +272,7 @@ Route::group(array('prefix' => 'control-panel'), function () {
         /**
          *  Hotel Cancellation Policies
          */
-        Route::resource('hotels.cancellation-policies', 'CancellationPoliciesController');
+        Route::resource('hotels .cancellation-policies', 'CancellationPoliciesController');
 
         /**
          *  Hotels
@@ -351,11 +349,17 @@ Route::group(array('prefix' => 'control-panel'), function () {
 //=====================================================================================================================|
 
 
+
+
 Route::get('/', array(
     'as' => 'index',
     'uses' => 'HomeController@index'
 ));
 
+
+//bookings
+
+Route::resource('bookings', 'BookingsController');
 
 //tourism details dowmload
 
@@ -507,6 +511,8 @@ Route::post('sri-lanka/get_excursion_total', array(
 /*------------------------- Tour List -------------------------------*/
 /**********************************************************************************/
 
+
+
 Route::any('tour/sri-lanka/{tour_name?}', array(
     'as' => 'tour-list',
     'uses' => 'TourController@tourList'
@@ -585,17 +591,3 @@ Route::post('/get_map', array(
 /*------------------------- End Of Hotel List -------------------------------*/
 /**********************************************************************************/
 
-
-
-
-/**********************************************************************************/
-/*------------------------- Online Payment -------------------------------*/
-/**********************************************************************************/
-
-
-// Online Hotel Payments
-
-Route::any('/online-hotel-payments', array(
-    'as' => 'online-hotel-payments',
-    'uses' => 'HotelController@hotelDetail'
-));

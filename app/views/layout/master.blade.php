@@ -48,7 +48,8 @@
 
 @yield('content')
 
-@extends('layout.footer')
+{{--footer area--}}
+@include('layout.footer')
 
 <!-- Javascript -->
 

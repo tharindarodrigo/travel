@@ -31,7 +31,12 @@ class AddColumnsToMarketsTable extends Migration {
 	{
 		Schema::table('markets', function(Blueprint $table)
 		{
-			
+            $table->dropColumn('tax');
+            $table->dropColumn('tax_type');
+            $table->dropColumn('handling_fee');
+            $table->dropColumn('handling_fee_type');
+
+
 		});
 	}
 
