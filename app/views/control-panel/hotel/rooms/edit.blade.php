@@ -7,6 +7,12 @@
     {{Form::model($roomtype, array('route'=>array('control-panel.hotel.hotels.room-types.update',$hotelid, $roomtype->id), 'id'=>'form','method'=>'patch', 'files'=>true))}}
         <div class="col-md-6">
 
+            @if(Session::has('successmessage'))
+            <div id="callout" class="callout callout-success">
+                <p>{{Session::pull('successmessage')}}</p>
+            </div>
+            @endif
+
             <div class="nav-tabs-custom">
                 <div class="box">
                     <div class="box-header with-border box-primary">

@@ -21,7 +21,7 @@
                 <div class="col-md-3">
                     <div class="checkbox">
                         {{ Form::checkbox('files_to_delete[]', $image) }}
-                        {{ HTML::image('control-panel-assets/images/hotel-images/'.$image, 'a picture', array('class' => 'thumb', 'width'=>200, 'height'=>150)) }}
+                        {{ HTML::image('images/hotel_images/'.$image, 'a picture', array('class' => 'thumb', 'width'=>200, 'height'=>150)) }}
                     </div>
                 </div>
             @endforeach

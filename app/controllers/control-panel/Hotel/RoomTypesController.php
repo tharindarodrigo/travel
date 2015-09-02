@@ -215,8 +215,6 @@ class RoomTypesController extends \BaseController {
             DB::table('room_facility_room_type')->insert($roomfacilitydata);
         }
 
-
-
         $roomspecifications = Input::get('room_specification_id');
         DB::table('room_specification_room_type')->where('room_type_id', $id)->delete();
 
@@ -229,7 +227,9 @@ class RoomTypesController extends \BaseController {
             DB::table('room_specification_room_type')->insert($roomfacilitydata);
         }
 
-		$roomtype->update($data);
+		if($roomtype->update($data)){
+            Session::flash('successmessage', 'Room Successfully updated');
+        }
 
 		return Redirect::back();
 	}
@@ -242,7 +242,6 @@ class RoomTypesController extends \BaseController {
 	 */
 	public function destroy($hotel_id,$id)
 	{
-//        /dd()
 
         try{
 
