@@ -1,0 +1,1 @@
+C:\wamp\www\travel\app/views/flight_details/edit.blade.php
