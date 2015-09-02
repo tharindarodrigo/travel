@@ -25,7 +25,7 @@
             color: #006699;
         }
 
-        .no_result{
+        .no_result {
             width: 650px;
             height: 400px;
         }
@@ -569,7 +569,8 @@
                         @foreach($hotel_facilities as $facility)
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" value="{{ $facility->id }}" name="facility[]" class="hot_facility">
+                                    <input type="checkbox" value="{{ $facility->id }}" name="facility[]"
+                                           class="hot_facility">
                                     {{ $facility->hotel_facility }}
                                 </label>
                             </div>
@@ -675,7 +676,7 @@
                 <div class="itemscontainer offset-1">
                     <br/><br/>
 
-                    <div style="padding: 10%" class="container offset-2" >
+                    <div style="padding: 10%" class="container offset-2">
                         {{ HTML::image('images/no-result.png', '', array('class' => 'no_result'))}}
                     </div>
                     <div class="clearfix"></div>

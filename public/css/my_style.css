@@ -1,3 +1,7 @@
+a{
+ text-decoration: none !important;
+}
+
 .search_thumb {
     width: 25px;
     height: 25px;

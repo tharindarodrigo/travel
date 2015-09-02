@@ -24,6 +24,12 @@
         h4 {
             color: #006699;
         }
+
+        .hot_facilities_icon {
+            width: 25px;
+            height: 25px;
+        }
+
     </style>
 
     <style type="text/css">
@@ -88,9 +94,30 @@
                 <!-- TOP TIP -->
                 <div class="filtertip">
                     <div class="padding20">
-                        <p class="size13"><span class="size18 bold counthotel">53</span> Hotels starting at </p>
+                        <?php
+                        $get_city_or_acc = Request::segment(2);
+                        $city_or_acc = str_replace('-', ' ', $get_city_or_acc);
+                        $get_city_or_acc_id = DB::table('hotel_categories')->where('hotel_category', 'LIKE', $city_or_acc)->first();
+                        if (!is_null($get_city_or_acc_id)) {
+                            $acc_id = $get_city_or_acc_id->id;
+                            $count_hotels = Hotel::whereHas('hotelCategory', function ($query) use ($acc_id) {
+                                $query->where('hotel_category_id', '=', $acc_id);
+                                // $query->whereIn('star_category_id', $star_id);
 
-                        <p class="size30 bold">$<span class="countprice"></span></p>
+                            })
+                                    ->get();
+                        } else {
+                            $city = str_replace('-', ' ', $get_city_or_acc);
+                            $get_city_id = DB::table('cities')->where('city', 'LIKE', $city)->first()->id;
+                            $count_hotels = Hotel::where('city_id', '=', $get_city_id)->get();
+                        }
+
+                        ?>
+                        <p class="size13"><span class="size18 bold ">{{ count($count_hotels); }}</span> Hotels starting
+                            at
+                        </p>
+
+                        <p class="size30 bold">$<span class=""> {{ 'as' }} </span></p>
 
                         <p class="size13">Narrow results or <a href="#">view all</a></p>
                     </div>
@@ -198,6 +225,7 @@
                             </div>
                         </div>
                         <input type="hidden" name="city_or_acc_hidden" value="{{ $city = Request::segment(2); }}"/>
+
                         <div class="clearfix"></div>
                         <div class="clearfix pbottom15"></div>
 
@@ -579,8 +607,10 @@
                         <div class="col-md-4 offset-0">
                             <button class="popularbtn left">Most Popular</button>
                             <div class="right">
-                                <a class="listbtn {{ Session::get('hot_view') == 1 ? 'active' : '' }}"  href="{{URL::to($list_url)}}"></a>
-                                <a class="gridbtn {{ Session::get('hot_view') == 2 ? 'active' : '' }}" href="{{URL::to($grid_url)}}"></a>
+                                <a class="listbtn {{ Session::get('hot_view') == 1 ? 'active' : '' }}"
+                                   href="{{URL::to($list_url)}}"></a>
+                                <a class="gridbtn {{ Session::get('hot_view') == 2 ? 'active' : '' }}"
+                                   href="{{URL::to($grid_url)}}"></a>
                             </div>
                         </div>
                     </div>
@@ -592,9 +622,9 @@
 
                 <div class="clearfix"></div>
 
-                    <div class="itemscontainer offset-1">
+                <div class="itemscontainer offset-1">
 
-                        @foreach($hotels as $hotel)
+                    @foreach($hotels as $hotel)
 
                         <div class="offset-2">
                             <div class="col-md-4 offset-0">
@@ -671,25 +701,33 @@
                                         @endif
 
                                         <form action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
-                                            <button class="bookbtn mt1" type="submit"> Book </button>
+                                            <button class="bookbtn mt1" type="submit"> Book</button>
                                         </form>
                                     </div>
 
                                     <div class="labelleft2">
                                         <a href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"
-                                           style="text-decoration: none"><h4> {{ $hotel->name }} </h4><br/></a>
+                                           style="text-decoration: none"><h4> {{ $hotel->name }} </h4><br/>
+                                        </a>
 
                                         <p class="grey">
                                             {{ Str::limit($hotel->overview, 150) }}
                                         </p>
-                                        <br/>
 
                                         <ul class="hotelpreferences">
                                             <?php
                                             $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
                                             ?>
                                             @foreach($hotel_facilities->hotelFacility as $hotel_facility)
-                                                <li class="{{ $hotel_facility->name; }}"></li>
+                                                <?php
+                                                //echo public_path();
+                                                $directory = 'public/images/hotel_facilities/';
+                                                $images = glob($directory . $hotel_facility->id . "*");
+                                                $img_path = array_shift($images);
+                                                $img_name = basename($img_path);
+                                                ?>
+
+                                                {{ HTML::image('images/hotel_facilities/'.$img_name, '', array('class' => 'hot_facilities_icon'))}}
                                             @endforeach
                                         </ul>
 
@@ -705,10 +743,10 @@
                             <hr class="featurette-divider3">
                         </div>
 
-                        @endforeach
+                    @endforeach
 
-                    </div>
-                    <!-- End of offset1-->
+                </div>
+                <!-- End of offset1-->
 
                 <div class="hpadding20" align="right">
                     {{ $hotels->links() }}

@@ -33,6 +33,15 @@
     <!-- Javascript -->
     {{ HTML::script('assets/js/js-details.js') }}
 
+    <style type="text/css">
+        h4{
+            color: #0099cc !important;
+            font-family: "Lato";
+            font-style: italic;
+            font-size: 13px;
+        }
+    </style>
+
 @endsection
 
 @section('content')
@@ -394,9 +403,13 @@
                                         <div class="col-md-8 offset-0">
                                             <div class="col-md-8 mediafix1">
 
-                                                <h4 class="opensans dark bold margtop1 lh1"> {{ $room->RoomType->room_type }} </h4>
+                                        <span>
+                                            <h4 style="display: inline; !important;"
+                                                class="opensans dark bold margtop1 lh1"> {{ $room->RoomType->room_type }} </h4> -
+                                            <h5 style="color: #0099cc !important; display: inline; !important;"> {{ $room->RoomSpecification->room_specification }}
+                                                Room </h5>
+                                        </span>
 
-                                                <h5> {{ $room->RoomSpecification->room_specification }} Room </h5>
                                                 <h5>{{ $room->MealBasis->meal_basis_name }}</h5>
 
                                                 <ul class="hotelpreferences margtop10">
@@ -1024,12 +1037,12 @@
 
 
         {{--<script type="text/javascript">--}}
-            {{--$(function () {--}}
-                {{--$('#datepicker2').change(function () {--}}
-                    {{--var = $(this).--}}
-                    {{--$('#details_form').submit();--}}
-                {{--})--}}
-            {{--});--}}
+        {{--$(function () {--}}
+        {{--$('#datepicker2').change(function () {--}}
+        {{--var = $(this).--}}
+        {{--$('#details_form').submit();--}}
+        {{--})--}}
+        {{--});--}}
         {{--</script>--}}
 
         {{--<script type="text/javascript">--}}

@@ -146,9 +146,7 @@ class HotelController extends \BaseController
 
             $hotels = Hotel::where('city_id', '=', $city_id)
                 ->whereIn('star_category_id', $star_id)
-                ->whereHas('HotelFacility', function ($q) use ($facility) {
-                    $q->whereIn('hotel_facility_id', $facility);
-                })
+
 //                ->whereHas('Rate', function ($r) use ($from_date, $to_date) {
 //                    $r->whereBetween('from', array($from_date, $to_date));
 //                })
@@ -158,16 +156,16 @@ class HotelController extends \BaseController
         if (!empty($accommodation_id)) {
             $hotels = Hotel::whereHas('hotelCategory', function ($query) use ($accommodation_id, $star_id, $from_date, $to_date) {
                 $query->where('hotel_category_id', '=', $accommodation_id);
-                $query->whereIn('star_category_id', $star_id);
+               // $query->whereIn('star_category_id', $star_id);
 
             })
 //                ->whereHas('Rate', function ($r) use ($from_date, $to_date) {
 //                    $r->whereBetween('from', array($from_date, $to_date));
 //                })
-                ->whereHas('HotelFacility', function ($q) use ($facility) {
-                    $q->whereIn('hotel_facility_id', $facility);
-                })
-                ->paginate(6);
+//                ->whereHas('HotelFacility', function ($q) use ($facility) {
+//                    $q->whereIn('hotel_facility_id', $facility);
+//                })
+                ->paginate(9);
 
             // dd(DB::getQueryLog());
             // $hotels = Hotel::with('hotelCategory')->where('hotel_category_id', '=', $accommodation_id)->paginate(1);
@@ -549,7 +547,7 @@ class HotelController extends \BaseController
 
                         foreach ($hotels as $hotel) {
 
-                            $directory = 'images/hotel_images/';
+                            $directory = 'public/images/hotel_images/';
                             $images = glob($directory . $hotel->id . "_" . "*.*");
                             $img_path = array_shift($images);
 
