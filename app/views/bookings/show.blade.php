@@ -1,0 +1,1 @@
+C:\wamp\www\travel\app/views/bookings/show.blade.php
