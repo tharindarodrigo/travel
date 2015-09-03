@@ -146,10 +146,11 @@ class HotelController extends \BaseController
 
             $hotels = Hotel::where('city_id', '=', $city_id)
                 ->whereIn('star_category_id', $star_id)
-//                ->whereHas('Rate', function ($r) use ($from_date, $to_date) {
-//                    $r->whereBetween('from', array($from_date, $to_date));
-//                })
+                ->whereHas('Rate', function ($r) use ($from_date, $to_date) {
+                    $r->whereBetween('from', array($from_date, $to_date));
+                })
                 ->paginate(9);
+
         }
 
         if (!empty($accommodation_id)) {
