@@ -146,25 +146,25 @@ class HotelController extends \BaseController
 
             $hotels = Hotel::where('city_id', '=', $city_id)
                 ->whereIn('star_category_id', $star_id)
-
 //                ->whereHas('Rate', function ($r) use ($from_date, $to_date) {
 //                    $r->whereBetween('from', array($from_date, $to_date));
 //                })
-                ->paginate(6);
+                ->paginate(9);
         }
 
         if (!empty($accommodation_id)) {
+
             $hotels = Hotel::whereHas('hotelCategory', function ($query) use ($accommodation_id, $star_id, $from_date, $to_date) {
                 $query->where('hotel_category_id', '=', $accommodation_id);
-               // $query->whereIn('star_category_id', $star_id);
-
+                $query->whereIn('star_category_id', $star_id);
             })
 //                ->whereHas('Rate', function ($r) use ($from_date, $to_date) {
-//                    $r->whereBetween('from', array($from_date, $to_date));
+//                   // $r->whereBetween('from', array($from_date, $to_date));
 //                })
 //                ->whereHas('HotelFacility', function ($q) use ($facility) {
 //                    $q->whereIn('hotel_facility_id', $facility);
 //                })
+
                 ->paginate(9);
 
             // dd(DB::getQueryLog());
@@ -490,6 +490,7 @@ class HotelController extends \BaseController
 
     public function getMap()
     {
+        dd('do');
         $hotel_id = Input::get('hotel_id');
 
         $hotel = Hotel::where('id', '=', $hotel_id)->select('latitude', 'longitude')->first();

@@ -25,9 +25,21 @@
             color: #006699;
         }
 
+        /*GROW*/
         .hot_facilities_icon {
             width: 25px;
             height: 25px;
+
+            -webkit-transition: all 1s ease;
+            -moz-transition: all 1s ease;
+            -o-transition: all 1s ease;
+            -ms-transition: all 1s ease;
+            transition: all 1s ease;
+        }
+
+        .hot_facilities_icon:hover {
+            width: 40px;
+            height: 40px;
         }
 
     </style>
@@ -103,7 +115,6 @@
                             $count_hotels = Hotel::whereHas('hotelCategory', function ($query) use ($acc_id) {
                                 $query->where('hotel_category_id', '=', $acc_id);
                                 // $query->whereIn('star_category_id', $star_id);
-
                             })
                                     ->get();
                         } else {
@@ -119,7 +130,7 @@
 
                         <p class="size30 bold">$<span class=""> {{ 'as' }} </span></p>
 
-                        <p class="size13">Narrow results or <a href="#">view all</a></p>
+                        <p class="size13">In {{ str_replace('-', ' ', Request::segment(2)); }} </p>
                     </div>
                     <div class="tip-arrow"></div>
                 </div>
@@ -514,17 +525,50 @@
                 </button>
                 {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'facility_form')) }}
                 <div id="collapse4" class="collapse in">
+
                     <div class="hpadding20">
-                        @foreach($hotel_facilities as $facility)
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="{{ $facility->id }}" name="facility[]"
-                                           class="hot_facility">
-                                    {{ $facility->hotel_facility }}
-                                </label>
+                        <div id="facility_half">
+                            <?php  $x = 0; ?>
+                            @foreach($hotel_facilities as $facility)
+                                @if($x < 5)
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="{{ $facility->id }}" name="facility[]"
+                                                   class="hot_facility">
+                                            {{ $facility->hotel_facility }}
+                                        </label>
+                                    </div>
+                                @endif
+                                <?php  $x = $x + 1; ?>
+                            @endforeach
+
+                            <a id="facility_readmore" style="text-align: right" class="last" data-toggle="collapse"
+                               data-target="#collapse6">
+                                <h6>Read More</h6>
+                            </a>
+                        </div>
+
+                        <div id="facility_full">
+                            <div id="collapse6" class="collapse">
+                                @foreach($hotel_facilities as $facility)
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="{{ $facility->id }}" name="facility[]"
+                                                   class="hot_facility">
+                                            {{ $facility->hotel_facility }}
+                                        </label>
+                                    </div>
+                                @endforeach
                             </div>
-                        @endforeach
+                            <a href="#facility_half" id="facility_readless" style="text-align: right" class="last"
+                               data-toggle="collapse"
+                               data-target="#collapse6">
+                                <h6>Less</h6>
+                            </a>
+                        </div>
+
                     </div>
+
                     <div class="clearfix"></div>
                 </div>
                 <!-- End of Hotel Preferences -->
@@ -780,7 +824,23 @@
         <!-- Custom js -->
         {{ HTML::script('js/my_script.js') }}
 
+        <script type="text/javascript">
 
+            $(document).ready(function () {
+                $('#facility_readless').hide();
+                $('#facility_full').hide();
+            });
+
+            $('#facility_readmore').click(function () {
+                $('#facility_half').hide();
+                $('#facility_full').show();
+            });
+
+            $('#facility_readless').click(function () {
+                $('#facility_half').show();
+                $('#facility_full').hide();
+            });
+        </script>
 
     @endsection
 

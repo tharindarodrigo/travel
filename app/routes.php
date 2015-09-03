@@ -595,7 +595,11 @@ Route::post('/get_map', array(
 
 // Online Hotel Payments
 
-Route::any('/online-hotel-payments', array(
+Route::any('/online-hotelas-payments', array(
     'as' => 'online-hotel-payments',
     'uses' => 'HotelController@hotelDetail'
 ));
+
+Route::get('/online-hotel-payments', function () {
+    return View::make('payment.hotel_payment');
+});

@@ -73,7 +73,7 @@
 
                                     {{--<div class="g-recaptcha" data-sitekey=""></div>--}}
                                     <?php
-                                    require_once('../public/recaptcha/recaptchalib.php');
+                                    require_once('public/recaptcha/recaptchalib.php');
                                     $public_key = "6LeqigQTAAAAAGmq8B4dmzg8G4bHhYNrIU32H9yU"; // you got this from the signup page
                                     echo recaptcha_get_html($public_key);
                                     ?>
@@ -211,13 +211,13 @@
     </div>
     <!-- END OF WRAP -->
 
-@endsection
+    @endsection
 
-@section('script')
-    <!-- Googlemap -->
-    {{ HTML::script('assets/js/initialize-google-map-contact.js') }}
-@endsection
+    @section('script')
+        <!-- Googlemap -->
+        {{ HTML::script('assets/js/initialize-google-map-contact.js') }}
+    @endsection
 
-</body>
+    </body>
 
 @stop

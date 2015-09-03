@@ -729,7 +729,8 @@
 
                             <div class="itemlabel2">
                                 <h4>
-                                    <a  style="color: #006699" href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
+                                    <a style="color: #006699"
+                                       href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
                                         &nbsp;&nbsp;&nbsp;&nbsp;{{ $hotel->name }}
                                     </a>
                                 </h4>

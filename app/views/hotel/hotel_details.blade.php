@@ -34,7 +34,7 @@
     {{ HTML::script('assets/js/js-details.js') }}
 
     <style type="text/css">
-        h4{
+        h4 {
             color: #0099cc !important;
             font-family: "Lato";
             font-style: italic;
@@ -80,41 +80,41 @@
 
                 <!-- SLIDER -->
 
-                <div class="col-md-8 details-slider">
+                {{--<div class="col-md-8 details-slider">--}}
 
-                    <div id="c-carousel">
-                        <div id="wrapper">
-                            <div id="inner">
-                                <div id="caroufredsel_wrapper2">
-                                    <div id="carousel">
-                                        @foreach ($path as $img_path)
-                                            <?php $img_name = basename($img_path); ?>
-                                            {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'property_img_1')) }}
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div id="pager-wrapper">
-                                    <div id="pager">
-                                        @foreach ($path as $img_path)
-                                            <?php $img_name = basename($img_path); ?>
-                                            {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'property_img_1')) }}
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <button id="prev_btn2" class="prev2">
-                                {{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}
-                            </button>
-                            <button id="next_btn2" class="next2">
-                                {{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}
-                            </button>
+                {{--<div id="c-carousel">--}}
+                {{--<div id="wrapper">--}}
+                {{--<div id="inner">--}}
+                {{--<div id="caroufredsel_wrapper2">--}}
+                {{--<div id="carousel">--}}
+                {{--@foreach ($path as $img_path)--}}
+                {{--<?php //$img_name = basename($img_path); ?>--}}
+                {{--{{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'property_img_1')) }}--}}
+                {{--@endforeach--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--<div id="pager-wrapper">--}}
+                {{--<div id="pager">--}}
+                {{--@foreach ($path as $img_path)--}}
+                {{--<?php// $img_name = basename($img_path); ?>--}}
+                {{--{{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'property_img_1')) }}--}}
+                {{--@endforeach--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="clearfix"></div>--}}
+                {{--<button id="prev_btn2" class="prev2">--}}
+                {{--{{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}--}}
+                {{--</button>--}}
+                {{--<button id="next_btn2" class="next2">--}}
+                {{--{{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}--}}
+                {{--</button>--}}
 
-                        </div>
-                    </div>
-                    <!-- /c-carousel -->
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--<!-- /carousel -->--}}
 
-                </div>
+                {{--</div>--}}
 
                 <!-- END OF SLIDER -->
 
@@ -208,48 +208,13 @@
                         <!-- TAB 1 -->
 
                         <div id="summary" class="tab-pane fade ">
-                            <p class="hpadding20">
-                                {{ $room->description }}
-                            </p>
-
-                            <div class="line4"></div>
-
-                            <!-- Collapse 3 -->
-                            <button type="button" class="collapsebtn2 collapsed" data-toggle="collapse"
-                                    data-target="#collapse3">
-                                Hotel Facilities <span class="collapsearrow"></span>
-                            </button>
-
-                            <div id="collapse3" class="collapse">
-                                <div class="hpadding20">
-                                    Yes
-                                </div>
-                                <div class="clearfix"></div>
+                            <div class="container">
+                                <p class="hpadding20">
+                                    {{ $details->overview }}
+                                </p>
                             </div>
-                            <!-- End of collapse 3 -->
 
                             <div class="line4"></div>
-
-                            <!-- Collapse 6 -->
-                            <button type="button" class="collapsebtn2" data-toggle="collapse"
-                                    data-target="#collapse6">
-                                Room Facility <span class="collapsearrow"></span>
-                            </button>
-
-                            @foreach($room->RoomFacility as $facilities)
-
-                                <div id="collapse6" class="collapse in">
-                                    <div class="hpadding20">
-                                        <div class="col-md-4">
-                                            <ul class="checklist">
-                                                <li> {{ $facilities->room_facility }} </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <!-- End of collapse 6 -->
-                            @endforeach
 
                         </div>
 
@@ -421,6 +386,7 @@
                                                     <li class="icohp-breakfast"></li>
                                                     <li class="icohp-parking"></li>
                                                 </ul>
+
                                                 <div class="clearfix"></div>
                                                 <ul class="checklist2 margtop10">
                                                     <li>FREE Cancellation</li>
@@ -466,108 +432,16 @@
 
                         <!-- TAB 3 -->
                         <div id="preferences" class="tab-pane fade">
-                            <p class="hpadding20">
-                                The hotel offers a snack bar/deli. A bar/lounge is on site where guests can unwind with
-                                a
-                                drink.
-                                Guests can enjoy a complimentary breakfast. An Internet point is located on site and
-                                high-speed
-                                wireless Internet access is complimentary.
-                            </p>
 
-                            <div class="line4"></div>
-
-                            <!-- Collapse 7 -->
-                            <button type="button" class="collapsebtn2" data-toggle="collapse" data-target="#collapse7">
-                                Hotel facilities <span class="collapsearrow"></span>
+                            <!-- Collapse 6 -->
+                            <button type="button" class="collapsebtn2" data-toggle="collapse"
+                                    data-target="#collapse6">
+                                Room Facility <span class="collapsearrow"></span>
                             </button>
 
-                            <div id="collapse7" class="collapse in">
+                            <div id="collapse6" class="collapse in">
                                 <div class="hpadding20">
-
-                                    <div class="col-md-4 offset-0">
-                                        <ul class="hotelpreferences2 left">
-                                            <li class="icohp-internet"></li>
-                                            <li class="icohp-air"></li>
-                                            <li class="icohp-pool"></li>
-                                            <li class="icohp-childcare"></li>
-                                            <li class="icohp-fitness"></li>
-                                            <li class="icohp-breakfast"></li>
-                                            <li class="icohp-parking"></li>
-                                            <li class="icohp-pets"></li>
-                                            <li class="icohp-spa"></li>
-                                            <li class="icohp-hairdryer"></li>
-                                        </ul>
-                                        <ul class="hpref-text left">
-                                            <li>High-speed Internet</li>
-                                            <li>Air conditioning</li>
-                                            <li>Swimming pool</li>
-                                            <li>Childcare</li>
-                                            <li>Fitness equipment</li>
-                                            <li>Free breakfast</li>
-                                            <li>Free parking</li>
-                                            <li>Pets allowed</li>
-                                            <li>Spa services on site</li>
-                                            <li>Hair dryer</li>
-                                        </ul>
-                                    </div>
-
-
-                                    <div class="col-md-4 offset-0">
-                                        <ul class="hotelpreferences2 left">
-                                            <li class="icohp-garden"></li>
-                                            <li class="icohp-grill"></li>
-                                            <li class="icohp-kitchen"></li>
-                                            <li class="icohp-bar"></li>
-                                            <li class="icohp-living"></li>
-                                            <li class="icohp-tv"></li>
-                                            <li class="icohp-fridge"></li>
-                                            <li class="icohp-microwave"></li>
-                                            <li class="icohp-washing"></li>
-                                            <li class="icohp-roomservice"></li>
-                                        </ul>
-                                        <ul class="hpref-text left">
-                                            <li>Courtyard garden</li>
-                                            <li>Grill / Barbecue</li>
-                                            <li>Kitchen</li>
-                                            <li>Bar</li>
-                                            <li>Living</li>
-                                            <li>TV</li>
-                                            <li>Fridge</li>
-                                            <li>Microwave</li>
-                                            <li>Washing maschine</li>
-                                            <li>Room service</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4 offset-0">
-                                        <ul class="hotelpreferences2 left">
-                                            <li class="icohp-safe"></li>
-                                            <li class="icohp-playground"></li>
-                                            <li class="icohp-conferenceroom"></li>
-                                        </ul>
-                                        <ul class="hpref-text left">
-                                            <li>Reception Safe</li>
-                                            <li>Playground</li>
-                                            <li>Conference room</li>
-                                        </ul>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-
-                            </div>
-                            <!-- End of collapse 7 -->
-                            <br/>
-
-                            <div class="line4"></div>
-
-                            <!-- Collapse 8 -->
-                            <button type="button" class="collapsebtn2" data-toggle="collapse" data-target="#collapse8">
-                                Room facilities <span class="collapsearrow"></span>
-                            </button>
-
-                            <div id="collapse8" class="collapse in">
-                                <div class="hpadding20">
-                                    @if (is_array($room->RoomFacility) || is_object($room->RoomFacility))
+                                    @foreach($rooms as $room)
                                         @foreach($room->RoomFacility as $facilities)
                                             <div class="col-md-4">
                                                 <ul class="checklist">
@@ -575,12 +449,35 @@
                                                 </ul>
                                             </div>
                                         @endforeach
-                                    @endif
+                                    @endforeach
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
+                            <!-- End of collapse 6 -->
 
-                            {{--<!-- End of collapse 8 -->--}}
+                            <div class="line4"></div>
+
+                            <!-- Collapse 3 -->
+                            <button type="button" class="collapsebtn2 collapsed" data-toggle="collapse"
+                                    data-target="#collapse3">
+                                Hotel Facilities <span class="collapsearrow"></span>
+                            </button>
+
+                            <div id="collapse3" class="collapse">
+                                <div class="hpadding20">
+                                    @foreach($details->HotelFacility as $facilities)
+                                        <div class="col-md-4">
+                                            <ul class="checklist">
+                                                <li> {{ $facilities->hotel_facility }} </li>
+                                            </ul>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <!-- End of collapse 3 -->
+
+                            <div class="line4"></div>
 
                         </div>
 
@@ -968,57 +865,6 @@
                     </div>
                 </div>
 
-                <div class="pagecontainer2 mt20 needassistancebox">
-                    <div class="cpadding1">
-                        <span class="icon-help"></span>
-
-                        <h3 class="opensans">Need Assistance?</h3>
-
-                        <p class="size14 grey">Our team is 24/7 at your service to help you with your booking issues
-                            or
-                            answer any related questions</p>
-
-                        <p class="opensans size30 lblue xslim">1-866-599-6674</p>
-                    </div>
-                </div>
-                <br/>
-
-                <div class="pagecontainer2 mt20 alsolikebox">
-                    <div class="cpadding1">
-                        <span class="icon-location"></span>
-
-                        <h3 class="opensans">You May Also Like</h3>
-
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="cpadding1 ">
-                        <a href="#"><img src="images/smallthumb-1.jpg" class="left mr20" alt=""/></a>
-                        <a href="#" class="dark"><b>Hotel Amaragua</b></a><br/>
-                        <span class="opensans green bold size14">$36-$160</span> <span
-                                class="grey">avg/night</span><br/>
-                        <img src="images/filter-rating-5.png" alt=""/>
-                    </div>
-                    <div class="line5"></div>
-                    <div class="cpadding1 ">
-                        <a href="#"><img src="images/smallthumb-2.jpg" class="left mr20" alt=""/></a>
-                        <a href="#" class="dark"><b>Hotel Amaragua</b></a><br/>
-                        <span class="opensans green bold size14">$36-$160</span> <span
-                                class="grey">avg/night</span><br/>
-                        <img src="images/filter-rating-5.png" alt=""/>
-                    </div>
-                    <div class="line5"></div>
-                    <div class="cpadding1 ">
-                        <a href="#"><img src="images/smallthumb-3.jpg" class="left mr20" alt=""/></a>
-                        <a href="#" class="dark"><b>Hotel Amaragua</b></a><br/>
-                        <span class="opensans green bold size14">$36-$160</span> <span
-                                class="grey">avg/night</span><br/>
-                        <img src="images/filter-rating-5.png" alt=""/>
-                    </div>
-                    <br/>
-
-
-                </div>
-
             </div>
         </div>
 
@@ -1034,32 +880,6 @@
 
         <!-- Carousel-->
         {{ HTML::script('assets/js/initialize-carousel-detailspage.js') }}
-
-
-        {{--<script type="text/javascript">--}}
-        {{--$(function () {--}}
-        {{--$('#datepicker2').change(function () {--}}
-        {{--var = $(this).--}}
-        {{--$('#details_form').submit();--}}
-        {{--})--}}
-        {{--});--}}
-        {{--</script>--}}
-
-        {{--<script type="text/javascript">--}}
-        {{--$(function () {--}}
-        {{--$('#change_adult').change(function () {--}}
-        {{--$('#details_form').submit();--}}
-        {{--})--}}
-        {{--});--}}
-        {{--</script>--}}
-
-        {{--<script type="text/javascript">--}}
-        {{--$(function () {--}}
-        {{--$('#change_child').change(function () {--}}
-        {{--$('#details_form').submit();--}}
-        {{--})--}}
-        {{--});--}}
-        {{--</script>--}}
 
     @endsection
 

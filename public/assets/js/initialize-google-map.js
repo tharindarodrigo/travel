@@ -72,7 +72,7 @@ function initialize() {
     var lat;
     var lon;
     var hotel_id = $('#get_map').val();
-    var url = 'http://localhost/travel/public/get_map';
+    var url = 'http://'+window.location.host+'/get_map';
     var form_object = new FormData();
 
     form_object.append('hotel_id', hotel_id);
