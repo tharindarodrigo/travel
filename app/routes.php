@@ -356,6 +356,9 @@ Route::get('/', array(
     'uses' => 'HomeController@index'
 ));
 
+//Bookings
+Route::resource('bookings','BookingsController');
+
 
 //tourism details dowmload
 
