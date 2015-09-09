@@ -62,8 +62,8 @@ class RoomTypesController extends \BaseController {
 		if($roomType = Roomtype::create($data)){
 
 //            dd('success');
-
-            if($roomFacilities = Input::get('room_facility_id')){
+            $roomFacilities = Input::get('room_facility_id');
+            if(!empty($roomFacilities)){
                 foreach($roomFacilities as $roomFacility){
                     DB::table('room_facility_room_type')->insert(
                         array(
@@ -74,7 +74,8 @@ class RoomTypesController extends \BaseController {
                 }
             }
 
-            if($roomspecifications = Input::get('room_specification')){
+            $roomspecifications = Input::get('room_specification');
+            if(!empty($roomspecifications)){
                 foreach($roomspecifications as $roomSpecification){
                     DB::table('room_specification_room_type')->insert(
                         array(

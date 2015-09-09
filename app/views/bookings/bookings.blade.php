@@ -60,7 +60,7 @@
         formData.append('passport_number',passport_number);
 
 //        alert(name+' '+passport_number+' '+dob+' '+gender);
-
+        var url = 'http://'+window.location.host+'/'
 
     });
 </script>
