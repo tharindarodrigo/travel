@@ -221,7 +221,7 @@ class RoomTypesController extends \BaseController
 
         $roomspecifications = Input::get('room_specification_id');
         DB::table('room_specification_room_type')->where('room_type_id', $id)->delete();
-        if (!empty($oomspecifications)) {
+        if (!empty($roomspecifications)) {
 
             foreach ($roomspecifications as $roomspecification) {
                 $roomfacilitydata = array(
