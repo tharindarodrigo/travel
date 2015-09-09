@@ -45,5 +45,24 @@
         <!-- Easy Pie Chart  -->
     {{ HTML::script('assets/js/jquery.easy-pie-chart.js') }}
 </body>
+<script type="text/javascript">
+    $('#add_client_btn').click(function(){
+        var name = $('#name').val();
+        var passport_number = $('#passport_number').val();
+        var dob = $('#dob').val();
+        var gender = $('#gender').val();
+
+        var formData = new FormData();
+
+        formData.append('name',name);
+        formData.append('gender',gender);
+        formData.append('dob',dob);
+        formData.append('passport_number',passport_number);
+
+//        alert(name+' '+passport_number+' '+dob+' '+gender);
+
+
+    });
+</script>
 
 @stop

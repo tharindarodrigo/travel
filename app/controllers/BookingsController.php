@@ -103,5 +103,32 @@ class BookingsController extends \BaseController {
 
 		return Redirect::route('bookings.index');
 	}
+    
+    /**
+     * Client-List Functions
+     */
+
+    public function createClient()
+    {
+        
+    }
+
+    public function destroyClient()
+    {
+        
+    }
+
+    public function getClient()
+    {
+        $Input = Input::all();
+
+        if(Session::has('client-list')){
+//            $data = array();
+            $data = Session::get('client-list');
+
+        } else {
+
+        }
+    }
 
 }

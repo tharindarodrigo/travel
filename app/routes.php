@@ -358,6 +358,15 @@ Route::get('/', array(
 
 //Bookings
 Route::resource('bookings','BookingsController');
+Route::post('/bookings/create-client', 'BookingsController@createClient');
+Route::post('/bookings/destroy-client', 'BookingsController@destroyClient');
+Route::post('/bookings/get-client-details', 'bookingsController@getClientLis');
+
+
+
+Route::get('/my-bookings',function(){
+    return View::make('agent-bookings.bookings');
+});
 
 
 //tourism details dowmload
