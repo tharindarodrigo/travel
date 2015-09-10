@@ -55,7 +55,7 @@
 
 <!-- This page JS --02>
 
-@yield('script')
+
 
 <!-- Custom functions -->
 {{ HTML::script('assets/js/functions.js') }}
@@ -85,5 +85,6 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 {{ HTML::script('dist/js/bootstrap.min.js') }}
 
+@yield('script')
 
 </html>

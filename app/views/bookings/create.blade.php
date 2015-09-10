@@ -49,7 +49,7 @@
                         <div class="margtop15"><span class="dark">Arrival Date:</span><span class="red">*</span></div>
                     </div>
                     <div class="col-md-6">
-                        {{Form::text('arrival_date',null,array('class'=> 'form-control'))}}
+                        {{Form::text('arrival_date',null,array('class'=> 'form-control', 'id'=>'date1'))}}
                     </div>
                     <div class="col-md-3 textleft margtop15">
                     </div>
@@ -61,7 +61,7 @@
                         <div class="margtop15"><span class="dark">Departure Date:</span><span class="red">*</span></div>
                     </div>
                     <div class="col-md-6">
-                        {{Form::text('departure_date',null,array('class'=> 'form-control'))}}
+                        {{Form::text('departure_date',null,array('class'=> 'form-control', 'id'=>'date2'))}}
                     </div>
                     <div class="col-md-3 textleft margtop15">
                     </div>

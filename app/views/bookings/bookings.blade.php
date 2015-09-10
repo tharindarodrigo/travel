@@ -46,13 +46,22 @@
     {{ HTML::script('assets/js/jquery.easy-pie-chart.js') }}
     {{ HTML::script('js/functions/add_clients.js') }}
 </body>
+
+@endsection
+
+@section('script')
+
 <script type="text/javascript">
 
     $(document).ready(function(){
+
+        $('#date1,#date2').datepicker({
+            format: 'yy-mm-dd'
+        });
+
         var url = 'http://'+window.location.host+'/bookings/get-clients';
         //alert(url);
         sendData(url, null);
-
 
     });
 
@@ -77,5 +86,6 @@
 
     });
 </script>
+
 
 @stop
