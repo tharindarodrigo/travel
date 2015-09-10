@@ -64,7 +64,6 @@ class RatesController extends \BaseController
                 $ids = explode("-", $keys[$i]);
 
                 $data = array(
-
                     'from' => Input::get("from"),
                     'to' => Input::get("to"),
                     'rate' => $rate,

@@ -42,7 +42,8 @@ class SupplementRatesController extends \BaseController
 
         $rates = Input::get('rates');
         $keys = Input::get('keys');
-        $markets = Input::get('markets');
+        $markets = Input::get('market_id');
+
         $inserted_ids = array();
 
         $rates = explode(',', $rates);

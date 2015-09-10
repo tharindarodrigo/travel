@@ -199,7 +199,7 @@
             formObj.append('room_type_id',$('#room_type_id').val());
             formObj.append('rates', rates);
             formObj.append('keys', keys);
-            formObj.append('markets', markets);
+            formObj.append('market_id', markets);
 
             var url1 = 'http://'+window.location.host+'/control-panel/hotel/hotels/'+hotel_id+'/supplement-rates';
             $.ajax({
