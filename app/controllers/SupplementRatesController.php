@@ -10,7 +10,7 @@ class SupplementRatesController extends \BaseController
      */
     public function index($hotelid)
     {
-        $rates = SupplementRate::all();
+        $rates = SupplementRate::where('hotel_id',$hotelid)->get();
 
         return View::make('control-panel.hotel.supplement-rates.index', compact('hotelid', 'rates'));
     }
