@@ -9,11 +9,16 @@ function sendData(url, formData){
         dataType: 'json',
         data: formData,
         success: function (data) {
+            var tablecontent = generateClientsTable(data);
 
+            $('#clients_table').html(tablecontent);
+
+
+            deleteClient();
         },
 
         error: function () {
-            alert('There was an error signing In');
+            //alert('There was an error signing In');
         }
     });
 
@@ -22,14 +27,34 @@ function sendData(url, formData){
 
 function generateClientsTable(data){
     var table = '';
-    $.each(data, function(index, item){
-        table += '<tr>';
-        table += '<td>'+item.name+'</td>';
-        table += '<td>'+item.dob+'</td>';
-        table += '<td>'+item.passport_number+'</td>';
-        table += '<td>'+item.gender+'</td>';
-        table += '</tr>';
+    if(data != null){
+        $.each(data, function(index, item){
+
+
+            table += '<tr>';
+            table += '<td>'+item.name+'</td>';
+            table += '<td>'+item.dob+'</td>';
+            table += '<td>'+item.passport_number+'</td>';
+            table += '<td>'+item.gender+'</td>';
+            table += '<td><button class="btn btn-xs btn-danger delete_button" value="'+index+'"><b>X</b></button></td>';
+            table += '</tr>';
+        });
+
+    }
+
+    return table;
+}
+
+
+function deleteClient(){
+    $('.delete_button').click(function(){
+        var formData = new FormData();
+        alert($(this).val());
+        var url = 'http://'+window.location.host+'/bookings/destroy-client';
+        formData.append('deletable', $(this).val());
+
+        sendData(url, formData);
+
     });
-
-
+    //sendData(url, formData);
 }

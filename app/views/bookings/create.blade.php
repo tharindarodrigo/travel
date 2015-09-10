@@ -93,43 +93,6 @@
                     <br/>
 
 
-
-
-
-
-
-
-
-                    {{--<div class="form-group">--}}
-                        {{--{{Form::label('arrival_date', 'Arrival Date')}}--}}
-                        {{--{{Form::text('arrival_date',null,array('class'=> 'form-control'))}}--}}
-                    {{--</div>--}}
-                    {{--<div class="form-group">--}}
-                        {{--{{Form::label('departure_date', 'Departure Date')}}--}}
-                        {{--{{Form::text('departure_date',null,array('class'=> 'form-control'))}}--}}
-                    {{--</div>--}}
-                    {{--<div class="form-group">--}}
-                        {{--{{Form::label('name', 'Name')}}--}}
-                        {{--{{Form::text('name',null,array('class'=> 'form-control'))}}--}}
-                    {{--</div>--}}
-                    {{--<div class="form-group">--}}
-                        {{--<div class="row">--}}
-                            {{--<div class="col-xs-6">--}}
-                                {{--{{Form::label('adults', 'Adults')}}--}}
-                                {{--{{Form::text('adults',null,array('class'=> 'form-control'))}}--}}
-                            {{--</div>--}}
-                            {{--<div class="col-xs-6">--}}
-                                {{--{{Form::label('children', 'Children')}}--}}
-                                {{--{{Form::text('children',null,array('class'=> 'form-control'))}}--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="form-group">--}}
-                        {{--{{Form::label('remarks', 'Remarks')}}--}}
-                        {{--{{Form::textarea('remarks',null, array('class'=> 'form-control', 'rows' => '3'))}}--}}
-                    {{--</div>--}}
-
-
                     {{Form::close()}}
 
 
@@ -151,7 +114,7 @@
                             <th>&nbsp;</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="clients_table">
 
                         </tbody>
                     </table>
@@ -178,6 +141,75 @@
                     <div class="pull-right">
                         <button class="bluebtn margtop20" id="add_client_btn">Add Client</button>
                     </div>
+                    <div class="clearfix"></div>
+                    <br/><br/>
+
+                    <span class="size16px bold dark left">Flight Details </span>
+
+                    <div class="roundstep active right">3</div>
+                    <div class="clearfix"></div>
+                    <div class="line4"></div>
+
+                    <div class="col-md-3 textright">
+                        <div class="margtop15"><span class="dark">Flight:</span><span class="red">*</span></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <span class="size12">Arrival</span>
+                                {{Form::text('arrival_filght',null,array('class'=> 'form-control'))}}
+                            </div>
+                            <div class="col-xs-6">
+                                <span class="size12">Departure</span>
+                                {{Form::text('departure_flight',null,array('class'=> 'form-control'))}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 textleft margtop15">
+
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <br/>
+                    <div class="col-md-3 textright">
+                        <div class="margtop15"><span class="dark">Date:</span><span class="red"></span></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                {{Form::text('arrival_date',null,array('class'=> 'form-control'))}}
+                            </div>
+                            <div class="col-xs-6">
+                                {{Form::text('departure_date',null,array('class'=> 'form-control'))}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 textleft margtop15">
+
+                    </div>
+                    <div class="clearfix"></div>
+                    <br/>
+                     <div class="col-md-3 textright">
+                        <div class="margtop15"><span class="dark">Time:</span><span class="red"></span></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                {{Form::text('arrival_time',null,array('class'=> 'form-control'))}}
+                            </div>
+                            <div class="col-xs-6">
+                                {{Form::text('departure_time',null,array('class'=> 'form-control'))}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 textleft margtop15">
+
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <br/>
+
+
 
 
                     <!-- IMG RIGHT TEXT -->
@@ -188,6 +220,9 @@
 
 
                 <div class="clearfix"></div>
+
+
+
                 <br/><br/>
             </div>
             <!-- END CONTENT -->

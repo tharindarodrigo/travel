@@ -11,7 +11,7 @@ class RoomType extends \Eloquent
     ];
 
     // Don't forget to fill this array
-    protected $fillable = ['room_type', 'description', 'hotel_id', 'user_id'];
+    protected $fillable = ['room_type', 'description', 'hotel_id', 'user_id', 'val'];
 
     public function rate()
     {

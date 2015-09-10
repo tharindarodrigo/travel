@@ -179,12 +179,26 @@ class RoomTypesController extends \BaseController
 
         $roomtype = Roomtype::findOrFail($id);
 
+        if(!Input::has('val')){
+            $data = array(
+                'room_type' => Input::get('room_type'),
+                'description' => Input::get('description'),
+                'user_id' => Auth::user()->id
+            );
+        } else {
 
-        $data = array(
-            'room_type' => Input::get('room_type'),
-            'description' => Input::get('description'),
-            'user_id' => Auth::user()->id
-        );
+//            dd(Input::get('val'));
+            $data = array(
+                'val' => Input::get('val')
+            );
+            if ($roomtype->update($data)) {
+                Session::flash('successmessage', 'Room Successfully updated');
+            }
+
+            return Redirect::back();
+
+        }
+
 
         $validator = Validator::make($data, Roomtype::$rules);
 

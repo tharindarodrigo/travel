@@ -44,8 +44,18 @@
 
         <!-- Easy Pie Chart  -->
     {{ HTML::script('assets/js/jquery.easy-pie-chart.js') }}
+    {{ HTML::script('js/functions/add_clients.js') }}
 </body>
 <script type="text/javascript">
+
+    $(document).ready(function(){
+        var url = 'http://'+window.location.host+'/bookings/get-clients';
+        //alert(url);
+        sendData(url, null);
+
+
+    });
+
     $('#add_client_btn').click(function(){
         var name = $('#name').val();
         var passport_number = $('#passport_number').val();
@@ -54,13 +64,16 @@
 
         var formData = new FormData();
 
-        formData.append('name',name);
-        formData.append('gender',gender);
-        formData.append('dob',dob);
-        formData.append('passport_number',passport_number);
+        formData.append('name', name);
+        formData.append('gender', gender);
+        formData.append('dob', dob);
+        formData.append('passport_number', passport_number);
 
 //        alert(name+' '+passport_number+' '+dob+' '+gender);
-        var url = 'http://'+window.location.host+'/'
+        var url = 'http://'+window.location.host+'/bookings/create-client';
+
+        sendData(url,formData);
+
 
     });
 </script>

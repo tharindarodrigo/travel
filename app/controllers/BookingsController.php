@@ -108,27 +108,45 @@ class BookingsController extends \BaseController {
      * Client-List Functions
      */
 
-    public function createClient()
+    public function addClient()
     {
-        
+        $input = Input::all();
+//        $data =array();
+
+        if(Session::has('client-list')){
+            $data = Session::get('client-list');
+            $data[] = $input;
+
+            Session::put('client-list', $data);
+
+        } else {
+            $data= [];
+            $data[] = $input;
+            Session::put('client-list', $data);
+        }
+
+        return Response::json(Session::get('client-list'));
     }
 
     public function destroyClient()
     {
-        
-    }
-
-    public function getClient()
-    {
-        $Input = Input::all();
+        $deletable = Input::get('deletable');
 
         if(Session::has('client-list')){
-//            $data = array();
             $data = Session::get('client-list');
+            unset($data[$deletable]);
 
-        } else {
-
+            Session::put('client-list', $data);
         }
+
+        return Response::json(Session::get('client-list'));
+    }
+
+    public function getClientList()
+    {
+//        Session::forget('client-list');
+        //dd('client-list');
+        return Response::json(Session::get('client-list'));
     }
 
 }

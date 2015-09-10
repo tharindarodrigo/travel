@@ -358,9 +358,9 @@ Route::get('/', array(
 
 //Bookings
 Route::resource('bookings','BookingsController');
-Route::post('/bookings/create-client', 'BookingsController@createClient');
+Route::post('/bookings/create-client', 'BookingsController@addClient');
 Route::post('/bookings/destroy-client', 'BookingsController@destroyClient');
-Route::post('/bookings/get-client-details', 'bookingsController@getClientLis');
+Route::post('/bookings/get-clients', 'BookingsController@getClientList');
 
 
 
