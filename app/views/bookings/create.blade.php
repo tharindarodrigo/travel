@@ -88,8 +88,18 @@
 
                     </div>
                     <div class="clearfix"></div>
-
                     <br/>
+
+                    <div class="col-md-3 textright">
+                        <div class="margtop15"><span class="dark">Tour:</span><span class="red">*</span></div>
+                    </div>
+                    <div class="col-md-6">
+                        {{Form::text('tour',null,array('class'=> 'form-control'))}}
+                    </div>
+                    <div class="col-md-3 textleft margtop15">
+                    </div>
+                    <div class="clearfix"></div>
+
                     <br/>
 
 
@@ -151,17 +161,17 @@
                     <div class="line4"></div>
 
                     <div class="col-md-3 textright">
-                        <div class="margtop15"><span class="dark">Flight:</span><span class="red">*</span></div>
+                        <div class="margtop15"><span class="dark">Flight:</span><span class="red"></span></div>
                     </div>
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-xs-6">
                                 <span class="size12">Arrival</span>
-                                {{Form::text('arrival_filght',null,array('class'=> 'form-control'))}}
+                                {{Form::text('arrive_flight',null,array('class'=> 'form-control', 'id'=> ''))}}
                             </div>
                             <div class="col-xs-6">
                                 <span class="size12">Departure</span>
-                                {{Form::text('departure_flight',null,array('class'=> 'form-control'))}}
+                                {{Form::text('depart_flight',null,array('class'=> 'form-control'))}}
                             </div>
                         </div>
                     </div>
@@ -187,9 +197,11 @@
                     <div class="col-md-3 textleft margtop15">
 
                     </div>
+
+
                     <div class="clearfix"></div>
                     <br/>
-                     <div class="col-md-3 textright">
+                    <div class="col-md-3 textright">
                         <div class="margtop15"><span class="dark">Time:</span><span class="red"></span></div>
                     </div>
                     <div class="col-md-6">
@@ -208,9 +220,25 @@
                     <div class="clearfix"></div>
 
                     <br/>
+                    <br/>
 
+                    <span class="size16px bold dark left">Remarks</span>
 
+                    <div class="roundstep active right">4</div>
+                    <div class="clearfix"></div>
+                    <div class="line4"></div>
 
+                    <div class="col-md-3 textright">
+                        <div class="margtop15"><span class="dark">Remarks:</span><span class="red"></span></div>
+                    </div>
+                    <div class="col-md-6">
+                        {{Form::textarea('remarks',null,array('class'=> 'form-control'))}}
+                    </div>
+                    <div class="col-md-3 textleft margtop15">
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <br/>
 
                     <!-- IMG RIGHT TEXT -->
 

@@ -4,7 +4,11 @@
     <div class="col-md-12">
         <div class="box box-primary">
             <!-- /.box-header -->
-
+            <div class="box-header">
+                <div class="pull-right">
+                    {{link_to_route('control-panel.hotel.hotels.supplement-rates.create', 'Add Rates',array($hotelid), array('class' => 'btn btn-primary'))}}
+                </div>
+            </div>
             <div class="box-body table-responsive">
                 <table class="table table-bordered table-striped" id="rooms-table">
                 <thead>

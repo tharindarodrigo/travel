@@ -55,7 +55,7 @@
 
     $(document).ready(function(){
 
-        $('#date1,#date2').datepicker({
+        $('#date1, #date2, #dob, #date3, #date4 ').datepicker({
             format: 'yy-mm-dd'
         });
 
