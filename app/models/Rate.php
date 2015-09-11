@@ -1,28 +1,42 @@
 <?php
 
-class Rate extends \Eloquent {
+class Rate extends \Eloquent
+{
 
-	// Add your validation rules here
-	public static $rules = [
-		 'from' => 'required|date',
-		 'to' => 'required|date|after:from',
-		 'market_id' => 'required'
-	];
+    // Add your validation rules here
+    public static $rules = [
+        'from' => 'required|date',
+        'to' => 'required|date|after:from',
+        'market_id' => 'required'
+    ];
 
-	// Don't forget to fill this array
-	protected $fillable = ['from', 'to', 'val', 'room_type_id', 'room_specification_id', 'market_id', 'meal_basis_id', 'user_id', 'hotel_id', 'rate'];
+    // Don't forget to fill this array
+    protected $fillable = ['from', 'to', 'val', 'room_type_id', 'room_specification_id', 'market_id', 'meal_basis_id', 'user_id', 'hotel_id', 'rate'];
 
-    public function roomType(){
+    public function roomType()
+    {
         return $this->belongsTo('RoomType');
     }
-    public function roomSpecification(){
+
+    public function roomSpecification()
+    {
         return $this->belongsTo('RoomSpecification');
     }
-    public function mealBasis(){
+
+    public function mealBasis()
+    {
         return $this->belongsTo('MealBasis');
     }
-    public function market(){
+
+    public function market()
+    {
         return $this->belongsTo('Market');
     }
+
+    public function hotel()
+    {
+        return $this->belongsTo('Hotel');
+    }
+
 
 }

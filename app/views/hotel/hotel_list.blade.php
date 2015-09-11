@@ -106,29 +106,12 @@
                 <!-- TOP TIP -->
                 <div class="filtertip">
                     <div class="padding20">
-                        <?php
-                        $get_city_or_acc = Request::segment(2);
-                        $city_or_acc = str_replace('-', ' ', $get_city_or_acc);
-                        $get_city_or_acc_id = DB::table('hotel_categories')->where('hotel_category', 'LIKE', $city_or_acc)->first();
-                        if (!is_null($get_city_or_acc_id)) {
-                            $acc_id = $get_city_or_acc_id->id;
-                            $count_hotels = Hotel::whereHas('hotelCategory', function ($query) use ($acc_id) {
-                                $query->where('hotel_category_id', '=', $acc_id);
-                                // $query->whereIn('star_category_id', $star_id);
-                            })
-                                    ->get();
-                        } else {
-                            $city = str_replace('-', ' ', $get_city_or_acc);
-                            $get_city_id = DB::table('cities')->where('city', 'LIKE', $city)->first()->id;
-                            $count_hotels = Hotel::where('city_id', '=', $get_city_id)->get();
-                        }
 
-                        ?>
-                        <p class="size13"><span class="size18 bold ">{{ count($count_hotels); }}</span> Hotels starting
+                        <p class="size13"><span class="size18 bold ">{{ $hotels->getTotal(); }}</span> Hotels starting
                             at
                         </p>
 
-                        <p class="size30 bold">$<span class=""> {{ 'as' }} </span></p>
+                        <p class="size30 bold">$<span class=""> {{ $min_hot_rate }} </span></p>
 
                         <p class="size13">In {{ str_replace('-', ' ', Request::segment(2)); }} </p>
                     </div>
@@ -404,10 +387,61 @@
 
                 </div>
                 <!-- END OF BOOK FILTERS -->
-
                 <div class="line2"></div>
+
                 <?php $city_or_acc = Request::segment(2); ?>
+
                 <div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
+                <div class="line2"></div>
+
+                <!-- Price range -->
+                <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
+                    Price range <span class="collapsearrow"></span>
+                </button>
+
+                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'price_range_form')) }}
+
+                <div id="collapse2" class="collapse in">
+                    <div class="padding20">
+                        <div class="layout-slider wh100percent">
+
+                            <span class="cstyle09">
+                                <input id="Slider1" class="price_range_select" type="slider" name="price_range"
+                                       value="{{ (($min_hot_rate+$max_hot_rate)/2)-50 }}; {{ (($min_hot_rate+$max_hot_rate)/2)+50 }} "/>
+                            </span>
+                            <br/><br/>
+                            <button type="submit" class="btn-search4">Update</button>
+                            <br/>
+                        </div>
+
+                        <!-- bin/jquery.slider.min.js -->
+                        {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
+                        {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
+                        <!-- end -->
+
+                        {{ Form::hidden('min_hot_rate', $min_hot_rate, array('id' => 'min_rate_slider')) }}
+                        {{ Form::hidden('max_hot_rate', $max_hot_rate, array('id' => 'max_rate_slider')) }}
+
+                        <script type="text/javascript">
+                            var min = parseInt($('#min_rate_slider').val());
+                            var max = parseInt($('#max_rate_slider').val());
+                            jQuery("#Slider1").slider({
+                                from: min,
+                                to: max,
+                                step: 5,
+                                smooth: true,
+                                round: 0,
+                                dimension: "&nbsp;$",
+                                skin: "round"
+                            });
+                        </script>
+                    </div>
+                </div>
+
+                <!-- End of Price range -->
+
+                {{ Form::close() }}
+
                 <div class="line2"></div>
 
                 <!-- Star ratings -->
@@ -460,40 +494,6 @@
 
                 <div class="line2"></div>
 
-                <!-- Price range -->
-                <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
-                    Price range <span class="collapsearrow"></span>
-                </button>
-                <div id="collapse2" class="collapse in">
-                    <div class="padding20">
-                        <div class="layout-slider wh100percent">
-                            <span class="cstyle09">
-                                <input id="Slider1" type="slider" name="price" value="200;700"/>
-                            </span>
-                        </div>
-
-                        <!-- bin/jquery.slider.min.js -->
-                        {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
-                        {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
-                        <!-- end -->
-
-                        <script type="text/javascript">
-                            jQuery("#Slider1").slider({
-                                from: 10,
-                                to: 1000,
-                                step: 5,
-                                smooth: true,
-                                round: 0,
-                                dimension: "&nbsp;$",
-                                skin: "round"
-                            });
-                        </script>
-                    </div>
-                </div>
-                <!-- End of Price range -->
-
-                <div class="line2"></div>
-
                 <!-- Accommodation -->
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
                     Accommodation type <span class="collapsearrow"></span>
@@ -527,10 +527,11 @@
                 <div id="collapse4" class="collapse in">
 
                     <div class="hpadding20">
+
                         <div id="facility_half">
-                            <?php  $x = 0; ?>
+                            <?php  $y = 0; ?>
                             @foreach($hotel_facilities as $facility)
-                                @if($x < 5)
+                                @if($y < 5)
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" value="{{ $facility->id }}" name="facility[]"
@@ -539,12 +540,12 @@
                                         </label>
                                     </div>
                                 @endif
-                                <?php  $x = $x + 1; ?>
+                                <?php  $y = $y + 1; ?>
                             @endforeach
 
                             <a id="facility_readmore" style="text-align: right" class="last" data-toggle="collapse"
                                data-target="#collapse6">
-                                <h6>Read More</h6>
+                                <h6>More</h6>
                             </a>
                         </div>
 
@@ -580,17 +581,53 @@
                     Cities <span class="collapsearrow"></span>
                 </button>
                 {{ Form::open(array('url' => '/sri-lanka/filter', 'method' => 'POST', 'id'=>'city_form')) }}
+
                 <div id="collapse5" class="collapse in">
                     <div class="hpadding20">
-                        @foreach($hotel_cities as $city)
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="city" id="City{{ $x }}"
-                                           value="{{ $city->id }}" class="city_select">
-                                    {{ $city->city }}
-                                </label>
+
+                        <div id="city_half">
+                            <?php  $z = 0; ?>
+                            @foreach($hotel_cities as $city)
+                                @if($z < 5)
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="city" id="City{{ $x }}"
+                                                   value="{{ $city->id }}" class="city_select">
+                                            {{ $city->city }}
+                                        </label>
+                                    </div>
+                                    <?php  $z = $z + 1; ?>
+                                @endif
+                            @endforeach
+
+                            <a id="city_readmore" style="text-align: right" class="last"
+                               data-toggle="collapse"
+                               data-target="#collapse7">
+                                <h6>More</h6>
+                            </a>
+
+                        </div>
+
+                        <div id="city_full">
+                            <div id="collapse7" class="collapse">
+                                @foreach($hotel_cities as $city)
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="city" id="City{{ $x }}"
+                                                   value="{{ $city->id }}" class="city_select">
+                                            {{ $city->city }}
+                                        </label>
+                                    </div>
+                                @endforeach
+
+                                <a href="#city_full" id="city_readless" style="text-align: right" class="last"
+                                   data-toggle="collapse"
+                                   data-target="#collapse7">
+                                    <h6>Less</h6>
+                                </a>
                             </div>
-                        @endforeach
+                        </div>
+
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -705,6 +742,7 @@
                                     </a>
                                 </div>
                             </div>
+
                             <div class="col-md-8 offset-0">
                                 <div class="itemlabel3">
 
@@ -727,7 +765,12 @@
                                                 No Reviews </span><br/><br/>
                                         @endif
 
-                                        <?php $low_hotel_rate = RoomRates::lowestHotelRate($hotel->id, $st_date, $ed_date); ?>
+                                        <?php $low_hotel_rate = RoomRates::lowestHotelRate($hotel->id, $st_date, $ed_date);
+                                        $min_rate = $hotel->Rate->min('rate');
+                                        $max_rate = $hotel->Rate->max('rate');
+                                        $min_rate_array[] = $min_rate;
+                                        $max_rate_array[] = $min_rate;
+                                        ?>
 
                                         @if(!empty($low_hotel_rate))
                                             <span class="green size18">
@@ -827,8 +870,8 @@
         <script type="text/javascript">
 
             $(document).ready(function () {
-                $('#facility_readless').hide();
                 $('#facility_full').hide();
+                $('#city_full').hide();
             });
 
             $('#facility_readmore').click(function () {
@@ -840,6 +883,17 @@
                 $('#facility_half').show();
                 $('#facility_full').hide();
             });
+
+            $('#city_readmore').click(function () {
+                $('#city_half').hide();
+                $('#city_full').show();
+            });
+
+            $('#city_readless').click(function () {
+                $('#city_half').show();
+                $('#city_full').hide();
+            });
+
         </script>
 
     @endsection

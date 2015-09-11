@@ -566,6 +566,17 @@ Route::any('sri-lanka/filter', array(
     'uses' => 'HotelController@viewFilter'
 ));
 
+
+// Room rate box
+
+Route::any('sri-lanka/get_room_rate_box', array(
+    'as' => 'room-rate-box',
+    'uses' => 'HotelController@getRoomRateBox'
+));
+
+
+// Star Category Rating
+
 Route::post('/star_rating', array(
     'as' => 'star-rating',
     'uses' => 'HotelController@hotelList'

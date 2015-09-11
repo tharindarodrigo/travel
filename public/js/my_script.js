@@ -9,7 +9,7 @@ function lookup(inputString) {
     if (inputString.length == 0) {
         $('#suggestions').fadeOut(); // Hide the suggestions box
     } else {
-        $.post("http://"+window.location.host+"/auto-complete", {queryString: "" + inputString + ""}, function (data) { // Do an AJAX call
+        $.post("http://" + window.location.host + "/auto-complete", {queryString: "" + inputString + ""}, function (data) { // Do an AJAX call
             $('#suggestions').fadeIn(); // Show the suggestions box
             $('#suggestions').html(data); // Fill the suggestions box
 
@@ -56,6 +56,13 @@ $('.hot_facility').click(function () {
     }).get();
     $('#facility_form').submit()
 });
+
+
+$('.price_range_select').slider({
+        change: function(event, ui) {
+            alert(ui.value);
+        }
+    });
 
 
 /**************************************** END OF HOTEL LIST ******************************************************************/

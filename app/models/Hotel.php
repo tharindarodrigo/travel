@@ -8,7 +8,7 @@ class Hotel extends \Eloquent
         'name' => 'required',
         'city_id' => 'required',
         'address' => 'required',
-        'category_id'=>'required',
+        'category_id' => 'required',
         'star_category_id' => 'required',
         'longitude' => 'numeric',
         'latitude' => 'numeric'
@@ -16,24 +16,24 @@ class Hotel extends \Eloquent
 
     public static $updateOverviewRules = [
         'name' => 'required',
-        'category_id'=>'required',
+        'category_id' => 'required',
     ];
 
-    public static $updateLocationRules=[
+    public static $updateLocationRules = [
         'city_id' => 'required',
         'address' => 'required',
         'longitude' => 'numeric',
         'latitude' => 'numeric'
     ];
 
-    public static $updateTermsRules=[
+    public static $updateTermsRules = [
         'check_in_time' => 'required',
         'check_out_time' => 'required',
     ];
 
 
     // Don't forget to fill this array
-    protected $fillable = ['name', 'city_id', 'address', 'star_category_id', 'user_id','longitude','latitude',
+    protected $fillable = ['name', 'city_id', 'address', 'star_category_id', 'users_id', 'longitude', 'latitude',
         'search_keywords', 'search_description', 'overview', 'terms_and_conditions', 'infant_age', 'infant_charge',
         'child_age', 'child_charge', 'check_in_time', 'check_out_time', 'val'];
 
@@ -52,28 +52,39 @@ class Hotel extends \Eloquent
         return $this->belongsTo('User');
     }
 
-    public function city(){
+    public function city()
+    {
         return $this->belongsTo('City');
     }
 
-    public function hotelCategory(){
+    public function hotelCategory()
+    {
         return $this->belongsToMany('hotelCategory');
     }
 
-    public function hotelReview(){
+    public function hotelReview()
+    {
         return $this->hasMany('hotelReview');
     }
 
-    public function hotelFacility(){
+    public function hotelFacility()
+    {
         return $this->belongsToMany('hotelFacility');
     }
 
-    public function roomFacility(){
+    public function roomFacility()
+    {
         return $this->belongsToMany('roomFacility');
     }
 
-    public function roomType(){
+    public function roomType()
+    {
         return $this->hasMany('RoomType');
+    }
+
+    public function rate()
+    {
+        return $this->hasMany('Rate');
     }
 
 }

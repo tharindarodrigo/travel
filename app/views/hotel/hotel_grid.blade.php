@@ -192,12 +192,14 @@
                 <!-- TOP TIP -->
                 <div class="filtertip">
                     <div class="padding20">
-                        <p class="size13"><span class="size18 bold counthotel">{{ count($hotels); }}</span> Hotels
-                            starting at </p>
 
-                        <p class="size30 bold">$<span class="countprice"></span></p>
+                        <p class="size13"><span class="size18 bold ">{{ $hotels->getTotal(); }}</span> Hotels starting
+                            at
+                        </p>
 
-                        <p class="size13">Narrow results or <a href="#">view all</a></p>
+                        <p class="size30 bold">$<span class=""> {{ $min_hot_rate }} </span></p>
+
+                        <p class="size13">In {{ str_replace('-', ' ', Request::segment(4)); }} </p>
                     </div>
                     <div class="tip-arrow"></div>
                 </div>
@@ -302,7 +304,7 @@
                                 </select>
                             </div>
                         </div>
-                        <input type="hidden" name="city_or_acc_hidden" value="{{ $city = Request::segment(2); }}"/>
+                        <input type="hidden" name="city_or_acc_hidden" value="{{ $city = Request::segment(4); }}"/>
 
                         <div class="clearfix"></div>
                         <div class="clearfix pbottom15"></div>
@@ -471,10 +473,61 @@
 
                 </div>
                 <!-- END OF BOOK FILTERS -->
-
                 <div class="line2"></div>
-                <?php $city_or_acc = Request::segment(2); ?>
+
+                <?php $city_or_acc = Request::segment(4); ?>
+
                 <div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
+                <div class="line2"></div>
+
+                <!-- Price range -->
+                <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
+                    Price range <span class="collapsearrow"></span>
+                </button>
+
+                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'price_range_form')) }}
+
+                <div id="collapse2" class="collapse in">
+                    <div class="padding20">
+                        <div class="layout-slider wh100percent">
+
+                            <span class="cstyle09">
+                                <input id="Slider1" class="price_range_select" type="slider" name="price_range"
+                                       value="{{ (($min_hot_rate+$max_hot_rate)/2)-50 }}; {{ (($min_hot_rate+$max_hot_rate)/2)+50 }} "/>
+                            </span>
+                            <br/><br/>
+                            <button type="submit" class="btn-search4">Update</button>
+                            <br/>
+                        </div>
+
+                        <!-- bin/jquery.slider.min.js -->
+                        {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
+                        {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
+                        <!-- end -->
+
+                        {{ Form::hidden('min_hot_rate', $min_hot_rate, array('id' => 'min_rate_slider')) }}
+                        {{ Form::hidden('max_hot_rate', $max_hot_rate, array('id' => 'max_rate_slider')) }}
+
+                        <script type="text/javascript">
+                            var min = parseInt($('#min_rate_slider').val());
+                            var max = parseInt($('#max_rate_slider').val());
+                            jQuery("#Slider1").slider({
+                                from: min,
+                                to: max,
+                                step: 5,
+                                smooth: true,
+                                round: 0,
+                                dimension: "&nbsp;$",
+                                skin: "round"
+                            });
+                        </script>
+                    </div>
+                </div>
+
+                <!-- End of Price range -->
+
+                {{ Form::close() }}
+
                 <div class="line2"></div>
 
                 <!-- Star ratings -->
@@ -527,40 +580,6 @@
 
                 <div class="line2"></div>
 
-                <!-- Price range -->
-                <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
-                    Price range <span class="collapsearrow"></span>
-                </button>
-                <div id="collapse2" class="collapse in">
-                    <div class="padding20">
-                        <div class="layout-slider wh100percent">
-                            <span class="cstyle09">
-                                <input id="Slider1" type="slider" name="price" value="200;700"/>
-                            </span>
-                        </div>
-
-                        <!-- bin/jquery.slider.min.js -->
-                        {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
-                        {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
-                        <!-- end -->
-
-                        <script type="text/javascript">
-                            jQuery("#Slider1").slider({
-                                from: 10,
-                                to: 1000,
-                                step: 5,
-                                smooth: true,
-                                round: 0,
-                                dimension: "&nbsp;$",
-                                skin: "round"
-                            });
-                        </script>
-                    </div>
-                </div>
-                <!-- End of Price range -->
-
-                <div class="line2"></div>
-
                 <!-- Accommodation -->
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
                     Accommodation type <span class="collapsearrow"></span>
@@ -592,17 +611,51 @@
                 </button>
                 {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'facility_form')) }}
                 <div id="collapse4" class="collapse in">
+
                     <div class="hpadding20">
-                        @foreach($hotel_facilities as $facility)
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="{{ $facility->id }}" name="facility[]"
-                                           class="hot_facility">
-                                    {{ $facility->hotel_facility }}
-                                </label>
+
+                        <div id="facility_half">
+                            <?php  $y = 0; ?>
+                            @foreach($hotel_facilities as $facility)
+                                @if($y < 5)
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="{{ $facility->id }}" name="facility[]"
+                                                   class="hot_facility">
+                                            {{ $facility->hotel_facility }}
+                                        </label>
+                                    </div>
+                                @endif
+                                <?php  $y = $y + 1; ?>
+                            @endforeach
+
+                            <a id="facility_readmore" style="text-align: right" class="last" data-toggle="collapse"
+                               data-target="#collapse6">
+                                <h6>More</h6>
+                            </a>
+                        </div>
+
+                        <div id="facility_full">
+                            <div id="collapse6" class="collapse">
+                                @foreach($hotel_facilities as $facility)
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="{{ $facility->id }}" name="facility[]"
+                                                   class="hot_facility">
+                                            {{ $facility->hotel_facility }}
+                                        </label>
+                                    </div>
+                                @endforeach
                             </div>
-                        @endforeach
+                            <a href="#facility_half" id="facility_readless" style="text-align: right" class="last"
+                               data-toggle="collapse"
+                               data-target="#collapse6">
+                                <h6>Less</h6>
+                            </a>
+                        </div>
+
                     </div>
+
                     <div class="clearfix"></div>
                 </div>
                 <!-- End of Hotel Preferences -->
@@ -614,17 +667,53 @@
                     Cities <span class="collapsearrow"></span>
                 </button>
                 {{ Form::open(array('url' => '/sri-lanka/filter', 'method' => 'POST', 'id'=>'city_form')) }}
+
                 <div id="collapse5" class="collapse in">
                     <div class="hpadding20">
-                        @foreach($hotel_cities as $city)
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="city" id="City{{ $x }}"
-                                           value="{{ $city->id }}" class="city_select">
-                                    {{ $city->city }}
-                                </label>
+
+                        <div id="city_half">
+                            <?php  $z = 0; ?>
+                            @foreach($hotel_cities as $city)
+                                @if($z < 5)
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="city" id="City{{ $x }}"
+                                                   value="{{ $city->id }}" class="city_select">
+                                            {{ $city->city }}
+                                        </label>
+                                    </div>
+                                    <?php  $z = $z + 1; ?>
+                                @endif
+                            @endforeach
+
+                            <a id="city_readmore" style="text-align: right" class="last"
+                               data-toggle="collapse"
+                               data-target="#collapse7">
+                                <h6>More</h6>
+                            </a>
+
+                        </div>
+
+                        <div id="city_full">
+                            <div id="collapse7" class="collapse">
+                                @foreach($hotel_cities as $city)
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="city" id="City{{ $x }}"
+                                                   value="{{ $city->id }}" class="city_select">
+                                            {{ $city->city }}
+                                        </label>
+                                    </div>
+                                @endforeach
+
+                                <a href="#city_full" id="city_readless" style="text-align: right" class="last"
+                                   data-toggle="collapse"
+                                   data-target="#collapse7">
+                                    <h6>Less</h6>
+                                </a>
                             </div>
-                        @endforeach
+                        </div>
+
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -815,63 +904,36 @@
         <!-- Counter -->
         {{ HTML::script('assets/js/counter.js') }}
 
-        {{--for the auto complete option--}}
-        <script type="text/javascript">
-
-            function lookup(inputString) {
-                if (inputString.length == 0) {
-                    $('#suggestions').fadeOut(); // Hide the suggestions box
-                } else {
-                    $.post("http://localhost/travel/public/auto-complete", {queryString: "" + inputString + ""}, function (data) { // Do an AJAX call
-                        $('#suggestions').fadeIn(); // Show the suggestions box
-                        $('#suggestions').html(data); // Fill the suggestions box
-
-                        $('a').click(function () {
-                            $value = $(this).attr('value');
-                            $category = $(this).attr('category');
-                            $('#inputString').val($value);
-                            $('#inputString').attr('category', $category);
-                            $('#suggestions').fadeOut();
-                        });
-                    });
-                }
-            }
-        </script>
+        <!-- Custom js -->
+        {{ HTML::script('js/my_script.js') }}
 
         <script type="text/javascript">
-            $('.star_category').click(function () {
-                var star = $('input[name=star_rating]:checked').map(function () {
-                    return $(this).val();
-                }).get();
-                $('#star_rating_form').submit();
+
+            $(document).ready(function () {
+                $('#facility_full').hide();
+                $('#city_full').hide();
             });
-        </script>
 
-        <script type="text/javascript">
-            $('.acc_select').click(function () {
-                var accommodation = $('input[name=accommodation]:checked').map(function () {
-                    return $(this).val();
-                }).get();
-                $('#accommodation_form').submit()
+            $('#facility_readmore').click(function () {
+                $('#facility_half').hide();
+                $('#facility_full').show();
             });
-        </script>
 
-        <script type="text/javascript">
-            $('.city_select').click(function () {
-                var city = $('input[name=city]:checked').map(function () {
-                    return $(this).val();
-                }).get();
-                $('#city_form').submit()
+            $('#facility_readless').click(function () {
+                $('#facility_half').show();
+                $('#facility_full').hide();
             });
-        </script>
 
-        <script type="text/javascript">
-            $('.hot_facility').click(function () {
-                var facilities = $('input[name=facility]:checked').map(function () {
-                    return $(this).val();
-                }).get();
-                $('#facility_form').submit()
+            $('#city_readmore').click(function () {
+                $('#city_half').hide();
+                $('#city_full').show();
             });
+
+            $('#city_readless').click(function () {
+                $('#city_half').show();
+                $('#city_full').hide();
+            });
+
         </script>
 
     @endsection

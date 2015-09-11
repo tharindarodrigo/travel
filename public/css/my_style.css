@@ -1,3 +1,7 @@
+a {
+    text-decoration: none !important;
+}
+
 .search_thumb {
     width: 25px;
     height: 25px;
@@ -102,4 +106,47 @@ div .auto_complete:hover {
 
 .grey:hover {
     color: #000000;
+}
+
+/*rate box style*/
+
+.rate_box_head {
+    border-radius: 10px 0px 10px 0px;
+    -moz-border-radius: 10px 0px 10px 0px;
+    -webkit-border-radius: 10px 0px 10px 0px;
+    border: 4px double #0099cc;
+    background-color: #0099cc;
+
+    text-align: center;
+    text-shadow: 2px 3px 15px #000000;
+}
+
+#rate_box_hotel_name {
+
+    text-align: center;
+    color: #0099cc;
+
+    font-size: 20px;
+    font-family: 'Oxygen', sans-serif;
+}
+
+#room_rate_tag h4 {
+    margin-bottom: 5px;
+}
+
+#room_rate_tag hr {
+    margin: 10px;
+}
+
+.rate_box_foot {
+    border-radius: 10px 0px 10px 0px;
+    -moz-border-radius: 10px 0px 10px 0px;
+    -webkit-border-radius: 10px 0px 10px 0px;
+    border: 4px none #72bf66;
+    background-color: #0099cc;
+}
+
+#room_rate_tag span {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700
 }
