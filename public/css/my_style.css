@@ -110,6 +110,10 @@ div .auto_complete:hover {
 
 /*rate box style*/
 
+#room_rate_tag .grey:hover{
+    color: #000000;
+}
+
 .rate_box_head {
     border-radius: 10px 0px 10px 0px;
     -moz-border-radius: 10px 0px 10px 0px;

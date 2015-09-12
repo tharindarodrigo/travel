@@ -467,14 +467,14 @@ class HotelController extends \BaseController
             $adult = Input::get('adult');
             Session::put('adult', $adult);
         } else {
-            Session::put('adult', '%');
+            Session::put('adult', 1);
         }
 
         if (Input::has('child')) {
             $child = Input::get('child');
             Session::put('child', $child);
         } else {
-            Session::put('child', '%');
+            Session::put('child', 0);
         }
 
         if (Session::has('st_date')) {
@@ -483,13 +483,18 @@ class HotelController extends \BaseController
             $st_date = date("Y/m/d");
         }
 
-        //Session::flush();
+/// Session::flush();
 
         if (Session::has('ed_date')) {
             $ed_date = Session::get('ed_date');
         } else {
             $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
         }
+        $date_ed = new DateTime(Session::get('ed_date'));
+        $date_st = new DateTime(Session::get('st_date'));
+        $date_difference = $date_ed->diff($date_st);
+
+        $date_gap = $date_difference->d;
 
         $from_date = date('Y-m-d', strtotime(str_replace('-', '/', $st_date)));
         $to_date = date('Y-m-d', strtotime(str_replace('-', '/', $ed_date)));
@@ -554,6 +559,7 @@ class HotelController extends \BaseController
                     'rooms' => $rooms,
                     'st_date' => $st_date,
                     'ed_date' => $ed_date,
+                    'date_gap' => $date_gap,
                 )
             );
     }
@@ -594,13 +600,18 @@ class HotelController extends \BaseController
 
     public function getRoomRateBox()
     {
-        $x = 0;
+
+//Session::flush();
+//Session::forget('rate_box_details');dd();
+
+        $room_identity = Input::get('check_room');
 
         $hotel_id = Input::get('hotel_id');
         $room_id = Input::get('room_id');
         $meal_basis_id = Input::get('meal_basis_id');
         $room_specification_id = Input::get('room_specification_id');
         $room_count = Input::get('room_count');
+
 
         $hotel_name = Hotel::where('id', $hotel_id)->first()->name;
         $hotel_address = Hotel::where('id', $hotel_id)->first()->address;
@@ -616,7 +627,7 @@ class HotelController extends \BaseController
             ->first()
             ->rate;
 
-        $total_cost = $total_rate * $room_count;
+        $room_cost = $total_rate * $room_count;
 
         $rate_box_details = array(
             'hotel_name' => $hotel_name,
@@ -624,25 +635,48 @@ class HotelController extends \BaseController
             'room_name' => $room_name,
             'room_specification' => $room_specification,
             'meal_basis' => $meal_basis,
-            'total_cost' => $total_cost,
-
+            'room_cost' => $room_cost,
+            'room_count' => $room_count,
+            'room_identity' => $room_identity,
         );
 
-        if(Session::has('rate_box_details')){
 
-        }else{
+        if (Session::has('rate_box_details')) {
+            $data = Session::get('rate_box_details');
+            $data[$room_identity] = $rate_box_details;
+        } else {
 
+            $data = [];
+            $data[$room_identity] = $rate_box_details;
         }
 
-        Session::put('rate_box_details', $rate_box_details);
+        //$data['total_cost'] = $total_cost;
 
-        //$aa = count($rate_box_details);
-        //dd(count(Session::get('rate_box_details')));
+        Session::put('rate_box_details', $data);
 
-        return Response::json($rate_box_details);
+        return Response::json(Session::get('rate_box_details'));
 
     }
 
+
+    // room rates destroy
+
+    public function roomRateBoxDestroy()
+    {
+
+        $deletable = Input::get('del_room_id');
+
+        if (Session::has('rate_box_details')) {
+            $data = Session::get('rate_box_details');
+            //dd($data);
+            unset($data[$deletable]);
+
+            Session::put('rate_box_details', $data);
+        }
+
+        return Response::json(Session::get('rate_box_details'));
+
+    }
 
     /**
      * Remove the specified resource from storage.

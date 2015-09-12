@@ -41,7 +41,7 @@
             font-size: 13px;
         }
 
-        .hotel_img_rate_box{
+        .hotel_img_rate_box {
             width: 71px;
             height: 71px;
         }
@@ -869,7 +869,7 @@
 
             </div>
 
-            <div class="col-md-4">
+            <div id="room_rate_tag" class="col-md-4">
                 <div class="pagecontainer2 paymentbox grey">
                     <div class="padding30">
                         <?php
@@ -886,8 +886,8 @@
                             {{ HTML::image('images/no-image.jpg', '', array('class' => 'hotel_img_rate_box left margright20')) }}
                         @endif
 
-                        <span id="rate_box_hotel_name" class="opensans size18 dark bold"></span>
-                        <span id="rate_box_hotel_address" class="opensans size13 grey"></span><br>
+                        <span class="opensans size18 dark bold">{{ Hotel::where('id', $hotel_id)->first()->name; }}</span>
+                        <span class="opensans size13 grey">{{ Hotel::where('id', $hotel_id)->first()->address; }}</span><br>
 
                         {{ Star::star_loop_blue($hotel_star)}}
 
@@ -906,128 +906,39 @@
                                 <td class="center green bold">4.5</td>
                             </tr>
                             <tr>
-                                <td colspan="2"><span class="dark">Room 1</span>: Standard Double Room</td>
+                                <td colspan="2"><span class="dark">{{ $date_gap   }}
+                                        Nights </span>: {{ (Session::has('st_date')) ? Session::get('st_date'):'' }}
+                                    - {{ (Session::has('st_date')) ? Session::get('ed_date') : '' }} </td>
                             </tr>
+
                             <tr>
-                                <td colspan="2"><span class="dark">5 Nights</span>: Sep/10/2013 - Sep/14/2013</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="dark">Room 1</span>: 2 Adults<br>
-                                    5 Nights
-                                    <!-- Collapse 1 -->
-                                    <button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse"
-                                            data-target="#collapse1"></button>
-                                    <div id="collapse1" class="collapse">
-                                        <div class="left size12 lblue">
-                                            Thu Nov 14<br>
-                                            Fri Nov 15
-                                        </div>
-                                        <div class="right size12 lblue">
-                                            $15.92<br>
-                                            $20.00
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <!-- End of collapse 1 -->
-                                    <div class="clearfix"></div>
-
-
-                                    Taxes &amp; Fees per night
-
-                                    <!-- Collapse 1 -->
-                                    <button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse"
-                                            data-target="#collapse2"></button>
-                                    <div id="collapse2" class="collapse">
-                                        <div class="left size12 lred">
-                                            Thu Nov 14<br>
-                                            Fri Nov 15
-                                        </div>
-                                        <div class="right size12 lred">
-                                            $1.51<br>
-                                            $1.00
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <!-- End of collapse 1 -->
-                                    <div class="clearfix"></div>
-
-                                </td>
-                                <td class="center">
-                                    avg./night<br>
-                                    $35.92<br>
-                                    $2.51<br>
+                                <td colspan="2"><span class="dark">
+                                        Adult - {{ (Session::has('adult')) ? Session::get('adult'):'' }}
+                                        &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        Child - {{ (Session::has('child')) ? Session::get('child') : '' }} </span>
                                 </td>
                             </tr>
+
                             </tbody>
                         </table>
+
+                        <table class="table table-bordered margbottom20">
+                            <tbody id="rate_box_table">
+
+                            </tbody>
+                        </table>
+
                     </div>
                     <div class="line3"></div>
                     <div class="padding30">
-                        <span class="left size14 dark">Trip Total:</span>
-                        <span class="right lred2 bold size18">$192.15</span>
+                        <span class="left size14 dark">Total Cost : </span>
+                        <span class="right green bold size18"> USD </span>
 
                         <div class="clearfix"></div>
                     </div>
 
                 </div>
             </div>
-
-            <div id="room_rate_tag" class="col-md-4 room_rate_box">
-
-                <div style="padding-top: 0px" class="cpadding0 mt-10">
-
-                    <div class="rate_box_head">
-                        <h3 style="font-family: 'Bree Serif', serif; color: #FFFFFF"> Booking Summary </h3>
-                    </div>
-
-                    <div style="padding-top: 10px" class="col-md-12 pagecontainer2">
-
-                        <h4>Dates</h4>
-
-                        <div><span> Check In </span> <span
-                                    style="padding-left: 20px"> - {{ Session::get('st_date');  }} </span></div>
-                        <div><span> Check Out </span> <span
-                                    style="padding-left: 20px"> - {{ Session::get('st_date');  }} </span></div>
-
-                        <hr/>
-                        <h4>Rooms</h4>
-
-                        <span id="room_count_get">  </span> X <span id="rate_box_room_name"></span><br/>
-                        <span id="room_specification">  </span> <br/>
-                        <span id="room_meal_basis"></span>
-
-                        <hr/>
-                        {{--<h4 style="display: inline; !important;">Nights</h4>--}}
-
-                        {{--<div style="display: inline; !important;">1</div>--}}
-
-                        <hr/>
-                        <br/>
-                        <h4 style="display: inline; !important;">Booking with us saved you: </h4> <h4
-                                style="display: inline; !important; color: #72bf66 !important;"> USD 200</h4>
-                        <br/><br/>
-                        <h4 style="display: inline; !important;">Total Price: </h4> <h4
-                                style="display: inline; !important; color: #72bf66 !important;"> USD <span
-                                    id="total_cost"> </span></h4>
-                        <br/><br/>
-
-                    </div>
-
-                    <div class="col-md-6 rate_box_foot">
-                        <a href=""><h3 style="font-family: 'Bree Serif', serif; font-size: 15px; color: #FFFFFF"> Add To
-                                Cart </h3></a>
-                    </div>
-
-                    <div class="col-md-6 rate_box_foot">
-                        <a href=""><h3 style="font-family: 'Bree Serif', serif; font-size: 15px; color: #FFFFFF"> Book
-                                Now </h3></a>
-                    </div>
-
-                </div>
-
-            </div>
-
 
         </div>
 
@@ -1044,13 +955,16 @@
         <!-- Carousel-->
         {{ HTML::script('assets/js/initialize-carousel-detailspage.js') }}
 
+        <!-- my script-->
+        {{ HTML::script('js/booking_cart.js') }}
+
         <script type="text/javascript">
             $(function () {
-                $('#room_rate_tag').hide();
+//                /$('#room_rate_tag').hide();
 
                 $('.room_book_summery').click(function () {
 
-                    $('#room_rate_tag').show("blind", 500);
+                    //$('#room_rate_tag').show("blind", 500);
 
                     var hotel_id = $('.hidden_hotel_id').val();
                     var room_id = $(this).closest('.get_room_id').attr('room_id');
@@ -1058,42 +972,21 @@
                     var room_count = $('#' + room_count_id).val();
                     var meal_basis_id = $(this).prev('input:hidden').val();
                     var room_specification_id = $(this).next('input:hidden').val();
+                    var check_room = hotel_id+'_'+room_id+'_'+room_specification_id+'_'+meal_basis_id;
 
-                    var roomRateData = new FormData();
+                    var url = 'http://'+window.location.host+'/sri-lanka/get_room_rate_box';
 
-                    roomRateData.append('hotel_id', hotel_id);
-                    roomRateData.append('room_id', room_id);
-                    roomRateData.append('room_count', room_count);
-                    roomRateData.append('meal_basis_id', meal_basis_id);
-                    roomRateData.append('room_specification_id', room_specification_id);
-                    roomRateData.append('room_count', room_count);
+                    var formData = new FormData();
 
-                    $.ajax({
-                        url: "http://" + window.location.host + "/sri-lanka/get_room_rate_box",
-                        method: 'post',
-                        processData: false,
-                        contentType: false,
-                        cache: false,
-                        dataType: 'json',
-                        data: roomRateData,
-                        success: function (data) {
+                    formData.append('hotel_id', hotel_id);
+                    formData.append('room_id', room_id);
+                    formData.append('room_count', room_count);
+                    formData.append('meal_basis_id', meal_basis_id);
+                    formData.append('room_specification_id', room_specification_id);
+                    formData.append('room_count', room_count);
+                    formData.append('check_room', check_room);
 
-                            //alert(data.size());
-
-                            $('#rate_box_hotel_name').html(data.hotel_name);
-                            $('#rate_box_hotel_address').html(data.hotel_address);
-                            $('#rate_box_room_name').html(data.room_name);
-                            $('#room_specification').html(data.room_specification + ' Room');
-                            $('#room_meal_basis').html(data.meal_basis);
-                            $('#total_cost').html(data.total_cost);
-                            $('#room_count_get').html(room_count);
-                           // $('#room_count_get').html().attr('selcted_room_id')
-
-                        },
-                        error: function () {
-                            // alert('error');
-                        }
-                    });
+                    sendBookingData(url, formData);
 
                 });
             });
