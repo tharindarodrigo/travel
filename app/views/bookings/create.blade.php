@@ -10,6 +10,8 @@
 
 @section('bread-crumbs')
     <li>/</li>
+    <li>{{link_to_route('bookings.index', 'Bookings')}}</li>
+    <li>/</li>
     <li>{{link_to_route('bookings.create', 'create')}}</li>
 @endsection
 
@@ -30,46 +32,60 @@
                     <div class="clearfix"></div>
                     <div class="line4"></div>
 
-                    {{Form::open()}}
+                    {{Form::open(array('route' => array('bookings.store')))}}
 
                     <div class="col-md-3 textright">
+                        <span class="size12">&nbsp;</span>
                         <div class="margtop15"><span class="dark">Contact Name:</span><span class="red">*</span></div>
                     </div>
                     <div class="col-md-6">
                         <span class="size12">First and Last Name*</span>
                         {{Form::text('name',null,array('class'=> 'form-control'))}}
+                        {{$errors->first('name', '<span class="size12" style="color: red;">:message</span>') }}
                     </div>
+
                     <div class="col-md-3 textleft margtop15">
                     </div>
                     <div class="clearfix"></div>
 
                     <br/>
+                    {{----------------------------------------------------------------------------------------------------------------------------------}}
+
 
                     <div class="col-md-3 textright">
                         <div class="margtop15"><span class="dark">Arrival Date:</span><span class="red">*</span></div>
                     </div>
                     <div class="col-md-6">
                         {{Form::text('arrival_date',null,array('class'=> 'form-control', 'id'=>'date1'))}}
+                        {{$errors->first('arrival_date', '<span class="size12" style="color: red;">:message</span>') }}
                     </div>
+
                     <div class="col-md-3 textleft margtop15">
                     </div>
                     <div class="clearfix"></div>
 
                     <br/>
+                    {{----------------------------------------------------------------------------------------------------------------------------------}}
+
 
                     <div class="col-md-3 textright">
                         <div class="margtop15"><span class="dark">Departure Date:</span><span class="red">*</span></div>
                     </div>
                     <div class="col-md-6">
-                        {{Form::text('departure_date',null,array('class'=> 'form-control', 'id'=>'date2'))}}
+                        {{Form::text('departure_date', null, array('class'=> 'form-control', 'id'=>'date2'))}}
+                        {{$errors->first('departure_date', '<span class="size12" style="color: red;">:message</span>') }}
                     </div>
+
                     <div class="col-md-3 textleft margtop15">
                     </div>
                     <div class="clearfix"></div>
-
                     <br/>
 
+                    {{----------------------------------------------------------------------------------------------------------------------------------}}
+
+
                     <div class="col-md-3 textright">
+                    <span class="size12">&nbsp;</span>
                         <div class="margtop15"><span class="dark">Pax:</span><span class="red">*</span></div>
                     </div>
                     <div class="col-md-6">
@@ -77,10 +93,15 @@
                             <div class="col-xs-6">
                                 <span class="size12">adults</span>
                                 {{Form::text('adults',null,array('class'=> 'form-control'))}}
+                                {{$errors->first('adults', '<span class="size12" style="color: red;">:message</span>') }}
+
                             </div>
+
                             <div class="col-xs-6">
                                 <span class="size12">children</span>
                                 {{Form::text('children',null,array('class'=> 'form-control'))}}
+                                {{$errors->first('children', '<span class="size12" style="color: red;">:message</span>') }}
+
                             </div>
                         </div>
                     </div>
@@ -95,6 +116,8 @@
                     </div>
                     <div class="col-md-6">
                         {{Form::text('tour',null,array('class'=> 'form-control'))}}
+                        {{$errors->first('children', '<span class="size12" style="color: red;">:message</span>') }}
+
                     </div>
                     <div class="col-md-3 textleft margtop15">
                     </div>
@@ -102,11 +125,10 @@
 
                     <br/>
 
-
-                    {{Form::close()}}
-
-
                     <br/>
+                    {{----------------------------------------------------------------------------------------------------------------------------------}}
+
+
 
                     {{--Client Information--}}
                     <span class="size16px bold dark left">Client Information </span>
@@ -133,7 +155,7 @@
                     <div>
                         <div class="col-md-3">
                             <span class="size12" style="text-align: center">Name</span>
-                            {{Form::text('name',null,array('class'=> 'form-control', 'id'=>'name'))}}
+                            {{Form::text('client_name',null,array('class'=> 'form-control', 'id'=>'name'))}}
                         </div>
                         <div class="col-md-3">
                             <span class="size12">Date of Birth</span>
@@ -149,10 +171,11 @@
                         </div>
                     </div>
                     <div class="pull-right">
-                        <button class="bluebtn margtop20" id="add_client_btn">Add Client</button>
+                        <button class="bluebtn margtop20" type="button" id="add_client_btn">Add Client</button>
                     </div>
                     <div class="clearfix"></div>
                     <br/><br/>
+                    {{----------------------------------------------------------------------------------------------------------------------------------}}
 
                     <span class="size16px bold dark left">Flight Details </span>
 
@@ -161,19 +184,10 @@
                     <div class="line4"></div>
 
                     <div class="col-md-3 textright">
-                        <div class="margtop15"><span class="dark">Flight:</span><span class="red"></span></div>
+                        <div class="margtop15"><span class="dark">Flight Type:</span><span class="red"></span></div>
                     </div>
                     <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <span class="size12">Arrival</span>
-                                {{Form::text('arrive_flight',null,array('class'=> 'form-control', 'id'=> ''))}}
-                            </div>
-                            <div class="col-xs-6">
-                                <span class="size12">Departure</span>
-                                {{Form::text('depart_flight',null,array('class'=> 'form-control'))}}
-                            </div>
-                        </div>
+                        {{Form::select('flight_type', array(1 =>'arrival',  0=>'departure'), null, array('class'=> 'form-control'))}}
                     </div>
                     <div class="col-md-3 textleft margtop15">
 
@@ -181,38 +195,42 @@
 
                     <div class="clearfix"></div>
                     <br/>
+                    {{----------------------------------------------------------------------------------------------------------------------------------}}
+
+                    <div class="col-md-3 textright">
+                        <div class="margtop15"><span class="dark">Flight:</span><span class="red"></span></div>
+                    </div>
+                    <div class="col-md-6">
+                        {{Form::text('flight',null,array('class'=> 'form-control',))}}
+                    </div>
+                    <div class="col-md-3 textleft margtop15">
+
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <br/>
+                    {{----------------------------------------------------------------------------------------------------------------------------------}}
+
+
                     <div class="col-md-3 textright">
                         <div class="margtop15"><span class="dark">Date:</span><span class="red"></span></div>
                     </div>
                     <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                {{Form::text('arrival_date',null,array('class'=> 'form-control'))}}
-                            </div>
-                            <div class="col-xs-6">
-                                {{Form::text('departure_date',null,array('class'=> 'form-control'))}}
-                            </div>
-                        </div>
+                            {{Form::text('date',null,array('class'=> 'form-control', 'id'=>'date3'))}}
                     </div>
                     <div class="col-md-3 textleft margtop15">
-
                     </div>
-
 
                     <div class="clearfix"></div>
                     <br/>
+                    {{----------------------------------------------------------------------------------------------------------------------------------}}
+
+
                     <div class="col-md-3 textright">
                         <div class="margtop15"><span class="dark">Time:</span><span class="red"></span></div>
                     </div>
                     <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                {{Form::text('arrival_time',null,array('class'=> 'form-control'))}}
-                            </div>
-                            <div class="col-xs-6">
-                                {{Form::text('departure_time',null,array('class'=> 'form-control'))}}
-                            </div>
-                        </div>
+                                {{Form::text('time',null,array('class'=> 'form-control', 'id'=>'time1'))}}
                     </div>
                     <div class="col-md-3 textleft margtop15">
 
@@ -221,6 +239,7 @@
 
                     <br/>
                     <br/>
+                    {{----------------------------------------------------------------------------------------------------------------------------------}}
 
                     <span class="size16px bold dark left">Remarks</span>
 
@@ -240,9 +259,16 @@
 
                     <br/>
 
+                    <div class="col-md-12 ">
+                        <div class="pull-right">
+                            <button class="bluebtn" type="submit">Add Booking</button>
+                        </div>
+                    </div>
+
                     <!-- IMG RIGHT TEXT -->
 
                     <!-- END OF IMG RIGHT TEXT -->
+                    {{Form::close()}}
 
                 </div>
 

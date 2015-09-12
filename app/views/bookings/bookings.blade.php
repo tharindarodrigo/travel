@@ -9,6 +9,7 @@
 @endsection
 
 @section('custom_style')
+    {{HTML::style('https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.css')}}
     @yield('styles')
 @endsection
 
@@ -50,14 +51,14 @@
 @endsection
 
 @section('script')
+{{HTML::script('https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.js')}}
 
 <script type="text/javascript">
 
     $(document).ready(function(){
 
-        $('#date1, #date2, #dob, #date3, #date4 ').datepicker({
-            format: 'yy-mm-dd'
-        });
+        $('#date1, #date2, #dob, #date3, #date4 ').datepicker({ dateFormat: 'yy-mm-dd' });
+        $('#time1, #time2').timepicker();
 
         var url = 'http://'+window.location.host+'/bookings/get-clients';
         //alert(url);
@@ -73,16 +74,17 @@
 
         var formData = new FormData();
 
-        formData.append('name', name);
-        formData.append('gender', gender);
-        formData.append('dob', dob);
-        formData.append('passport_number', passport_number);
+        formData.append('name', name.trim());
+        formData.append('gender', gender.trim());
+        formData.append('dob', dob.trim());
+        formData.append('passport_number', passport_number.trim());
+
+
 
 //        alert(name+' '+passport_number+' '+dob+' '+gender);
         var url = 'http://'+window.location.host+'/bookings/create-client';
 
         sendData(url,formData);
-
 
     });
 </script>

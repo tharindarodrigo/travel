@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateFlightDetailsTable extends Migration {
+class CreateClientsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,14 @@ class CreateFlightDetailsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('flight_details', function(Blueprint $table)
+		Schema::create('clients', function(Blueprint $table)
 		{
 			$table->increments('id');
+            $table->string('name');
+            $table->string('passport_number');
+            $table->date('dob');
+            $table->boolean('gender'); // male = 1 , female = 0
             $table->integer('booking_id')->unsigned();
-            $table->date('date');
-            $table->time('time');
-            $table->string('flight');
-            $table->boolean('flight_type'); //1=>arrival, 0=>departure
 			$table->timestamps();
 
             $table->foreign('booking_id')->references('id')->on('bookings');
@@ -34,7 +34,7 @@ class CreateFlightDetailsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('flight_details');
+		Schema::drop('clients');
 	}
 
 }

@@ -13,7 +13,6 @@ function sendData(url, formData){
 
             $('#clients_table').html(tablecontent);
 
-
             deleteClient();
         },
 
@@ -30,13 +29,12 @@ function generateClientsTable(data){
     if(data != null){
         $.each(data, function(index, item){
 
-
             table += '<tr>';
             table += '<td>'+item.name+'</td>';
             table += '<td>'+item.dob+'</td>';
             table += '<td>'+item.passport_number+'</td>';
             table += '<td>'+item.gender+'</td>';
-            table += '<td><button class="btn btn-xs btn-danger delete_button" value="'+index+'"><b>X</b></button></td>';
+            table += '<td><button type="button" class="btn btn-xs btn-danger delete_button" value="'+index+'"><b>X</b></button></td>';
             table += '</tr>';
         });
 
@@ -45,11 +43,9 @@ function generateClientsTable(data){
     return table;
 }
 
-
 function deleteClient(){
     $('.delete_button').click(function(){
         var formData = new FormData();
-        alert($(this).val());
         var url = 'http://'+window.location.host+'/bookings/destroy-client';
         formData.append('deletable', $(this).val());
 

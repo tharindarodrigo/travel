@@ -31,14 +31,36 @@ class BookingsController extends \BaseController {
 	 */
 	public function store()
 	{
+
+//        dd(Input::all());
 		$validator = Validator::make($data = Input::all(), Booking::$rules);
 
 		if ($validator->fails())
 		{
+            dd($validator->errors());
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		Booking::create($data);
+        $data['user_id'] = Auth::user()->id;
+        $data['val'] = 1;
+
+		if($booking = Booking::create($data)){
+            if(Session::has('client-list')){
+                $clients = Session::pull('client-list');
+//                dd($clients);
+                //dd($booking->id);
+                foreach($clients as $client){
+                    $client['booking_id'] = $booking->id;
+                    $client['gender'] === 'male' ? $client['gender'] =1 : $client['gender'] =0;
+                    Client::create($client);
+                }
+            }
+
+            $data['booking_id'] = $booking->id;
+
+            FlightDetail::create($data);
+
+        };
 
 		return Redirect::route('bookings.index');
 	}
@@ -77,13 +99,21 @@ class BookingsController extends \BaseController {
 	 */
 	public function update($id)
 	{
+
+
 		$booking = Booking::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Booking::$rules);
+        if (!Input::has('val')) {
+            $rules = Booking::$rules;
+        } else {
+            $rules = ['val'];
+        }
 
+		$validator = Validator::make($data = Input::all(), $rules);
 		if ($validator->fails())
 		{
-			return Redirect::back()->withErrors($validator)->withInput();
+
+            return Redirect::back()->withErrors($validator)->withInput();
 		}
 
 		$booking->update($data);
@@ -108,6 +138,8 @@ class BookingsController extends \BaseController {
      * Client-List Functions
      */
 
+
+
     public function addClient()
     {
         $input = Input::all();
@@ -116,7 +148,6 @@ class BookingsController extends \BaseController {
         if(Session::has('client-list')){
             $data = Session::get('client-list');
             $data[] = $input;
-
             Session::put('client-list', $data);
 
         } else {

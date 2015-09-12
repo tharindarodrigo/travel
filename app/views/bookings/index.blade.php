@@ -10,7 +10,7 @@
 
 @section('bread-crumbs')
     <li>/</li>
-    <li><a href="#" class="active">About us</a></li>
+    <li><a href="#" class="active">Bookings</a></li>
 @endsection
 
 @section('body-content')
@@ -24,7 +24,7 @@
             <!-- CONTENT -->
             <div class="col-md-12 pagecontainer2 offset-0">
                 <div class="hpadding50c">
-                    <p class="lato size30 slim">Meet the team</p>
+                    <p class="lato size30 slim">Bookings</p>
 
                     <p class="aboutarrow"></p>
                 </div>
@@ -46,7 +46,7 @@
                                 <th>Adults</th>
                                 <th>Children</th>
                                 <th>Status</th>
-                                <th>Controls</th>
+                                <th>Control Systems</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,38 +63,40 @@
                                 <td>
                                 <div class="">
                                         {{ Form::open(array('route'=> array('bookings.edit',$booking->id), 'method' =>'get')) }}
-                                        <button type="submit" class="btn btn-xs btn-flat btn-primary col-md-3" style="float: left"><i
+                                        <button type="submit" class="btn btn-xs btn-flat btn-primary col-md-2" style="float: left"><i
                                                     class="glyphicon glyphicon-edit"></i></button>
                                         {{ Form::close() }}
 
+
                                         {{ Form::open(array('route'=> array('bookings.destroy',$booking->id), 'method' =>'delete', 'style'=>'float-left')) }}
-                                        <button class="btn btn-xs btn-flat btn-danger delete-button col-md-3" stlye="float: left"><i class="glyphicon glyphicon-trash"></i></button>
+                                        <button class="btn btn-xs btn-flat btn-danger delete-button col-md-2" style="float: left"><i class="glyphicon glyphicon-trash"></i></button>
                                         {{ Form::close() }}
 
+                                        {{ Form::open(array('route'=> array('bookings.show',$booking->id), 'method' =>'get')) }}
+                                        <button type="submit" class="btn btn-xs btn-flat  col-md-2" style="float: left;"><i
+                                                    class="glyphicon glyphicon-inverse glyphicon-eye-open"></i></button>
+                                        {{ Form::close() }}
                                         @if($booking->val == 0)
                                             <div class="">
+
                                                 {{ Form::open(array('route'=> array('bookings.update',$booking->id), 'method' =>'patch')) }}
-                                                <button class="btn btn-xs btn-flat btn-success activate-item col-md-3"
+                                                <button class="btn btn-xs btn-flat btn-success activate-item col-md-2"
                                                    type="submit" name="val" value="1"><i class="glyphicon glyphicon-ok-circle"></i></button>
-                                                <button class="btn btn-xs btn-flat btn-default float-left disabled deactivate-item col-md-3"
-                                                   type="button"><i class="glyphicon glyphicon-remove-circle"></i></button>
+                                                <button style="float: left" class="btn btn-xs btn-flat btn-default float-left disabled deactivate-item col-md-2"
+                                                   type="button"><i class="glyphicon glyphicon-remove-circle" ></i></button>
                                                 {{ Form::close() }}
                                             </div>
 
                                         @else
                                             {{ Form::open(array('route'=> array('bookings.update',$booking->id), 'method' =>'patch')) }}
-                                            <button class="btn btn-xs btn-flat btn-default disabled activate-item col-md-3"
+                                            <button class="btn btn-xs btn-flat btn-default disabled activate-item col-md-2"
                                                 type="button"><i class="glyphicon glyphicon-ok-circle"></i></button>
-                                            <button class="btn btn-xs btn-flat btn-warning deactivate-item col-md-3"
+                                            <button style="float: left" class="btn btn-xs btn-flat btn-warning deactivate-item col-md-2"
                                                 type="submit" name="val" value="0"><i class="glyphicon glyphicon-remove-circle"></i></button>
                                             {{ Form::close() }}
 
                                         @endif
-
-
                                     </div>
-
-
                                 </td>
                                 </tr>
                         @endforeach

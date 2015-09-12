@@ -1,0 +1,1 @@
+C:\xampp\htdocs\travel\app/views/clients/show.blade.php
