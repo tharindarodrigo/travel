@@ -74,8 +74,10 @@ class BookingsController extends \BaseController {
 	public function show($id)
 	{
 		$booking = Booking::findOrFail($id);
+        $clients = Client::where('booking_id',$id)->get();
+        $flightDetails = FlightDetail::where('booking_id',$id)->get();
 
-		return View::make('bookings.show', compact('booking'));
+		return View::make('bookings.show', compact('booking','clients','flightDetails'));
 	}
 
 	/**

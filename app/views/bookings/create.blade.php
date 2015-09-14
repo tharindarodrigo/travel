@@ -116,7 +116,7 @@
                     </div>
                     <div class="col-md-6">
                         {{Form::text('tour',null,array('class'=> 'form-control'))}}
-                        {{$errors->first('children', '<span class="size12" style="color: red;">:message</span>') }}
+                        {{$errors->first('tour', '<span class="size12" style="color: red;">:message</span>') }}
 
                     </div>
                     <div class="col-md-3 textleft margtop15">
