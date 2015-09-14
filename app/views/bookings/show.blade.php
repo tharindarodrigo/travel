@@ -150,7 +150,7 @@
                                     <tbody>
                                     @foreach($clients as $client)
                                     <tr>
-                                        <td>{{Form::text($client->id)}}</td>
+                                        <td>{{$client->id}}</td>
                                         <td>{{$client->name}}</td>
                                         <td>{{$client->passport_number}}</td>
                                         <td>{{$client->dob}}</td>
