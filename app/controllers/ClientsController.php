@@ -29,7 +29,7 @@ class ClientsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($bookingId)
 	{
 		$validator = Validator::make($data = Input::all(), Client::$rules);
 
@@ -38,9 +38,13 @@ class ClientsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
+//        dd($data);
+
+        $data['booking_id'] =$bookingId;
+
 		Client::create($data);
 
-		return Redirect::route('clients.index');
+		return Redirect::route('bookings.show',$bookingId);
 	}
 
 	/**
@@ -75,11 +79,17 @@ class ClientsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($bookingId,$id)
 	{
 		$client = Client::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Client::$rules);
+        $data = [];
+        $data['name'] = Input::get('name_'.$id);
+        $data['passport_number'] = Input::get('passport_number_'.$id);
+        $data['dob'] = Input::get('dob_'.$id);
+        $data['gender'] = Input::get('gender_'.$id);
+//        dd($data);
+		$validator = Validator::make($data, Client::$rules);
 
 		if ($validator->fails())
 		{
@@ -88,7 +98,7 @@ class ClientsController extends \BaseController {
 
 		$client->update($data);
 
-		return Redirect::route('clients.index');
+		return Redirect::back();
 	}
 
 	/**
@@ -97,11 +107,11 @@ class ClientsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($bookingId,$id)
 	{
 		Client::destroy($id);
 
-		return Redirect::route('clients.index');
+		return Redirect::back();
 	}
 
 }

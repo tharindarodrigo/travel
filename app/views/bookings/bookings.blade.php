@@ -52,17 +52,48 @@
 
 @section('script')
 {{HTML::script('https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.js')}}
+{{HTML::script('control-panel-assets/ajax/commonFunctions.js')}}
+
 
 <script type="text/javascript">
 
+
     $(document).ready(function(){
 
-        $('#date1, #date2, #dob, #date3, #date4 ').datepicker({ dateFormat: 'yy-mm-dd' });
+        confirmDeleteItem();
+
+
+        $('#date1, #date2, #dob, #date3, #date4').datepicker({ dateFormat: 'yy-mm-dd' });
+        $('.date-control').datepicker({ dateFormat: 'yy-mm-dd' });
         $('#time1, #time2').timepicker();
+        $('.update_client').hide();
+
 
         var url = 'http://'+window.location.host+'/bookings/get-clients';
         //alert(url);
         sendData(url, null);
+
+        {{--client details--}}
+
+        $('.clients').attr('disabled',true);
+        $('.edit_client').click(function(){
+            var a = $(this);
+            $('.clients').attr('disabled',true);
+            $('tr').css('background','none');
+
+            var client_id = client_class = $(this).val();
+            $('.'+client_class).attr('disabled',false);
+            $('.'+client_class).change(function(){
+            alert($('#update_'+client_id).attr('hidden'));
+                if(true){
+
+                }
+                $('#update_'+client_id).effect('slide')(200);
+            });
+            $(this).closest('tr').css('background','#B9F097').fadeIn(200);
+        });
+
+
 
     });
 

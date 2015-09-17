@@ -15,9 +15,9 @@
                         </div>
                     </div>
                     <div style="display: block;" class="box-body">
-                    <div class="row">
-                        @include('control-panel.hotel.hotels.partials.hotelOverview')
-                    </div>
+                        <div class="row">
+                            @include('control-panel.hotel.hotels.partials.hotelOverview')
+                        </div>
 
                     </div>
                 </div>
@@ -34,9 +34,9 @@
                         </div>
                     </div>
                     <div style="display: block;" class="box-body">
-                    <div class="row">
-                        @include('control-panel.hotel.hotels.partials.location')
-                    </div>
+                        <div class="row">
+                            @include('control-panel.hotel.hotels.partials.location')
+                        </div>
 
                     </div>
                 </div>

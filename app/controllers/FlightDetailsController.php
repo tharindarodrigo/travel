@@ -79,6 +79,8 @@ class FlightDetailsController extends \BaseController {
 	{
 		$flightdetail = Flightdetail::findOrFail($id);
 
+        $data = array();
+
 		$validator = Validator::make($data = Input::all(), Flightdetail::$rules);
 
 		if ($validator->fails())

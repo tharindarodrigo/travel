@@ -26,14 +26,13 @@
             <!-- CONTENT -->
             <div class="col-md-12 pagecontainer2 offset-0">
                 <div class="hpadding50c">
-                    <div class="lato size30 slim"><h4 class="heading">Booking</h4></div><div class="pull-right">Reference No. {{$booking->reference_number}}</div></p>
+                    <div class="lato size30 slim"><h4>Booking<span class="pull-right" >Reference No. {{$booking->reference_number}}</span></h4></div>
 
                     <p class="aboutarrow"></p>
                 </div>
                 <div class="line3"></div>
 
                 <div class="hpadding50c">
-
 
                     <div class="col-md-12">
                     <div class="row">
@@ -46,8 +45,6 @@
 
                             <br/>
                             {{----------------------------------------------------------------------------------------------------------------------------------}}
-
-
 
 
                             <span class="size12">Tour *</span>
@@ -126,50 +123,24 @@
 
                         <div>
 
-                          <!-- Nav tabs -->
+                            <!-- Nav tabs -->
                             <ul class="nav nav-tabs nav-justified" role="tablist">
-                                <li role="presentation" class="active"><a href="#booking_details" aria-controls="customer_details" role="tab" data-toggle="tab">Customer Details</a></li>
-                                <li role="presentation"><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Clients</a></li>
+                                <li role="presentation" class="active"><a href="#booking_details" aria-controls="customer_details" role="tab" data-toggle="tab">Client Details</a></li>
+                                <li role="presentation"><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Vouchers</a></li>
                                 <li role="presentation"><a href="#flightDetails" aria-controls="flightDetails" role="tab" data-toggle="tab">Flight Details</a></li>
+                                <li role="presentation"><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Transportation</a></li>
+                                <li role="presentation"><a href="#invoice" aria-controls="clients" role="tab" data-toggle="tab">Invoice</a></li>
                             </ul>
 
                             <!-- Tab panes -->
                             <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="booking_details">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Passoport No.</th>
-                                            <th>DoB</th>
-                                            <th>Gender</th>
-                                            <th>Manage</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($clients as $client)
-                                    <tr>
-                                        <td>{{$client->id}}</td>
-                                        <td>{{$client->name}}</td>
-                                        <td>{{$client->passport_number}}</td>
-                                        <td>{{$client->dob}}</td>
-                                        <td>{{$client->gender==1 ? 'Male' : 'Female'}}</td>
-                                        <td>
-
-
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    </tbody>
-                                    </table>
-
+                                @include('bookings._partials.client_details')
                             </div>
                             <div role="tabpanel" class="tab-pane" id="clients">
-
                             </div>
                             <div role="tabpanel" class="tab-pane" id="flightDetails">
-
+                                @include('bookings._partials.flight_details')
                             </div>
 
                             </div>
