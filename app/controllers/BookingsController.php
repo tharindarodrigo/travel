@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 class BookingsController extends \BaseController {
 
 	/**
@@ -37,9 +39,12 @@ class BookingsController extends \BaseController {
 
 		if ($validator->fails())
 		{
-            dd($validator->errors());
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
+
+        if(!Session::has('client-list')){
+            return Redirect::back();
+        }
 
         $data['user_id'] = Auth::user()->id;
         $data['val'] = 1;
@@ -55,10 +60,27 @@ class BookingsController extends \BaseController {
                     Client::create($client);
                 }
             }
+            $flight_data = [];
+            $flight_data['booking_id'] = $booking->id;
+            //dd($flight_data['booking_id']);
 
-            $data['booking_id'] = $booking->id;
+            //arrival flight data
 
-            FlightDetail::create($data);
+
+            $flight_data['date'] = $data['arrival_date'];
+            $flight_data['time'] = $data['arrival_time'];
+            $flight_data['flight'] = $data['arrival_flight'];
+            $flight_data['flight_type'] = 1;
+
+            FlightDetail::create($flight_data);
+
+            //departure flight data
+            $flight_data['date'] = $data['departure_date'];
+            $flight_data['time'] = $data['departure_time'];
+            $flight_data['flight'] = $data['departure_flight'];
+            $flight_data['flight_type'] = 0;
+
+            FlightDetail::create($flight_data);
 
         };
 
@@ -73,9 +95,15 @@ class BookingsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$booking = Booking::findOrFail($id);
-        $clients = Client::where('booking_id',$id)->get();
-        $flightDetails = FlightDetail::where('booking_id',$id)->get();
+        try {
+            $booking = Booking::findOrFail($id);
+            $clients = Client::where('booking_id',$id)->get();
+            $flightDetails = FlightDetail::where('booking_id',$id)->get();
+        } catch (ModelNotFoundException $e) {
+            return Redirect::to('/404');
+        }
+
+
 
 		return View::make('bookings.show', compact('booking','clients','flightDetails'));
 	}

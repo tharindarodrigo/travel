@@ -19,9 +19,10 @@
     <td>{{$flight->flight}}</td>
     <td>{{$flight->flight_type==1 ? 'Arrival':'Departure'}}</td>
     <td>
-        <button class="btn btn-danger btn-sm delete-button" value="{{$flight->id.'_flight'}}"><span class="glyphicon glyphicon-trash"></span></button>
+    {{Form::open(array('route'=>array('bookings.flightDetails.destroy',$booking->id,$flight->id), 'method'=>'delete'))}}
+        <button type="button" class="btn btn-danger btn-sm delete-button" value="{{$flight->id.'_flight'}}"><span class="glyphicon glyphicon-trash"></span></button>
         <button class="btn btn-primary btn-sm edit_flight" data-toggle="modal" data-target="#flightModal_{{$flight->id}}" value="{{$flight->id.'_client'}}"><span class="glyphicon glyphicon-edit"></span></button>
-
+    {{Form::close()}}
         <div class="modal fade" id="flightModal_{{$flight->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -62,25 +63,25 @@
 @endforeach
 
 <tr class="warning">
-        {{Form::open(array('route'=>array('bookings.flightDetails.store',$flight->id)))}}
+        {{Form::open(array('route'=>array('bookings.flightDetails.store',$booking->id)))}}
         <td>&nbsp;</td>
         <td>
-            {{Form::text('date',null, array('class'=>'form-control', 'placeholder'=> 'Name'))}}
+            {{Form::text('date',null, array('class'=>'form-control date-control', 'placeholder'=> 'Date'))}}
             {{$errors->first('date', '<span class="size12" style="color: red;">:message</span>') }}
         </td>
         <td>
-            {{Form::text('time',null, array('class'=>'form-control', 'placeholder'=> 'Passport No.'))}}
+            {{Form::text('time',null, array('class'=>'form-control time-control', 'placeholder'=> 'Time'))}}
             {{$errors->first('time', '<span class="size12" style="color: red;">:message</span>') }}
         </td>
         <td>
-            {{Form::text('flight',null,array('class'=>'form-control date-control', 'placeholder'=> 'Date of Birth'))}}
+            {{Form::text('flight',null,array('class'=>'form-control', 'placeholder'=> 'Flight'))}}
             {{$errors->first('flight', '<span class="size12" style="color: red;">:message</span>') }}
         </td>
         <td>
-            {{Form::select('flight_type',array(''=>'gender', 1=>'male',0=>'female'),null,array('class'=>'form-control'))}}
+            {{Form::select('flight_type',array(''=>'Flight Type', 1=>'arrival',0=>'departure'),null,array('class'=>'form-control'))}}
             {{$errors->first('flight_type', '<span class="size12" style="color: red;">:message</span>') }}
         </td>
-        <td>{{Form::submit('Add Client', array('class'=>'btn btn-primary'))}}</td>
+        <td>{{Form::submit('Add Flight', array('class'=>'btn btn-primary'))}}</td>
         {{Form::close()}}
     </tr>
 

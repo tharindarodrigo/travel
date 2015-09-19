@@ -16,7 +16,7 @@ class CreateBookingsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('reference_number');
-			$table->string('name');
+			$table->string('booking_name');
 			$table->integer('adults');
 			$table->integer('children');
 			$table->string('tour');

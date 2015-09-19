@@ -38,9 +38,10 @@
                     <div class="row">
                     {{Form::model($booking,array('route'=>array('bookings.update',$booking->id), 'method'=>'patch'))}}
                         <div class="col-md-6">
+
                             <span class="size12">Booking Name *</span>
-                            {{Form::text('name',null,array('class'=> 'form-control'))}}
-                            {{$errors->first('name', '<span class="size12" style="color: red;">:message</span>') }}
+                            {{Form::text('booking_name',null,array('class'=> 'form-control'))}}
+                            {{$errors->first('booking_name', '<span class="size12" style="color: red;">:message</span>') }}
                             <div class="clearfix"></div>
 
                             <br/>
@@ -59,8 +60,6 @@
 
                             <br/>
                         </div>
-
-
 
                         <div class="col-md-2">&nbsp;</div>
                         <div class="col-md-4">
@@ -107,10 +106,8 @@
 
                         {{----------------------------------------------------------------------------------------------------------------------------------}}
 
-
                         <div class="clearfix"></div>
                         <br/>
-
 
                     {{Form::close()}}
 
@@ -119,29 +116,33 @@
                     <div class="col-md-12">
 
                     <br/><br/>
-
-
                         <div>
 
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs nav-justified" role="tablist">
-                                <li role="presentation" class="active"><a href="#booking_details" aria-controls="customer_details" role="tab" data-toggle="tab">Client Details</a></li>
-                                <li role="presentation"><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Vouchers</a></li>
-                                <li role="presentation"><a href="#flightDetails" aria-controls="flightDetails" role="tab" data-toggle="tab">Flight Details</a></li>
-                                <li role="presentation"><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Transportation</a></li>
-                                <li role="presentation"><a href="#invoice" aria-controls="clients" role="tab" data-toggle="tab">Invoice</a></li>
+                                <li role="presentation" class="{{!Session::has('bookings_show_tabs')? 'active': '' }}"><a href="#client_details" aria-controls="customer_details" role="tab" data-toggle="tab">Client Details</a></li>
+                                <li role="presentation" class=""><a href="#vouchers" aria-controls="clients" role="tab" data-toggle="tab">Vouchers</a></li>
+                                <li role="presentation" class="{{Session::get('bookings_show_tabs')=='flight-details-tab' ? 'active' : ''}}"><a href="#flightDetails" aria-controls="flightDetails" role="tab" data-toggle="tab">Flight Details</a></li>
+                                <li role="presentation" class=""><a href="#transportation" aria-controls="transportation" role="tab" data-toggle="tab">Transportation</a></li>
+                                <li role="presentation" class=""><a href="#invoice" aria-controls="invoice" role="tab" data-toggle="tab">Invoice</a></li>
                             </ul>
 
                             <!-- Tab panes -->
                             <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="booking_details">
-                                @include('bookings._partials.client_details')
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="clients">
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="flightDetails">
-                                @include('bookings._partials.flight_details')
-                            </div>
+                                <div role="tabpanel" class="tab-pane {{!Session::has('bookings_show_tabs')? 'active': '' }}" id="client_details">
+                                    @include('bookings._partials.client_details')
+                                </div>
+                                <div role="tabpanel" class="tab-pane {{--Session::has('') ? 'active' : ''--}}" id="vouchers">
+                                </div>
+                                <div role="tabpanel" class="tab-pane {{Session::get('bookings_show_tabs')=='flight-details-tab' ? 'active' : ''}}" id="flightDetails">
+                                    @include('bookings._partials.flight_details')
+                                </div>
+                                <div role="tabpanel" class="tab-pane {{--Session::has('') ? 'active' : ''--}}" id="transportation">
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane {{--Session::has('') ? 'active' : ''--}}" id="invoice">
+
+                                </div>
 
                             </div>
 

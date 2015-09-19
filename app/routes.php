@@ -359,10 +359,8 @@ Route::get('/', array(
 //Bookings
 Route::resource('bookings','BookingsController');
 
-
-    Route::resource('bookings.clients','ClientsController');
-    Route::resource('bookings.flightDetails','FlightsDetailsController');
-
+Route::resource('bookings.clients','ClientsController');
+Route::resource('bookings.flightDetails','FlightDetailsController');
 
 Route::post('/bookings/create-client', 'BookingsController@addClient');
 Route::post('/bookings/destroy-client', 'BookingsController@destroyClient');

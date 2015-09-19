@@ -29,8 +29,9 @@ class FlightDetailsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($bookingId)
 	{
+        Session::flash('bookings_show_tabs','flight-details-tab');
 		$validator = Validator::make($data = Input::all(), Flightdetail::$rules);
 
 		if ($validator->fails())
@@ -38,9 +39,11 @@ class FlightDetailsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
+        $data['booking_id'] = $bookingId;
+
 		Flightdetail::create($data);
 
-		return Redirect::route('flightdetails.index');
+		return Redirect::back();
 	}
 
 	/**
@@ -75,13 +78,22 @@ class FlightDetailsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($bookingId,$id)
 	{
+        Session::flash('bookings_show_tabs','flight-details-tab');
+
 		$flightdetail = Flightdetail::findOrFail($id);
 
-        $data = array();
+        $data = [];
 
-		$validator = Validator::make($data = Input::all(), Flightdetail::$rules);
+        $data['date'] = Input::get('date_'.$id);
+        $data['time'] = Input::get('time_'.$id);
+        $data['flight'] = Input::get('flight_'.$id);
+        $data['flight_type'] = Input::get('flight_type_'.$id);
+
+
+
+		$validator = Validator::make($data,Flightdetail::$rules);
 
 		if ($validator->fails())
 		{
@@ -90,7 +102,7 @@ class FlightDetailsController extends \BaseController {
 
 		$flightdetail->update($data);
 
-		return Redirect::route('flightdetails.index');
+		return Redirect::back();
 	}
 
 	/**
@@ -99,11 +111,12 @@ class FlightDetailsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($bookingId,$id)
 	{
+        Session::flash('bookings_show_tabs','flight-details-tab');
 		Flightdetail::destroy($id);
 
-		return Redirect::route('flightdetails.index');
+		return Redirect::back();
 	}
 
 }

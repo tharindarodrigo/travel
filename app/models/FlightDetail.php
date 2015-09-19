@@ -4,7 +4,12 @@ class FlightDetail extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
-		// 'title' => 'required'
+		'arrival_date' => 'required',
+		'arrival_time' => 'required',
+        'arrival_flight' => 'required',
+		'departure_date' => 'required',
+		'departure_time' => 'required',
+        'departure_flight' => 'required',
 	];
 
 	// Don't forget to fill this array

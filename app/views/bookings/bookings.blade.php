@@ -63,8 +63,17 @@
         confirmDeleteItem();
 
 
-        $('#date1, #date2, #dob, #date3, #date4').datepicker({ dateFormat: 'yy-mm-dd' });
-        $('.date-control').datepicker({ dateFormat: 'yy-mm-dd' });
+        $('#date1, #date2, #dob, #date3, #date4').datepicker({
+            dateFormat: 'yy-mm-dd',
+             changeMonth: true,
+             changeYear: true
+        });
+        $('.date-control').datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true
+        });
+        $('.time-control').timepicker();
         $('#time1, #time2').timepicker();
         $('.update_client').hide();
 

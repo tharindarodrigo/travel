@@ -23,7 +23,6 @@
                 </div>
             </div>
 
-
             <div class="nav-tabs-custom">
                 <div class="box">
                     <div class="box-header with-border box-primary">
@@ -37,7 +36,6 @@
                         <div class="row">
                             @include('control-panel.hotel.hotels.partials.location')
                         </div>
-
                     </div>
                 </div>
             </div>

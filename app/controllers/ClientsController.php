@@ -31,6 +31,7 @@ class ClientsController extends \BaseController {
 	 */
 	public function store($bookingId)
 	{
+        
 		$validator = Validator::make($data = Input::all(), Client::$rules);
 
 		if ($validator->fails())
@@ -88,7 +89,7 @@ class ClientsController extends \BaseController {
         $data['passport_number'] = Input::get('passport_number_'.$id);
         $data['dob'] = Input::get('dob_'.$id);
         $data['gender'] = Input::get('gender_'.$id);
-//        dd($data);
+
 		$validator = Validator::make($data, Client::$rules);
 
 		if ($validator->fails())
@@ -109,6 +110,7 @@ class ClientsController extends \BaseController {
 	 */
 	public function destroy($bookingId,$id)
 	{
+
 		Client::destroy($id);
 
 		return Redirect::back();
