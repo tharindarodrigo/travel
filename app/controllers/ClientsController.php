@@ -2,6 +2,8 @@
 
 class ClientsController extends \BaseController {
 
+
+
 	/**
 	 * Display a listing of clients
 	 *
@@ -31,7 +33,9 @@ class ClientsController extends \BaseController {
 	 */
 	public function store($bookingId)
 	{
-        
+
+        $user = Auth::user();
+
 		$validator = Validator::make($data = Input::all(), Client::$rules);
 
 		if ($validator->fails())
@@ -43,7 +47,10 @@ class ClientsController extends \BaseController {
 
         $data['booking_id'] =$bookingId;
 
-		Client::create($data);
+		if(Client::create($data)){
+
+            Booking::emailBookingDetails($bookingId);
+        }
 
 		return Redirect::route('bookings.show',$bookingId);
 	}
@@ -88,7 +95,7 @@ class ClientsController extends \BaseController {
         $data['name'] = Input::get('name_'.$id);
         $data['passport_number'] = Input::get('passport_number_'.$id);
         $data['dob'] = Input::get('dob_'.$id);
-        $data['gender'] = Input::get('gender_'.$id);
+        $data['gender'] =  Input::get('gender_'.$id);
 
 		$validator = Validator::make($data, Client::$rules);
 
@@ -97,7 +104,9 @@ class ClientsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		$client->update($data);
+		if($client->update($data)){
+            Booking::emailBookingDetails($bookingId);
+        }
 
 		return Redirect::back();
 	}
@@ -111,7 +120,9 @@ class ClientsController extends \BaseController {
 	public function destroy($bookingId,$id)
 	{
 
-		Client::destroy($id);
+		if(Client::destroy($id)){
+            Booking::emailBookingDetails($bookingId);
+        }
 
 		return Redirect::back();
 	}

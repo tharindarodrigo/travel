@@ -22,7 +22,7 @@ class CreateFlightDetailsTable extends Migration {
             $table->boolean('flight_type'); //1=>arrival, 0=>departure
 			$table->timestamps();
 
-            $table->foreign('booking_id')->references('id')->on('bookings');
+            $table->foreign('booking_id')->references('id')->on('bookings')->onDelete('cascade');
 		});
 	}
 

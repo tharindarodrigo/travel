@@ -22,7 +22,7 @@ class CreateClientsTable extends Migration {
             $table->integer('booking_id')->unsigned();
 			$table->timestamps();
 
-            $table->foreign('booking_id')->references('id')->on('bookings');
+            $table->foreign('booking_id')->references('id')->on('bookings')->onDelete('cascade');
 		});
 	}
 

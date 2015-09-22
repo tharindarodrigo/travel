@@ -30,7 +30,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Booking - Clients</h4>
               </div>
-              {{Form::open(array('route'=>array('bookings.flightDetails.update',$flight->id,$flight->id), 'method'=>'patch'))}}
+              {{Form::open(array('route'=>array('bookings.flightDetails.update',$booking->id,$flight->id), 'method'=>'patch'))}}
               <div class="modal-body">
                     <div class="form-group">
                         <label for="">Name</label>

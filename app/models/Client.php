@@ -13,4 +13,5 @@ class Client extends \Eloquent {
 	// Don't forget to fill this array
 	protected $fillable = [ 'name', 'passport_number', 'booking_id', 'dob', 'gender' ];
 
+
 }

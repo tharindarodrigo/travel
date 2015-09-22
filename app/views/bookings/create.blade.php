@@ -179,16 +179,22 @@
                     {{----------------------------------------------------------------------------------------------------------------------------------}}
 
                     <div class="col-md-3 textright">
+                        <span>&nbsp;</span>
                         <div class="margtop15"><span class="dark">Flight:</span><span class="red"></span></div>
                     </div>
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-xs-6">
+                                <span>Arrival</span>
                                 {{Form::text('arrival_flight',null,array('class'=> 'form-control'))}}
+                                {{$errors->first('arrival_flight', '<span class="size12" style="color: red;">:message</span>') }}
                             </div>
 
                             <div class="col-xs-6">
+                                <span>Departure</span>
                                 {{Form::text('departure_flight',null,array('class'=> 'form-control'))}}
+                                {{$errors->first('departure_flight', '<span class="size12" style="color: red;">:message</span>') }}
+
                             </div>
                         </div>
                     </div>
@@ -208,10 +214,12 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-xs-6">
-                                {{Form::text('arrival_date',null,array('class'=> 'form-control date-control'))}}
+                                {{Form::text('date_arrival',null,array('class'=> 'form-control date-control'))}}
+                                {{$errors->first('date_arrival', '<span class="size12" style="color: red;">:message</span>') }}
                             </div>
                             <div class="col-xs-6">
-                                {{Form::text('departure_date',null,array('class'=> 'form-control date-control'))}}
+                                {{Form::text('date_departure',null,array('class'=> 'form-control date-control'))}}
+                                {{$errors->first('date_departure', '<span class="size12" style="color: red;">:message</span>') }}
                             </div>
                         </div>
                     </div>
@@ -230,10 +238,14 @@
                     <div class="col-md-6">
                         <div class="row">
                         <div class="col-xs-6">
-                                {{Form::text('arrival_time',null,array('class'=> 'form-control time-control'))}}
+                            {{Form::text('arrival_time',null,array('class'=> 'form-control time-control'))}}
+                            {{$errors->first('arrival_time', '<span class="size12" style="color: red;">:message</span>') }}
+
                         </div>
                         <div class="col-xs-6">
-                                {{Form::text('departure_time',null,array('class'=> 'form-control time-control'))}}
+                            {{Form::text('departure_time',null,array('class'=> 'form-control time-control'))}}
+                            {{$errors->first('arrival_time', '<span class="size12" style="color: red;">:message</span>') }}
+
                         </div>
 
                         </div>

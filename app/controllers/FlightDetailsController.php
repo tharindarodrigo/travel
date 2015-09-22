@@ -31,6 +31,8 @@ class FlightDetailsController extends \BaseController {
 	 */
 	public function store($bookingId)
 	{
+        $user = Auth::user();
+
         Session::flash('bookings_show_tabs','flight-details-tab');
 		$validator = Validator::make($data = Input::all(), Flightdetail::$rules);
 
@@ -41,7 +43,9 @@ class FlightDetailsController extends \BaseController {
 
         $data['booking_id'] = $bookingId;
 
-		Flightdetail::create($data);
+		if(Flightdetail::create($data)){
+            Booking::emailBookingDetails($bookingId);
+        }
 
 		return Redirect::back();
 	}
@@ -80,9 +84,11 @@ class FlightDetailsController extends \BaseController {
 	 */
 	public function update($bookingId,$id)
 	{
+        $user = Auth::user();
+
         Session::flash('bookings_show_tabs','flight-details-tab');
 
-		$flightdetail = Flightdetail::findOrFail($id);
+		$flightdetail = FlightDetail::findOrFail($id);
 
         $data = [];
 
@@ -91,8 +97,6 @@ class FlightDetailsController extends \BaseController {
         $data['flight'] = Input::get('flight_'.$id);
         $data['flight_type'] = Input::get('flight_type_'.$id);
 
-
-
 		$validator = Validator::make($data,Flightdetail::$rules);
 
 		if ($validator->fails())
@@ -100,7 +104,9 @@ class FlightDetailsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		$flightdetail->update($data);
+		if($flightdetail->update($data)){
+            Booking::emailBookingDetails($bookingId);
+        };
 
 		return Redirect::back();
 	}
@@ -113,8 +119,11 @@ class FlightDetailsController extends \BaseController {
 	 */
 	public function destroy($bookingId,$id)
 	{
+        $user = Auth::user();
         Session::flash('bookings_show_tabs','flight-details-tab');
-		Flightdetail::destroy($id);
+		if(Flightdetail::destroy($id)){
+            Booking::emailBookingDetails($bookingId);
+        }
 
 		return Redirect::back();
 	}

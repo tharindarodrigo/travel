@@ -56,7 +56,7 @@
                                 <td style="text-align: center">{{$booking->reference_number}}</td>
                                 <td style="text-align: center">{{$booking->arrival_date}}</td>
                                 <td style="text-align: center">{{$booking->departure_date}}</td>
-                                <td style="text-align: right">{{$booking->name}}</td>
+                                <td style="text-align: right">{{$booking->booking_name}}</td>
                                 <td style="text-align: right">{{$booking->adults}}</td>
                                 <td style="text-align: right">{{$booking->children}}</td>
                                 <td>{{$booking->val ==0 ? 'Inactive': 'active' }}</td>
@@ -69,7 +69,7 @@
 
 
                                         {{ Form::open(array('route'=> array('bookings.destroy',$booking->id), 'method' =>'delete', 'style'=>'float-left')) }}
-                                        <button class="btn btn-xs btn-flat btn-danger delete-button col-md-2" style="float: left"><i class="glyphicon glyphicon-trash"></i></button>
+                                        <button type="button" class="btn btn-xs btn-flat btn-danger delete-button col-md-2" style="float: left"><i class="glyphicon glyphicon-trash"></i></button>
                                         {{ Form::close() }}
 
                                         {{ Form::open(array('route'=> array('bookings.show',$booking->id), 'method' =>'get')) }}
