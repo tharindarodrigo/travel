@@ -77,30 +77,47 @@ class HotelController extends \BaseController
             $star = Input::get('star_rating');
             $get_star_ids = StarCategory::whereIn('stars', $star)->select('id')->get();
             foreach ($get_star_ids as $get_star_id) {
-                $star_id[] = $get_star_id->id;
+                $star_id[$get_star_id->id] = $get_star_id->id;
+                Session::put('star', $star_id);
+               // Session::forget('city');
+              //  Session::forget('accommodation');
+               // Session::forget('facility');
             }
         } else {
             $get_star_ids = StarCategory::select('id')->get();
 
             foreach ($get_star_ids as $get_star_id) {
                 $star_id[] = $get_star_id->id;
+             //   Session::forget('star');
+              //  Session::forget('accommodation');
+             //   Session::forget('facility');
             }
         }
+
 
         if (Input::has('facility')) {
             $facility = Input::get('facility');
             $get_facility_ids = HotelFacility::whereIn('hotel_facility', $facility)->select('id')->get();
             foreach ($get_facility_ids as $get_facility_id) {
                 $facility[] = $get_facility_id->id;
+                Session::put('facility', $facility);
+              //  Session::forget('accommodation');
+             //   Session::forget('city');
+             //   Session::forget('star');
             }
         } else {
             $get_facility_ids = HotelFacility::select('id')->get();
             foreach ($get_facility_ids as $get_facility_id) {
                 $facility[] = $get_facility_id->id;
+                Session::put('facility', $facility);
+              //  Session::forget('accommodation');
+              //  Session::forget('city');
+             //   Session::forget('star');
             }
         }
 
         if (Input::has('price_range')) {
+
             $price_range_array = Input::get('price_range');
             $price_range = explode(';', $price_range_array);
 
@@ -158,81 +175,253 @@ class HotelController extends \BaseController
         //dd($city_id);
 
         if (!empty($city_id)) {
+            Session::put('city', $city_id);
+            Session::forget('accommodation');
+           // Session::forget('star');
+           // Session::forget('facility');
+        }
 
-            $hotels = Hotel::where('city_id', $city_id)
+        if (!empty($accommodation_id)) {
+            Session::put('accommodation', $accommodation_id);
+            //Session::forget('star');
+            Session::forget('city');
+            //Session::forget('facility');
+        }
+
+        if (Input::has('price_range')) {
+
+            if (!empty($city_id)) {
+
+                $hotels = Hotel::WhereHas('Rate', function ($r) use ($min_rate, $max_rate) {
+                    $r->where('rate', '=>', $min_rate);
+                    $r->where('rate', '=<', $max_rate);
+                })
+                    ->whereHas('HotelFacility', function ($q) use ($facility) {
+                        $q->whereIn('hotel_facility_id', $facility);
+                    })
+                    ->where('city_id', $city_id)
+                    ->whereIn('star_category_id', $star_id)
+                    ->paginate(30);
+
+                $min_hot_rate = DB::table('Hotels')
+                    ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
+                    ->select('rates.rate')
+                    ->where('hotels.city_id', $city_id)
+                    ->min('rate');
+
+                $max_hot_rate = DB::table('Hotels')
+                    ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
+                    ->select('rates.rate')
+                    ->where('hotels.city_id', $city_id)
+                    ->max('rate');
+
+                dd($min_rate . '/' . $max_rate);
+
+            }
+
+            if (!empty($accommodation_id)) {
+
+                $hotels = Hotel::whereHas('hotelCategory', function ($query) use ($accommodation_id) {
+                    $query->where('hotel_category_id', $accommodation_id);
+                })
+                    ->whereHas('Rate', function ($r) use ($min_rate, $max_rate, $from_date) {
+                        $r->where('rate', '>=', $min_rate);
+                        $r->where('rate', '<=', $max_rate);
+                        $r->where('from', '<=', $from_date);
+                        $r->where('to', '>=', $from_date);
+                    })
+//                    ->whereHas('HotelFacility', function ($q) use ($facility) {
+//                        $q->whereIn('hotel_facility_id', $facility);
+//                    })
+                    //->whereIn('star_category_id', $star_id)
+                    ->paginate(30);
+
+//dd($hotels->getTotal());
+
+                $min_hot_rate = DB::table('Hotels')
+                    ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_hotel_category', 'hotel_hotel_category.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
+                    ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
+                    ->select('rates.rate')
+                    ->where('hotel_category_id', $accommodation_id)
+                    ->min('rate');
+
+
+                $max_hot_rate = DB::table('Hotels')
+                    ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_hotel_category', 'hotel_hotel_category.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
+                    ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
+                    ->select('rates.rate')
+                    ->where('hotel_category_id', $accommodation_id)
+                    ->whereIn('hotel_facility_id', $facility)
+                    ->max('rate');
+
+//            dd(DB::getQueryLog());
+
+            }
+
+        } elseif (Input::has('facility')) {
+
+            if (!empty($city_id)) {
+
+                $hotels = Hotel::where('city_id', $city_id)
+                    ->WhereHas('HotelFacility', function ($q1) use ($facility) {
+                        $q1->whereIn('hotel_facility_id', $facility);
+                    })
+                    ->WhereHas('Rate', function ($r) use ($min_rate, $max_rate) {
+                        $r->where('rate', '=>', $min_rate);
+                        $r->where('rate', '=<', $max_rate);
+                    })
+                    ->whereIn('star_category_id', $star_id)
+                    ->paginate(30);
+
+                $min_hot_rate = DB::table('Hotels')
+                    ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
+                    ->select('rates.rate')
+                    ->where('hotels.city_id', $city_id)
+                    ->min('rate');
+
+                $max_hot_rate = DB::table('Hotels')
+                    ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
+                    ->select('rates.rate')
+                    ->where('hotels.city_id', $city_id)
+                    ->max('rate');
+
+                //dd($min_hot_rate.'/'.$max_hot_rate);
+            }
+
+            if (!empty($accommodation_id)) {
+
+                $hotels = Hotel::whereHas('hotelCategory', function ($query) use ($accommodation_id) {
+                    $query->where('hotel_category_id', $accommodation_id);
+                })
+                    ->whereHas('HotelFacility', function ($q) use ($facility) {
+                        $q->whereIn('hotel_facility_id', $facility);
+                    })
+//                    ->whereHas('Rate', function ($r) use ($min_rate, $max_rate) {
+//                        $r->where('rate', '>=', $min_rate);
+//                        $r->where('rate', '<=', $max_rate);
+//                    })
+                    ->whereIn('star_category_id', $star_id)
+                    ->paginate(30);
+
+
+//                $hotels = Hotel::whereIn('star_category_id', $star_id)
+//                    ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
+//                    ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
+//                    ->join('hotel_hotel_category', 'hotel_hotel_category.hotel_id', '=', 'hotels.id')
+//                    ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
+//                    ->where('hotel_category_id', $accommodation_id)
+//                    //->whereIn('hotel_facility_id', $facility)
+//                    ->groupBy('hotels.id')
+//                    ->paginate(30);
+
+//dd($hotels->getTotal());
+
+                $min_hot_rate = DB::table('Hotels')
+                    ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_hotel_category', 'hotel_hotel_category.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
+                    ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
+                    ->select('rates.rate')
+                    ->where('hotel_category_id', $accommodation_id)
+                    ->whereIn('hotel_facility_id', $facility)
+                    ->min('rate');
+
+
+                $max_hot_rate = DB::table('Hotels')
+                    ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_hotel_category', 'hotel_hotel_category.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
+                    ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
+                    ->select('rates.rate')
+                    ->where('hotel_category_id', $accommodation_id)
+                    ->whereIn('hotel_facility_id', $facility)
+                    ->max('rate');
+
+//            dd(DB::getQueryLog());
+
+            }
+
+        } else {
+
+            if (!empty($city_id)) {
+
+                $hotels = Hotel::where('city_id', $city_id)
 //                ->WhereHas('HotelFacility', function ($q1) use ($facility) {
 //                    $q1->whereIn('hotel_facility_id', $facility);
 //                })
 //                ->orWhereHas('Rate', function ($r1) use ($min_rate, $max_rate) {
 //                    $r1->whereBetween('rate', array($min_rate, $max_rate));
 //                })
-                ->whereIn('star_category_id', $star_id)
-                ->paginate(30);
+                    ->whereIn('star_category_id', $star_id)
+                    ->paginate(30);
 
-            $min_hot_rate = DB::table('Hotels')
-                ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
-                //->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
-                //->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
-                ->select('rates.rate')
-                ->where('hotels.city_id', $city_id)
-                //->whereIn('hotel_facility_id', $facility)
-                ->min('rate');
+                $min_hot_rate = DB::table('Hotels')
+                    ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
+                    ->select('rates.rate')
+                    ->where('hotels.city_id', $city_id)
+                    ->min('rate');
 
-            $max_hot_rate = DB::table('Hotels')
-                ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
-                // ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
-                // ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
-                ->select('rates.rate')
-                ->where('hotels.city_id', $city_id)
-                // ->whereIn('hotel_facility_id', $facility)
-                ->max('rate');
+                $max_hot_rate = DB::table('Hotels')
+                    ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
+                    ->select('rates.rate')
+                    ->where('hotels.city_id', $city_id)
+                    ->max('rate');
 
-        }
+                //dd($min_hot_rate.'/'.$max_hot_rate);
+            }
 
-        //dd($from_date.'***'.$to_date);
-        //dd($min_hot_rate.'***'.$max_hot_rate);
+            //dd($from_date.'***'.$to_date);
+            //dd($min_hot_rate.'***'.$max_hot_rate);
 
-        if (!empty($accommodation_id)) {
+            if (!empty($accommodation_id)) {
 
-            $hotels = Hotel::whereHas('hotelCategory', function ($query) use ($accommodation_id) {
-                $query->where('hotel_category_id', $accommodation_id);
-            })
-//                ->whereHas('Rate', function ($r) use ($min_rate, $max_rate) {
-//                    $r->whereBetween('rate', array($min_rate, $max_rate));
-//                })
-                ->whereIn('star_category_id', $star_id)
-//                ->OrwhereHas('HotelFacility', function ($q) use ($facility) {
-//                    $q->whereIn('hotel_facility_id', $facility);
-//                })
-                ->paginate(30);
+                $hotels = Hotel::whereHas('hotelCategory', function ($query) use ($accommodation_id) {
+                    $query->where('hotel_category_id', $accommodation_id);
+                })
+//                    ->whereHas('HotelFacility', function ($q) use ($facility) {
+//                        //$q->whereIn('hotel_facility_id', $facility);
+//                    })
+//                    ->whereHas('Rate', function ($r) use ($min_rate, $max_rate) {
+//                        $r->whereBetween('rate', array($min_rate, $max_rate));
+//                    })
+                    ->whereIn('star_category_id', $star_id)
+                    ->paginate(30);
 
 
 //dd($hotels->getTotal());
 
-            $min_hot_rate = DB::table('Hotels')
-                ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
-                ->join('hotel_hotel_category', 'hotel_hotel_category.hotel_id', '=', 'hotels.id')
-                ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
-                ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
-                ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
-                ->select('rates.rate')
-                ->where('hotel_category_id', $accommodation_id)
-                ->whereIn('hotel_facility_id', $facility)
-                ->min('rate');
+                $min_hot_rate = DB::table('Hotels')
+                    ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_hotel_category', 'hotel_hotel_category.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
+                    ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
+                    ->select('rates.rate')
+                    ->where('hotel_category_id', $accommodation_id)
+                    ->min('rate');
 
 
-            $max_hot_rate = DB::table('Hotels')
-                ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
-                ->join('hotel_hotel_category', 'hotel_hotel_category.hotel_id', '=', 'hotels.id')
-                ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
-                ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
-                ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
-                ->select('rates.rate')
-                ->where('hotel_category_id', $accommodation_id)
-                ->whereIn('hotel_facility_id', $facility)
-                ->max('rate');
+                $max_hot_rate = DB::table('Hotels')
+                    ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_hotel_category', 'hotel_hotel_category.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
+                    ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
+                    ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
+                    ->select('rates.rate')
+                    ->where('hotel_category_id', $accommodation_id)
+                    ->max('rate');
 
 //            dd(DB::getQueryLog());
+
+            }
 
         }
 
@@ -253,6 +442,8 @@ class HotelController extends \BaseController
                 'list_url' => $list_url,
                 'min_hot_rate' => $min_hot_rate,
                 'max_hot_rate' => $max_hot_rate,
+                'selected_min_rate' => $min_rate,
+                'selected_max_rate' => $max_rate,
 
             );
 
@@ -483,7 +674,7 @@ class HotelController extends \BaseController
             $st_date = date("Y/m/d");
         }
 
-/// Session::flush();
+// Session::flush();
 
         if (Session::has('ed_date')) {
             $ed_date = Session::get('ed_date');
@@ -495,6 +686,7 @@ class HotelController extends \BaseController
         $date_difference = $date_ed->diff($date_st);
 
         $date_gap = $date_difference->d;
+        Session::put('date_gap', $date_gap);
 
         $from_date = date('Y-m-d', strtotime(str_replace('-', '/', $st_date)));
         $to_date = date('Y-m-d', strtotime(str_replace('-', '/', $ed_date)));
@@ -630,6 +822,7 @@ class HotelController extends \BaseController
         $room_cost = $total_rate * $room_count;
 
         $rate_box_details = array(
+            'hotel_id' => $hotel_id,
             'hotel_name' => $hotel_name,
             'hotel_address' => $hotel_address,
             'room_name' => $room_name,
@@ -645,7 +838,6 @@ class HotelController extends \BaseController
             $data = Session::get('rate_box_details');
             $data[$room_identity] = $rate_box_details;
         } else {
-
             $data = [];
             $data[$room_identity] = $rate_box_details;
         }

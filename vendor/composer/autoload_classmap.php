@@ -36,6 +36,7 @@ return array(
     'CancellationPoliciesController' => $baseDir . '/app/controllers/CancellationPoliciesController.php',
     'CancellationPolicy' => $baseDir . '/app/models/CancellationPolicy.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
+    'CartController' => $baseDir . '/app/controllers/CartController.php',
     'Chumper\\Datatable\\Columns\\BaseColumn' => $vendorDir . '/chumper/datatable/src/Chumper/Datatable/Columns/BaseColumn.php',
     'Chumper\\Datatable\\Columns\\DateColumn' => $vendorDir . '/chumper/datatable/src/Chumper/Datatable/Columns/DateColumn.php',
     'Chumper\\Datatable\\Columns\\FunctionColumn' => $vendorDir . '/chumper/datatable/src/Chumper/Datatable/Columns/FunctionColumn.php',

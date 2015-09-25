@@ -3,6 +3,8 @@
  */
 
 
+/********************** For Room Cart **************************/
+
 function sendBookingData(url, formData) {
     $.ajax({
         url: url,
@@ -27,7 +29,6 @@ function sendBookingData(url, formData) {
     });
 }
 
-
 function generateRoomRateTable(data) {
 
     var y = 1;
@@ -38,25 +39,30 @@ function generateRoomRateTable(data) {
         $.each(data, function (index, item) {
 
             if (index != 'total_cost') {
+                var hotel_id = $('.hidden_hotel_id').val();
 
-                table += '<tr>';
-                table += '<td><span class="dark">Room &nbsp;' + y + '</span> &nbsp;:&nbsp;&nbsp;' + item.room_name + ' <button class="right btn delete_room btn-xs btn-danger" value="' + index + '">X</button><br>' +
-                '<button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse" data-target="#collapse' + y + '"></button>' +
-                '<div id="collapse' + y + '" class="collapse">' +
-                '<div class="lblue">' +
-                item.room_count + '&nbsp;' +
-                item.room_specification + ' Room <br>' +
-                item.meal_basis +
-                '</div>' +
-                '<div class="clearfix"></div>' +
-                '</div>' +
-                '<div class="clearfix"></div>' +
-                'Total cost per room : <span class="right green bold">USD &nbsp;&nbsp;&nbsp;' + item.room_cost +
-                '</span>' +
-                '</td>' +
-                '</tr>';
+                if (item.hotel_id == hotel_id) {
+                    //alert('as');
 
-                y = y + 1;
+                    table += '<tr>';
+                    table += '<td><span class="dark">Room &nbsp;' + y + '</span> &nbsp;:&nbsp;&nbsp;' + item.room_name + ' <button class="right btn delete_room btn-xs btn-danger" value="' + index + '">X</button><br>' +
+                    '<button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse" data-target="#collapse' + y + '"></button>' +
+                    '<div id="collapse' + y + '" class="collapse">' +
+                    '<div class="lblue">' +
+                    item.room_count + '&nbsp;' +
+                    item.room_specification + ' Room <br>' +
+                    item.meal_basis +
+                    '</div>' +
+                    '<div class="clearfix"></div>' +
+                    '</div>' +
+                    '<div class="clearfix"></div>' +
+                    'Total cost per room : <span class="right green bold">USD &nbsp;&nbsp;&nbsp;' + item.room_cost +
+                    '</span>' +
+                    '</td>' +
+                    '</tr>';
+
+                    y = y + 1;
+                }
             }
         });
 
@@ -82,6 +88,28 @@ function deleteRoom() {
 
     });
 
+}
+
+
+/********************** For Bookings Cart **************************/
+
+function sendBookingCartData(url, cartData) {
+    $.ajax({
+        url: url,
+        method: 'post',
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: 'json',
+        data: cartData,
+        success: function (data) {
+           alert('aaaa');
+        },
+
+        error: function () {
+            //alert('There was an error signing In');
+        }
+    });
 }
 
 

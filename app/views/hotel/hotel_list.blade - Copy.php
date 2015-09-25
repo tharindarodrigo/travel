@@ -453,39 +453,34 @@
                     <div class="hpadding20">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" value="5" name="star_rating[]"
-                                       class="star_category" @if(Session::has('star')){{ array_key_exists(7, Session::get('star')) ? 'checked':'' }}@endif >
+                                <input type="checkbox" value="5" name="star_rating[]" class="star_category">
                                 {{ HTML::image('images/filter-rating-5.png', '', array('class' => 'imgpos1'))}}
                                 5 Stars
                             </label>
                         </div>
                         <div class="checkbox">
-                            <input type="checkbox" value="4" name="star_rating[]"
-                                   class="star_category" @if(Session::has('star')){{ array_key_exists(5, Session::get('star')) ? 'checked':'' }}@endif >
+                            <input type="checkbox" value="4" name="star_rating[]" class="star_category">
                             <label>
                                 {{ HTML::image('images/filter-rating-4.png', '', array('class' => 'imgpos1'))}}
                                 4 Stars
                             </label>
                         </div>
                         <div class="checkbox">
-                            <input type="checkbox" value="3" name="star_rating[]"
-                                   class="star_category" @if(Session::has('star')){{ array_key_exists(3, Session::get('star')) ? 'checked':'' }}@endif >
+                            <input type="checkbox" value="3" name="star_rating[]" class="star_category">
                             <label>
                                 {{ HTML::image('images/filter-rating-3.png', '', array('class' => 'imgpos1'))}}
                                 3 Stars
                             </label>
                         </div>
                         <div class="checkbox">
-                            <input type="checkbox" value="2" name="star_rating[]"
-                                   class="star_category" @if(Session::has('star')){{ array_key_exists(2, Session::get('star')) ? 'checked':'' }}@endif >
+                            <input type="checkbox" value="2" name="star_rating[]" class="star_category">
                             <label>
                                 {{ HTML::image('images/filter-rating-2.png', '', array('class' => 'imgpos1'))}}
                                 2 Stars
                             </label>
                         </div>
                         <div class="checkbox">
-                            <input type="checkbox" value="1" name="star_rating[]"
-                                   class="star_category" @if(Session::has('star')){{ array_key_exists(1, Session::get('star')) ? 'checked':'' }}@endif >
+                            <input type="checkbox" value="1" name="star_rating[]" class="star_category">
                             <label>
                                 {{ HTML::image('images/filter-rating-1.png', '', array('class' => 'imgpos1'))}}
                                 1 Star
@@ -511,8 +506,7 @@
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="accommodation" id="Acomodation{{ $x }}"
-                                           value="{{ $accommodation->id }}"
-                                           class="acc_select" {{ $accommodation->id == Session::get('accommodation') ? 'checked':'' }}>
+                                           value="{{ $accommodation->id }}" class="acc_select">
                                     {{ $accommodation->hotel_category }}
                                 </label>
                             </div>
@@ -541,7 +535,7 @@
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" value="{{ $facility->id }}" name="facility[]"
-                                                   class="hot_facility" {{ 'as' }}>
+                                                   class="hot_facility">
                                             {{ $facility->hotel_facility }}
                                         </label>
                                     </div>
@@ -598,8 +592,7 @@
                                     <div class="radio">
                                         <label>
                                             <input type="radio" name="city" id="City{{ $x }}"
-                                                   value="{{ $city->id }}"
-                                                   class="city_select" {{ $city->id == Session::get('city') ? 'checked':'' }}>
+                                                   value="{{ $city->id }}" class="city_select">
                                             {{ $city->city }}
                                         </label>
                                     </div>
@@ -621,8 +614,7 @@
                                     <div class="radio">
                                         <label>
                                             <input type="radio" name="city" id="City{{ $x }}"
-                                                   value="{{ $city->id }}"
-                                                   class="city_select" {{ $city->id == Session::get('city') ? 'checked':'' }}>
+                                                   value="{{ $city->id }}" class="city_select">
                                             {{ $city->city }}
                                         </label>
                                     </div>
@@ -714,7 +706,8 @@
                 <div class="itemscontainer offset-1">
 
                     @foreach($hotels as $hotel)
-
+                        <?php $low_hotel_rate = RoomRates::lowestHotelRate($hotel->id, $st_date, $ed_date); ?>
+                        @if(empty($selected_min_rate) AND empty($selected_max_rate))
                         <div class="offset-2">
                             <div class="col-md-4 offset-0">
                                 <div class="listitem2">
@@ -773,8 +766,6 @@
                                                 No Reviews </span><br/><br/>
                                         @endif
 
-                                        <?php $low_hotel_rate = RoomRates::lowestHotelRate($hotel->id, $st_date, $ed_date); ?>
-
                                         @if(!empty($low_hotel_rate))
                                             <span class="green size18">
                                             <b>
@@ -791,7 +782,7 @@
                                         @endif
 
                                         <form action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
-                                            <button class="bookbtn mt1" type="submit"> Book </button>
+                                            <button class="bookbtn mt1" type="submit"> Book</button>
                                         </form>
                                     </div>
 
@@ -803,41 +794,24 @@
                                         <p class="grey">
                                             {{ Str::limit($hotel->overview, 150) }}
                                         </p>
-                                        @if(Input::has('facility') || Input::has('price_range'))
-                                            <ul class="hotelpreferences">
-                                                <?php
-                                                $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
-                                                ?>
-                                                @foreach($hotel_facilities->hotelFacility as $hotel_facility)
-                                                    <?php
-                                                    //echo public_path();
-                                                    $directory = 'public/images/hotel_facilities/';
-                                                    $images = glob($directory . $hotel_facility->id . "*");
-                                                    $img_path = array_shift($images);
-                                                    $img_name = basename($img_path);
-                                                    ?>
 
-                                                    {{ HTML::image('images/hotel_facilities/'.$img_name, '', array('class' => 'hot_facilities_icon'))}}
-                                                @endforeach
-                                            </ul>
-                                        @else
-                                            <ul class="hotelpreferences">
+                                        <ul class="hotelpreferences">
+                                            <?php
+                                            $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
+                                            ?>
+                                            @foreach($hotel_facilities->hotelFacility as $hotel_facility)
                                                 <?php
-                                                $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
+                                                //echo public_path();
+                                                $directory = 'public/images/hotel_facilities/';
+                                                $images = glob($directory . $hotel_facility->id . "*");
+                                                $img_path = array_shift($images);
+                                                $img_name = basename($img_path);
                                                 ?>
-                                                @foreach($hotel_facilities->hotelFacility as $hotel_facility)
-                                                    <?php
-                                                    //echo public_path();
-                                                    $directory = 'public/images/hotel_facilities/';
-                                                    $images = glob($directory . $hotel_facility->id . "*");
-                                                    $img_path = array_shift($images);
-                                                    $img_name = basename($img_path);
-                                                    ?>
 
-                                                    {{ HTML::image('images/hotel_facilities/'.$img_name, '', array('class' => 'hot_facilities_icon'))}}
-                                                @endforeach
-                                            </ul>
-                                        @endif
+                                                {{ HTML::image('images/hotel_facilities/'.$img_name, '', array('class' => 'hot_facilities_icon'))}}
+                                            @endforeach
+                                        </ul>
+
                                     </div>
 
                                 </div>
@@ -850,6 +824,123 @@
                             <hr class="featurette-divider3">
                         </div>
 
+                        @elseif($low_hotel_rate >= $selected_min_rate AND $low_hotel_rate <= $selected_max_rate)
+                            <div class="offset-2">
+                                <div class="col-md-4 offset-0">
+                                    <div class="listitem2">
+
+                                        <?php
+                                        //echo public_path();
+                                        $directory = 'public/images/hotel_images/';
+                                        $images = glob($directory . $hotel->id . "_*");
+                                        $img_path = array_shift($images);
+                                        $img_name = basename($img_path);
+                                        ?>
+
+                                        <a href="<?php echo '/' . $img_name; ?>"
+                                           data-title="{{ $hotel->name }}" data-gallery="multiimages"
+                                           data-toggle="lightbox">
+
+
+                                            @if(count($img_path)>0)
+                                                {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'hotel_img_1'))}}
+                                            @else
+                                                {{ HTML::image('images/no-image.jpg', '', array('class' => 'property_img_1')) }}
+                                            @endif
+
+                                            <div class="liover"></div>
+                                            <a class="fav-icon" href="#"></a>
+                                            <?php
+                                            $city_id = $hotel->city_id;
+                                            $get_city = DB::table('cities')->where('id', $city_id)->first();
+                                            $city = $get_city->city;
+                                            ?>
+                                            <a class="book-icon"
+                                               href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"></a>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8 offset-0">
+                                    <div class="itemlabel3">
+
+                                        <div class="labelright">
+                                            <?php
+                                            $stars = $hotel->star_category_id;
+                                            $star = DB::table('star_categories')->where('id', $stars)->first();
+                                            $hotel_star = $star->stars;
+                                            ?>
+
+                                            {{ Star::star_loop_blue($hotel_star)}}<br/><br/><br/>
+
+                                            {{ HTML::image('images/user-rating-5.png', '')}}<br/><br/>
+
+                                            @if(!empty($hotel->hotelReview->count()))
+                                                <span class="size11 grey"> {{ $hotel->hotelReview->count(); }}
+                                                    Reviews </span><br/><br/>
+                                            @else
+                                                <span class="size11 grey">
+                                                No Reviews </span><br/><br/>
+                                            @endif
+
+                                            @if(!empty($low_hotel_rate))
+                                                <span class="green size18">
+                                            <b>
+                                                USD {{ $low_hotel_rate }}
+                                            </b>
+                                            </span>
+                                                <br/>
+                                                <span class="size11 grey">avg/night</span><br/><br/>
+                                            @else
+                                                <span class="green">
+                                                 Rate Not <br/> Available
+                                                <br/><br/>
+                                            </span>
+                                            @endif
+
+                                            <form action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
+                                                <button class="bookbtn mt1" type="submit"> Book</button>
+                                            </form>
+                                        </div>
+
+                                        <div class="labelleft2">
+                                            <a href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"
+                                               style="text-decoration: none"><h4> {{ $hotel->name }} </h4><br/>
+                                            </a>
+
+                                            <p class="grey">
+                                                {{ Str::limit($hotel->overview, 150) }}
+                                            </p>
+
+                                            <ul class="hotelpreferences">
+                                                <?php
+                                                $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
+                                                ?>
+                                                @foreach($hotel_facilities->hotelFacility as $hotel_facility)
+                                                    <?php
+                                                    //echo public_path();
+                                                    $directory = 'public/images/hotel_facilities/';
+                                                    $images = glob($directory . $hotel_facility->id . "*");
+                                                    $img_path = array_shift($images);
+                                                    $img_name = basename($img_path);
+                                                    ?>
+
+                                                    {{ HTML::image('images/hotel_facilities/'.$img_name, '', array('class' => 'hot_facilities_icon'))}}
+                                                @endforeach
+                                            </ul>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="offset-2">
+                                <hr class="featurette-divider3">
+                            </div>
+                        @endif
                     @endforeach
 
                 </div>
@@ -859,6 +950,7 @@
                     {{ $hotels->links() }}
                 </div>
 
+                {{ $selected_min_rate.'/'.$selected_max_rate.'sssss'.$min_hot_rate }}
             </div>
             <!-- END OF LIST CONTENT-->
 

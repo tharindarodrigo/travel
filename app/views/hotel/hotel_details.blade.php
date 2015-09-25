@@ -906,7 +906,8 @@
                                 <td class="center green bold">4.5</td>
                             </tr>
                             <tr>
-                                <td colspan="2"><span class="dark">{{ $date_gap   }}
+                                <td colspan="2"><span class="dark">
+                                        {{ (Session::has('date_gap')) ? Session::get('date_gap') : '' }}
                                         Nights </span>: {{ (Session::has('st_date')) ? Session::get('st_date'):'' }}
                                     - {{ (Session::has('st_date')) ? Session::get('ed_date') : '' }} </td>
                             </tr>
@@ -937,19 +938,36 @@
                         <div class="clearfix"></div>
                     </div>
 
+                    <div class="line3"></div>
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;
+                    <a id="add_to_cart" name="aa" href="{{URL::to('/booking-cart')}}" class="bluebtn margtop20">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                        Add To Cart
+                    </a>
+
+                    &nbsp;&nbsp;
+                    <a href="" class="bluebtn margtop20">
+                        <span class="glyphicon glyphicon-play"></span>
+                        Checkout
+                    </a>
+                    <div class="clearfix"></div>
+                    <br/>
+
                 </div>
             </div>
 
         </div>
 
     </div>
+
     <!-- END OF CONTENT -->
 
     @endsection
 
     @section('script')
 
-        <!-- Googlemap -->
+        <!-- Google map -->
         {{ HTML::script('assets/js/initialize-google-map.js') }}
 
         <!-- Carousel-->
@@ -960,11 +978,11 @@
 
         <script type="text/javascript">
             $(function () {
-//                /$('#room_rate_tag').hide();
+                $('#room_rate_tag').hide();
 
                 $('.room_book_summery').click(function () {
 
-                    //$('#room_rate_tag').show("blind", 500);
+                    $('#room_rate_tag').show("blind", 500);
 
                     var hotel_id = $('.hidden_hotel_id').val();
                     var room_id = $(this).closest('.get_room_id').attr('room_id');
@@ -972,9 +990,9 @@
                     var room_count = $('#' + room_count_id).val();
                     var meal_basis_id = $(this).prev('input:hidden').val();
                     var room_specification_id = $(this).next('input:hidden').val();
-                    var check_room = hotel_id+'_'+room_id+'_'+room_specification_id+'_'+meal_basis_id;
+                    var check_room = hotel_id + '_' + room_id + '_' + room_specification_id + '_' + meal_basis_id;
 
-                    var url = 'http://'+window.location.host+'/sri-lanka/get_room_rate_box';
+                    var url = 'http://' + window.location.host + '/sri-lanka/get_room_rate_box';
 
                     var formData = new FormData();
 

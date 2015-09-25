@@ -484,6 +484,8 @@ Route::get('/403', array(
     'uses' => 'HomeController@view403'
 ));
 
+
+
 /**********************************************************************************/
 /*------------------------- Tour List -------------------------------*/
 /**********************************************************************************/
@@ -547,6 +549,16 @@ Route::any('sri-lanka/tour/filter', array(
 /*------------------------------ Hotel List --------------------------------*/
 /**********************************************************************************/
 
+/************* Create Booking Cart ********************/
+
+// booking cart
+
+Route::get('/booking-cart', array(
+    'as' => 'booking-cart-get',
+    'uses' => 'CartController@bookingCart'
+));
+
+Route::post('/get_cart_item/delete', 'CartController@cartItemDelete');
 
 /************* Grid View ********************/
 
@@ -578,6 +590,7 @@ Route::any('sri-lanka/get_room_rate_box', array(
     'uses' => 'HotelController@getRoomRateBox'
 ));
 
+
 Route::post('sri-lanka/get_room_rate_box/delete', 'HotelController@roomRateBoxDestroy');
 
 
@@ -588,12 +601,14 @@ Route::post('/star_rating', array(
     'uses' => 'HotelController@hotelList'
 ));
 
+
 // Hotel ListR
 
 Route::any('/{country?}/{city_name_OR_accommodation?}', array(
     'as' => 'hotel-list',
     'uses' => 'HotelController@hotelList'
 ));
+
 
 // Single Hotel
 
@@ -613,7 +628,6 @@ Route::post('/get_map', array(
 /**********************************************************************************/
 /*------------------------- End Of Hotel List -------------------------------*/
 /**********************************************************************************/
-
 
 
 
