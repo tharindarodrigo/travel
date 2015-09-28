@@ -79,18 +79,18 @@ class HotelController extends \BaseController
             foreach ($get_star_ids as $get_star_id) {
                 $star_id[$get_star_id->id] = $get_star_id->id;
                 Session::put('star', $star_id);
-               // Session::forget('city');
-              //  Session::forget('accommodation');
-               // Session::forget('facility');
+                // Session::forget('city');
+                //  Session::forget('accommodation');
+                // Session::forget('facility');
             }
         } else {
             $get_star_ids = StarCategory::select('id')->get();
 
             foreach ($get_star_ids as $get_star_id) {
                 $star_id[] = $get_star_id->id;
-             //   Session::forget('star');
-              //  Session::forget('accommodation');
-             //   Session::forget('facility');
+                //   Session::forget('star');
+                //  Session::forget('accommodation');
+                //   Session::forget('facility');
             }
         }
 
@@ -101,18 +101,18 @@ class HotelController extends \BaseController
             foreach ($get_facility_ids as $get_facility_id) {
                 $facility[] = $get_facility_id->id;
                 Session::put('facility', $facility);
-              //  Session::forget('accommodation');
-             //   Session::forget('city');
-             //   Session::forget('star');
+                //  Session::forget('accommodation');
+                //   Session::forget('city');
+                //   Session::forget('star');
             }
         } else {
             $get_facility_ids = HotelFacility::select('id')->get();
             foreach ($get_facility_ids as $get_facility_id) {
                 $facility[] = $get_facility_id->id;
                 Session::put('facility', $facility);
-              //  Session::forget('accommodation');
-              //  Session::forget('city');
-             //   Session::forget('star');
+                //  Session::forget('accommodation');
+                //  Session::forget('city');
+                //   Session::forget('star');
             }
         }
 
@@ -177,8 +177,8 @@ class HotelController extends \BaseController
         if (!empty($city_id)) {
             Session::put('city', $city_id);
             Session::forget('accommodation');
-           // Session::forget('star');
-           // Session::forget('facility');
+            // Session::forget('star');
+            // Session::forget('facility');
         }
 
         if (!empty($accommodation_id)) {
@@ -812,6 +812,10 @@ class HotelController extends \BaseController
         $room_specification = RoomSpecification::where('id', $room_specification_id)->first()->room_specification;
         $meal_basis = MealBasis::where('id', $meal_basis_id)->first()->meal_basis_name;
 
+        $adult = Session::get('adult');
+        $child = Session::get('child');
+        $nights = Session::get('date_gap');
+
         $total_rate = Rate::where('hotel_id', $hotel_id)
             ->where('room_type_id', $room_id)
             ->where('room_specification_id', $room_specification_id)
@@ -830,6 +834,9 @@ class HotelController extends \BaseController
             'meal_basis' => $meal_basis,
             'room_cost' => $room_cost,
             'room_count' => $room_count,
+            'adult' => $adult,
+            'child' => $child,
+            'nights' => $nights,
             'room_identity' => $room_identity,
         );
 

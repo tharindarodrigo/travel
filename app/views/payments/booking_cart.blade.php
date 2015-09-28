@@ -74,7 +74,7 @@
                         <thead>
                         <tr>
                             <th> Hotel</th>
-                            <th> Rooms</th>
+                            <th class="center"> Rooms</th>
                             <th class="text-center"> Total</th>
                             <th></th>
                         </tr>
@@ -83,51 +83,45 @@
                         @if(Session::has('booking_cart'))
                             @foreach($hotel_bookings as $hotel_booking)
 
-                                @for($c=0 ; $c < count($hotel_booking)-1; $c++)
+                                <tr>
 
-                                    <?php
-                                    $one_hotel_id = $hotel_booking[$c]['hotel_id'];
-                                    ?>
+                                    <td class="col-sm-8 col-md-2">
+                                        <div class="media">
+                                            <a class="thumbnail pull-left" href="#">
+                                                <img class="media-object"
+                                                     src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png"
+                                                     style="width: 72px; height: 72px;">
+                                            </a>
 
-                                    @if (!Session::has('aaa'))
-                                        <?php
-                                        $data = [];
-                                        $data[] = $one_hotel_id;
-                                        Session::put('aaaa', $data);
-                                        ?>
+                                            <div class="media-body">
+                                                <h4 class="media-heading"><a
+                                                            href="#">{{ $hotel_booking['hotel_name'] }}</a></h4>
+                                                {{--<h5 class="media-heading"> by <a href="#">Brand name</a></h5>--}}
+                                                <span class="text-success"><strong style="font-size: 12px">
+                                                        {{ str_replace(',', '<br />', $hotel_booking['hotel_address']) }}
+                                                    </strong></span>
+                                            </div>
+                                        </div>
+                                    </td>
 
-                                        <tr>
+                                    <td class="col-sm-1 col-md-2" style="text-align: center">
 
-                                            <td class="col-sm-8 col-md-2">
-                                                <div class="media">
-                                                    <a class="thumbnail pull-left" href="#">
-                                                        <img class="media-object"
-                                                             src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png"
-                                                             style="width: 72px; height: 72px;">
-                                                    </a>
-
-                                                    <div class="media-body">
-                                                        <h4 class="media-heading"><a
-                                                                    href="#">{{ $hotel_booking['hotel_name'] }}</a></h4>
-                                                        {{--<h5 class="media-heading"> by <a href="#">Brand name</a></h5>--}}
-                                                        <span class="text-success"><strong style="font-size: 12px">
-                                                                {{ str_replace(',', '<br />', $hotel_booking[$c]['hotel_address'])  }}
-                                                            </strong></span>
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                            <td class="col-sm-1 col-md-2" style="text-align: center">
-                                                <span class="dark">Room {{ $c+1 }}</span><br/>
-                                                Adult {{ (Session::has('adult')) ? Session::get('adult'):'' }} /
-                                                Child {{ (Session::has('child')) ? Session::get('child') : '' }} /
-                                                Nights {{ (Session::has('date_gap')) ? Session::get('date_gap') : '' }}
+                                        @for($c=0 ; $c < count($hotel_booking)-3; $c++)
+                                            <div style="display: inline-block">
+                                                <span class="dark">Room {{ $c+1 }} Nights - {{ $hotel_booking[$c]['nights'] }}</span><br/>
 
                                                 <!-- Collapse 1 -->
                                                 <button type="button" class="collapsebtn3 collapsed mt-5"
-                                                        data-toggle="collapse" data-target="#collapse1"></button>
-                                                <div id="collapse1" class="collapse">
+                                                        data-toggle="collapse"
+                                                        data-target="#collapse{{ $c+1 }}"></button>
+                                                <div id="collapse{{ $c+1 }}" class="collapse">
+
                                                     <div class="left size12 lblue container">
+                                                        Adult - {{ $hotel_booking[$c]['adult'] }} <br/>
+                                                        Child - {{ $hotel_booking[$c]['child'] }}
+                                                    </div>
+
+                                                    <div class="right size12 lblue container">
                                                         {{ $hotel_booking[$c]['room_count'] }} {{ $hotel_booking[$c]['room_specification'] }}
                                                         Rooms <br/>
                                                         {{ $hotel_booking[$c]['meal_basis'] }}
@@ -139,26 +133,26 @@
 
                                                 Room Total : <span
                                                         class="green">{{ $hotel_booking[$c]['room_cost'] }}</span>
-                                            </td>
+                                            </div>
+                                            <br/>
+                                            <div class="line3"></div>
+                                            <br/>
+                                        @endfor
+                                    </td>
 
-                                            <td class="col-sm-1 col-md-1"></td>
+                                    <td class="col-sm-1 col-md-1"></td>
 
-                                            {{ Form::open(array('url' => '/get_cart_item/delete', 'method' => 'POST', 'id'=>'booking_cart_item_delete')) }}
-                                            <td class="col-sm-1 col-md-1">
-                                                <button id="delete_cart_item" type="submit" class="btn btn-danger"
-                                                        name="delete_item"
-                                                        value="{{ $hotel_booking[$c]['room_identity'] }}">
-                                                    <span class="glyphicon glyphicon-remove"></span> Remove
-                                                </button>
-                                            </td>
-                                            {{ Form::close() }}
+                                    {{ Form::open(array('url' => '/get_cart_item/delete', 'method' => 'POST', 'id'=>'booking_cart_item_delete')) }}
+                                    <td class="col-sm-1 col-md-1">
+                                        <button id="delete_cart_item" type="submit" class="btn btn-danger"
+                                                name="delete_item"
+                                                value="{{ $hotel_booking['room_identity'] }}">
+                                            <span class="glyphicon glyphicon-remove"></span> Remove
+                                        </button>
+                                    </td>
+                                    {{ Form::close() }}
 
-                                        </tr>
-
-                                    @endif
-
-
-                                @endfor
+                                </tr>
 
                             @endforeach
                         @endif

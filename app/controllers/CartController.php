@@ -35,35 +35,40 @@ class CartController extends \BaseController
     public function bookingCart()
     {
 
-        $bookings = Session::get('rate_box_details');
-        $hotel_bookings = [];
+        if (Session::has('rate_box_details')) {
 
-        $rate_keys = array_keys($bookings);
-        $hotel_id_str = implode("_", $rate_keys);
+            $bookings = Session::get('rate_box_details');
+            $hotel_bookings = [];
 
-        foreach ($rate_keys as $rate_key) {
-            $hotel_id = explode('_', $rate_key)[0];
+            $rate_keys = array_keys($bookings);
+            $hotel_id_str = implode("_", $rate_keys);
 
-            if (strpos($hotel_id_str, $hotel_id) !== false) {
+            foreach ($rate_keys as $rate_key) {
+                $hotel_id = explode('_', $rate_key)[0];
 
-                $hotel_bookings[$hotel_id][] = $bookings[$rate_key];
-                $hotel_bookings[$hotel_id]['hotel_name'] = $bookings[$rate_key]['hotel_name'];
-                Session::put('booking_cart', $hotel_bookings);
-                //dd($hotel_bookings);
+                if (strpos($hotel_id_str, $hotel_id) !== false) {
 
-            } else {
+                    $hotel_bookings[$hotel_id][] = $bookings[$rate_key];
+                    $hotel_bookings[$hotel_id]['hotel_name'] = $bookings[$rate_key]['hotel_name'];
+                    $hotel_bookings[$hotel_id]['hotel_address'] = $bookings[$rate_key]['hotel_address'];
+                    $hotel_bookings[$hotel_id]['room_identity'] = $bookings[$rate_key]['room_identity'];
+                    Session::put('booking_cart', $hotel_bookings);
+                    //dd($hotel_bookings);
 
-                Session::put('booking_cart', Session::get('rate_box_details'));
+                } else {
 
-            }
+                    Session::put('booking_cart', Session::get('rate_box_details'));
 
-        }//Session::forget('booking_cart');
-        //dd(Session::get('booking_cart'));
+                }
 
-        $hotel_bookings = Session::get('booking_cart');
+            }//Session::forget('booking_cart');
+            //dd(Session::get('booking_cart'));
 
-        return View::make('payments.booking_cart')
-            ->with(compact('hotel_bookings'));
+            $hotel_bookings = Session::get('booking_cart');
+
+            return View::make('payments.booking_cart')
+                ->with(compact('hotel_bookings'));
+        }
     }
 
 
