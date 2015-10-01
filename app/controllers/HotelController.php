@@ -794,7 +794,7 @@ class HotelController extends \BaseController
     {
 
 //Session::flush();
-//Session::forget('rate_box_details');dd();
+        //Session::flush(); dd();
 
         $room_identity = Input::get('check_room');
 
@@ -816,12 +816,19 @@ class HotelController extends \BaseController
         $child = Session::get('child');
         $nights = Session::get('date_gap');
 
-        $total_rate = Rate::where('hotel_id', $hotel_id)
-            ->where('room_type_id', $room_id)
-            ->where('room_specification_id', $room_specification_id)
-            ->where('meal_basis_id', $meal_basis_id)
-            ->first()
-            ->rate;
+        if (Session::has('st_date')) {
+            $st_date = Session::get('st_date');
+        } else {
+            $st_date = date("Y/m/d");
+        }
+
+        if (Session::has('ed_date')) {
+            $ed_date = Session::get('ed_date');
+        } else {
+            $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
+        }
+
+        $total_rate = $low_room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
 
         $room_cost = $total_rate * $room_count;
 

@@ -33,6 +33,7 @@ function generateRoomRateTable(data) {
 
     var y = 1;
     var table = '';
+    var room_total_cost = 0;
 
     if (data != null) {
 
@@ -62,10 +63,12 @@ function generateRoomRateTable(data) {
                     '</tr>';
 
                     y = y + 1;
+
+                    room_total_cost = room_total_cost + item.room_cost;
                 }
             }
         });
-
+        $('#room_total_cost').html('USD' + '&nbsp;&nbsp;&nbsp;' + room_total_cost);
     }
 
     return table;
@@ -103,7 +106,7 @@ function sendBookingCartData(url, cartData) {
         dataType: 'json',
         data: cartData,
         success: function (data) {
-           alert('aaaa');
+            alert('aaaa');
         },
 
         error: function () {

@@ -1,13 +1,3 @@
-<style type="text/css">
-    .logo {
-        height: 50px;;
-    }
-
-    .popover {
-        z-index: 10000 !important;
-    }
-</style>
-
 <!-- jQuery OnlineLink -->
 {{ HTML::script('//code.jquery.com/jquery-1.11.2.min.js') }}
 {{ HTML::script('//code.jquery.com/jquery-migrate-1.2.1.min.js') }}
@@ -138,6 +128,16 @@
     /*}*/
 </style>
 
+<style type="text/css">
+    .logo {
+        height: 50px;;
+    }
+
+    .popover {
+        z-index: 10000 !important;
+    }
+</style>
+
 <script type="text/javascript">
     $(function () {
 
@@ -226,7 +226,7 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#"> Hotels </a>
                         <ul class="dropdown-menu" style="margin-right: -100px; padding: 5px 20px">
-                            <li class="dropdown-header"> Select Accommodation </li>
+                            <li class="dropdown-header"> Select Accommodation</li>
                             <?php
                             $hotel_type = DB::table('hotel_categories')
                                     ->get();
@@ -242,7 +242,7 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#"> Tours </a>
                         <ul class="dropdown-menu" style="margin-right: -150px; padding: 5px 20px">
-                            <li class="dropdown-header"> Select Tours </li>
+                            <li class="dropdown-header"> Select Tours</li>
                             <?php
                             $tour_type = DB::table('tours')
                                     ->get();
@@ -257,7 +257,7 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#"> Excursions </a>
                         <ul class="dropdown-menu" style="margin-right: -100px; padding: 5px 20px">
-                            <li class="dropdown-header"> Select Excursions </li>
+                            <li class="dropdown-header"> Select Excursions</li>
                             <?php
                             $excursion_type = DB::table('excursion_types')
                                     ->get();

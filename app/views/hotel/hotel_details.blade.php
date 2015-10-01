@@ -931,9 +931,11 @@
 
                     </div>
                     <div class="line3"></div>
+
                     <div class="padding30">
-                        <span class="left size14 dark">Total Cost : </span>
-                        <span class="right green bold size18"> USD </span>
+                        <span class="left size14 dark">Total Cost :  </span>
+                        {{--<span class="green bold size18"> USD </span>    --}}
+                        <span id="room_total_cost" class="right green bold size18">  </span>
 
                         <div class="clearfix"></div>
                     </div>
