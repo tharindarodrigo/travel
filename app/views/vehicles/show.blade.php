@@ -1,0 +1,1 @@
+C:\wamp\www\travel\app/views/vehicles/show.blade.php
