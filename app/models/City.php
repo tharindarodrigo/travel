@@ -26,5 +26,13 @@ class City extends \Eloquent {
         return $this->hasMany('HotelCategory');
     }
 
+    public static function getCitiesWithCoordinates($cities){
+        $cityList = [];
+        foreach($cities as $city){
+            $cityList[$city->longitude.','.$city->latitude] = $city->city;
+        }
+        return $cityList;
+    }
+
 
 }

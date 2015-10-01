@@ -135,8 +135,8 @@
                     <div class="roundstep active right">2</div>
                     <div class="clearfix"></div>
                     <div class="line4"></div>
-
-                    <table class="table table-striped">
+<div class="table-responsive">
+                    <table class="table table-striped table-bordered">
                         <thead>
                         <tr>
                             <th>Name</th>
@@ -150,6 +150,7 @@
 
                         </tbody>
                     </table>
+                    </div>
                     <br/><br/>
 
                     <div>

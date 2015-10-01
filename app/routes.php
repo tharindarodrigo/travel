@@ -371,6 +371,9 @@ Route::get('/my-bookings', function () {
 });
 
 
+Route::resource('transportation','TransportationController');
+
+
 //tourism details dowmload
 
 Route::get('/tdl-download', function () {

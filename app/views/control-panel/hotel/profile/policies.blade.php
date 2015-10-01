@@ -3,7 +3,7 @@
 <h4>Cancelation Policy</h4>
     <div class="col-md-4">
         @if(!Session::has('edit'))
-            {{ Form::open(array('route' => array('control-panel.hotel.cancellation-policies.store'), 'files' => true)) }}
+            {{ Form::open(array('route' => array('control-panel.hotel.hotels.cancellation-policies.store',$hotelprofile->id), 'files' => true)) }}
             {{Form::hidden('hotel_id', $hotelprofile->id)}}
         @else
             {{ Form::model($cancellationpolicy, array('route' => array('control-panel.hotel.cancellation-policies.update',$cancellationpolicy->id), 'method' => 'put')) }}

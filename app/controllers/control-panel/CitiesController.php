@@ -11,9 +11,7 @@ class CitiesController extends \BaseController
     public function index()
     {
         Session::forget('edit');
-
-        $cities = City::all();
-
+        $cities = City::orderBy('city','asc')->get();
         return View::make('control-panel.general.cities', compact('cities'));
     }
 
