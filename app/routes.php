@@ -220,6 +220,7 @@ Route::group(array('prefix' => 'control-panel'), function () {
     ));
 
 
+
     /**
      * -------------------------------------------------------------------------------------------------------------
      *  control-panel/agents
@@ -356,17 +357,18 @@ Route::get('/', array(
 ));
 
 //Bookings
-Route::resource('bookings', 'BookingsController');
+Route::resource('bookings','BookingsController');
 
-Route::resource('bookings.clients', 'ClientsController');
-Route::resource('bookings.flightDetails', 'FlightDetailsController');
+Route::resource('bookings.clients','ClientsController');
+Route::resource('bookings.flightDetails','FlightDetailsController');
 
 Route::post('/bookings/create-client', 'BookingsController@addClient');
 Route::post('/bookings/destroy-client', 'BookingsController@destroyClient');
 Route::post('/bookings/get-clients', 'BookingsController@getClientList');
 
 
-Route::get('/my-bookings', function () {
+
+Route::get('/my-bookings',function(){
     return View::make('agent-bookings.bookings');
 });
 
@@ -376,8 +378,9 @@ Route::resource('transportation','TransportationController');
 
 //tourism details dowmload
 
-Route::get('/tdl-download', function () {
-    $file = public_path() . "/images/TDL.jpg";
+Route::get('/tdl-download', function()
+{
+    $file= public_path(). "/images/TDL.jpg";
     $headers = array(
         'Content-Type: image/jpeg',
     );
@@ -386,8 +389,9 @@ Route::get('/tdl-download', function () {
 
 //ebrocher download
 
-Route::get('/ebrocher-download', function () {
-    $file = public_path() . "/images/ebrocher.pdf";
+Route::get('/ebrocher-download', function()
+{
+    $file= public_path(). "/images/ebrocher.pdf";
     $headers = array(
         'Content-Type: application/pdf',
     );
@@ -484,6 +488,7 @@ Route::get('/403', array(
 ));
 
 
+
 /**********************************************************************************/
 /*------------------------- Tour List -------------------------------*/
 /**********************************************************************************/
@@ -556,13 +561,7 @@ Route::get('/booking-cart', array(
     'uses' => 'CartController@bookingCart'
 ));
 
-// Delete Hotel from cart
-
 Route::post('/get_cart_item/delete', 'CartController@cartItemDelete');
-
-// Delete Room from cart
-
-Route::post('/get_cart_single_item/delete', 'CartController@singleCartItemDelete');
 
 /************* Grid View ********************/
 
@@ -633,20 +632,6 @@ Route::post('/get_map', array(
 /*------------------------- End Of Hotel List -------------------------------*/
 /**********************************************************************************/
 
-/**********************************************************************************/
-/*------------------------- Transport -------------------------------*/
-/**********************************************************************************/
-
-
-
-Route::get('/transport-list', array(
-    'as' => '/transport-list',
-    'uses' => 'HotelController@getMap'
-));
-
-/**********************************************************************************/
-/*------------------------- End Of Transport-------------------------------*/
-/**********************************************************************************/
 
 
 /**********************************************************************************/
