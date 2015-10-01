@@ -6,7 +6,7 @@ class Rate extends \Eloquent
     // Add your validation rules here
     public static $rules = [
         'from' => 'required|date',
-        'to' => 'required|date|after:from',
+        'to' => 'required|date',
         'market_id' => 'required'
     ];
 

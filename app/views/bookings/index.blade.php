@@ -32,8 +32,7 @@
 
                 <div class="hpadding50c">
 
-                <div class="col-md-12">
-
+                <div class="table-responsive">
 
                     <table class="table table-bordered table-striped">
                         <thead>
