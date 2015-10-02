@@ -90,7 +90,7 @@ class BookingsController extends \BaseController
                 'data' => $data,
                 'clients' => $clients
             ), function ($message) use ($user,$booking){
-                $message->to($user->email,$user->first_name)->subject('Booking Created : '.$booking->reference_number);
+                $message->to('sarada@exotic-intl.com',$user->first_name)->subject('Booking Created : '.$booking->reference_number);
             });
 
         };

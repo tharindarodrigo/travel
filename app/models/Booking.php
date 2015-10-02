@@ -22,7 +22,7 @@ class Booking extends \Eloquent
      * Functions
      */
 
-    public static function emailBookingDetails($bookingId, $view = 'emails.bookings.bookingAmendment', $subject = 'Booking Amendment - Ref No: ')
+    public static function emailBookingDetails($bookingId, $view = 'emails.emailMaster', $subject = 'Booking Amendment - Ref No: ')
     {
         $bookingInfo = Booking::with('client')->with('flightDetail')->where('id', $bookingId)->first();
 
@@ -33,7 +33,7 @@ class Booking extends \Eloquent
         $mail = Mail::send($view, array(
             'booking' => $booking
         ), function ($message) use ($user, $booking, $subject) {
-            $message->to($user->email, $user->first_name)->subject($subject.$booking['reference_number']);
+            $message->to('tharindarodrigo@gmail.com', $user->first_name)->subject($subject.$booking['reference_number']);
         });
 
         if ($mail) {
