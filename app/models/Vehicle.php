@@ -1,13 +1,20 @@
 <?php
 
-class Vehicle extends \Eloquent {
+class Vehicle extends \Eloquent
+{
 
-	// Add your validation rules here
-	public static $rules = [
-		// 'title' => 'required'
-	];
+    // Add your validation rules here
+    public static $rules = [
+        // 'title' => 'required'
+    ];
 
-	// Don't forget to fill this array
-	protected $fillable = [];
+    // Don't forget to fill this array
+    protected $fillable = [];
+
+    public function transportPackage()
+    {
+        return $this->hasMany('TransportPackage');
+    }
+
 
 }

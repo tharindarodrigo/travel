@@ -34,5 +34,8 @@ class City extends \Eloquent {
         return $cityList;
     }
 
+    public function transportPackage(){
+        return $this->hasMany('transportPackage');
+    }
 
 }

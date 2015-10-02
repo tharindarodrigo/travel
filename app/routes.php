@@ -220,7 +220,6 @@ Route::group(array('prefix' => 'control-panel'), function () {
     ));
 
 
-
     /**
      * -------------------------------------------------------------------------------------------------------------
      *  control-panel/agents
@@ -343,8 +342,8 @@ Route::group(array('prefix' => 'control-panel'), function () {
 //    End Control Panel                                                                                                |
 //=====================================================================================================================|
 
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
+/***********************************************************************************************************************/
+/***********************************************************************************************************************/
 
 //=====================================================================================================================|
 //    Front End                                                                                                    |
@@ -357,44 +356,41 @@ Route::get('/', array(
 ));
 
 //Bookings
-Route::resource('bookings','BookingsController');
+Route::resource('bookings', 'BookingsController');
 
-Route::resource('bookings.clients','ClientsController');
-Route::resource('bookings.flightDetails','FlightDetailsController');
+Route::resource('bookings.clients', 'ClientsController');
+Route::resource('bookings.flightDetails', 'FlightDetailsController');
 
 Route::post('/bookings/create-client', 'BookingsController@addClient');
 Route::post('/bookings/destroy-client', 'BookingsController@destroyClient');
 Route::post('/bookings/get-clients', 'BookingsController@getClientList');
 
 
-
-Route::get('/my-bookings',function(){
+Route::get('/my-bookings', function () {
     return View::make('agent-bookings.bookings');
 });
 
 
-Route::resource('transportation','TransportationController');
+Route::resource('transportation', 'TransportationController');
 
 Route::get('/email-check',function(){
     return View::make('emails.book.booking');
 });
 
-//tourism details dowmload
+//tourism details download
 
-Route::get('/tdl-download', function()
-{
-    $file= public_path(). "/images/TDL.jpg";
+Route::get('/tdl-download', function () {
+    $file = public_path() . "/images/TDL.jpg";
     $headers = array(
         'Content-Type: image/jpeg',
     );
     return Response::download($file, 'TDL.jpg', $headers);
 });
 
-//ebrocher download
+//e-brocher download
 
-Route::get('/ebrocher-download', function()
-{
-    $file= public_path(). "/images/ebrocher.pdf";
+Route::get('/ebrocher-download', function () {
+    $file = public_path() . "/images/ebrocher.pdf";
     $headers = array(
         'Content-Type: application/pdf',
     );
@@ -420,25 +416,24 @@ Route::get('/about', function () {
     return View::make('pages.about');
 });
 
-
 /****** Route for tourism ******/
 
-Route::get('/tourism-in-srilanka', array(
-    'as' => 'tourism-in-srilanka',
+Route::get('/tourism-in-sri-lanka', array(
+    'as' => 'tourism-in-sri-lanka',
     'uses' => 'PageController@tourismInSrilanka'
 ));
 
 /****** Route srilanka advice ******/
 
 Route::get('/sri-lanka-advice', array(
-    'as' => 'srilanka-advice',
+    'as' => 'sri-lanka-advice',
     'uses' => 'PageController@srilankaAdvance'
 ));
 
 /****** Route for about-srilanka ******/
 
-Route::get('/about-srilanka', array(
-    'as' => 'about-srilanka',
+Route::get('/about-sri-lanka', array(
+    'as' => 'about-sri-lanka',
     'uses' => 'PageController@aboutSrilanka'
 ));
 
@@ -491,10 +486,9 @@ Route::get('/403', array(
 ));
 
 
-
-/**********************************************************************************/
-/*------------------------- Tour List -------------------------------*/
-/**********************************************************************************/
+//=====================================================================================================================|
+/*------------------------- Excursion List -------------------------------*/
+//=====================================================================================================================|
 
 Route::get('excursion/sri-lanka/{excursion_type_name?}', array(
     'as' => 'excursion-list',
@@ -522,14 +516,14 @@ Route::post('sri-lanka/get_excursion_total', array(
 ));
 
 
-/**********************************************************************************/
-/*------------------------- End Of Tour List -------------------------------*/
-/**********************************************************************************/
+//=====================================================================================================================|
+/*------------------------- End Of Excursion List -------------------------------*/
+//=====================================================================================================================|
 
 
-/**********************************************************************************/
+//=====================================================================================================================|
 /*------------------------- Tour List -------------------------------*/
-/**********************************************************************************/
+//=====================================================================================================================|
 
 Route::any('tour/sri-lanka/{tour_name?}', array(
     'as' => 'tour-list',
@@ -546,14 +540,45 @@ Route::any('sri-lanka/tour/filter', array(
     'uses' => 'TourController@viewFilter'
 ));
 
-/**********************************************************************************/
+//=====================================================================================================================|
 /*------------------------- End Of Tour List -------------------------------*/
-/**********************************************************************************/
+//=====================================================================================================================|
 
 
-/**********************************************************************************/
+//=====================================================================================================================|
+/*------------------------- Transport  -------------------------------*/
+//=====================================================================================================================|
+
+//transport list
+
+Route::any('transport-list', array(
+    'as' => 'transport-list',
+    'uses' => 'TransportPackagesController@transportList'
+));
+
+// transport search
+
+Route::any('sri-lanka/transport-search', array(
+    'as' => 'search',
+    'uses' => 'TransportPackagesController@viewSearch'
+));
+
+// create transport
+
+Route::any('create-my-trip', array(
+    'as' => 'create-my-trip',
+    'uses' => 'TransportPackagesController@viewFilter'
+));
+
+
+//=====================================================================================================================|
+/*------------------------- End Of Transport  -------------------------------*/
+//=====================================================================================================================|
+
+
+//=====================================================================================================================|
 /*------------------------------ Hotel List --------------------------------*/
-/**********************************************************************************/
+//=====================================================================================================================|
 
 /************* Create Booking Cart ********************/
 
@@ -569,15 +594,15 @@ Route::post('/get_cart_item/delete', 'CartController@cartItemDelete');
 /************* Grid View ********************/
 
 Route::any('grid/view/{country}/{grid_city_or_acc}', array(
-    'as' => 'search',
+    'as' => 'hotel-grid-view',
     'uses' => 'HotelController@gridView'
 ));
 
 
 /************* search link ********************/
 
-Route::any('sri-lanka/search', array(
-    'as' => 'search1',
+Route::any('sri-lanka/hotel-search', array(
+    'as' => 'search',
     'uses' => 'HotelController@viewSearch'
 ));
 
@@ -631,20 +656,19 @@ Route::post('/get_map', array(
 ));
 
 
-/**********************************************************************************/
+//=====================================================================================================================|
 /*------------------------- End Of Hotel List -------------------------------*/
-/**********************************************************************************/
+//=====================================================================================================================|
 
 
-
-/**********************************************************************************/
+//=====================================================================================================================|
 /*------------------------- Online Payment -------------------------------*/
-/**********************************************************************************/
+//=====================================================================================================================|
 
 
 // Online Hotel Payments
 
-Route::any('/online-hotelas-payments', array(
+Route::any('/online-hotel-payments', array(
     'as' => 'online-hotel-payments',
     'uses' => 'HotelController@hotelDetail'
 ));

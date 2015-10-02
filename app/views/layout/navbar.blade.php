@@ -270,7 +270,15 @@
                         </ul>
                     </li>
 
-                    <li><a href="#">Transportation</a></li>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"> Transportation </a>
+                        <ul class="dropdown-menu" style="margin-right: -100px; padding: 5px 20px">
+                                <li>
+                                    <a href="{{ URL::to('transport-list') }}"> Predefined Packages </a>
+                                    <a href="{{ URL::to('transport-list') }}"> Create My Trip </a>
+                                </li>
+                        </ul>
+                    </li>
 
                     {{--<li><a href="#">Flights</a></li>--}}
 

@@ -14,4 +14,5 @@ class TourType extends \Eloquent {
         return $this->belongsTo('tour');
     }
 
+
 }
