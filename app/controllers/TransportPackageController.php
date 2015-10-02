@@ -1,6 +1,6 @@
 <?php
 
-class TransportPackagesController extends \BaseController {
+class TransportPackageController extends \BaseController {
 
 	/**
 	 * Display a listing of transportpackages
