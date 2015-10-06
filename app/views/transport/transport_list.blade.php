@@ -96,20 +96,20 @@
 
                 <div class="bookfilters hpadding20">
 
-                    <div class="w50percent">
+                    <div class="w50percentlast">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                <span class="hotel-ico"></span> Hotels
+                                <input type="radio" name="optionsRadios" id="optionsRadios44" value="option4" checked>
+                                <span class="car-ico"></span> Transport
                             </label>
                         </div>
                     </div>
 
-                    <div class="w50percentlast">
+                    <div class="w50percent">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
-                                <span class="car-ico"></span> Transport
+                                <input type="radio" name="optionsRadios" id="optionsRadios11" value="option1">
+                                <span class="hotel-ico"></span> Hotels
                             </label>
                         </div>
                     </div>
@@ -117,9 +117,9 @@
                     <div class="clearfix"></div>
 
                     <!-- HOTELS TAB -->
-                    {{ Form::open(array('url' => 'sri-lanka/hotel-search', 'files'=> true, 'id' => 'searchform', 'method' => 'POST', )) }}
+                    {{ Form::open(array('url' => 'sri-lanka/hotel-search', 'files'=> true, 'id' => 'hotel_search_form', 'method' => 'POST', )) }}
 
-                    <div class="hotelstab2 none">
+                    <div class="carstab2 none">
                         <span class="opensans size13">Where do you want to go?</span>
 
                         <input type="text" class="form-control" name="txt-search" id="inputString" category=""
@@ -205,10 +205,9 @@
                     <!-- END OF HOTELS TAB -->
 
                     <!-- TRANSPORT TAB -->
+                    {{ Form::open(array('url' => 'sri-lanka/transport-search', 'files'=> true, 'id' => 'transport_search_form', 'method' => 'POST', )) }}
 
-                    {{ Form::open(array('url' => 'sri-lanka/transport-search', 'files'=> true, 'id' => 'searchform', 'method' => 'POST', )) }}
-
-                    <div class="carstab2 none">
+                    <div class="hotelstab2 none">
                         <div class="w50percent">
                             <div class="wh90percent textleft">
                                 <span class="opensans size13">Picking up</span>
@@ -368,8 +367,6 @@
                 <!-- END OF BOOK FILTERS -->
                 <div class="line2"></div>
 
-                <?php $city_or_acc = Request::segment(2); ?>
-
                 <div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
                 <div class="line2"></div>
 
@@ -378,15 +375,16 @@
                     Price range <span class="collapsearrow"></span>
                 </button>
 
-                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'price_range_form')) }}
+                {{ Form::open(array('url' => '/transport-list', 'method' => 'POST', 'id'=>'price_range_form_transport')) }}
 
                 <div id="collapse2" class="collapse in">
                     <div class="padding20">
                         <div class="layout-slider wh100percent">
 
                             <span class="cstyle09">
-                                <input id="Slider1" class="price_range_select" type="slider" name="price_range"
-                                       value="{{ $min_hot_rate }}; {{ $max_hot_rate }} "/>
+                                <input id="Slider1" class="price_range_select" type="slider"
+                                       name="price_range_transport"
+                                       value="{{ $min_trans_rate }}; {{ $max_trans_rate }} "/>
                             </span>
                             <br/><br/>
                             <button type="submit" class="btn-search4">Update</button>
@@ -398,12 +396,12 @@
                         {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
                         <!-- end -->
 
-                        {{ Form::hidden('min_hot_rate', $min_hot_rate, array('id' => 'min_rate_slider')) }}
-                        {{ Form::hidden('max_hot_rate', $max_hot_rate, array('id' => 'max_rate_slider')) }}
+                        {{ Form::hidden('min_trans_rate', $min_trans_rate, array('id' => 'min_trans_rate')) }}
+                        {{ Form::hidden('max_trans_rate', $max_trans_rate, array('id' => 'max_trans_rate')) }}
 
                         <script type="text/javascript">
-                            var min = parseInt($('#min_rate_slider').val());
-                            var max = parseInt($('#max_rate_slider').val());
+                            var min = parseInt($('#min_trans_rate').val());
+                            var max = parseInt($('#max_trans_rate').val());
                             jQuery("#Slider1").slider({
                                 from: min,
                                 to: max,
@@ -423,204 +421,65 @@
 
                 <div class="line2"></div>
 
-                <!-- Star ratings -->
-                <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse1">
-                    Star rating <span class="collapsearrow"></span>
+
+                <!-- Transport Type -->
+                <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
+                    Transport <span class="collapsearrow"></span>
                 </button>
-                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'star_rating_form')) }}
-                <div id="collapse1" class="collapse in">
+                {{ Form::open(array('url' => '/transport-list', 'method' => 'POST', 'id'=>'accommodation_form')) }}
+                <div id="collapse3" class="collapse in">
                     <div class="hpadding20">
-                        <div class="checkbox">
+                        <div class="radio">
                             <label>
-                                <input type="checkbox" value="5" name="star_rating[]"
-                                       class="star_category" @if(Session::has('star')){{ array_key_exists(7, Session::get('star')) ? 'checked':'' }}@endif >
-                                {{ HTML::image('images/filter-rating-5.png', '', array('class' => 'imgpos1'))}}
-                                5 Stars
+                                <input type="radio" name="transport_type" id="predefine_transport"
+                                       value="1"
+                                       class="transport_type_select" {{ true ? 'checked':'' }}>
+                                Predefined Packages
                             </label>
                         </div>
-                        <div class="checkbox">
-                            <input type="checkbox" value="4" name="star_rating[]"
-                                   class="star_category" @if(Session::has('star')){{ array_key_exists(5, Session::get('star')) ? 'checked':'' }}@endif >
+
+                        <div class="radio">
                             <label>
-                                {{ HTML::image('images/filter-rating-4.png', '', array('class' => 'imgpos1'))}}
-                                4 Stars
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <input type="checkbox" value="3" name="star_rating[]"
-                                   class="star_category" @if(Session::has('star')){{ array_key_exists(3, Session::get('star')) ? 'checked':'' }}@endif >
-                            <label>
-                                {{ HTML::image('images/filter-rating-3.png', '', array('class' => 'imgpos1'))}}
-                                3 Stars
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <input type="checkbox" value="2" name="star_rating[]"
-                                   class="star_category" @if(Session::has('star')){{ array_key_exists(2, Session::get('star')) ? 'checked':'' }}@endif >
-                            <label>
-                                {{ HTML::image('images/filter-rating-2.png', '', array('class' => 'imgpos1'))}}
-                                2 Stars
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <input type="checkbox" value="1" name="star_rating[]"
-                                   class="star_category" @if(Session::has('star')){{ array_key_exists(1, Session::get('star')) ? 'checked':'' }}@endif >
-                            <label>
-                                {{ HTML::image('images/filter-rating-1.png', '', array('class' => 'imgpos1'))}}
-                                1 Star
+                                <input type="radio" name="transport_type" id="create_my_trip"
+                                       value="2"
+                                       class="transport_type_select" {{ true ? '':'checked' }}>
+                                Create My Trip
                             </label>
                         </div>
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <!-- End of Star ratings -->
+                <!-- End of Transport Type -->
                 {{ Form::close() }}
 
                 <div class="line2"></div>
 
-                <!-- Accommodation -->
-                <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
-                    Accommodation type <span class="collapsearrow"></span>
+                <!-- Vehicles -->
+                <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse1">
+                    Vehicles <span class="collapsearrow"></span>
                 </button>
-                {{ Form::open(array('url' => '/sri-lanka/filter', 'method' => 'POST', 'id'=>'accommodation_form')) }}
-                <div id="collapse3" class="collapse in">
+                {{ Form::open(array('url' => '/transport-list', 'method' => 'POST', 'id'=>'vehicle_select_form')) }}
+                <div id="collapse1" class="collapse in">
                     <div class="hpadding20">
-                        <?php $x = 1; ?>
-                        @foreach($hotel_type as $accommodation)
-                            <div class="radio">
+                        <?php  $t = 0; ?>
+                        @foreach($vehicles as $vehicle)
+                            <div class="checkbox">
                                 <label>
-                                    <input type="radio" name="accommodation" id="Acomodation{{ $x }}"
-                                           value="{{ $accommodation->id }}"
-                                           class="acc_select" {{ $accommodation->id == Session::get('accommodation') ? 'checked':'' }}>
-                                    {{ $accommodation->hotel_category }}
+                                    <input type="checkbox" value="{{ $vehicle->id }}" name="vehicle[]"
+                                           class="vehicle_select">
+                                    {{ $vehicle->vehicle_type }}
                                 </label>
                             </div>
-                            <?php $x++ ?>
+                            <?php  $t = $t + 1; ?>
                         @endforeach
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <!-- End of Accommodations -->
+                <!-- End of Vehicles -->
                 {{ Form::close() }}
+
                 <div class="line2"></div>
 
-                <!-- Hotel Preferences -->
-                <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse4">
-                    Hotel Facilities <span class="collapsearrow"></span>
-                </button>
-                {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'facility_form')) }}
-                <div id="collapse4" class="collapse in">
-
-                    <div class="hpadding20">
-
-                        <div id="facility_half">
-                            <?php  $y = 0; ?>
-                            @foreach($hotel_facilities as $facility)
-                                @if($y < 5)
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" value="{{ $facility->id }}" name="facility[]"
-                                                   class="hot_facility" {{ 'as' }}>
-                                            {{ $facility->hotel_facility }}
-                                        </label>
-                                    </div>
-                                @endif
-                                <?php  $y = $y + 1; ?>
-                            @endforeach
-
-                            <a id="facility_readmore" style="text-align: right" class="last" data-toggle="collapse"
-                               data-target="#collapse6">
-                                <h6>More</h6>
-                            </a>
-                        </div>
-
-                        <div id="facility_full">
-                            <div id="collapse6" class="collapse">
-                                @foreach($hotel_facilities as $facility)
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" value="{{ $facility->id }}" name="facility[]"
-                                                   class="hot_facility">
-                                            {{ $facility->hotel_facility }}
-                                        </label>
-                                    </div>
-                                @endforeach
-                            </div>
-                            <a href="#facility_half" id="facility_readless" style="text-align: right" class="last"
-                               data-toggle="collapse"
-                               data-target="#collapse6">
-                                <h6>Less</h6>
-                            </a>
-                        </div>
-
-                    </div>
-
-                    <div class="clearfix"></div>
-                </div>
-                <!-- End of Hotel Preferences -->
-                {{ Form::close() }}
-                <div class="line2"></div>
-
-                <!-- Cities -->
-                <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse5">
-                    Cities <span class="collapsearrow"></span>
-                </button>
-                {{ Form::open(array('url' => '/sri-lanka/filter', 'method' => 'POST', 'id'=>'city_form')) }}
-
-                <div id="collapse5" class="collapse in">
-                    <div class="hpadding20">
-
-                        <div id="city_half">
-                            <?php  $z = 0; ?>
-                            @foreach($hotel_cities as $city)
-                                @if($z < 5)
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="city" id="City{{ $x }}"
-                                                   value="{{ $city->id }}"
-                                                   class="city_select" {{ $city->id == Session::get('city') ? 'checked':'' }}>
-                                            {{ $city->city }}
-                                        </label>
-                                    </div>
-                                    <?php  $z = $z + 1; ?>
-                                @endif
-                            @endforeach
-
-                            <a id="city_readmore" style="text-align: right" class="last"
-                               data-toggle="collapse"
-                               data-target="#collapse7">
-                                <h6>More</h6>
-                            </a>
-
-                        </div>
-
-                        <div id="city_full">
-                            <div id="collapse7" class="collapse">
-                                @foreach($hotel_cities as $city)
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="city" id="City{{ $x }}"
-                                                   value="{{ $city->id }}"
-                                                   class="city_select" {{ $city->id == Session::get('city') ? 'checked':'' }}>
-                                            {{ $city->city }}
-                                        </label>
-                                    </div>
-                                @endforeach
-
-                                <a href="#city_full" id="city_readless" style="text-align: right" class="last"
-                                   data-toggle="collapse"
-                                   data-target="#collapse7">
-                                    <h6>Less</h6>
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <!-- End of Cities -->
-                {{ Form::close() }}
-                <div class="line2"></div>
                 <div class="clearfix"></div>
                 <br/>
                 <br/>
@@ -777,6 +636,8 @@
 
                 <div class="hpadding20 right">
                     {{ $transport_packages->links() }}
+                    <br/>
+                    <br/>
                 </div>
 
             </div>
@@ -797,6 +658,9 @@
 
         <!-- Counter -->
         {{ HTML::script('assets/js/counter.js') }}
+
+        <!-- Custom js -->
+        {{ HTML::script('js/my_script.js') }}
 
     @endsection
 

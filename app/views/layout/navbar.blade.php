@@ -275,7 +275,7 @@
                         <ul class="dropdown-menu" style="margin-right: -100px; padding: 5px 20px">
                                 <li>
                                     <a href="{{ URL::to('transport-list') }}"> Predefined Packages </a>
-                                    <a href="{{ URL::to('transport-list') }}"> Create My Trip </a>
+                                    <a href="{{ URL::to('create-my-trip') }}"> Create My Trip </a>
                                 </li>
                         </ul>
                     </li>

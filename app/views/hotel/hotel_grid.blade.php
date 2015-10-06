@@ -146,10 +146,6 @@
             color: #000000;
         }
 
-        .grey:hover {
-            color: #000000;
-        }
-
     </style>
 
 @endsection

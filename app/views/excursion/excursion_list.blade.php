@@ -12,10 +12,6 @@
 
     <style type="text/css">
 
-        .grey:hover {
-            color: #000000;
-        }
-
         .collapsebtn {
             background: #006699;
             color: #FFFFFF;
@@ -25,10 +21,15 @@
             color: #006699;
         }
 
-    </style>
+        .excursion_short p, li{
+            color: #999;
+        }
 
-    <!-- Updates -->
-    {{ HTML::style('updates/update1/css/style01.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+        .labelleft2 p:hover, li:hover{
+            color: #000000;
+        }
+
+    </style>
 
     <!-- bin/jquery.slider.min.css -->
     {{ HTML::style('plugins/jslider/css/jslider.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
@@ -199,6 +200,7 @@
                             </div>
                         </div>
                         <input type="hidden" name="city_or_acc_hidden" value="{{ $city = Request::segment(2); }}"/>
+
                         <div class="clearfix"></div>
                         <div class="clearfix pbottom15"></div>
 
@@ -506,9 +508,10 @@
 
                                         <div class="line4"></div>
 
-                                        <p class="grey size14 lh6">
+                                        <div class="excursion_short">
                                             {{ $excursion->short_description }}.
-                                        </p><br/>
+                                        </div>
+                                        <br/>
 
                                     </div>
                                 </div>

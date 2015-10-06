@@ -1,5 +1,5 @@
 <style type="text/css">
-    hr {
+    .footerbgblack hr {
         margin: 0px;
     }
 
@@ -15,11 +15,11 @@
         font-size: 14px;
     }
 
-    .grey:hover {
+    .footerbgblack .grey:hover {
         color: #0099cc;
     }
 
-    h5 {
+    .footerbgblack h5 {
         color: #999;
         line-height: 3px;
     }

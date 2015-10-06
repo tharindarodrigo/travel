@@ -373,7 +373,7 @@ Route::get('/my-bookings', function () {
 
 Route::resource('transportation', 'TransportationController');
 
-Route::get('/email-check',function(){
+Route::get('/email-check', function () {
     return View::make('emails.book.booking');
 });
 
@@ -553,21 +553,21 @@ Route::any('sri-lanka/tour/filter', array(
 
 Route::any('transport-list', array(
     'as' => 'transport-list',
-    'uses' => 'TransportPackagesController@transportList'
+    'uses' => 'TransportPackageController@transportList'
 ));
 
 // transport search
 
 Route::any('sri-lanka/transport-search', array(
-    'as' => 'search',
-    'uses' => 'TransportPackagesController@viewSearch'
+    'as' => 'transport-search',
+    'uses' => 'TransportPackageController@viewSearch'
 ));
 
 // create transport
 
 Route::any('create-my-trip', array(
     'as' => 'create-my-trip',
-    'uses' => 'TransportPackagesController@viewFilter'
+    'uses' => 'TransportPackageController@createMyTrip'
 ));
 
 
@@ -589,7 +589,14 @@ Route::get('/booking-cart', array(
     'uses' => 'CartController@bookingCart'
 ));
 
+// Delete Hotel From Cart
+
 Route::post('/get_cart_item/delete', 'CartController@cartItemDelete');
+
+// Delete Room from cart
+
+Route::post('/get_cart_single_item/delete', 'CartController@singleCartItemDelete');
+
 
 /************* Grid View ********************/
 
@@ -601,8 +608,8 @@ Route::any('grid/view/{country}/{grid_city_or_acc}', array(
 
 /************* search link ********************/
 
-Route::any('sri-lanka/hotel-search', array(
-    'as' => 'search',
+Route::any('sri-lanka/search', array(
+    'as' => 'hotel-search',
     'uses' => 'HotelController@viewSearch'
 ));
 

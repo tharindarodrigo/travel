@@ -117,13 +117,11 @@ class HotelController extends \BaseController
         }
 
         if (Input::has('price_range')) {
-
             $price_range_array = Input::get('price_range');
             $price_range = explode(';', $price_range_array);
 
             $min_rate = $price_range[0];
             $max_rate = $price_range[1];
-
         } else {
             $min_rate = 0;
             $max_rate = 10000000;

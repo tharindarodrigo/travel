@@ -329,7 +329,7 @@ jQuery(document).ready(function(){
 		jQuery('.flightcartab2').addClass('none');								
 		jQuery('.hotelcartab2').addClass('none');									
 		mySelectUpdate();
-	});	
+	});
 	jQuery( "#optionsRadios5" ).click(function() {
 	"use strict";
 		jQuery('.hotelstab2').addClass('none');
@@ -394,7 +394,35 @@ jQuery(document).ready(function(){
 		jQuery('.flightcartab2').addClass('none');								
 		jQuery('.hotelcartab2').removeClass('none');									
 		mySelectUpdate();
-	});	
+	});
+
+
+    jQuery( "#optionsRadios11" ).click(function() {
+        "use strict";
+        jQuery('.hotelstab2').removeClass('none');
+        jQuery('.flightstab2').addClass('none');
+        jQuery('.vacationstab2').addClass('none');
+        jQuery('.carstab2').addClass('none');
+        jQuery('.cruisestab2').addClass('none');
+        jQuery('.flighthotelcartab2').addClass('none');
+        jQuery('.flighthoteltab2').addClass('none');
+        jQuery('.flightcartab2').addClass('none');
+        jQuery('.hotelcartab2').addClass('none');
+        mySelectUpdate();
+    });
+    jQuery( "#optionsRadios44" ).click(function() {
+        "use strict";
+        jQuery('.hotelstab2').addClass('none');
+        jQuery('.flightstab2').addClass('none');
+        jQuery('.vacationstab2').addClass('none');
+        jQuery('.carstab2').removeClass('none');
+        jQuery('.cruisestab2').addClass('none');
+        jQuery('.flighthotelcartab2').addClass('none');
+        jQuery('.flighthoteltab2').addClass('none');
+        jQuery('.flightcartab2').addClass('none');
+        jQuery('.hotelcartab2').addClass('none');
+        mySelectUpdate();
+    });
 
 });
 

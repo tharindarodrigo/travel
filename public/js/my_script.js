@@ -40,29 +40,29 @@ $('.acc_select').click(function () {
     var accommodation = $('input[name=accommodation]:checked').map(function () {
         return $(this).val();
     }).get();
-    $('#accommodation_form').submit()
+    $('#accommodation_form').submit();
 });
 
 $('.city_select').click(function () {
     var city = $('input[name=city]:checked').map(function () {
         return $(this).val();
     }).get();
-    $('#city_form').submit()
+    $('#city_form').submit();
 });
 
 $('.hot_facility').click(function () {
     var facilities = $('input[name=facility]:checked').map(function () {
         return $(this).val();
     }).get();
-    $('#facility_form').submit()
+    $('#facility_form').submit();
 });
 
 
 $('.price_range_select').slider({
-        change: function(event, ui) {
-            alert(ui.value);
-        }
-    });
+    change: function (event, ui) {
+        alert(ui.value);
+    }
+});
 
 
 /**************************************** END OF HOTEL LIST ******************************************************************/
@@ -75,7 +75,7 @@ $('.tour_select').click(function () {
     var tour_type = $('input[name=tour]:checked').map(function () {
         return $(this).val();
     }).get();
-    $('#tour_form').submit()
+    $('#tour_form').submit();
 });
 
 /**************************************** END TOUR LIST ******************************************************************/
@@ -86,8 +86,19 @@ $('.excursion_select').click(function () {
     var excursion_type = $('input[name=excursion]:checked').map(function () {
         return $(this).val();
     }).get();
-    $('#excursion_form').submit()
+    $('#excursion_form').submit();
 });
 
 
 /**************************************** END EXCURSION LIST ******************************************************************/
+
+/**************************************** TRANSPORT LIST ******************************************************************/
+
+$('.vehicle_select').click(function () {
+    var vehicle = $('input[name=city]:checked').map(function () {
+        return $(this).val();
+    }).get();
+    $('#vehicle_select_form').submit();
+});
+
+

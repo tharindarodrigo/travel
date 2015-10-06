@@ -1,115 +1,93 @@
-<?php
-
-class TransportPackagesController extends \BaseController
-{
-
 /**
- * Display a listing of transportpackages
- *
- * @return Response
+* Created by thilina on 2015-08-12.
 */
-public function transportList()
-{
-$transport_packages = Transportpackage::paginate(9);
 
-$min_trans_rate = Transportpackage::min('rate');
 
-return View::make('transport.transport_list')
-->with(
-array(
+/**************************************** AUTO COMPLETE  ******************************************************************/
 
-'transport_packages' => $transport_packages,
+function lookup(inputString) {
+if (inputString.length == 0) {
+$('#suggestions').fadeOut(); // Hide the suggestions box
+} else {
+$.post("http://" + window.location.host + "/auto-complete", {queryString: "" + inputString + ""}, function (data) { // Do an AJAX call
+$('#suggestions').fadeIn(); // Show the suggestions box
+$('#suggestions').html(data); // Fill the suggestions box
 
-)
-);
+$('a').click(function () {
+$value = $(this).attr('value');
+$category = $(this).attr('category');
+$('#inputString').val($value);
+$('#inputString').attr('category', $category);
+$('#suggestions').fadeOut();
+});
+});
 }
-
-/**
-* Show the form for creating a new transportpackage
-*
-* @return Response
-*/
-public function create()
-{
-return View::make('transportpackages.create');
 }
+/**************************************** END OF AUTO COMPLETE ******************************************************************/
 
-/**
-* Store a newly created transportpackage in storage.
-*
-* @return Response
-*/
-public function store()
-{
-$validator = Validator::make($data = Input::all(), Transportpackage::$rules);
 
-if ($validator->fails()) {
-return Redirect::back()->withErrors($validator)->withInput();
+/**************************************** HOTEL LIST ******************************************************************/
+
+
+$('.star_category').click(function () {
+var star = $('input[name=star_rating]:checked').map(function () {
+return $(this).val();
+}).get();
+$('#star_rating_form').submit();
+});
+
+$('.acc_select').click(function () {
+var accommodation = $('input[name=accommodation]:checked').map(function () {
+return $(this).val();
+}).get();
+$('#accommodation_form').submit()
+});
+
+$('.city_select').click(function () {
+var city = $('input[name=city]:checked').map(function () {
+return $(this).val();
+}).get();
+$('#city_form').submit()
+});
+
+$('.hot_facility').click(function () {
+var facilities = $('input[name=facility]:checked').map(function () {
+return $(this).val();
+}).get();
+$('#facility_form').submit()
+});
+
+
+$('.price_range_select').slider({
+change: function(event, ui) {
+alert(ui.value);
 }
+});
 
-Transportpackage::create($data);
 
-return Redirect::route('transportpackages.index');
-}
+/**************************************** END OF HOTEL LIST ******************************************************************/
 
-/**
-* Display the specified transportpackage.
-*
-* @param  int $id
-* @return Response
-*/
-public function show($id)
-{
-$transportpackage = Transportpackage::findOrFail($id);
 
-return View::make('transportpackages.show', compact('transportpackage'));
-}
+/**************************************** TOUR LIST ******************************************************************/
 
-/**
-* Show the form for editing the specified transportpackage.
-*
-* @param  int $id
-* @return Response
-*/
-public function edit($id)
-{
-$transportpackage = Transportpackage::find($id);
 
-return View::make('transportpackages.edit', compact('transportpackage'));
-}
+$('.tour_select').click(function () {
+var tour_type = $('input[name=tour]:checked').map(function () {
+return $(this).val();
+}).get();
+$('#tour_form').submit()
+});
 
-/**
-* Update the specified transportpackage in storage.
-*
-* @param  int $id
-* @return Response
-*/
-public function update($id)
-{
-$transportpackage = Transportpackage::findOrFail($id);
+/**************************************** END TOUR LIST ******************************************************************/
 
-$validator = Validator::make($data = Input::all(), Transportpackage::$rules);
+/**************************************** EXCURSION LIST ******************************************************************/
 
-if ($validator->fails()) {
-return Redirect::back()->withErrors($validator)->withInput();
-}
+$('.excursion_select').click(function () {
+var excursion_type = $('input[name=excursion]:checked').map(function () {
+return $(this).val();
+}).get();
+$('#excursion_form').submit()
+});
 
-$transportpackage->update($data);
 
-return Redirect::route('transportpackages.index');
-}
-
-/**
-* Remove the specified transportpackage from storage.
-*
-* @param  int $id
-* @return Response
-*/
-public function destroy($id)
-{
-Transportpackage::destroy($id);
-
-return Redirect::route('transportpackages.index');
-}
-
-}
+/**************************************** END EXCURSION LIST ******************************************************************/

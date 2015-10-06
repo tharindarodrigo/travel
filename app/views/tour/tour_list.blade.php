@@ -11,10 +11,6 @@
 @section('custom_style')
 
     <style type="text/css">
-        .grey:hover {
-            color: #000000;
-        }
-
         .collapsebtn {
             background: #006699;
             color: #FFFFFF;
@@ -25,9 +21,6 @@
         }
 
     </style>
-
-    <!-- Updates -->
-    {{ HTML::style('updates/update1/css/style01.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
     <!-- bin/jquery.slider.min.css -->
     {{ HTML::style('plugins/jslider/css/jslider.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}

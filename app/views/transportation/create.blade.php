@@ -10,9 +10,9 @@
 
 @section('bread-crumbs')
     <li>/</li>
-    <li>{{link_to_route(reservations, 'Bookings')}}</li>
+{{--    <li>{{link_to_route('reservations', 'Bookings')}}</li>--}}
     <li>/</li>
-    <li>{{link_to_route('bookings.create', 'create')}}</li>
+{{--    <li>{{link_to_route('bookings.create', 'create')}}</li>--}}
 @endsection
 
 @section('body-content')
@@ -55,7 +55,9 @@
 @endsection
 
 @section('transportation-scripts')
+
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
 
@@ -80,47 +82,47 @@ var markers = [{
 
 loadMap(markers);
 
-//    $('#from').change(function(){
-//        var from = $(this).val();
-//
-//        var start = from.split(',');
-//
-//        markers[0] = {
-//             "title": '1',
-//             "lat": start[0],
-//             "lng": start[1],
-//             "description":'1'
-//        };
-//        //console.log(markers);
-//        loadMap();
-//    });
-//
-//    $('#to').change(function(){
-//        var to = $(this).val();
-//
-//        var destination = to.split(',');
-//        markers[1] = {
-//            "title": '2',
-//            "lat": destination[0],
-//            "lng": destination[1],
-//            "description":'2'
-//        };
-//        //markers.push(mark);
-//        loadMap();
-//    });
-//
-//    $('.destination').change(function(){
-//        var destination_id = $(this).attr('id');
-//        var destination = to.split(',');
-//            markers[destination_id] = {
-//                "title": '2',
-//                "lat": destination[0],
-//                "lng": destination[1],
-//                "description":'2'
-//            };
-//            //markers.push(mark);
-//            loadMap();
-//    });
+    $('#from').change(function(){
+        var from = $(this).val();
+
+        var start = from.split(',');
+
+        markers[0] = {
+             "title": '1',
+             "lat": start[0],
+             "lng": start[1],
+             "description":'1'
+        };
+        //console.log(markers);
+        loadMap();
+    });
+
+    $('#to').change(function(){
+        var to = $(this).val();
+
+        var destination = to.split(',');
+        markers[1] = {
+            "title": '2',
+            "lat": destination[0],
+            "lng": destination[1],
+            "description":'2'
+        };
+        //markers.push(mark);
+        loadMap();
+    });
+
+    $('.destination').change(function(){
+        var destination_id = $(this).attr('id');
+        var destination = to.split(',');
+            markers[destination_id] = {
+                "title": '2',
+                "lat": destination[0],
+                "lng": destination[1],
+                "description":'2'
+            };
+            //markers.push(mark);
+            loadMap();
+    });
 
 
 });
