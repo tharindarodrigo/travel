@@ -371,6 +371,9 @@ Route::get('/my-bookings', function () {
 });
 
 
+
+
+
 Route::resource('transportation', 'TransportationController');
 
 Route::get('/email-check', function () {
