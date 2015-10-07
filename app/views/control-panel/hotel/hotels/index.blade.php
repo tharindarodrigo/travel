@@ -9,7 +9,8 @@
                 <h3 class="box-title"><b>Search / Update / Delete</b> Hotel List</h3>
                 {{link_to_route('control-panel.hotel.hotels.create', 'Create New Hotel', null, array('class' =>'btn btn-primary pull-right'))}}
             </div><!-- /.box-header -->
-            <div class="box-body table-responsive">
+            <div class="box-body">
+
                 @if(Session::has('error-msg'))
                     <div class="alert alert-warning alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -17,6 +18,7 @@
                         {{Session::pull('error-msg')}}
                      </div>
                 @endif
+                <div class="table-responsive">
                 <table id="hotel-list" class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -84,6 +86,7 @@
                 </tbody>
                 {{--{{ dd(DB::getQueryLog()) }}--}}
             </table>
+            </div>
         </div><!-- /.box-body -->
     </div><!-- /.box -->
 </div>

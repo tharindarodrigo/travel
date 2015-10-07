@@ -1,0 +1,1 @@
+C:\wamp\www\travel\app/views/invoices/create.blade.php

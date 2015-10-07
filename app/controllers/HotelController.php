@@ -835,14 +835,18 @@ class HotelController extends \BaseController
             'hotel_name' => $hotel_name,
             'hotel_address' => $hotel_address,
             'room_name' => $room_name,
+            'room_type_id'=> $room_id,
             'room_specification' => $room_specification,
             'meal_basis' => $meal_basis,
+            'meal_basis_id' => $meal_basis_id,
             'room_cost' => $room_cost,
             'room_count' => $room_count,
             'adult' => $adult,
             'child' => $child,
             'nights' => $nights,
             'room_identity' => $room_identity,
+            'check_in' => date('Y-m-d',strtotime($st_date)),
+            'check_out' => date('Y-m-d',strtotime($ed_date)),
         );
 
 

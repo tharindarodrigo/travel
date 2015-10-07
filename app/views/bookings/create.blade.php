@@ -84,6 +84,7 @@
                     {{----------------------------------------------------------------------------------------------------------------------------------}}
 
 
+
                     <div class="col-md-3 textright">
                     <span class="size12">&nbsp;</span>
                         <div class="margtop15"><span class="dark">Pax:</span><span class="red">*</span></div>
@@ -178,6 +179,11 @@
                     <br/><br/>
 
                     {{----------------------------------------------------------------------------------------------------------------------------------}}
+
+                    <span class="size16px bold dark left">Flight Details </span>
+                    <div class="roundstep active right">3</div>
+                    <div class="clearfix"></div>
+                    <div class="line4"></div>
 
                     <div class="col-md-3 textright">
                         <span>&nbsp;</span>

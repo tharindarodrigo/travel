@@ -12,7 +12,7 @@
     </tr>
 </thead>
 <tbody>
-@foreach($flightDetails as $flight)
+@foreach($booking->flightDetail as $flight)
 <tr>
     <td>{{$flight->id}}</td>
     <td>{{$flight->date}}</td>

@@ -126,6 +126,7 @@ return array(
         'Intervention\Image\ImageServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
         'DaveJamesMiller\Breadcrumbs\ServiceProvider',
+        'Barryvdh\DomPDF\ServiceProvider',
 
     ),
 
@@ -197,6 +198,7 @@ return array(
         'Entrust' => 'Zizaco\Entrust\EntrustFacade',
         'Carbon' => 'Carbon\Carbon',
         'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
+        'PDF' => 'Barryvdh\DomPDF\Facade',
 
     ),
 

@@ -159,7 +159,7 @@ class HotelsController extends \BaseController
             $checkedhotelcategories[] = $hotelcategory->hotel_category_id;
         }
 
-        $hotelfacilitieslist = HotelFacility::all();
+        $hotelfacilitieslist = HotelFacility::orderBy('hotel_facility','asc')->get();
         $hotelfacilities = DB::table('hotel_hotel_facility')->where('hotel_id', $id)->get(array('hotel_facility_id'));
         $checkedhotelfacilities = array();
         foreach ($hotelfacilities as $hotelfacility) {

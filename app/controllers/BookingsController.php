@@ -24,18 +24,21 @@ class BookingsController extends \BaseController
      */
     public function create()
     {
-        return View::make('bookings.create');
+
+        if(Session::has('rate_box_details') )
+            return View::make('bookings.create');
+        return Redirect::to('/');
+
     }
 
     /**
      * Store a newly created booking in storage.
+     * This includes Clients, FlightDetails
      *
      * @return Response
      */
     public function store()
     {
-
-//dd(Input::all());
 
         $user = Auth::user();
 
@@ -54,46 +57,68 @@ class BookingsController extends \BaseController
         $data['reference_number'] = 123456789;
         $clients = null;
 
-        if ($booking = Booking::create($data)) {
-            if (Session::has('client-list')) {
-                $clients = Session::pull('client-list');
-                //dd($clients);
-                //dd($booking->id);
-                foreach ($clients as $client) {
-                    $client['booking_id'] = $booking->id;
-                    $client['gender'] === 'male' ? $client['gender'] = 1 : $client['gender'] = 0;
-                    Client::create($client);
+        if(Session::has('rate_box_details')){
+
+            if ($booking = Booking::create($data)) {
+                if (Session::has('client-list')) {
+                    $clients = Session::pull('client-list');
+                    //dd($clients);
+                    //dd($booking->id);
+                    foreach ($clients as $client) {
+                        $client['booking_id'] = $booking->id;
+                        $client['gender'] === 'male' ? $client['gender'] = 1 : $client['gender'] = 0;
+                        Client::create($client);
+                    }
                 }
+                $flight_data = [];
+                $flight_data['booking_id'] = $booking->id;
+                //dd($flight_data['booking_id']);
+
+                //arrival flight data
+
+                $flight_data['date'] = $data['date_arrival'];
+                $flight_data['time'] = $data['arrival_time'];
+                $flight_data['flight'] = $data['arrival_flight'];
+                $flight_data['flight_type'] = 1;
+
+                FlightDetail::create($flight_data);
+
+                //departure flight data
+                $flight_data['date'] = $data['date_departure'];
+                $flight_data['time'] = $data['departure_time'];
+                $flight_data['flight'] = $data['departure_flight'];
+                $flight_data['flight_type'] = 0;
+
+                FlightDetail::create($flight_data);
+
+                //hotel bookings
+
+                $hotel_bookings = Session::get('rate_box_details');
+                foreach($hotel_bookings as $hotel_booking){
+//                    dd($hotel_booking);
+
+                    $hotel_booking['val'] = 1;
+                    $hotel_booking['booking_id'] = $booking->id;
+                    $hotel_booking['amount'] = $hotel_booking['room_cost'];
+
+                    Voucher::create($hotel_booking);
+
+                }
+
+                Mail::send('emails.bookings.booking', array(
+                    'data'=> Booking::getBookingData($booking->id)
+                ), function ($message) use ($user,$booking){
+
+                    $message->to('tharindarodrigo@gmail.com', $user->first_name)->subject('Booking Created : '.$booking->reference_number);
+                });
+
             }
-            $flight_data = [];
-            $flight_data['booking_id'] = $booking->id;
-            //dd($flight_data['booking_id']);
 
-            //arrival flight data
+        } else {
+            return Redirect::back();
+        }
 
-            $flight_data['date'] = $data['date_arrival'];
-            $flight_data['time'] = $data['arrival_time'];
-            $flight_data['flight'] = $data['arrival_flight'];
-            $flight_data['flight_type'] = 1;
 
-            FlightDetail::create($flight_data);
-
-            //departure flight data
-            $flight_data['date'] = $data['date_departure'];
-            $flight_data['time'] = $data['departure_time'];
-            $flight_data['flight'] = $data['departure_flight'];
-            $flight_data['flight_type'] = 0;
-
-            FlightDetail::create($flight_data);
-
-            Mail::send('emails.bookings.booking', array(
-                'data' => $data,
-                'clients' => $clients
-            ), function ($message) use ($user,$booking){
-                $message->to('sarada@exotic-intl.com',$user->first_name)->subject('Booking Created : '.$booking->reference_number);
-            });
-
-        };
 
         return Redirect::route('bookings.index');
     }
@@ -107,15 +132,14 @@ class BookingsController extends \BaseController
     public function show($id)
     {
         try {
-            $booking = Booking::findOrFail($id);
-            $clients = Client::where('booking_id', $id)->get();
-            $flightDetails = FlightDetail::where('booking_id', $id)->get();
+            $booking = Booking::with('voucher')->with('client')->with('flightDetail')->where('id',$id)->first();
+
         } catch (ModelNotFoundException $e) {
             return Redirect::to('/404');
         }
 
 
-        return View::make('bookings.show', compact('booking', 'clients', 'flightDetails'));
+        return View::make('bookings.show', compact('booking', 'clients', 'flightDetails', 'vouchers'));
     }
 
     /**

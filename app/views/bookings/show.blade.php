@@ -19,7 +19,6 @@
     <!-- CONTENT -->
     <div class="container">
 
-
         <div class="container mt25 offset-0">
 
 
@@ -27,7 +26,6 @@
             <div class="col-md-12 pagecontainer2 offset-0">
                 <div class="hpadding50c">
                     <div class="lato size30 slim"><h4>Booking<span class="pull-right" >Reference No. {{$booking->reference_number}}</span></h4></div>
-
                     <p class="aboutarrow"></p>
                 </div>
                 <div class="line3"></div>
@@ -46,7 +44,6 @@
 
                             <br/>
                             {{----------------------------------------------------------------------------------------------------------------------------------}}
-
 
                             <span class="size12">Tour *</span>
                             {{Form::text('tour',null,array('class'=> 'form-control'))}}
@@ -133,6 +130,7 @@
                                     @include('bookings._partials.client_details')
                                 </div>
                                 <div role="tabpanel" class="tab-pane {{--Session::has('') ? 'active' : ''--}}" id="vouchers">
+                                    @include('bookings._partials.vouchers')
                                 </div>
                                 <div role="tabpanel" class="tab-pane {{Session::get('bookings_show_tabs')=='flight-details-tab' ? 'active' : ''}}" id="flightDetails">
                                     @include('bookings._partials.flight_details')
@@ -141,7 +139,7 @@
 
                                 </div>
                                 <div role="tabpanel" class="tab-pane {{--Session::has('') ? 'active' : ''--}}" id="invoice">
-
+                                    @include('bookings._partials.invoices')
                                 </div>
 
                             </div>

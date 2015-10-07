@@ -13,7 +13,7 @@
     </tr>
 </thead>
 <tbody>
-@foreach($clients as $client)
+@foreach($booking->client as $client)
 <tr>
     <td>{{$client->id}}</td>
     <td>{{$client->name}}</td>

@@ -89,6 +89,7 @@
         <div class="hpadding20">
 
             <h1 style="color: #006699; font-family: 'Cinzel', serif; "> Booking Cart </h1>
+            {{link_to_route('bookings.create','Checkout', null, array('class'=>'btn btn-danger', 'id'=>'checkout'))}}
 
             <div class="line4"></div>
 

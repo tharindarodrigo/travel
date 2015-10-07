@@ -132,7 +132,7 @@ class RoomTypesController extends \BaseController
             return Redirect::to('control-panel/errors/recordNotFound');
         }
 
-        $roomfacilitieslist = RoomFacility::all();
+        $roomfacilitieslist = RoomFacility::orderBy('room_facility', 'asc')->get();
         $roomfacilities = DB::table('room_facility_room_type')->where('room_type_id', $id)->select(array('room_facility_id'))->get();
         $checkedroomfacilities = array();
         foreach ($roomfacilities as $roomfacility) {
@@ -205,7 +205,6 @@ class RoomTypesController extends \BaseController
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
-
 
         if (Input::hasFile('images')) {
             $files = Input::file('images');

@@ -104,8 +104,10 @@ class FlightDetailsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
+
+
 		if($flightdetail->update($data)){
-            Booking::emailBookingDetails($bookingId);
+            Booking::emailBookingDetails($bookingId, 'emails.booking');
         };
 
 		return Redirect::back();

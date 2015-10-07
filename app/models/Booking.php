@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Booking extends \Eloquent
 {
@@ -24,6 +25,20 @@ class Booking extends \Eloquent
 
     public static function emailBookingDetails($bookingId, $view = 'emails.emailMaster', $subject = 'Booking Amendment - Ref No: ')
     {
+        $hotel_bookings = [];
+        if ($bookings = Session::get('rate_box_details')) {
+            $rate_keys = array_keys($bookings);
+
+            foreach ($rate_keys as $rate_key) {
+                $hotel_id = explode('_', $rate_key)[0];
+
+                $hotel_bookings[$hotel_id][] = $bookings[$rate_key];
+                $hotel_bookings[$hotel_id]['hotel_name'] = $bookings[$rate_key]['hotel_name'];
+                $hotel_bookings[$hotel_id]['hotel_address'] = $bookings[$rate_key]['hotel_address'];
+                $hotel_bookings[$hotel_id]['room_identity'] = $bookings[$rate_key]['room_identity'];
+            }
+        }
+
         $bookingInfo = Booking::with('client')->with('flightDetail')->where('id', $bookingId)->first();
 
         $user = Auth::user();
@@ -32,8 +47,8 @@ class Booking extends \Eloquent
 
         $mail = Mail::send($view, array(
             'booking' => $booking
-        ), function ($message) use ($user, $booking, $subject) {
-            $message->to('tharindarodrigo@gmail.com', $user->first_name)->subject($subject.$booking['reference_number']);
+        ), function ($message) use ($user, $booking, $subject, $hotel_bookings) {
+            $message->to('tharindarodrigo@gmail.com', $user->first_name)->subject($subject . $booking['reference_number']);
         });
 
         if ($mail) {
@@ -44,17 +59,35 @@ class Booking extends \Eloquent
     }
 
 
+    public static function getBookingData($booking_id){
+        return Booking::where('id',$booking_id)->with('Client')->with('FlightDetail')->with('Voucher')->with('Invoice')->first();
+    }
+
+
     /**
      * Relationships
      */
 
     public function client()
     {
-        return $this->hasMany('client');
+        return $this->hasMany('Client');
     }
 
     public function flightDetail()
     {
         return $this->hasMany('FlightDetail');
     }
+
+    public function voucher()
+    {
+        return $this->hasMany('Voucher');
+    }
+
+    public function invoice()
+    {
+        return $this->hasOne('Invoice');
+    }
+
+
+
 }
