@@ -10,20 +10,40 @@ class CartController extends \BaseController
      */
     public function bookingCart()
     {
-        $bookings = Session::get('rate_box_details');
-        $hotel_bookings = [];
-        $rate_keys = array_keys($bookings);
 
-        foreach ($rate_keys as $rate_key) {
-            $hotel_id = explode('_', $rate_key)[0];
+        if (Session::has('rate_box_details')) {
+            $bookings = Session::get('rate_box_details');
+            $hotel_bookings = [];
+            $rate_keys = array_keys($bookings);
 
-            $hotel_bookings[$hotel_id][] = $bookings[$rate_key];
-            $hotel_bookings[$hotel_id]['hotel_name'] = $bookings[$rate_key]['hotel_name'];
-            $hotel_bookings[$hotel_id]['hotel_address'] = $bookings[$rate_key]['hotel_address'];
-            $hotel_bookings[$hotel_id]['room_identity'] = $bookings[$rate_key]['room_identity'];
+            foreach ($rate_keys as $rate_key) {
+                $hotel_id = explode('_', $rate_key)[0];
+
+                $hotel_bookings[$hotel_id][] = $bookings[$rate_key];
+                $hotel_bookings[$hotel_id]['hotel_name'] = $bookings[$rate_key]['hotel_name'];
+                $hotel_bookings[$hotel_id]['hotel_address'] = $bookings[$rate_key]['hotel_address'];
+                $hotel_bookings[$hotel_id]['room_identity'] = $bookings[$rate_key]['room_identity'];
+            }
         }
-
 //dd($hotel_bookings);
+
+        if (Session::has('transport_cart_box')) {
+            $transport = Session::get('transport_cart_box');
+            $transport_booking = [];
+            $trans_rate_keys = array_keys($transport);
+
+            dd($trans_rate_keys);
+
+            foreach ($rate_keys as $rate_key) {
+                $hotel_id = explode('_', $rate_key)[0];
+
+                $hotel_bookings[$hotel_id][] = $bookings[$rate_key];
+                $hotel_bookings[$hotel_id]['hotel_name'] = $bookings[$rate_key]['hotel_name'];
+                $hotel_bookings[$hotel_id]['hotel_address'] = $bookings[$rate_key]['hotel_address'];
+                $hotel_bookings[$hotel_id]['room_identity'] = $bookings[$rate_key]['room_identity'];
+            }
+
+        }
 
         return View::make('payments.booking_cart')
             ->with(compact('hotel_bookings'));
