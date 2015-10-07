@@ -570,6 +570,17 @@ Route::any('create-my-trip', array(
     'uses' => 'TransportPackageController@createMyTrip'
 ));
 
+// create transport cart
+
+Route::post('/sri-lanka/get_transport_box', array(
+    'as' => 'get-transport-box',
+    'uses' => 'TransportPackageController@transportCart'
+));
+
+// delete transport rate box
+
+Route::post('/sri-lanka/get_transport_rate_box/delete', 'TransportPackageController@transportCartItemDelete');
+
 
 //=====================================================================================================================|
 /*------------------------- End Of Transport  -------------------------------*/

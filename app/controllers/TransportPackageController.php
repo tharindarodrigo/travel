@@ -90,8 +90,8 @@ class TransportPackageController extends \BaseController
     public function createMyTrip()
     {
 
-        $city = City::lists('city');
-        $vehicle = Vehicle::lists('vehicle_type');
+        $city = City::lists('city', 'id');
+        $vehicle = Vehicle::lists('vehicle_type', 'id');
 
         if (Session::has('st_date')) {
             $st_date = Session::get('st_date');
@@ -117,11 +117,85 @@ class TransportPackageController extends \BaseController
 
     }
 
+    // transport cart
+
+    public function transportCart()
+    {
+
+        if (Input::has('pick_up_date')) {
+            $pick_up_date = date("y-m-d", strtotime(Input::get('pick_up_date')));
+        } else {
+            $pick_up_date = $st_date = date("Y-m-d");
+        }
+
+        if (Input::has('drop_off_date')) {
+            $drop_off_date = date("y-m-d", strtotime(Input::get('drop_off_date')));
+        } else {
+            $drop_off_date = date("Y-m-d", strtotime($st_date . ' + 2 days'));
+        }
+
+        $vehicle_type = Input::get('vehicle_type');
+        $vehicle_id = Vehicle::where('vehicle_type', $vehicle_type)->select('id')->first()->id;
+        $origin = Input::get('origin');
+        $origin_id = City::where('city', $origin)->select('id')->first()->id;
+        $destination = Input::get('destination');
+        $destination_id = City::where('city', $destination)->select('id')->first()->id;;
+        $pick_up_time_hour = Input::get('pick_up_time_hour');
+        $pick_up_time_minutes = Input::get('pick_up_time_minutes');
+        $drop_off_time_hour = Input::get('drop_off_time_hour');
+        $drop_off_time_minutes = Input::get('drop_off_time_minutes');
+
+        $transport_cart_key = $vehicle_id . '_' . $origin_id . '_' . $destination_id;
+
+
+        $transport_cart_box = array(
+            'vehicle_type' => $vehicle_type,
+            'origin' => $origin,
+            'destination' => $destination,
+            'pick_up_date' => $pick_up_date,
+            'pick_up_time_hour' => $pick_up_time_hour,
+            'pick_up_time_minutes' => $pick_up_time_minutes,
+            'drop_off_date' => $drop_off_date,
+            'drop_off_time_hour' => $drop_off_time_hour,
+            'drop_off_time_minutes' => $drop_off_time_minutes,
+
+        );
+
+
+        if (Session::has('transport_cart_box')) {
+            $data = Session::get('transport_cart_box');
+            $data[$transport_cart_key] = $transport_cart_box;
+        } else {
+            $data = [];
+            $data[$transport_cart_key] = $transport_cart_box;
+        }
+
+
+        Session::put('transport_cart_box', $data);
+
+        return Response::json(Session::get('transport_cart_box'));
+
+    }
+
+    public function transportCartItemDelete()
+    {
+
+        $deletable = Input::get('del_transport_id');
+
+        if (Session::has('transport_cart_box')) {
+            $data = Session::get('transport_cart_box');
+            //dd($data);
+            unset($data[$deletable]);
+
+            Session::put('transport_cart_box', $data);
+        }
+
+        return Response::json(Session::get('transport_cart_box'));
+
+    }
 
     public function viewSearch()
     {
-
-
         return View::make('transportpackages.create');
 
     }

@@ -29,6 +29,9 @@
     {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
     <!-- end -->
 
+    {{--my styles--}}
+    {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+
     <style type="text/css">
         .collapsebtn {
             background: #006699;
@@ -89,8 +92,8 @@
 
                 <div style="padding-top: 0px !important;" class="padding30 grey">
 
-                    <div class="hpadding50c">
-                        <h1> Create My Trip </h1>
+                    <div style="padding-left: 0px !important;" class="hpadding50c">
+                        <h1>Create My Trip </h1>
 
                         <p class="aboutarrow"></p>
                     </div>
@@ -112,7 +115,7 @@
                             <div class="margtop15"><span class="dark">Vehicle Type</span><span class="red">*</span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 vehicle">
                             {{ Form::select('vehicle', $vehicle, null, array('class' => 'form-control mySelectBoxClass transport_vehicle_select', 'id' => 'transport_vehicle')) }}
                         </div>
                         <div class="col-md-6  margtop15">
@@ -138,7 +141,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" class="form-control mySelectCalendar mt10" id="datepicker5"
+                            <input type="text" class="form-control mySelectCalendar mt10 pick_up" id="datepicker5"
                                    placeholder="mm/dd/yyyy"/>
                         </div>
                         <div class="col-md-6  margtop15">
@@ -155,7 +158,7 @@
                             <div class="w50percent">
                                 <div class="wh90percent ">
                                     <span class="opensans size13">Hour</span>
-                                    <select class="form-control mySelectBoxClass">
+                                    <select class="form-control mySelectBoxClass pick_up_hour">
                                         <option>00</option>
                                         <option>01</option>
                                         <option>02</option>
@@ -186,9 +189,9 @@
 
                             <div class="w50percentlast">
 
-                                <div class="wh90percent  right">
+                                <div class="wh90percent right">
                                     <span class="opensans size13">Minutes</span>
-                                    <select class="form-control mySelectBoxClass">
+                                    <select class="form-control mySelectBoxClass pick_up_minutes">
                                         <option selected="yes">00</option>
                                         <option>10</option>
                                         <option>20</option>
@@ -229,7 +232,7 @@
                             <div class="margtop15"><span class="dark">Destination</span><span class="red">*</span></div>
                         </div>
                         <div class="col-md-6">
-                            {{ Form::select('city', $city, null, array('class' => 'form-control mySelectBoxClass transport_destinatin_select', 'id' => 'transport_destination')) }}
+                            {{ Form::select('city', $city, null, array('class' => 'form-control mySelectBoxClass transport_destination_select', 'id' => 'transport_destination')) }}
                         </div>
                         <div class="col-md-6  margtop15">
                         </div>
@@ -243,7 +246,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" class="form-control mySelectCalendar mt10" id="datepicker5"
+                            <input type="text" class="form-control mySelectCalendar mt10 drop_off" id="datepicker6"
                                    placeholder="mm/dd/yyyy"/>
                         </div>
                         <div class="col-md-6  margtop15">
@@ -260,7 +263,7 @@
                             <div class="w50percent">
                                 <div class="wh90percent ">
                                     <span class="opensans size13">Hour</span>
-                                    <select class="form-control mySelectBoxClass">
+                                    <select class="form-control mySelectBoxClass drop_off_hour">
                                         <option>00</option>
                                         <option>01</option>
                                         <option>02</option>
@@ -293,7 +296,7 @@
 
                                 <div class="wh90percent  right">
                                     <span class="opensans size13">Minutes</span>
-                                    <select class="form-control mySelectBoxClass">
+                                    <select class="form-control mySelectBoxClass drop_off_minutes">
                                         <option selected="yes">00</option>
                                         <option>10</option>
                                         <option>20</option>
@@ -314,289 +317,11 @@
 
                     </div>
 
-                    <div class="col-md-4 ">
-                        <div class="margtop15"><span class="dark">Complete destination address</span><span
-                                    class="red">*</span></div>
+                    <div align="right">
+                        <button id="transport_cart_box" style="text-align: right" type="submit"
+                                class="bluebtn margtop20 transport_get_cart_box">Complete booking
+                        </button>
                     </div>
-                    <div class="col-md-6">
-                        <textarea rows="3" class="form-control margtop10"></textarea>
-                    </div>
-                    <div class="col-md-6  margtop15">
-                    </div>
-                    <div class="clearfix"></div>
-
-                    <br/>
-                    <br/>
-
-                    <span class="size16px bold dark left">Customer </span>
-
-                    <div class="roundstep right">2</div>
-                    <div class="clearfix"></div>
-                    <div class="line4"></div>
-                    Please tell us who will be checking in. Must be 18 or older. <br/><br/>
-
-                    <div class="col-md-4 ">
-                        <div class="margtop15"><span class="dark">Contact Name:</span><span class="red">*</span></div>
-                    </div>
-                    <div class="col-md-4">
-                        <span class="size12">First and Last Name*</span>
-                        <input type="text" class="form-control " placeholder="">
-                    </div>
-                    <div class="col-md-4  margtop15">
-                    </div>
-                    <div class="clearfix"></div>
-
-                    <br/>
-
-                    <div class="col-md-4 ">
-                        <div class="margtop7"><span class="dark">Phone Number:</span><span class="red">*</span></div>
-                    </div>
-
-                    <div class="col-md-4 ">
-                        <span class="size12">Preferred Phone Number*</span>
-                        <input type="text" class="form-control" placeholder="">
-                    </div>
-                    <div class="clearfix"></div>
-
-                    <br/>
-
-                    <div class="col-md-4">
-                    </div>
-                    <div class="col-md-8 ">
-                        Special Requests (optional)
-                        <!-- Collapse 3 -->
-                        <button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse"
-                                data-target="#collapse3"></button>
-                        <div id="collapse3" class="collapse">
-                            <textarea rows="3" class="form-control margtop10"></textarea>
-                        </div>
-                        <!-- End of collapse 3 -->
-                        <div class="clearfix"></div>
-
-
-                    </div>
-                    <div class="clearfix"></div>
-
-                    <br/>
-                    <br/>
-                    <span class="size16px bold dark left">How would you like to pay?</span>
-
-                    <div class="roundstep right">3</div>
-                    <div class="clearfix"></div>
-                    <div class="line4"></div>
-
-
-                    <br/>
-
-                    <div class="col-md-4">
-                    </div>
-                    <div class="col-md-4">
-                        Enter a coupon code
-                        <!-- Collapse 5 -->
-                        <button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse"
-                                data-target="#collapse5"></button>
-                        <div id="collapse5" class="collapse">
-                            <input type="text" class="form-control margtop10" placeholder="">
-                        </div>
-                        <!-- End of collapse 5 -->
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="col-md-4 ">
-                    </div>
-                    <div class="clearfix"></div>
-
-                    <br/>
-                    <!-- Nav tabs -->
-                    <ul class="nav navigation-tabs">
-                        <li class="active"><a href="#card" data-toggle="tab">Credit/Debit card</a></li>
-                        <li><a href="#paypal" data-toggle="tab">Paypal</a></li>
-                    </ul>
-
-                    <!-- Tab panes -->
-                    <div class="tab-content4">
-
-                        <!-- Tab 1 -->
-                        <div class="tab-pane active" id="card">
-
-                            <div class="col-md-4 ">
-                                <div class="margtop15"><span class="dark">Debit/Credit Card Number:</span><span
-                                            class="red">*</span></div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control margtop10" placeholder="">
-                            </div>
-                            <div class="col-md-4 ">
-                            </div>
-                            <div class="clearfix"></div>
-
-                            <br/>
-
-                            <div class="col-md-4 ">
-                                <div class="margtop7"><span class="dark">Card Type:</span><span class="red">*</span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-control mySelectBoxClass">
-                                    <option selected>xxx-xxx-xxx-772</option>
-                                    <option>xxx-xxx-xxx-039</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4 ">
-                            </div>
-                            <div class="clearfix"></div>
-
-                            <br/>
-
-                            <div class="col-md-4 ">
-                                <div class="margtop7"><span class="dark">Expiration Date:</span><span
-                                            class="red">*</span></div>
-                            </div>
-                            <div class="col-md-4">
-
-                                <div class="w50percent">
-                                    <div class="wh90percent">
-                                        <select class="form-control mySelectBoxClass">
-                                            <option selected>01 JAN</option>
-                                            <option>02 FEB</option>
-                                            <option>03 MAR</option>
-                                            <option>04 APR</option>
-                                            <option>05 MAY</option>
-                                            <option>06 JUN</option>
-                                            <option>07 JUL</option>
-                                            <option>08 AUG</option>
-                                            <option>09 SEP</option>
-                                            <option>10 OCT</option>
-                                            <option>11 NOV</option>
-                                            <option>12 DEC</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="w50percentlast">
-                                    <div class="wh90percent right">
-                                        <select class="form-control mySelectBoxClass">
-                                            <option selected>14</option>
-                                            <option>15</option>
-                                            <option>16</option>
-                                            <option>17</option>
-                                            <option>18</option>
-                                            <option>19</option>
-                                            <option>20</option>
-                                            <option>21</option>
-                                            <option>22</option>
-                                            <option>23</option>
-                                            <option>24</option>
-                                            <option>25</option>
-                                            <option>26</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="col-md-4 ">
-                            </div>
-                            <div class="clearfix"></div>
-
-
-                            <br/>
-
-                            <div class="col-md-4 ">
-                                <div class="margtop15"><span class="dark">Card Identification Number:</span><span
-                                            class="red">*</span></div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control margtop10" placeholder="">
-                            </div>
-                            <div class="col-md-4  margtop15">What's this?
-                            </div>
-                            <div class="clearfix"></div>
-
-
-                            <div class="col-md-4 ">
-                                <div class="margtop15"><span class="dark">Billing ZIP Code:</span><span
-                                            class="red">*</span></div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control margtop10" placeholder="">
-                            </div>
-                            <div class="col-md-4  margtop15">
-                            </div>
-                            <div class="clearfix"></div>
-
-
-                            <div class="col-md-4 ">
-                                <div class="margtop15"><span class="dark"> Cardholder Name:</span><span
-                                            class="red">*</span></div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control margtop10" placeholder="">
-                            </div>
-                            <div class="col-md-4  margtop15">(as it appears on the card)
-                            </div>
-                            <div class="clearfix"></div>
-
-                        </div>
-                        <!-- End of Tab 1 -->
-
-                        <!-- Tab 2 -->
-                        <div class="tab-pane" id="paypal">
-
-                            <div class="alert alert-warning fade in">
-                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                <strong>Important:</strong> You will be redirected to PayPal's website to securely
-                                complete your payment.
-                            </div>
-
-                            <button type="submit" class="btn-search5">Proceed to paypal</button>
-
-                        </div>
-                        <!-- End of Tab 2 -->
-                    </div>
-
-
-                    <br/>
-                    <br/>
-                    <span class="size16px bold dark left">Where should we send your confirmation?</span>
-
-                    <div class="roundstep right">4</div>
-                    <div class="clearfix"></div>
-                    <div class="line4"></div>
-                    Please enter the email address where you would like to receive your confirmation.<br/>
-
-
-                    <div class="col-md-4 ">
-                        <div class="mt15"><span class="dark">Email Address:</span><span class="red">*</span></div>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control margtop10" placeholder="">
-                    </div>
-                    <div class="col-md-4 ">
-                    </div>
-                    <div class="clearfix"></div>
-
-                    <br/>
-                    <br/>
-                    <span class="size16px bold dark left">Review and book your trip</span>
-
-                    <div class="roundstep right">5</div>
-                    <div class="clearfix"></div>
-                    <div class="line4"></div>
-
-                    <div class="alert alert-info">
-                        Attention! Please read important transfer information! <br/>
-
-                        <p class="size12">• Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tempor
-                            dolor quis sapien
-                            rhoncus, a mollis felis hendrerit. Nam dapibus vitae justo in faucibus.</p>
-                    </div>
-                    By selecting to complete this booking I acknowledge that I have read and accept the <a href="#"
-                                                                                                           class="clblue">rules
-                        &
-                        restrictions</a> <a href="#" class="clblue">terms & conditions</a> , and <a href="#"
-                                                                                                    class="clblue">privacy
-                        policy</a>. <br/>
-
-                    <button type="submit" class="bluebtn margtop20">Complete booking</button>
-
 
                 </div>
 
@@ -604,104 +329,63 @@
             <!-- END OF LEFT CONTENT -->
 
             <!-- RIGHT CONTENT -->
-            <div class="col-md-4">
+            <div class="col-md-4" id="transport_rate_box">
 
                 <div class="pagecontainer2 paymentbox grey">
                     <div class="padding20">
-                        <span class="opensans size18 dark bold caps"><h3>Your Transfer</h3></span>
+                        <span class="opensans size18 dark bold caps"> Transport Summery </span>
                     </div>
                     <div class="line3"></div>
 
                     <div class="hpadding30 margtop30">
 
-                        <!-- GOING TO -->
-                        <div>
-                            <div class="col-md-8" style="width:293px; height: 400px;" id="dvMap"></div>
-
-                        </div>
-                        <!-- END OF GOING TO -->
-
-                        <br/>
-
                         <img src="updates/update1/img/cars/car02.jpg" width="100" alt=""/><br/>
 
-                        <span class="dark">Private Service</span>
+                        <table class="table table-bordered margbottom20">
+                            <tbody id="transport_cart_box_table">
 
-                        <div class="fdash mt10"></div>
+                            </tbody>
+                        </table>
                         <br/>
-                        Barcelona Airport (BCN) to Barcelona Hotels<br/>
-                        <span class="grey2">On:</span> February 06 2014<br/>
-                        <span class="grey2">Number of persons:</span> 2
-
-
-                        <br/>
-                        <br/>
-
-
                     </div>
+
                     <div class="line3"></div>
                     <div class="padding30">
-                        <span class="left size14 dark">Trip Total:</span>
-						<span class="right lred2 bold size18">
-							$54.50<br/>
-							<span class="grey normal size12 mt-10"><i>per way</i></span>
-						</span>
+                        <span class="left size14 dark"> <h3 style="font-size: 18px; display: inline"> Total Cost :  </h3></span>
+                        <span id="room_total_cost" class="right green bold size18">USD 100  </span>
 
                         <div class="clearfix"></div>
                     </div>
 
+                    <div class="line3"></div>
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;
+                    <a id="add_to_cart" name="aa" href="{{URL::to('/booking-cart')}}" class="bluebtn margtop20">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                        Add To Cart
+                    </a>
 
+                    &nbsp;&nbsp;
+                    <a href="" class="bluebtn margtop20">
+                        <span class="glyphicon glyphicon-play"></span>
+                        Checkout
+                    </a>
+                    <div class="clearfix"></div>
+                    <br/>
                 </div>
-                <br/>
-
-                <div class="pagecontainer2 needassistancebox">
-                    <div class="cpadding1">
-                        <span class="icon-help"></span>
-
-                        <h3 class="opensans">Need Assistance?</h3>
-
-                        <p class="size14 grey">Our team is 24/7 at your service to help you with your booking issues or
-                            answer any related questions</p>
-
-                        <p class="opensans size30 lblue xslim">1-866-599-6674</p>
-                    </div>
-                </div>
-                <br/>
-
-                <div class="pagecontainer2 loginbox">
-                    <div class="cpadding1">
-                        <span class="icon-lockk"></span>
-
-                        <h3 class="opensans">Log in</h3>
-                        <input type="text" class="form-control logpadding" placeholder="Username">
-                        <br/>
-                        <input type="text" class="form-control logpadding" placeholder="Password">
-
-                        <div class="margtop20">
-                            <div class="left">
-                                <div class="checkbox padding0">
-                                    <label>
-                                        <input type="checkbox">Remember
-                                    </label>
-                                </div>
-                                <a href="#" class="greylink">Lost password?</a><br/>
-                            </div>
-                            <div class="right">
-                                <button class="btn-search5" type="submit" onclick="errorMessage()">Login</button>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <br/>
-                    </div>
-                </div>
-                <br/>
-
             </div>
             <!-- END OF RIGHT CONTENT -->
 
-
         </div>
+        <br/>
 
+        <div class="container mt25 offset-0">
+            <div class="col-md-8 pagecontainer2 offset-0">
+                <!-- GOING TO -->
+                <div class="col-md-8" style="width:293px; height: 400px;" id="dvMap"></div>
+                <!-- END OF GOING TO -->
+            </div>
+        </div>
 
     </div>
     <!-- END OF CONTENT -->
@@ -721,6 +405,8 @@
 
         <!-- Custom js -->
         {{ HTML::script('js/my_script.js') }}
+
+        {{ HTML::script('js/transport_cart.js') }}
 
 
         <script type="text/javascript"
@@ -906,13 +592,52 @@
                         return false
                     }
 
-                 //   alert(distance);
+                    //   alert(distance);
 
                 });
 
 
             }
 
+        </script>
+
+        <script type="text/javascript">
+            $(function () {
+
+                $('#transport_rate_box').hide();
+
+                $('.transport_get_cart_box').click(function () {
+
+                    $('#transport_rate_box').show("blind", 500);
+
+                    var vehicle_type = $('.vehicle :selected').text();
+                    var origin = $('.transport_origin_select :selected').text();
+                    var destination = $('.transport_destination_select :selected').text();
+                    var pick_up_date = $('.pick_up').datepicker({dateFormat: 'dd-mm-yy'}).val();
+                    var pick_up_time_hour = $('.pick_up_hour :selected').text();
+                    var pick_up_time_minutes = $('.pick_up_minutes :selected').text();
+                    var drop_off_date = $('.drop_off').datepicker({dateFormat: 'dd-mm-yy'}).val();
+                    var drop_off_time_hour = $('.drop_off_hour :selected').text();
+                    var drop_off_time_minutes = $('.drop_off_minutes :selected').text();
+
+                    var url = 'http://' + window.location.host + '/sri-lanka/get_transport_box';
+
+                    var formData = new FormData();
+
+                    formData.append('vehicle_type', vehicle_type);
+                    formData.append('origin', origin);
+                    formData.append('destination', destination);
+                    formData.append('pick_up_date', pick_up_date);
+                    formData.append('pick_up_time_hour', pick_up_time_hour);
+                    formData.append('pick_up_time_minutes', pick_up_time_minutes);
+                    formData.append('drop_off_date', drop_off_date);
+                    formData.append('drop_off_time_hour', drop_off_time_hour);
+                    formData.append('drop_off_time_minutes', drop_off_time_minutes);
+
+                    sendTransportData(url, formData);
+
+                });
+            });
         </script>
 
     @endsection
