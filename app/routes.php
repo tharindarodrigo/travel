@@ -377,7 +377,9 @@ Route::get('/my-bookings', function () {
 Route::resource('transportation', 'TransportationController');
 
 Route::get('/email-check', function () {
-    return View::make('emails.book.booking');
+        $pdf = App::make('dompdf');
+        $pdf->loadHTML('<h1>Test</h1>');
+        return $pdf->stream();
 });
 
 //tourism details download
