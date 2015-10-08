@@ -371,15 +371,12 @@ Route::get('/my-bookings', function () {
 });
 
 
-
-
-
 Route::resource('transportation', 'TransportationController');
 
 Route::get('/email-check', function () {
-        $pdf = App::make('dompdf');
-        $pdf->loadHTML('<h1>Test</h1>');
-        return $pdf->stream();
+    $pdf = App::make('dompdf');
+    $pdf->loadHTML('<h1>Test</h1>');
+    return $pdf->stream();
 });
 
 //tourism details download
@@ -585,6 +582,10 @@ Route::post('/sri-lanka/get_transport_box', array(
 // delete transport rate box
 
 Route::post('/sri-lanka/get_transport_rate_box/delete', 'TransportPackageController@transportCartItemDelete');
+
+// delete transport from cart
+
+Route::post('/sri-lanka/transport_cart_rate_box/delete', 'CartController@transportCartDelete');
 
 
 //=====================================================================================================================|

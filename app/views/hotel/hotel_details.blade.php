@@ -237,7 +237,7 @@
                                         <div class="wh90percent textleft">
                                             <span class="opensans size13"><b>Check in</b></span>
                                             <input type="text" name="check_in_date"
-                                                   class="form-control mySelectCalendar"
+                                                   class="form-control mySelectCalendar chk_in"
                                                    id="datepicker"
                                                    value="{{ Session::has('st_date') ? Session::get('st_date') : '' }}"/>
                                         </div>
@@ -247,7 +247,7 @@
                                         <div class="wh90percent textleft right">
                                             <span class="opensans size13"><b>Check out</b></span>
                                             <input type="text" name="check_out_date"
-                                                   class="form-control mySelectCalendar"
+                                                   class="form-control mySelectCalendar chk_out"
                                                    id="datepicker2"
                                                    value="{{ Session::has('ed_date') ? Session::get('ed_date') : '' }}"/>
                                         </div>
@@ -906,10 +906,12 @@
                                 <td class="center green bold">4.5</td>
                             </tr>
                             <tr>
-                                <td colspan="2"><span class="dark">
-                                        {{ (Session::has('date_gap')) ? Session::get('date_gap') : '' }}
-                                        Nights </span>: {{ (Session::has('st_date')) ? Session::get('st_date'):'' }}
-                                    - {{ (Session::has('st_date')) ? Session::get('ed_date') : '' }} </td>
+                                <td colspan="2">
+                                    {{--<span class="dark">--}}
+                                    {{--{{ (Session::has('date_gap')) ? Session::get('date_gap') : '' }}--}}
+                                    {{--Nights </span>: {{ (Session::has('st_date')) ? Session::get('st_date'):'' }}--}}
+                                    {{--- {{ (Session::has('st_date')) ? Session::get('ed_date') : '' }} --}}
+                                </td>
                             </tr>
 
                             <tr>
@@ -953,6 +955,7 @@
                         <span class="glyphicon glyphicon-play"></span>
                         Checkout
                     </a>
+
                     <div class="clearfix"></div>
                     <br/>
 
@@ -968,6 +971,8 @@
     @endsection
 
     @section('script')
+
+        {{--{{ HTML::script('assets/js/js-details.js') }}--}}
 
         <!-- Google map -->
         {{ HTML::script('assets/js/initialize-google-map.js') }}
@@ -992,7 +997,11 @@
                     var room_count = $('#' + room_count_id).val();
                     var meal_basis_id = $(this).prev('input:hidden').val();
                     var room_specification_id = $(this).next('input:hidden').val();
-                    var check_room = hotel_id + '_' + room_id + '_' + room_specification_id + '_' + meal_basis_id;
+                    var check_in = $('.chk_in').datepicker({dateFormat: 'dd-mm-yy'}).val();
+                    var check_in_key = Date.parse($('.chk_in').val());
+                    var check_out = $('.chk_out').datepicker({dateFormat: 'dd-mm-yy'}).val();
+                    var check_out_key = Date.parse($('.chk_out').val());
+                    var check_room = check_in_key + '_' + check_out_key + '_' + hotel_id + '_' + room_id + '_' + room_specification_id + '_' + meal_basis_id;
 
                     var url = 'http://' + window.location.host + '/sri-lanka/get_room_rate_box';
 
@@ -1005,6 +1014,8 @@
                     formData.append('room_specification_id', room_specification_id);
                     formData.append('room_count', room_count);
                     formData.append('check_room', check_room);
+                    formData.append('check_in', check_in);
+                    formData.append('check_out', check_out);
 
                     sendBookingData(url, formData);
 

@@ -50,9 +50,15 @@ function generateRoomRateTable(data) {
                     '<button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse" data-target="#collapse' + y + '"></button>' +
                     '<div id="collapse' + y + '" class="collapse">' +
                     '<div class="lblue">' +
+                    '<div class="col-md-6">' +
                     item.room_count + '&nbsp;' +
                     item.room_specification + ' Room <br>' +
                     item.meal_basis +
+                    '</div>' +
+                    '<div class="col-md-6">' +
+                    item.check_in + ' <br>' +
+                    item.check_out +
+                    '</div>' +
                     '</div>' +
                     '<div class="clearfix"></div>' +
                     '</div>' +

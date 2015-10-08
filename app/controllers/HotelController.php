@@ -791,9 +791,6 @@ class HotelController extends \BaseController
     public function getRoomRateBox()
     {
 
-//Session::flush();
-        //Session::flush(); dd();
-
         $room_identity = Input::get('check_room');
 
         $hotel_id = Input::get('hotel_id');
@@ -814,16 +811,16 @@ class HotelController extends \BaseController
         $child = Session::get('child');
         $nights = Session::get('date_gap');
 
-        if (Session::has('st_date')) {
-            $st_date = Session::get('st_date');
+        if (Input::has('check_in_date')) {
+            $st_date = date('Y-m-d', strtotime(Input::get('check_in_date')));
         } else {
-            $st_date = date("Y/m/d");
+            $st_date = date('Y-m-d', strtotime(Session::get('st_date')));
         }
 
-        if (Session::has('ed_date')) {
-            $ed_date = Session::get('ed_date');
+        if (Input::has('check_out_date')) {
+            $ed_date = date('Y-m-d', strtotime(Input::get('check_out_date')));
         } else {
-            $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
+            $ed_date = date('Y-m-d', strtotime(Session::get('ed_date')));
         }
 
         $total_rate = $low_room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
@@ -835,7 +832,7 @@ class HotelController extends \BaseController
             'hotel_name' => $hotel_name,
             'hotel_address' => $hotel_address,
             'room_name' => $room_name,
-            'room_type_id'=> $room_id,
+            'room_type_id' => $room_id,
             'room_specification' => $room_specification,
             'meal_basis' => $meal_basis,
             'meal_basis_id' => $meal_basis_id,
@@ -845,8 +842,8 @@ class HotelController extends \BaseController
             'child' => $child,
             'nights' => $nights,
             'room_identity' => $room_identity,
-            'check_in' => date('Y-m-d',strtotime($st_date)),
-            'check_out' => date('Y-m-d',strtotime($ed_date)),
+            'check_in' => $st_date,
+            'check_out' => $ed_date,
         );
 
 
@@ -879,7 +876,11 @@ class HotelController extends \BaseController
             //dd($data);
             unset($data[$deletable]);
 
-            Session::put('rate_box_details', $data);
+            if (!empty($data)) {
+                Session::put('rate_box_details', $data);
+            } else {
+                Session::forget('rate_box_details');
+            }
         }
 
         return Response::json(Session::get('rate_box_details'));

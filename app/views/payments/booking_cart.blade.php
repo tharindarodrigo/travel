@@ -105,7 +105,7 @@
                         <tr style="background: #006699">
                             <th><h4> Hotel </h4></th>
                             <th><h4> Rooms </h4></th>
-                            <th><h4>Total</h4></th>
+                            <th><h4> Cost </h4></th>
                             <th><h4></h4></th>
                         </tr>
                         </thead>
@@ -176,138 +176,16 @@
                                                      class="collapse">
 
                                                     <div class="left size12 lblue ">
-                                                        Adult - {{ $hotel_booking[$c]['adult'] }} <br/>
-                                                        Child - {{ $hotel_booking[$c]['child'] }}
+                                                       <span style="color: #000000"> Check In : </span>
+                                                        {{ $hotel_booking[$c]['check_in'] }}
                                                     </div>
+                                                    <br/>
 
-                                                    <div class="right size12 lblue ">
-                                                        {{ $hotel_booking[$c]['room_count'] }} {{ $hotel_booking[$c]['room_specification'] }}
-                                                        Rooms <br/>
-                                                        {{ $hotel_booking[$c]['meal_basis'] }}
+                                                    <div class="left size12 lblue ">
+                                                       <span style="color: #000000"> Check Out : </span>
+                                                        {{ $hotel_booking[$c]['check_out'] }}
                                                     </div>
-                                                    <div class="clearfix"></div>
-                                                </div>
-                                                <!-- End of collapse 1 -->
-                                                <div class="clearfix"></div>
-
-                                                <h5 style="display: inline" class="bk_room_name">Room Total
-                                                    : </h5><span
-                                                        class="green">{{ $hotel_booking[$c]['room_cost'] }}</span>
-                                            </div>
-                                            <br/>
-                                            <div class="line3"></div>
-                                            <br/>
-                                            <?php $total_cost = $total_cost + $hotel_booking[$c]['room_cost']?>
-                                        @endfor
-                                    </td>
-
-                                    <td class="col-sm-1 col-md-2">
-                                        <span class="green bold size18"> USD </span>
-                                        <span class="green bold size18">{{ $total_cost }}</span>
-                                    </td>
-
-                                    {{ Form::open(array('url' => '/get_cart_item/delete', 'method' => 'POST', 'id'=>'booking_cart_item_delete')) }}
-                                    <td class="col-sm-1 col-md-1">
-                                        <button id="delete_cart_item" type="submit" class="btn btn-danger"
-                                                name="delete_item"
-                                                value="{{ $hotel_booking['room_identity'] }}">
-                                            <span class="glyphicon glyphicon-remove"></span> Remove
-                                        </button>
-                                    </td>
-                                    {{ Form::close() }}
-
-                                </tr>
-
-                            @endforeach
-                        @endif
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <br/><br/><br/>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-10 col-md-offset-1">
-                    <span class="opensans size18 dark bold caps"> Transport Summery </span>
-                    <br/><br/>
-                    <table class="table table-responsive table-hover">
-                        <thead>
-                        <tr style="background: #006699">
-                            <th><h4> Vehicle </h4></th>
-                            <th><h4> From </h4></th>
-                            <th><h4> To </h4></th>
-                            <th><h4>Total</h4></th>
-                            <th><h4></h4></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @if(Session::has('transport_cart_box'))
-                            @foreach($hotel_bookings as $hotel_booking)
-                                <tr>
-                                    <td class="col-sm-8 col-md-5">
-                                        <div class="media">
-                                            <a class="thumbnail pull-left" href="#">
-                                                <?php
-                                                $total_cost = 0;
-                                                $directory = 'public/images/hotel_images/';
-                                                $img_hotel_id = explode('_', $hotel_booking['room_identity']);
-                                                $images = glob($directory . $img_hotel_id[0] . "_*");
-                                                $img_path = array_shift($images);
-                                                $img_name = basename($img_path);
-                                                ?>
-
-                                                @if(count($img_path)>0)
-                                                    {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'hotel_img_booking'))}}
-                                                @else
-                                                    {{ HTML::image('images/no-image.jpg', '', array('class' => 'hotel_img_booking')) }}
-                                                @endif
-
-                                            </a>
-
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a
-                                                            href="#">{{ $hotel_booking['hotel_name'] }}</a></h4>
-                                                {{--<h5 class="media-heading"> by <a href="#">Brand name</a></h5>--}}
-                                                <span class="text-success"><strong style="font-size: 12px">
-                                                        {{ str_replace(',', '<br />', $hotel_booking['hotel_address']) }}
-                                                    </strong></span>
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                    <td class="col-sm-2 col-md-4">
-
-                                        @for($c=0 ; $c < count($hotel_booking)-3; $c++)
-                                            <div style="display: inline-block">
-                                                <button style="background: transparent" type="button"
-                                                        class="btn collapsed mt-5"
-                                                        data-toggle="collapse"
-                                                        data-target="#collapse{{ $hotel_booking[$c]['room_identity'] }}">
-                                                         <span class="dark"><h5 style="display: inline;"
-                                                                                class="bk_room_name">
-                                                                 Room {{ $c+1 }} </h5>
-                                                             {{--Nights - {{ $hotel_booking[$c]['nights'] }}--}}
-                                                </span>&nbsp;&nbsp;&nbsp;
-                                                    <span class="glyphicon glyphicon-circle-arrow-down"></span>
-                                                </button>
-
-                                                &nbsp;&nbsp;&nbsp;&nbsp;
-
-                                                {{ Form::open(array('url' => '/get_cart_single_item/delete', 'method' => 'POST', 'id'=>'booking_cart_single_item_delete')) }}
-                                                <span><button name="delete_single_item"
-                                                              class="right btn delete_room btn-xs btn-danger"
-                                                              value="{{ $hotel_booking[$c]['room_identity'] }}"> X
-                                                    </button></span>
-                                                <br/>
-                                                {{ Form::close() }}
-
-                                                <!-- Collapse 1 -->
-
-                                                <div id="collapse{{ $hotel_booking[$c]['room_identity'] }}"
-                                                     class="collapse">
+                                                    <br/>
 
                                                     <div class="left size12 lblue ">
                                                         Adult - {{ $hotel_booking[$c]['adult'] }} <br/>
@@ -360,6 +238,105 @@
             </div>
         </div>
 
+        <br/><br/><br/>
+
+        @if(Session::has('transport_cart_box'))
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-10 col-md-offset-1">
+                        <span class="opensans size18 dark bold caps"> Transport Summery </span>
+                        <br/><br/>
+                        <table class="table table-responsive table-hover">
+                            <thead>
+                            <tr style="background: #006699">
+                                <th><h4> Vehicle </h4></th>
+                                <th><h4> From </h4></th>
+                                <th><h4> To </h4></th>
+                                <th><h4> Pick Up </h4></th>
+                                <th><h4> Drop Off </h4></th>
+                                <th><h4> Cost </h4></th>
+                                <th><h4></h4></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($transport_bookings as $transport_booking)
+                                <tr>
+                                    <td class="col-sm-3 col-md-3">
+                                        <div class="media">
+                                            <a class="thumbnail pull-left" href="#">
+                                                <?php
+                                                $total_cost = 0;
+                                                $directory = 'public/images/transport_images/vehicles';
+                                                $img_vehicle_id = Vehicle::where('vehicle_type', $transport_booking['vehicle_type'])->first()->id;
+                                                $images = glob($directory . $img_vehicle_id . "_*");
+                                                $img_path = array_shift($images);
+                                                $img_name = basename($img_path);
+                                                ?>
+
+                                                @if(count($img_path)>0)
+                                                    {{ HTML::image('images/transport_images/vehicles/'.$img_name, '', array('class' => 'hotel_img_booking'))}}
+                                                @else
+                                                    {{ HTML::image('images/no-image.jpg', '', array('class' => 'hotel_img_booking')) }}
+                                                @endif
+
+                                            </a>
+
+                                            <div class="media-body">
+                                                <h4 class="media-heading">
+                                                    <a href="#">{{ $transport_booking['vehicle_type'] }}</a>
+                                                </h4>
+
+
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td class="col-sm-2 col-md-1.5">
+                                        <h5 style="display: inline"
+                                            class="bk_room_name"> {{ $transport_booking['origin'] }} </h5>
+                                    </td>
+
+                                    <td class="col-sm-2 col-md-1.5">
+                                        <h5 style="display: inline"
+                                            class="bk_room_name"> {{ $transport_booking['destination'] }} </h5>
+                                    </td>
+
+                                    <td class="col-sm-1 col-md-2 dark">
+                                        <h5 style="font-weight: 700 !important;">{{ $transport_booking['pick_up_date']  }}</h5>
+                                        <h5 style="font-weight: 700 !important;">{{ $transport_booking['pick_up_time_hour'] . ':' .  $transport_booking['pick_up_time_minutes'] }}</h5>
+                                    </td>
+
+                                    <td class="col-sm-1 col-md-2">
+                                        <h5 style="font-weight: 700 !important;">{{ $transport_booking['drop_off_date']  }}</h5>
+                                        <h5 style="font-weight: 700 !important;">{{ $transport_booking['drop_off_time_hour'] . ':' .  $transport_booking['drop_off_time_minutes'] }}</h5>
+                                    </td>
+
+                                    <td class="col-sm-1 col-md-1">
+                                        <span class="green bold size18"> USD </span>
+                                        <span class="green bold size18">{{ $total_cost }}</span>
+                                    </td>
+
+                                    {{ Form::open(array('url' => '/sri-lanka/transport_cart_rate_box/delete', 'method' => 'POST', 'id'=>'booking_cart_item_delete')) }}
+                                    <td class="col-sm-1 col-md-1">
+                                        <button id="delete_transport_cart_item" type="submit" class="btn btn-danger"
+                                                name="delete_transport_item"
+                                                value="{{ $transport_booking['transport_cart_key'] }}">
+                                            <span class="glyphicon glyphicon-remove"></span> Remove
+                                        </button>
+                                    </td>
+                                    {{ Form::close() }}
+
+                                </tr>
+
+                            @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     @endsection
 

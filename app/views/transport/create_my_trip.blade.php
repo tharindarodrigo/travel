@@ -241,6 +241,118 @@
                         <br/>
 
 
+                            <div class="room1">
+                                <div class="w50percent">
+                                    <div class="wh90percent textleft">
+                                        <div class="col-md-6">
+                                            <span class="opensans size13"><b>ROOM 1</b></span><br/>
+
+                                            <div class="addroom1 block"><a onclick="addroom2()" class="grey cpointer">+
+                                                    Add room</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="w50percentlast">
+                                    <div class="wh90percent textleft right ohidden">
+                                        <div class="col-md-6">
+                                            {{ Form::select('city', $city, null, array('class' => 'form-control mySelectBoxClass transport_destination_select', 'id' => 'transport_destination')) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="room2 none">
+                                <div class="clearfix"></div>
+                                <div class="line1"></div>
+                                <div class="w50percent">
+                                    <div class="wh90percent textleft">
+                                        <span class="opensans size13"><b>ROOM 2</b></span><br/>
+
+                                        <div class="addroom2 block grey"><a onclick="addroom3()" class="grey cpointer">+
+                                                Add room</a> | <a onclick="removeroom2()" class="orange cpointer"><img
+                                                        src="images/delete.png" alt="delete"/></a></div>
+                                    </div>
+                                </div>
+
+                                <div class="w50percentlast">
+                                    <div class="wh90percent textleft right">
+                                        <div class="w50percent">
+                                            <div class="wh90percent textleft left">
+                                                <span class="opensans size13"><b>Adult</b></span>
+                                                <select class="form-control mySelectBoxClass">
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option selected>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="w50percentlast">
+                                            <div class="wh90percent textleft right">
+                                                <span class="opensans size13"><b>Child</b></span>
+                                                <select class="form-control mySelectBoxClass">
+                                                    <option selected>0</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="room3 none">
+                                <div class="clearfix"></div>
+                                <div class="line1"></div>
+                                <div class="w50percent">
+                                    <div class="wh90percent textleft">
+                                        <span class="opensans size13"><b>ROOM 3</b></span><br/>
+
+                                        <div class="addroom3 block grey"><a onclick="addroom3()" class="grey cpointer">+
+                                                Add room</a> | <a onclick="removeroom3()" class="orange cpointer"><img
+                                                        src="images/delete.png" alt="delete"/></a></div>
+                                    </div>
+                                </div>
+
+                                <div class="w50percentlast">
+                                    <div class="wh90percent textleft right">
+                                        <div class="w50percent">
+                                            <div class="wh90percent textleft left">
+                                                <span class="opensans size13"><b>Adult</b></span>
+                                                <select class="form-control mySelectBoxClass">
+                                                    <option selected>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="w50percentlast">
+                                            <div class="wh90percent textleft right">
+                                                <span class="opensans size13"><b>Child</b></span>
+                                                <select class="form-control mySelectBoxClass">
+                                                    <option selected>0</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        <br/>
+
                         <div class="col-md-6 ">
                             <div class="margtop15"><span class="dark">Drop-Off Date:</span><span class="red">*</span>
                             </div>
@@ -351,7 +463,7 @@
 
                     <div class="line3"></div>
                     <div class="padding30">
-                        <span class="left size14 dark"> <h3 style="font-size: 18px; display: inline"> Total Cost :  </h3></span>
+                        <span class="left size14 dark"> <h3 style="font-size: 18px; display: inline"> Total Cost : </h3></span>
                         <span id="room_total_cost" class="right green bold size18">USD 100  </span>
 
                         <div class="clearfix"></div>
@@ -370,6 +482,7 @@
                         <span class="glyphicon glyphicon-play"></span>
                         Checkout
                     </a>
+
                     <div class="clearfix"></div>
                     <br/>
                 </div>
@@ -393,6 +506,8 @@
     @endsection
 
     @section('script')
+
+        {{--        {{ HTML::script('assets/js/js-details.js') }}--}}
 
         <!-- Javascript -->
         {{ HTML::script('assets/js/js-payment.js') }}
