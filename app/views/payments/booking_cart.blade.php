@@ -89,8 +89,16 @@
         <div class="hpadding20">
 
             <h1 style="color: #006699; font-family: 'Cinzel', serif; "> Booking Cart </h1>
-            {{link_to_route('bookings.create','Checkout', null, array('class'=>'btn btn-danger', 'id'=>'checkout'))}}
+            @if(Session::has('add_new_voucher'))
 
+            {{Form::open(array('route'=> array('bookings.vouchers.store',Session::get('add_new_voucher'))))}}
+                {{Form::submit('Add Vouchers', array('class'=>'btn btn-danger', 'id'=>'add_voucher'))}}
+                {{link_to_route('bookings.create','Continue to New Booking', null, array('class'=>'btn btn-warning', 'id'=>'checkout'))}}
+                {{link_to_action('BookingsController@cancelBooking','Cancel All', null, array('class'=>'btn btn-default'))}}
+            {{Form::close()}}
+            @else
+                {{link_to_route('bookings.create','Checkout', null, array('class'=>'btn btn-danger', 'id'=>'checkout'))}}
+            @endif
             <div class="line4"></div>
 
         </div>
@@ -351,22 +359,12 @@
         {{ HTML::script('js/my_script.js') }}
         {{ HTML::script('js/booking_cart.js') }}
 
-        {{--<script type="text/javascript">--}}
-        {{--$(function () {--}}
-        {{--$('#delete_cart_item').click(function () {--}}
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#clear_button').click()
+            })
+        </script>
 
-        {{--var cartData = new FormData();--}}
-        {{--var delete_cart_item = $(this).val();--}}
-
-        {{--var url = 'http://' + window.location.host + '/get_cart_item/delete';--}}
-
-        {{--cartData.append('delete_cart_item', delete_cart_item);--}}
-
-        {{--sendBookingCartData(url, cartData);--}}
-
-        {{--});--}}
-        {{--});--}}
-        {{--</script>--}}
 
     @endsection
 

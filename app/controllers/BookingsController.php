@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
+
 class BookingsController extends \BaseController
 {
 
@@ -25,7 +26,7 @@ class BookingsController extends \BaseController
     public function create()
     {
 
-        if(Session::has('rate_box_details') )
+        if (Session::has('rate_box_details'))
             return View::make('bookings.create');
         return Redirect::to('/');
 
@@ -57,7 +58,7 @@ class BookingsController extends \BaseController
         $data['reference_number'] = 123456789;
         $clients = null;
 
-        if(Session::has('rate_box_details')){
+        if (Session::has('rate_box_details')) {
 
             if ($booking = Booking::create($data)) {
                 if (Session::has('client-list')) {
@@ -93,23 +94,27 @@ class BookingsController extends \BaseController
 
                 //hotel bookings
 
-                $hotel_bookings = Session::get('rate_box_details');
-                foreach($hotel_bookings as $hotel_booking){
-//                    dd($hotel_booking);
+                $bookings = Session::pull('rate_box_details');
 
-                    $hotel_booking['val'] = 1;
-                    $hotel_booking['booking_id'] = $booking->id;
-                    $hotel_booking['amount'] = $hotel_booking['room_cost'];
+                $vouchers = Voucher::arrangeHotelBookingsVoucherwise($bookings,$booking->id);
 
-                    Voucher::create($hotel_booking);
+                foreach($vouchers as $voucher){
+                    $create_voucher = Voucher::create($voucher);
 
+                    for($c=0; $c<count($voucher)-6; $c++){
+
+                        $voucher[$c]['voucher_id'] = $create_voucher->id;
+                        $voucher[$c]['amount'] = $voucher[$c]['room_cost'];
+                        RoomBooking::create($voucher[$c]);
+                    }
                 }
 
-                Mail::send('emails.bookings.booking', array(
-                    'data'=> Booking::getBookingData($booking->id)
-                ), function ($message) use ($user,$booking){
 
-                    $message->to('tharindarodrigo@gmail.com', $user->first_name)->subject('Booking Created : '.$booking->reference_number);
+                Mail::send('emails.bookings.booking', array(
+                    'data' => Booking::getBookingData($booking->id)
+                ), function ($message) use ($user, $booking) {
+
+                    $message->to('tharindarodrigo@gmail.com', $user->first_name)->subject('Booking Created : ' . $booking->reference_number);
                 });
 
             }
@@ -117,7 +122,6 @@ class BookingsController extends \BaseController
         } else {
             return Redirect::back();
         }
-
 
 
         return Redirect::route('bookings.index');
@@ -132,7 +136,7 @@ class BookingsController extends \BaseController
     public function show($id)
     {
         try {
-            $booking = Booking::with('voucher')->with('client')->with('flightDetail')->where('id',$id)->first();
+            $booking = Booking::with('voucher')->with('client')->with('flightDetail')->where('id', $id)->first();
 
         } catch (ModelNotFoundException $e) {
             return Redirect::to('/404');
@@ -201,6 +205,7 @@ class BookingsController extends \BaseController
      */
 
 
+
     public function addClient()
     {
         $input = Input::all();
@@ -239,6 +244,13 @@ class BookingsController extends \BaseController
 //        Session::forget('client-list');
         //dd('client-list');
         return Response::json(Session::get('client-list'));
+    }
+
+    public function cancelBooking()
+    {
+        Session::forget('add_new_voucher');
+        Session::forget('rate_box_details');
+        return Redirect::to('/');
     }
 
 }

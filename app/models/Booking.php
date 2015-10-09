@@ -26,6 +26,7 @@ class Booking extends \Eloquent
     public static function emailBookingDetails($bookingId, $view = 'emails.emailMaster', $subject = 'Booking Amendment - Ref No: ')
     {
         $hotel_bookings = [];
+
         if ($bookings = Session::get('rate_box_details')) {
             $rate_keys = array_keys($bookings);
 
@@ -86,6 +87,11 @@ class Booking extends \Eloquent
     public function invoice()
     {
         return $this->hasOne('Invoice');
+    }
+
+    public function market()
+    {
+        return $this->belongsTo('Market');
     }
 
 

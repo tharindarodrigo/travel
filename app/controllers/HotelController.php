@@ -799,7 +799,6 @@ class HotelController extends \BaseController
         $room_specification_id = Input::get('room_specification_id');
         $room_count = Input::get('room_count');
 
-
         $hotel_name = Hotel::where('id', $hotel_id)->first()->name;
         $hotel_address = Hotel::where('id', $hotel_id)->first()->address;
         $room_name = RoomType::where('id', $room_id)->first()->room_type;
@@ -834,6 +833,7 @@ class HotelController extends \BaseController
             'room_name' => $room_name,
             'room_type_id' => $room_id,
             'room_specification' => $room_specification,
+            'room_specification_id' => $room_specification_id,
             'meal_basis' => $meal_basis,
             'meal_basis_id' => $meal_basis_id,
             'room_cost' => $room_cost,

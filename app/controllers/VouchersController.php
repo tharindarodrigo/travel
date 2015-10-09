@@ -19,9 +19,10 @@ class VouchersController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create($booking_id)
 	{
-		return View::make('vouchers.create');
+        Session::put('add_new_voucher', $booking_id);
+		return Redirect::to('/');
 	}
 
 	/**
@@ -29,18 +30,38 @@ class VouchersController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($booking_id)
 	{
-		$validator = Validator::make($data = Input::all(), Voucher::$rules);
+        $bookings = Session::pull('rate_box_details');
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+        $vouchers = Voucher::arrangeHotelBookingsVoucherwise($bookings, $booking_id);
 
-		Voucher::create($data);
+        foreach($vouchers as $voucher){
+            $create_voucher = Voucher::create($voucher);
 
-		return Redirect::route('vouchers.index');
+            for($c=0; $c<count($voucher)-6; $c++){
+
+                $voucher[$c]['voucher_id'] = $create_voucher->id;
+                $voucher[$c]['amount'] = $voucher[$c]['room_cost'];
+                RoomBooking::create($voucher[$c]);
+            }
+        }
+
+        Session::forget('add_new_voucher');
+
+
+//        Booking::where('id', $booking_id)->update('user_id', Auth::user()->id);
+
+//		$validator = Validator::make($data = Input::all(), Voucher::$rules);
+//
+//		if ($validator->fails())
+//		{
+//			return Redirect::back()->withErrors($validator)->withInput();
+//		}
+//
+//		Voucher::create($data);
+
+		return Redirect::route('bookings.show',[$booking_id]);
 	}
 
 	/**

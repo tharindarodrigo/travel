@@ -998,9 +998,9 @@
                     var meal_basis_id = $(this).prev('input:hidden').val();
                     var room_specification_id = $(this).next('input:hidden').val();
                     var check_in = $('.chk_in').datepicker({dateFormat: 'dd-mm-yy'}).val();
-                    var check_in_key = Date.parse($('.chk_in').val());
+                    var check_in_key = $('.chk_in').datepicker({dateFormat: 'yy-mm-dd'}).val();
                     var check_out = $('.chk_out').datepicker({dateFormat: 'dd-mm-yy'}).val();
-                    var check_out_key = Date.parse($('.chk_out').val());
+                    var check_out_key = $('.chk_out').datepicker({dateFormat: 'yy-mm-dd'}).val();
                     var check_room = check_in_key + '_' + check_out_key + '_' + hotel_id + '_' + room_id + '_' + room_specification_id + '_' + meal_basis_id;
 
                     var url = 'http://' + window.location.host + '/sri-lanka/get_room_rate_box';
