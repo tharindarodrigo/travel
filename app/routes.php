@@ -364,43 +364,23 @@ Route::resource('bookings.flightDetails', 'FlightDetailsController');
 Route::post('/bookings/create-client', 'BookingsController@addClient');
 Route::post('/bookings/destroy-client', 'BookingsController@destroyClient');
 Route::post('/bookings/get-clients', 'BookingsController@getClientList');
-Route::get('bookings/cancel', 'BookingsController@cancelBooking');
 
-
-//Vouchers
-
-Route::resource('bookings.vouchers','VouchersController');
 
 Route::get('/my-bookings', function () {
     return View::make('agent-bookings.bookings');
 });
 
 
+
+
+
 Route::resource('transportation', 'TransportationController');
 
 Route::get('/email-check', function () {
-    $pdf = App::make('dompdf');
-    $pdf->loadHTML('<h1>Test</h1>');
-    return $pdf->stream();
+        $pdf = App::make('dompdf');
+        $pdf->loadHTML('<h1>Test</h1>');
+        return $pdf->stream();
 });
-
-Route::get('cart', function(){
-    $bookings = Session::get('rate_box_details');
-    dd($bookings);
-    dd(Voucher::arrangeHotelBookingsVoucherwise($bookings));
-//    return Redirect::route('booking-cart');
-});
-
-Route::get('invoice', function(){
-
-    return View::make('emails.invoice');
-});
-
-Route::get('voucher',function(){
-    $voucher = Voucher::find(17);
-    return View::make('emails.voucher', compact('voucher'));
-});
-
 
 //tourism details download
 
@@ -605,10 +585,6 @@ Route::post('/sri-lanka/get_transport_box', array(
 // delete transport rate box
 
 Route::post('/sri-lanka/get_transport_rate_box/delete', 'TransportPackageController@transportCartItemDelete');
-
-// delete transport from cart
-
-Route::post('/sri-lanka/transport_cart_rate_box/delete', 'CartController@transportCartDelete');
 
 
 //=====================================================================================================================|

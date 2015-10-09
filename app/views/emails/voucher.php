@@ -161,7 +161,7 @@
                 </tr>
                 <tr>
                     <th>Meal Basis</th>
-                    <td>: <?php ?></td>
+                    <td>: <?php echo $voucher->mealBasis->meal_basis; ?></td>
                 </tr>
                 <tr>
                     <th>Remarks</th>
