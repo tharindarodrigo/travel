@@ -105,6 +105,7 @@ $('.vehicle_select').click(function () {
 //------------------------------
 //Add rooms
 //------------------------------
+
 function addroom2(){
     "use strict";
     $('.room2').addClass('block');

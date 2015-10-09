@@ -124,34 +124,36 @@ class TransportPackageController extends \BaseController
 
         if (Input::has('pick_up_date')) {
             $pick_up_date = date("y-m-d", strtotime(Input::get('pick_up_date')));
-        } else {
-            $pick_up_date = $st_date = date("Y-m-d");
         }
 
         if (Input::has('drop_off_date')) {
             $drop_off_date = date("y-m-d", strtotime(Input::get('drop_off_date')));
-        } else {
-            $drop_off_date = date("Y-m-d", strtotime($st_date . ' + 2 days'));
         }
+
 
         $vehicle_type = Input::get('vehicle_type');
         $vehicle_id = Vehicle::where('vehicle_type', $vehicle_type)->select('id')->first()->id;
         $origin = Input::get('origin');
         $origin_id = City::where('city', $origin)->select('id')->first()->id;
-        $destination = Input::get('destination');
-        $destination_id = City::where('city', $destination)->select('id')->first()->id;;
+        $destination_1 = Input::get('destination_1');
+        $destination_2 = Input::get('destination_2');
+        $destination_3 = Input::get('destination_3');
+        $destination_1_id = City::where('city', $destination_1)->select('id')->first()->id;
+        $destination_2_id = City::where('city', $destination_2)->select('id')->first()->id;
+        $destination_3_id = City::where('city', $destination_3)->select('id')->first()->id;
         $pick_up_time_hour = Input::get('pick_up_time_hour');
         $pick_up_time_minutes = Input::get('pick_up_time_minutes');
         $drop_off_time_hour = Input::get('drop_off_time_hour');
         $drop_off_time_minutes = Input::get('drop_off_time_minutes');
 
-        $transport_cart_key = $vehicle_id . '_' . $origin_id . '_' . $destination_id;
-
+        $transport_cart_key = $vehicle_id . '_' . $origin_id . '_' . $destination_1_id;
 
         $transport_cart_box = array(
             'vehicle_type' => $vehicle_type,
             'origin' => $origin,
-            'destination' => $destination,
+            'destination_1' => $destination_1,
+            'destination_2' => $destination_2,
+            'destination_3' => $destination_3,
             'pick_up_date' => $pick_up_date,
             'pick_up_time_hour' => $pick_up_time_hour,
             'pick_up_time_minutes' => $pick_up_time_minutes,
@@ -159,7 +161,6 @@ class TransportPackageController extends \BaseController
             'drop_off_time_hour' => $drop_off_time_hour,
             'drop_off_time_minutes' => $drop_off_time_minutes,
             'transport_cart_key' => $transport_cart_key,
-
         );
 
 
@@ -171,12 +172,12 @@ class TransportPackageController extends \BaseController
             $data[$transport_cart_key] = $transport_cart_box;
         }
 
-
         Session::put('transport_cart_box', $data);
 
         return Response::json(Session::get('transport_cart_box'));
 
     }
+
 
     public function transportCartItemDelete()
     {

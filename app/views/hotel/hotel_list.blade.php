@@ -111,7 +111,7 @@
                             at
                         </p>
 
-                        <p class="size30 bold">$<span class=""> {{ $min_hot_rate }} </span></p>
+                        <p class="size30 bold">$<span class=""> {{ number_format($min_hot_rate, 2, '.', '') }} </span></p>
 
                         <p class="size13">In {{ str_replace('-', ' ', Request::segment(2)); }} </p>
                     </div>
@@ -778,7 +778,7 @@
                                         @if(!empty($low_hotel_rate))
                                             <span class="green size18">
                                             <b>
-                                                USD {{ $low_hotel_rate }}
+                                                USD {{ number_format($low_hotel_rate, 2, '.', '') }}
                                             </b>
                                             </span>
                                             <br/>

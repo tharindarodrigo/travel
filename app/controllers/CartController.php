@@ -11,7 +11,7 @@ class CartController extends \BaseController
     public function bookingCart()
     {
 
-        if (Session::has('rate_box_details') || Session::has('transport_cart_box')) {
+        if (Session::has('rate_box_details')) {
             $bookings = Session::get('rate_box_details');
             $hotel_bookings = [];
             $rate_keys = array_keys($bookings);
@@ -25,26 +25,28 @@ class CartController extends \BaseController
                 $hotel_bookings[$hotel_id]['room_identity'] = $bookings[$rate_key]['room_identity'];
             }
         } else {
-            return Redirect::to('/403');
+            $hotel_bookings = '';
+        }
+
+        if (Session::has('transport_cart_box')) {
+            $transport_bookings = Session::get('transport_cart_box');
+        } else {
+            $transport_bookings = '';
         }
 
 //dd($hotel_bookings);
 
-        if (Session::has('transport_cart_box') || Session::has('rate_box_details')) {
-            $transport_bookings = Session::get('transport_cart_box');
+        if ((Session::has('rate_box_details')) || (Session::has('transport_cart_box'))) {
+            return View::make('payments.booking_cart')
+                ->with(
+                    array(
+                        'hotel_bookings' => $hotel_bookings,
+                        'transport_bookings' => $transport_bookings,
+                    )
+                );
         } else {
             return Redirect::to('/403');
         }
-
-
-        return View::make('payments.booking_cart')
-            ->with(
-                array(
-                    'hotel_bookings' => $hotel_bookings,
-                    'transport_bookings' => $transport_bookings,
-                )
-            );
-
     }
 
 

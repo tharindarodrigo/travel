@@ -95,22 +95,22 @@
 
         </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-10 col-md-offset-1">
-                    <span class="opensans size18 dark bold caps"> Hotel Summery </span>
-                    <br/><br/>
-                    <table class="table table-responsive table-hover">
-                        <thead>
-                        <tr style="background: #006699">
-                            <th><h4> Hotel </h4></th>
-                            <th><h4> Rooms </h4></th>
-                            <th><h4> Cost </h4></th>
-                            <th><h4></h4></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @if(Session::has('rate_box_details'))
+        @if(Session::has('rate_box_details'))
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-10 col-md-offset-1">
+                        <span class="opensans size18 dark bold caps"> Hotel Summery </span>
+                        <br/><br/>
+                        <table class="table table-responsive table-hover">
+                            <thead>
+                            <tr style="background: #006699">
+                                <th><h4> Hotel </h4></th>
+                                <th><h4> Rooms </h4></th>
+                                <th><h4> Cost </h4></th>
+                                <th><h4></h4></th>
+                            </tr>
+                            </thead>
+                            <tbody>
                             @foreach($hotel_bookings as $hotel_booking)
                                 <tr>
                                     <td class="col-sm-8 col-md-5">
@@ -176,13 +176,13 @@
                                                      class="collapse">
 
                                                     <div class="left size12 lblue ">
-                                                       <span style="color: #000000"> Check In : </span>
+                                                        <span style="color: #000000"> Check In : </span>
                                                         {{ $hotel_booking[$c]['check_in'] }}
                                                     </div>
                                                     <br/>
 
                                                     <div class="left size12 lblue ">
-                                                       <span style="color: #000000"> Check Out : </span>
+                                                        <span style="color: #000000"> Check Out : </span>
                                                         {{ $hotel_booking[$c]['check_out'] }}
                                                     </div>
                                                     <br/>
@@ -204,7 +204,7 @@
 
                                                 <h5 style="display: inline" class="bk_room_name">Room Total
                                                     : </h5><span
-                                                        class="green">{{ $hotel_booking[$c]['room_cost'] }}</span>
+                                                        class="green"> USD {{ number_format($hotel_booking[$c]['room_cost'], 2, '.', '') }}</span>
                                             </div>
                                             <br/>
                                             <div class="line3"></div>
@@ -215,7 +215,7 @@
 
                                     <td class="col-sm-1 col-md-2">
                                         <span class="green bold size18"> USD </span>
-                                        <span class="green bold size18">{{ $total_cost }}</span>
+                                        <span class="green bold size18">{{ number_format($total_cost, 2, '.', '') }}</span>
                                     </td>
 
                                     {{ Form::open(array('url' => '/get_cart_item/delete', 'method' => 'POST', 'id'=>'booking_cart_item_delete')) }}
@@ -229,14 +229,13 @@
                                     {{ Form::close() }}
 
                                 </tr>
-
                             @endforeach
-                        @endif
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
 
         <br/><br/><br/>
 
@@ -299,7 +298,7 @@
 
                                     <td class="col-sm-2 col-md-1.5">
                                         <h5 style="display: inline"
-                                            class="bk_room_name"> {{ $transport_booking['destination'] }} </h5>
+                                            class="bk_room_name"> {{ $transport_booking['destination_1'] }} </h5>
                                     </td>
 
                                     <td class="col-sm-1 col-md-2 dark">
@@ -314,7 +313,7 @@
 
                                     <td class="col-sm-1 col-md-1">
                                         <span class="green bold size18"> USD </span>
-                                        <span class="green bold size18">{{ $total_cost }}</span>
+                                        <span class="green bold size18">{{ number_format($total_cost, 2, '.', '') }}</span>
                                     </td>
 
                                     {{ Form::open(array('url' => '/sri-lanka/transport_cart_rate_box/delete', 'method' => 'POST', 'id'=>'booking_cart_item_delete')) }}

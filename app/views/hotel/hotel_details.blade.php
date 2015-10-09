@@ -405,7 +405,7 @@
                                                 <?php $low_room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room->room_specification_id, $room->meal_basis_id, $st_date, $ed_date); ?>
                                                 <div class="col-md-4 center bordertype4">
                                                     @if($low_room_rate > 0 )
-                                                        <span class="opensans green size24">USD {{ $low_room_rate }} </span>
+                                                        <span class="opensans green size24">USD {{ number_format($low_room_rate, 2, '.', '')  }} </span>
                                                         <br/>
                                                         <span class="opensans lightgrey size12">avg/night</span>
                                                         <br/>

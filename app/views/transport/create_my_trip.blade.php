@@ -125,18 +125,6 @@
                         <br/>
 
                         <div class="col-md-6 ">
-                            <div class="margtop15"><span class="dark">Origin</span><span class="red">*</span></div>
-                        </div>
-                        <div class="col-md-6">
-                            {{ Form::select('city', $city, null, array('class' => 'form-control mySelectBoxClass transport_origin_select', 'id' => 'transport_origin')) }}
-                        </div>
-                        <div class="col-md-6  margtop15">
-                        </div>
-                        <div class="clearfix"></div>
-
-                        <br/>
-
-                        <div class="col-md-6 ">
                             <div class="margtop15"><span class="dark">Pickup Date:</span><span class="red">*</span>
                             </div>
                         </div>
@@ -210,16 +198,27 @@
 
                         <br/>
 
+                        <div class="col-md-6 ">
+                            <div class="margtop15"><span class="dark">Origin</span><span class="red">*</span></div>
+                        </div>
+                        <div class="col-md-6">
+                            {{ Form::select('city', $city, null, array('class' => 'form-control mySelectBoxClass transport_origin_select', 'id' => 'transport_origin')) }}
+                        </div>
+                        <div class="col-md-6  margtop15">
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <br/>
+
                     </div>
 
                     <div class="col-md-6">
 
                         <div class="col-md-6 ">
-
                         </div>
                         <div class="col-md-6">
-
                         </div>
+
                         <div class="col-md-6  margtop15">
                         </div>
                         <div class="clearfix"></div>
@@ -229,132 +228,8 @@
                         <br/>
 
                         <div class="col-md-6 ">
-                            <div class="margtop15"><span class="dark">Destination</span><span class="red">*</span></div>
-                        </div>
-                        <div class="col-md-6">
-                            {{ Form::select('city', $city, null, array('class' => 'form-control mySelectBoxClass transport_destination_select', 'id' => 'transport_destination')) }}
-                        </div>
-                        <div class="col-md-6  margtop15">
-                        </div>
-                        <div class="clearfix"></div>
-
-                        <br/>
-
-
-                            <div class="room1">
-                                <div class="w50percent">
-                                    <div class="wh90percent textleft">
-                                        <div class="col-md-6">
-                                            <span class="opensans size13"><b>ROOM 1</b></span><br/>
-
-                                            <div class="addroom1 block"><a onclick="addroom2()" class="grey cpointer">+
-                                                    Add room</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="w50percentlast">
-                                    <div class="wh90percent textleft right ohidden">
-                                        <div class="col-md-6">
-                                            {{ Form::select('city', $city, null, array('class' => 'form-control mySelectBoxClass transport_destination_select', 'id' => 'transport_destination')) }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="room2 none">
-                                <div class="clearfix"></div>
-                                <div class="line1"></div>
-                                <div class="w50percent">
-                                    <div class="wh90percent textleft">
-                                        <span class="opensans size13"><b>ROOM 2</b></span><br/>
-
-                                        <div class="addroom2 block grey"><a onclick="addroom3()" class="grey cpointer">+
-                                                Add room</a> | <a onclick="removeroom2()" class="orange cpointer"><img
-                                                        src="images/delete.png" alt="delete"/></a></div>
-                                    </div>
-                                </div>
-
-                                <div class="w50percentlast">
-                                    <div class="wh90percent textleft right">
-                                        <div class="w50percent">
-                                            <div class="wh90percent textleft left">
-                                                <span class="opensans size13"><b>Adult</b></span>
-                                                <select class="form-control mySelectBoxClass">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option selected>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="w50percentlast">
-                                            <div class="wh90percent textleft right">
-                                                <span class="opensans size13"><b>Child</b></span>
-                                                <select class="form-control mySelectBoxClass">
-                                                    <option selected>0</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="room3 none">
-                                <div class="clearfix"></div>
-                                <div class="line1"></div>
-                                <div class="w50percent">
-                                    <div class="wh90percent textleft">
-                                        <span class="opensans size13"><b>ROOM 3</b></span><br/>
-
-                                        <div class="addroom3 block grey"><a onclick="addroom3()" class="grey cpointer">+
-                                                Add room</a> | <a onclick="removeroom3()" class="orange cpointer"><img
-                                                        src="images/delete.png" alt="delete"/></a></div>
-                                    </div>
-                                </div>
-
-                                <div class="w50percentlast">
-                                    <div class="wh90percent textleft right">
-                                        <div class="w50percent">
-                                            <div class="wh90percent textleft left">
-                                                <span class="opensans size13"><b>Adult</b></span>
-                                                <select class="form-control mySelectBoxClass">
-                                                    <option selected>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="w50percentlast">
-                                            <div class="wh90percent textleft right">
-                                                <span class="opensans size13"><b>Child</b></span>
-                                                <select class="form-control mySelectBoxClass">
-                                                    <option selected>0</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        <br/>
-
-                        <div class="col-md-6 ">
-                            <div class="margtop15"><span class="dark">Drop-Off Date:</span><span class="red">*</span>
+                            <div class="margtop15"><span class="dark">Drop-Off Date:</span><span
+                                        class="red">*</span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -427,6 +302,86 @@
 
                         <br/>
 
+                        <div class="room1">
+                            <div class="col-md-6">
+                                <div class="wh90percent textleft">
+                                    <div class="margtop7"><span class="dark">Destination</span><span
+                                                class="red">*</span></div>
+
+                                    <div class="addroom1 block"><a onclick="addroom2()" class="grey cpointer">+
+                                            Add Destination</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="wh90percent textleft right ohidden">
+                                    {{ Form::select('city', $city, null, array('class' => 'form-control mySelectBoxClass transport_destination_select_1', 'id' => 'transport_destination_1')) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6  margtop15">
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="room2 none">
+                            <div class="clearfix"></div>
+                            <div class="line1"></div>
+                            <div class="w50percent">
+                                <div class="wh90percent textleft">
+                                    <span class="opensans size13"><b>Destination 2</b></span><br/>
+
+                                    <div class="addroom2 block grey"><a onclick="addroom3()" class="grey cpointer">+
+                                            Add Destination</a> | <a onclick="removeroom2()"
+                                                                     class="orange cpointer"><img
+                                                    src="images/delete.png" alt="delete"/></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w50percentlast">
+                                <div class="wh90percent textleft right">
+                                    <div class="">
+                                        <div class="wh90percent textleft left">
+                                            {{ Form::select('city', $city, null, array('class' => 'form-control mySelectBoxClass transport_destination_select_2', 'id' => 'transport_destination_2')) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6  margtop15">
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="room3 none">
+                            <div class="clearfix"></div>
+                            <div class="line1"></div>
+                            <div class="w50percent">
+                                <div class="wh90percent textleft">
+                                    <span class="opensans size13"><b>Destination 3</b></span><br/>
+
+                                    <div class="addroom3 block grey"><a onclick="addroom3()" class="grey cpointer">+
+                                            Add Destination</a> | <a onclick="removeroom3()"
+                                                                     class="orange cpointer"><img
+                                                    src="images/delete.png" alt="delete"/></a></div>
+                                </div>
+                            </div>
+
+                            <div class="w50percentlast">
+                                <div class="wh90percent textleft right">
+                                    <div class="">
+                                        <div class="wh90percent textleft left">
+                                            {{ Form::select('city', $city, null, array('class' => 'form-control mySelectBoxClass transport_destination_select_3', 'id' => 'transport_destination_3')) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6  margtop15">
+                        </div>
+                        <div class="clearfix"></div>
+                        <br/>
+
                     </div>
 
                     <div align="right">
@@ -463,7 +418,8 @@
 
                     <div class="line3"></div>
                     <div class="padding30">
-                        <span class="left size14 dark"> <h3 style="font-size: 18px; display: inline"> Total Cost : </h3></span>
+                            <span class="left size14 dark"> <h3 style="font-size: 18px; display: inline"> Total Cost
+                                    : </h3></span>
                         <span id="room_total_cost" class="right green bold size18">USD 100  </span>
 
                         <div class="clearfix"></div>
@@ -495,7 +451,7 @@
         <div class="container mt25 offset-0">
             <div class="col-md-8 pagecontainer2 offset-0">
                 <!-- GOING TO -->
-                <div class="col-md-8" style="width:293px; height: 400px;" id="dvMap"></div>
+                <div class="col-md-8" style="width:100%; height: 400px;" id="dvMap"></div>
                 <!-- END OF GOING TO -->
             </div>
         </div>
@@ -723,11 +679,11 @@
 
                 $('.transport_get_cart_box').click(function () {
 
-                    $('#transport_rate_box').show("blind", 500);
-
                     var vehicle_type = $('.vehicle :selected').text();
                     var origin = $('.transport_origin_select :selected').text();
-                    var destination = $('.transport_destination_select :selected').text();
+                    var destination_1 = $('.transport_destination_select_1 :selected').text();
+                    var destination_2 = $('.transport_destination_select_2 :selected').text();
+                    var destination_3 = $('.transport_destination_select_3 :selected').text();
                     var pick_up_date = $('.pick_up').datepicker({dateFormat: 'dd-mm-yy'}).val();
                     var pick_up_time_hour = $('.pick_up_hour :selected').text();
                     var pick_up_time_minutes = $('.pick_up_minutes :selected').text();
@@ -735,21 +691,32 @@
                     var drop_off_time_hour = $('.drop_off_hour :selected').text();
                     var drop_off_time_minutes = $('.drop_off_minutes :selected').text();
 
-                    var url = 'http://' + window.location.host + '/sri-lanka/get_transport_box';
 
-                    var formData = new FormData();
+                    if ((pick_up_date != '') && (drop_off_date != '')) {
 
-                    formData.append('vehicle_type', vehicle_type);
-                    formData.append('origin', origin);
-                    formData.append('destination', destination);
-                    formData.append('pick_up_date', pick_up_date);
-                    formData.append('pick_up_time_hour', pick_up_time_hour);
-                    formData.append('pick_up_time_minutes', pick_up_time_minutes);
-                    formData.append('drop_off_date', drop_off_date);
-                    formData.append('drop_off_time_hour', drop_off_time_hour);
-                    formData.append('drop_off_time_minutes', drop_off_time_minutes);
+                        $('#transport_rate_box').show("blind", 500);
 
-                    sendTransportData(url, formData);
+                        var url = 'http://' + window.location.host + '/sri-lanka/get_transport_box';
+
+                        var formData = new FormData();
+
+                        formData.append('vehicle_type', vehicle_type);
+                        formData.append('origin', origin);
+                        formData.append('destination_1', destination_1);
+                        formData.append('destination_2', destination_2);
+                        formData.append('destination_3', destination_3);
+                        formData.append('pick_up_date', pick_up_date);
+                        formData.append('pick_up_time_hour', pick_up_time_hour);
+                        formData.append('pick_up_time_minutes', pick_up_time_minutes);
+                        formData.append('drop_off_date', drop_off_date);
+                        formData.append('drop_off_time_hour', drop_off_time_hour);
+                        formData.append('drop_off_time_minutes', drop_off_time_minutes);
+
+                        sendTransportData(url, formData);
+
+                    } else {
+                        alert('please select dates');
+                    }
 
                 });
             });
