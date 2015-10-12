@@ -175,10 +175,14 @@ Route::group(array('before' => 'guest'), function () {
         'uses' => 'AccountController@profileActive',
     ));
 
-
     Route::get('/account/activate/{code}', array(
         'as' => 'account-activate',
         'uses' => 'AccountController@getActivate'
+    ));
+
+    Route::get('/account/account-confirmation', array(
+        'as' => 'activation-email',
+        'uses' => 'AccountController@getActivationEmail'
     ));
 
 });

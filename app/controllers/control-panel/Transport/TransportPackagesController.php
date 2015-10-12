@@ -66,9 +66,8 @@ class TransportPackagesController extends \BaseController {
 	{
 
 		$transportpackage = Transportpackage::findOrFail($id);
-		$packages = Transportpackage::all();
+		$packages = Transportpackage::with('originCity')->with('destinationCity')->get();
         Session::put('edit', 'edit');
-
 
         return View::make('control-panel.transportation.packages', compact('transportpackage','packages'));
 	}

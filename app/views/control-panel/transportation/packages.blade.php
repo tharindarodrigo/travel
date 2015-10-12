@@ -94,13 +94,13 @@
                             <label for="start_date">Start Date</label>
                             {{Form::text('start_date', null, array('class'=>'form-control date-control'))}}
                         </div>
-                        {{ $errors->first('millage', '<div class="form-group text-red">:message</div>') }}
+                        {{ $errors->first('start_date', '<div class="form-group text-red">:message</div>') }}
 
                         <div class="form-group">
                             <label for="end_date">Ending Date</label>
                             {{Form::text('end_date', null, array('class'=>'form-control date-control'))}}
                         </div>
-                        {{ $errors->first('millage', '<div class="form-group text-red">:message</div>') }}
+                        {{ $errors->first('end_date', '<div class="form-group text-red">:message</div>') }}
 
                     </div>
 
@@ -172,7 +172,7 @@
                                 <td>{{ $package->millage }}</td>
                                 <td>{{ $package->days }}</td>
                                 <td>{{ $package->nights }}</td>
-                                <td>{{ $package->origin }}</td>
+                                <td>{{ $package->origin}}</td>
                                 <td>{{ $package->destination}}</td>
                                 <td>{{ $package->start_date }}</td>
                                 <td>{{ $package->end_date }}</td>

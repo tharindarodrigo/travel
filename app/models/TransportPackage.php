@@ -21,11 +21,11 @@ class TransportPackage extends \Eloquent
         return $this->belongsTo('Vehicle');
     }
 
-    public function origin(){
-        return $this->belongsTo('city');
+    public function originCity(){
+        return $this->belongsTo('City');
     }
-    public function destination(){
-        return $this->belongsTo('city');
+    public function destinationCity(){
+        return $this->belongsTo('City');
     }
 
 }

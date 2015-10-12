@@ -5,15 +5,22 @@
 
 @extends('control-panel.layout.main')
 
+@section('bread-crumbs')
+    <li class="active">Hotels</li>
+    <li class="active">{{Hotel::find($hotelid)->name}}</li>
+    <li class="active">Supplement Rates</li>
+@endsection
+
 @section('head-scripts')
     {{ HTML::style('control-panel-assets/plugins/datepicker/datepicker3.css') }}
 @endsection
 
 @section('hotel-nav-bar')
-<li class="">{{link_to_route('control-panel.hotel.hotel-profile.edit','Hotel Profile',array($hotelid))}}</li>
+<li class="">{{link_to_route('control-panel.hotel.hotels.edit','Hotel Profile',array($hotelid))}}</li>
 <li class="">{{link_to_route('control-panel.hotel.hotels.room-types.index' ,'Rooms', array($hotelid))}}</li>
 <li class="">{{link_to_route('control-panel.hotel.hotels.rates.index','Rates' ,array($hotelid))}}</li>
 <li class="active">{{link_to_route('control-panel.hotel.hotels.supplement-rates.index','Supplement Rates' ,array($hotelid))}}</li>
+<li class="">{{link_to_route('control-panel.hotel.hotels.allotments.index','Allotments' ,array($hotelid))}}</li>
 @endsection
 
 {{--Title--}}

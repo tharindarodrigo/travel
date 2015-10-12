@@ -7,7 +7,7 @@ class Allotment extends \Eloquent {
 		'room_type_id' => 'required',
         'from' => 'required|date',
         'to' => 'required|date|after:from',
-        'rooms' => 'required|numeric'
+        'rooms' => 'required|integer'
 	];
 
 	// Don't forget to fill this array

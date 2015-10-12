@@ -21,6 +21,7 @@ function postData(url, method, prefix, formData , successpage, defaultPage){
                 });
             } else {
 
+
                 if(data.success){
                     window.location.href = successpage;
                 } else {

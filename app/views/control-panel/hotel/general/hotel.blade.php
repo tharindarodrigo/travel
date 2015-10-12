@@ -32,7 +32,6 @@
 
     {{ Form::open(array('route' => array('control-panel.hotel.hotels.store'))) }}
     <div class="col-md-12">
-
         <div class="box box-primary">
             <div class="box-header">
                 <h3 class="box-title">
@@ -67,7 +66,6 @@
 
                         </div>
                         {{ $errors->first('city_id', '<div class="form-group text-red">:message</div>') }}
-
 
                     </div>
                     <div class="col-md-6">

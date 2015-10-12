@@ -1,5 +1,15 @@
 @extends('control-panel.hotel.hotels.hotels')
 
+@section('control-sub-title')
+    @yield('control-subtitle')
+@endsection
+
+@section('bread-crumbs')
+        <li class="active">Hotels</li>
+        <li class="active">{{$hotelprofile->name}}</li>
+        <li class="active">Edit</li>
+@endsection
+
 @section('hotel-nav-bar')
 <li class="active">{{link_to_route('control-panel.hotel.hotels.edit','Hotel Profile',array($hotelid))}}</li>
 <li class="">{{link_to_route('control-panel.hotel.hotels.room-types.index' ,'Rooms', array($hotelid))}}</li>
