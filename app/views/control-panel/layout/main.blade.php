@@ -282,6 +282,17 @@
                 <li class="@yield('active-general-markets')"><a href="#"><i class="fa fa-circle-o"></i> Markets</a></li>
               </ul>
             </li>
+            <li class="treeview @yield('active-transportation')">
+              <a href="#">
+                <i class="fa fa-car"></i>
+                <span>Transportation</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="@yield('active-transportation-vehicles')"><a href="{{URL::route('control-panel.transportation.vehicles.index')}}"><i class="fa fa-circle-o"></i> Vehicles</a></li>
+                <li class="@yield('active-transportation-packages')"><a href="{{URL::route('control-panel.transportation.packages.index')}}"><i class="fa fa-circle-o"></i> Packages</a></li>
+              </ul>
+            </li>
 
             <li class="treeview">
               <a href="#">

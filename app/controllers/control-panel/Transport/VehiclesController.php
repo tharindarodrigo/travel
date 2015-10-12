@@ -2,106 +2,115 @@
 
 class VehiclesController extends \BaseController {
 
-	/**
-	 * Display a listing of vehicles
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$vehicles = Vehicle::all();
+    /**
+     * Display a listing of Vehicles
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        Session::forget('edit');
+        $vehicles = Vehicle::all();
+        return View::make('control-panel.transportation.vehicles',compact('vehicles'));
+    }
 
-		return View::make('vehicles.index', compact('vehicles'));
-	}
+    /**
+     * Show the form for creating a new Vehicle
+     *
+     * @return Response
+     */
+    public function create()
+    {
 
-	/**
-	 * Show the form for creating a new vehicle
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('vehicles.create');
-	}
 
-	/**
-	 * Store a newly created vehicle in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), Vehicle::$rules);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+        return Redirect::back();
+    }
 
-		Vehicle::create($data);
+    /**
+     * Store a newly created Vehicle in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        $validator = Validator::make($data = Input::all(), Vehicle::$rules);
 
-		return Redirect::route('vehicles.index');
-	}
+        if ($validator->fails())
+        {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-	/**
-	 * Display the specified vehicle.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$vehicle = Vehicle::findOrFail($id);
+        Vehicle::create($data);
 
-		return View::make('vehicles.show', compact('vehicle'));
-	}
+        return Redirect::route('control-panel.transportation.vehicles');
+    }
 
-	/**
-	 * Show the form for editing the specified vehicle.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$vehicle = Vehicle::find($id);
+    /**
+     * Display the specified Vehicle.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $vehicles = Vehicle::findOrFail($id);
 
-		return View::make('vehicles.edit', compact('vehicle'));
-	}
+        return View::make('control-panel.transportation.vehicles', compact('vehicles'));
+    }
 
-	/**
-	 * Update the specified vehicle in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$vehicle = Vehicle::findOrFail($id);
+    /**
+     * Show the form for editing the specified Vehicle.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
 
-		$validator = Validator::make($data = Input::all(), Vehicle::$rules);
+        $vehicle = Vehicle::findOrFail($id);
+        $vehicles = Vehicle::all();
+        Session::put('edit', 'edit');
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
 
-		$vehicle->update($data);
+        return View::make('control-panel.transportation.vehicles', compact('vehicle','vehicles'));
+    }
 
-		return Redirect::route('vehicles.index');
-	}
+    /**
+     * Update the specified Vehicle in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        $Vehicle = Vehicle::findOrFail($id);
 
-	/**
-	 * Remove the specified vehicle from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Vehicle::destroy($id);
+        $validator = Validator::make($data = Input::all(), Vehicle::$rules);
 
-		return Redirect::route('vehicles.index');
-	}
+        if ($validator->fails())
+        {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+        $Vehicle->update($data);
+
+        Session::forget('edit');
+
+        return Redirect::route('control-panel..index');
+    }
+
+    /**
+     * Remove the specified Vehicle from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        Vehicle::destroy($id);
+
+        return Redirect::route('control-panel.transportation.vehicles.index');
+    }
 
 }

@@ -10,7 +10,7 @@ class TransportationController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+
 	}
 
 	/**
