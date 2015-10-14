@@ -24,7 +24,6 @@ class CreateTransportPackagesTable extends Migration {
             $table->date('start_date');
             $table->date('end_date');
             $table->double('rate');
-            $table->boolean('val')->default(1);
 			$table->timestamps();
 
             $table->foreign('vehicle_id')->references('id')->on('vehicles');

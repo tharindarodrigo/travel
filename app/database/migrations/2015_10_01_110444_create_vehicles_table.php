@@ -17,7 +17,6 @@ class CreateVehiclesTable extends Migration {
 			$table->increments('id');
             $table->string('vehicle_type');
             $table->integer('passengers');
-            $table->double('rate');
             $table->boolean('val');
 			$table->timestamps();
 		});

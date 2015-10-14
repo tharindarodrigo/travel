@@ -271,8 +271,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li class="@yield('active-users')"><a href="#"><i class="fa fa-circle-o"></i> Vehicles</a></li>
-                <li class="@yield('active-transportation-packages')"><a href="#"><i class="fa fa-circle-o"></i> Packages</a></li>
+                <li class="@yield('active-users-agents')"><a href="#"><i class="fa fa-circle-o"></i> Agents</a></li>
+                <li class="@yield('active-users-hoteliers')"><a href="#"><i class="fa fa-circle-o"></i> Hoteliers</a></li>
               </ul>
             </li>
 

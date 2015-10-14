@@ -214,6 +214,15 @@ Route::group(array('prefix' => 'control-panel'), function () {
 
     });
 
+
+    Route::resource('users','UsersController');
+    Route::group(array('prefix' => 'users'), function () {
+
+        Route::post('change-role/{user_id}','UsersController@changeRole');
+
+    });
+
+
     Route::get('image-uploads', array(
         'as' => 'post-image-upload',
         'uses' => 'ImageController@getUploadForm'
@@ -374,7 +383,7 @@ Route::get('/', array(
 
 //Bookings
 Route::resource('bookings', 'BookingsController');
-
+Route::resource('cars','CarsController');
 Route::resource('bookings.clients', 'ClientsController');
 Route::resource('bookings.flightDetails', 'FlightDetailsController');
 

@@ -1,5 +1,5 @@
 <?php
 
-class Role extends EntrustRole{
+class Role extends \Zizaco\Entrust\EntrustRole{
 	protected $fillable = [];
 }
