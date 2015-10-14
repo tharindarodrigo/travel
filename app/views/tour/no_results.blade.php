@@ -64,18 +64,13 @@
 
             <div class="left">
                 <ul class="bcrumbs">
+                    <li><a href="{{URL::route('index')}}" class="active">Home </a></li>
                     <li>/</li>
-                    <li><a href="#">Hotels</a></li>
-                    <li>/</li>
-                    <li><a href="#">U.S.A.</a></li>
-                    <li>/</li>
-                    <li><a href="#" class="active">New York</a></li>
                 </ul>
             </div>
             <a class="backbtn right" href="#"></a>
         </div>
         <div class="clearfix"></div>
-        {{--<div class="brlines"></div>--}}
     </div>
 
     <!-- CONTENT -->
@@ -99,31 +94,9 @@
 
                 <div class="padding20title"><h3 class="opensans dark">Tours</h3></div>
 
-                <div class="bookfilters hpadding20">
-
-                    <!-- HOTELS TAB -->
-                    <div class="hotelstab2 none">
-
-                        <div>
-                            <span class="opensans size13">Country</span>
-                            {{  Form::select('country', $country, null, array('class' => 'form-control mySelectBoxClass')) }}
-                        </div>
-
-                        <div class="margtop10">
-                            <span class="opensans size13">City</span>
-                            {{  Form::select('city', $city, null, array('class' => 'form-control mySelectBoxClass')) }}
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <button type="submit" class="btn-search3">Search</button>
-                    </div>
-                    <!-- END OF HOTELS TAB -->
-
-
-                </div>
-                <!-- END OF BOOK FILTERS -->
-
+                <!-- Reservation Box -->
+                @include('layout.reservation_box_pages')
+                <!-- End Of Reservation Box -->
                 <div class="line2"></div>
 
                 <div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>

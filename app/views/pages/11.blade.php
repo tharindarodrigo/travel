@@ -1,93 +1,35 @@
-/**
-* Created by thilina on 2015-08-12.
-*/
-
-
-/**************************************** AUTO COMPLETE  ******************************************************************/
-
-function lookup(inputString) {
-if (inputString.length == 0) {
-$('#suggestions').fadeOut(); // Hide the suggestions box
-} else {
-$.post("http://" + window.location.host + "/auto-complete", {queryString: "" + inputString + ""}, function (data) { // Do an AJAX call
-$('#suggestions').fadeIn(); // Show the suggestions box
-$('#suggestions').html(data); // Fill the suggestions box
-
-$('a').click(function () {
-$value = $(this).attr('value');
-$category = $(this).attr('category');
-$('#inputString').val($value);
-$('#inputString').attr('category', $category);
-$('#suggestions').fadeOut();
-});
-});
-}
-}
-/**************************************** END OF AUTO COMPLETE ******************************************************************/
-
-
-/**************************************** HOTEL LIST ******************************************************************/
-
-
-$('.star_category').click(function () {
-var star = $('input[name=star_rating]:checked').map(function () {
-return $(this).val();
-}).get();
-$('#star_rating_form').submit();
-});
-
-$('.acc_select').click(function () {
-var accommodation = $('input[name=accommodation]:checked').map(function () {
-return $(this).val();
-}).get();
-$('#accommodation_form').submit()
-});
-
-$('.city_select').click(function () {
-var city = $('input[name=city]:checked').map(function () {
-return $(this).val();
-}).get();
-$('#city_form').submit()
-});
-
-$('.hot_facility').click(function () {
-var facilities = $('input[name=facility]:checked').map(function () {
-return $(this).val();
-}).get();
-$('#facility_form').submit()
-});
-
-
-$('.price_range_select').slider({
-change: function(event, ui) {
-alert(ui.value);
-}
-});
-
-
-/**************************************** END OF HOTEL LIST ******************************************************************/
-
-
-/**************************************** TOUR LIST ******************************************************************/
-
-
-$('.tour_select').click(function () {
-var tour_type = $('input[name=tour]:checked').map(function () {
-return $(this).val();
-}).get();
-$('#tour_form').submit()
-});
-
-/**************************************** END TOUR LIST ******************************************************************/
-
-/**************************************** EXCURSION LIST ******************************************************************/
-
-$('.excursion_select').click(function () {
-var excursion_type = $('input[name=excursion]:checked').map(function () {
-return $(this).val();
-}).get();
-$('#excursion_form').submit()
-});
-
-
-/**************************************** END EXCURSION LIST ******************************************************************/
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+<link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css"
+      rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    $(function () {
+        $("#btnShow").click(function () {
+            $("#dialog").dialog({
+                modal: true,
+                title: "Google Map",
+                width: 600,
+                hright: 450,
+                buttons: {
+                    Close: function () {
+                        $(this).dialog('close');
+                    }
+                },
+                open: function () {
+                    var mapOptions = {
+                        center: new google.maps.LatLng(19.0606917, 72.83624970000005),
+                        zoom: 18,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    var map = new google.maps.Map($("#dvMap")[0], mapOptions);
+                }
+            });
+        });
+    });
+</script>
+<input id = "btnShow" type="button" value="Show Maps"/>
+<div id="dialog" style="display: none">
+    <div id="dvMap" style="height: 380px; width: 580px;">
+    </div>
+</div>

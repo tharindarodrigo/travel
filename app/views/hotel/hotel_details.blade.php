@@ -63,18 +63,17 @@
 
             <div class="left">
                 <ul class="bcrumbs">
+                    <li><a href="{{URL::route('index')}}" class="active">Home </a></li>
                     <li>/</li>
-                    <li><a href="#">Hotels</a></li>
+                    <li><a href="{{URL::to('sri-lanka/'.Request::segment(2) )}}" class="active">{{ str_replace('-', ' ', Request::segment(2)) }} </a></li>
                     <li>/</li>
-                    <li><a href="#">U.S.A.</a></li>
+                    <li><a href="{{URL::to('sri-lanka/'.Request::segment(2).'/'.Request::segment(3) )}}" class="active">{{ str_replace('-', ' ', Request::segment(3)) }} </a></li>
                     <li>/</li>
-                    <li><a href="#" class="active">New York</a></li>
                 </ul>
             </div>
             <a class="backbtn right" href="#"></a>
         </div>
         <div class="clearfix"></div>
-
     </div>
 
     <!-- CONTENT -->
@@ -85,41 +84,41 @@
 
                 <!-- SLIDER -->
 
-                {{--<div class="col-md-8 details-slider">--}}
+                <div class="col-md-8 details-slider">
 
-                {{--<div id="c-carousel">--}}
-                {{--<div id="wrapper">--}}
-                {{--<div id="inner">--}}
-                {{--<div id="caroufredsel_wrapper2">--}}
-                {{--<div id="carousel">--}}
-                {{--@foreach ($path as $img_path)--}}
-                {{--<?php //$img_name = basename($img_path); ?>--}}
-                {{--{{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'property_img_1')) }}--}}
-                {{--@endforeach--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--<div id="pager-wrapper">--}}
-                {{--<div id="pager">--}}
-                {{--@foreach ($path as $img_path)--}}
-                {{--<?php// $img_name = basename($img_path); ?>--}}
-                {{--{{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'property_img_1')) }}--}}
-                {{--@endforeach--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="clearfix"></div>--}}
-                {{--<button id="prev_btn2" class="prev2">--}}
-                {{--{{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}--}}
-                {{--</button>--}}
-                {{--<button id="next_btn2" class="next2">--}}
-                {{--{{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}--}}
-                {{--</button>--}}
+                    <div id="c-carousel">
+                        <div id="wrapper">
+                            <div id="inner">
+                                <div id="caroufredsel_wrapper2">
+                                    <div id="carousel">
+                                        @foreach ($path as $img_path)
+                                            <?php $img_name = basename($img_path); ?>
+                                            {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'property_img_1')) }}
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div id="pager-wrapper">
+                                    <div id="pager">
+                                        @foreach ($path as $img_path)
+                                            <?php $img_name = basename($img_path); ?>
+                                            {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'property_img_1')) }}
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <button id="prev_btn2" class="prev2">
+                                {{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}
+                            </button>
+                            <button id="next_btn2" class="next2">
+                                {{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}
+                            </button>
 
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--<!-- /carousel -->--}}
+                        </div>
+                    </div>
+                    <!-- /carousel -->
 
-                {{--</div>--}}
+                </div>
 
                 <!-- END OF SLIDER -->
 
@@ -142,9 +141,13 @@
 
                     <div class="line3"></div>
 
+                    <div class="hpadding20">
+                        <h2 class="opensans slim green2">wonderful...!!</h2>
+                    </div>
+
                     @foreach($details->hotelReview as $review)
                         <div class="hpadding20">
-                            <h2 class="opensans slim green2">{{ $review->review.' !'; }}</h2>
+                            {{--<h2 class="opensans slim green2">{{ $review->review.' !'; }}</h2>--}}
                         </div>
                         <?php break; ?>
                     @endforeach

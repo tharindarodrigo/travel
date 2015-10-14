@@ -579,13 +579,17 @@ Route::post('/sri-lanka/get_transport_box', array(
     'uses' => 'TransportPackageController@transportCart'
 ));
 
-// delete transport rate box
+// delete transport rate box item
 
 Route::post('/sri-lanka/get_transport_rate_box/delete', 'TransportPackageController@transportCartItemDelete');
 
 // delete transport from cart
 
 Route::post('/sri-lanka/transport_cart_rate_box/delete', 'CartController@transportCartDelete');
+
+// Create transport map
+
+Route::post('/sri-lanka/create_transport_map', 'TransportPackageController@transportMapCreate');
 
 
 //=====================================================================================================================|
@@ -596,6 +600,21 @@ Route::post('/sri-lanka/transport_cart_rate_box/delete', 'CartController@transpo
 //=====================================================================================================================|
 /*------------------------------ Hotel List --------------------------------*/
 //=====================================================================================================================|
+
+// to get latitude and longitude of hotel details page
+
+Route::post('get_map', array(
+    'as' => 'get-map',
+    'uses' => 'HotelController@getMap'
+));
+
+// get hotel list full map
+
+Route::post('/get_hotel_list_full_map', 'HotelController@hotelListFullMap');
+
+// get single hotel map
+
+Route::post('/get_single_hotel_map', 'HotelController@hotelListSingleMap');
 
 /************* Create Booking Cart ********************/
 
@@ -670,13 +689,6 @@ Route::any('/{country?}/{city_name_OR_accommodation?}', array(
 Route::any('/{country?}/{city_name?}/{hotel_name?}/{asd?}', array(
     'as' => 'hotel-details',
     'uses' => 'HotelController@hotelDetail'
-));
-
-// to get latitude and longitude
-
-Route::post('/get_map', array(
-    'as' => 'get-map',
-    'uses' => 'HotelController@getMap'
 ));
 
 

@@ -130,11 +130,169 @@
 
 <style type="text/css">
     .logo {
-        height: 50px;;
+        position: absolute;
+        top: 40px;
+        width: 175px !important;
+        height: 60px !important;
     }
 
     .popover {
         z-index: 10000 !important;
+    }
+</style>
+
+<style type="text/css">
+    .navbar-custom {
+        background-color: #006699;
+        border-color: #005078;
+        background-image: -webkit-gradient(linear, left 0%, left 100%, from(#0088cc), to(#006699));
+        background-image: -webkit-linear-gradient(top, #0088cc 0%, #006699 100%);
+        background-image: -moz-linear-gradient(top, #0088cc 0%, #006699 100%);
+        background-image: linear-gradient(to bottom, #0088cc 0%, #006699 100%);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff006699', GradientType=0);
+    }
+
+    .navbar-custom .navbar-brand {
+        color: #ffffff;
+    }
+
+    .navbar-custom .navbar-brand:hover,
+    .navbar-custom .navbar-brand:focus {
+        color: #e6e6e6;
+        background-color: transparent;
+    }
+
+    .navbar-custom .navbar-text {
+        color: #ffffff;
+    }
+
+    .navbar-custom .navbar-nav > li:last-child > a {
+        border-right: 1px solid #005078;
+    }
+
+    .navbar-custom .navbar-nav > li > a {
+        color: #ffffff;
+        border-left: 1px solid #005078;
+    }
+
+    .navbar-custom .navbar-nav > li > a:hover,
+    .navbar-custom .navbar-nav > li > a:focus {
+        color: #96d187;
+        background-color: transparent;
+    }
+
+    .navbar-custom .navbar-nav > .active > a,
+    .navbar-custom .navbar-nav > .active > a:hover,
+    .navbar-custom .navbar-nav > .active > a:focus {
+        color: #96d187;
+        background-color: #005078;
+        background-image: -webkit-gradient(linear, left 0%, left 100%, from(#005078), to(#0072ab));
+        background-image: -webkit-linear-gradient(top, #005078, 0%, #0072ab, 100%);
+        background-image: -moz-linear-gradient(top, #005078 0%, #0072ab 100%);
+        background-image: linear-gradient(to bottom, #005078 0%, #0072ab 100%);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff005078', endColorstr='#ff0072ab', GradientType=0);
+    }
+
+    .navbar-custom .navbar-nav > .disabled > a,
+    .navbar-custom .navbar-nav > .disabled > a:hover,
+    .navbar-custom .navbar-nav > .disabled > a:focus {
+        color: #cccccc;
+        background-color: transparent;
+    }
+
+    .navbar-custom .navbar-toggle {
+        border-color: #dddddd;
+    }
+
+    .navbar-custom .navbar-toggle:hover,
+    .navbar-custom .navbar-toggle:focus {
+        background-color: #dddddd;
+    }
+
+    .navbar-custom .navbar-toggle .icon-bar {
+        background-color: #cccccc;
+    }
+
+    .navbar-custom .navbar-collapse,
+    .navbar-custom .navbar-form {
+        border-color: #004e75;
+    }
+
+    .navbar-custom .navbar-nav > .dropdown > a:hover .caret,
+    .navbar-custom .navbar-nav > .dropdown > a:focus .caret {
+        border-top-color: #96d187;
+        border-bottom-color: #96d187;
+    }
+
+    .navbar-custom .navbar-nav > .open > a,
+    .navbar-custom .navbar-nav > .open > a:hover,
+    .navbar-custom .navbar-nav > .open > a:focus {
+        background-color: #005078;
+        color: #96d187;
+    }
+
+    .navbar-custom .navbar-nav > .open > a .caret,
+    .navbar-custom .navbar-nav > .open > a:hover .caret,
+    .navbar-custom .navbar-nav > .open > a:focus .caret {
+        border-top-color: #96d187;
+        border-bottom-color: #96d187;
+    }
+
+    .navbar-custom .navbar-nav > .dropdown > a .caret {
+        border-top-color: #ffffff;
+        border-bottom-color: #ffffff;
+    }
+
+    @media (max-width: 767) {
+        .navbar-custom .navbar-nav .open .dropdown-menu > li > a {
+            color: #ffffff;
+        }
+
+        .navbar-custom .navbar-nav .open .dropdown-menu > li > a:hover,
+        .navbar-custom .navbar-nav .open .dropdown-menu > li > a:focus {
+            color: #96d187;
+            background-color: transparent;
+        }
+
+        .navbar-custom .navbar-nav .open .dropdown-menu > .active > a,
+        .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:hover,
+        .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:focus {
+            color: #96d187;
+            background-color: #005078;
+        }
+
+        .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a,
+        .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+        .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+            color: #cccccc;
+            background-color: transparent;
+        }
+    }
+
+    .navbar-custom .navbar-link {
+        color: #ffffff;
+    }
+
+    .navbar-custom .navbar-link:hover {
+        color: #96d187;
+    }
+
+    .navbar-custom a {
+        font-weight: bold;
+        color: #FFFFFF;
+    }
+
+    .navbar-custom th {
+        color: #FFFFFF;
+        border-left: double #FFFFFF 1px;
+        border-right: double #FFFFFF 1px;
+    }
+
+    .navbar-custom a:hover, th:hover {
+        color: #000000;
+        background: #FFFFFF;
     }
 </style>
 
@@ -160,7 +318,7 @@
 
 </script>
 
-<div class="row">
+<div class="row navbar-custom">
     <div class="col-md-7"></div>
     <div class="col-md-5" style=" overflow-x: visible !important; overflow-y: visible !important;">
         <table align="center">
@@ -169,7 +327,7 @@
                 <th style="padding: 10px;"><a href="" style="text-decoration: none">USD</a></th>
                 <th>
                     @if(Auth::check())
-                        <ul class="nav navbar-nav">
+                        <ul class="">
                             <li class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                     {{(Auth::user()->first_name)}} {{(Auth::user()->last_name)}}</a>
@@ -186,11 +344,11 @@
                             </li>
                         </ul>
                     @else
-                        <a style="text-decoration: none" href="{{URL::to('/account/sign-in')}}">
+                        <a style="padding: 10px; text-decoration: none" href="{{URL::to('/account/sign-in')}}">
                             Sign in
                         </a>
                         or
-                        <a style="text-decoration: none" href="{{URL::to('/account/create')}}">
+                        <a style="padding: 10px; text-decoration: none" href="{{URL::to('/account/create')}}">
                             Sign up
                         </a>
                     @endif
@@ -273,16 +431,16 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#"> Transportation </a>
                         <ul class="dropdown-menu" style="margin-right: -100px; padding: 5px 20px">
-                                <li>
-                                    <a href="{{ URL::to('transport-list') }}"> Predefined Packages </a>
-                                    <a href="{{ URL::to('create-my-trip') }}"> Create My Trip </a>
-                                </li>
+                            <li>
+                                <a href="{{ URL::to('transport-list') }}"> Predefined Packages </a>
+                                <a href="{{ URL::to('create-my-trip') }}"> Create My Trip </a>
+                            </li>
                         </ul>
                     </li>
 
                     {{--<li><a href="#">Flights</a></li>--}}
 
-                    <li><a href="special_offers.php"> Hot Deals </a></li>
+                    {{--<li><a href="special_offers.php"> Hot Deals </a></li>--}}
 
                     <li><a href="{{URL::to('/contact')}}">Contact Us</a></li>
 

@@ -13,9 +13,12 @@ class TransportPackageController extends \BaseController
 
         $vehicle_id = array();
 
-        // filtering
         $vehicles = Vehicle::get();
 
+        // filtering
+        $vehicle = Vehicle::lists('vehicle_type', 'id');
+        $city = City::lists('city', 'id');
+        //$city['%'] = 'Any';
 
         if (Session::has('st_date')) {
             $st_date = Session::get('st_date');
@@ -28,7 +31,6 @@ class TransportPackageController extends \BaseController
         } else {
             $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
         }
-
 
         if (Input::has('vehicle')) {
             $get_vehicle = Input::get('vehicle');
@@ -59,6 +61,24 @@ class TransportPackageController extends \BaseController
             $max_trans_rate = Transportpackage::max('rate');
         }
 
+        if (Input::has('from')) {
+            $from = Input::get('from');
+        } else {
+            $from = '%';
+        }
+
+        if (Input::has('from')) {
+            $to = Input::get('to');
+        } else {
+            $to = '%';
+        }
+
+        if (Input::has('transport_days')) {
+            $days = Input::get('transport_days');
+        } else {
+            $days = '%';
+        }
+
 //dd($min_rate.'/'.$max_rate);
 
         $transport_packages = Transportpackage::WhereHas('Vehicle', function ($r) use ($vehicle_id) {
@@ -66,6 +86,9 @@ class TransportPackageController extends \BaseController
         })
             ->where('rate', '>=', $min_rate)
             ->where('rate', '<=', $max_rate)
+            ->where('origin', 'LIKE', $from)
+            ->where('destination', 'LIKE', $to)
+            ->where('days', 'LIKE', $days)
             ->paginate(9);
 
 
@@ -75,6 +98,8 @@ class TransportPackageController extends \BaseController
                     'transport_packages' => $transport_packages,
                     'min_trans_rate' => $min_trans_rate,
                     'max_trans_rate' => $max_trans_rate,
+                    'vehicle' => $vehicle,
+                    'city' => $city,
                     'vehicles' => $vehicles,
                     'st_date' => $st_date,
                     'ed_date' => $ed_date,
@@ -178,6 +203,7 @@ class TransportPackageController extends \BaseController
 
     }
 
+    // delete transport cart item
 
     public function transportCartItemDelete()
     {
@@ -194,6 +220,59 @@ class TransportPackageController extends \BaseController
 
         return Response::json(Session::get('transport_cart_box'));
 
+    }
+
+    // Create transport map
+
+    public function transportMapCreate()
+    {
+
+        $origin = Input::get('origin');
+        $origin_longitude = City::where('id', $origin)->select('longitude')->first()->longitude;
+        $origin_latitude = City::where('id', $origin)->select('latitude')->first()->latitude;
+
+        if (Input::has('destination_1')) {
+            $destination_1 = Input::get('destination_1');
+            $destination_1_longitude = City::where('id', $destination_1)->select('longitude')->first()->longitude;
+            $destination_1_latitude = City::where('id', $destination_1)->select('latitude')->first()->latitude;
+        } else {
+            $destination_1_longitude = '';
+            $destination_1_latitude = '';
+        }
+
+        if (Input::has('destination_2')) {
+            $destination_2 = Input::get('destination_2');
+            $destination_2_longitude = City::where('id', $destination_2)->select('longitude')->first()->longitude;
+            $destination_2_latitude = City::where('id', $destination_2)->select('latitude')->first()->latitude;
+
+        } else {
+            $destination_2_longitude = '';
+            $destination_2_latitude = '';
+        }
+
+        if (Input::has('destination_3')) {
+            $destination_3 = Input::get('destination_3');
+            $destination_3_longitude = City::where('id', $destination_3)->select('longitude')->first()->longitude;
+            $destination_3_latitude = City::where('id', $destination_3)->select('latitude')->first()->latitude;
+        } else {
+            $destination_3_longitude = '';
+            $destination_3_latitude = '';
+        }
+
+        $lan_lot_arr = array(
+            'origin_longitude' => $origin_longitude,
+            'origin_latitude' => $origin_latitude,
+            'destination_1_longitude' => $destination_1_longitude,
+            'destination_1_latitude' => $destination_1_latitude,
+            'destination_2_longitude' => $destination_2_longitude,
+            'destination_2_latitude' => $destination_2_latitude,
+            'destination_3_longitude' => $destination_3_longitude,
+            'destination_3_latitude' => $destination_3_latitude,
+        );
+
+        $lan_lot_arr_full = array_slice($lan_lot_arr, 0);
+
+        return Response::json($lan_lot_arr_full);
     }
 
     public function viewSearch()

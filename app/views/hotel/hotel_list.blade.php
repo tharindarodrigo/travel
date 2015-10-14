@@ -42,11 +42,27 @@
             height: 40px;
         }
 
-    </style>
+        .ui-front {
+            z-index: 10000 !important;
+        }
 
-    <style type="text/css">
+        .ui-widget-header {
+            background: #006699 !important;
+        }
 
+        .ui-dialog .ui-dialog-titlebar-close span {
+            margin: 0 !important;
+        }
 
+        .ui-button-icon-only .ui-icon {
+            margin-left: 8px !important;
+        }
+
+        .single_hotel_map {
+            display: inline;
+            width: 20px;
+            height: 20px;
+        }
     </style>
 
     <!-- bin/jquery.slider.min.css -->
@@ -61,6 +77,14 @@
     {{ HTML::script('plugins/jslider/js/draggable-0.1.js') }}
     {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
     <!-- end -->
+
+    <!-- google map -->
+    {{ HTML::script('http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript') }}
+
+    {{ HTML::script('text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript') }}
+    {{ HTML::script('text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript') }}
+    {{ HTML::script('http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript" type="text/javascript') }}
+    {{ HTML::style('http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
     {{--my styles--}}
     {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
@@ -82,18 +106,16 @@
 
             <div class="left">
                 <ul class="bcrumbs">
+                    <li><a href="{{URL::route('index')}}" class="active">Home </a></li>
                     <li>/</li>
-                    {{--                    <li><a href="#">{{ Breadcrumbs::render('home') }}</a></li>--}}
+                    <li><a href="{{URL::to('sri-lanka/'.Request::segment(2) )}}"
+                           class="active">{{ str_replace('-', ' ', Request::segment(2)) }} </a></li>
                     <li>/</li>
-                    <li><a href="#">U.S.A.</a></li>
-                    <li>/</li>
-                    <li><a href="#" class="active">New York</a></li>
                 </ul>
             </div>
             <a class="backbtn right" href="#"></a>
         </div>
         <div class="clearfix"></div>
-        {{--<div class="brlines"></div>--}}
     </div>
 
     <!-- CONTENT -->
@@ -104,6 +126,7 @@
             <div class="col-md-3 filters offset-0">
 
                 <!-- TOP TIP -->
+
                 <div class="filtertip">
                     <div class="padding20">
 
@@ -111,283 +134,17 @@
                             at
                         </p>
 
-                        <p class="size30 bold">$<span class=""> {{ number_format($min_hot_rate, 2, '.', '') }} </span></p>
+                        <p class="size30 bold">$<span class=""> {{ number_format($min_hot_rate, 2, '.', '') }} </span>
+                        </p>
 
                         <p class="size13">In {{ str_replace('-', ' ', Request::segment(2)); }} </p>
                     </div>
                     <div class="tip-arrow"></div>
                 </div>
 
-                <div class="bookfilters hpadding20">
-
-                    <div class="w50percent">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                <span class="hotel-ico"></span> Hotels
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="w50percentlast">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
-                                <span class="car-ico"></span> Transport
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                    {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'searchform', 'method' => 'POST', )) }}
-
-                    {{--<form action="{{ URL::route('ho') }}" method="POST">--}}
-
-                    <!-- HOTELS TAB -->
-                    <div class="hotelstab2 none">
-                        <span class="opensans size13">Where do you want to go?</span>
-
-                        <input type="text" class="form-control" name="txt-search" id="inputString" category=""
-                               onkeyup="lookup(this.value);" autocomplete="off"/>
-
-                        <div id="suggestions"></div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Check In Date</span>
-                                <input type="text" name="check_in_date" class="form-control mySelectCalendar"
-                                       id="datepicker"
-                                       value="{{ Session::has('st_date') ? Session::get('st_date') : $st_date }}"/>
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">Check Out Date</span>
-                                <input type="text" name="check_out_date" class="form-control mySelectCalendar"
-                                       id="datepicker2"
-                                       value="{{ Session::has('ed_date') ? Session::get('ed_date') : $ed_date }}"/>
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="w50percent">
-                            <div class="">
-                                <span class="opensans size13">Adult</span>
-                                <select class="form-control mySelectBoxClass" name="adult"
-                                        id="change_adult">
-                                    <option value="1" {{ Session::get('adult') == 1 ? 'selected' : '' }}>
-                                        1
-                                    </option>
-                                    <option value="2" {{ Session::get('adult') == 2 ? 'selected' : '' }}>
-                                        2
-                                    </option>
-                                    <option value="3" {{ Session::get('adult') == 3 ? 'selected' : '' }}>
-                                        3
-                                    </option>
-                                    <option value="4" {{ Session::get('adult') == 4 ? 'selected' : '' }}>
-                                        4
-                                    </option>
-                                    <option value="5" {{ Session::get('adult') == 5 ? 'selected' : '' }}>
-                                        5
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right ohidden">
-                                <span class="opensans size13">Child</span>
-                                <select class="form-control mySelectBoxClass" name="child"
-                                        id="change_child">
-                                    <option value="0" {{ Session::get('child') == 0 ? 'selected' : '' }}>
-                                        0
-                                    </option>
-                                    <option value="1" {{ Session::get('child') == 1 ? 'selected' : '' }}>
-                                        1
-                                    </option>
-                                    <option value="2" {{ Session::get('child') == 2 ? 'selected' : '' }}>
-                                        2
-                                    </option>
-                                    <option value="3" {{ Session::get('child') == 3 ? 'selected' : '' }}>
-                                        3
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <input type="hidden" name="city_or_acc_hidden" value="{{ $city = Request::segment(2); }}"/>
-
-                        <div class="clearfix"></div>
-                        <div class="clearfix pbottom15"></div>
-
-                        <button type="submit" class="btn-search3 right">Search</button>
-
-                    </div>
-                    <!-- END OF HOTELS TAB -->
-
-                    {{Form::close()}}
-
-                    <!-- TRANSPORT TAB -->
-                    <div class="carstab2 none">
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Picking up</span>
-                                <input type="text" class="form-control" placeholder="Airport, address">
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">Dropping off</span>
-                                <input type="text" class="form-control" placeholder="Airport, address">
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Pick up date</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker5"
-                                       placeholder="mm/dd/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">Hour</span>
-                                <select class="form-control mySelectBoxClass">
-                                    <option>12:00 AM</option>
-                                    <option>12:30 AM</option>
-                                    <option>01:00 AM</option>
-                                    <option>01:30 AM</option>
-                                    <option>02:00 AM</option>
-                                    <option>02:30 AM</option>
-                                    <option>03:00 AM</option>
-                                    <option>03:30 AM</option>
-                                    <option>04:00 AM</option>
-                                    <option>04:30 AM</option>
-                                    <option>05:00 AM</option>
-                                    <option>05:30 AM</option>
-                                    <option>06:00 AM</option>
-                                    <option>06:30 AM</option>
-                                    <option>07:00 AM</option>
-                                    <option>07:30 AM</option>
-                                    <option>08:00 AM</option>
-                                    <option>08:30 AM</option>
-                                    <option>09:00 AM</option>
-                                    <option>09:30 AM</option>
-                                    <option>10:00 AM</option>
-                                    <option selected>10:30 AM</option>
-                                    <option>11:00 AM</option>
-                                    <option>11:30 AM</option>
-                                    <option>12:00 PM</option>
-                                    <option>12:30 PM</option>
-                                    <option>01:00 PM</option>
-                                    <option>01:30 PM</option>
-                                    <option>02:00 PM</option>
-                                    <option>02:30 PM</option>
-                                    <option>03:00 PM</option>
-                                    <option>03:30 PM</option>
-                                    <option>04:00 PM</option>
-                                    <option>04:30 PM</option>
-                                    <option>05:00 PM</option>
-                                    <option>05:30 PM</option>
-                                    <option>06:00 PM</option>
-                                    <option>06:30 PM</option>
-                                    <option>07:00 PM</option>
-                                    <option>07:30 PM</option>
-                                    <option>08:00 PM</option>
-                                    <option>08:30 PM</option>
-                                    <option>09:00 PM</option>
-                                    <option>09:30 PM</option>
-                                    <option>10:00 PM</option>
-                                    <option>10:30 PM</option>
-                                    <option>11:00 PM</option>
-                                    <option>11:30 PM</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="room1">
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13">Drop off date</span>
-                                    <input type="text" class="form-control mySelectCalendar" id="datepicker6"
-                                           placeholder="mm/dd/yyyy"/>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <span class="opensans size13">Hour</span>
-                                    <select class="form-control mySelectBoxClass">
-                                        <option>12:00 AM</option>
-                                        <option>12:30 AM</option>
-                                        <option>01:00 AM</option>
-                                        <option>01:30 AM</option>
-                                        <option>02:00 AM</option>
-                                        <option>02:30 AM</option>
-                                        <option>03:00 AM</option>
-                                        <option>03:30 AM</option>
-                                        <option>04:00 AM</option>
-                                        <option>04:30 AM</option>
-                                        <option>05:00 AM</option>
-                                        <option>05:30 AM</option>
-                                        <option>06:00 AM</option>
-                                        <option>06:30 AM</option>
-                                        <option>07:00 AM</option>
-                                        <option>07:30 AM</option>
-                                        <option>08:00 AM</option>
-                                        <option>08:30 AM</option>
-                                        <option>09:00 AM</option>
-                                        <option>09:30 AM</option>
-                                        <option>10:00 AM</option>
-                                        <option selected>10:30 AM</option>
-                                        <option>11:00 AM</option>
-                                        <option>11:30 AM</option>
-                                        <option>12:00 PM</option>
-                                        <option>12:30 PM</option>
-                                        <option>01:00 PM</option>
-                                        <option>01:30 PM</option>
-                                        <option>02:00 PM</option>
-                                        <option>02:30 PM</option>
-                                        <option>03:00 PM</option>
-                                        <option>03:30 PM</option>
-                                        <option>04:00 PM</option>
-                                        <option>04:30 PM</option>
-                                        <option>05:00 PM</option>
-                                        <option>05:30 PM</option>
-                                        <option>06:00 PM</option>
-                                        <option>06:30 PM</option>
-                                        <option>07:00 PM</option>
-                                        <option>07:30 PM</option>
-                                        <option>08:00 PM</option>
-                                        <option>08:30 PM</option>
-                                        <option>09:00 PM</option>
-                                        <option>09:30 PM</option>
-                                        <option>10:00 PM</option>
-                                        <option>10:30 PM</option>
-                                        <option>11:00 PM</option>
-                                        <option>11:30 PM</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="clearfix"></div>
-                        <button type="submit" class="btn-search3">Search</button>
-                    </div>
-                    <!-- END OF TRANSPORT TAB -->
-
-                </div>
-                <!-- END OF BOOK FILTERS -->
-                <div class="line2"></div>
+                <!-- Reservation Box -->
+                @include('layout.reservation_box_pages')
+                <!-- End Of Reservation Box -->
 
                 <?php $city_or_acc = Request::segment(2); ?>
 
@@ -549,7 +306,8 @@
                                 <?php  $y = $y + 1; ?>
                             @endforeach
 
-                            <a id="facility_readmore" style="text-align: right" class="last" data-toggle="collapse"
+                            <a id="facility_readmore" style="text-align: right" class="last"
+                               data-toggle="collapse"
                                data-target="#collapse6">
                                 <h6>More</h6>
                             </a>
@@ -567,7 +325,8 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <a href="#facility_half" id="facility_readless" style="text-align: right" class="last"
+                            <a href="#facility_half" id="facility_readless" style="text-align: right"
+                               class="last"
                                data-toggle="collapse"
                                data-target="#collapse6">
                                 <h6>Less</h6>
@@ -707,9 +466,21 @@
                 </div>
                 <!-- End of padding -->
 
-                <br/><br/>
+                <div class="clearfix"></div>
+
+                <div class="container">
+                    <button id="hotel_list_map" style="text-align: right" type="submit"
+                            class="bluebtn margtop20 right hotel_list_map_view">View Map
+                    </button>
+
+                    <div id="dialog" style="display: none;">
+                        <div id="dvMap" style="height: 380px; width: 580px;">
+                        </div>
+                    </div>
+                </div>
 
                 <div class="clearfix"></div>
+                <br/><br/>
 
                 <div class="itemscontainer offset-1">
 
@@ -727,7 +498,7 @@
                                     $img_name = basename($img_path);
                                     ?>
 
-                                    <a href="<?php echo '/' . $img_name; ?>"
+                                    <a href="<?php echo 'images/hotel_images/' . $img_name; ?>"
                                        data-title="{{ $hotel->name }}" data-gallery="multiimages"
                                        data-toggle="lightbox">
 
@@ -791,14 +562,29 @@
                                         @endif
 
                                         <form action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
-                                            <button class="bookbtn mt1" type="submit"> Book </button>
+                                            <button style="background: #006699; color: #ffffff" class="bookbtn mt1"
+                                                    type="submit"> Book
+                                            </button>
                                         </form>
                                     </div>
 
-                                    <div class="labelleft2">
+                                    <div class="labelleft2 get_hotel_id" hotel_id="{{ $hotel->id }}">
+
                                         <a href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"
-                                           style="text-decoration: none"><h4> {{ $hotel->name }} </h4><br/>
+                                           style="text-decoration: none">
+                                            <h4 style="display: inline;"> {{ $hotel->name }} </h4>
                                         </a>
+                                        <br/>
+
+                                        <h6 style="display: inline" class="grey"> {{ $hotel->address }} </h6>
+                                        {{ HTML::image('images/google-map-marker.png', '', array('class' => 'single_hotel_map'))}}
+
+                                        <div id="dialog{{ $hotel->id }}" style="display: none;">
+                                            <div id="dvMap{{ $hotel->id }}" style="height: 380px; width: 580px;">
+                                            </div>
+                                        </div>
+
+                                        <br/>
 
                                         <p class="grey">
                                             {{ Str::limit($hotel->overview, 150) }}
@@ -916,7 +702,127 @@
 
         </script>
 
+        <!-- for full map -->
+
+        <script type="text/javascript">
+
+            $('#hotel_list_map').click(function () {
+
+                var get_full_url = window.location.pathname.split('/');
+                var hotel_list = get_full_url[2];
+
+                var url = 'http://' + window.location.host + '/get_hotel_list_full_map';
+
+                var formData = new FormData();
+
+                formData.append('hotel_list', hotel_list);
+
+                sendHotelListFullMapData(url, formData);
+
+            });
+
+        </script>
+
+        <script type="text/javascript">
+            $(function () {
+                $("#hotel_list_map").click(function () {
+                    $('html, body').css({
+                        'overflow': 'hidden',
+                        'height': '100%'
+                    });
+
+                    $("#dialog").dialog({
+                        closeOnEscape: false,
+                        open: function (event, ui) {
+                            $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+                        },
+                        modal: true,
+                        title: "Google Map",
+                        width: 650,
+                        height: 550,
+                        buttons: {
+                            Close: function () {
+                                $(this).dialog('close');
+                                $('html, body').css({
+                                    'overflow': 'auto',
+                                    'height': 'auto'
+                                });
+                            }
+
+                        }
+                    });
+                });
+                $(".ui-dialog-titlebar-close").click(function () {
+                    $('html, body').css({
+                        'overflow': 'auto',
+                        'height': 'auto'
+                    });
+                });
+            });
+        </script>
+
+        <!-- for single map ->
+
+        <script type="text/javascript">
+            $('.single_hotel_map').click(function () {
+
+                var hotel_id = $(this).closest('.get_hotel_id').attr('hotel_id');
+
+                var url = 'http://' + window.location.host + '/get_single_hotel_map';
+
+                var formData = new FormData();
+
+                formData.append('hotel_id', hotel_id);
+
+                sendHotelListSingleMapData(url, formData);
+
+            });
+
+        </script>
+
+        <script type="text/javascript">
+            $(function () {
+                $(".single_hotel_map").click(function () {
+
+                    var hotel_id = $(this).closest('.get_hotel_id').attr('hotel_id');
+
+                    $('html, body').css({
+                        'overflow': 'hidden',
+                        'height': '100%'
+                    });
+
+                    $("#dialog" + hotel_id).dialog({
+                        closeOnEscape: false,
+                        open: function (event, ui) {
+                            $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+                        },
+                        modal: true,
+                        title: "Google Map",
+                        width: 650,
+                        height: 550,
+                        buttons: {
+                            Close: function () {
+                                $(this).dialog('close');
+                                $('html, body').css({
+                                    'overflow': 'auto',
+                                    'height': 'auto'
+                                });
+                            }
+
+                        }
+                    });
+                });
+                $(".ui-dialog-titlebar-close").click(function () {
+                    $('html, body').css({
+                        'overflow': 'auto',
+                        'height': 'auto'
+                    });
+                });
+            });
+        </script>
+
+
     @endsection
 
-    </body>
-@stop
+                </body>
+            @stop

@@ -65,6 +65,126 @@ $('.price_range_select').slider({
 });
 
 
+//------------------------------
+//Get Hotel List Full Map
+//------------------------------
+
+function sendHotelListFullMapData(url, formData) {
+    $.ajax({
+        url: url,
+        method: 'post',
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: 'json',
+        data: formData,
+        success: function (data) {
+            if (data != null) {
+                var markers = [];
+
+                $.each(data, function (index, item) {
+                    //alert(item.longitude)
+                    markers.push(
+                        {
+                            "lat": item.latitude,
+                            "lng": item.longitude,
+                            "description": item.name
+                        }
+                    );
+
+                    // alert( index + ": " + item );
+
+                    LoadMap();
+
+                    function LoadMap() {
+                        var mapOptions = {
+                            center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+                            zoom: 7,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+                        var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+
+                        //Create and open InfoWindow.
+                        var infoWindow = new google.maps.InfoWindow();
+
+                        for (var i = 0; i < markers.length; i++) {
+                            var data = markers[i];
+                            var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+                            var marker = new google.maps.Marker({
+                                position: myLatlng,
+                                map: map,
+                                title: data.title
+                            });
+
+                            //Attach click event to the marker.
+                            (function (marker, data) {
+                                google.maps.event.addListener(marker, "click", function (e) {
+                                    //Wrap the content inside an HTML DIV in order to set height and width of InfoWindow.
+                                    infoWindow.setContent("<div><h4>" + data.description + "</h4></div>");
+                                    infoWindow.open(map, marker);
+                                });
+                            })(marker, data);
+                        }
+                    }
+
+                });
+
+
+            }
+        },
+
+        error: function () {
+            //alert('There was an error signing In');
+        }
+    });
+}
+
+//------------------------------
+//Get Hotel List Single Map
+//------------------------------
+
+function sendHotelListSingleMapData(url, formData) {
+    $.ajax({
+        url: url,
+        method: 'post',
+        processData: false,
+        contentType: false,
+        cache: false,
+        dataType: 'json',
+        data: formData,
+        success: function (data) {
+            if (data != null) {
+
+                var LatLng = new google.maps.LatLng(data.latitude, data.longitude);
+                var mapOptions = {
+                    center: LatLng,
+                    zoom: 9,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var map = new google.maps.Map(document.getElementById("dvMap" + data.id), mapOptions);
+                var marker = new google.maps.Marker({
+                    position: LatLng,
+                    map: map,
+                    title: "<div><h4>" + data.name + "</h4></div>"
+                });
+                google.maps.event.addListener(marker, "click", function (e) {
+                    var infoWindow = new google.maps.InfoWindow();
+                    infoWindow.setContent(marker.title);
+                    infoWindow.open(map, marker);
+                });
+
+            }
+            else{
+                alert('No Longitude And Latitude Where Found');
+            }
+        },
+
+        error: function () {
+            //alert('There was an error signing In');
+        }
+    });
+}
+
 /**************************************** END OF HOTEL LIST ******************************************************************/
 
 
@@ -106,7 +226,7 @@ $('.vehicle_select').click(function () {
 //Add rooms
 //------------------------------
 
-function addroom2(){
+function addroom2() {
     "use strict";
     $('.room2').addClass('block');
     $('.room2').removeClass('none');
@@ -114,7 +234,7 @@ function addroom2(){
     $('.addroom1').addClass('none');
 
 }
-function removeroom2(){
+function removeroom2() {
     "use strict";
     $('.room2').addClass('none');
     $('.room2').removeClass('block');
@@ -122,7 +242,7 @@ function removeroom2(){
     $('.addroom1').removeClass('none');
     $('.addroom1').addClass('block');
 }
-function addroom3(){
+function addroom3() {
     "use strict";
     $('.room3').addClass('block');
     $('.room3').removeClass('none');
@@ -130,7 +250,7 @@ function addroom3(){
     $('.addroom2').removeClass('block');
     $('.addroom2').addClass('none');
 }
-function removeroom3(){
+function removeroom3() {
     "use strict";
     $('.room3').addClass('none');
     $('.room3').removeClass('block');
@@ -138,4 +258,5 @@ function removeroom3(){
     $('.addroom2').removeClass('none');
     $('.addroom2').addClass('block');
 }
+
 

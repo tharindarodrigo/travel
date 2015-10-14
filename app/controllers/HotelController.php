@@ -128,11 +128,14 @@ class HotelController extends \BaseController
         }
 
 
-        // Filtering
+        // Filtering - Hotel
         $hotel_type = DB::table('hotel_categories')->get();
         $hotel_cities = DB::table('cities')->get();
         $hotel_facilities = DB::table('hotel_facilities')->get();
 
+        // Filtering - Transport
+        $vehicle = Vehicle::lists('vehicle_type', 'id');
+        $city = City::lists('city', 'id');
 
         if (!empty($country)) {
             $country = str_replace('-', ' ', $country);
@@ -434,6 +437,8 @@ class HotelController extends \BaseController
                 'hotel_type' => $hotel_type,
                 'hotel_cities' => $hotel_cities,
                 'hotel_facilities' => $hotel_facilities,
+                'vehicle' => $vehicle,
+                'city' => $city,
                 'st_date' => $st_date,
                 'ed_date' => $ed_date,
                 'grid_url' => $grid_url,
@@ -611,28 +616,6 @@ class HotelController extends \BaseController
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-        //
-    }
-
-
-    /**
      * Display the specified resource.
      *
      * @param  int $id
@@ -755,17 +738,6 @@ class HotelController extends \BaseController
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
     /* To Load The Map */
 
     public function getMap()
@@ -846,7 +818,6 @@ class HotelController extends \BaseController
             'check_out' => $ed_date,
         );
 
-
         if (Session::has('rate_box_details')) {
             $data = Session::get('rate_box_details');
             $data[$room_identity] = $rate_box_details;
@@ -862,7 +833,6 @@ class HotelController extends \BaseController
         return Response::json(Session::get('rate_box_details'));
 
     }
-
 
     // room rates destroy
 
@@ -885,17 +855,6 @@ class HotelController extends \BaseController
 
         return Response::json(Session::get('rate_box_details'));
 
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     /*
@@ -980,6 +939,51 @@ class HotelController extends \BaseController
         } else {
             echo 'There should be no direct access to this script!';
         }
+
+    }
+
+    // get hotel list full map
+
+    public function hotelListFullMap()
+    {
+
+        $hotel_list = Input::get('hotel_list');
+        $hotel_list_name = str_replace('-', ' ', $hotel_list);
+        $accommodation = DB::table('hotel_categories')->where('hotel_category', 'LIKE', $hotel_list_name)->first();
+
+        if (!is_null($accommodation)) {
+            $accommodation_id = $accommodation->id;
+
+            $get_latitudes_longitudes = Hotel::whereHas('hotelCategory', function ($query) use ($accommodation_id) {
+                $query->where('hotel_category_id', $accommodation_id);
+            })
+                ->select('latitude', 'longitude', 'name')
+                ->get();
+
+        } else {
+            $city = DB::table('cities')->where('city', 'LIKE', $hotel_list_name)->first();
+            $city_id = $city->id;
+
+            $get_latitudes_longitudes = Hotel::where('city_id', $city_id)
+                ->select('latitude', 'longitude', 'name')
+                ->get();
+
+        }
+
+        return Response::json($get_latitudes_longitudes);
+
+    }
+
+    // get hotel list full map
+
+    public function hotelListSingleMap()
+    {
+
+        $hotel_id = Input::get('hotel_id');
+
+        $get_hotel_lan_lot = Hotel::where('id', $hotel_id)->select('id', 'longitude', 'latitude', 'name')->first();
+
+        return Response::json($get_hotel_lan_lot);
 
     }
 }

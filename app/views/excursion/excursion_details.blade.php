@@ -65,18 +65,19 @@
 
             <div class="left">
                 <ul class="bcrumbs">
+                    <li><a href="{{URL::route('index')}}" class="active">Home </a></li>
                     <li>/</li>
-                    <li><a href="#">Activities</a></li>
+                    <li><a href="{{URL::to('excursion/sri-lanka/'.Request::segment(3) )}}"
+                           class="active">{{ str_replace('-', ' ', Request::segment(3)) }} </a></li>
                     <li>/</li>
-                    <li><a href="#">U.A.E.</a></li>
+                    <li><a href="{{URL::to('excursion/sri-lanka/'.Request::segment(3).'/'.Request::segment(4) )}}"
+                           class="active">{{ str_replace('-', ' ', Request::segment(4)) }} </a></li>
                     <li>/</li>
-                    <li><a href="#" class="active">Dubai</a></li>
                 </ul>
             </div>
             <a class="backbtn right" href="#"></a>
         </div>
         <div class="clearfix"></div>
-        <div class="brlines"></div>
     </div>
 
     <!-- CONTENT -->
@@ -379,7 +380,6 @@
                     });
 
                 });
-
 
 
                 $('.pax').change(function () {

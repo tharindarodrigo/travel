@@ -68,18 +68,16 @@
 
             <div class="left">
                 <ul class="bcrumbs">
+                    <li><a href="{{URL::route('index')}}" class="active">Home </a></li>
                     <li>/</li>
-                    <li><a href="#">Hotels</a></li>
+                    <li><a href="{{ URL::to('create-my-trip') }}"
+                           class="active"> Create My Trip </a></li>
                     <li>/</li>
-                    <li><a href="#">U.S.A.</a></li>
-                    <li>/</li>
-                    <li><a href="#" class="active">New York</a></li>
                 </ul>
             </div>
             <a class="backbtn right" href="#"></a>
         </div>
         <div class="clearfix"></div>
-        <div class="brlines"></div>
     </div>
 
     <!-- CONTENT -->
@@ -204,7 +202,7 @@
                         <div class="col-md-6">
                             {{ Form::select('city', $city, null, array('class' => 'form-control mySelectBoxClass transport_origin_select', 'id' => 'transport_origin')) }}
                         </div>
-                        <div class="col-md-6  margtop15">
+                        <div class="col-md-6  margtop15" id="ssaa">
                         </div>
                         <div class="clearfix"></div>
 
@@ -484,195 +482,6 @@
                 src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
 
         <script type="text/javascript">
-            $(document).ready(function () {
-
-                var markers = [{
-                    "title": '1',
-                    "lat": '6.9344',
-                    "lng": '79.8428',
-                    "description": '1'
-                }, {
-                    "title": '2',
-                    "lat": '7.1500',
-                    "lng": '80.1',
-                    "description": '2'
-                }, {
-                    "title": '2',
-                    "lat": '7.2964',
-                    "lng": '80.6350',
-                    "description": '2'
-                }
-
-                ];
-
-                loadMap(markers);
-
-                $('#from').change(function () {
-                    var from = $(this).val();
-
-                    var start = from.split(',');
-
-                    markers[0] = {
-                        "title": '1',
-                        "lat": start[0],
-                        "lng": start[1],
-                        "description": '1'
-                    };
-                    //console.log(markers);
-                    loadMap();
-                });
-
-                $('#to').change(function () {
-                    var to = $(this).val();
-
-                    var destination = to.split(',');
-                    markers[1] = {
-                        "title": '2',
-                        "lat": destination[0],
-                        "lng": destination[1],
-                        "description": '2'
-                    };
-                    //markers.push(mark);
-                    loadMap();
-                });
-
-                $('.destination').change(function () {
-                    var destination_id = $(this).attr('id');
-                    var destination = to.split(',');
-                    markers[destination_id] = {
-                        "title": '2',
-                        "lat": destination[0],
-                        "lng": destination[1],
-                        "description": '2'
-                    };
-                    //markers.push(mark);
-                    loadMap();
-                });
-
-
-            });
-
-            function loadMap(markers) {
-
-                var mapOptions = {
-                    center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
-                    zoom: 5,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-                var infoWindow = new google.maps.InfoWindow();
-                var lat_lng = new Array();
-                var latlngbounds = new google.maps.LatLngBounds();
-                for (i = 0; i < markers.length; i++) {
-                    var data = markers[i]
-                    var myLatlng = new google.maps.LatLng(data.lat, data.lng);
-                    lat_lng.push(myLatlng);
-                    var marker = new google.maps.Marker({
-                        position: myLatlng,
-                        map: map,
-                        title: data.title
-                    });
-                    latlngbounds.extend(marker.position);
-                    (function (marker, data) {
-                        google.maps.event.addListener(marker, "click", function (e) {
-                            infoWindow.setContent(data.description);
-                            infoWindow.open(map, marker);
-                        });
-                    })(marker, data);
-                }
-                map.setCenter(latlngbounds.getCenter());
-                map.fitBounds(latlngbounds);
-
-                //***********ROUTING****************//
-
-                //Intialize the Path Array
-                var path = new google.maps.MVCArray();
-
-                //Intialize the Direction Service
-                var service = new google.maps.DirectionsService();
-
-                //Set the Path Stroke Color
-                var poly = new google.maps.Polyline({
-                    map: map,
-                    strokeColor: '#4986E7'
-                });
-
-                var allDis = 0;
-                //Loop and Draw Path Route between the Points on MAP
-                for (var i = 0; i < lat_lng.length; i++) {
-                    if ((i + 1) < lat_lng.length) {
-                        var src = lat_lng[i];
-                        var des = lat_lng[i + 1];
-
-//            alert('asdas');
-
-                        // path.push(src);
-                        poly.setPath(path);
-                        service.route({
-                            origin: src,
-                            destination: des,
-                            travelMode: google.maps.DirectionsTravelMode.DRIVING
-                        }, function (result, status) {
-                            if (status == google.maps.DirectionsStatus.OK) {
-                                for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
-                                    path.push(result.routes[0].overview_path[i]);
-                                }
-                            }
-                        });
-
-
-                        //distance
-
-                        (getDistance(src, des));
-
-
-                    }
-
-                }
-//    alert(totalDistance);
-
-
-            }
-
-            function getDistance(src, des) {
-                var distance = 0;
-
-                var distanceService = new google.maps.DistanceMatrixService();
-
-                distanceService.getDistanceMatrix({
-                    origins: [src],
-                    destinations: [des],
-                    travelMode: google.maps.TravelMode.DRIVING,
-                    unitSystem: google.maps.UnitSystem.METRIC,
-                    avoidHighways: false,
-                    avoidTolls: false
-                }, function (response, status) {
-                    if (status == google.maps.DistanceMatrixStatus.OK && response.rows[0].elements[0].status != "ZERO_RESULTS") {
-                        console.log(response);
-
-
-                        distance = response.rows[0].elements[0].distance.value;
-                        //                                var duration = response.rows[0].elements[0].duration.text;
-                        //                                var dvDistance = document.getElementById("dvDistance");
-                        //totalDistance = totalDistance + distance;
-//            alert(distance);
-
-
-                    } else {
-
-                        return false
-                    }
-
-                    //   alert(distance);
-
-                });
-
-
-            }
-
-        </script>
-
-        <script type="text/javascript">
             $(function () {
 
                 $('#transport_rate_box').hide();
@@ -717,6 +526,77 @@
                     } else {
                         alert('please select dates');
                     }
+
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(function () {
+                $('#transport_origin').change(function () {
+
+                    var origin = $('.transport_origin_select :selected').val();
+
+                    var url = 'http://' + window.location.host + '/sri-lanka/create_transport_map';
+
+                    var formData = new FormData();
+
+                    formData.append('origin', origin);
+
+                    sendMapData(url, formData);
+                });
+
+                $('#transport_destination_1').change(function () {
+
+                    var origin = $('.transport_origin_select :selected').val();
+                    var destination_1 = $('.transport_destination_select_1 :selected').val();
+
+                    var url = 'http://' + window.location.host + '/sri-lanka/create_transport_map';
+
+                    var formData = new FormData();
+
+                    formData.append('origin', origin);
+                    formData.append('destination_1', destination_1);
+
+                    sendMapData(url, formData);
+
+                });
+
+                $('#transport_destination_2').change(function () {
+
+                    var origin = $('.transport_origin_select :selected').val();
+                    var destination_1 = $('.transport_destination_select_1 :selected').val();
+                    var destination_2 = $('.transport_destination_select_2 :selected').val();
+
+                    var url = 'http://' + window.location.host + '/sri-lanka/create_transport_map';
+
+                    var formData = new FormData();
+
+                    formData.append('origin', origin);
+                    formData.append('destination_1', destination_1);
+                    formData.append('destination_2', destination_2);
+
+                    sendMapData(url, formData);
+
+                });
+
+                $('#transport_destination_3').change(function () {
+
+                    var origin = $('.transport_origin_select :selected').val();
+                    var destination_1 = $('.transport_destination_select_1 :selected').val();
+                    var destination_2 = $('.transport_destination_select_2 :selected').val();
+                    var destination_3 = $('.transport_destination_select_3 :selected').val();
+
+                    var url = 'http://' + window.location.host + '/sri-lanka/create_transport_map';
+
+                    var formData = new FormData();
+
+                    formData.append('origin', origin);
+                    formData.append('destination_1', destination_1);
+                    formData.append('destination_2', destination_2);
+                    formData.append('destination_3', destination_3);
+
+                    sendMapData(url, formData);
 
                 });
             });

@@ -57,18 +57,16 @@
 
             <div class="left">
                 <ul class="bcrumbs">
+                    <li><a href="{{URL::route('index')}}" class="active">Home </a></li>
                     <li>/</li>
-                    <li><a href="#">Hotels</a></li>
+                    <li><a href="{{ URL::to('transport-list') }}"
+                           class="active">{{ str_replace('-', ' ', Request::segment(1)) }} </a></li>
                     <li>/</li>
-                    <li><a href="#">U.S.A.</a></li>
-                    <li>/</li>
-                    <li><a href="#" class="active">New York</a></li>
                 </ul>
             </div>
             <a class="backbtn right" href="#"></a>
         </div>
         <div class="clearfix"></div>
-        <div class="brlines"></div>
     </div>
 
     <!-- CONTENT -->
@@ -99,7 +97,7 @@
                     <div class="w50percentlast">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios44" value="option4" checked>
+                                <input type="radio" name="optionsRadios" id="optionsRadios11" value="option4" checked>
                                 <span class="car-ico"></span> Transport
                             </label>
                         </div>
@@ -108,7 +106,7 @@
                     <div class="w50percent">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios11" value="option1">
+                                <input type="radio" name="optionsRadios" id="optionsRadios44" value="option1">
                                 <span class="hotel-ico"></span> Hotels
                             </label>
                         </div>
@@ -116,10 +114,52 @@
 
                     <div class="clearfix"></div>
 
-                    <!-- HOTELS TAB -->
-                    {{ Form::open(array('url' => 'sri-lanka/hotel-search', 'files'=> true, 'id' => 'hotel_search_form', 'method' => 'POST', )) }}
+                    <!-- TRANSPORT TAB -->
+                    <div class="hotelstab2 none">
+                        {{ Form::open(array('url' => 'transport-list', 'files'=> true, 'id' => 'transport_search_form', 'method' => 'POST', )) }}
 
+                        <div class="">
+                            <div class="wh90percent textleft">
+                                <span class="opensans size13">Vehicle Type</span>
+                                {{ Form::select('vehicle', $vehicle, null, array('class' => 'form-control mySelectBoxClass transport_vehicle_select', 'id' => 'transport_vehicle')) }}
+                            </div>
+                        </div>
+                        <div class="clearfix pbottom15"></div>
+
+                        <div class="">
+                            <div class="wh90percent textleft">
+                                <span class="opensans size13">From</span>
+                                {{ Form::select('from', $city, null, array('class' => 'form-control mySelectBoxClass transport_destination_select_1', 'id' => 'transport_origin_1')) }}
+                            </div>
+                        </div>
+                        <div class="clearfix pbottom15"></div>
+
+                        <div class="">
+                            <div class="wh90percent textleft">
+                                <span class="opensans size13">To</span>
+                                {{ Form::select('to', $city, null, array('class' => 'form-control mySelectBoxClass transport_destination_select_1', 'id' => 'transport_destination_1')) }}
+                            </div>
+                        </div>
+                        <div class="clearfix pbottom15"></div>
+
+                        <div class="">
+                            <div class="wh90percent textleft">
+                                <span class="opensans size13">Days</span>
+                                {{ Form::selectRange('transport_days', 1, 10, null, ['class' => 'form-control mySelectBoxClass day_count', 'id' => 'transport_days']) }}
+                            </div>
+                        </div>
+                        <div class="clearfix pbottom15"></div>
+
+                        <button type="submit" class="btn-search3">Search</button>
+
+                        {{Form::close()}}
+                    </div>
+                    <!-- END OF TRANSPORT TAB -->
+
+                    <!-- HOTELS TAB -->
                     <div class="carstab2 none">
+                        {{ Form::open(array('url' => 'sri-lanka/hotel-search', 'files'=> true, 'id' => 'hotel_search_form', 'method' => 'POST', )) }}
+
                         <span class="opensans size13">Where do you want to go?</span>
 
                         <input type="text" class="form-control" name="txt-search" id="inputString" category=""
@@ -199,169 +239,9 @@
 
                         <button type="submit" class="btn-search3 right">Search</button>
 
+                        {{Form::close()}}
                     </div>
-
-                    {{Form::close()}}
                     <!-- END OF HOTELS TAB -->
-
-                    <!-- TRANSPORT TAB -->
-                    {{ Form::open(array('url' => 'sri-lanka/transport-search', 'files'=> true, 'id' => 'transport_search_form', 'method' => 'POST', )) }}
-
-                    <div class="hotelstab2 none">
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Picking up</span>
-                                <input type="text" class="form-control" placeholder="Airport, address">
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">Dropping off</span>
-                                <input type="text" class="form-control" placeholder="Airport, address">
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Pick up date</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker5"
-                                       placeholder="mm/dd/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">Hour</span>
-                                <select class="form-control mySelectBoxClass">
-                                    <option>12:00 AM</option>
-                                    <option>12:30 AM</option>
-                                    <option>01:00 AM</option>
-                                    <option>01:30 AM</option>
-                                    <option>02:00 AM</option>
-                                    <option>02:30 AM</option>
-                                    <option>03:00 AM</option>
-                                    <option>03:30 AM</option>
-                                    <option>04:00 AM</option>
-                                    <option>04:30 AM</option>
-                                    <option>05:00 AM</option>
-                                    <option>05:30 AM</option>
-                                    <option>06:00 AM</option>
-                                    <option>06:30 AM</option>
-                                    <option>07:00 AM</option>
-                                    <option>07:30 AM</option>
-                                    <option>08:00 AM</option>
-                                    <option>08:30 AM</option>
-                                    <option>09:00 AM</option>
-                                    <option>09:30 AM</option>
-                                    <option>10:00 AM</option>
-                                    <option selected>10:30 AM</option>
-                                    <option>11:00 AM</option>
-                                    <option>11:30 AM</option>
-                                    <option>12:00 PM</option>
-                                    <option>12:30 PM</option>
-                                    <option>01:00 PM</option>
-                                    <option>01:30 PM</option>
-                                    <option>02:00 PM</option>
-                                    <option>02:30 PM</option>
-                                    <option>03:00 PM</option>
-                                    <option>03:30 PM</option>
-                                    <option>04:00 PM</option>
-                                    <option>04:30 PM</option>
-                                    <option>05:00 PM</option>
-                                    <option>05:30 PM</option>
-                                    <option>06:00 PM</option>
-                                    <option>06:30 PM</option>
-                                    <option>07:00 PM</option>
-                                    <option>07:30 PM</option>
-                                    <option>08:00 PM</option>
-                                    <option>08:30 PM</option>
-                                    <option>09:00 PM</option>
-                                    <option>09:30 PM</option>
-                                    <option>10:00 PM</option>
-                                    <option>10:30 PM</option>
-                                    <option>11:00 PM</option>
-                                    <option>11:30 PM</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="room1">
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13">Drop off date</span>
-                                    <input type="text" class="form-control mySelectCalendar" id="datepicker6"
-                                           placeholder="mm/dd/yyyy"/>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <span class="opensans size13">Hour</span>
-                                    <select class="form-control mySelectBoxClass">
-                                        <option>12:00 AM</option>
-                                        <option>12:30 AM</option>
-                                        <option>01:00 AM</option>
-                                        <option>01:30 AM</option>
-                                        <option>02:00 AM</option>
-                                        <option>02:30 AM</option>
-                                        <option>03:00 AM</option>
-                                        <option>03:30 AM</option>
-                                        <option>04:00 AM</option>
-                                        <option>04:30 AM</option>
-                                        <option>05:00 AM</option>
-                                        <option>05:30 AM</option>
-                                        <option>06:00 AM</option>
-                                        <option>06:30 AM</option>
-                                        <option>07:00 AM</option>
-                                        <option>07:30 AM</option>
-                                        <option>08:00 AM</option>
-                                        <option>08:30 AM</option>
-                                        <option>09:00 AM</option>
-                                        <option>09:30 AM</option>
-                                        <option>10:00 AM</option>
-                                        <option selected>10:30 AM</option>
-                                        <option>11:00 AM</option>
-                                        <option>11:30 AM</option>
-                                        <option>12:00 PM</option>
-                                        <option>12:30 PM</option>
-                                        <option>01:00 PM</option>
-                                        <option>01:30 PM</option>
-                                        <option>02:00 PM</option>
-                                        <option>02:30 PM</option>
-                                        <option>03:00 PM</option>
-                                        <option>03:30 PM</option>
-                                        <option>04:00 PM</option>
-                                        <option>04:30 PM</option>
-                                        <option>05:00 PM</option>
-                                        <option>05:30 PM</option>
-                                        <option>06:00 PM</option>
-                                        <option>06:30 PM</option>
-                                        <option>07:00 PM</option>
-                                        <option>07:30 PM</option>
-                                        <option>08:00 PM</option>
-                                        <option>08:30 PM</option>
-                                        <option>09:00 PM</option>
-                                        <option>09:30 PM</option>
-                                        <option>10:00 PM</option>
-                                        <option>10:30 PM</option>
-                                        <option>11:00 PM</option>
-                                        <option>11:30 PM</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="clearfix"></div>
-                        <button type="submit" class="btn-search3">Search</button>
-                    </div>
-
-                    {{Form::close()}}
-                    <!-- END OF TRANSPORT TAB -->
 
                 </div>
                 <!-- END OF BOOK FILTERS -->

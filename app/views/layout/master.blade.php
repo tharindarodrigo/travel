@@ -48,7 +48,10 @@
 
 @yield('content')
 
-{{--footer area--}}
+@yield('breadcrumbs')
+
+<!-- footer area -->
+
 @include('layout.footer')
 
 <!-- Javascript -->

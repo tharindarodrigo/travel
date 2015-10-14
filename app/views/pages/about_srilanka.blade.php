@@ -57,14 +57,16 @@
 
             <div class="left">
                 <ul class="bcrumbs">
+                    <li><a href="{{URL::route('index')}}" class="active">Home </a></li>
                     <li>/</li>
-                    <li><a href="#" class="active">About us</a></li>
+                    <li><a href="{{URL::to('/about-sri-lanka')}}"
+                           class="active"> About Sri Lanka </a></li>
+                    <li>/</li>
                 </ul>
             </div>
             <a class="backbtn right" href="#"></a>
         </div>
         <div class="clearfix"></div>
-        <div class="brlines"></div>
     </div>
 
     <!-- CONTENT -->
@@ -90,278 +92,9 @@
                     <div class="tip-arrow"></div>
                 </div>
 
-                <div class="bookfilters hpadding20">
-
-                    <div class="w50percent">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"
-                                       checked>
-                                <span class="hotel-ico"></span> Hotels
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="w50percentlast">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
-                                <span class="car-ico"></span> Transport
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                    {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'searchform', 'method' => 'POST', )) }}
-
-                    {{--<form action="{{ URL::route('ho') }}" method="POST">--}}
-
-                    <!-- HOTELS TAB -->
-                    <div class="hotelstab2 none">
-                        <span class="opensans size13">Where do you want to go?</span>
-
-                        <input type="text" class="form-control" name="txt-search" id="inputString" category=""
-                               onkeyup="lookup(this.value);" autocomplete="off"/>
-
-                        <div id="suggestions"></div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Check In Date</span>
-                                <input type="text" name="check_in_date" class="form-control mySelectCalendar"
-                                       id="datepicker"
-                                       value="{{ Session::has('st_date') ? Session::get('st_date') : $st_date }}"/>
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">Check Out Date</span>
-                                <input type="text" name="check_out_date" class="form-control mySelectCalendar"
-                                       id="datepicker2"
-                                       value="{{ Session::has('ed_date') ? Session::get('ed_date') : $ed_date }}"/>
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="w50percent">
-                            <div class="">
-                                <span class="opensans size13">Adult</span>
-                                <select class="form-control mySelectBoxClass" name="adult"
-                                        id="change_adult">
-                                    <option value="1" {{ Session::get('adult') == 1 ? 'selected' : '' }}>
-                                        1
-                                    </option>
-                                    <option value="2" {{ Session::get('adult') == 2 ? 'selected' : '' }}>
-                                        2
-                                    </option>
-                                    <option value="3" {{ Session::get('adult') == 3 ? 'selected' : '' }}>
-                                        3
-                                    </option>
-                                    <option value="4" {{ Session::get('adult') == 4 ? 'selected' : '' }}>
-                                        4
-                                    </option>
-                                    <option value="5" {{ Session::get('adult') == 5 ? 'selected' : '' }}>
-                                        5
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right ohidden">
-                                <span class="opensans size13">Child</span>
-                                <select class="form-control mySelectBoxClass" name="child"
-                                        id="change_child">
-                                    <option value="0" {{ Session::get('child') == 0 ? 'selected' : '' }}>
-                                        0
-                                    </option>
-                                    <option value="1" {{ Session::get('child') == 1 ? 'selected' : '' }}>
-                                        1
-                                    </option>
-                                    <option value="2" {{ Session::get('child') == 2 ? 'selected' : '' }}>
-                                        2
-                                    </option>
-                                    <option value="3" {{ Session::get('child') == 3 ? 'selected' : '' }}>
-                                        3
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <input type="hidden" name="city_or_acc_hidden"
-                               value="{{ $city = Request::segment(2); }}"/>
-
-                        <div class="clearfix"></div>
-                        <div class="clearfix pbottom15"></div>
-
-                        <button type="submit" class="btn-search3 right"> Search</button>
-
-                    </div>
-                    <!-- END OF HOTELS TAB -->
-
-                    {{Form::close()}}
-
-                    <!-- TRANSPORT TAB -->
-                    <div class="carstab2 none">
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Picking up</span>
-                                <input type="text" class="form-control" placeholder="Airport, address">
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">Dropping off</span>
-                                <input type="text" class="form-control" placeholder="Airport, address">
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13">Pick up date</span>
-                                <input type="text" class="form-control mySelectCalendar" id="datepicker5"
-                                       placeholder="mm/dd/yyyy"/>
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13">Hour</span>
-                                <select class="form-control mySelectBoxClass">
-                                    <option>12:00 AM</option>
-                                    <option>12:30 AM</option>
-                                    <option>01:00 AM</option>
-                                    <option>01:30 AM</option>
-                                    <option>02:00 AM</option>
-                                    <option>02:30 AM</option>
-                                    <option>03:00 AM</option>
-                                    <option>03:30 AM</option>
-                                    <option>04:00 AM</option>
-                                    <option>04:30 AM</option>
-                                    <option>05:00 AM</option>
-                                    <option>05:30 AM</option>
-                                    <option>06:00 AM</option>
-                                    <option>06:30 AM</option>
-                                    <option>07:00 AM</option>
-                                    <option>07:30 AM</option>
-                                    <option>08:00 AM</option>
-                                    <option>08:30 AM</option>
-                                    <option>09:00 AM</option>
-                                    <option>09:30 AM</option>
-                                    <option>10:00 AM</option>
-                                    <option selected>10:30 AM</option>
-                                    <option>11:00 AM</option>
-                                    <option>11:30 AM</option>
-                                    <option>12:00 PM</option>
-                                    <option>12:30 PM</option>
-                                    <option>01:00 PM</option>
-                                    <option>01:30 PM</option>
-                                    <option>02:00 PM</option>
-                                    <option>02:30 PM</option>
-                                    <option>03:00 PM</option>
-                                    <option>03:30 PM</option>
-                                    <option>04:00 PM</option>
-                                    <option>04:30 PM</option>
-                                    <option>05:00 PM</option>
-                                    <option>05:30 PM</option>
-                                    <option>06:00 PM</option>
-                                    <option>06:30 PM</option>
-                                    <option>07:00 PM</option>
-                                    <option>07:30 PM</option>
-                                    <option>08:00 PM</option>
-                                    <option>08:30 PM</option>
-                                    <option>09:00 PM</option>
-                                    <option>09:30 PM</option>
-                                    <option>10:00 PM</option>
-                                    <option>10:30 PM</option>
-                                    <option>11:00 PM</option>
-                                    <option>11:30 PM</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="room1">
-                            <div class="w50percent">
-                                <div class="wh90percent textleft">
-                                    <span class="opensans size13">Drop off date</span>
-                                    <input type="text" class="form-control mySelectCalendar" id="datepicker6"
-                                           placeholder="mm/dd/yyyy"/>
-                                </div>
-                            </div>
-
-                            <div class="w50percentlast">
-                                <div class="wh90percent textleft right">
-                                    <span class="opensans size13">Hour</span>
-                                    <select class="form-control mySelectBoxClass">
-                                        <option>12:00 AM</option>
-                                        <option>12:30 AM</option>
-                                        <option>01:00 AM</option>
-                                        <option>01:30 AM</option>
-                                        <option>02:00 AM</option>
-                                        <option>02:30 AM</option>
-                                        <option>03:00 AM</option>
-                                        <option>03:30 AM</option>
-                                        <option>04:00 AM</option>
-                                        <option>04:30 AM</option>
-                                        <option>05:00 AM</option>
-                                        <option>05:30 AM</option>
-                                        <option>06:00 AM</option>
-                                        <option>06:30 AM</option>
-                                        <option>07:00 AM</option>
-                                        <option>07:30 AM</option>
-                                        <option>08:00 AM</option>
-                                        <option>08:30 AM</option>
-                                        <option>09:00 AM</option>
-                                        <option>09:30 AM</option>
-                                        <option>10:00 AM</option>
-                                        <option selected>10:30 AM</option>
-                                        <option>11:00 AM</option>
-                                        <option>11:30 AM</option>
-                                        <option>12:00 PM</option>
-                                        <option>12:30 PM</option>
-                                        <option>01:00 PM</option>
-                                        <option>01:30 PM</option>
-                                        <option>02:00 PM</option>
-                                        <option>02:30 PM</option>
-                                        <option>03:00 PM</option>
-                                        <option>03:30 PM</option>
-                                        <option>04:00 PM</option>
-                                        <option>04:30 PM</option>
-                                        <option>05:00 PM</option>
-                                        <option>05:30 PM</option>
-                                        <option>06:00 PM</option>
-                                        <option>06:30 PM</option>
-                                        <option>07:00 PM</option>
-                                        <option>07:30 PM</option>
-                                        <option>08:00 PM</option>
-                                        <option>08:30 PM</option>
-                                        <option>09:00 PM</option>
-                                        <option>09:30 PM</option>
-                                        <option>10:00 PM</option>
-                                        <option>10:30 PM</option>
-                                        <option>11:00 PM</option>
-                                        <option>11:30 PM</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="clearfix"></div>
-                        <button type="submit" class="btn-search3">Search</button>
-                    </div>
-                    <!-- END OF TRANSPORT TAB -->
-
-                </div>
-                <!-- END OF BOOK FILTERS -->
-
+                <!-- Reservation Box -->
+                @include('layout.reservation_box_pages')
+                <!-- End Of Reservation Box -->
                 <div class="line2"></div>
 
                 <div class="clearfix"></div>
@@ -384,53 +117,53 @@
 
                 <div class="hpadding50c">
 
-                    {{--<!-- LEFT IMG -->--}}
-                    {{--<div class="col-md-8 cpdd01 grey2">--}}
+                    <!-- LEFT IMG -->
+                    <div class="col-md-8 cpdd01 grey2">
 
-                        {{--<P>--}}
-                            {{--The island of Ceylon, as it was known by its colonial rulers, has fascinated many--}}
-                            {{--generations of travellers, and has captured the imagination of explorers who have kept--}}
-                            {{--returning to its shores in awe of its natural beauty and curious inhabitants.--}}
-                        {{--</p>--}}
+                        <P>
+                            The island of Ceylon, as it was known by its colonial rulers, has fascinated many
+                            generations of travellers, and has captured the imagination of explorers who have kept
+                            returning to its shores in awe of its natural beauty and curious inhabitants.
+                        </p>
 
-                        {{--<p>--}}
-                            {{--With its location at the centre of major sea routes, the island was a coveted treasure of--}}
-                            {{--maritime traders. The island created a strategic link between South East Asia and West Asia--}}
-                            {{--and was an equally important stop along the silk route. The island has strong roots vested--}}
-                            {{--in the Buddhist religion and has remained so from the ancient days. The country was the--}}
-                            {{--first location from where Buddhist teachings were documented, and is one of the few--}}
-                            {{--countries where Buddhism finds its abode in South Asia.--}}
-                        {{--</p>--}}
+                        <p>
+                            With its location at the centre of major sea routes, the island was a coveted treasure of
+                            maritime traders. The island created a strategic link between South East Asia and West Asia
+                            and was an equally important stop along the silk route. The island has strong roots vested
+                            in the Buddhist religion and has remained so from the ancient days. The country was the
+                            first location from where Buddhist teachings were documented, and is one of the few
+                            countries where Buddhism finds its abode in South Asia.
+                        </p>
 
-                        {{--<p>--}}
-                            {{--But with that said, the country boasts of a rich diversity of cultures, religions and--}}
-                            {{--languages. The Sinhalese community makes up the majority of the population while Sri Lankan--}}
-                            {{--Tamils concentrated in the North and the East of the island form the largest ethnic minority--}}
-                            {{--in the island. Other communities include Burghers, Moors, Kaffirs, and Malays.--}}
-                        {{--</p>--}}
+                        <p>
+                            But with that said, the country boasts of a rich diversity of cultures, religions and
+                            languages. The Sinhalese community makes up the majority of the population while Sri Lankan
+                            Tamils concentrated in the North and the East of the island form the largest ethnic minority
+                            in the island. Other communities include Burghers, Moors, Kaffirs, and Malays.
+                        </p>
 
-                        {{--<p>--}}
-                            {{--The island lays claim to a colourful and long history which spans more than three thousand--}}
-                            {{--years and also one of the longest histories to be documented in the world. The country is--}}
-                            {{--also a founding member of the SAARC and is a member of the UN, Commonwealth, and the--}}
-                            {{--Non-Aligned movement to name a few. The country's stock market was dubbed as the best--}}
-                            {{--performing stock exchange from 2009-2010.--}}
+                        <p>
+                            The island lays claim to a colourful and long history which spans more than three thousand
+                            years and also one of the longest histories to be documented in the world. The country is
+                            also a founding member of the SAARC and is a member of the UN, Commonwealth, and the
+                            Non-Aligned movement to name a few. The country's stock market was dubbed as the best
+                            performing stock exchange from 2009-2010.
 
-                        {{--</P>--}}
-                        {{--<br/><br/>--}}
+                        </P>
+                        <br/><br/>
 
-                    {{--</div>--}}
-                    {{--<!-- END OF LEFT IMG -->--}}
+                    </div>
+                    <!-- END OF LEFT IMG -->
 
-                    {{--<!-- IMG RIGHT TEXT -->--}}
-                    {{--<div class="col-md-4 cpdd02">--}}
-                        {{--<div class="opensans grey">--}}
-                            {{--{{ HTML::image('images/tourism_in_srilanka.jpg', '', array('class' => 'tourism'))}}--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<!-- END OF IMG RIGHT TEXT -->--}}
-                    {{--<div class="clearfix"></div>--}}
-                    {{--<br/><br/>--}}
+                    <!-- IMG RIGHT TEXT -->
+                    <div class="col-md-4 cpdd02">
+                        <div class="opensans grey">
+                            {{ HTML::image('images/tourism_in_srilanka.jpg', '', array('class' => 'tourism'))}}
+                        </div>
+                    </div>
+                    <!-- END OF IMG RIGHT TEXT -->
+                    <div class="clearfix"></div>
+                    <br/><br/>
 
                 </div>
             </div>

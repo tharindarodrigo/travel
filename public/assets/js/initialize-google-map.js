@@ -72,6 +72,7 @@ function initialize() {
     var lat;
     var lon;
     var hotel_id = $('#get_map').val();
+
     var url = 'http://'+window.location.host+'/get_map';
     var form_object = new FormData();
 
@@ -100,7 +101,7 @@ function initialize() {
             // Create a map object, and include the MapTypeId to add
             // to the map type control.
             var mapOptions = {
-                zoom: 15,
+                zoom: 10,
                 center: myLatlng,
                 mapTypeControlOptions: {
                     mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']

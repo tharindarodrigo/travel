@@ -20,7 +20,15 @@
             width: 797px;
             height: 107px;
         }
+
+        .img_home_offer {
+            /*width: 100%;*/
+            height: 100%;
+        }
     </style>
+
+    {{--my styles--}}
+    {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
 @endsection
 
@@ -123,15 +131,13 @@
             <div class="row">
 
                 <div class="col-md-4">
-
                     @include('layout.reservation_box')
-
                 </div>
 
                 <div class="col-md-4">
                     <div class="shadow cstyle05">
                         <div class="fwi one">
-                            <img src="images/hotel_images/bentota.jpg" alt="" height="100%"/>
+                            {{ HTML::image('images/site/993_anilana pasikuda1.png', '', array('class' => 'img_home_offer'))}}
 
                             <div class="mhover none">
                                 <span class="icon">
@@ -141,7 +147,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="ctitle" style="font-size: 16px;"> Bentota Beach Hotel
+                        <div class="ctitle" style="font-size: 16px;"> Anilana Pasikuda
                             <a href="list4.html">
                                 <img src="images/spacer.png" alt=""/>
                             </a>
@@ -153,8 +159,7 @@
                 <div class="col-md-4">
                     <div class="shadow cstyle05">
                         <div class="fwi one">
-                            <img src="images/hotel_images/bentota.jpg" alt="" height="100%"/>
-
+                            {{ HTML::image('images/site/1339_Serene_Pavilion.png', '', array('class' => 'img_home_offer'))}}
                             <div class="mhover none">
                                 <span class="icon">
                                     <a href="list4.html">
@@ -163,7 +168,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="ctitle" style="font-size: 16px;"> Bentota Beach Hotel
+                        <div class="ctitle" style="font-size: 16px;"> Serene Pavilion
                             <a href="list4.html">
                                 <img src="images/spacer.png" alt=""/>
                             </a>
@@ -444,6 +449,9 @@
 
         <!-- This page JS -->
         {{ HTML::script('assets/js/js-index3.js') }}
+
+        <!-- Custom js -->
+        {{ HTML::script('js/my_script.js') }}
 
     @endsection
 
