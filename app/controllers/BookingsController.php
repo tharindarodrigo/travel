@@ -26,7 +26,7 @@ class BookingsController extends \BaseController
     public function create()
     {
 
-        if (Session::has('rate_box_details'))
+        if (Session::has('rate_box_details') || Session::has('transport_cart_box'))
             return View::make('bookings.create');
         return Redirect::to('/');
 
@@ -58,7 +58,7 @@ class BookingsController extends \BaseController
         $data['reference_number'] = 123456789;
         $clients = null;
 
-        if (Session::has('rate_box_details')) {
+        if (Session::has('rate_box_details') || Session::has('transport_cart_box')) {
 
             if ($booking = Booking::create($data)) {
                 if (Session::has('client-list')) {
@@ -92,22 +92,41 @@ class BookingsController extends \BaseController
 
                 FlightDetail::create($flight_data);
 
+
+                //transport - custom trips
+
+                if(Session::has('transport_cart_box')) {
+                    $custom_trip = Session::pull('transport_cart_box');
+                    $custom_trip['from'] = $custom_trip['pick_up_date'].' '.$custom_trip['pick_up_time_hour'].':'.$custom_trip['pick_up_time_minutes'];
+                    $custom_trip['to'] = $custom_trip['drop_off_date'].' '.$custom_trip['drop_off_time_hour'].':'.$custom_trip['drop_off_time_minute'];
+                    $custom_trip['reference_number'] = 'TR011000';
+                    CustomTrip::create($custom_trip);
+                }
+
                 //hotel bookings
 
-                $bookings = Session::pull('rate_box_details');
+                if(Session::has('rate_box_details')){
+                    $bookings = Session::pull('rate_box_details');
 
-                $vouchers = Voucher::arrangeHotelBookingsVoucherwise($bookings,$booking->id);
+                    $vouchers = Voucher::arrangeHotelBookingsVoucherwise($bookings,$booking->id);
 
-                foreach($vouchers as $voucher){
-                    $create_voucher = Voucher::create($voucher);
+                    foreach($vouchers as $voucher){
+                        $create_voucher = Voucher::create($voucher);
 
-                    for($c=0; $c<count($voucher)-6; $c++){
+                        for($c=0; $c<count($voucher)-6; $c++){
 
-                        $voucher[$c]['voucher_id'] = $create_voucher->id;
-                        $voucher[$c]['amount'] = $voucher[$c]['room_cost'];
-                        RoomBooking::create($voucher[$c]);
+                            $voucher[$c]['voucher_id'] = $create_voucher->id;
+                            $voucher[$c]['amount'] = $voucher[$c]['room_cost'];
+                            RoomBooking::create($voucher[$c]);
+                        }
                     }
                 }
+
+
+
+
+
+
 
 
                 Mail::send('emails.bookings.booking', array(
@@ -205,11 +224,9 @@ class BookingsController extends \BaseController
      */
 
 
-
     public function addClient()
     {
         $input = Input::all();
-//        $data =array();
 
         if (Session::has('client-list')) {
             $data = Session::get('client-list');
@@ -250,6 +267,8 @@ class BookingsController extends \BaseController
     {
         Session::forget('add_new_voucher');
         Session::forget('rate_box_details');
+        Session::forget('transport_cart_box');
+        Session::forget('');
         return Redirect::to('/');
     }
 

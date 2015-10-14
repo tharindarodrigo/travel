@@ -376,20 +376,27 @@ Route::get('/', array(
 ));
 
 //Bookings
+Route::get('bookings/cancel-booking',  'BookingsController@cancelBooking');
+Route::post('/bookings/create-client', 'BookingsController@addClient');
+Route::post('/bookings/destroy-client', 'BookingsController@destroyClient');
+Route::post('/bookings/get-clients', 'BookingsController@getClientList');
+
 Route::resource('bookings', 'BookingsController');
 
 Route::resource('bookings.clients', 'ClientsController');
 Route::resource('bookings.flightDetails', 'FlightDetailsController');
 
-Route::post('/bookings/create-client', 'BookingsController@addClient');
-Route::post('/bookings/destroy-client', 'BookingsController@destroyClient');
-Route::post('/bookings/get-clients', 'BookingsController@getClientList');
+
+
 
 
 Route::get('/my-bookings', function () {
     return View::make('agent-bookings.bookings');
 });
 
+
+//Vouchers
+Route::resource('bookings.vouchers','VouchersController');
 
 Route::resource('transportation', 'TransportationController');
 

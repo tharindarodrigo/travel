@@ -157,7 +157,7 @@ class TransportPackageController extends \BaseController
 
 
         $vehicle_type = Input::get('vehicle_type');
-        $vehicle_id = Vehicle::where('vehicle_type', $vehicle_type)->select('id')->first()->id;
+        $vehicle = Vehicle::where('vehicle_type', $vehicle_type)->first();
         $origin = Input::get('origin');
         $origin_id = City::where('city', $origin)->select('id')->first()->id;
         $destination_1 = Input::get('destination_1');
@@ -170,11 +170,13 @@ class TransportPackageController extends \BaseController
         $pick_up_time_minutes = Input::get('pick_up_time_minutes');
         $drop_off_time_hour = Input::get('drop_off_time_hour');
         $drop_off_time_minutes = Input::get('drop_off_time_minutes');
+        $total_distance = Input::get('total_distance');
+        $transport_cart_key = $vehicle->id . '_' . $origin_id . '_' . $destination_1_id;
 
-        $transport_cart_key = $vehicle_id . '_' . $origin_id . '_' . $destination_1_id;
-
+        $cost = $vehicle->rate * ($total_distance / 1000.0);
         $transport_cart_box = array(
             'vehicle_type' => $vehicle_type,
+            'vehicle_id' => $vehicle->id,
             'origin' => $origin,
             'destination_1' => $destination_1,
             'destination_2' => $destination_2,
@@ -186,6 +188,9 @@ class TransportPackageController extends \BaseController
             'drop_off_time_hour' => $drop_off_time_hour,
             'drop_off_time_minutes' => $drop_off_time_minutes,
             'transport_cart_key' => $transport_cart_key,
+            'cost' => number_format($cost, 2),
+            'amount' => $cost
+
         );
 
 

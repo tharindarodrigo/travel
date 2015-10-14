@@ -53,7 +53,7 @@ function generateTransportTable(data) {
                 '<div class="clearfix"></div>' +
                 '</div>' +
                 '<div class="clearfix"></div>' +
-                'Total cost per trip : <span class="right green bold">USD &nbsp;&nbsp;&nbsp;' + item.room_cost +
+                'Total cost per trip : <span class="right green bold">USD &nbsp;&nbsp;&nbsp;' + item.cost +
                 '</span>' +
                 '</td>' +
                 '</tr>';

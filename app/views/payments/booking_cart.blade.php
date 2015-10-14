@@ -94,7 +94,8 @@
             {{Form::open(array('route'=> array('bookings.vouchers.store',Session::get('add_new_voucher'))))}}
                 {{Form::submit('Add Vouchers', array('class'=>'btn btn-danger', 'id'=>'add_voucher'))}}
                 {{link_to_route('bookings.create','Continue to New Booking', null, array('class'=>'btn btn-warning', 'id'=>'checkout'))}}
-                {{link_to_action('BookingsController@cancelBooking','Cancel All', null, array('class'=>'btn btn-default'))}}
+                <a href="{{URL::to('bookings/cancel-booking')}}" class="btn btn-default" >Cancel All</a>
+
             {{Form::close()}}
             @else
                 {{link_to_route('bookings.create','Checkout', null, array('class'=>'btn btn-danger', 'id'=>'checkout'))}}
