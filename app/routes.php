@@ -77,6 +77,12 @@ Route::group(array('before' => 'auth'), function () {
     ));
 
 
+    Route::get('/account/account-confirmation', array(
+        'as' => 'activation-email',
+        'uses' => 'AccountController@getActivationEmail'
+    ));
+
+
 });
 
 
@@ -209,6 +215,20 @@ Route::group(array('prefix' => 'control-panel'), function () {
 
 
     });
+
+    Route::group(array('prefix' => 'transportation'), function () {
+        Route::resource('packages', 'TransportPackagesController');
+        Route::resource('vehicles', 'VehiclesController');
+
+    });
+    
+    Route::resource('users', 'UsersController');
+    Route::group(array('prefix' => 'users'), function () {
+
+        Route::post('change-role/{user_id}', 'UsersController@changeRole');
+
+    });
+
 
     Route::get('image-uploads', array(
         'as' => 'post-image-upload',
