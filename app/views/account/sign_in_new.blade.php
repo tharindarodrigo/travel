@@ -74,7 +74,8 @@
                     <div class="anihotels">{{ HTML::image('images/register_icon.png', '', array('class' => 'sign-in')) }}
                         Register
                     </div>
-                </a></li>
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -94,9 +95,6 @@
 
     <!--HOME OBJECTS -->
 
-    {{ HTML::image('images/couple.png', '', array('class'=>'couple')) }}
-    {{ HTML::image('images/girl.png', '', array('class'=>'girl')) }}
-    {{ HTML::image('images/girl2.png', '', array('class'=>'girl2')) }}
     <img class="girl-car" src="images/girl-car.png" alt=""/>
     <img class="car" src="images/car.png" alt=""/>
     <img class="girl-cruise" src="images/girl-cruise.png" alt=""/>
@@ -234,7 +232,7 @@
             var url = 'create';
             var method = 'post';
             var prefix = '';
-            var successpage = 'http://localhost:8000';
+            var successpage = 'http://'+window.location.host+'/account/account-confirmation';
             var defaultPage = 'http://'+window.location.host;
 
             $('.custom_validation').slideUp(200);
@@ -254,8 +252,8 @@
             var url = 'sign-in';
             var method = 'post';
             var prefix = 'log_';
-            var successpage = 'http://localhost:8000';
-            var defaultPage = 'http://localhost:8000';
+            var successpage = 'http://'+window.location.host;
+            var defaultPage = 'http://'+window.location.host;
 
 
             e.preventDefault();

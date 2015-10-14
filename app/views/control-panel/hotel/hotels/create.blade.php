@@ -1,5 +1,14 @@
 @extends('control-panel.hotel.hotels.hotels')
 
+@section('control-sub-title')
+    {{'Create'}}
+@endsection
+
+@section('bread-crumbs')
+        <li class="active">Hotels</li>
+        <li class="active">Create Hotel</li>
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-md-12">

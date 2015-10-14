@@ -5,14 +5,19 @@
 
 @extends('control-panel.layout.main')
 
+@section('bread-crumbs')
+    <li class="active">My Hotels</li>
+    <li class="active">{{$roomtypes->first()->hotel->name}}</li>
+    <li class="active">Rooms</li>
+@endsection
 
 
 @section('hotel-nav-bar')
 <li class="">{{link_to_route('control-panel.hotel.hotels.edit','Hotel Profile',array($hotelid))}}</li>
 <li class="active">{{link_to_route('control-panel.hotel.hotels.room-types.index' ,'Rooms', array($hotelid))}}</li>
-<li class="">{{link_to_route('control-panel.hotel.hotels.rates.index' ,'Rates',array($hotelid))}}</li>
+<li class="">{{link_to_route('control-panel.hotel.hotels.rates.index','Rates' ,array($hotelid))}}</li>
 <li class="">{{link_to_route('control-panel.hotel.hotels.supplement-rates.index','Supplement Rates' ,array($hotelid))}}</li>
-<li class="">{{link_to_route('control-panel.hotel.hotels.edit','Create Rate',array($hotelid))}}</li>
+<li class="">{{link_to_route('control-panel.hotel.hotels.allotments.index','Allotments' ,array($hotelid))}}</li>
 
 @endsection
 

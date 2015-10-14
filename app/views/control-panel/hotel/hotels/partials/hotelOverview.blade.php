@@ -53,6 +53,8 @@
                 </div>
             @endforeach
             </div>
+            {{ $errors->first('category_id', '<div class="form-group text-red">:message</div>') }}
+
             <p class="text-bold text-primary"><em>Check the categories to which the hotel belongs to...</em></p>
         </div>
     </div>

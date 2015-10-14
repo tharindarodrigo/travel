@@ -9,9 +9,9 @@ class TransportPackagesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$transportpackages = Transportpackage::all();
-
-		return View::make('transportpackages.index', compact('transportpackages'));
+        Session::forget('edit');
+		$packages = Transportpackage::all();
+		return View::make('control-panel.transportation.packages',compact('packages'));
 	}
 
 	/**
@@ -21,7 +21,7 @@ class TransportPackagesController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('transportpackages.create');
+        return View::make('');
 	}
 
 	/**
@@ -40,7 +40,7 @@ class TransportPackagesController extends \BaseController {
 
 		Transportpackage::create($data);
 
-		return Redirect::route('transportpackages.index');
+		return Redirect::route('control-panel.transportpackages.index');
 	}
 
 	/**
@@ -51,9 +51,9 @@ class TransportPackagesController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$transportpackage = Transportpackage::findOrFail($id);
+        $packages = Transportpackage::findOrFail($id);
 
-		return View::make('transportpackages.show', compact('transportpackage'));
+		return View::make('transportpackages.show', compact('packages'));
 	}
 
 	/**
@@ -64,9 +64,12 @@ class TransportPackagesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$transportpackage = Transportpackage::find($id);
 
-		return View::make('transportpackages.edit', compact('transportpackage'));
+		$transportpackage = Transportpackage::findOrFail($id);
+		$packages = Transportpackage::with('originCity')->with('destinationCity')->get();
+        Session::put('edit', 'edit');
+
+        return View::make('control-panel.transportation.packages', compact('transportpackage','packages'));
 	}
 
 	/**
@@ -77,7 +80,7 @@ class TransportPackagesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$transportpackage = Transportpackage::findOrFail($id);
+        $transportpackage = TransportPackage::findOrFail($id);
 
 		$validator = Validator::make($data = Input::all(), Transportpackage::$rules);
 
@@ -88,7 +91,9 @@ class TransportPackagesController extends \BaseController {
 
 		$transportpackage->update($data);
 
-		return Redirect::route('transportpackages.index');
+        Session::forget('edit');
+
+		return Redirect::route('control-panel..index');
 	}
 
 	/**

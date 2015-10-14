@@ -5,11 +5,13 @@ class Vehicle extends \Eloquent
 
     // Add your validation rules here
     public static $rules = [
-        // 'title' => 'required'
+        'vehicle_type' => 'required',
+        'passengers' => 'required|integer',
+        'rate' => 'required|numeric'
     ];
 
     // Don't forget to fill this array
-    protected $fillable = [];
+    protected $fillable = ['vehicle_type', 'passengers', 'rate', 'val'];
 
     public function transportPackage()
     {

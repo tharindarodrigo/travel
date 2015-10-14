@@ -10,16 +10,14 @@
 @endsection
 
 
-
 @section('control-sub-title')
-    {{'Hotel List'}}
+    @yield('control-subtitle')
 @endsection
 
 
 {{--Breadcrumbs--}}
 @section('bread-crumbs')
-    <li class="active">My Hotels</li>
-    <li class="active">Hotel List</li>
+    @yield('bread-crumbs')
 @endsection
 
 @section('active-hotels')

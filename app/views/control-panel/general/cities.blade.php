@@ -27,7 +27,6 @@
 @endsection
 
 
-
 @section('content')
 
     <section>

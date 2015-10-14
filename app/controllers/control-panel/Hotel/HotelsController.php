@@ -42,17 +42,17 @@ class HotelsController extends \BaseController
      */
     public function store()
     {
-//        dd(Input::get('images'));
+//        dd(Input::file('images'));
+
+//        dd(Input::all());
         $validator = Validator::make($data = Input::all(), Hotel::$rules);
 
         if ($validator->fails()) {
-            dd($validator->errors());
+//            dd($validator->errors());
             return Redirect::back()->withErrors($validator)->withInput();
         }
-//        dd($data);
 
         $data['user_id'] = Auth::user()->id;
-//        dd($data);
 
         if ($hotel = Hotel::create($data)) {
 
@@ -60,7 +60,6 @@ class HotelsController extends \BaseController
             if (Input::hasFile('images')) {
 
                 $files = Input::file('images');
-
 
                 foreach($files as $file){
                     Image::make($file)

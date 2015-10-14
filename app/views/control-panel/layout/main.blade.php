@@ -78,9 +78,9 @@
 
 {{--</nav>--}}
 
-          {{--<div class="navbar-custom-menu">--}}
+          <div class="navbar-custom-menu">
 
-            {{--<ul class="nav navbar-nav">--}}
+            <ul class="nav navbar-nav">
 
               {{--<!-- Messages: style can be found in dropdown.less-->--}}
               {{--<li class="dropdown messages-menu">--}}
@@ -162,46 +162,18 @@
                   {{--</li>--}}
                 {{--</ul>--}}
               {{--</li>--}}
-              {{--<!-- User Account: style can be found in dropdown.less -->--}}
-              {{--<li class="dropdown user user-menu">--}}
-                {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}
-                  {{--<img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>--}}
-                  {{--<span class="hidden-xs">Alexander Pierce</span>--}}
-                {{--</a>--}}
-                {{--<ul class="dropdown-menu">--}}
-                  {{--<!-- User image -->--}}
-                  {{--<li class="user-header">--}}
-                    {{--<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />--}}
-                    {{--<p>--}}
-                      {{--Alexander Pierce - Web Developer--}}
-                      {{--<small>Member since Nov. 2012</small>--}}
-                    {{--</p>--}}
-                  {{--</li>--}}
-                  {{--<!-- Menu Body -->--}}
-                  {{--<li class="user-body">--}}
-                    {{--<div class="col-xs-4 text-center">--}}
-                      {{--<a href="#">Followers</a>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-xs-4 text-center">--}}
-                      {{--<a href="#">Sales</a>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-xs-4 text-center">--}}
-                      {{--<a href="#">Friends</a>--}}
-                    {{--</div>--}}
-                  {{--</li>--}}
-                  {{--<!-- Menu Footer-->--}}
-                  {{--<li class="user-footer">--}}
-                    {{--<div class="pull-left">--}}
-                      {{--<a href="#" class="btn btn-default btn-flat">Profile</a>--}}
-                    {{--</div>--}}
-                    {{--<div class="pull-right">--}}
-                      {{--<a href="#" class="btn btn-default btn-flat">Sign out</a>--}}
-                    {{--</div>--}}
-                  {{--</li>--}}
-                {{--</ul>--}}
-              {{--</li>--}}
-            {{--</ul>--}}
-          {{--</div>--}}
+
+
+              <!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu">
+                <a href="{{URL::route('account-sign-out')}}">
+                  Sign Out
+                </a>
+
+              </li>
+            </ul>
+          </div>
+
      </div>
       </div>
     </nav>
@@ -215,31 +187,29 @@
         <section class="sidebar">
           <!-- Sidebar user panel -->
           <div class="user-panel">
-            <div class="pull-left image">
-              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
-            </div>
+
             <div class="pull-left info">
-              <p>Alexander Pierce</p>
+              <p>{{Auth::user()->first_name.' '.Auth::user()->last_name}}</p>
 
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>
           <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search..."/>
-              <span class="input-group-btn">
-                <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
+          {{--<form action="#" method="get" class="sidebar-form">--}}
+            {{--<div class="input-group">--}}
+              {{--<input type="text" name="q" class="form-control" placeholder="Search..."/>--}}
+              {{--<span class="input-group-btn">--}}
+                {{--<button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>--}}
+              {{--</span>--}}
+            {{--</div>--}}
+          {{--</form>--}}
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             <li class="treeview @yield('active-dashboard')">
               <a href="{{ URL::to('control-panel'); }}">
-                <i class="fa fa-dashboard "></i> <span>Dashboard</span> </i>
+                <i class="fa fa-dashboard "></i> <span>Dashboard</span>
               </a>
             </li>
             <li class="treeview @yield('active-hotels')">
@@ -282,18 +252,30 @@
                 <li class="@yield('active-general-markets')"><a href="#"><i class="fa fa-circle-o"></i> Markets</a></li>
               </ul>
             </li>
-
-            <li class="treeview">
+            <li class="treeview @yield('active-transportation')">
               <a href="#">
-                <i class="fa fa-edit"></i> <span>Forms</span>
+                <i class="fa fa-car"></i>
+                <span>Transportation</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="../forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-                <li><a href="../forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-                <li><a href="../forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
+                <li class="@yield('active-transportation-vehicles')"><a href="{{URL::route('control-panel.transportation.vehicles.index')}}"><i class="fa fa-circle-o"></i> Vehicles</a></li>
+                <li class="@yield('active-transportation-packages')"><a href="{{URL::route('control-panel.transportation.packages.index')}}"><i class="fa fa-circle-o"></i> Packages</a></li>
               </ul>
             </li>
+
+            <li class="treeview @yield('active-users')">
+              <a href="#">
+                <i class="fa fa-users"></i>
+                <span>Users</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="@yield('active-users-agents')"><a href="#"><i class="fa fa-circle-o"></i> Agents</a></li>
+                <li class="@yield('active-users-hoteliers')"><a href="#"><i class="fa fa-circle-o"></i> Hoteliers</a></li>
+              </ul>
+            </li>
+
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-table"></i> <span>Tables</span>
@@ -400,7 +382,7 @@
         <div class="pull-right hidden-xs">
           <b>Version</b> 2.0
         </div>
-        <strong>Copyright &copy; {{ date('Y') }} <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; {{ date('Y') }} Exotic Holidays International Pvt (Ltd) All rights reserved.</strong>
       </footer>
     </div><!-- ./wrapper -->
 

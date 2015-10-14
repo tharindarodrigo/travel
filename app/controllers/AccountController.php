@@ -149,6 +149,7 @@ class AccountController extends \BaseController
 
                 $array = array(
                     'success' => true,
+                    'validation'=>true,
                     'alert' => 'Your account has been created! We have sent you an email to activate your account'
                 );
 
@@ -158,7 +159,7 @@ class AccountController extends \BaseController
 
             $array = array(
                 'success' => true,
-                'alert' => 'Your account has been created! We have sent you an email to activate your account'
+                'alert' =>'Your account has been created! We have sent you an email to activate your account'
             );
 
             return Response::json($array);
@@ -171,12 +172,15 @@ class AccountController extends \BaseController
         return View::make('pages.message');
     }
 
+    public function getActivationEmail(){
+        Session::flash('global','Your account has been created! We have sent you an email to activate your account');
+        return View::make('pages.message');
+    }
+
     public function getActivate($code)
     {
-        $user = User::where('code', '=', $code)->where('active', '=', 0);
-
-        if ($user->count()) {
-            $user = $user->first();
+        $user = User::where('code', '=', $code)->where('active', '=', 0)->first();
+        if ($user) {
 
             //update user to active state
 
