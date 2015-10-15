@@ -188,7 +188,7 @@
         color: #96d187;
         background-color: #005078;
         background-image: -webkit-gradient(linear, left 0%, left 100%, from(#005078), to(#0072ab));
-        background-image: -webkit-linear-gradient(top, #005078, 0%, #0072ab, 100%);
+        background-image: -webkit-linear-gradient(top, #005078 0%, #0072ab 100%);
         background-image: -moz-linear-gradient(top, #005078 0%, #0072ab 100%);
         background-image: linear-gradient(to bottom, #005078 0%, #0072ab 100%);
         background-repeat: repeat-x;
@@ -245,7 +245,7 @@
         border-bottom-color: #ffffff;
     }
 
-    @media (max-width: 767) {
+    @media (max-width: 767px) {
         .navbar-custom .navbar-nav .open .dropdown-menu > li > a {
             color: #ffffff;
         }
@@ -320,14 +320,14 @@
 
 <div class="row navbar-custom">
     <div class="col-md-7"></div>
-    <div class="col-md-5" style=" overflow-x: visible !important; overflow-y: visible !important;">
+    <div class="col-md-5" style="overflow-x: visible !important; overflow-y: visible !important;">
         <table align="center">
             <tr>
                 <th style="padding: 10px;"><a href="" style="text-decoration: none">Language</a></th>
                 <th style="padding: 10px;"><a href="" style="text-decoration: none">USD</a></th>
                 <th>
                     @if(Auth::check())
-                        <ul class="">
+                        <ul class="nav navbar-nav">
                             <li class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                     {{(Auth::user()->first_name)}} {{(Auth::user()->last_name)}}</a>
