@@ -82,6 +82,10 @@ Route::group(array('before' => 'auth'), function () {
         'uses' => 'AccountController@getActivationEmail'
     ));
 
+//=====================================================================================================================|
+//    Control Panel                                                                                                    |
+//=====================================================================================================================|
+
     Route::group(array('prefix' => 'control-panel'), function () {
 
         /*
@@ -92,28 +96,35 @@ Route::group(array('before' => 'auth'), function () {
             return View::make('control-panel.index');
         });
 
-        Route::group(array('prefix' => 'general'), function () {
+        Route::group(array('before' => 'admin'), function () {
 
-            Route::resource('cities', 'CitiesController');
+            Route::group(array('prefix' => 'general'), function () {
 
-            Route::post('cities/get-cities/{country_id}', 'CitiesController@getCitiesList');
+                Route::resource('cities', 'CitiesController');
+                Route::post('cities/get-cities/{country_id}', 'CitiesController@getCitiesList');
+                Route::resource('markets', 'MarketsController');
+                Route::resource('countries', 'CountriesController');
 
-            Route::resource('markets', 'MarketsController');
-            Route::resource('countries', 'CountriesController');
+            });
 
+            Route::group(array('prefix' => 'transportation'), function () {
+                Route::resource('packages', 'TransportPackagesController');
+                Route::resource('vehicles', 'VehiclesController');
 
-        });
+            });
 
-        Route::group(array('prefix' => 'transportation'), function () {
-            Route::resource('packages', 'TransportPackagesController');
-            Route::resource('vehicles', 'VehiclesController');
+            Route::resource('users', 'UsersController');
+            Route::group(array('prefix' => 'users'), function () {
 
-        });
+                Route::post('change-role/{user_id}', 'UsersController@changeRole');
 
-        Route::resource('users', 'UsersController');
-        Route::group(array('prefix' => 'users'), function () {
+            });
 
-            Route::post('change-role/{user_id}', 'UsersController@changeRole');
+            /**
+             * Room Specifications
+             */
+            Route::resource('room_specifications', 'RoomSpecificationsController');
+
 
         });
 
@@ -143,7 +154,7 @@ Route::group(array('before' => 'auth'), function () {
          *--------------------------------------------------------------------------------------------------------------
          */
 
-        Route::group(array('prefix' => 'hotel'), function () {
+        Route::group(array('prefix' => 'hotel', 'before' => 'hotelier|admin'), function () {
             /**
              *  Allotments
              */
@@ -168,10 +179,6 @@ Route::group(array('before' => 'auth'), function () {
              */
             Route::resource('hotels.room-types', 'RoomTypesController');
 
-            /**
-             * Room Specifications
-             */
-            Route::resource('room_specifications', 'RoomSpecificationsController');
 
             /**
              *  Hotel Profile
@@ -194,36 +201,41 @@ Route::group(array('before' => 'auth'), function () {
             Route::delete('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/delete', 'HotelsController@deleteCancellationPolicy');
 
 
-            /**
-             *  Meal Bases
-             */
-            Route::resource('meal-bases', 'MealBasesController');
+            Route::group(array('before' => 'admin'), function () {
 
-            /**
-             *  Room Facilities
-             */
-            Route::resource('room-facilities', 'RoomFacilitiesController');
 
-            /**
-             *  Room Types
-             */
-            Route::resource('hotels.room-types', 'RoomTypesController');
+                /**
+                 *  Room Types
+                 */
+                Route::resource('hotels.room-types', 'RoomTypesController');
 
-            /**
-             *  hotel facilities
-             */
-            Route::resource('hotel-facilities', 'HotelFacilitiesController');
+                /**
+                 *  Meal Bases
+                 */
+                Route::resource('meal-bases', 'MealBasesController');
 
-            /**
-             *  hotel categories
-             */
-            Route::resource('hotel_categories', 'HotelCategoriesController');
+                /**
+                 *  Room Facilities
+                 */
+                Route::resource('room-facilities', 'RoomFacilitiesController');
 
-            /**
-             *  star categories
-             */
-            Route::resource('star-categories', 'StarCategoriesController');
 
+                /**
+                 *  hotel facilities
+                 */
+                Route::resource('hotel-facilities', 'HotelFacilitiesController');
+
+                /**
+                 *  hotel categories
+                 */
+                Route::resource('hotel_categories', 'HotelCategoriesController');
+
+                /**
+                 *  star categories
+                 */
+                Route::resource('star-categories', 'StarCategoriesController');
+
+            });
             //Route::resource('meal-bases', 'MealBasesController');
         });
 
@@ -245,7 +257,18 @@ Route::group(array('before' => 'auth'), function () {
 
     });
 
+//=====================================================================================================================|
+//    End Control Panel                                                                                                |
+//=====================================================================================================================|
 
+    Route::get('/my-profile', function () {
+        $user = User::find(Auth::user()->id);
+
+
+        if (!$user->hasRole('Admin'))
+            return View::make('agent-profile.index', compact('user'));
+        return Redirect::to('/');
+    });
 });
 
 
@@ -353,17 +376,6 @@ Route::group(array('before' => 'guest'), function () {
 });
 
 
-//=====================================================================================================================|
-//    Control Panel                                                                                                    |
-//=====================================================================================================================|
-
-
-
-
-//=====================================================================================================================|
-//    End Control Panel                                                                                                |
-//=====================================================================================================================|
-
 /***********************************************************************************************************************/
 /***********************************************************************************************************************/
 
@@ -378,7 +390,7 @@ Route::get('/', array(
 ));
 
 //Bookings
-Route::get('bookings/cancel-booking',  'BookingsController@cancelBooking');
+Route::get('bookings/cancel-booking', 'BookingsController@cancelBooking');
 Route::post('/bookings/create-client', 'BookingsController@addClient');
 Route::post('/bookings/destroy-client', 'BookingsController@destroyClient');
 Route::post('/bookings/get-clients', 'BookingsController@getClientList');
@@ -389,22 +401,13 @@ Route::resource('bookings.clients', 'ClientsController');
 Route::resource('bookings.flightDetails', 'FlightDetailsController');
 
 
-Route::get('/my-profile',function(){
-    $user = Auth::user();
-
-    if($user->role_id == 3)
-        return View::make('agent-profile.index', compact('user'));
-    return Redirect::to('/');
-});
-
-
 Route::get('/my-bookings', function () {
     return View::make('agent-bookings.bookings');
 });
 
 
 //Vouchers
-Route::resource('bookings.vouchers','VouchersController');
+Route::resource('bookings.vouchers', 'VouchersController');
 
 Route::resource('transportation', 'TransportationController');
 

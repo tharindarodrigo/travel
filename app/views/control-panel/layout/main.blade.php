@@ -220,7 +220,7 @@
               </a>
               <ul class="treeview-menu">
                <li class="@yield('active-hotel-list')"><a href="{{ Url::route('control-panel.hotel.hotels.index') }}"><i class="fa fa-circle-o"></i> Hotel List</a></li>
-               @if(Auth::user()->role_id ==4)
+               @if(User::find(Auth::user()->id)->hasRole('Admin'))
                <li class="@yield('active-hotel-create-hotel')"><a href="{{ Url::route('control-panel.hotel.hotels.create') }}"><i class="fa fa-circle-o"></i> Create Hotel</a></li>
                <li class="@yield('active-hotel-hotel-categories')"><a href="{{ Url::route('control-panel.hotel.hotel_categories.index') }}"><i class="fa fa-circle-o"></i> Hotel Categories</a></li>
                <li class="@yield('active-hotel-hotel-facilities')"><a href="{{ Url::route('control-panel.hotel.hotel-facilities.index') }}"><i class="fa fa-circle-o"></i> Hotel Facilities</a></li>
@@ -230,7 +230,7 @@
                @endif
              </ul>
             </li>
-            @if(Auth::user()->role_id ==4)
+            @if(User::find(Auth::user()->id)->hasRole('Admin'))
             <li class="treeview @yield('active-general')">
               <a href="#">
                 <i class="fa fa-arrows-alt"></i>
