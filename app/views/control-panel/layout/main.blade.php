@@ -220,14 +220,17 @@
               </a>
               <ul class="treeview-menu">
                <li class="@yield('active-hotel-list')"><a href="{{ Url::route('control-panel.hotel.hotels.index') }}"><i class="fa fa-circle-o"></i> Hotel List</a></li>
+               @if(Auth::user()->role_id ==4)
                <li class="@yield('active-hotel-create-hotel')"><a href="{{ Url::route('control-panel.hotel.hotels.create') }}"><i class="fa fa-circle-o"></i> Create Hotel</a></li>
                <li class="@yield('active-hotel-hotel-categories')"><a href="{{ Url::route('control-panel.hotel.hotel_categories.index') }}"><i class="fa fa-circle-o"></i> Hotel Categories</a></li>
                <li class="@yield('active-hotel-hotel-facilities')"><a href="{{ Url::route('control-panel.hotel.hotel-facilities.index') }}"><i class="fa fa-circle-o"></i> Hotel Facilities</a></li>
                <li class="@yield('active-hotel-meal-bases')"><a href="{{ Url::route('control-panel.hotel.meal-bases.index') }}"><i class="fa fa-circle-o"></i> Meal Bases</a></li>
                <li class="@yield('active-hotel-star-categories')"><a href="{{ Url::route('control-panel.hotel.star-categories.index') }}"><i class="fa fa-circle-o"></i> Star Categories</a></li>
                <li class="@yield('active-hotel-room-facilities')"><a href="{{ Url::route('control-panel.hotel.room-facilities.index') }}"><i class="fa fa-circle-o"></i> Room Facilities</a></li>
+               @endif
              </ul>
             </li>
+            @if(Auth::user()->role_id ==4)
             <li class="treeview @yield('active-general')">
               <a href="#">
                 <i class="fa fa-arrows-alt"></i>
@@ -273,74 +276,11 @@
               <ul class="treeview-menu">
                 <li class="@yield('active-users-agents')"><a href="#"><i class="fa fa-circle-o"></i> Agents</a></li>
                 <li class="@yield('active-users-hoteliers')"><a href="#"><i class="fa fa-circle-o"></i> Hoteliers</a></li>
+                <li class="@yield('active-users-all')"><a href="#"><i class="fa fa-circle-o"></i> Users</a></li>
               </ul>
             </li>
+            @endif
 
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-table"></i> <span>Tables</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="../tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-                <li><a href="../tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="../calendar.html">
-                <i class="fa fa-calendar"></i> <span>Calendar</span>
-                <small class="label pull-right bg-red">3</small>
-              </a>
-            </li>
-            <li>
-              <a href="../mailbox/mailbox.html">
-                <i class="fa fa-envelope"></i> <span>Mailbox</span>
-                <small class="label pull-right bg-yellow">12</small>
-              </a>
-            </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-folder"></i> <span>Examples</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                <li><a href="register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                <li><a href="lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-                <li><a href="404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                <li><a href="500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                <li class=""><a href="blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-share"></i> <span>Multilevel</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                <li>
-                  <a href="#"><i class="fa fa-circle-o"></i> Level One <i class="fa fa-angle-left pull-right"></i></a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                    <li>
-                      <a href="#"><i class="fa fa-circle-o"></i> Level Two <i class="fa fa-angle-left pull-right"></i></a>
-                      <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-              </ul>
-            </li>
-            <li><a href="documentation/index.html"><i class="fa fa-book"></i> Documentation</a></li>
-            <li class="header">LABELS</li>
-            <li><a href="#"><i class="fa fa-circle-o text-danger"></i> Important </a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-warning"></i> Warning </a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-info"></i> Information </a></li>
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -353,8 +293,8 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                @yield('control-title') Title for Now
-                <small>@yield('control-sub-title') Sub title for Now</small>
+                @yield('control-title')
+                <small>@yield('control-sub-title') </small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>Control Panel</a></li>

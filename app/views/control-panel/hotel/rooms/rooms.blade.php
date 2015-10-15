@@ -6,9 +6,7 @@
 @extends('control-panel.layout.main')
 
 @section('bread-crumbs')
-    <li class="active">My Hotels</li>
-    <li class="active">{{$roomtypes->first()->hotel->name}}</li>
-    <li class="active">Rooms</li>
+    @yield('bread-crumbs')
 @endsection
 
 

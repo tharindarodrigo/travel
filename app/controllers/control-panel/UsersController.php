@@ -89,7 +89,14 @@ class UsersController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+        $user = Auth::user();
+
+        $user->email = Input::get('email');
+        $user->password = Input::get('new_password');
+
+		if($user->role_id=3){
+
+        }
 	}
 
 	/**

@@ -21,12 +21,12 @@
 @endsection
 
 {{--Active Main Menu Item--}}
-@section('active-transportation')
+@section('active-users')
  {{ 'active' }}
 @endsection
 
 {{--Active Sub menu Item--}}
-@section('active-transportation-packages')
+@section('active-users-all')
  {{ 'active' }}
 @endsection
 

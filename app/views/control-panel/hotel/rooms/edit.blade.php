@@ -1,4 +1,9 @@
 @extends('control-panel.hotel.rooms.rooms')
+@section('bread-crumbs')
+    <li class="active">My Hotels</li>
+    <li class="active">{{Hotel::find($hotelid)->name}}</li>
+    <li class="active">Rooms</li>
+@endsection
 
 @section('room-content')
 <div class="row">

@@ -34,7 +34,7 @@
 
                     <div class="col-md-12">
                         <div class="row">
-                            {{Form::model($user,array('route'=>array('bookings.update',$user->id), 'method'=>'patch'))}}
+                            {{Form::model($user,array('route'=>array('users.update',$user->id), 'method'=>'patch'))}}
                                 <div class="col-md-6">
 
                                     <span class="size12">First Name *</span>
@@ -58,9 +58,24 @@
 
                                     <br/>
 
+                                    <span class="size12">New Password</span>
+                                    {{Form::text('new_password',null,array('class'=> 'form-control'))}}
+                                    {{$errors->first('new_password', '<span class="size12" style="color: red;">:message</span>') }}
+                                    <div class="clearfix"></div>
+
+                                    <br/>
+
+                                    <span class="size12">New Password Again</span>
+                                    {{Form::text('new_password',null,array('class'=> 'form-control'))}}
+                                    {{$errors->first('new_password_again', '<span class="size12" style="color: red;">:message</span>') }}
+                                    <div class="clearfix"></div>
+
+                                    <br/>
+
                                     <br/>
                                 </div>
 
+                            @if(Auth::user()->role_id == 3)
 
                                 <div class="col-md-6">
                                     <span class="size12">Company Name *</span>
@@ -87,6 +102,8 @@
                                     <div class="clearfix"></div>
                                     <br/>
                                 </div>
+                            @endif
+
 
                                 <div class="col-md-12">
                                     {{Form::submit('update Booking Info',array('class'=>'btn bluebtn pull-right'))}}

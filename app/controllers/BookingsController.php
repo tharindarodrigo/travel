@@ -258,8 +258,7 @@ class BookingsController extends \BaseController
 
     public function getClientList()
     {
-//        Session::forget('client-list');
-        //dd('client-list');
+
         return Response::json(Session::get('client-list'));
     }
 
