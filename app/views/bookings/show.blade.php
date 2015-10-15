@@ -33,7 +33,7 @@
                 <div class="hpadding50c">
 
                     <div class="col-md-12">
-                    <div class="row">
+                        <div class="row">
                     {{Form::model($booking,array('route'=>array('bookings.update',$booking->id), 'method'=>'patch'))}}
                         <div class="col-md-6">
 

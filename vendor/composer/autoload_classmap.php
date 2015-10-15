@@ -10,6 +10,7 @@ return array(
     'Abstract_Renderer' => $vendorDir . '/dompdf/dompdf/include/abstract_renderer.cls.php',
     'AccountController' => $baseDir . '/app/controllers/AccountController.php',
     'AddColumnsToMarketsTable' => $baseDir . '/app/database/migrations/2015_08_21_110008_add_columns_to_markets_table.php',
+    'AddColumnsToTourTypesTable' => $baseDir . '/app/database/migrations/2015_10_15_055003_add_columns_to_tour_types_table.php',
     'AddColumnsToTransportPackagesTable' => $baseDir . '/app/database/migrations/2015_10_13_115103_add_columns_to_transport_packages_table.php',
     'AddColumnsToVehiclesTable' => $baseDir . '/app/database/migrations/2015_10_13_114322_add_columns_to_vehicles_table.php',
     'AddNameColumnToAgentsTable' => $baseDir . '/app/database/migrations/2015_08_28_070838_add_name_column_to_agents_table.php',

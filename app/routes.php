@@ -387,7 +387,13 @@ Route::resource('bookings.clients', 'ClientsController');
 Route::resource('bookings.flightDetails', 'FlightDetailsController');
 
 
+Route::get('/agent-profile',function(){
+    $user = Auth::user();
 
+    if($user->role_id == 3)
+        return View::make('agent-profile.index', compact('user'));
+    return Redirect::to('/');
+});
 
 
 Route::get('/my-bookings', function () {

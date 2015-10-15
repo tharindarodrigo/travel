@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCarsTable extends Migration {
+class AddColumnsToTourTypesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,9 @@ class CreateCarsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('cars', function(Blueprint $table)
+		Schema::table('tour_types', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->timestamps();
+			$table->text('description');
 		});
 	}
 
@@ -27,7 +26,10 @@ class CreateCarsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('cars');
+		Schema::table('tour_types', function(Blueprint $table)
+		{
+			$table->dropColumn('description');
+		});
 	}
 
 }

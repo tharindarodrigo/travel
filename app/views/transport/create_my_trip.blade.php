@@ -663,7 +663,7 @@
                         return false
                     }
 
-                    //   alert(distance);
+//                       alert(distance);
                     $('#aaa').val(totalDistance);
                 });
 
@@ -712,7 +712,6 @@
                         formData.append('drop_off_time_hour', drop_off_time_hour);
                         formData.append('drop_off_time_minutes', drop_off_time_minutes);
                         formData.append('total_distance', $('#aaa').attr('value'));
-
 
                         sendTransportData(url, formData);
 
