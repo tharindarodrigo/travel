@@ -93,7 +93,7 @@
                                     <div id="carousel">
                                         @foreach ($path as $img_path)
                                             <?php $img_name = basename($img_path); ?>
-                                            {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'property_img_1')) }}
+                                            {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'slider_img_1')) }}
                                         @endforeach
                                     </div>
                                 </div>
@@ -101,17 +101,17 @@
                                     <div id="pager">
                                         @foreach ($path as $img_path)
                                             <?php $img_name = basename($img_path); ?>
-                                            {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'property_img_1')) }}
+                                            {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'slider_img_1')) }}
                                         @endforeach
                                     </div>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
                             <button id="prev_btn2" class="prev2">
-                                {{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}
+                                {{ HTML::image('images/spacer.png', '', array('class' => 'slider_img_2')) }}
                             </button>
                             <button id="next_btn2" class="next2">
-                                {{ HTML::image('images/spacer.png', '', array('class' => 'property_img_1')) }}
+                                {{ HTML::image('images/spacer.png', '', array('class' => 'slider_img_2')) }}
                             </button>
 
                         </div>

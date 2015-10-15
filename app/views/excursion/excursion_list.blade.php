@@ -12,6 +12,11 @@
 
     <style type="text/css">
 
+        .hotel_img_1 {
+            width: 325px;
+            height: 250px;
+        }
+
         .collapsebtn {
             background: #006699;
             color: #FFFFFF;
@@ -62,7 +67,7 @@
             <a class="homebtn left" href="#"></a>
 
             <div class="left">
-                <ul class="bcrumbs" >
+                <ul class="bcrumbs">
                     <li><a href="{{URL::route('index')}}" class="active">Home </a></li>
                     <li>/</li>
                     <li><a href="{{URL::to('excursion/sri-lanka/'.Request::segment(3) )}}"
@@ -181,25 +186,26 @@
                     @foreach($excursions as $excursion)
 
                         <?php
-                        $directory = 'images/tour_images/';
-                        $images = glob($directory . $excursion->id . "*.*");
+                        //echo public_path();
+                        $directory = 'public/images/excursion_images/';
+                        $images = glob($directory . $excursion->id . "*");
                         $img_path = array_shift($images);
+                        $img_name = basename($img_path);
                         ?>
 
                         <div class="offset-2">
                             <div class="col-md-4 offset-0">
                                 <div class="listitem2">
 
-                                    <a href="<?php echo 'http://localhost/travel/public/' . $img_path; ?>"
+                                    <a href="<?php echo 'images/excursion_images/' . $img_name; ?>"
                                        data-title="{{ $excursion->excursion }}" data-gallery="multiimages"
                                        data-toggle="lightbox">
 
                                         @if(count($img_path)>0)
-                                            {{ HTML::image($img_path, '', array('class' => 'hotel_img_1'))}}
+                                            {{ HTML::image('images/excursion_images/'.$img_name, '', array('class' => 'hotel_img_1')) }}
                                         @else
-                                            {{ HTML::image('images/no-image.jpg', '', array('class' => 'property_img_1')) }}
+                                            {{ HTML::image('images/no-image.jpg', '', array('class' => 'hotel_img_1')) }}
                                         @endif
-
                                     </a>
 
                                     <div class="liover"></div>

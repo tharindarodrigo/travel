@@ -25,6 +25,14 @@
             /*width: 100%;*/
             height: 100%;
         }
+
+        .guest_review {
+            width: 330px;
+            height: 250px;
+        }
+        .m1{
+
+        }
     </style>
 
     {{--my styles--}}
@@ -148,7 +156,7 @@
                             </div>
                         </div>
                         <div class="ctitle" style="font-size: 16px;"> Anilana Pasikuda
-                            <a href="list4.html">
+                            <a href="#">
                                 <img src="images/spacer.png" alt=""/>
                             </a>
                             <span>$59.99</span>
@@ -169,7 +177,7 @@
                             </div>
                         </div>
                         <div class="ctitle" style="font-size: 16px;"> Serene Pavilion
-                            <a href="list4.html">
+                            <a href="#">
                                 <img src="images/spacer.png" alt=""/>
                             </a>
                             <span>$59.99</span>
@@ -181,14 +189,7 @@
         </div>
 
         <div class="lastminute3">
-            <div class="container">
-                <img src="images/rating-4.png" alt=""/> <br/>
-                LAST MINUTE: <b>Barcelona</b> - 2 nights - Flight+4* Hotel, Dep 27h Aug from $209/person<br/>
 
-                <form action="details.html">
-                    <button class="btn iosbtn" type="submit">Read more</button>
-                </form>
-            </div>
         </div>
 
         <!--srilankahotels.travel - tours-->
@@ -267,44 +268,48 @@
                                     <img src="images/site/3.png" alt="" class="dealthumb"/>
                                 </a>
 
+                                {{--<div class="dealtitle">--}}
+                                {{--<p>--}}
+                                {{--<?php--}}
+                                {{--$get_city_id = DB::table('cities')->where('id', $reviews->hotel->id)->first();--}}
+                                {{--$city = $get_city_id->city;--}}
+                                {{--?>--}}
+
+                                {{--<a href="{{URL::to('sri-lanka/'.str_replace(' ', '-', $city).'/'.str_replace(' ', '-', $reviews->hotel->name))}}"--}}
+                                {{--class="dark">{{ $reviews->review }}--}}
+                                {{--- {{ $reviews->hotel->name }}</a>--}}
+
+                                {{--</p>--}}
+                                {{--<?php--}}
+                                {{--$stars = $reviews->hotel->star_category_id;--}}
+                                {{--$star = DB::table('star_categories')->where('id', $stars)->first();--}}
+                                {{--$hotel_star = $star->stars;--}}
+                                {{--?>--}}
+
+                                {{--{{ Star::star_loop_blue($hotel_star)}}--}}
+
+                                {{--</div>--}}
+                                {{--<div class="dealprice">--}}
+
+                                {{--<?php $low_hotel_rate = RoomRates::lowestHotelRate($reviews->hotel_id, $st_date, $ed_date); ?>--}}
+
+                                {{--@if(!empty($low_hotel_rate))--}}
+                                {{--<span class="price">--}}
+                                {{--$ {{ $low_hotel_rate }}--}}
+                                {{--</span>--}}
+                                {{--@else--}}
+                                {{--<span class="price">--}}
+                                {{--No rate--}}
+                                {{--</span>--}}
+                                {{--@endif--}}
+                                {{--</div>--}}
+
                                 <div class="dealtitle">
-                                    <p>
-                                        <?php
-                                        $get_city_id = DB::table('cities')->where('id', $reviews->hotel->id)->first();
-                                        $city = $get_city_id->city;
-                                        ?>
 
-                                        <a href="{{URL::to('sri-lanka/'.str_replace(' ', '-', $city).'/'.str_replace(' ', '-', $reviews->hotel->name))}}"
-                                           class="dark">{{ $reviews->review }}
-                                            - {{ $reviews->hotel->name }}</a>
-
-                                    </p>
-                                    <?php
-                                    $stars = $reviews->hotel->star_category_id;
-                                    $star = DB::table('star_categories')->where('id', $stars)->first();
-                                    $hotel_star = $star->stars;
-                                    ?>
-
-                                    {{ Star::star_loop_blue($hotel_star)}}
-
-                                </div>
-                                <div class="dealprice">
-
-                                    <?php $low_hotel_rate = RoomRates::lowestHotelRate($reviews->hotel_id, $st_date, $ed_date); ?>
-
-                                    @if(!empty($low_hotel_rate))
-                                        <span class="price">
-                                                $ {{ $low_hotel_rate }}
-                                        </span>
-                                    @else
-                                        <span class="price">
-                                                No rate
-                                        </span>
-                                    @endif
                                 </div>
                             </div>
                         @endforeach
-
+                        {{ HTML::image('images/site/guest_review.png', '', array('class' => 'guest_review'))}}
                     </div>
                     <!-- End of first row-->
                 </div>
@@ -328,56 +333,89 @@
                         <div class="list_carousel">
                             <ul id="foo">
                                 <li>
-                                    <a href="list4.html"><img src="images/site/kandy.jpg" alt=""
-                                                              class="top_destination"/></a>
-
+                                    <a href="list3.html">
+                                        {{ HTML::image('images/top_destination/1.jpg', '', array('class' => 'top_destination'))}}
+                                    </a>
                                     <div class="m1">
-                                        <h6 class="lh1 dark"><b>Visit the Hawaii Beaches</b></h6>
+                                        <h6 class="lh1 dark"><b>Kandy</b></h6>
                                         <h6 class="lh1 green">Save up to 30%</h6>
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="list4.html"><img src="images/site/n_eliya.jpg" alt=""
-                                                              class="top_destination"/></a>
-
+                                    <a href="list3.html">
+                                        {{ HTML::image('images/top_destination/2.jpg', '', array('class' => 'top_destination'))}}
+                                    </a>
                                     <div class="m1">
-                                        <h6 class="lh1 dark"><b>Santorini - Greece</b></h6>
+                                        <h6 class="lh1 dark"><b>Anuradhapura</b></h6>
                                         <h6 class="lh1 green">Save up to 30%</h6>
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="list4.html"><img src="images/site/galle.jpg" alt=""
-                                                              class="top_destination"/></a>
-
+                                    <a href="list3.html">
+                                        {{ HTML::image('images/top_destination/3.jpg', '', array('class' => 'top_destination'))}}
+                                    </a>
                                     <div class="m1">
-                                        <h6 class="lh1 dark"><b>Dubai</b></h6>
+                                        <h6 class="lh1 dark"><b>The Galle Fort</b></h6>
                                         <h6 class="lh1 green">Save up to 30%</h6>
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="list4.html"><img src="images/site/sigiriya.jpg" alt=""
-                                                              class="top_destination"/></a>
-
+                                    <a href="list3.html">
+                                        {{ HTML::image('images/top_destination/4.jpg', '', array('class' => 'top_destination'))}}
+                                    </a>
                                     <div class="m1">
-                                        <h6 class="lh1 dark"><b>Visit the Hawaii Beaches</b></h6>
+                                        <h6 class="lh1 dark"><b>Dambulla</b></h6>
+                                        <h6 class="lh1 green">Save up to 30%</h6>
+                                    </div>
+                                </li>
+                                {{--<li>--}}
+                                    {{--<a href="list3.html">--}}
+                                        {{--{{ HTML::image('images/top_destination/5.jpg', '', array('class' => 'top_destination'))}}--}}
+                                    {{--</a>--}}
+                                {{--</li>--}}
+                                {{--<li>--}}
+                                    {{--<a href="list3.html">--}}
+                                        {{--{{ HTML::image('images/top_destination/6.jpg', '', array('class' => 'top_destination'))}}--}}
+                                    {{--</a>--}}
+                                {{--</li>--}}
+                                {{--<li>--}}
+                                    {{--<a href="list3.html">--}}
+                                        {{--{{ HTML::image('images/top_destination/7.jpg', '', array('class' => 'top_destination'))}}--}}
+                                    {{--</a>--}}
+                                {{--</li>--}}
+                                <li>
+                                    <a href="list3.html">
+                                        {{ HTML::image('images/top_destination/8.jpg', '', array('class' => 'top_destination'))}}
+                                    </a>
+                                    <div class="m1">
+                                        <h6 class="lh1 dark"><b>Yala National Park</b></h6>
                                         <h6 class="lh1 green">Save up to 30%</h6>
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="list4.html"><img src="images/site/kandy.jpg" alt=""
-                                                              class="top_destination"/></a>
-
+                                    <a href="list3.html">
+                                        {{ HTML::image('images/top_destination/9.jpg', '', array('class' => 'top_destination'))}}
+                                    </a>
                                     <div class="m1">
-                                        <h6 class="lh1 dark"><b>Santorini - Greece</b></h6>
+                                        <h6 class="lh1 dark"><b>The Pinnawela Elephant Orphanage</b></h6>
                                         <h6 class="lh1 green">Save up to 30%</h6>
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="list4.html"><img src="images/site/n_eliya.jpg" alt=""
-                                                              class="top_destination"/></a>
-
+                                    <a href="list3.html">
+                                        {{ HTML::image('images/top_destination/10.jpg', '', array('class' => 'top_destination'))}}
+                                    </a>
                                     <div class="m1">
-                                        <h6 class="lh1 dark"><b>Dubai</b></h6>
+                                        <h6 class="lh1 dark"><b>Nuwara Eliya</b></h6>
+                                        <h6 class="lh1 green">Save up to 30%</h6>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="list3.html">
+                                        {{ HTML::image('images/top_destination/11.jpg', '', array('class' => 'top_destination'))}}
+                                    </a>
+                                    <div class="m1">
+                                        <h6 class="lh1 dark"><b>Sigiriya</b></h6>
                                         <h6 class="lh1 green">Save up to 30%</h6>
                                     </div>
                                 </li>
@@ -438,6 +476,7 @@
                     </div>
 
                 </div>
+
             </div>
         </div>
 

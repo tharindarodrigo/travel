@@ -178,15 +178,16 @@
                     <div class="col-md-4 cpdd02">
                         <div class="opensans grey">
                             <?php
-                            $directory = 'images/tour_images/tour_types/';
-                            $images = glob($directory . $tour_type_id . "*.*");
+                            $directory = 'public/images/tour_images/tour_types/';
+                            $images = glob($directory . $tour_type->id . "*");
                             $img_path = array_shift($images);
+                            $img_name = basename($img_path);
                             ?>
 
                             @if(count($img_path)>0)
-                                {{ HTML::image($img_path, '', array('class' => 'hotel_img_1'))}}
+                                {{ HTML::image('images/tour_images/tour_types/' . $img_name, '', array('class' => 'hotel_img_1'))}}
                             @else
-                                {{ HTML::image('images/no-image.jpg', '', array('class' => 'property_img_1')) }}
+                                {{ HTML::image('images/no-image.jpg', '', array('class' => 'hotel_img_1')) }}
                             @endif
                         </div>
                     </div>

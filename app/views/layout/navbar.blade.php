@@ -132,7 +132,7 @@
     .logo {
         position: absolute;
         top: 40px;
-        width: 175px !important;
+        width: 180px !important;
         height: 60px !important;
     }
 
@@ -370,7 +370,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href="{{URL::route('index')}}" class="navbar-brand">
-                    {{ HTML::image('images/site/logo.png', '',  array('class' => 'logo')) }}
+                    {{ HTML::image('images/site/logo.jpg', '',  array('class' => 'logo')) }}
                 </a>
             </div>
 

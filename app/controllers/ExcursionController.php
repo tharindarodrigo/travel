@@ -145,12 +145,20 @@ class ExcursionController extends \BaseController
 
         $path = array();
 
+        $directory = 'public/images/excursion_images/excursion_types/';
+
+        $images = glob($directory . $excursion_id . "_" . "*.*");
+
+        foreach ($images as $image) {
+
+            $path[] = $image;
+        }
+
         $excursion = Excursion::where('id', '=', $excursion_id)->first();
 
         $excursion_type = ExcursionType::where('id', '=', $excursion_type_id)->first();
 
         $excursion_rate = ExcursionRate::where('excursion_id', '=', $excursion_id)->get();
-
 
 //        dd(DB::getQueryLog());
 
@@ -213,7 +221,7 @@ class ExcursionController extends \BaseController
     public function excursionGetTotal()
     {
 
-        $total_rate =0;
+        $total_rate = 0;
         $price_details = array();
 
         $price_box_transport_id = Input::get('price_box_transport_id');

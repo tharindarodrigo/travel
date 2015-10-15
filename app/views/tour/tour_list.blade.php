@@ -179,21 +179,23 @@
                     @foreach($tours as $types)
 
                         <?php
-                        $directory = 'images/tour_images/';
-                        $images = glob($directory . $types->id . "*.*");
+                        //echo public_path();
+                        $directory = 'public/images/tour_images/';
+                        $images = glob($directory . $types->id . "*");
                         $img_path = array_shift($images);
+                        $img_name = basename($img_path);
                         ?>
 
                         <div class="offset-2">
                             <div class="col-md-4 offset-0">
                                 <div class="listitem2">
 
-                                    <a href="<?php echo 'http://localhost/travel/public/' . $img_path; ?>"
+                                    <a href="<?php echo 'images/tour_images/' . $img_name; ?>"
                                        data-title="{{ $types->tour_type_title }}" data-gallery="multiimages"
                                        data-toggle="lightbox">
 
                                         @if(count($img_path)>0)
-                                            {{ HTML::image($img_path, '', array('class' => 'hotel_img_1'))}}
+                                            {{ HTML::image('images/tour_images/'.$img_name, '', array('class' => 'hotel_img_1'))}}
                                         @else
                                             {{ HTML::image('images/no-image.jpg', '', array('class' => 'property_img_1')) }}
                                         @endif
