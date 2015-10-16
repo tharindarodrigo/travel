@@ -49,7 +49,7 @@
     <div class="wrapper">
       
       <header class="main-header">
-        <a href="index2.html" class="logo"><b>Admin</b>LTE</a>
+        <a href="index2.html" class="logo"><b>SriLankaHotels</b>.Travel</a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
           <!-- Sidebar toggle button-->
@@ -220,9 +220,9 @@
               </a>
               <ul class="treeview-menu">
                <li class="@yield('active-hotel-list')"><a href="{{ Url::route('control-panel.hotel.hotels.index') }}"><i class="fa fa-circle-o"></i> Hotel List</a></li>
-               @if(User::find(Auth::user()->id)->hasRole('Admin'))
+               @if(Entrust::hasRole('Admin'))
                <li class="@yield('active-hotel-create-hotel')"><a href="{{ Url::route('control-panel.hotel.hotels.create') }}"><i class="fa fa-circle-o"></i> Create Hotel</a></li>
-               <li class="@yield('active-hotel-hotel-categories')"><a href="{{ Url::route('control-panel.hotel.hotel_categories.index') }}"><i class="fa fa-circle-o"></i> Hotel Categories</a></li>
+               <li class="@yield('active-hotel-hotel-categories')"><a href="{{ Url::route('control-panel.hotel.hotel-categories.index') }}"><i class="fa fa-circle-o"></i> Hotel Categories</a></li>
                <li class="@yield('active-hotel-hotel-facilities')"><a href="{{ Url::route('control-panel.hotel.hotel-facilities.index') }}"><i class="fa fa-circle-o"></i> Hotel Facilities</a></li>
                <li class="@yield('active-hotel-meal-bases')"><a href="{{ Url::route('control-panel.hotel.meal-bases.index') }}"><i class="fa fa-circle-o"></i> Meal Bases</a></li>
                <li class="@yield('active-hotel-star-categories')"><a href="{{ Url::route('control-panel.hotel.star-categories.index') }}"><i class="fa fa-circle-o"></i> Star Categories</a></li>
@@ -230,7 +230,7 @@
                @endif
              </ul>
             </li>
-            @if(User::find(Auth::user()->id)->hasRole('Admin'))
+           @if(Entrust::hasRole('Admin'))
             <li class="treeview @yield('active-general')">
               <a href="#">
                 <i class="fa fa-arrows-alt"></i>
@@ -266,7 +266,6 @@
                 <li class="@yield('active-transportation-packages')"><a href="{{URL::route('control-panel.transportation.packages.index')}}"><i class="fa fa-circle-o"></i> Packages</a></li>
               </ul>
             </li>
-
             <li class="treeview @yield('active-users')">
               <a href="#">
                 <i class="fa fa-users"></i>

@@ -42,25 +42,25 @@ Route::filter('auth', function () {
 });
 
 Route::filter('hotelier', function () {
-    $user = User::find(Auth::user()->id);
-
-    if(!$user->hasRole('Hotelier'))
-        return Redirect::to('home');
+    if (!Entrust::hasRole('Hotelier') && !Entrust::hasRole('Admin')) // Checks the current user
+    {
+        App::abort(404);
+    }
 
 });
 
 Route::filter('agent', function () {
-    $user = User::find(Auth::user()->id);
-
-    if(!$user->hasRole('Agent'))
-        return Redirect::to('home');
+    if (!Entrust::hasRole('Agent') && !Entrust::hasRole('Admin')) // Checks if the current user is an Agent
+    {
+        App::abort(404);
+    }
 });
 
 Route::filter('admin', function () {
-    $user = User::find(Auth::user()->id);
-
-    if(!$user->hasRole('Admin'))
-        return Redirect::to('home');
+    if (!Entrust::hasRole('Admin')) // Checks the current user
+    {
+        App::abort(404);
+    }
 });
 
 

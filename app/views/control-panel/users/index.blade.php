@@ -74,8 +74,8 @@
                                 <td>{{ $user->email }}</td>
 
                                 <td>
-                                {{Form::model($user,array('route'=>array('control-panel.users.update',$user->id)))}}
-                                    {{Form::select('role_id',DB::table('roles')->orderBy('id','asc')->lists('name','id'),null,array('class'=>'form-control role', 'user_id'=>$user->id))}}
+                                {{Form::model($roles=DB::table('assigned_roles')->where('user_id',$user->id)->orderBy('user_id')->first() ,array('route'=>array('control-panel.users.update',$user->id)))}}
+                                    {{Form::select('role_id',Role::orderBy('id','asc')->lists('name','id'),null,array('class'=>'form-control role', 'user_id'=>$user->id))}}
                                 {{Form::close()}}
                                 </td>
                             </tr>

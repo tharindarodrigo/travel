@@ -37,9 +37,9 @@
                     </h3>
                 </div>
                 @if(!Session::has('edit'))
-                    {{ Form::open(array('route' => array('control-panel.hotel.hotel_categories.store'))) }}
+                    {{ Form::open(array('route' => array('control-panel.hotel.hotel-categories.store'))) }}
                 @else
-                    {{ Form::open(array('route' => array('control-panel.hotel.hotel_categories.update',$Hotelcategory->id), 'method' => 'put')) }}
+                    {{ Form::open(array('route' => array('control-panel.hotel.hotel-categories.update',$Hotelcategory->id), 'method' => 'put')) }}
                 @endif
 
                 <div class="box-body">
@@ -58,7 +58,7 @@
                     @else
                         <div class="form-group">
                             {{ Form::submit('Update Hotel Category', array('class' => 'btn btn-primary')) }}
-                            <a href="{{ URL::route('control-panel.hotel.hotel_categories.index') }}" class="btn btn-group btn-info">Cancel</a>
+                            <a href="{{ URL::route('control-panel.hotel.hotel-categories.index') }}" class="btn btn-group btn-info">Cancel</a>
                         </div>
                     @endif
                 </div>
@@ -111,18 +111,18 @@
                                 <td style="text-align: center;">{{ $category->val == 0 ? 'Inactive' : 'Active' }}</td>
                                 <td>
                                     <div class="">
-                                        {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.edit',$category->id), 'method' =>'get' )) }}
+                                        {{ Form::open(array('route'=> array('control-panel.hotel.hotel-categories.edit',$category->id), 'method' =>'get' )) }}
                                         <button type="submit" class="btn btn-xs btn-flat btn-primary col-md-3"><i
                                                     class="glyphicon glyphicon-edit"></i></button>
                                         {{ Form::close() }}
 
-                                        {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.destroy',$category->id), 'method' =>'delete')) }}
+                                        {{ Form::open(array('route'=> array('control-panel.hotel.hotel-categories.destroy',$category->id), 'method' =>'delete')) }}
                                         <a type="" class="btn btn-xs btn-flat btn-danger delete-button col-md-3"><i class="glyphicon glyphicon-trash"></i></a>
                                         {{ Form::close() }}
 
                                         @if($category->val == 0)
                                             <div class="">
-                                                {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.update',$category->id), 'method' =>'patch')) }}
+                                                {{ Form::open(array('route'=> array('control-panel.hotel.hotel-categories.update',$category->id), 'method' =>'patch')) }}
                                                 <button class="btn btn-xs btn-flat btn-success activate-item col-md-3"
                                                    type="submit" name="val" value="1"><i class="glyphicon glyphicon-ok-circle"></i></button>
                                                 <button class="btn btn-xs btn-flat btn-default disabled deactivate-item col-md-3"
@@ -131,7 +131,7 @@
                                             </div>
 
                                         @else
-                                            {{ Form::open(array('route'=> array('control-panel.hotel.hotel_categories.update',$category->id), 'method' =>'patch')) }}
+                                            {{ Form::open(array('route'=> array('control-panel.hotel.hotel-categories.update',$category->id), 'method' =>'patch')) }}
                                             <button class="btn btn-xs btn-flat btn-default disabled activate-item col-md-3"
                                                 type="button"><i class="glyphicon glyphicon-ok-circle"></i></button>
                                             <button class="btn btn-xs btn-flat btn-warning deactivate-item col-md-3"

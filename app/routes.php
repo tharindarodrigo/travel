@@ -30,8 +30,8 @@ Route::group(array('before' => 'auth'), function () {
 
 
     });
-    //Change password
 
+    //Change password
 
     Route::get('account/change-password', array(
         'as' => 'account-change-password',
@@ -96,8 +96,12 @@ Route::group(array('before' => 'auth'), function () {
             return View::make('control-panel.index');
         });
 
-        Route::group(array('before' => 'admin'), function () {
 
+
+        Route::group(array('before' => 'admin'), function () {
+            /**
+             * general
+             */
             Route::group(array('prefix' => 'general'), function () {
 
                 Route::resource('cities', 'CitiesController');
@@ -107,12 +111,18 @@ Route::group(array('before' => 'auth'), function () {
 
             });
 
+            /**
+             * transportation
+             */
             Route::group(array('prefix' => 'transportation'), function () {
                 Route::resource('packages', 'TransportPackagesController');
                 Route::resource('vehicles', 'VehiclesController');
 
             });
 
+            /**
+             * users
+             */
             Route::resource('users', 'UsersController');
             Route::group(array('prefix' => 'users'), function () {
 
@@ -121,93 +131,23 @@ Route::group(array('before' => 'auth'), function () {
             });
 
             /**
-             * Room Specifications
-             */
-            Route::resource('room_specifications', 'RoomSpecificationsController');
-
-
-        });
-
-
-        Route::get('image-uploads', array(
-            'as' => 'post-image-upload',
-            'uses' => 'ImageController@getUploadForm'
-        ));
-        Route::post('image-upload', array(
-            'as' => 'get-image-upload',
-            'uses' => 'ImageController@uploadImages'
-        ));
-
-
-        /**
-         * -------------------------------------------------------------------------------------------------------------
-         *  control-panel/agents
-         *--------------------------------------------------------------------------------------------------------------
-         */
-
-        Route::resource('agents', 'AgentsController');
-
-
-        /**
-         * -------------------------------------------------------------------------------------------------------------
-         *  control-panel/hotel
-         *--------------------------------------------------------------------------------------------------------------
-         */
-
-        Route::group(array('prefix' => 'hotel', 'before' => 'hotelier|admin'), function () {
-            /**
-             *  Allotments
+             * -------------------------------------------------------------------------------------------------------------
+             *  control-panel/agents
+             *--------------------------------------------------------------------------------------------------------------
              */
 
-            Route::resource('hotels.allotments', 'AllotmentsController');
+            Route::resource('agents', 'AgentsController');
 
             /**
-             *  Rates
+             * hotel
              */
-
-            Route::resource('hotels.rates', 'RatesController');
-            Route::post('hotels/rates/get-rates', 'RatesController@getRateData');
-            Route::post('hotels/{hotelid}/rates/update-rates', 'RatesController@updateRates');
-
-            Route::resource('hotels.supplement-rates', 'SupplementRatesController');
-            Route::post('hotels/supplement-rates/get-rates', 'SupplementRatesController@getRateData');
-            Route::post('hotels/{hotelid}/supplement-rates/update-rates', 'SupplementRatesController@updateSupplementRates');
-
-
-            /**
-             *  Room Types
-             */
-            Route::resource('hotels.room-types', 'RoomTypesController');
-
-
-            /**
-             *  Hotel Profile
-             */
-            Route::resource('hotel-profile', 'HotelProfilesController');
-
-            /**
-             *  Hotel Cancellation Policies
-             */
-            Route::resource('hotels.cancellation-policies', 'CancellationPoliciesController');
-
-            /**
-             *  Hotels
-             */
-            Route::resource('hotels', 'HotelsController');
-
-            Route::post('hotels/{hotel_id}/cancellation-policies/create', 'HotelsController@createCancellationPolicy');
-            Route::get('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/edit', 'HotelsController@editCancellationPolicy');
-            Route::put('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/update', 'HotelsController@updateCancellationPolicy');
-            Route::delete('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/delete', 'HotelsController@deleteCancellationPolicy');
-
-
-            Route::group(array('before' => 'admin'), function () {
+            Route::group(array('prefix' => 'hotel'), function () {
 
 
                 /**
-                 *  Room Types
+                 * Room Specifications
                  */
-                Route::resource('hotels.room-types', 'RoomTypesController');
+                Route::resource('room_specifications', 'RoomSpecificationsController');
 
                 /**
                  *  Meal Bases
@@ -219,7 +159,6 @@ Route::group(array('before' => 'auth'), function () {
                  */
                 Route::resource('room-facilities', 'RoomFacilitiesController');
 
-
                 /**
                  *  hotel facilities
                  */
@@ -228,15 +167,88 @@ Route::group(array('before' => 'auth'), function () {
                 /**
                  *  hotel categories
                  */
-                Route::resource('hotel_categories', 'HotelCategoriesController');
+                Route::resource('hotel-categories', 'HotelCategoriesController');
 
                 /**
                  *  star categories
                  */
                 Route::resource('star-categories', 'StarCategoriesController');
 
+
             });
-            //Route::resource('meal-bases', 'MealBasesController');
+        });
+
+
+        /**
+         * -------------------------------------------------------------------------------------------------------------
+         *  control-panel/hotel
+         *--------------------------------------------------------------------------------------------------------------
+         */
+        Route::group(array('before' => 'hotelier'), function () {
+
+
+            Route::group(array('prefix' => 'hotel'), function () {
+
+                /**
+                 *  Hotels
+                 */
+                Route::resource('hotels', 'HotelsController');
+
+                /**
+                 *  Allotments
+                 */
+
+                Route::resource('hotels.allotments', 'AllotmentsController');
+
+                /**
+                 *  Rates
+                 */
+
+                Route::resource('hotels.rates', 'RatesController');
+                Route::post('hotels/rates/get-rates', 'RatesController@getRateData');
+                Route::post('hotels/{hotelid}/rates/update-rates', 'RatesController@updateRates');
+
+                Route::resource('hotels.supplement-rates', 'SupplementRatesController');
+                Route::post('hotels/supplement-rates/get-rates', 'SupplementRatesController@getRateData');
+                Route::post('hotels/{hotelid}/supplement-rates/update-rates', 'SupplementRatesController@updateSupplementRates');
+
+
+                /**
+                 *  Room Types
+                 */
+                Route::resource('hotels.room-types', 'RoomTypesController');
+
+
+                /**
+                 *  Hotel Profile
+                 */
+                Route::resource('hotel-profile', 'HotelProfilesController');
+
+                /**
+                 *  Hotel Cancellation Policies
+                 */
+                Route::resource('hotels.cancellation-policies', 'CancellationPoliciesController');
+
+
+                Route::post('hotels/{hotel_id}/cancellation-policies/create', 'HotelsController@createCancellationPolicy');
+                Route::get('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/edit', 'HotelsController@editCancellationPolicy');
+                Route::put('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/update', 'HotelsController@updateCancellationPolicy');
+                Route::delete('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/delete', 'HotelsController@deleteCancellationPolicy');
+
+
+                Route::group(array('before' => 'admin'), function () {
+
+
+                    /**
+                     *  Room Types
+                     */
+                    Route::resource('hotels.room-types', 'RoomTypesController');
+
+
+                });
+                //Route::resource('meal-bases', 'MealBasesController');
+            });
+
         });
 
         /**
@@ -249,6 +261,16 @@ Route::group(array('before' => 'auth'), function () {
             Route::resource('excursion-types', 'ExcursionTypesController');
             Route::resource('excursion_transport_types', 'ExcursionTransportTypesController');
         });
+
+
+        Route::get('image-uploads', array(
+            'as' => 'post-image-upload',
+            'uses' => 'ImageController@getUploadForm'
+        ));
+        Route::post('image-upload', array(
+            'as' => 'get-image-upload',
+            'uses' => 'ImageController@uploadImages'
+        ));
 
 
         /*-------------------------------------------------------------------------------------------------------------

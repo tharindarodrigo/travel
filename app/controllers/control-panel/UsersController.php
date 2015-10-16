@@ -23,11 +23,15 @@ class UsersController extends \BaseController {
 
     public function changeRole($id){
 
-        $user = User::findOrfail($id);
-        $user->role_id = Input::get('role_id');
-        $role = DB::table('roles')->where('id',2)->first();
 
-        if($user->update()){
+        $user = User::find($id);
+        $role = DB::table('assigned_roles')->where('user_id',$id)->first();
+
+
+        $role->role_id = Input::get('role_id');
+        $updateRole = DB::table('assigned_roles')->where('id',$role->id)->update($role);
+
+        if($updateRole){
             return Response::json(array(
                 'success' => true,
                 'msg' => $user->first_name." ".$user->last_name.' has changed to '.$role->name
