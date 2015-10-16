@@ -117,7 +117,6 @@ Route::group(array('before' => 'auth'), function () {
             Route::group(array('prefix' => 'transportation'), function () {
                 Route::resource('packages', 'TransportPackagesController');
                 Route::resource('vehicles', 'VehiclesController');
-
             });
 
             /**
