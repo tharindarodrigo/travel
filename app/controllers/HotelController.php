@@ -216,8 +216,7 @@ class HotelController extends \BaseController
                     ->where('hotels.city_id', $city_id)
                     ->max('rate');
 
-                dd($min_rate . '/' . $max_rate);
-
+                //dd($min_rate . '/' . $max_rate);
             }
 
             if (!empty($accommodation_id)) {
@@ -361,6 +360,7 @@ class HotelController extends \BaseController
 //                ->orWhereHas('Rate', function ($r1) use ($min_rate, $max_rate) {
 //                    $r1->whereBetween('rate', array($min_rate, $max_rate));
 //                })
+                    ->where('val', 1)
                     ->whereIn('star_category_id', $star_id)
                     ->paginate(30);
 
@@ -393,6 +393,7 @@ class HotelController extends \BaseController
 //                    ->whereHas('Rate', function ($r) use ($min_rate, $max_rate) {
 //                        $r->whereBetween('rate', array($min_rate, $max_rate));
 //                    })
+                    ->where('val', 1)
                     ->whereIn('star_category_id', $star_id)
                     ->paginate(30);
 

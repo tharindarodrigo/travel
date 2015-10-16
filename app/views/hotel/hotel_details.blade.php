@@ -45,6 +45,7 @@
             width: 71px;
             height: 71px;
         }
+
     </style>
 
 @endsection
@@ -65,9 +66,11 @@
                 <ul class="bcrumbs">
                     <li><a href="{{URL::route('index')}}" class="active">Home </a></li>
                     <li>/</li>
-                    <li><a href="{{URL::to('sri-lanka/'.Request::segment(2) )}}" class="active">{{ str_replace('-', ' ', Request::segment(2)) }} </a></li>
+                    <li><a href="{{URL::to('sri-lanka/'.Request::segment(2) )}}"
+                           class="active">{{ str_replace('-', ' ', Request::segment(2)) }} </a></li>
                     <li>/</li>
-                    <li><a href="{{URL::to('sri-lanka/'.Request::segment(2).'/'.Request::segment(3) )}}" class="active">{{ str_replace('-', ' ', Request::segment(3)) }} </a></li>
+                    <li><a href="{{URL::to('sri-lanka/'.Request::segment(2).'/'.Request::segment(3) )}}"
+                           class="active">{{ str_replace('-', ' ', Request::segment(3)) }} </a></li>
                     <li>/</li>
                 </ul>
             </div>
@@ -128,7 +131,7 @@
                 <div class="col-md-4 detailsright offset-0">
                     <div class="padding20">
 
-                        <h2 class="lh1" style="color: #006699">{{ $details->name }}</h2>
+                        <h2 class="" style="color: #006699">{{ $details->name }}</h2>
                         <?php
                         $stars = $details->star_category_id;
                         $star = DB::table('star_categories')->where('id', $stars)->first();
@@ -330,16 +333,12 @@
                             <div class="line2"></div>
                             <?php $x = 0; ?>
                             @foreach($rooms as $hot_room)
-
                                 <?php
-
                                 $room_id = $hot_room->id;
-
                                 $from_date = date('Y-m-d', strtotime(str_replace('-', '/', $st_date)));
                                 $to_date = date('Y-m-d', strtotime(str_replace('-', '/', $ed_date)));
 
                                 if (Session::has('st_date')) {
-
                                     $room_types = Rate::whereHas('RoomSpecification', function ($a) {
                                         $a->where('adults', 'LIKE', Session::get('adult'));
                                         $a->where('children', 'LIKE', Session::get('child'));
@@ -360,22 +359,25 @@
                                 $img_name = basename($img_path);
                                 ?>
 
-                                @foreach($room_types as $room)
+                                @if(count($room_types) != 0)
 
-                                    <div id="room_id" room_id="{{ $room_id }}" class="padding20 get_room_id">
-                                        {{ Form::hidden('rate_hotel_id', $room->hotel_id , array('class' => 'hidden_hotel_id') ) }}
-                                        <div class="col-md-4 offset-0">
-                                            <a href="#">
-                                                @if(count($img_path)>0)
-                                                    {{ HTML::image('images/room_images/'.$img_name, '', array('class' => 'fwimg'))}}
-                                                @else
-                                                    {{ HTML::image('images/no-image.jpg', '', array('class' => 'fwimg')) }}
-                                                @endif
-                                            </a>
-                                        </div>
+                                    @foreach($room_types as $room)
 
-                                        <div class="col-md-8 offset-0">
-                                            <div class="col-md-8 mediafix1">
+                                        <?php $low_room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room->room_specification_id, $room->meal_basis_id, $st_date, $ed_date); ?>
+                                        <div id="room_id" room_id="{{ $room_id }}" class="padding20 get_room_id">
+                                            {{ Form::hidden('rate_hotel_id', $room->hotel_id , array('class' => 'hidden_hotel_id') ) }}
+                                            <div class="col-md-4 offset-0">
+                                                <a href="#">
+                                                    @if(count($img_path)>0)
+                                                        {{ HTML::image('images/room_images/'.$img_name, '', array('class' => 'fwimg'))}}
+                                                    @else
+                                                        {{ HTML::image('images/no-image.jpg', '', array('class' => 'fwimg')) }}
+                                                    @endif
+                                                </a>
+                                            </div>
+
+                                            <div class="col-md-8 offset-0">
+                                                <div class="col-md-8 mediafix1">
 
                                         <span>
                                             <h4 style="display: inline; !important;"
@@ -384,66 +386,74 @@
                                                 Room </h5>
                                         </span>
 
-                                                <h5>{{ $room->MealBasis->meal_basis_name }}</h5>
+                                                    <h5>{{ $room->MealBasis->meal_basis_name }}</h5>
 
-                                                <ul class="hotelpreferences margtop10">
-                                                    <li class="icohp-internet"></li>
-                                                    <li class="icohp-air"></li>
-                                                    <li class="icohp-pool"></li>
-                                                    <li class="icohp-childcare"></li>
-                                                    <li class="icohp-fitness"></li>
-                                                    <li class="icohp-breakfast"></li>
-                                                    <li class="icohp-parking"></li>
-                                                </ul>
+                                                    <ul class="hotelpreferences margtop10">
+                                                        <li class="icohp-internet"></li>
+                                                        <li class="icohp-air"></li>
+                                                        <li class="icohp-pool"></li>
+                                                        <li class="icohp-childcare"></li>
+                                                        <li class="icohp-fitness"></li>
+                                                        <li class="icohp-breakfast"></li>
+                                                        <li class="icohp-parking"></li>
+                                                    </ul>
 
-                                                <div class="clearfix"></div>
+                                                    <div class="clearfix"></div>
 
-                                                <ul class="checklist2 margtop10">
-                                                    <li>FREE Cancellation</li>
-                                                    <li>Pay at hotel or pay today</li>
-                                                </ul>
+                                                    <ul class="checklist2 margtop10">
+                                                        <li>FREE Cancellation</li>
+                                                        <li>Pay at hotel or pay today</li>
+                                                    </ul>
+                                                </div>
+
+                                                @if(Session::has('st_date'))
+
+                                                    <div class="col-md-4 center bordertype4">
+                                                        @if($low_room_rate > 0 )
+                                                            <span class="opensans green size24">USD {{ number_format($low_room_rate, 2, '.', '')  }} </span>
+                                                            <br/>
+                                                            <span class="opensans lightgrey size12">avg/night</span>
+                                                            <br/>
+                                                            <br/>
+                                                            {{ Form::selectRange('number', 1, 10, null, ['class' => 'form-control mySelectBoxClass room_count', 'id' => $room_id.$room->meal_basis_id.$room->room_specification_id]) }}
+                                                            <br/>
+                                                            <span class="lred bold">3 left</span><br/><br/>
+                                                            {{ Form::hidden('room_meal_id', $room->meal_basis_id , array('class' => 'hidden_room_meal_id') ) }}
+                                                            <button id="room_book{{ $x }}"
+                                                                    class="room_book_summery bookbtn mt1"
+                                                                    room_refer="{{ $room_id.$room->meal_basis_id.$room->room_specification_id }}">
+                                                                Book
+                                                            </button>
+                                                            {{ Form::hidden('room_specification_id', $room->room_specification_id , array('class' => 'hidden_room_specification_id') ) }}
+                                                        @else
+                                                            <span class="opensans lred size18">Rate Not Available</span>
+                                                            <br/>
+                                                        @endif
+
+                                                    </div>
+                                                @else
+                                                    <div class="col-md-4 center bordertype4">
+                                                        <button id="date_select_button" class="bookbtn mt1">Select Date
+                                                        </button>
+                                                    </div>
+                                                @endif
                                             </div>
 
-                                            @if(Session::has('st_date'))
-                                                <?php $low_room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room->room_specification_id, $room->meal_basis_id, $st_date, $ed_date); ?>
-                                                <div class="col-md-4 center bordertype4">
-                                                    @if($low_room_rate > 0 )
-                                                        <span class="opensans green size24">USD {{ number_format($low_room_rate, 2, '.', '')  }} </span>
-                                                        <br/>
-                                                        <span class="opensans lightgrey size12">avg/night</span>
-                                                        <br/>
-                                                        <br/>
-                                                        {{ Form::selectRange('number', 1, 10, null, ['class' => 'form-control mySelectBoxClass room_count', 'id' => $room_id.$room->meal_basis_id.$room->room_specification_id]) }}
-                                                        <br/>
-                                                        <span class="lred bold">3 left</span><br/><br/>
-                                                        {{ Form::hidden('room_meal_id', $room->meal_basis_id , array('class' => 'hidden_room_meal_id') ) }}
-                                                        <button id="room_book{{ $x }}"
-                                                                class="room_book_summery bookbtn mt1"
-                                                                room_refer="{{ $room_id.$room->meal_basis_id.$room->room_specification_id }}">
-                                                            Book
-                                                        </button>
-                                                        {{ Form::hidden('room_specification_id', $room->room_specification_id , array('class' => 'hidden_room_specification_id') ) }}
-                                                    @else
-                                                        <span class="opensans lred size18">Rate Not Available</span>
-                                                        <br/>
-                                                    @endif
+                                            <div class="clearfix"></div>
 
-                                                </div>
-                                            @else
-                                                <div class="col-md-4 center bordertype4">
-                                                    <button id="date_select_button" class="bookbtn mt1">Select Date
-                                                    </button>
-                                                </div>
-                                            @endif
                                         </div>
 
-                                        <div class="clearfix"></div>
+                                        <div class="line2"></div>
 
+                                        <?php $x = $x + 1; ?>
+                                    @endforeach
+
+                                @else
+                                    <div class="padding20">
+                                        {{ HTML::image('images/site/rates are not available.jpg', '', array('class' => 'no_rate_img')) }}
                                     </div>
-
-                                    <div class="line2"></div>
-                                    <?php $x = $x + 1; ?>
-                                @endforeach
+                                    <?php break; ?>
+                                @endif
 
                             @endforeach
 

@@ -3,4 +3,5 @@ config/local/database.php
 config/database.php
 myfile.txt
 composer.lock
+public/images/hotel_images
 app/controllers/HotelController - Copy.php

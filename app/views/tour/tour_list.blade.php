@@ -126,29 +126,65 @@
 
                 <div class="line2"></div>
 
-                {{ Form::open(array('url' => 'sri-lanka/tour/filter', 'method' => 'POST', 'id'=>'tour_city_form')) }}
-                <!-- Activities type -->
-                <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse4">
-                    City <span class="collapsearrow"></span>
+                <!-- Cities -->
+                <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse5">
+                    Cities <span class="collapsearrow"></span>
                 </button>
-                <div id="collapse4" class="collapse in">
+                {{ Form::open(array('url' => '/sri-lanka/filter', 'method' => 'POST', 'id'=>'city_form')) }}
+
+                <div id="collapse5" class="collapse in">
                     <div class="hpadding20">
-                        @foreach($filter_cities as $city)
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="tour_city" id="tour_city{{ $x }}"
-                                           value="{{ $city->id }}" class="tour_city_select">
-                                    {{ $city->city }}
-                                </label>
+
+                        <div id="city_half">
+                            <?php  $z = 0; ?>
+                            @foreach($filter_cities as $city)
+                                @if($z < 5)
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="city" id="City{{ $x }}"
+                                                   value="{{ $city->id }}"
+                                                   class="city_select" {{ $city->id == Session::get('city') ? 'checked':'' }}>
+                                            {{ $city->city }}
+                                        </label>
+                                    </div>
+                                    <?php  $z = $z + 1; ?>
+                                @endif
+                            @endforeach
+
+                            <a id="city_readmore" style="text-align: right" class="last"
+                               data-toggle="collapse"
+                               data-target="#collapse7">
+                                <h6>More</h6>
+                            </a>
+
+                        </div>
+
+                        <div id="city_full">
+                            <div id="collapse7" class="collapse">
+                                @foreach($filter_cities as $city)
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="city" id="City{{ $x }}"
+                                                   value="{{ $city->id }}"
+                                                   class="city_select" {{ $city->id == Session::get('city') ? 'checked':'' }}>
+                                            {{ $city->city }}
+                                        </label>
+                                    </div>
+                                @endforeach
+
+                                <a href="#city_full" id="city_readless" style="text-align: right" class="last"
+                                   data-toggle="collapse"
+                                   data-target="#collapse7">
+                                    <h6>Less</h6>
+                                </a>
                             </div>
-                        @endforeach
+                        </div>
+
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <!-- End of Activities type  -->
-
+                <!-- End of Cities -->
                 {{ Form::close() }}
-
                 <div class="line2"></div>
                 <div class="clearfix"></div>
                 <br/>

@@ -673,34 +673,6 @@
         <!-- Custom js -->
         {{ HTML::script('js/my_script.js') }}
 
-        <script type="text/javascript">
-
-            $(document).ready(function () {
-                $('#facility_full').hide();
-                $('#city_full').hide();
-            });
-
-            $('#facility_readmore').click(function () {
-                $('#facility_half').hide();
-                $('#facility_full').show();
-            });
-
-            $('#facility_readless').click(function () {
-                $('#facility_half').show();
-                $('#facility_full').hide();
-            });
-
-            $('#city_readmore').click(function () {
-                $('#city_half').hide();
-                $('#city_full').show();
-            });
-
-            $('#city_readless').click(function () {
-                $('#city_half').show();
-                $('#city_full').hide();
-            });
-
-        </script>
 
         <!-- for full map -->
 
@@ -761,7 +733,7 @@
             });
         </script>
 
-        <!-- for single map ->
+        <!-- for single map -->
 
         <script type="text/javascript">
             $('.single_hotel_map').click(function () {
@@ -824,5 +796,5 @@
 
     @endsection
 
-                </body>
-            @stop
+    </body>
+@stop
