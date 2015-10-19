@@ -13,6 +13,7 @@ return array(
     'AddColumnsToTourTypesTable' => $baseDir . '/app/database/migrations/2015_10_15_055003_add_columns_to_tour_types_table.php',
     'AddColumnsToTransportPackagesTable' => $baseDir . '/app/database/migrations/2015_10_13_115103_add_columns_to_transport_packages_table.php',
     'AddColumnsToVehiclesTable' => $baseDir . '/app/database/migrations/2015_10_13_114322_add_columns_to_vehicles_table.php',
+    'AddMarketIdColumnToAgentsTable' => $baseDir . '/app/database/migrations/2015_10_19_152521_add_market_id_column_to_agents_table.php',
     'AddNameColumnToAgentsTable' => $baseDir . '/app/database/migrations/2015_08_28_070838_add_name_column_to_agents_table.php',
     'AddNewColumnsToAgentsTable' => $baseDir . '/app/database/migrations/2015_10_13_122936_add_new_columns_to_agents_table.php',
     'Adobe_Font_Metrics' => $vendorDir . '/phenx/php-font-lib/classes/Adobe_Font_Metrics.php',

@@ -14,12 +14,12 @@
 
 {{--Title--}}
 @section('control-title')
-    {{'Rooms'}}
+    {{'Agents'}}
 @endsection
 
 {{--Sub Title--}}
 @section('control-sub-title')
-    {{'Profile'}}
+    {{'Manage'}}
 @endsection
 
 {{--Breadcrumbs--}}

@@ -242,16 +242,16 @@
                 <li class="@yield('active-general-markets')"><a href="{{ Url::route('control-panel.general.markets.index') }}"><i class="fa fa-circle-o"></i> Markets</a></li>
               </ul>
             </li>            
-            <li class="treeview @yield('active-agent')">
+            <li class="treeview @yield('active-agents')">
               <a href="#">
                 <i class="fa fa-user"></i>
-                <span>Agent</span>
+                <span>Agents</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li class="@yield('active-general-cities')"><a href="#"><i class="fa fa-circle-o"></i> Cities</a></li>
-                <li class="@yield('active-general-countries')"><a href="#"><i class="fa fa-circle-o"></i> Countries</a></li>
-                <li class="@yield('active-general-markets')"><a href="#"><i class="fa fa-circle-o"></i> Markets</a></li>
+                <li class="@yield('active-agent-users')"><a href="#"><i class="fa fa-circle-o"></i> Agents</a></li>
+                <li class="@yield('active-agent-list')"><a href="#"><i class="fa fa-circle-o"></i> Companies</a></li>
+                <li class="@yield('active-agent-create')"><a href="#"><i class="fa fa-circle-o"></i> Create Company</a></li>
               </ul>
             </li>
             <li class="treeview @yield('active-transportation')">
