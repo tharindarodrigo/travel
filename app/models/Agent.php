@@ -11,6 +11,9 @@ class Agent extends \Eloquent {
 	protected $fillable = [];
 
 
-
+    public function user()
+    {
+        return $this->hasMany('User');
+    }
 
 }

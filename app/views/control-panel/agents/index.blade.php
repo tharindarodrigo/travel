@@ -22,7 +22,6 @@
                         <tr>
                             <th>ID</th>
                             <th>Agent</th>
-                            <th>Users</th>
                             <th></th>
                             <th>Status</th>
                             <th>Controls</th>
@@ -33,7 +32,6 @@
                             <tr>
                                 <td>{{$agent->id}}</td>
                                 <td>{{$agent->name}}</td>
-                                <td>{{$agent->user_id}}</td>
                                 <td>{{$agent->user_id}}</td>
                             </tr>
                         @endforeach

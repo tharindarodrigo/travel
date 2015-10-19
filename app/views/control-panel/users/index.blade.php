@@ -69,14 +69,15 @@
 
                         @foreach($users as $user)
                             <tr>
-                                <td>{{ $user->id }}</td>
+                                <td>{{ $user->user_id }}</td>
                                 <td>{{ $user->first_name.' '.$user->last_name }}</td>
                                 <td>{{ $user->email }}</td>
 
                                 <td>
-                                {{Form::model($roles=DB::table('assigned_roles')->where('user_id',$user->id)->orderBy('user_id')->first() ,array('route'=>array('control-panel.users.update',$user->id)))}}
-                                    {{Form::select('role_id',Role::orderBy('id','asc')->lists('name','id'),null,array('class'=>'form-control role', 'user_id'=>$user->id))}}
+                                {{Form::model($user,array('route'=>array('control-panel.users.update',$user->user_id)))}}
+                                    {{Form::select('role_id',Role::orderBy('id','asc')->lists('name','id'),null,array('class'=>'form-control role', 'user_id'=>$user->user_id))}}
                                 {{Form::close()}}
+
                                 </td>
                             </tr>
                         @endforeach

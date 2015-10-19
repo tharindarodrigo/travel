@@ -9,7 +9,7 @@
 @endsection
 
 @section('custom_style')
-    {{HTML::style('https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.css')}}
+{{--    {{HTML::style('https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.css')}}--}}
     @yield('styles')
 @endsection
 
@@ -39,6 +39,7 @@
         <div class="clearfix"></div>
         <div class="brlines"></div>
     </div>
+
     @yield('body-content')
 
     {{ HTML::script('assets/js/js-about.js') }}
@@ -60,7 +61,10 @@
 
     $(document).ready(function(){
 
-        confirmDeleteItem();
+
+        $("#agent-bookings").dataTable(
+
+        );
 
 
         $('#date1, #date2, #dob, #date3, #date4').datepicker({

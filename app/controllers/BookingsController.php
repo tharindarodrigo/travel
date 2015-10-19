@@ -13,7 +13,7 @@ class BookingsController extends \BaseController
      */
     public function index()
     {
-        $bookings = Booking::all();
+        $bookings = Booking::where('user_id', Auth::user()->id)->get();
 
         return View::make('bookings.index', compact('bookings'));
     }
@@ -53,7 +53,7 @@ class BookingsController extends \BaseController
             return Redirect::back();
         }
 
-        $data['user_id'] = Auth::user()->id;
+        $data['user_id'] = $user->id;
         $data['val'] = 1;
         $data['reference_number'] = 123456789;
         $clients = null;
@@ -122,13 +122,6 @@ class BookingsController extends \BaseController
                     }
                 }
 
-
-
-
-
-
-
-
                 Mail::send('emails.bookings.booking', array(
                     'data' => Booking::getBookingData($booking->id)
                 ), function ($message) use ($user, $booking) {
@@ -155,7 +148,7 @@ class BookingsController extends \BaseController
     public function show($id)
     {
         try {
-            $booking = Booking::with('voucher')->with('client')->with('flightDetail')->where('id', $id)->first();
+            $booking = Booking::with('voucher')->with('client')->with('flightDetail')->where('id', $id)->where('user_id',Auth::user()->id)->first();
 
         } catch (ModelNotFoundException $e) {
             return Redirect::to('/404');
@@ -186,7 +179,6 @@ class BookingsController extends \BaseController
      */
     public function update($id)
     {
-
         $booking = Booking::findOrFail($id);
 
         if (!Input::has('val')) {
@@ -203,7 +195,7 @@ class BookingsController extends \BaseController
 
         $booking->update($data);
 
-        return Redirect::route('bookings.index');
+        return Redirect::back();
     }
 
     /**

@@ -36,6 +36,7 @@
 
     <!-- Picker UI-->
     {{ HTML::style('assets/css/jquery-ui.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+    {{ HTML::style('assets/css/filterable.css' , array('rel' => 'stylesheet')) }}
 
     <!-- jQuery -->
     {{ HTML::script('assets/js/jquery.v2.0.3.js') }}
@@ -75,6 +76,7 @@
 <!-- Nicescroll  -->
 {{ HTML::script('assets/js/jquery.nicescroll.min.js') }}
 
+
 <!-- CarouFredSel -->
 {{ HTML::script('assets/js/jquery.carouFredSel-6.2.1-packed.js') }}
 {{ HTML::script('assets/js/helper-plugins/jquery.touchSwipe.min.js') }}
@@ -89,5 +91,6 @@
 {{ HTML::script('dist/js/bootstrap.min.js') }}
 
 @yield('script')
+{{ HTML::script('assets/js/filterable.js') }}
 
 </html>

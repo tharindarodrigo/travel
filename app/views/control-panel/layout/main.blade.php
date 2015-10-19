@@ -16,7 +16,6 @@
          folder instead of downloading all of them to reduce the load. -->
     {{ HTML::style("control-panel-assets/dist/css/skins/_all-skins.min.css" ) }}
     {{ HTML::style("control-panel-assets/plugins/iCheck/all.css" ) }}
-    {{ HTML::style('control-panel-assets/plugins/timepicker/bootstrap-timepicker.min.css')}}
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -330,7 +329,6 @@
     <!-- Bootstrap 3.3.2 JS -->
     {{ HTML::script("control-panel-assets/bootstrap/js/bootstrap.min.js" )}}
     <!-- SlimScroll -->
-    {{ HTML::script("//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js")}}
 
     {{ HTML::script("control-panel-assets/plugins/slimScroll/jquery.slimScroll.min.js" )}}
     <!-- FastClick -->
@@ -338,6 +336,7 @@
     <!-- AdminLTE App -->
     {{ HTML::script("control-panel-assets/dist/js/app.min.js" )}}
     {{ HTML::script("control-panel-assets/plugins/iCheck/icheck.js" )}}
+    {{ HTML::script("//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js")}}
     {{ HTML::script('control-panel-assets/plugins/timepicker/bootstrap-timepicker.min.js')}}
 
 

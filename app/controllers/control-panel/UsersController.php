@@ -10,7 +10,9 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
-		$users = User::all();
+		$users = DB::table('users')
+            ->leftJoin('assigned_roles', 'users.id', '=', 'assigned_roles.user_id')
+            ->get();
         return View::make('control-panel.users.index',compact('users'));
 	}
 
@@ -25,16 +27,17 @@ class UsersController extends \BaseController {
 
 
         $user = User::find($id);
+
         $role = DB::table('assigned_roles')->where('user_id',$id)->first();
 
 
-        $role->role_id = Input::get('role_id');
-        $updateRole = DB::table('assigned_roles')->where('id',$role->id)->update($role);
+        $role_id = Input::get('role_id');
+        $updateRole = DB::table('assigned_roles')->where('id',$role->id)->update(array('role_id'=>$role_id));
 
         if($updateRole){
             return Response::json(array(
                 'success' => true,
-                'msg' => $user->first_name." ".$user->last_name.' has changed to '.$role->name
+                'msg' => $user->first_name." ".$user->last_name.'\'s role has been changed'
             ));
         }
 
@@ -114,5 +117,24 @@ class UsersController extends \BaseController {
 	{
 		//
 	}
+
+    public function getHoteliers()
+    {
+        $hoteliers = User::getHoteliers();
+        return View::make('control-panel.users.hoteliers.index',compact('hoteliers'));
+    }
+    public function getAgents()
+    {
+        $agents = User::getAgents();
+        return View::make('control-panel.users.agents.index',compact('agents'));
+    }
+
+    public function getHotelSuggestions(){
+        dd('asdasdasd');
+        $hotel_name = Input::get('hotel_name');
+        $hotel_list = Hotel::where('name','like',$hotel_name)->lists('name', 'id');
+
+        return Response::json($hotel_list);
+    }
 
 }

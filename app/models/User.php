@@ -31,4 +31,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->hasMany('Hotel');
     }
 
+    public function agent(){
+        return $this->belongsTo('Agent');
+    }
+
+    public static function getHoteliers(){
+        return $users = DB::table('users')
+            ->leftJoin('assigned_roles', 'users.id', '=', 'assigned_roles.user_id')
+            ->where('assigned_roles.role_id',Role::where('name','Hotelier')->first()->id)
+            ->get();
+    }
+
+
+
+
+
 }

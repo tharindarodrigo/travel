@@ -122,12 +122,17 @@ Route::group(array('before' => 'auth'), function () {
             /**
              * users
              */
-            Route::resource('users', 'UsersController');
+
             Route::group(array('prefix' => 'users'), function () {
+                Route::get('hoteliers','UsersController@getHoteliers');
 
+                Route::get('agents/changeMarket','UsersController@changeMarket');
                 Route::post('change-role/{user_id}', 'UsersController@changeRole');
-
+                Route::post('hoteliers/get-hotel-suggestions', 'UsersController@getHotelSuggestions');
             });
+            Route::resource('agents','AgentsController');
+            Route::resource('users', 'UsersController');
+
 
             /**
              * -------------------------------------------------------------------------------------------------------------
