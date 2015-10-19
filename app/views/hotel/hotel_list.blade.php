@@ -793,7 +793,6 @@
             });
         </script>
 
-
     @endsection
 
     </body>

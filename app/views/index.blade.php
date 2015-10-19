@@ -44,7 +44,8 @@
         .lastminute3_img {
             /*margin-left: -50px;*/
         }
-        .lastminute3_img_2{
+
+        .lastminute3_img_2 {
             /*display: inline;*/
         }
     </style>
@@ -201,58 +202,9 @@
             </div>
         </div>
 
-        <div class="lastminute3 container" >
-            <div class="lastminute3_head">
-                <span>{{ HTML::image('images/site/bookwithconfitxt.png', '', array('class' => 'lastminute3_img'))}}</span>
-                <span style="font-size: 12px; text-align: right"> Rated among the top 5 traveling Sites to Sri Lanka </span>
-            </div>
-
-            <div class="lastminute3_content" style="text-align: left !important;">
-                <div class="col-md-4" >
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">Low rates</h4>
-                    <p style="font-size: 12px; display: block">No booking fees • Save money!</p>
-
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => ''))}}
-                    <h4 style="display: inline">No hidden charges</h4>
-                    <p style="font-size: 12px; display: block">What you see is what you get!</p>
-
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">Book 24/7</h4>
-                    <p style="font-size: 12px; display: block">Book online or over the telephone 24 hours a day</p>
-                </div>
-                <div class="col-md-4">
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">Instant confirmation</h4>
-                    <p style="font-size: 12px; display: block">Booking online or via the telephone</p>
-
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">Satisfied guests</h4>
-                    <p style="font-size: 12px; display: block">More than 1000 bookings daily</p>
-
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">Unbiased hotel reviews</h4>
-                    <p style="font-size: 12px; display: block">10,000 hotel reviews from real guests</p>
-                </div>
-                <div class="col-md-4">
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">Over 200 Hotels</h4>
-                    <p style="font-size: 12px; display: block">Linked with the very finest hotels in the island</p>
-
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">We speak your language</h4>
-                    <p style="font-size: 12px; display: block">We cater to all kinds of clients and guests</p>
-
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">Unlimited service</h4>
-                    <p style="font-size: 12px; display: block">Provide you the best service and guarantee your satisfaction</p>
-                </div>
-            </div>
-        </div>
-
         <!--srilankahotels.travel - tours-->
 
-        <div class="deals3">
+        <div style="margin-top: 0px" class="deals3">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4">
@@ -376,175 +328,68 @@
 
         <!-- END OF srilankahotels.travel - tours -->
 
-        <div style="" class="container cstyle06">
-
-            <div class="row anim2">
-                <div class="col-md-3">
-                    <h2>Top Destination</h2><br/>
-                    Start your search with a look at the best rates on our site.
-                </div>
-                <div class="col-md-9">
-
-                    <!-- Carousel -->
-                    <div class="wrapper">
-                        <div class="list_carousel">
-                            <ul id="foo">
-                                <li>
-                                    <a href="list3.html">
-                                        {{ HTML::image('images/top_destination/1.jpg', '', array('class' => 'top_destination'))}}
-                                    </a>
-
-                                    <div class="m1">
-                                        <h6 class="lh1 dark"><b>Kandy</b></h6>
-                                        <h6 class="lh1 green">Save up to 30%</h6>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="list3.html">
-                                        {{ HTML::image('images/top_destination/2.jpg', '', array('class' => 'top_destination'))}}
-                                    </a>
-
-                                    <div class="m1">
-                                        <h6 class="lh1 dark"><b>Anuradhapura</b></h6>
-                                        <h6 class="lh1 green">Save up to 30%</h6>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="list3.html">
-                                        {{ HTML::image('images/top_destination/3.jpg', '', array('class' => 'top_destination'))}}
-                                    </a>
-
-                                    <div class="m1">
-                                        <h6 class="lh1 dark"><b>The Galle Fort</b></h6>
-                                        <h6 class="lh1 green">Save up to 30%</h6>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="list3.html">
-                                        {{ HTML::image('images/top_destination/4.jpg', '', array('class' => 'top_destination'))}}
-                                    </a>
-
-                                    <div class="m1">
-                                        <h6 class="lh1 dark"><b>Dambulla</b></h6>
-                                        <h6 class="lh1 green">Save up to 30%</h6>
-                                    </div>
-                                </li>
-                                {{--<li>--}}
-                                {{--<a href="list3.html">--}}
-                                {{--{{ HTML::image('images/top_destination/5.jpg', '', array('class' => 'top_destination'))}}--}}
-                                {{--</a>--}}
-                                {{--</li>--}}
-                                {{--<li>--}}
-                                {{--<a href="list3.html">--}}
-                                {{--{{ HTML::image('images/top_destination/6.jpg', '', array('class' => 'top_destination'))}}--}}
-                                {{--</a>--}}
-                                {{--</li>--}}
-                                {{--<li>--}}
-                                {{--<a href="list3.html">--}}
-                                {{--{{ HTML::image('images/top_destination/7.jpg', '', array('class' => 'top_destination'))}}--}}
-                                {{--</a>--}}
-                                {{--</li>--}}
-                                <li>
-                                    <a href="list3.html">
-                                        {{ HTML::image('images/top_destination/8.jpg', '', array('class' => 'top_destination'))}}
-                                    </a>
-
-                                    <div class="m1">
-                                        <h6 class="lh1 dark"><b>Yala National Park</b></h6>
-                                        <h6 class="lh1 green">Save up to 30%</h6>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="list3.html">
-                                        {{ HTML::image('images/top_destination/9.jpg', '', array('class' => 'top_destination'))}}
-                                    </a>
-
-                                    <div class="m1">
-                                        <h6 class="lh1 dark"><b>The Pinnawela Elephant Orphanage</b></h6>
-                                        <h6 class="lh1 green">Save up to 30%</h6>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="list3.html">
-                                        {{ HTML::image('images/top_destination/10.jpg', '', array('class' => 'top_destination'))}}
-                                    </a>
-
-                                    <div class="m1">
-                                        <h6 class="lh1 dark"><b>Nuwara Eliya</b></h6>
-                                        <h6 class="lh1 green">Save up to 30%</h6>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="list3.html">
-                                        {{ HTML::image('images/top_destination/11.jpg', '', array('class' => 'top_destination'))}}
-                                    </a>
-
-                                    <div class="m1">
-                                        <h6 class="lh1 dark"><b>Sigiriya</b></h6>
-                                        <h6 class="lh1 green">Save up to 30%</h6>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                            <a id="prev_btn" class="prev" href="#"><img src="images/spacer.png" alt=""/></a>
-                            <a id="next_btn" class="next" href="#"><img src="images/spacer.png" alt=""/></a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <hr class="featurette-divider2">
-
-            {{--<div class="row anim3">--}}
-                {{--<div class="col-md-3">--}}
-                    {{--<h2>Our Partners</h2><br/>--}}
-                    {{--Dedicated to excellent service--}}
-                {{--</div>--}}
-
-                {{--<div class="col-md-9">--}}
-                    {{--<!-- Carousel -->--}}
-                    {{--<div class="wrapper">--}}
-                        {{--<div class="list_carousel" style="height: 150px;">--}}
-                            {{--<ul id="foo2">--}}
-                                {{--<li>--}}
-                                    {{--<a href="list3.html"><img src="images/site/101.jpg" style="padding-top: 50px;"--}}
-                                                              {{--alt=""/></a>--}}
-                                {{--</li>--}}
-                                {{--<li>--}}
-                                    {{--<a href="list3.html"><img src="images/site/102.jpg" style="padding-top: 50px;"--}}
-                                                              {{--alt=""/></a>--}}
-                                {{--</li>--}}
-                                {{--<li>--}}
-                                    {{--<a href="list3.html"><img src="images/site/103.jpg" style="padding-top: 50px;"--}}
-                                                              {{--alt=""/></a>--}}
-                                {{--</li>--}}
-                                {{--<li>--}}
-                                    {{--<a href="list3.html"><img src="images/site/104.jpg" style="padding-top: 50px;"--}}
-                                                              {{--alt=""/></a>--}}
-                                {{--</li>--}}
-                                {{--<li>--}}
-                                    {{--<a href="list3.html"><img src="images/site/105.jpg" style="padding-top: 50px;"--}}
-                                                              {{--alt=""/></a>--}}
-                                {{--</li>--}}
-                                {{--<li>--}}
-                                    {{--<a href="list3.html"><img src="images/site/108.jpg" style="padding-top: 50px;"--}}
-                                                              {{--alt=""/></a>--}}
-                                {{--</li>--}}
-                            {{--</ul>--}}
-                            {{--<div class="clearfix"></div>--}}
-                            {{--<a id="prev_btn2" class="prev" href="#"><img src="images/spacer.png" alt=""/></a>--}}
-                            {{--<a id="next_btn2" class="next" href="#"><img src="images/spacer.png" alt=""/></a>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-
-                {{--</div>--}}
-
-            {{--</div>--}}
-
-        </div>
+        <br/><br/><br/>
 
         <!-- / WRAP -->
+
+        <div class="lastminute3 container">
+            <div class="hidden-xs hidden-md lastminute3_head">
+                <span>{{ HTML::image('images/site/bookwithconfitxt.png', '', array('class' => 'lastminute3_img'))}}</span>
+                <span style="font-size: 12px; text-align: right"> Rated among the top 5 traveling Sites to Sri Lanka </span>
+            </div>
+
+            <div class="hidden-xs hidden-md lastminute3_content" style="text-align: left !important;">
+                <div class="col-md-4">
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">Low rates</h4>
+
+                    <p style="font-size: 12px; display: block">No booking fees • Save money!</p>
+
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => ''))}}
+                    <h4 style="display: inline">No hidden charges</h4>
+
+                    <p style="font-size: 12px; display: block">What you see is what you get!</p>
+
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">Book 24/7</h4>
+
+                    <p style="font-size: 12px; display: block">Book online or over the telephone 24 hours a day</p>
+                </div>
+                <div class="col-md-4">
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">Instant confirmation</h4>
+
+                    <p style="font-size: 12px; display: block">Booking online or via the telephone</p>
+
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">Satisfied guests</h4>
+
+                    <p style="font-size: 12px; display: block">More than 1000 bookings daily</p>
+
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">Unbiased hotel reviews</h4>
+
+                    <p style="font-size: 12px; display: block">10,000 hotel reviews from real guests</p>
+                </div>
+                <div class="col-md-4">
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">Over 200 Hotels</h4>
+
+                    <p style="font-size: 12px; display: block">Linked with the very finest hotels in the island</p>
+
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">We speak your language</h4>
+
+                    <p style="font-size: 12px; display: block">We cater to all kinds of clients and guests</p>
+
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">Unlimited service</h4>
+
+                    <p style="font-size: 12px; display: block">Provide you the best service and guarantee your
+                        satisfaction</p>
+                </div>
+            </div>
+        </div>
 
         @endsection
     </div>

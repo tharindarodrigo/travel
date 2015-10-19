@@ -1150,7 +1150,7 @@ a:visited.booknow {text-decoration:none ; color:#fff; }
         /*height:455px!important;*/
         width:100%;
         background:#fff;
-        padding-top:120px!important;
+        padding-top:120px !important;
         position:absolute;
         top:0px;
         text-align:left;
@@ -1194,6 +1194,7 @@ a:visited.booknow {text-decoration:none ; color:#fff; }
     overflow:hidden;
     border-bottom:0px solid #ccc;
 }
+
 
 .deal{min-height:78px; padding:13px 0 13px 0; border-bottom:1px solid #ececec; font-family:'Lato';font-weight:400;font-size:15px;}
 img.dealthumb {float:left;}
@@ -2276,7 +2277,7 @@ ul.jslidetext2{
 .cstyle03{background:#fff; margin-top:800px; position:relative; z-index:100; display:block;}
 .cstyle04{position:relative; top:-41px;}
 .cstyle05{display:block; background:white; width:100%; height:324px; overflow:hidden;}
-.cstyle06{min-height:640px;}
+.cstyle06{min-height:640px; margin-top: 120px}
 .cstyle07{min-height:570px;}
 .cstyle08{line-height:7px; margin-top:16px;}
 .cstyle09{display: inline-block; width: 100%;  font-size:13px;}

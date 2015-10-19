@@ -48,7 +48,7 @@
 
 @yield('content')
 
-@yield('breadcrumbs')
+{{--@yield('breadcrumbs')--}}
 
 <!-- footer area -->
 
