@@ -6,44 +6,71 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
+class User extends Eloquent implements UserInterface, RemindableInterface
+{
 
-	protected $fillable = array('email','first_name', 'last_name', 'password', 'password_temp', 'code', 'role_id' );
+    protected $fillable = array('email', 'first_name', 'last_name', 'password', 'password_temp', 'code', 'role_id');
 
-	use HasRole,UserTrait, RemindableTrait;
+    use HasRole, UserTrait, RemindableTrait;
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'users';
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('password', 'remember_token');
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = array('password', 'remember_token');
 
 
-    public function hotel(){
+    public function hotel()
+    {
         return $this->hasMany('Hotel');
     }
 
-    public function agent(){
+    public function agent()
+    {
         return $this->belongsTo('Agent');
     }
 
-    public static function getHoteliers(){
+    public static function getHoteliers()
+    {
         return $users = DB::table('users')
             ->leftJoin('assigned_roles', 'users.id', '=', 'assigned_roles.user_id')
-            ->where('assigned_roles.role_id',Role::where('name','Hotelier')->first()->id)
+            ->where('assigned_roles.role_id', Role::where('name', 'Hotelier')->first()->id)
             ->get();
     }
 
+    public function getUnassignedAgents()
+    {
 
+    }
 
+    public static function getAgentOfUser($id)
+    {
+        $user_agent = DB::table('agent_user')->where('user_id', $id)->first();
+        if ($user_agent) {
+            return $user_agent;
+        }
 
+        return false;
+    }
 
+    public static function userHasAgent()
+    {
+        if (Entrust::hasRole('Agent')) {
+            if ($x=User::getAgentOfUser(Auth::user()->id)) {
+                return Agent::with('market')->find($x->agent_id);
+            }
+
+            return false;
+        }
+
+        return false;
+    }
 }

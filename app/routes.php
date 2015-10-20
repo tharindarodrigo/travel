@@ -287,14 +287,7 @@ Route::group(array('before' => 'auth'), function () {
 //    End Control Panel                                                                                                |
 //=====================================================================================================================|
 
-    Route::get('/my-profile', function () {
-        $user = User::find(Auth::user()->id);
-
-
-        if (!$user->hasRole('Admin'))
-            return View::make('agent-profile.index', compact('user'));
-        return Redirect::to('/');
-    });
+    Route::get('profile', 'UsersController@getProfile');
 });
 
 

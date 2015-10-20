@@ -18,7 +18,6 @@
                     {{Form::submit('Update Agent',array('class'=>'btn btn-primary'))}}
                 {{Form::close()}}
             </div>
-
         </div>
     </div>
 

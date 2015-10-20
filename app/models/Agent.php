@@ -22,4 +22,9 @@ class Agent extends \Eloquent
         return $this->hasMany('User');
     }
 
+    public function market()
+    {
+        return $this->belongsTo('Market');
+    }
+
 }

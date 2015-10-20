@@ -9,7 +9,8 @@
         <div class="box box-primary">
             <div class="box-header">
                 <h3 class="box-title"><b>Search / Update / Delete </b>Agents</h3>
-            </div><!-- /.box-header -->
+            </div>
+            <!-- /.box-header -->
 
             <div class="box-body table-responsive">
                 @if(Session::has('error-msg'))
@@ -17,11 +18,11 @@
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h5><i class="icon fa fa-warning"></i> Alert!</h5>
                         {{Session::pull('error-msg')}}
-                     </div>
+                    </div>
                 @endif
 
                 <table class="table table-bordered table-striped" id="rooms-table">
-                <thead>
+                    <thead>
                     <tr>
                         <th>ID</th>
                         <th>Company</th>
@@ -32,8 +33,8 @@
                         <th>H. Fee</th>
                         <th>Controls</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     @foreach($agents as $agent)
                         <tr>
                             <td>{{$agent->id}}</td>
@@ -47,13 +48,14 @@
                                 <div class="">
                                     {{ Form::open(array('route'=> array('control-panel.agents.destroy',$agent->id), 'method' =>'delete')) }}
                                     {{ link_to_route('control-panel.agents.edit','',$agent->id, array('class'=>'btn btn-sm btn-primary glyphicon glyphicon-edit')) }}
-                                    <button type="button" class="btn btn-sm btn-danger delete-button col-md-3"><i class="glyphicon glyphicon-trash"></i></button>
+                                    <button type="button" class="btn btn-sm btn-danger delete-button col-md-3"><i
+                                                class="glyphicon glyphicon-trash"></i></button>
                                     {{ Form::close() }}
                                 </div>
                             </td>
                         </tr>
                     @endforeach
-                </tbody>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -63,7 +65,7 @@
 
 @section('scripts')
     <script type="text/javascript">
-        $(function(){
+        $(function () {
             confirmDeleteItem();
         });
     </script>

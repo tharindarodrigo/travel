@@ -30,7 +30,6 @@
  {{ 'active' }}
 @endsection
 
-
 @section('content')
     <section>
         <div class="col-md-12">
@@ -42,7 +41,6 @@
                 @if(Session::has('successful-action'))
                 <div class="alert alert-success alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-
                     {{ Session::get('successful-action') }}
                 </div>
                 @endif
