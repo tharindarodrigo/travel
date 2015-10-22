@@ -215,14 +215,13 @@
                 </button>
 
                 {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'price_range_form')) }}
-
                 <div id="collapse2" class="collapse in">
                     <div class="padding20">
                         <div class="layout-slider wh100percent">
 
                             <span class="cstyle09">
                                 <input id="Slider1" class="price_range_select" type="slider" name="price_range"
-                                       value="{{ (($min_hot_rate+$max_hot_rate)/2)-50 }}; {{ (($min_hot_rate+$max_hot_rate)/2)+50 }} "/>
+                                       value="{{ $min_hot_rate}}; {{ $max_hot_rate }} "/>
                             </span>
                             <br/><br/>
                             <button type="submit" class="btn-search4">Update</button>
@@ -252,9 +251,7 @@
                         </script>
                     </div>
                 </div>
-
                 <!-- End of Price range -->
-
                 {{ Form::close() }}
 
                 <div class="line2"></div>
@@ -522,9 +519,10 @@
                         <div class="col-md-4">
 
                             <?php
-                            $directory = 'images/hotel_images/';
-                            $images = glob($directory . $hotel->id . "_" . "*.*");
+                            $directory = 'public/images/hotel_images/';
+                            $images = glob($directory . $hotel->id . "_*");
                             $img_path = array_shift($images);
+                            $img_name = basename($img_path);
 
                             $city_id = $hotel->city_id;
                             $get_city = DB::table('cities')->where('id', $city_id)->first();
@@ -534,9 +532,9 @@
                             <div class="listitem">
 
                                 @if(count($img_path)>0)
-                                    {{ HTML::image($img_path, '', array('class' => 'hotel_img_1'))}}
+                                    {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'hotel_img_1'))}}
                                 @else
-                                    {{ HTML::image('images/no-image.jpg', '', array('class' => 'property_img_1')) }}
+                                    {{ HTML::image('images/no-image.jpg', '', array('class' => 'hotel_grid_img')) }}
                                 @endif
 
                                 <div class="liover"></div>
@@ -595,7 +593,7 @@
                                 </div>
                                 <div class="labelleft">
                                     <p class="grey">
-                                        {{ Str::limit($hotel->overview, 150) }}
+                                        {{ Str::limit($hotel->overview, 80) }}
                                     </p>
                                 </div>
                             </div>

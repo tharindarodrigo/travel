@@ -34,6 +34,10 @@
             color: #000000;
         }
 
+        .labelleft2 li{
+            color: #333333 !important;
+        }
+
     </style>
 
     <!-- bin/jquery.slider.min.css -->
@@ -266,7 +270,7 @@
 
                                         {{--<span class="size11 grey"></span><br/><br/><br/>--}}
 
-                                        <a class="bookbtn mt1"
+                                        <a style="background: #006699; color: #FFFFFF" class="bookbtn mt1"
                                            href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursion->ExcursionType->excursion_type).'/'.str_replace(' ', '-', $excursion->excursion))}}">
                                             Book
                                         </a>

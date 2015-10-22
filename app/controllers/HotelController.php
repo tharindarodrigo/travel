@@ -3,17 +3,9 @@
 class HotelController extends \BaseController
 {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-
-    public function makeGrid()
-    {
-
-
-    }
+    /*
+    Hotel grid page redirect page
+   */
 
     public function gridView($country = '', $city_or_accommodation = '')
     {
@@ -30,8 +22,32 @@ class HotelController extends \BaseController
         }
     }
 
+
     /*
-     Hotel list page
+     Hotel list page redirect page
+    */
+
+    public function hotelList($country = '', $city_or_accommodation = '')
+    {
+        if (Session::has('hot_view') && (Session::get('hot_view') == 2)) {
+            Session::put('hot_view', 2);
+        } else {
+            Session::put('hot_view', 1);
+        }
+
+        try {
+            $hotel_results = $this->viewHotelList($country, $city_or_accommodation);
+            return View::make('hotel.hotel_list')
+                ->with($hotel_results);
+        } catch (Exception $e) {
+            $no_result = $this->viewNoResult();
+            return View::make('hotel.no_results')
+                ->with($no_result);
+        }
+    }
+
+    /*
+     Hotel list making page
     */
 
     public function viewHotelList($country = '', $city_or_accommodation = '')
@@ -453,26 +469,6 @@ class HotelController extends \BaseController
 
     }
 
-
-    /*
-     Hotel list page redirect page
-    */
-
-    public function hotelList($country = '', $city_or_accommodation = '')
-    {
-        Session::put('hot_view', 1);
-
-        try {
-            $hotel_results = $this->viewHotelList($country, $city_or_accommodation);
-            return View::make('hotel.hotel_list')
-                ->with($hotel_results);
-        } catch (Exception $e) {
-            $no_result = $this->viewNoResult();
-            return View::make('hotel.no_results')
-                ->with($no_result);
-        }
-    }
-
     /*
      *no result page
      */
@@ -542,8 +538,13 @@ class HotelController extends \BaseController
         } else {
             $get_city_or_accommodation = Input::get('city_or_acc_hidden');
 
-            $url = 'sri-lanka/' . $get_city_or_accommodation;
-            return Redirect::to($url);
+            if (Session::has('hot_view') && (Session::get('hot_view') == 2)) {
+                $url = 'grid/view/sri-lanka/' . $get_city_or_accommodation;
+                return Redirect::to($url);
+            } else {
+                $url = 'sri-lanka/' . $get_city_or_accommodation;
+                return Redirect::to($url);
+            }
         }
 
         if (!empty($get_city_or_accommodation)) {
@@ -555,7 +556,15 @@ class HotelController extends \BaseController
             if (!is_null($get_city_or_hotel_id)) {
                 $city_id = $get_city_or_hotel_id->id;
                 $city = str_replace(' ', '-', $get_city_or_accommodation);
-                $url = 'sri-lanka/' . $city;
+
+                if (Session::has('hot_view') && (Session::get('hot_view') == 2)) {
+                    $url = 'grid/view/sri-lanka/' . $city;
+                    return Redirect::to($url);
+                } else {
+                    $url = 'sri-lanka/' . $city;
+                    return Redirect::to($url);
+                }
+
             } else {
                 $get_city_or_hotel_id = DB::table('hotels')->where('name', 'LIKE', $city_or_hotel)->first();
                 $hotel_id = $get_city_or_hotel_id->id;
@@ -566,7 +575,11 @@ class HotelController extends \BaseController
                 $city_name = $get_city->city;
                 $city = str_replace(' ', '-', $city_name);
 
-                $url = 'sri-lanka/' . $city . '/' . $hotel;
+                if (Session::has('hot_view') && (Session::get('hot_view') == 2)) {
+                    $url = 'grid/view/sri-lanka/' . $city . '/' . $hotel;
+                } else {
+                    $url = 'sri-lanka/' . $city . '/' . $hotel;
+                }
                 //dd($url);
             }
             return Redirect::to($url);
@@ -593,8 +606,13 @@ class HotelController extends \BaseController
                 $accommodation_name = $get_accommodation_name->hotel_category;
                 $accommodation = str_replace(' ', '-', $accommodation_name);
 
-                $url = 'sri-lanka/' . $accommodation;
-                return Redirect::to($url);
+                if (Session::has('hot_view') && (Session::get('hot_view') == 2)) {
+                    $url = 'grid/view/sri-lanka/' . $accommodation;
+                    return Redirect::to($url);
+                } else {
+                    $url = 'sri-lanka/' . $accommodation;
+                    return Redirect::to($url);
+                }
             }
 
             if (Input::has('city')) {
@@ -604,8 +622,13 @@ class HotelController extends \BaseController
                 $city_name = $get_city_name->city;
                 $city = str_replace(' ', '-', $city_name);
 
-                $url = 'sri-lanka/' . $city;
-                return Redirect::to($url);
+                if (Session::has('hot_view') && (Session::get('hot_view') == 2)) {
+                    $url = 'grid/view/sri-lanka/' . $city;
+                    return Redirect::to($url);
+                } else {
+                    $url = 'sri-lanka/' . $city;
+                    return Redirect::to($url);
+                }
             }
 
         } else {
@@ -872,8 +895,8 @@ class HotelController extends \BaseController
             // Is the string length greater than 0?
             if (strlen($queryString) > 0) {
 
-                $hotels = Hotel::where('name', 'LIKE', '%' . $queryString . '%')->get();
-                $cities = City::where('city', 'LIKE', '%' . $queryString . '%')->get();
+                $hotels = Hotel::where('name', 'LIKE', '%' . $queryString . '%')->select('name')->get();
+                $cities = City::where('city', 'LIKE', '%' . $queryString . '%')->select('city')->get();
 
                 //dd(DB::getQueryLog());
 
@@ -884,15 +907,16 @@ class HotelController extends \BaseController
                         foreach ($hotels as $hotel) {
 
                             $directory = 'public/images/hotel_images/';
-                            $images = glob($directory . $hotel->id . "_" . "*.*");
+                            $images = glob($directory . $hotel->id . "_*");
                             $img_path = array_shift($images);
+                            $img_name = basename($img_path);
 
                             echo '
                         <div class="auto_complete">
                             <a href="#" value="' . $hotel->name . '" category="hotel">
 
                              <span class="search_thumb">
-                             <img class="search_thumb" src="../' . $img_path . '" alt="" />
+                             <img class="search_thumb" src="images/hotel_images/' . $img_name . '" />
                              </span>
 
                             <span class="category">' . $hotel->name . '

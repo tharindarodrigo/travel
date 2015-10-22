@@ -11,6 +11,11 @@
 @section('custom_style')
 
     <style type="text/css">
+        .tour_img_index {
+            width: 60px;
+            height: 60px;
+        }
+
         .top_destination {
             width: 200px;
             height: 180px;
@@ -48,6 +53,35 @@
         .lastminute3_img_2 {
             /*display: inline;*/
         }
+
+        #commentbox {
+            background-image: url(images/site/aaaa.png);
+            background-repeat: no-repeat;
+            z-index: 90;
+            height: 50px;
+            width: 90px;
+            text-align: center;
+            box-shadow: 5px 5px 5px #888888;
+        }
+
+        #commentrating {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10px;
+            font-weight: bold;
+            color: #FFF;
+            padding-top: 8px;
+        }
+
+        #commentnums {
+            color: #FFF;
+            font-family: Georgia, "Times New Roman", Times, serif;
+            font-size: 14px;
+            font-weight: bolder;
+        }
+
+        .ddd {
+            margin-top: -10px;
+        }
     </style>
 
     {{--my styles--}}
@@ -60,11 +94,7 @@
     <body id="top">
 
     <!-- navbar -->
-    <div class="navbar-wrapper2 navbar-fixed-top">
-
-        @include('layout.navbar')
-
-    </div>
+    @include('layout.navbar')
     <!-- / navbar -->
 
     <!--
@@ -73,9 +103,7 @@
     #################################
     -->
     <div id="dajy" class="fullscreen-container mtslide sliderbg fixed">
-
         @include('layout.slider')
-
     </div>
 
     <!--
@@ -163,7 +191,7 @@
                             {{ HTML::image('images/site/993_anilana pasikuda1.png', '', array('class' => 'img_home_offer'))}}
                             <div class="mhover none">
                                 <span class="icon">
-                                    <a href="list4.html">
+                                    <a href="{{URL::to('sri-lanka/-Passikudah/Anilana-Passikudah')}}">
                                         <img src="images/spacer.png" alt=""/>
                                     </a>
                                 </span>
@@ -184,7 +212,7 @@
                             {{ HTML::image('images/site/1339_Serene_Pavilion.png', '', array('class' => 'img_home_offer'))}}
                             <div class="mhover none">
                                 <span class="icon">
-                                    <a href="list4.html">
+                                    <a href="{{URL::to('sri-lanka/Wadduwa/Serene-Pavilions')}}">
                                         <img src="images/spacer.png" alt=""/>
                                     </a>
                                 </span>
@@ -204,7 +232,7 @@
 
         <!--srilankahotels.travel - tours-->
 
-        <div style="margin-top: 0px" class="deals3">
+        <div class="deals3">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4">
@@ -217,16 +245,26 @@
                         </div>
                         @foreach($tour as $tours)
                             <div class="deal">
-                                <a href="#">
-                                    <img src="images/site/1.png" alt="" class="dealthumb"/>
-                                </a>
+                                {{ HTML::image('images/tour_images/index/'.$tours->id.'.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
 
                                 <div class="dealtitle">
                                     <p>
                                         <a href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $tours->tour_title))}}"
                                            class="dark">{{ $tours->tour_title }}</a>
                                     </p>
-                                    {{ HTML::image('images/smallrating-4.png', '', array('class' => 'mt-10'))}}
+                                    {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
+
+                                </div>
+
+                                {{--{{ HTML::image('images/site/kk.png', '', array('class' => 'right ddd'))}}--}}
+
+                                <div class="right" style="margin-top: -10px">
+                                    <div id="commentbox">
+                                        <div id="commentrating">Rating</div>
+                                        <div id="commentnums">
+                                            5/7
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
@@ -243,9 +281,7 @@
                         </div>
                         @foreach($excursion as $excursions)
                             <div class="deal">
-                                <a href="#">
-                                    <img src="images/site/2.png" alt="" class="dealthumb"/>
-                                </a>
+                                {{ HTML::image('images/excursion_images/index/'.$excursions->id.'.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
 
                                 <div class="dealtitle">
                                     <p>
@@ -254,7 +290,16 @@
                                             {{ $excursions->excursion_type }}
                                         </a>
                                     </p>
-                                    {{ HTML::image('images/smallrating-4.png', '', array('class' => 'mt-10'))}}
+                                    {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
+                                </div>
+
+                                <div class="right" style="margin-top: -10px">
+                                    <div id="commentbox">
+                                        <div id="commentrating">Rating</div>
+                                        <div id="commentnums">
+                                            5/7
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
@@ -266,60 +311,133 @@
 
                         <div class="lbl">
                             <a href="">
-                                {{ HTML::image('images/review_banner.png', '', array('class' => 'fwimg'))}}
+                                {{ HTML::image('images/top_destination.jpg', '', array('class' => 'fwimg'))}}
                             </a>
 
-                            <div class="smallblacklabel">Guest Reviews</div>
+                            <div class="smallblacklabel">Top Destination</div>
                         </div>
 
-                        @foreach($user_review as $reviews)
-                            <div class="deal">
-                                <a href="#">
-                                    <img src="images/site/3.png" alt="" class="dealthumb"/>
-                                </a>
+                        {{--@foreach($user_review as $reviews)--}}
+                            {{--<div class="deal">--}}
+                                {{--<a href="#">--}}
+                                    {{--<img src="images/site/3.png" alt="" class="dealthumb"/>--}}
+                                {{--</a>--}}
 
                                 {{--<div class="dealtitle">--}}
-                                {{--<p>--}}
-                                {{--<?php--}}
-                                {{--$get_city_id = DB::table('cities')->where('id', $reviews->hotel->id)->first();--}}
-                                {{--$city = $get_city_id->city;--}}
-                                {{--?>--}}
+                                    {{--<p>--}}
+                                        <?php
+                                       // $get_city_id = DB::table('cities')->where('id', $reviews->hotel->id)->first();
+                                      //  $city = $get_city_id->city;
+                                        ?>
 
-                                {{--<a href="{{URL::to('sri-lanka/'.str_replace(' ', '-', $city).'/'.str_replace(' ', '-', $reviews->hotel->name))}}"--}}
-                                {{--class="dark">{{ $reviews->review }}--}}
-                                {{--- {{ $reviews->hotel->name }}</a>--}}
+                                        {{--<a href="{{URL::to('sri-lanka/'.str_replace(' ', '-', $city).'/'.str_replace(' ', '-', $reviews->hotel->name))}}"--}}
+                                           {{--class="dark">{{ $reviews->review }}--}}
+                                            {{--- {{ $reviews->hotel->name }}</a>--}}
 
-                                {{--</p>--}}
-                                {{--<?php--}}
-                                {{--$stars = $reviews->hotel->star_category_id;--}}
-                                {{--$star = DB::table('star_categories')->where('id', $stars)->first();--}}
-                                {{--$hotel_star = $star->stars;--}}
-                                {{--?>--}}
+                                    {{--</p>--}}
+                                    <?php
+                                    //$stars = $reviews->hotel->star_category_id;
+                                   // $star = DB::table('star_categoriesgh')->where('id', $stars)->first();
+                                   // $hotel_star = $star->stars;
+                                    ?>
 
-                                {{--{{ Star::star_loop_blue($hotel_star)}}--}}
+                                    {{--{{ Star::star_loop_blue($hotel_star)}}--}}
 
                                 {{--</div>--}}
                                 {{--<div class="dealprice">--}}
 
-                                {{--<?php $low_hotel_rate = RoomRates::lowestHotelRate($reviews->hotel_id, $st_date, $ed_date); ?>--}}
+                                    <?php //$low_hotel_rate = RoomRates::lowestHotelRate($reviews->hotel_id, $st_date, $ed_date); ?>
 
-                                {{--@if(!empty($low_hotel_rate))--}}
-                                {{--<span class="price">--}}
+                                    {{--@if(!empty($low_hotel_rate))--}}
+                                        {{--<span class="price">--}}
                                 {{--$ {{ $low_hotel_rate }}--}}
                                 {{--</span>--}}
-                                {{--@else--}}
-                                {{--<span class="price">--}}
+                                    {{--@else--}}
+                                        {{--<span class="price">--}}
                                 {{--No rate--}}
                                 {{--</span>--}}
-                                {{--@endif--}}
+                                    {{--@endif--}}
                                 {{--</div>--}}
 
-                                <div class="dealtitle">
+                                {{--<div class="dealtitle">--}}
 
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--@endforeach--}}
+                        {{--{{ HTML::image('images/site/guest_review.png', '', array('class' => 'guest_review'))}}--}}
+
+                        <div class="deal">
+                            {{ HTML::image('images/city_images/index/kandy.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
+
+                            <div class="dealtitle">
+                                <p>
+                                    <a href=""
+                                       class="dark">
+                                        Kandy
+                                    </a>
+                                </p>
+                                {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
+                                <p style="font-size: 10px; margin-top: -7px"> Temple of the Tooth </p>
+                            </div>
+
+                            <div class="right" style="margin-top: -10px">
+                                <div id="commentbox">
+                                    <div id="commentrating">Rating</div>
+                                    <div id="commentnums">
+                                        5/7
+                                    </div>
                                 </div>
                             </div>
-                        @endforeach
-                        {{ HTML::image('images/site/guest_review.png', '', array('class' => 'guest_review'))}}
+                        </div>
+
+                        <div class="deal">
+                            {{ HTML::image('images/city_images/index/sigiriya.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
+
+                            <div class="dealtitle">
+                                <p>
+                                    <a href=""
+                                       class="dark">
+                                        Sigiriya
+                                    </a>
+                                </p>
+                                {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
+                                <p style="font-size: 10px; margin-top: -7px"> Sigiriya Rock - Kingdom </p>
+                            </div>
+
+                            <div class="right" style="margin-top: -10px">
+                                <div id="commentbox">
+                                    <div id="commentrating">Rating</div>
+                                    <div id="commentnums">
+                                        5/7
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="deal">
+                            {{ HTML::image('images/city_images/index/pinnawala.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
+
+                            <div class="dealtitle">
+                                <p>
+                                    <a href=""
+                                       class="dark">
+                                        Pinnawala
+                                    </a>
+                                </p>
+                                {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
+                                <p style="font-size: 10px; margin-top: -7px"> Elephant Orphanage </p>
+                            </div>
+
+                            <div class="right" style="margin-top: -10px">
+                                <div id="commentbox">
+                                    <div id="commentrating">Rating</div>
+                                    <div id="commentnums">
+                                        5/7
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <!-- End of first row-->
                 </div>
@@ -396,7 +514,7 @@
     @section('script')
 
         <!-- This page JS -->
-        {{ HTML::script('assets/js/js-index3.js') }}
+{{--        {{ HTML::script('assets/js/js-inde  x3.js') }}--}}
 
         <!-- Custom js -->
         {{ HTML::script('js/my_script.js') }}

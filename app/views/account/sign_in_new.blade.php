@@ -43,8 +43,8 @@
     <style type="text/css">
         .logo {
             margin-left: 20px;
-            width: 175px;
-            height: 35px;
+            width: 304px;
+            height: 92px;
         }
 
         .sign-in {
@@ -61,17 +61,17 @@
     <div class="loader">{{ HTML::image('images/loading.gif') }}</div>
 
     <br/> <br/>
-    <a href="intro2.html">{{ HTML::image('images/site/logo.png', '', array('class' => 'logo')) }}</a>
+    <a href="intro2.html">{{ HTML::image('images/site/logo11.png', '', array('class' => 'logo')) }}</a>
 
     <div class="tabscontainer">
         <ul class='tabs'>
             <li class="b1" onclick='mySelectUpdate();'><a href='#tab1'>
-                    <div class="anivacations">{{ HTML::image('images/Sign-in-icon.png', '', array('class' => 'sign-in')) }}
+                    <div class="anivacations">{{ HTML::image('images/Sign-in-icon.jpg', '', array('class' => 'sign-in')) }}
                         Sign-in
                     </div>
                 </a></li>
             <li class="b2" onclick='mySelectUpdate();'><a href='#tab2'>
-                    <div class="anihotels">{{ HTML::image('images/register_icon.png', '', array('class' => 'sign-in')) }}
+                    <div class="anihotels">{{ HTML::image('images/user_signup.png', '', array('class' => 'sign-in')) }}
                         Register
                     </div>
                 </a>

@@ -437,14 +437,16 @@
 
                 <div class="itemscontainer offset-1">
 
-                    <script>
-                        //Popover tooltips
-                        $(function () {
-                            $("#username").popover({placement: 'top', trigger: 'hover'});
-                        });
-                    </script>
+
 
                     @foreach($transport_packages as $transport_package)
+
+                        <script>
+                            //Popover tooltips
+                            $(function () {
+                                $("#username<?php echo $transport_package->id ?>").popover({placement: 'top', trigger: 'hover'});
+                            });
+                        </script>
 
                         <div class="col-md-4 border">
                             <!-- CONTAINER-->
@@ -468,8 +470,10 @@
                                 </div>
                                 <div class="hpadding20">
                                     <span class="glyphicon glyphicon-info-sign right lblue cpointer" rel="popover"
-                                          id="username" data-content="This field is mandatory"
-                                          data-original-title="Here you can add additional information about the car"></span>
+                                          id="username{{ $transport_package->id }}" data-content="This field is mandatory"
+                                          data-original-title="Here you can add additional information about the car">
+
+                                    </span>
 
                                     <span class="size14 bold dark">{{ $transport_package->Vehicle->vehicle_type }}</span><br/>
 								<span class="size13 grey">
@@ -498,7 +502,7 @@
                                 <div class="purchasecontainer">
                                     <span class="size18 bold green mt5"> USD {{ $transport_package->rate }}</span><br/>
                                     <span class="size12 mt-3 grey"><i>per way</i></span>
-                                    <button class="bookbtn right margtop-20">Book</button>
+                                    <button style="background: #006699; color: #ffffff" class="bookbtn right margtop-20">Book</button>
                                 </div>
                             </div>
                             <!-- END OF CONTAINER-->

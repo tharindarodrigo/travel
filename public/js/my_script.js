@@ -4,11 +4,13 @@
 
 
 /**************************************** AUTO COMPLETE  ******************************************************************/
+$( ".selector" ).autocomplete({ delay: 0 });
 
 function lookup(inputString) {
     if (inputString.length == 0) {
         $('#suggestions').fadeOut(); // Hide the suggestions box
     } else {
+        $( "#suggestions" ).autocomplete({ delay: 0 });
         $.post("http://" + window.location.host + "/auto-complete", {queryString: "" + inputString + ""}, function (data) { // Do an AJAX call
             $('#suggestions').fadeIn(); // Show the suggestions box
             $('#suggestions').html(data); // Fill the suggestions box
@@ -125,7 +127,7 @@ function sendHotelListFullMapData(url, formData) {
                     function LoadMap() {
                         var mapOptions = {
                             center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
-                            zoom: 7,
+                            zoom: 8,
                             mapTypeId: google.maps.MapTypeId.ROADMAP
                         };
                         var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);

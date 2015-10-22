@@ -20,6 +20,17 @@
             color: #006699;
         }
 
+        .labelleft2 p {
+            color: #999;
+        }
+
+        .labelleft2 p:hover {
+            color: #333333;
+        }
+
+        .labelleft2 li {
+            color: #333333 !important;
+        }
     </style>
 
     <!-- bin/jquery.slider.min.css -->
@@ -242,7 +253,8 @@
                                     <a class="fav-icon" href="#"></a>
 
                                     <a class="book-icon"
-                                       href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $types->Tour->tour_title).'/'.str_replace(' ', '-', $types->tour_type_title))}}"></a>
+                                       href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $types->Tour->tour_title).'/'.str_replace(' ', '-', $types->tour_type_title))}}">
+                                    </a>
 
                                 </div>
                             </div>
@@ -260,7 +272,7 @@
 
                                         {{--<span class="size11 grey"></span><br/><br/><br/>--}}
 
-                                        <a class="bookbtn mt1"
+                                        <a style="background: #006699; color: #FFFFFF"  class="bookbtn mt1"
                                            href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $types->Tour->tour_title).'/'.str_replace(' ', '-', $types->tour_type_title))}}">
                                             Book
                                         </a>
@@ -277,8 +289,9 @@
                                         <div class="line4"></div>
 
                                         <p class="grey size14 lh6">
-                                            {{ $types->short_description }}.
-                                        </p><br/>
+                                            {{ $types->short_description }}
+                                        </p>
+                                        <br/>
 
                                     </div>
                                 </div>
@@ -297,7 +310,7 @@
                 <div class="hpadding20" align="right">
                     {{ $tours->links() }}
                 </div>
-
+                <br/><br/>
             </div>
             <!-- END OF LIST CONTENT-->
 
