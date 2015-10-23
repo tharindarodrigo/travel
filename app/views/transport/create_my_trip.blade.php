@@ -145,33 +145,7 @@
                         <div class="col-md-6">
                             <div class="w50percent">
                                 <div class="wh90percent ">
-                                    <span class="opensans size13">Hour</span>
-                                    <select class="form-control mySelectBoxClass pick_up_hour">
-                                        <option>00</option>
-                                        <option>01</option>
-                                        <option>02</option>
-                                        <option>03</option>
-                                        <option>04</option>
-                                        <option>05</option>
-                                        <option>06</option>
-                                        <option>07</option>
-                                        <option>08</option>
-                                        <option>09</option>
-                                        <option>10</option>
-                                        <option>11</option>
-                                        <option selected="yes">12</option>
-                                        <option>13</option>
-                                        <option>14</option>
-                                        <option>15</option>
-                                        <option>16</option>
-                                        <option>17</option>
-                                        <option>18</option>
-                                        <option>19</option>
-                                        <option>20</option>
-                                        <option>21</option>
-                                        <option>22</option>
-                                        <option>23</option>
-                                    </select>
+
                                 </div>
                             </div>
 
@@ -396,53 +370,53 @@
             <!-- END OF LEFT CONTENT -->
 
             <!-- RIGHT CONTENT -->
-            <div class="col-md-4" id="transport_rate_box">
+            {{--<div class="col-md-4" id="transport_rate_box">--}}
 
-                <div class="pagecontainer2 paymentbox grey">
-                    <div class="padding20">
-                        <span class="opensans size18 dark bold caps"> Transport Summery </span>
-                    </div>
-                    <div class="line3"></div>
+                {{--<div class="pagecontainer2 paymentbox grey">--}}
+                    {{--<div class="padding20">--}}
+                        {{--<span class="opensans size18 dark bold caps"> Transport Summery </span>--}}
+                    {{--</div>--}}
+                    {{--<div class="line3"></div>--}}
 
-                    <div class="hpadding30 margtop30">
+                    {{--<div class="hpadding30 margtop30">--}}
 
-                        <img src="updates/update1/img/cars/car02.jpg" width="100" alt=""/><br/>
+                        {{--<img src="updates/update1/img/cars/car02.jpg" width="100" alt=""/><br/>--}}
 
-                        <table class="table table-bordered margbottom20">
-                            <tbody id="transport_cart_box_table">
+                        {{--<table class="table table-bordered margbottom20">--}}
+                            {{--<tbody id="transport_cart_box_table">--}}
 
-                            </tbody>
-                        </table>
-                        <br/>
-                    </div>
+                            {{--</tbody>--}}
+                        {{--</table>--}}
+                        {{--<br/>--}}
+                    {{--</div>--}}
 
-                    <div class="line3"></div>
-                    <div class="padding30">
-                            <span class="left size14 dark"> <h3 style="font-size: 18px; display: inline"> Total Cost
-                                    : </h3></span>
-                        <span id="room_total_cost" class="right green bold size18">USD 100  </span>
+                    {{--<div class="line3"></div>--}}
+                    {{--<div class="padding30">--}}
+                            {{--<span class="left size14 dark"> <h3 style="font-size: 18px; display: inline"> Total Cost--}}
+                                    {{--: </h3></span>--}}
+                        {{--<span id="room_total_cost" class="right green bold size18">USD 100  </span>--}}
 
-                        <div class="clearfix"></div>
-                    </div>
+                        {{--<div class="clearfix"></div>--}}
+                    {{--</div>--}}
 
-                    <div class="line3"></div>
-                    <br/>
-                    &nbsp;&nbsp;&nbsp;
-                    <a id="add_to_cart" name="aa" href="{{URL::to('/booking-cart')}}" class="bluebtn margtop20">
-                        <span class="glyphicon glyphicon-shopping-cart"></span>
-                        Add To Cart
-                    </a>
+                    {{--<div class="line3"></div>--}}
+                    {{--<br/>--}}
+                    {{--&nbsp;&nbsp;&nbsp;--}}
+                    {{--<a id="add_to_cart" name="aa" href="{{URL::to('/booking-cart')}}" class="bluebtn margtop20">--}}
+                        {{--<span class="glyphicon glyphicon-shopping-cart"></span>--}}
+                        {{--Add To Cart--}}
+                    {{--</a>--}}
 
-                    &nbsp;&nbsp;
-                    <a href="" class="bluebtn margtop20">
-                        <span class="glyphicon glyphicon-play"></span>
-                        Checkout
-                    </a>
+                    {{--&nbsp;&nbsp;--}}
+                    {{--<a href="" class="bluebtn margtop20">--}}
+                        {{--<span class="glyphicon glyphicon-play"></span>--}}
+                        {{--Checkout--}}
+                    {{--</a>--}}
 
-                    <div class="clearfix"></div>
-                    <br/>
-                </div>
-            </div>
+                    {{--<div class="clearfix"></div>--}}
+                    {{--<br/>--}}
+                {{--</div>--}}
+            {{--</div>--}}
             <!-- END OF RIGHT CONTENT -->
 
         </div>
@@ -475,7 +449,6 @@
         {{ HTML::script('assets/js/counter.js') }}
 
         <!-- Custom js -->
-        {{ HTML::script('js/my_script.js') }}
 
         {{ HTML::script('js/transport_cart.js') }}
 
@@ -488,7 +461,7 @@
 
                 var markers = [{
                     "title": '1',
-                    "lat": '6.9344',
+                    "lat": '6.8344',
                     "lng": '79.8428',
                     "description": '1'
                 }, {
@@ -501,9 +474,7 @@
                     "lat": '7.2964',
                     "lng": '80.6350',
                     "description": '2'
-                }
-
-                ];
+                }];
 
                 loadMap(markers);
 

@@ -50,6 +50,8 @@ class AccountController extends \BaseController
                     'success' => true,
                     'alert' => 'You are logged in'
                 );
+
+//                Entrust::hasRole('Agent') ? Session::put('market',Agent::)
                 return Response::json($array);
             } else {
 //                return Redirect::route('account-sign-in')
@@ -88,8 +90,6 @@ class AccountController extends \BaseController
 
     public function postCreate()
     {
-
-
 
         // Your code here to handle a successful verification
 

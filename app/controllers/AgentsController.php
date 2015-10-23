@@ -88,7 +88,7 @@ class AgentsController extends \BaseController {
 
 		$agent->update($data);
 
-		return Redirect::route('agents.index');
+		return Redirect::route('control-panel.1agents.index');
 	}
 
 	/**
@@ -104,4 +104,9 @@ class AgentsController extends \BaseController {
 		return Redirect::route('agents.index');
 	}
 
+
+    public function changeMarket()
+    {
+
+    }
 }

@@ -83,6 +83,39 @@
 
                     {{----------------------------------------------------------------------------------------------------------------------------------}}
 
+                    @if(!Auth::check())
+                    <div class="col-md-3 textright">
+                        <div class="margtop15"><span class="dark">Email:</span><span class="red">*</span></div>
+                    </div>
+                    <div class="col-md-6">
+                        {{Form::text('email', null, array('class'=> 'form-control'))}}
+                        {{$errors->first('email', '<span class="size12" style="color: red;">:message</span>') }}
+                    </div>
+
+                    <div class="col-md-3 textleft margtop15">
+                    </div>
+                    <div class="clearfix"></div>
+                    <br/>
+
+                    {{----------------------------------------------------------------------------------------------------------------------------------}}
+
+
+                    <div class="col-md-3 textright">
+                        <div class="margtop15"><span class="dark">Phone:</span><span class="red">*</span></div>
+                    </div>
+                    <div class="col-md-6">
+                        {{Form::text('phone', null, array('class'=> 'form-control'))}}
+                        {{$errors->first('phone', '<span class="size12" style="color: red;">:message</span>') }}
+                    </div>
+
+                    <div class="col-md-3 textleft margtop15">
+                    </div>
+                    <div class="clearfix"></div>
+                    <br/>
+
+                    {{----------------------------------------------------------------------------------------------------------------------------------}}
+
+                    @endif
 
 
                     <div class="col-md-3 textright">
@@ -120,6 +153,8 @@
                         {{$errors->first('tour', '<span class="size12" style="color: red;">:message</span>') }}
 
                     </div>
+
+
                     <div class="col-md-3 textleft margtop15">
                     </div>
                     <div class="clearfix"></div>
@@ -130,13 +165,13 @@
                     {{----------------------------------------------------------------------------------------------------------------------------------}}
 
 
-
+                    @if(Entrust::hasRole('Agent'))
                     {{--Client Information--}}
                     <span class="size16px bold dark left">Client Information </span>
                     <div class="roundstep active right">2</div>
                     <div class="clearfix"></div>
                     <div class="line4"></div>
-<div class="table-responsive">
+                    <div class="table-responsive">
                     <table class="table table-striped table-bordered">
                         <thead>
                         <tr>
@@ -284,6 +319,7 @@
                     <div class="clearfix"></div>
 
                     <br/>
+                    @endif
 
                     <div class="col-md-12 ">
                         <div class="pull-right">
@@ -291,7 +327,8 @@
                         </div>
                     </div>
 
-                    <!-- IMG RIGHT TEXT -->
+
+                        <!-- IMG RIGHT TEXT -->
 
                     <!-- END OF IMG RIGHT TEXT -->
                     {{Form::close()}}

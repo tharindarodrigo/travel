@@ -94,7 +94,7 @@
                         {{ Session::get('unsuccessful-action') }}
                     </div>
                     @endif
-                <div class="box-body table-responsive">
+                <div class="table-responsive">
                     <table id="hotel-facilities-table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -153,6 +153,7 @@
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
         </div>
+    </div>
 </section>
 
 

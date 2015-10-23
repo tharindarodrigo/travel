@@ -36,7 +36,7 @@ class Voucher extends \Eloquent {
 
     public static function getVoucherAmount($voucher_id)
     {
-        return RoomBooking::where('voucher_id',$voucher_id)->sum('amount');
+        return RoomBooking::where('voucher_id',$voucher_id)->sum('unit_price');
     }
     
     public function hotel()
@@ -63,6 +63,8 @@ class Voucher extends \Eloquent {
     {
         return $this->hasMany('RoomBooking');
     }
+
+
 
 
 

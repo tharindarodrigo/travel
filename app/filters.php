@@ -11,15 +11,13 @@
 |
 */
 
-App::before(function($request)
-{
-	//
+App::before(function ($request) {
+    //
 });
 
 
-App::after(function($request, $response)
-{
-	//
+App::after(function ($request, $response) {
+    //
 });
 
 /*
@@ -33,25 +31,41 @@ App::after(function($request, $response)
 |
 */
 
-Route::filter('auth', function()
-{
-	if (Auth::guest())
-	{
-		if (Request::ajax())
-		{
-			return Response::make('Unauthorized', 401);
-		}
-		else
-		{
-			return Redirect::guest('login');
-		}
-	}
+Route::filter('auth', function () {
+    if (Auth::guest()) {
+        if (Request::ajax()) {
+            return Response::make('Unauthorized', 401);
+        } else {
+            return Redirect::guest('/account/create');
+        }
+    }
+});
+
+Route::filter('hotelier', function () {
+    if (!Entrust::hasRole('Hotelier') && !Entrust::hasRole('Admin')) // Checks the current user
+    {
+        App::abort(404);
+    }
+
+});
+
+Route::filter('agent', function () {
+    if (!Entrust::hasRole('Agent') && !Entrust::hasRole('Admin')) // Checks if the current user is an Agent
+    {
+        App::abort(404);
+    }
+});
+
+Route::filter('admin', function () {
+    if (!Entrust::hasRole('Admin')) // Checks the current user
+    {
+        App::abort(404);
+    }
 });
 
 
-Route::filter('auth.basic', function()
-{
-	return Auth::basic();
+Route::filter('auth.basic', function () {
+    return Auth::basic();
 });
 
 /*
@@ -65,9 +79,8 @@ Route::filter('auth.basic', function()
 |
 */
 
-Route::filter('guest', function()
-{
-	if (Auth::check()) return Redirect::to('/');
+Route::filter('guest', function () {
+    if (Auth::check()) return Redirect::to('/');
 });
 
 /*

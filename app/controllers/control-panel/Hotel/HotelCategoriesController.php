@@ -46,7 +46,7 @@ class HotelCategoriesController extends \BaseController
             Session::flash('unsuccessful-action', 'Creating Hotel Category was Unsuccessful <h3>:(</h3>');
         }
 
-        return Redirect::route('control-panel.hotel.hotel_categories.index');
+        return Redirect::route('control-panel.hotel.hotel-categories.index');
     }
 
     /**
@@ -60,7 +60,7 @@ class HotelCategoriesController extends \BaseController
         $hotelcategory = Hotelcategory::findOrFail($id);
 
 //		return View::make('hotelcategories.show', compact('hotelcategory'));
-        return Redirect::route('control-panel.hotel.hotel_categories.index', compact('hotelcategory'));
+        return Redirect::route('control-panel.hotel.hotel-categories.index', compact('hotelcategory'));
     }
 
     /**
@@ -127,7 +127,7 @@ class HotelCategoriesController extends \BaseController
         }
 
 
-        return Redirect::route('control-panel.hotel.hotel_categories.index');
+        return Redirect::route('control-panel.hotel.hotel-categories.index');
     }
 
     /**
@@ -147,7 +147,7 @@ class HotelCategoriesController extends \BaseController
             }
         }
 
-        return Redirect::route('control-panel.hotel.hotel_categories.index');
+        return Redirect::route('control-panel.hotel.hotel-categories.index');
 
     }
 

@@ -1,4 +1,4 @@
-<?php require_once('emailStructure/header.php'); ?>
+<?php require_once('emailStructure/header1.php'); ?>
     <style type="text/css">
         .CSSTableGenerator {
             margin: 0px;
@@ -138,7 +138,7 @@
     <br/>
     <div>
         <div>
-            <table width="100%">
+            <table width="100%" style="font-size: medium">
                 <tr>
                     <th>Hotel</th>
                     <td>: <?php echo $voucher->hotel->name; ?></td>
@@ -153,19 +153,22 @@
                 </tr>
                 <tr>
                     <th>#Nights</th>
-                    <td>:</td>
+                    <td>
+                        <?php //echo date_diff(new DateTime($voucher->check_out), new DateTime($voucher->check_in)); ?>
+                    </td>
                 </tr>
                 <tr>
-                    <th>Room</th>
-                    <td>: </td>
+                    <th>Rooms</th>
+                    <td>:
+                        <?php foreach ($voucher->roomBooking as $roomBooking) { ?>
+                            <?php echo $roomBooking->room_count.' '.$roomBooking->roomSpecification->room_specification.' '.$roomBooking->roomType->room_type.'s on '.$roomBooking->mealBasis->meal_basis.' basis'; ?><br>
+                        <?php } ?>
+                    </td>
                 </tr>
+
                 <tr>
-                    <th>Meal Basis</th>
-                    <td>: <?php echo $voucher->mealBasis->meal_basis; ?></td>
-                </tr>
-                <tr>
-                    <th>Remarks</th>
-                    <td>:</td>
+                    <th>Total Amount</th>
+                    <td>: USD <?php echo number_format(Voucher::getVoucherAmount($voucher->id),2); ?></td>
                 </tr>
 
             </table>

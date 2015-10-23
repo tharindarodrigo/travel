@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\File;
 class HotelsController extends \BaseController
 {
 
+    public function __construct()
+    {
+        $this->beforeFilter('admin', array('only' => 'create'));
+    }
+
     /**
      * Display a listing of hotels
      *
@@ -26,6 +31,8 @@ class HotelsController extends \BaseController
      */
     public function create()
     {
+        $this->beforeFilter('admin');
+
         $hotelcategorieslist = HotelCategory::all();
         $hotelcategories = HotelCategory::all();
         $hotelfacilitieslist = HotelFacility::all();
@@ -357,17 +364,6 @@ class HotelsController extends \BaseController
             }
         }
 
-
-
-//        $hotelprofile = Hotel::findOrFail($id);
-//
-//        $validator = Validator::make($data = Input::all(), Hotel::$updaterules);
-//
-//        if ($validator->fails())
-//        {
-//            return Redirect::back()->withErrors($validator)->withInput();
-//        }
-//
 
 
         return Redirect::back()->with(

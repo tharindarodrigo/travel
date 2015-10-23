@@ -1,4 +1,4 @@
-<?php require_once('emailStructure/header.php') ?>
+<?php require_once('emailStructure/header1.php') ?>
 
 
 <style type="text/css">
@@ -151,15 +151,15 @@
                     </tr>
                     <tr>
                         <th align="left">Agent Name</th>
-                        <td>: Tharinda</td>
+                        <td>: <?php echo $booking->user->first_name.' '.$booking->user->last_name; ?></td>
                     </tr>
                     <tr>
                         <th align="left">Tour</th>
-                        <td>: Gem of Sri Lanka</td>
+                        <td>: <?php echo $booking->tour; ?></td>
                     </tr>
                     <tr>
                         <th align="left">Remark</th>
-                        <td>: Pleas Note</td>
+                        <td>: <?php echo $booking->remark; ?></td>
                     </tr>
                     </thead>
                 </table>
@@ -170,19 +170,19 @@
                 <table>
                     <tr>
                         <th align="left">Arrival Date</th>
-                        <td>: 2015-02-04</td>
+                        <td>: <?php echo $booking->arrival_date;?></td>
                     </tr>
                     <tr>
                         <th align="left">Departure Date</th>
-                        <td>: 2015-02-04</td>
+                        <td>: <?php echo $booking->departure_date;?></td>
                     </tr>
                     <tr>
                         <th align="left">Pax</th>
-                        <td>: Adults - 04</td>
+                        <td>: Adults - <?php echo $booking->adults;?></td>
                     </tr>
                     <tr>
                         <th>&nbsp;</th>
-                        <td>&nbsp;&nbsp;Children - 03</td>
+                        <td>&nbsp;&nbsp;Children - <?php echo $booking->children;?></td>
                     </tr>
 
                 </table>
@@ -209,26 +209,59 @@
             <td width="30%">Hotel Name</td>
             <td width="15%">Check In</td>
             <td width="15%">Check Out</td>
-            <td width="20%">Room Type</td>
+            <td width="10%">Rooms</td>
             <td width="10%">Basis</td>
             <td width="10%">No. of Rooms</td>
 
         </tr>
 
 
+        <!--            --><?php //dd($clients); ?>
+        <?php foreach ($booking->voucher as $voucher) { ?>
 
-            <!--            --><?php //dd($hotel_bookings); ?>
-            <?php foreach($booking->client as $client){ ?>
+            <tr>
+                <td><?php echo $voucher->hotel->name; ?></td>
+                <td style="text-align: center"><?php echo $voucher->check_in; ?></td>
+                <td style="text-align: center"><?php echo $voucher->check_out; ?></td>
+                <td style="text-align: center">
+                    <?php
+                    $x=1;
+                    foreach ($voucher->roomBooking as $roomBooking) { ?>
+                        <?php
 
-                <tr>
-                    <td><?php echo $hotel_booking['hotel_name'] ?></td>
-                    <td><?php echo $hotel_booking['check_in'] ?></td>
-                    <td><?php echo $hotel_booking['check_out'] ?></td>
-                    <td><?php echo $hotel_booking['room_name'] ?></td>
-                    <td><?php echo $hotel_booking['meal_basis'] ?></td>
-                    <td><?php echo $hotel_booking['room_count'] ?></td>
-                </tr>
-            <?php } ?>
+                        echo $roomBooking->roomType->room_type;
+                        echo count($voucher->roomBooking) != $x ? '<br><hr>' : '';
+                        $x++;
+                        ?>
+
+                    <?php } ?>
+                </td>
+                <td style="text-align: center">
+                    <?php
+                    $x=1;
+                    foreach ($voucher->roomBooking as $roomBooking) { ?>
+                        <?php
+
+                        echo $roomBooking->mealBasis->meal_basis;
+                        echo count($voucher->roomBooking) != $x ? '<br><hr>' : '';
+                        $x++;
+                        ?>
+                    <?php } ?>
+                </td>
+                <td style="text-align: right">
+                    <?php
+                    $x=1;
+                    foreach ($voucher->roomBooking as $roomBooking) { ?>
+
+                        <?php
+                        echo $roomBooking->room_count;
+                        echo count($voucher->roomBooking) !=$x ? '<br><hr>' : '';
+                        $x++;
+                        ?>
+                    <?php } ?>
+                </td>
+            </tr>
+        <?php } ?>
 
 
     </table>
@@ -253,7 +286,7 @@
         </tr>
 
         <?php foreach ($booking->client as $client) { ?>
-<!--        --><?php //foreach (Client::all() as $client) { ?>
+            <!--        --><?php //foreach (Client::all() as $client) { ?>
 
             <tr>
                 <td><?php echo $client['name'] ?></td>
@@ -303,8 +336,6 @@
 
     <br/>
 </div>
-
-
 
 
 <?php require_once('emailStructure/footer.php') ?>

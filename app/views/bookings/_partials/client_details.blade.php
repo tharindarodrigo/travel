@@ -1,5 +1,4 @@
-<div class="col-md-12">
-<div class="row">
+
 <div class="table-responsive">
 <table class="table table-responsive table-bordered">
 <thead>
@@ -90,6 +89,4 @@
 </tbody>
 </table>
 
-</div>
-</div>
 </div>

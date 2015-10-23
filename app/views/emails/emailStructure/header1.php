@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
 
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 12px;">
@@ -22,7 +22,7 @@
                                 <td>
                                     <img src="<?php echo public_path() ?>/images/site/ehilogo2.png" alt="logo"
                                          height="100%">
-                                    <?php echo HTML::image("/images/site/ehilogo2.png"); ?>
+<!--                                    --><?php //echo HTML::image("/images/site/ehilogo2.png"); ?>
                                 </td>
                                 <td align="right" >
                                     <div style="padding-top: 20px;">

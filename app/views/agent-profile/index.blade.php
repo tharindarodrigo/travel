@@ -17,9 +17,7 @@
     <!-- CONTENT -->
     <div class="container">
 
-
         <div class="container mt25 offset-0">
-
 
             <!-- CONTENT -->
             <div class="col-md-12 pagecontainer2 offset-0">
@@ -34,8 +32,10 @@
 
                     <div class="col-md-12">
                         <div class="row">
-                            {{Form::model($user,array('route'=>array('users.update',$user->id), 'method'=>'patch'))}}
+                            {{Form::model($user,array('url'=>array('/',$user->id), 'method'=>'patch'))}}
                                 <div class="col-md-6">
+
+                                    <h3>Personal Credentials</h3>
 
                                     <span class="size12">First Name *</span>
                                     {{Form::text('first_name',null,array('class'=> 'form-control'))}}
@@ -58,15 +58,29 @@
 
                                     <br/>
 
+                                    <span class="size12">Phone</span>
+                                    {{Form::text('phone',null,array('class'=> 'form-control'))}}
+                                    {{$errors->first('phone', '<span class="size12" style="color: red;">:message</span>') }}
+                                    <div class="clearfix"></div>
+
+                                    <br/>
+
+                                    <span class="size12">Address</span>
+                                    {{Form::text('address',null,array('class'=> 'form-control'))}}
+                                    {{$errors->first('address', '<span class="size12" style="color: red;">:message</span>') }}
+                                    <div class="clearfix"></div>
+
+                                    <br/>
+
                                     <span class="size12">New Password</span>
-                                    {{Form::text('new_password',null,array('class'=> 'form-control'))}}
+                                    {{Form::password('new_password',array('class'=> 'form-control'))}}
                                     {{$errors->first('new_password', '<span class="size12" style="color: red;">:message</span>') }}
                                     <div class="clearfix"></div>
 
                                     <br/>
 
                                     <span class="size12">New Password Again</span>
-                                    {{Form::text('new_password',null,array('class'=> 'form-control'))}}
+                                    {{Form::password('new_password',array('class'=> 'form-control'))}}
                                     {{$errors->first('new_password_again', '<span class="size12" style="color: red;">:message</span>') }}
                                     <div class="clearfix"></div>
 
@@ -77,7 +91,11 @@
 
                             @if(Auth::user()->role_id == 3)
 
+
                                 <div class="col-md-6">
+
+                                <h3>Company Details</h3>
+
                                     <span class="size12">Company Name *</span>
                                     {{Form::text('company',null,array('class'=> 'form-control'))}}
                                     {{$errors->first('company', '<span class="size12" style="color: red;">:message</span>') }}
@@ -86,15 +104,15 @@
                                     <br/>
 
                                     <span class="size12">Address</span>
-                                    {{Form::text('departure_date', null, array('class'=> 'form-control'))}}
-                                    {{$errors->first('departure_date', '<span class="size12" style="color: red;">:message</span>') }}
+                                    {{Form::text('company_address', null, array('class'=> 'form-control'))}}
+                                    {{$errors->first('company_address', '<span class="size12" style="color: red;">:message</span>') }}
                                     <div class="clearfix"></div>
 
                                     <br/>
 
                                     <span class="size12">Phone</span>
-                                    {{Form::text('phone', null, array('class'=> 'form-control'))}}
-                                    {{$errors->first('phone', '<span class="size12" style="color: red;">:message</span>') }}
+                                    {{Form::text('company_phone', null, array('class'=> 'form-control'))}}
+                                    {{$errors->first('company_phone', '<span class="size12" style="color: red;">:message</span>') }}
                                     <div class="clearfix"></div>
 
                                     <br/>

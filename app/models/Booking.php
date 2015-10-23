@@ -11,12 +11,12 @@ class Booking extends \Eloquent
         'departure_date' => 'required|after:arrival_date',
         'adults' => 'required|numeric',
         'children' => 'required|numeric',
-        'tour' => 'required',
+        'email' => 'email'
     ];
 
     // Don't forget to fill this array
     protected $fillable = [
-        'reference_number', 'arrival_date', 'departure_date', 'booking_name', 'adults', 'children', 'tour', 'val', 'remarks', 'user_id'
+        'reference_number', 'arrival_date', 'departure_date', 'booking_name', 'adults', 'children', 'val', 'remarks','email','phone','address'
     ];
 
     /**
@@ -60,8 +60,20 @@ class Booking extends \Eloquent
     }
 
 
-    public static function getBookingData($booking_id){
-        return Booking::where('id',$booking_id)->with('Client')->with('FlightDetail')->with('Voucher')->with('Invoice')->first();
+    public static function getBookingData($booking_id)
+    {
+        return Booking::where('id', $booking_id)->with('Client')->with('FlightDetail')->with('Voucher')->with('Invoice')->first();
+    }
+
+
+    public static function getTotalVoucherAmount($booking_id)
+    {
+        $booking = Booking::with('voucher')->with('roomBooking')->find($booking_id);
+        $total = 0.0;
+        foreach ($booking->voucher as $voucher) {
+            $total += Voucher::getVoucherAmount($voucher->id);
+        }
+        return $total;
     }
 
 
@@ -94,6 +106,14 @@ class Booking extends \Eloquent
         return $this->belongsTo('Market');
     }
 
+    public function roomBooking()
+    {
+        return $this->hasManyThrough('RoomBooking', 'Voucher');
+    }
 
+    public function user()
+    {
+        return $this->belongsTo('user');
+    }
 
 }
