@@ -895,39 +895,10 @@ class HotelController extends \BaseController
             // Is the string length greater than 0?
             if (strlen($queryString) > 0) {
 
-                $hotels = Hotel::where('name', 'LIKE', '%' . $queryString . '%')->select('name')->get();
-                $cities = City::where('city', 'LIKE', '%' . $queryString . '%')->select('city')->get();
+                $hotels = Hotel::where('name', 'LIKE', '%' . $queryString . '%')->select('name')->limit(4)->get();
+                $cities = City::where('city', 'LIKE', '%' . $queryString . '%')->select('city')->limit(4)->get();
 
                 //dd(DB::getQueryLog());
-
-                if (!is_null($hotels)) {
-                    if ($hotels) {
-                        // While there are results loop through them - fetching an Object.
-
-                        foreach ($hotels as $hotel) {
-
-                            $directory = 'public/images/hotel_images/';
-                            $images = glob($directory . $hotel->id . "_*");
-                            $img_path = array_shift($images);
-                            $img_name = basename($img_path);
-
-                            echo '
-                        <div class="auto_complete">
-                            <a href="#" value="' . $hotel->name . '" category="hotel">
-
-                             <span class="search_thumb">
-                             <img class="search_thumb" src="images/hotel_images/' . $img_name . '" />
-                             </span>
-
-                            <span class="category">' . $hotel->name . '
-                            </span>
-
-                            </a>
-                            </div>';
-
-                        }
-                    }
-                }
 
                 if (!is_null($cities)) {
                     if ($cities) {
@@ -935,16 +906,18 @@ class HotelController extends \BaseController
 
                         foreach ($cities as $city) {
 
-                            $directory = 'images/hotel_images/';
-                            $images = glob($directory . $city->id . "_" . "*.*");
+                            $directory = 'a';
+                            $images = glob($directory . "location.png");
                             $img_path = array_shift($images);
+                            $img_name = basename($img_path);
+
 
                             echo '
                         <div class="auto_complete">
                             <a href="#" value="' . $city->city . '" category="city">
 
                              <span class="search_thumb">
-                             <img class="search_thumb" src="../' . $img_path . '" alt="" />
+                            <img class="search_thumb" src="/images/site/location.png" />
                              </span>
 
                             <span class="category">' . $city->city . '
@@ -958,6 +931,35 @@ class HotelController extends \BaseController
                     }
                 }
 
+                if (!is_null($hotels)) {
+                    if ($hotels) {
+                        // While there are results loop through them - fetching an Object.
+
+                        foreach ($hotels as $hotel) {
+
+                            $directory = public_path().'/images/site/';
+                            $images = glob($directory . "hotel.png");
+                            $img_path = array_shift($images);
+                            $img_name = basename($img_path);
+
+                            echo '
+                        <div class="auto_complete">
+                            <a href="#" value="' . $hotel->name . '" category="hotel">
+
+                             <span class="search_thumb">
+                             <img class="search_thumb" src="/images/site/hotel.png" />
+                             </span>
+
+                            <span class="category">' . $hotel->name . '
+                            </span>
+
+                            </a>
+                            </div>';
+
+                        }
+                    }
+                }
+
             } else {
                 echo 'Please Type Again To Start The Search';
             } // There is a queryString.
@@ -966,6 +968,7 @@ class HotelController extends \BaseController
         }
 
     }
+
 
     // get hotel list full map
 

@@ -236,13 +236,27 @@
         background: #006699 !important;
     }
 
-    .navbar-custom a:hover{
+    .navbar-custom a:hover {
         color: #FFFFFF !important;
     }
 
-    .navbar-custom li > a:hover{
+    .navbar-custom li > a:hover {
         color: #000000 !important;
     }
+
+    @media only screen and (min-width: 480px) and (max-width: 767px) {
+        .dropdown-menu {
+            max-width: 95% !important;
+        }
+    }
+
+    @media only screen and (min-width: 0px) and (max-width: 479px) {
+        .dropdown-menu {
+            max-width: 95% !important;
+        }
+    }
+
+
 </style>
 
 <style type="text/css">
@@ -273,10 +287,12 @@
 
 </script>
 
-<div class="navbar-wrapper2 navbar-fixed-top hidden-xs hidden-md" style="background: #006699;">
+{{--Desktop version--}}
+
+<div class="navbar-wrapper2 navbar-fixed-top hidden-xs hidden-md " style="background: #006699;">
     <div class="row navbar-custom">
         <div class="col-md-7"></div>
-        <div class="col-md-5" style="overflow-x: visible !important; overflow-y: visible !important;">
+        <div class="col-md-5">
             <table align="center">
                 <tr>
                     <th style="padding: 10px;"><a href="" style="text-decoration: none">Language &nbsp;&nbsp;|</a></th>
@@ -525,6 +541,7 @@
                             @endforeach
                         </ul>
                     </li>
+
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             Excursions {{ HTML::image('images/site/white-arrow.png', '', array('class' => 'nav_arrow')) }}
@@ -554,10 +571,6 @@
                             </li>
                         </ul>
                     </li>
-
-                    {{--<li><a href="#">Flights</a></li>--}}
-
-                    {{--<li><a href="special_offers.php"> Hot Deals </a></li>--}}
 
                     <li><a href="{{URL::to('/contact')}}">Contact Us </a></li>
 

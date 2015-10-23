@@ -34,7 +34,7 @@
             color: #000000;
         }
 
-        .labelleft2 li{
+        .labelleft2 li {
             color: #333333 !important;
         }
 
@@ -62,9 +62,9 @@
 
     <body id="top" class="thebg">
 
-    <div class="navbar-wrapper2 navbar-fixed-top">
-        @include('layout.navbar')
-    </div>
+    <!-- navbar -->
+    @include('layout.navbar')
+    <!-- / navbar -->
 
     <div class="container breadcrub">
         <div>

@@ -4,13 +4,14 @@
 
 
 /**************************************** AUTO COMPLETE  ******************************************************************/
-$( ".selector" ).autocomplete({ delay: 0 });
 
 function lookup(inputString) {
     if (inputString.length == 0) {
         $('#suggestions').fadeOut(); // Hide the suggestions box
+        $("#inputString").removeClass("ac_loading");
     } else {
-        $( "#suggestions" ).autocomplete({ delay: 0 });
+        $("#inputString").addClass("ac_loading");
+        //$( "#suggestions" ).autocomplete({ delay: 0 });
         $.post("http://" + window.location.host + "/auto-complete", {queryString: "" + inputString + ""}, function (data) { // Do an AJAX call
             $('#suggestions').fadeIn(); // Show the suggestions box
             $('#suggestions').html(data); // Fill the suggestions box
@@ -21,6 +22,7 @@ function lookup(inputString) {
                 $('#inputString').val($value);
                 $('#inputString').attr('category', $category);
                 $('#suggestions').fadeOut();
+                $("#inputString").removeClass("ac_loading");
             });
         });
     }

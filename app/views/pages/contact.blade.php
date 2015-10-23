@@ -13,11 +13,7 @@
     <body id="top" class="thebg">
 
     <!-- navbar -->
-    <div class="navbar-wrapper2 navbar-fixed-top">
-
-        @include('layout.navbar')
-
-    </div>
+    @include('layout.navbar')
     <!-- / navbar -->
 
 

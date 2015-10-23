@@ -12,54 +12,24 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
 ?>
 
 <style type="text/css">
+    .ac_loading {
+        background: white url('images/site/indicator.gif') right center no-repeat;
+    }
 
     #suggestions {
-        width: 100%;
-        height: 100%;
+        width: 90%;
+        height: 200px;
         position: absolute;
         top: 140px;
         left: 20px;
     }
+
     #suggestions {
+        height: 200px;
         z-index: 102;
     }
 </style>
 
-<script type="text/javascript">
-    jQuery(document).ready(function() {
-        "use strict";
-        var nice = jQuery("html").niceScroll({
-            cursorcolor:"#ccc",
-            cursorborder :"0px solid #fff",
-            railpadding:{top:0,right:0,left:0,bottom:0},
-            cursorwidth:"5px",
-            cursorborderradius:"0px",
-            cursoropacitymin:0,
-            cursoropacitymax:0.7,
-            boxzoom:true,
-            autohidemode:false,
-            overflowY: isVisible
-        });
-
-        jQuery("#air").niceScroll({horizrailenabled:false});
-        jQuery("#hotel").niceScroll({horizrailenabled:true});
-        jQuery("#car").niceScroll({horizrailenabled:false});
-        jQuery("#vacations").niceScroll({horizrailenabled:false});
-
-        jQuery("#air2").niceScroll({horizrailenabled:false});
-        jQuery("#hotel2").niceScroll({horizrailenabled:false});
-        jQuery("#car2").niceScroll({horizrailenabled:false});
-        jQuery("#vacations2").niceScroll({horizrailenabled:false});
-        jQuery("#flighthotel2").niceScroll({horizrailenabled:false});
-        jQuery("#cruise2").niceScroll({horizrailenabled:false});
-        jQuery("#hotelcar2").niceScroll({horizrailenabled:false});
-        jQuery("#flighthotelcar2").niceScroll({horizrailenabled:false});
-
-
-        jQuery('html').addClass('no-overflow-y');
-
-    });
-</script>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -85,6 +55,7 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
         <div id="hotel" class="tab-pane fade active in" style="overflow-y: visible !important;">
             {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'searchform', 'method' => 'POST', )) }}
             <span class="opensans size18">Where do you want to go?</span>
+
             <input type="text" class="form-control" name="txt-search" id="inputString" category=""
                    onkeyup="lookup(this.value);" autocomplete="off"/>
 
@@ -198,3 +169,25 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
     </div>
 
 </div>
+
+<script type="text/javascript">
+    function lookup(inputString) {
+        if (inputString.length == 0) {
+            $('#suggestions').fadeOut(); // Hide the suggestions box
+        } else {
+            //$( "#suggestions" ).autocomplete({ delay: 0 });
+            $.post("http://" + window.location.host + "/auto-complete", {queryString: "" + inputString + ""}, function (data) { // Do an AJAX call
+                $('#suggestions').fadeIn(); // Show the suggestions box
+                $('#suggestions').html(data); // Fill the suggestions box
+
+                $('a').click(function () {
+                    $value = $(this).attr('value');
+                    $category = $(this).attr('category');
+                    $('#inputString').val($value);
+                    $('#inputString').attr('category', $category);
+                    $('#suggestions').fadeOut();
+                });
+            });
+        }
+    }
+</script>

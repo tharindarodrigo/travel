@@ -55,9 +55,9 @@
 
     <body id="top" class="thebg">
 
-    <div class="navbar-wrapper2 navbar-fixed-top">
-        @include('layout.navbar')
-    </div>
+    <!-- navbar -->
+    @include('layout.navbar')
+    <!-- / navbar -->
 
     <div class="container breadcrub">
         <div>
@@ -272,7 +272,7 @@
 
                                         {{--<span class="size11 grey"></span><br/><br/><br/>--}}
 
-                                        <a style="background: #006699; color: #FFFFFF"  class="bookbtn mt1"
+                                        <a style="background: #006699; color: #FFFFFF" class="bookbtn mt1"
                                            href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $types->Tour->tour_title).'/'.str_replace(' ', '-', $types->tour_type_title))}}">
                                             Book
                                         </a>

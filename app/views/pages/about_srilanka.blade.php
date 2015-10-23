@@ -11,7 +11,7 @@
             width: 250px;;
         }
 
-        strong{
+        strong {
             font-family: "Lato";
             font-style: italic;
         }
@@ -47,9 +47,9 @@
 
     <body id="top" class="thebg">
 
-    <div class="navbar-wrapper2 navbar-fixed-top">
-        @include('layout.navbar')
-    </div>
+    <!-- navbar -->
+    @include('layout.navbar')
+    <!-- / navbar -->
 
     <div class="container breadcrub">
         <div>

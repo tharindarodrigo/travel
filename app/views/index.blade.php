@@ -82,6 +82,7 @@
         .ddd {
             margin-top: -10px;
         }
+
     </style>
 
     {{--my styles--}}
@@ -178,7 +179,7 @@
 
     <div class="wrap cstyle03">
 
-        <div class="container mt-200 z-index100">
+        <div style="" id="index_body" class="container mt-200 z-index100">
             <div class="row">
 
                 <div class="col-md-4">
@@ -318,51 +319,51 @@
                         </div>
 
                         {{--@foreach($user_review as $reviews)--}}
-                            {{--<div class="deal">--}}
-                                {{--<a href="#">--}}
-                                    {{--<img src="images/site/3.png" alt="" class="dealthumb"/>--}}
-                                {{--</a>--}}
+                        {{--<div class="deal">--}}
+                        {{--<a href="#">--}}
+                        {{--<img src="images/site/3.png" alt="" class="dealthumb"/>--}}
+                        {{--</a>--}}
 
-                                {{--<div class="dealtitle">--}}
-                                    {{--<p>--}}
-                                        <?php
-                                       // $get_city_id = DB::table('cities')->where('id', $reviews->hotel->id)->first();
-                                      //  $city = $get_city_id->city;
-                                        ?>
+                        {{--<div class="dealtitle">--}}
+                        {{--<p>--}}
+                        <?php
+                        // $get_city_id = DB::table('cities')->where('id', $reviews->hotel->id)->first();
+                        //  $city = $get_city_id->city;
+                        ?>
 
-                                        {{--<a href="{{URL::to('sri-lanka/'.str_replace(' ', '-', $city).'/'.str_replace(' ', '-', $reviews->hotel->name))}}"--}}
-                                           {{--class="dark">{{ $reviews->review }}--}}
-                                            {{--- {{ $reviews->hotel->name }}</a>--}}
+                        {{--<a href="{{URL::to('sri-lanka/'.str_replace(' ', '-', $city).'/'.str_replace(' ', '-', $reviews->hotel->name))}}"--}}
+                        {{--class="dark">{{ $reviews->review }}--}}
+                        {{--- {{ $reviews->hotel->name }}</a>--}}
 
-                                    {{--</p>--}}
-                                    <?php
-                                    //$stars = $reviews->hotel->star_category_id;
-                                   // $star = DB::table('star_categoriesgh')->where('id', $stars)->first();
-                                   // $hotel_star = $star->stars;
-                                    ?>
+                        {{--</p>--}}
+                        <?php
+                        //$stars = $reviews->hotel->star_category_id;
+                        // $star = DB::table('star_categoriesgh')->where('id', $stars)->first();
+                        // $hotel_star = $star->stars;
+                        ?>
 
-                                    {{--{{ Star::star_loop_blue($hotel_star)}}--}}
+                        {{--{{ Star::star_loop_blue($hotel_star)}}--}}
 
-                                {{--</div>--}}
-                                {{--<div class="dealprice">--}}
+                        {{--</div>--}}
+                        {{--<div class="dealprice">--}}
 
-                                    <?php //$low_hotel_rate = RoomRates::lowestHotelRate($reviews->hotel_id, $st_date, $ed_date); ?>
+                        <?php //$low_hotel_rate = RoomRates::lowestHotelRate($reviews->hotel_id, $st_date, $ed_date); ?>
 
-                                    {{--@if(!empty($low_hotel_rate))--}}
-                                        {{--<span class="price">--}}
-                                {{--$ {{ $low_hotel_rate }}--}}
-                                {{--</span>--}}
-                                    {{--@else--}}
-                                        {{--<span class="price">--}}
-                                {{--No rate--}}
-                                {{--</span>--}}
-                                    {{--@endif--}}
-                                {{--</div>--}}
+                        {{--@if(!empty($low_hotel_rate))--}}
+                        {{--<span class="price">--}}
+                        {{--$ {{ $low_hotel_rate }}--}}
+                        {{--</span>--}}
+                        {{--@else--}}
+                        {{--<span class="price">--}}
+                        {{--No rate--}}
+                        {{--</span>--}}
+                        {{--@endif--}}
+                        {{--</div>--}}
 
-                                {{--<div class="dealtitle">--}}
+                        {{--<div class="dealtitle">--}}
 
-                                {{--</div>--}}
-                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--</div>--}}
                         {{--@endforeach--}}
                         {{--{{ HTML::image('images/site/guest_review.png', '', array('class' => 'guest_review'))}}--}}
 
@@ -514,7 +515,7 @@
     @section('script')
 
         <!-- This page JS -->
-{{--        {{ HTML::script('assets/js/js-inde  x3.js') }}--}}
+        {{ HTML::script('assets/js/js-index3.js') }}
 
         <!-- Custom js -->
         {{ HTML::script('js/my_script.js') }}

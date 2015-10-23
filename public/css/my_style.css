@@ -10,7 +10,7 @@ a {
 /* SEARCH FORM */
 
 #suggestions {
-    color: #FFFFFF !important;
+    color: #000000 !important;
     background: #FFFFFF;
     position: relative;
     top: 5px;
@@ -91,7 +91,7 @@ div .auto_complete:hover {
     float: right;
     padding-right: 15px;
     margin-right: 5px;
-    background-image: url(../images/shortcuts_arrow.gif);
+    background-image: url(images/site/indicator.gif);
     background-repeat: no-repeat;
     background-position: right;
 }
