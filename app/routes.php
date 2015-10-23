@@ -97,7 +97,6 @@ Route::group(array('before' => 'auth'), function () {
         });
 
 
-
         Route::group(array('before' => 'admin'), function () {
             /**
              * general
@@ -124,13 +123,20 @@ Route::group(array('before' => 'auth'), function () {
              */
 
             Route::group(array('prefix' => 'users'), function () {
-                Route::get('hoteliers','UsersController@getHoteliers');
 
-                Route::get('agents/changeMarket','UsersController@changeMarket');
+                Route::get('hoteliers', 'UsersController@getHoteliers');
                 Route::post('change-role/{user_id}', 'UsersController@changeRole');
                 Route::post('hoteliers/get-hotel-suggestions', 'UsersController@getHotelSuggestions');
+
+                /**
+                 * users/agents
+                 */
+                Route::group(array('prefix' => 'agents'), function () {
+                    Route::get('/', 'UsersController@getAgentsOfUsers');
+                    Route::get('changeMarket', 'UsersController@changeMarket');
+                });
             });
-            Route::resource('agents','AgentsController');
+            Route::resource('agents', 'AgentsController');
             Route::resource('users', 'UsersController');
 
 
@@ -286,7 +292,32 @@ Route::group(array('before' => 'auth'), function () {
 //=====================================================================================================================|
 //    End Control Panel                                                                                                |
 //=====================================================================================================================|
+    Route::get('email', function () {
+        $voucher = Voucher::find(22);
+        $pdf = PDF::loadView('emails/voucher', array('voucher' => $voucher));
+        $pdf->save(public_path().'/temp-files/voucher.pdf');
 
+        Mail::send('emails/voucher-mail', array(), function ($message)  {
+            $message->to('tharindarodrigo@gmail.com', Auth::user()->first_name)
+                ->subject('Voucher')
+                ->attach(public_path().'/temp-files/voucher.pdf');
+        });
+
+        return View::make('emails.voucher',compact('voucher'));
+    });
+    Route::get('email-booking', function () {
+        $hotel_users = DB::table('users')->leftJoin('hotel_user', 'users.id', '=', 'hotel_user.user_id')
+            ->where('hotel_user.hotel_id', 1065)
+            ->get();
+        dd($hotel_users);
+        $booking = Booking::find(36);
+        return View::make('emails.booking', compact('booking'));
+    });
+
+    Route::get('invoice', function () {
+        $booking = Booking::find(36);
+        return View::make('emails.invoice', compact('booking'));
+    });
     Route::get('profile', 'UsersController@getProfile');
 });
 

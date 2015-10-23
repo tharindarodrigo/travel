@@ -11,9 +11,7 @@ class UsersController extends \BaseController
      */
     public function index()
     {
-        $users = DB::table('users')
-            ->leftJoin('assigned_roles', 'users.id', '=', 'assigned_roles.user_id')
-            ->get();
+        $users = User::with('role')->get();
         return View::make('control-panel.users.index', compact('users'));
     }
 
@@ -32,8 +30,18 @@ class UsersController extends \BaseController
 
         $role = DB::table('assigned_roles')->where('user_id', $id)->first();
 
-
         $role_id = Input::get('role_id');
+
+        if(!$role) {
+            $insert = DB::table('assigned_roles')->insert(array('user_id'=>$id, 'role_id' => $role_id));
+            if ($insert) {
+                return Response::json(array(
+                    'success' => true,
+                    'msg' => $user->first_name . " " . $user->last_name . '\'s role has been Added'
+                ));
+            }
+        }
+
         $updateRole = DB::table('assigned_roles')->where('id', $role->id)->update(array('role_id' => $role_id));
 
         if ($updateRole) {
@@ -128,7 +136,12 @@ class UsersController extends \BaseController
 
     public function getAgents()
     {
-        $agents = User::getAgents();
+        $agents = User::whereHas('role', function ($q) {
+            $q->where('name', 'Like', 'Agent');
+        });
+
+        dd($agents);
+
         return View::make('control-panel.users.agents.index', compact('agents'));
     }
 
@@ -146,6 +159,13 @@ class UsersController extends \BaseController
     {
 
         return View::make('profile.profile');
+    }
+
+    public function getAgentsOfUsers()
+    {
+        $agents = User::has('role');
+
+        return View::make('control-panel.users.agents.index', compact('agents'));
     }
 
 }

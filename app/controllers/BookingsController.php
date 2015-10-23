@@ -41,7 +41,7 @@ class BookingsController extends \BaseController
     public function store()
     {
 
-        $user = Auth::user();
+
 
         $validator = Validator::make($data = Input::all(), Booking::$rules);
 
@@ -49,11 +49,14 @@ class BookingsController extends \BaseController
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        if (!Session::has('client-list')) {
-            return Redirect::back();
+//        if (!Session::has('client-list')) {
+//            return Redirect::back();
+//        }
+        if(Auth::check()){
+            $user = Auth::user();
+            $data['user_id'] = $user->id;
         }
 
-        $data['user_id'] = $user->id;
         $data['val'] = 1;
         $data['reference_number'] = 123456789;
         $clients = null;
@@ -61,80 +64,134 @@ class BookingsController extends \BaseController
         if (Session::has('rate_box_details') || Session::has('transport_cart_box')) {
 
             if ($booking = Booking::create($data)) {
-                if (Session::has('client-list')) {
-                    $clients = Session::pull('client-list');
-                    //dd($clients);
-                    //dd($booking->id);
-                    foreach ($clients as $client) {
-                        $client['booking_id'] = $booking->id;
-                        $client['gender'] === 'male' ? $client['gender'] = 1 : $client['gender'] = 0;
-                        Client::create($client);
+
+                DB::table('booking_user')->insert(array('booking_id'=>$booking->id, 'user_id'=>$user->id));
+
+                if(Auth::check()){
+                    if (Session::has('client-list')) {
+                        $clients = Session::pull('client-list');
+                        //dd($clients);
+                        //dd($booking->id);
+                        foreach ($clients as $client) {
+                            $client['booking_id'] = $booking->id;
+                            $client['gender'] === 'male' ? $client['gender'] = 1 : $client['gender'] = 0;
+                            Client::create($client);
+                        }
                     }
+
+                    $flight_data = [];
+                    $flight_data['booking_id'] = $booking->id;
+                    //dd($flight_data['booking_id']);
+
+                    //arrival flight data
+
+                    $flight_data['date'] = $data['date_arrival'];
+                    $flight_data['time'] = $data['arrival_time'];
+                    $flight_data['flight'] = $data['arrival_flight'];
+                    $flight_data['flight_type'] = 1;
+
+                    FlightDetail::create($flight_data);
+
+                    //departure flight data
+                    $flight_data['date'] = $data['date_departure'];
+                    $flight_data['time'] = $data['departure_time'];
+                    $flight_data['flight'] = $data['departure_flight'];
+                    $flight_data['flight_type'] = 0;
+
+                    FlightDetail::create($flight_data);
                 }
-                $flight_data = [];
-                $flight_data['booking_id'] = $booking->id;
-                //dd($flight_data['booking_id']);
-
-                //arrival flight data
-
-                $flight_data['date'] = $data['date_arrival'];
-                $flight_data['time'] = $data['arrival_time'];
-                $flight_data['flight'] = $data['arrival_flight'];
-                $flight_data['flight_type'] = 1;
-
-                FlightDetail::create($flight_data);
-
-                //departure flight data
-                $flight_data['date'] = $data['date_departure'];
-                $flight_data['time'] = $data['departure_time'];
-                $flight_data['flight'] = $data['departure_flight'];
-                $flight_data['flight_type'] = 0;
-
-                FlightDetail::create($flight_data);
 
 
-                //transport - custom trips
+                /**
+                 *  transport - custom trips
+                 */
 
-                if(Session::has('transport_cart_box')) {
+                if (Session::has('transport_cart_box')) {
                     $custom_trip = Session::pull('transport_cart_box');
-                    $custom_trip['from'] = $custom_trip['pick_up_date'].' '.$custom_trip['pick_up_time_hour'].':'.$custom_trip['pick_up_time_minutes'];
-                    $custom_trip['to'] = $custom_trip['drop_off_date'].' '.$custom_trip['drop_off_time_hour'].':'.$custom_trip['drop_off_time_minute'];
+                    $custom_trip['from'] = $custom_trip['pick_up_date'] . ' ' . $custom_trip['pick_up_time_hour'] . ':' . $custom_trip['pick_up_time_minutes'];
+                    $custom_trip['to'] = $custom_trip['drop_off_date'] . ' ' . $custom_trip['drop_off_time_hour'] . ':' . $custom_trip['drop_off_time_minute'];
                     $custom_trip['reference_number'] = 'TR011000';
                     CustomTrip::create($custom_trip);
                 }
 
-                //hotel bookings
+                /**
+                 *  hotel bookings
+                 */
 
-                if(Session::has('rate_box_details')){
+                if (Session::has('rate_box_details')) {
                     $bookings = Session::pull('rate_box_details');
 
-                    $vouchers = Voucher::arrangeHotelBookingsVoucherwise($bookings,$booking->id);
+                    $vouchers = Voucher::arrangeHotelBookingsVoucherwise($bookings, $booking->id);
 
-                    foreach($vouchers as $voucher){
-                        $create_voucher = Voucher::create($voucher);
+                    foreach ($vouchers as $voucher) {
+                        $created_voucher = Voucher::create($voucher);
 
-                        for($c=0; $c<count($voucher)-6; $c++){
+                        for ($c = 0; $c < count($voucher) - 6; $c++) {
 
-                            $voucher[$c]['voucher_id'] = $create_voucher->id;
-                            $voucher[$c]['amount'] = $voucher[$c]['room_cost'];
-                            RoomBooking::create($voucher[$c]);
+                            $voucher[$c]['voucher_id'] = $created_voucher->id;
+
+                            $RoomBooking = RoomBooking::create($voucher[$c]);
+
                         }
+
+                        // voucher
+                        $pdf = PDF::loadView('emails/voucher', array('voucher' => $created_voucher));
+                        $pdf->save(public_path() . '/temp-files/voucher.pdf');
+
+                        $hotel_users = DB::table('users')->leftJoin('hotel_user', 'users.id', '=', 'hotel_user.user_id')
+                            ->where('hotel_user.hotel_id', $created_voucher->hotel_id)
+                            ->get();
+
+                        Mail::send('emails/voucher-mail', array(
+                            'voucher' => Voucher::find($created_voucher->id)
+                        ), function ($message) use ($booking, $hotel_users) {
+                            $message->attach(public_path() . '/temp-files/voucher.pdf');
+                            foreach ($hotel_users as $hotel_user) {
+                                $message->to($hotel_user->email, $hotel_user->first_name)
+                                    ->subject('Booking Voucher : ' . $booking->reference_number)
+                                    ->attach(public_path() . '/temp-files/voucher.pdf');
+                            }
+                        });
                     }
                 }
 
-                Mail::send('emails.bookings.booking', array(
-                    'data' => Booking::getBookingData($booking->id)
-                ), function ($message) use ($user, $booking) {
+                //Booking details
 
-                    $message->to('tharindarodrigo@gmail.com', $user->first_name)->subject('Booking Created : ' . $booking->reference_number);
+                $pdf = PDF::loadView('emails/booking', array('booking' => $booking));
+                $pdf->save(public_path() . '/temp-files/booking.pdf');
+
+                $emails = array('tharinda@exotic-intl.com', 'lahiru@exotic-intl.com', 'umesh@exotic-intl.com');
+
+                Mail::send('emails/booking-mail', array(
+                    'booking' => Booking::getBookingData($booking->id)
+                ), function ($message) use ($user, $booking, $emails) {
+                    $message->attach(public_path() . '/temp-files/booking.pdf');
+                    foreach ($emails as $emailaddress) {
+                        $message->to($emailaddress, 'Admin')
+                            ->subject('Booking Created : ' . $booking->reference_number);
+                    }
                 });
+
+                //Invoice
+
+                $pdf = PDF::loadView('emails/invoice', array('booking' => $booking));
+                $pdf->save(public_path() . '/temp-files/invoice.pdf');
+
+                Mail::send('emails/invoice-mail', array(
+                    'booking' => Booking::getBookingData($booking->id)
+                ), function ($message) use ($user, $booking, $emails) {
+                    $message->to(Auth::user()->email, Auth::user()->first_name . ' ' . Auth::user()->last_name)
+                        ->subject('Booking Created : ' . $booking->reference_number)
+                        ->attach(public_path() . '/temp-files/invoice.pdf');
+                });
+
+                Session::put('sent_emails','Emails have been sent to the Respective parties');
 
             }
 
         } else {
             return Redirect::back();
         }
-
 
         return Redirect::route('bookings.index');
     }
@@ -148,7 +205,7 @@ class BookingsController extends \BaseController
     public function show($id)
     {
         try {
-            $booking = Booking::with('voucher')->with('client')->with('flightDetail')->where('id', $id)->where('user_id',Auth::user()->id)->first();
+            $booking = Booking::with('voucher')->with('client')->with('flightDetail')->where('id', $id)->where('user_id', Auth::user()->id)->first();
 
         } catch (ModelNotFoundException $e) {
             return Redirect::to('/404');

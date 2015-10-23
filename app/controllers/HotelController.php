@@ -810,6 +810,7 @@ class HotelController extends \BaseController
             'meal_basis_id' => $meal_basis_id,
             'room_cost' => $room_cost,
             'room_count' => $room_count,
+            'unit_price'=>$total_rate,
             'adult' => $adult,
             'child' => $child,
             'nights' => $nights,

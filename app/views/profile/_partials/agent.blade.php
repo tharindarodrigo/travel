@@ -33,7 +33,6 @@
                             </div>
                             <div class="form-group">
                                 {{Form::submit('update',array('class'=> 'btn btn-primary'))}}
-
                             </div>
                             {{Form::close()}}
                         @else
