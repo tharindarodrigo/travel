@@ -28,6 +28,25 @@
 
     <style type="text/css">
 
+        /*GROW*/
+        .hot_facilities_icon {
+            opacity: 0.5;
+            width: 20px;
+            height: 20px;
+            border: #999 double 1px !important;
+            border-radius: 3px;
+            -webkit-transition: all 1s ease;
+            -moz-transition: all 1s ease;
+            -o-transition: all 1s ease;
+            -ms-transition: all 1s ease;
+            transition: all 1s ease;
+        }
+
+        .hot_facilities_icon:hover {
+            opacity: 1;
+            color: #000000 !important;
+        }
+
         .hotel_img_1 {
             width: 325px;
             height: 250px;
@@ -547,7 +566,7 @@
                                 <h4>
                                     <a style="color: #006699"
                                        href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;{{ $hotel->name }}
+                                        &nbsp;&nbsp;&nbsp;&nbsp; {{ Str::limit($hotel->name, 20) }}
                                     </a>
                                 </h4>
 
@@ -577,7 +596,7 @@
                                             <b>
                                                 USD {{ $low_hotel_rate }}
                                             </b>
-                                            </span>
+                                        </span>
                                         <br/>
                                         <span class="size11 grey">avg/night</span><br/><br/>
                                     @else
@@ -593,8 +612,45 @@
                                 </div>
                                 <div class="labelleft">
                                     <p class="grey">
-                                        {{ Str::limit($hotel->overview, 80) }}
+                                        {{ Str::limit($hotel->overview, 50) }}
                                     </p>
+
+                                    @if(Input::has('facility') || Input::has('price_range'))
+                                        <ul class="hotelpreferences">
+                                            <?php
+                                            $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
+                                            ?>
+                                            @foreach($hotel_facilities->hotelFacility as $hotel_facility)
+                                                <?php
+                                                //echo public_path();
+                                                $directory = 'public/images/hotel_facilities/';
+                                                $images = glob($directory . $hotel_facility->id . "*");
+                                                $img_path = array_shift($images);
+                                                $img_name = basename($img_path);
+                                                ?>
+
+                                                {{ HTML::image('images/hotel_facilities/'.$img_name, '', array('class' => 'hot_facilities_icon'))}}
+
+                                            @endforeach
+                                        </ul>
+                                    @else
+                                        <ul class="hotelpreferences">
+                                            <?php
+                                            $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
+                                            ?>
+                                            @foreach($hotel_facilities->hotelFacility as $hotel_facility)
+                                                <?php
+                                                //echo public_path();
+                                                $directory = 'public/images/hotel_facilities/';
+                                                $images = glob($directory . $hotel_facility->id . "*");
+                                                $img_path = array_shift($images);
+                                                $img_name = basename($img_path);
+                                                ?>
+
+                                                {{ HTML::image('images/hotel_facilities/'.$img_name, '', array('class' => 'hot_facilities_icon'))}}
+                                            @endforeach
+                                        </ul>
+                                    @endif
                                 </div>
                             </div>
 

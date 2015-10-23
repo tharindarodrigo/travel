@@ -640,9 +640,9 @@
                                                         $img_path = array_shift($images);
                                                         $img_name = basename($img_path);
                                                         ?>
-                                                        <div style="border-top:#CC0000 dashed 1px !important;">
-                                                            {{ HTML::image('images/hotel_facilities/'.$img_name, '', array('class' => 'hot_facilities_icon'))}}
-                                                        </div>
+
+                                                        {{ HTML::image('images/hotel_facilities/'.$img_name, '', array('class' => 'hot_facilities_icon'))}}
+
                                                     @endforeach
                                                 </ul>
                                             @else
