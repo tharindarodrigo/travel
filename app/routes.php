@@ -300,7 +300,8 @@ Route::group(array('before' => 'auth'), function () {
 Route::get('voucher/{id}', function ($id) {
     $voucher = Voucher::find($id);
     $pdf = PDF::loadView('emails/voucher', array('voucher' => $voucher));
-    return $pdf->stream();
+    $pdf->setPaper('a4')->save(public_path().'/temp_files/voucher.pdf');
+    return $pdf->stream('abc.pdf');
 
 });
 Route::get('booking/{id}', function ($id) {
@@ -315,7 +316,7 @@ Route::get('booking/{id}', function ($id) {
 
 Route::get('invoice/{id}', function ($id) {
     $booking = Booking::find($id);
-    $pdf = PDF::loadView('emails/booking', array('booking' => $booking));
+    $pdf = PDF::loadView('emails/invoice', array('booking' => $booking));
 
     return $pdf->stream();
 });

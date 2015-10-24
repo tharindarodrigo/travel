@@ -147,7 +147,7 @@
                     <thead style="text-align: left;">
                     <tr>
                         <th align="left">Booking No</th>
-                        <td>: <?php $booking->reference_number ?></td>
+                        <td>: <?php echo $booking->reference_number ?></td>
                     </tr>
                     <tr>
                         <th align="left">Booked By</th>
@@ -310,6 +310,7 @@
 <div>
 
     <?php } ?>
+    <?php if ($booking->flightDetail->count()) { ?>
 
 
     <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
@@ -342,9 +343,8 @@
 
     <br/>
 </div>
+<?php } ?>
 
-
-<?php require_once('emailStructure/footer.php') ?>
 
 
 

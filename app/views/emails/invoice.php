@@ -68,4 +68,3 @@
 <br>
 
 
-<?php require_once ('emailStructure/footer.php'); ?>
