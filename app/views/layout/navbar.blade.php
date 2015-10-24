@@ -41,7 +41,7 @@
 {{ HTML::script('//code.jquery.com/jquery-1.11.2.min.js') }}
 {{ HTML::script('//code.jquery.com/jquery-migrate-1.2.1.min.js') }}
 
-<!-- Bootstrap -->
+        <!-- Bootstrap -->
 {{ HTML::style('dist/css/bootstrap.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 {{ HTML::style('assets/css/custom.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
@@ -454,7 +454,9 @@
                                         &nbsp;&nbsp;&nbsp;
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href=""> Dashboard </a></li>
+                                        @if(Entrust::hasRole('Hotelier'))
+                                            <li><a href="{{URL::to('control-panel')}}"> Dashboard </a></li>
+                                        @endif
                                         <li><a href=""> My Booking </a></li>
                                         <li><a href=""> Reviews </a></li>
                                         <li><a href=""> Settings </a></li>

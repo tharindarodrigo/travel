@@ -6,10 +6,13 @@ use Illuminate\Support\Facades\File;
 
 class HotelsController extends \BaseController
 {
+    private $_user;
 
     public function __construct()
     {
         $this->beforeFilter('admin', array('only' => 'create'));
+        $this->_user = Auth::user();
+
     }
 
     /**
@@ -19,7 +22,13 @@ class HotelsController extends \BaseController
      */
     public function index()
     {
-        $hotels = Hotel::with('hotelCategory')->with('city')->get();
+        if(Entrust::can('manage_all_hotels')){
+            $hotels = Hotel::with(array('hotelCategory', 'starCategory','city'))->select('name','val','id','star_category_id','city_id')->get();
+        } else {
+            $hotels = Hotel::whereHas('user',function($q){
+                $q->where('users.id',$this->_user->id);
+            })->with(array('hotelCategory', 'starCategory','city'))->select('name','val','id','star_category_id','city_id')->get();
+        }
 
         return View::make('control-panel.hotel.hotels.index', compact('hotels'));
     }

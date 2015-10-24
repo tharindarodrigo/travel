@@ -2,6 +2,18 @@
 
 class RatesController extends \BaseController
 {
+    private $_user;
+    private $_parameters;
+
+    public function __construct()
+    {
+        $this->_user = Auth::user();
+        $this->_parameters = Route::current()->parameters();
+        if(!User::hasHotelPermission($this->_user, $this->_parameters['hotels']))
+            if (!Entrust::hasRole('Admin')) {
+                App::abort(403);
+            }
+    }
 
     /**
      * Display a listing of rates

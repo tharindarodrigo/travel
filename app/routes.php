@@ -245,17 +245,6 @@ Route::group(array('before' => 'auth'), function () {
                 Route::put('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/update', 'HotelsController@updateCancellationPolicy');
                 Route::delete('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/delete', 'HotelsController@deleteCancellationPolicy');
 
-
-                Route::group(array('before' => 'admin'), function () {
-
-
-                    /**
-                     *  Room Types
-                     */
-                    Route::resource('hotels.room-types', 'RoomTypesController');
-
-
-                });
                 //Route::resource('meal-bases', 'MealBasesController');
             });
 

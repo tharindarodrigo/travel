@@ -50,7 +50,7 @@
 
     <tr>
         <th>Total
-        </td>
+
         <td align="right">USD. <?php echo number_format(Booking::getTotalVoucherAmount($booking->id), 2) ?></td>
     </tr>
 </table>

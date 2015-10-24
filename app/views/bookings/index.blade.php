@@ -130,7 +130,6 @@
         <!-- END CONTENT -->
 
     </div>
-    </div>
 
 
 
@@ -138,9 +137,9 @@
 
 @section('script')
     <script type="text/javascript">
-        //    $(document).ready(function(){
-        //        $('#agent-bookings').dataTable();
-        //    });
+        $(document).ready(function () {
+            $('#agent-bookings').dataTable();
+        });
     </script>
 @stop
 

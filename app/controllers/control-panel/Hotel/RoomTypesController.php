@@ -5,6 +5,19 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class RoomTypesController extends \BaseController
 {
 
+    private $_user;
+    private $_parameters;
+
+    public function __construct()
+    {
+        $this->_user = Auth::user();
+        $this->_parameters = Route::current()->parameters();
+        if(!User::hasHotelPermission($this->_user, $this->_parameters['hotels']))
+            if (!Entrust::hasRole('Admin')) {
+                App::abort(403);
+            }
+    }
+
     /**
      * Display a listing of roomtypes
      *
@@ -13,9 +26,6 @@ class RoomTypesController extends \BaseController
     public function index($hotelid)
     {
         $roomtypes = Roomtype::where('hotel_id', $hotelid)->get();
-
-//        dd($roomspecifications);
-
 
         return View::make('control-panel.hotel.rooms.index')->with(array(
             'hotelid' => $hotelid,
@@ -28,14 +38,13 @@ class RoomTypesController extends \BaseController
      *
      * @return Response
      */
-    public function create($id)
+    public function create($hotelid)
     {
 
 //        Session::put('roomspec',array(1,3,5));
 //        $roomspecs = DB::table('room_specifications')->whereIn('id',Session::get('roomspec'))->get();
         $roomspecifications = RoomSpecification::all();
         $roomfacilities = RoomFacility::all();
-        $hotelid = $id;
         return View::make('control-panel.hotel.rooms.create', compact('hotelid', 'roomfacilities', 'roomspecifications'));
 
     }
@@ -61,7 +70,6 @@ class RoomTypesController extends \BaseController
 
         if ($roomType = Roomtype::create($data)) {
 
-//            dd('success');
             $roomFacilities = Input::get('room_facility_id');
             if (!empty($roomFacilities)) {
                 dd($roomFacilities);
@@ -179,7 +187,7 @@ class RoomTypesController extends \BaseController
 
         $roomtype = Roomtype::findOrFail($id);
 
-        if(!Input::has('val')){
+        if (!Input::has('val')) {
             $data = array(
                 'room_type' => Input::get('room_type'),
                 'description' => Input::get('description'),
@@ -220,7 +228,7 @@ class RoomTypesController extends \BaseController
         $roomfacilities = Input::get('room_facility_id');
         DB::table('room_facility_room_type')->where('room_type_id', $id)->delete();
 
-        if(!empty($roomfacilities)){
+        if (!empty($roomfacilities)) {
             foreach ($roomfacilities as $roomfacility) {
                 $roomfacilitydata = array(
                     'room_facility_id' => $roomfacility,

@@ -28,20 +28,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface
     protected $hidden = array('password', 'remember_token');
 
 
-    public function hotel()
-    {
-        return $this->hasMany('Hotel');
-    }
 
-    public function agent()
-    {
-        return $this->belongsToMany('Agent');
-    }
-
-    public function role()
-    {
-        return $this->belongsToMany('Role', 'assigned_roles');
-    }
 
     public static function getHoteliers()
     {
@@ -60,6 +47,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface
 //            ->get();
 
     }
+
+
 
 
 
@@ -84,5 +73,27 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         }
 
         return false;
+    }
+
+    public static function hasHotelPermission($user,$hotelid)
+    {
+        return $user->whereHas('hotel',function($q) use ($hotelid){
+            $q->where('hotels.id',$hotelid);
+        })->count()>0;
+    }
+
+    public function hotel()
+    {
+        return $this->belongsToMany('Hotel');
+    }
+
+    public function agent()
+    {
+        return $this->belongsToMany('Agent');
+    }
+
+    public function role()
+    {
+        return $this->belongsToMany('Role', 'assigned_roles');
     }
 }

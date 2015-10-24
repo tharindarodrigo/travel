@@ -47,9 +47,9 @@ class Hotel extends \Eloquent
         return $this->belongsTo('StarCategory');
     }
 
-    public function users()
+    public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsToMany('User');
     }
 
     public function city()
