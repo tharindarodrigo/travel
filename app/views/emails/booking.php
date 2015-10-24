@@ -147,11 +147,12 @@
                     <thead style="text-align: left;">
                     <tr>
                         <th align="left">Booking No</th>
-                        <td>: 4568796</td>
+                        <td>: <?php $booking->reference_number ?></td>
                     </tr>
                     <tr>
-                        <th align="left">Agent Name</th>
-                        <td>: <?php echo $booking->user->first_name.' '.$booking->user->last_name; ?></td>
+                        <th align="left">Booked By</th>
+                        <td>
+                            : <?php echo !empty($y = $booking->user->first()) ? $y->first_name . ' ' . $y->last_name : $booking->name; ?></td>
                     </tr>
                     <tr>
                         <th align="left">Tour</th>
@@ -170,19 +171,19 @@
                 <table>
                     <tr>
                         <th align="left">Arrival Date</th>
-                        <td>: <?php echo $booking->arrival_date;?></td>
+                        <td>: <?php echo $booking->arrival_date; ?></td>
                     </tr>
                     <tr>
                         <th align="left">Departure Date</th>
-                        <td>: <?php echo $booking->departure_date;?></td>
+                        <td>: <?php echo $booking->departure_date; ?></td>
                     </tr>
                     <tr>
                         <th align="left">Pax</th>
-                        <td>: Adults - <?php echo $booking->adults;?></td>
+                        <td>: Adults - <?php echo $booking->adults; ?></td>
                     </tr>
                     <tr>
                         <th>&nbsp;</th>
-                        <td>&nbsp;&nbsp;Children - <?php echo $booking->children;?></td>
+                        <td>&nbsp;&nbsp;Children - <?php echo $booking->children; ?></td>
                     </tr>
 
                 </table>
@@ -225,7 +226,7 @@
                 <td style="text-align: center"><?php echo $voucher->check_out; ?></td>
                 <td style="text-align: center">
                     <?php
-                    $x=1;
+                    $x = 1;
                     foreach ($voucher->roomBooking as $roomBooking) { ?>
                         <?php
 
@@ -238,7 +239,7 @@
                 </td>
                 <td style="text-align: center">
                     <?php
-                    $x=1;
+                    $x = 1;
                     foreach ($voucher->roomBooking as $roomBooking) { ?>
                         <?php
 
@@ -250,12 +251,12 @@
                 </td>
                 <td style="text-align: right">
                     <?php
-                    $x=1;
+                    $x = 1;
                     foreach ($voucher->roomBooking as $roomBooking) { ?>
 
                         <?php
                         echo $roomBooking->room_count;
-                        echo count($voucher->roomBooking) !=$x ? '<br><hr>' : '';
+                        echo count($voucher->roomBooking) != $x ? '<br><hr>' : '';
                         $x++;
                         ?>
                     <?php } ?>
@@ -269,41 +270,46 @@
 
 <br/>
 
-<div style="background: #0099cc; padding: 1px; padding-left: 20px;">
-    <h4>Client Details</h4>
-</div>
+<?php if ($booking->client->count()) { ?>
+    <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
+        <h4>Client Details</h4>
+    </div>
 
 <br/>
 
-<div class="CSSTableGenerator">
-    <table>
+    <div class="CSSTableGenerator">
+        <table>
 
-        <tr align="left">
-            <td width="50%">Name</td>
-            <td width="20%">Passport</td>
-            <td width="20%">DoB</td>
-            <td width="10%">Gender</td>
-        </tr>
-
-        <?php foreach ($booking->client as $client) { ?>
-            <!--        --><?php //foreach (Client::all() as $client) { ?>
-
-            <tr>
-                <td><?php echo $client['name'] ?></td>
-                <td><?php echo $client['passport_number'] ?></td>
-                <td><?php echo $client['dob'] ?></td>
-                <td><?php echo $client['gender'] == 1 ? 'Male' : 'Female' ?></td>
+            <tr align="left">
+                <td width="50%">Name</td>
+                <td width="20%">Passport</td>
+                <td width="20%">DoB</td>
+                <td width="10%">Gender</td>
             </tr>
-        <?php } ?>
 
-    </table>
-</div>
+            <?php
+
+            foreach ($booking->client as $client) { ?>
+                <!--        --><?php //foreach (Client::all() as $client) { ?>
+
+                <tr>
+                    <td><?php echo $client['name'] ?></td>
+                    <td><?php echo $client['passport_number'] ?></td>
+                    <td><?php echo $client['dob'] ?></td>
+                    <td><?php echo $client['gender'] == 1 ? 'Male' : 'Female' ?></td>
+                </tr>
+            <?php } ?>
+
+        </table>
+    </div>
 
 
 <br/>
 
 
 <div>
+
+    <?php } ?>
 
 
     <div style="background: #0099cc; padding: 1px; padding-left: 20px;">

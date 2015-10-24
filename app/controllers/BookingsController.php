@@ -13,7 +13,7 @@ class BookingsController extends \BaseController
      */
     public function index()
     {
-        $bookings = Booking::where('user_id', Auth::user()->id)->get();
+        $bookings = Booking::with('user')->get();
 
         return View::make('bookings.index', compact('bookings'));
     }
@@ -41,9 +41,15 @@ class BookingsController extends \BaseController
     public function store()
     {
 
+        if (Auth::check()) {
+            $user = Auth::user();
+            $data['user_id'] = $user->id;
+            $rules = Booking::$rules;
+        } else {
+            $rules = Booking::$guestRules;
+        }
 
-
-        $validator = Validator::make($data = Input::all(), Booking::$rules);
+        $validator = Validator::make($data = Input::all(), $rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
@@ -52,10 +58,7 @@ class BookingsController extends \BaseController
 //        if (!Session::has('client-list')) {
 //            return Redirect::back();
 //        }
-        if(Auth::check()){
-            $user = Auth::user();
-            $data['user_id'] = $user->id;
-        }
+
 
         $data['val'] = 1;
         $data['reference_number'] = 123456789;
@@ -65,9 +68,9 @@ class BookingsController extends \BaseController
 
             if ($booking = Booking::create($data)) {
 
-                DB::table('booking_user')->insert(array('booking_id'=>$booking->id, 'user_id'=>$user->id));
 
-                if(Auth::check()){
+                if (Auth::check()) {
+                    DB::table('booking_user')->insert(array('booking_id' => $booking->id, 'user_id' => $user->id));
                     if (Session::has('client-list')) {
                         $clients = Session::pull('client-list');
                         //dd($clients);
@@ -142,16 +145,18 @@ class BookingsController extends \BaseController
                             ->where('hotel_user.hotel_id', $created_voucher->hotel_id)
                             ->get();
 
+
                         Mail::send('emails/voucher-mail', array(
                             'voucher' => Voucher::find($created_voucher->id)
                         ), function ($message) use ($booking, $hotel_users) {
                             $message->attach(public_path() . '/temp-files/voucher.pdf');
                             foreach ($hotel_users as $hotel_user) {
                                 $message->to($hotel_user->email, $hotel_user->first_name)
-                                    ->subject('Booking Voucher : ' . $booking->reference_number)
-                                    ->attach(public_path() . '/temp-files/voucher.pdf');
+                                    ->subject('Booking Voucher : ' . $booking->reference_number);
                             }
+
                         });
+
                     }
                 }
 
@@ -164,7 +169,7 @@ class BookingsController extends \BaseController
 
                 Mail::send('emails/booking-mail', array(
                     'booking' => Booking::getBookingData($booking->id)
-                ), function ($message) use ($user, $booking, $emails) {
+                ), function ($message) use ($booking, $emails) {
                     $message->attach(public_path() . '/temp-files/booking.pdf');
                     foreach ($emails as $emailaddress) {
                         $message->to($emailaddress, 'Admin')
@@ -173,19 +178,28 @@ class BookingsController extends \BaseController
                 });
 
                 //Invoice
-
                 $pdf = PDF::loadView('emails/invoice', array('booking' => $booking));
                 $pdf->save(public_path() . '/temp-files/invoice.pdf');
 
-                Mail::send('emails/invoice-mail', array(
-                    'booking' => Booking::getBookingData($booking->id)
-                ), function ($message) use ($user, $booking, $emails) {
-                    $message->to(Auth::user()->email, Auth::user()->first_name . ' ' . Auth::user()->last_name)
-                        ->subject('Booking Created : ' . $booking->reference_number)
-                        ->attach(public_path() . '/temp-files/invoice.pdf');
-                });
+                if ($user = $booking->user->first()) {
+                    Mail::send('emails/invoice-mail', array(
+                        'booking' => Booking::getBookingData($booking->id)
+                    ), function ($message) use ($user, $booking, $emails) {
+                        $message->to($user->email, $user->first_name . ' ' . $user->last_name)
+                            ->subject('Booking Created : ' . $booking->reference_number)
+                            ->attach(public_path() . '/temp-files/invoice.pdf');
+                    });
+                } else {
+                    Mail::send('emails/invoice-mail', array(
+                        'booking' => Booking::getBookingData($booking->id)
+                    ), function ($message) use ($booking, $emails) {
+                        $message->to($booking->email, $booking->name)
+                            ->subject('Booking Created : ' . $booking->reference_number)
+                            ->attach(public_path() . '/temp-files/invoice.pdf');
+                    });
+                }
 
-                Session::put('sent_emails','Emails have been sent to the Respective parties');
+                Session::put('sent_emails', 'Emails have been sent to the Respective parties');
 
             }
 

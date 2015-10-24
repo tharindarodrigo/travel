@@ -154,21 +154,21 @@
                 <tr>
                     <th>#Nights</th>
                     <td>
-                        <?php //echo date_diff(new DateTime($voucher->check_out), new DateTime($voucher->check_in)); ?>
+                        : <?php echo Voucher::getNights($voucher->check_out,$voucher->check_in)->days; ?>
                     </td>
                 </tr>
                 <tr>
                     <th>Rooms</th>
-                    <td>:
+                    <td>
                         <?php foreach ($voucher->roomBooking as $roomBooking) { ?>
-                            <?php echo $roomBooking->room_count.' '.$roomBooking->roomSpecification->room_specification.' '.$roomBooking->roomType->room_type.'s on '.$roomBooking->mealBasis->meal_basis.' basis'; ?><br>
+                           : <?php echo $roomBooking->room_count.' '.$roomBooking->roomSpecification->room_specification.' '.$roomBooking->roomType->room_type.'s on '.$roomBooking->mealBasis->meal_basis.' basis'; ?><br>
                         <?php } ?>
                     </td>
                 </tr>
 
                 <tr>
                     <th>Total Amount</th>
-                    <td>: USD <?php echo number_format(Voucher::getVoucherAmount($voucher->id),2); ?></td>
+                    <td>: USD <?php echo number_format(Voucher::getVoucherAmount($voucher),2); ?></td>
                 </tr>
 
             </table>

@@ -14,9 +14,20 @@ class Booking extends \Eloquent
         'email' => 'email'
     ];
 
+    public static $guestRules = [
+        'booking_name' => 'required',
+        'arrival_date' => 'required',
+        'departure_date' => 'required|after:arrival_date',
+        'adults' => 'required|numeric',
+        'children' => 'required|numeric',
+        'email' => 'required|email',
+        'phone' => 'required',
+        'passport_number' => 'passport_number'
+    ];
+
     // Don't forget to fill this array
     protected $fillable = [
-        'reference_number', 'arrival_date', 'departure_date', 'booking_name', 'adults', 'children', 'val', 'remarks','email','phone','address'
+        'reference_number', 'arrival_date', 'departure_date', 'booking_name', 'adults', 'children', 'val', 'remarks','email','phone','passport_number'
     ];
 
     /**
@@ -71,7 +82,7 @@ class Booking extends \Eloquent
         $booking = Booking::with('voucher')->with('roomBooking')->find($booking_id);
         $total = 0.0;
         foreach ($booking->voucher as $voucher) {
-            $total += Voucher::getVoucherAmount($voucher->id);
+            $total += Voucher::getVoucherAmount($voucher);
         }
         return $total;
     }
@@ -113,7 +124,7 @@ class Booking extends \Eloquent
 
     public function user()
     {
-        return $this->belongsTo('user');
+        return $this->belongsToMany('user');
     }
 
 }

@@ -34,11 +34,27 @@ class Voucher extends \Eloquent {
         return $room_bookings;
     }
 
-    public static function getVoucherAmount($voucher_id)
+    public static function getNights($checkindate, $checkoutdate)
     {
-        return RoomBooking::where('voucher_id',$voucher_id)->sum('unit_price');
+        $from = new DateTime($checkindate);
+        $to = new DateTime($checkoutdate);
+
+        return $interval = $to->diff($from);
+
     }
-    
+    public static function getVoucherAmount($voucher) //This should be optimized
+    {
+        $voucherAmount = 0.0;
+        $check_in = $voucher->check_in;
+        $check_out = $voucher->check_out;
+        foreach($voucher->roomBooking as $roomBooking){
+            $voucherAmount += $roomBooking->unit_price * $roomBooking->room_count * Voucher::getNights($check_in,$check_out)->days;
+        }
+
+        return $voucherAmount;
+    }
+
+
     public function hotel()
     {
         return $this->belongsTo('Hotel');

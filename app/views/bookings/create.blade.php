@@ -145,23 +145,6 @@
                     <div class="clearfix"></div>
                     <br/>
 
-                    <div class="col-md-3 textright">
-                        <div class="margtop15"><span class="dark">Tour:</span><span class="red">*</span></div>
-                    </div>
-                    <div class="col-md-6">
-                        {{Form::text('tour',null,array('class'=> 'form-control'))}}
-                        {{$errors->first('tour', '<span class="size12" style="color: red;">:message</span>') }}
-
-                    </div>
-
-
-                    <div class="col-md-3 textleft margtop15">
-                    </div>
-                    <div class="clearfix"></div>
-
-                    <br/>
-
-                    <br/>
                     {{----------------------------------------------------------------------------------------------------------------------------------}}
 
 

@@ -292,35 +292,33 @@ Route::group(array('before' => 'auth'), function () {
 //=====================================================================================================================|
 //    End Control Panel                                                                                                |
 //=====================================================================================================================|
-    Route::get('email', function () {
-        $voucher = Voucher::find(22);
-        $pdf = PDF::loadView('emails/voucher', array('voucher' => $voucher));
-        $pdf->save(public_path().'/temp-files/voucher.pdf');
 
-        Mail::send('emails/voucher-mail', array(), function ($message)  {
-            $message->to('tharindarodrigo@gmail.com', Auth::user()->first_name)
-                ->subject('Voucher')
-                ->attach(public_path().'/temp-files/voucher.pdf');
-        });
-
-        return View::make('emails.voucher',compact('voucher'));
-    });
-    Route::get('email-booking', function () {
-        $hotel_users = DB::table('users')->leftJoin('hotel_user', 'users.id', '=', 'hotel_user.user_id')
-            ->where('hotel_user.hotel_id', 1065)
-            ->get();
-        dd($hotel_users);
-        $booking = Booking::find(36);
-        return View::make('emails.booking', compact('booking'));
-    });
-
-    Route::get('invoice', function () {
-        $booking = Booking::find(36);
-        return View::make('emails.invoice', compact('booking'));
-    });
     Route::get('profile', 'UsersController@getProfile');
 });
 
+
+Route::get('voucher/{id}', function ($id) {
+    $voucher = Voucher::find($id);
+    $pdf = PDF::loadView('emails/voucher', array('voucher' => $voucher));
+    return $pdf->stream();
+
+});
+Route::get('booking/{id}', function ($id) {
+//    $hotel_users = DB::table('users')->leftJoin('hotel_user', 'users.id', '=', 'hotel_user.user_id')
+//        ->where('hotel_user.hotel_id', 1065)
+//        ->get();
+    $booking = Booking::find($id);
+    $pdf = PDF::loadView('emails/booking', array('booking' => $booking));
+
+    return $pdf->stream();
+});
+
+Route::get('invoice/{id}', function ($id) {
+    $booking = Booking::find($id);
+    $pdf = PDF::loadView('emails/booking', array('booking' => $booking));
+
+    return $pdf->stream();
+});
 
 /*----------------------------Unauthenticated group---------------------------*/
 

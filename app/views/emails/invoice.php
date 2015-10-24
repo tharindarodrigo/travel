@@ -18,7 +18,6 @@
     </tr>
     <tr>
         <td>
-
             <h3>Hotel Reservations</h3>
             <hr/>
 
@@ -27,7 +26,7 @@
                 Being cost for <?php echo $voucher->hotel->name; ?>
                     <?php foreach($voucher->roomBooking as $roomBooking)?>
                     for <?php echo $roomBooking->room_count.' '.$roomBooking->roomSpecification->room_specification.' '.$roomBooking->roomType->room_type.' '?> rooms on
-                    <?php echo $roomBooking->mealBasis->meal_basis; ?> basis - <?php echo $f = $voucher->check_in; ?> TO <?php echo $t = $voucher->check_out; ?> at USD <?php echo number_format(Voucher::getVoucherAmount($voucher->id),2);?> x <?php echo Invoice::getNights($f, $t)->format('%R%a nights');?>
+                    <?php echo $roomBooking->mealBasis->meal_basis; ?> basis - <?php echo $f = $voucher->check_in; ?> TO <?php echo $t = $voucher->check_out; ?> at USD <?php echo number_format(Voucher::getVoucherAmount($voucher),2);?> x <?php echo Voucher::getNights($f, $t)->days;?>
                 </p>
                 <?php foreach ($voucher->roomBooking as $roomBooking){ ?>
 
@@ -38,7 +37,7 @@
         </td>
 
         <td align="right">
-
+            <?php echo Invoice::getInvoiceAmount($booking) ?>
         </td>
     </tr>
 
