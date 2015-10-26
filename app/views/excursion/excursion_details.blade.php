@@ -26,6 +26,9 @@
     {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
     <!-- end -->
 
+    {{--my styles--}}
+    {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+
     <style type="text/css">
         .ex_details {
             height: 555px;
@@ -57,6 +60,10 @@
             width: 70px;
             height: 70px;
             display: inline;
+        }
+
+        .ex_summary p, li {
+            color: #999 !important;
         }
     </style>
 
@@ -196,7 +203,7 @@
                 <div class="tab-content4">
 
                     <!-- TAB 1 -->
-                    <div id="summary" class="tab-pane fade">
+                    <div id="summary" class="ex_summary tab-pane fade">
                         <div class="hpadding20">
                             <p class="hpadding20">
                                 {{ $excursion->description }}
@@ -362,6 +369,13 @@
                     <div class="padding30">
                         <span class="left size14 dark">Excursion Total:</span>
                         <span id="excursion_rate_total" class="right lred2 bold size18"></span>
+
+                        <br/>
+
+                        <a href="{{URL::to('/bookings/create')}}" class="bluebtn right margtop20">
+                            <span class="glyphicon glyphicon-play"></span>
+                            Checkout
+                        </a>
 
                         <div class="clearfix"></div>
                     </div>

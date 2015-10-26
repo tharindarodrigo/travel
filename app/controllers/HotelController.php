@@ -822,10 +822,11 @@ class HotelController extends \BaseController
                 $ed_date = date('Y-m-d', strtotime(Session::get('ed_date')));
             }
 
+            $date_count = Voucher::getNights($st_date, $ed_date)->days;
 
             $total_rate = $low_room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
 
-            $room_cost = $total_rate * $room_count;
+            $room_cost = ($total_rate * $room_count) * $date_count;
 
             $rate_box_details = array(
                 'hotel_id' => $hotel_id,
@@ -869,7 +870,7 @@ class HotelController extends \BaseController
                 $page_hotel_id = $page_hot_id['hotel_id'];
 
                 if ($hot_id == $page_hotel_id) {
-                    if ((Session::has('rate_box_details')) || (Input::has('check_room'))) {
+                        if ((Session::has('rate_box_details')) || (Input::has('check_room'))) {
                         return Response::json(Session::get('rate_box_details'));
                     } else {
                         return null;

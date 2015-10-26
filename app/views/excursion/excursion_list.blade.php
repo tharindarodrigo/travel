@@ -15,8 +15,8 @@
             background-image: url(../../images/site/ratings.png);
             background-repeat: no-repeat;
             z-index: 90;
-            height: 50px;
-            width: 52px;
+            height: 92px;
+            width: 88px;
             position: absolute;
             top: 90px;
             right: 90px;
@@ -27,12 +27,12 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: 10px;
             font-weight: bold;
-            color: #FFF;
-            padding-top: 8px;
+            color: #999;
+            padding-top: 28px;
         }
 
         #commentnums {
-            color: #FFF;
+            color: #999;
             font-family: Georgia, "Times New Roman", Times, serif;
             font-size: 14px;
             font-weight: bolder;

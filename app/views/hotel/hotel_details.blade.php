@@ -51,6 +51,9 @@
             height: 71px;
         }
 
+        #preferences p, li {
+            color: #999 !important;
+        }
     </style>
 
 @endsection
@@ -360,13 +363,12 @@
                                 }
 
                                 $directory = 'public/images/room_images/';
-                                $images = glob($directory . $room_id . "_" . "*.*");
+                                $images = glob($directory . $room_id . ".*");
                                 $img_path = array_shift($images);
                                 $img_name = basename($img_path);
                                 ?>
 
-                                @if(count($room_types) != 0)
-
+                                @if(count($room_types) > 0)
                                     @foreach($room_types as $room)
 
                                         <?php $low_room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room->room_specification_id, $room->meal_basis_id, $st_date, $ed_date); ?>
@@ -432,8 +434,9 @@
                                                             </button>
                                                             {{ Form::hidden('room_specification_id', $room->room_specification_id , array('class' => 'hidden_room_specification_id') ) }}
                                                         @else
-                                                            <span class="opensans lred size18">Rate Not Available</span>
-                                                            <br/>
+                                                            <div class="padding20">
+                                                                {{ HTML::image('images/site/rates are not available.jpg', '', array('class' => 'no_rate_img')) }}
+                                                            </div>
                                                         @endif
 
                                                     </div>
@@ -455,9 +458,7 @@
                                     @endforeach
 
                                 @else
-                                    <div class="padding20">
-                                        {{ HTML::image('images/site/rates are not available.jpg', '', array('class' => 'no_rate_img')) }}
-                                    </div>
+
                                     <?php break; ?>
                                 @endif
 
@@ -927,7 +928,6 @@
                                 <td>Guest ratings</td>
                                 <td class="center green bold">4.5</td>
                             </tr>
-
                             </tbody>
                         </table>
 
@@ -957,7 +957,7 @@
                     </a>
 
                     &nbsp;&nbsp;
-                    <a href="" class="bluebtn margtop20">
+                    <a href="{{URL::to('/bookings/create')}}" class="bluebtn margtop20">
                         <span class="glyphicon glyphicon-play"></span>
                         Checkout
                     </a>
@@ -1017,10 +1017,10 @@
                     var room_specification_id = $(this).next('input:hidden').val();
                     var check_in = $('.chk_in').datepicker({dateFormat: 'dd-mm-yy'}).val();
                     var check_in_key = $('.chk_in').datepicker({dateFormat: 'yy-mm-dd'}).val();
-                    var x = check_in_key.replace(/\//g,'-');
+                    var x = check_in_key.replace(/\//g, '-');
                     var check_out = $('.chk_out').datepicker({dateFormat: 'dd-mm-yy'}).val();
                     var check_out_key = $('.chk_out').datepicker({dateFormat: 'yy-mm-dd'}).val();
-                    var y =check_out_key.replace(/\//g,'-');
+                    var y = check_out_key.replace(/\//g, '-');
                     var check_room = x + '_' + y + '_' + hotel_id + '_' + room_id + '_' + room_specification_id + '_' + meal_basis_id;
 
                     var url = 'http://' + window.location.host + '/sri-lanka/get_room_rate_box';

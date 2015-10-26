@@ -88,6 +88,7 @@
 
         <div class="hpadding20">
             <br/>
+
             <div class="col-md-1"></div>
             <div class="col-md-2">
                 {{ HTML::image('images/site/cart.png', '', array('class' => 'hotel_img_booking')) }}
@@ -133,7 +134,7 @@
                                                 $total_cost = 0;
                                                 $directory = 'public/images/hotel_images/';
                                                 $img_hotel_id = explode('_', $hotel_booking['room_identity']);
-                                                $images = glob($directory . $img_hotel_id[0] . "_*");
+                                                $images = glob($directory . $img_hotel_id[2] . "_*");
                                                 $img_path = array_shift($images);
                                                 $img_name = basename($img_path);
                                                 ?>
@@ -149,10 +150,11 @@
                                             <div class="media-body">
                                                 <h4 class="media-heading"><a
                                                             href="#">{{ $hotel_booking['hotel_name'] }}</a></h4>
-                                                {{--<h5 class="media-heading"> by <a href="#">Brand name</a></h5>--}}
+
                                                 <span class="text-success"><strong style="font-size: 12px">
                                                         {{ str_replace(',', '<br />', $hotel_booking['hotel_address']) }}
-                                                    </strong></span>
+                                                    </strong>
+                                                </span>
                                             </div>
                                         </div>
                                     </td>
@@ -164,12 +166,13 @@
                                                 <button style="background: transparent" type="button"
                                                         class="btn collapsed mt-5"
                                                         data-toggle="collapse"
-                                                        data-target="#collapse{{ $hotel_booking[$c]['room_identity'] }}">
-                                                         <span class="dark"><h5 style="display: inline;"
-                                                                                class="bk_room_name">
-                                                                 Room {{ $c+1 }} </h5>
+                                                        data-target="#collapse{{ $hotel_booking[$c]['room_identity']  }}">
+                                                         <span class="dark">
+                                                             <h5 style="display: inline;" class="bk_room_name">
+                                                                 Room {{ $c+1 }}
+                                                             </h5>
                                                              {{--Nights - {{ $hotel_booking[$c]['nights'] }}--}}
-                                                </span>&nbsp;&nbsp;&nbsp;
+                                                         </span>&nbsp;&nbsp;&nbsp;
                                                     <span class="glyphicon glyphicon-circle-arrow-down"></span>
                                                 </button>
 
@@ -185,7 +188,7 @@
 
                                                 <!-- Collapse 1 -->
 
-                                                <div id="collapse{{ $hotel_booking[$c]['room_identity'] }}"
+                                                <div id="collapse{{ $hotel_booking[$c]['room_identity']  }}"
                                                      class="collapse">
 
                                                     <div class="left size12 lblue ">
