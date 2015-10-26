@@ -5,7 +5,7 @@ class Booking extends \Eloquent
 {
 
     // Add your validation rules here
-    public static $rules = [
+    public static $agentRules = [
         'booking_name' => 'required',
         'arrival_date' => 'required',
         'departure_date' => 'required|after:arrival_date',
@@ -14,15 +14,18 @@ class Booking extends \Eloquent
         'email' => 'email'
     ];
 
+    public static $userRules = [
+        'booking_name' => 'required',
+        'arrival_date' => 'required',
+    ];
+
     public static $guestRules = [
         'booking_name' => 'required',
         'arrival_date' => 'required',
         'departure_date' => 'required|after:arrival_date',
-        'adults' => 'required|numeric',
-        'children' => 'required|numeric',
         'email' => 'required|email',
         'phone' => 'required',
-        'passport_number' => 'passport_number'
+        'passport_number' => 'required'
     ];
 
     // Don't forget to fill this array

@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class BookingsController extends \BaseController
 {
 
+    private $_user;
+
+    public function __construct()
+    {
+        $this->_user = Auth::user();
+//        $this->beforeFilter('agent', array('except' => 'create'));
+    }
+
     /**
      * Display a listing of bookings
      *
@@ -13,9 +21,30 @@ class BookingsController extends \BaseController
      */
     public function index()
     {
-        $bookings = Booking::with('user')->get();
+        if (Auth::check()) {
 
-        return View::make('bookings.index', compact('bookings'));
+            $reference_number = Input::has('reference_number') ? Input::get('reference_number') : '%';
+//        $arrival_date = Input::get('arrival_date') or '%';
+//        $departure_date = Input::get('departure_date') or '%';
+//        $reference_number = 0000000;
+            if (Entrust::hasRole('Admin')) {
+                $bookings = Booking::with('user')
+                    ->where('reference_number', 'like', '%' . $reference_number . '%')
+//                ->where('arrival_date', '=', $arrival_date)
+//                ->where('departure_date', '=', $departure_date)
+                    ->get();
+            } else {
+                $bookings = Booking::whereHas('user', function ($q) {
+                    $q->where('users.id', $this->_user->id);
+                })->where('reference_number', 'like', $reference_number)
+//                ->where('arrival_date', '=', $arrival_date)
+//                ->where('departure_date', '=', $departure_date)
+                    ->get();
+            }
+            return View::make('bookings.index', compact('bookings'));
+        }
+
+        App::abort(404);
     }
 
     /**

@@ -32,6 +32,26 @@
                     <div class="callout callout-success">{{Session::pull('sent_emails')}}</div>
                 @endif
 
+                <div class="row">
+                    <br>
+                    <br>
+                    <div class="col-md-12">
+
+                    <form action="" method="get">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{Form::text('reference_number',null,array('class'=> 'form-control'))}}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                        {{Form::submit('Search', array('class'=> 'btn btn-primary'))}}
+                    </div>
+                    </form>
+                    </div>
+
+
+                </div>
                 @if(!empty($bookings))
                     <div class="hpadding50c">
 

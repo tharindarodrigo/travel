@@ -54,7 +54,7 @@ return array(
     |
     */
 
-	'from' => array('address' => 'thilina.exotic@gmail.com', 'name' => 'Sarada'),
+	'from' => array('address' => 'infor@srilankahotels.travel', 'name' => 'Sarada'),
 
 	/*
     |--------------------------------------------------------------------------

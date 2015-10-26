@@ -1663,6 +1663,7 @@ return array(
     'Psr\\Log\\Test\\LoggerInterfaceTest' => $vendorDir . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
     'Rate' => $baseDir . '/app/models/Rate.php',
     'RatesController' => $baseDir . '/app/controllers/control-panel/Hotel/RatesController.php',
+    'RemoveAddressFromBookingsTable' => $baseDir . '/app/database/migrations/2015_10_26_045808_remove_address_from_bookings_table.php',
     'RemoveUserIdFromBookingsTable' => $baseDir . '/app/database/migrations/2015_10_23_071439_remove_user_id_from_bookings_table.php',
     'Renderer' => $vendorDir . '/dompdf/dompdf/include/renderer.cls.php',
     'Role' => $baseDir . '/app/models/Role.php',

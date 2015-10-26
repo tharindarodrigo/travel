@@ -306,10 +306,13 @@
                                         {{ HTML::image('images/site/gold-arrow.png', '', array('class' => 'nav_arrow')) }}
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href=""> Dashboard </a></li>
-                                        <li><a href=""> My Booking </a></li>
-                                        <li><a href=""> Reviews </a></li>
-                                        <li><a href=""> Settings </a></li>
+                                        @if(Entrust::hasRole('Hotelier') || Entrust::hasRole('Admin'))
+                                            <li><a href="{{URL::to('control-panel')}}"> Control Panel </a></li>
+                                            <li><a href="{{URL::to('profile')}}"> Profile </a></li>
+                                        @endif
+                                        @if(Entrust::hasRole('Agent') || Entrust::hasRole('Admin'))
+                                            <li><a href="{{URL::to('bookings')}}"> Bookings </a></li>
+                                        @endif
                                         <li>
                                             <a href="{{ URL::route('account-sign-out')}}"><i
                                                         class="fa fa-check-circle"></i>
@@ -454,12 +457,13 @@
                                         &nbsp;&nbsp;&nbsp;
                                     </a>
                                     <ul class="dropdown-menu">
-                                        @if(Entrust::hasRole('Hotelier'))
-                                            <li><a href="{{URL::to('control-panel')}}"> Dashboard </a></li>
+                                        @if(Entrust::hasRole('Hotelier') || Entrust::hasRole('Admin'))
+                                            <li><a href="{{URL::to('control-panel')}}"> Control Panel </a></li>
+                                            <li><a href="{{URL::to('profile')}}"> Profile </a></li>
                                         @endif
-                                        <li><a href=""> My Booking </a></li>
-                                        <li><a href=""> Reviews </a></li>
-                                        <li><a href=""> Settings </a></li>
+                                        @if(Entrust::hasRole('Agent') || Entrust::hasRole('Admin'))
+                                            <li><a href="{{URL::to('bookings')}}"> Bookings </a></li>
+                                        @endif
                                         <li>
                                             <a href="{{ URL::route('account-sign-out')}}"><i
                                                         class="fa fa-check-circle"></i>
