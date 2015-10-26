@@ -179,6 +179,7 @@ class BookingsController extends \BaseController
                             'voucher' => Voucher::find($created_voucher->id)
                         ), function ($message) use ($booking, $hotel_users) {
                             $message->attach(public_path() . '/temp-files/voucher.pdf');
+                            if(!empty($hotel_users))
                             foreach ($hotel_users as $hotel_user) {
                                 $message->to($hotel_user->email, $hotel_user->first_name)
                                     ->subject('Booking Voucher : ' . $booking->reference_number);
@@ -248,7 +249,7 @@ class BookingsController extends \BaseController
     public function show($id)
     {
         try {
-            $booking = Booking::with('voucher')->with('client')->with('flightDetail')->where('id', $id)->where('user_id', Auth::user()->id)->first();
+            $booking = Booking::with('voucher')->with('client')->with('flightDetail')->where('id', $id)->first();
 
         } catch (ModelNotFoundException $e) {
             return Redirect::to('/404');

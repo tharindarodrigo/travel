@@ -42,7 +42,7 @@ vertical-align: middle;
                     <div style="text-align: center;">{{$roomBooking->roomSpecification->room_specification}}</div>
         @endforeach
     </td>
-    <td align="right">{{number_format(Voucher::getVoucherAmount($voucher->id),2)}}</td>
+    <td align="right">{{number_format(Voucher::getVoucherAmount($voucher),2)}}</td>
 
     <td>
     {{Form::open(array('route'=>array('bookings.flightDetails.destroy',$booking->id,$voucher->id), 'method'=>'delete'))}}
