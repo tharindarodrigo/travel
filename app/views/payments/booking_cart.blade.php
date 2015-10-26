@@ -32,6 +32,7 @@
         }
 
         .hotel_img_booking {
+            display: inline !important;
             width: 72px;
             height: 72px;
         }
@@ -89,17 +90,16 @@
         <div class="hpadding20">
             <br/>
 
-            <div class="col-md-1"></div>
+            <div class="col-md-1">
+                {{ HTML::image('images/site/main_cart.png', '', array('class' => 'hotel_img_booking')) }}
+            </div>
+
+            <div class="col-md-3">
+                <h1 style="color: #006699; font-family: 'Cinzel', serif;"> Booking Cart </h1>
+            </div>
+
             <div class="col-md-2">
-                {{ HTML::image('images/site/cart.png', '', array('class' => 'hotel_img_booking')) }}
-            </div>
 
-            <div class="col-md-4">
-                <h1 style="color: #006699; font-family: 'Cinzel', serif; "> Booking Cart </h1>
-            </div>
-
-            <div class="col-md-4">
-                {{ HTML::image('images/site/verified.jpg', '', array('class' => '')) }}
             </div>
 
         </div>
@@ -377,21 +377,33 @@
             </div>
         @endif
 
-        <br/>
+        <br/><br/><br/>
 
-        <div class="container right">
-            @if(Session::has('add_new_voucher'))
+        <div class="container">
 
-                {{Form::open(array('route'=> array('bookings.vouchers.store',Session::get('add_new_voucher'))))}}
-                {{Form::submit('Add Vouchers', array('class'=>'btn btn-danger', 'id'=>'add_voucher'))}}
-                {{link_to_route('bookings.create','Continue to New Booking', null, array('class'=>'btn btn-warning', 'id'=>'checkout'))}}
-                <a href="{{URL::to('bookings/cancel-booking')}}" class="btn btn-default">Cancel All</a>
+            <div class="col-md-6">
+                {{ HTML::image('images/site/verified.jpg', '', array('class' => '')) }}
+            </div>
 
-                {{Form::close()}}
-            @else
-                {{link_to_route('bookings.create','Complete Booking', null, array('class'=>'bluebtn', 'id'=>'checkout'))}}
-            @endif
+            <div class="col-md-6">
+                <div class="right">
+                    @if(Session::has('add_new_voucher'))
+
+                        {{Form::open(array('route'=> array('bookings.vouchers.store',Session::get('add_new_voucher'))))}}
+                        {{Form::submit('Add Vouchers', array('class'=>'btn btn-danger', 'id'=>'add_voucher'))}}
+                        {{link_to_route('bookings.create','Continue to New Booking', null, array('class'=>'btn btn-warning', 'id'=>'checkout'))}}
+                        <a href="{{URL::to('bookings/cancel-booking')}}" class="btn btn-default">Cancel All</a>
+
+                        {{Form::close()}}
+                    @else
+                        {{link_to_route('bookings.create','Complete Booking', null, array('class'=>'bluebtn', 'id'=>'checkout'))}}
+                    @endif
+                </div>
+            </div>
+
         </div>
+
+
         <br/><br/><br/>
     </div>
 
