@@ -47,6 +47,17 @@
         .table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
             border: none !important;
         }
+
+        .smile_img {
+            width: 35px;
+            height: 35px;
+        }
+
+        .book_img_excursin {
+            width: 70px;
+            height: 70px;
+            display: inline;
+        }
     </style>
 
 @endsection
@@ -150,7 +161,7 @@
                 </div>
 
                 <div class="col-md-6 bordertype3">
-                    <img src="images/user-rating-4.png" alt=""/><br/>
+                    {{ HTML::image('images/site/smile.png', '', array('class'=>'smile_img')) }}
                     18 reviews
                 </div>
                 <div class="col-md-6 bordertype3">
@@ -293,55 +304,67 @@
 
             <div class="col-md-4">
 
-                <div class="price-box">
-                    <div style="background-color: #0099cc !important; padding: 10px; text-align: center"
-                         class="price-head">
+                <div class="pagecontainer2 paymentbox grey price-box">
+                    <div class="padding30">
+                        <?php
+                        $directory = 'public/images/excursion_images/excursion_types/';
+                        $images = glob($directory . $excursion->id . "_*");
+                        $img_path = array_shift($images);
+                        $img_name = basename($img_path);
 
-                        <span style="color: #FFFFFF"
-                              class="opensans size18 dark bold"> {{ $excursion->excursion }} </span>
+                        ?>
+                        {{ HTML::image('images/excursion_images/excursion_types/'.$img_name, '', array('class' => 'book_img_excursin')) }}
+                        {{--<img src="images/thumb.png" class="left margright20" alt="">--}}
+                        <h4 style="display: inline" class="opensans size18 dark bold">{{ $excursion->excursion }}</h4>
+                        {{--<span class="opensans size13 grey">Zakynthos, Greece</span><br>--}}
                         <br/>
                         {{ HTML::image('images/smallrating-5.png') }}
-
                     </div>
-
                     <div class="line3"></div>
 
-                    <div class="hpadding30 pagecontainer2" style="">
-                        <br/>
-                        <table class="table table-bordered margbottom20" style="border: none !important;">
+                    <div class="hpadding30 margtop30">
+                        <table class="table table-bordered margbottom20">
                             <tbody>
                             <tr>
-                                <td class="bold"> Form</td>
-                                <td class="center green bold city" id="excursion_city"></td>
+                                <td>Guests recommendations</td>
+                                <td class="center green bold">97%</td>
                             </tr>
                             <tr>
-                                <td class="bold"> Transport Type</td>
-                                <td class="center green bold" id="excursion_transport"></td>
+                                <td>Guest ratings</td>
+                                <td class="center green bold">4.5</td>
                             </tr>
-                            <tr>
-                                <td class="bold"> Pax</td>
-                                <td class="center green bold" id="excursion_pax"></td>
-                            </tr>
-                            <tr>
-                                <td class="bold"> Rate</td>
-                                <td class="center green bold" id="excursion_rate"></td>
-                            </tr>
-
                             </tbody>
                         </table>
                     </div>
-
                     <div class="line3"></div>
-
-                    <div style="background-color: #72bf66 !important; padding: 15px; text-align: right"
-                         class="price-head">
-                        <span style="color: #FFFFFF; text-align: right !important;" class="opensans size18 dark bold"> Excursion Total &nbsp;&nbsp;:&nbsp;&nbsp; </span>
-                        <span class="lred2 bold size18">$ <span class="lred2 bold size18" id="excursion_total"></span> </span>
+                    <div class="hpadding30 margtop30">
+                        <table class="table table-bordered margbottom20">
+                            <tbody>
+                            <tr>
+                                <td class=""> Form</td>
+                                <td class="center green bold city" id="excursion_city"></td>
+                            </tr>
+                            <tr>
+                                <td class=""> Transport Type</td>
+                                <td class="center green bold" id="excursion_transport"></td>
+                            </tr>
+                            <tr>
+                                <td class=""> Pax</td>
+                                <td class="center green bold" id="excursion_pax"></td>
+                            </tr>
+                            <tr>
+                                <td class=""> Rate</td>
+                                <td class="center green bold" id="excursion_rate"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="padding30">
+                        <span class="left size14 dark">Excursion Total:</span>
+                        <span id="excursion_rate_total" class="right lred2 bold size18"></span>
 
                         <div class="clearfix"></div>
                     </div>
-
-
                 </div>
 
                 <br/>
@@ -421,7 +444,7 @@
                     priceData.append('price_box_pax', price_box_pax);
 
                     $.ajax({
-                        url: 'http://localhost/travel/public/sri-lanka/get_excursion_total',
+                        url: 'http://' + window.location.host + '/sri-lanka/get_excursion_total',
                         method: 'post',
                         processData: false,
                         contentType: false,
@@ -433,7 +456,8 @@
                             $('#excursion_city').html(data.city);
                             $('#excursion_transport').html(data.transport_type);
                             $('#excursion_pax').html(data.pax);
-                            $('#excursion_rate').html(data.ex_rate);
+                            $('#excursion_rate').html('USD ' + data.ex_rate);
+                            $('#excursion_rate_total').html('USD ' + data.ex_rate);
                         },
                         error: function () {
                             // alert('error');

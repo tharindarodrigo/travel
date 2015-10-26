@@ -16,11 +16,15 @@ function sendBookingData(url, formData) {
         data: formData,
         success: function (data) {
 
-            var tablecontent = generateRoomRateTable(data);
+            if (data == null) {
+                $('#room_rate_tag').hide("blind");
+            } else {
+                $('#room_rate_tag').show("blind", 500);
+                var tablecontent = generateRoomRateTable(data);
+                $('#rate_box_table').html(tablecontent);
+                deleteRoom();
+            }
 
-            $('#rate_box_table').html(tablecontent);
-
-            deleteRoom();
         },
 
         error: function () {
@@ -53,11 +57,13 @@ function generateRoomRateTable(data) {
                     '<div class="col-md-6">' +
                     item.room_count + '&nbsp;' +
                     item.room_specification + ' Room <br>' +
-                    item.meal_basis +
+                    item.meal_basis + '<br>' +
+                    item.adult + ' - Adults' +
                     '</div>' +
                     '<div class="col-md-6">' +
                     item.check_in + ' <br>' +
-                    item.check_out +
+                    item.check_out + '<br>' +
+                    item.child + ' - Child' +
                     '</div>' +
                     '</div>' +
                     '<div class="clearfix"></div>' +

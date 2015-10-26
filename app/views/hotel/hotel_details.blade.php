@@ -34,6 +34,11 @@
     {{ HTML::script('assets/js/js-details.js') }}
 
     <style type="text/css">
+        .smile_img {
+            width: 35px;
+            height: 35px;
+        }
+
         h4 {
             color: #0099cc !important;
             font-family: "Lato";
@@ -168,8 +173,9 @@
                     <?php
                     $get_reviews_count = DB::table('hotel_reviews')->where('hotel_id', $hotel_id)->count();
                     ?>
+                    {{ Form::hidden('rate_hotel_id2', $hotel_id , array('class' => 'hidden_hotel_id2') ) }}
                     <div class="col-md-6 bordertype3">
-                        <img src="images/user-rating-4.png" alt=""/><br/>
+                        {{ HTML::image('images/site/smile.png', '', array('class'=>'smile_img')) }}<br/>
                         {{ $get_reviews_count }} reviews
                     </div>
                     <div class="col-md-6 bordertype3">
@@ -182,7 +188,7 @@
                         <a href="#" class="add2fav margtop5">Add to favourite</a>
                         <a href="#" class="booknow margtop20 btnmarg">Book now</a>
                     </div>
-
+                    <br/>
                 </div>
                 <!-- END OF RIGHT INFO -->
 
@@ -899,8 +905,11 @@
                             {{ HTML::image('images/no-image.jpg', '', array('class' => 'hotel_img_rate_box left margright20')) }}
                         @endif
 
-                        <span class="opensans size18 dark bold">{{ Hotel::where('id', $hotel_id)->first()->name; }}</span>
-                        <span class="opensans size13 grey">{{ Hotel::where('id', $hotel_id)->first()->address; }}</span><br>
+                        <h4 style="display:inline; color: #000000 !important; font-style: normal !important;"
+                            class="opensans size18 dark bold">{{ Hotel::where('id', $hotel_id)->first()->name; }}</h4>
+                        <h5 style="display:inline;"
+                            class="opensans size13 grey">{{ Hotel::where('id', $hotel_id)->first()->address; }}</h5>
+                        <br>
 
                         {{ Star::star_loop_blue($hotel_star)}}
 
@@ -917,22 +926,6 @@
                             <tr>
                                 <td>Guest ratings</td>
                                 <td class="center green bold">4.5</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    {{--<span class="dark">--}}
-                                    {{--{{ (Session::has('date_gap')) ? Session::get('date_gap') : '' }}--}}
-                                    {{--Nights </span>: {{ (Session::has('st_date')) ? Session::get('st_date'):'' }}--}}
-                                    {{--- {{ (Session::has('st_date')) ? Session::get('ed_date') : '' }} --}}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td colspan="2"><span class="dark">
-                                        Adult - {{ (Session::has('adult')) ? Session::get('adult'):'' }}
-                                        &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        Child - {{ (Session::has('child')) ? Session::get('child') : '' }} </span>
-                                </td>
                             </tr>
 
                             </tbody>
@@ -996,9 +989,21 @@
         <!-- my script-->
         {{ HTML::script('js/booking_cart.js') }}
 
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var hotel_id = $('.hidden_hotel_id2').val();
+
+                var formData = new FormData();
+                formData.append('hotel_id', hotel_id);
+
+                var url = 'http://' + window.location.host + '/sri-lanka/get_room_rate_box';
+                sendBookingData(url, formData);
+            });
+        </script>
+
         <script type="text/javascript">
             $(function () {
-                $('#room_rate_tag').hide();
 
                 $('.room_book_summery').click(function () {
 

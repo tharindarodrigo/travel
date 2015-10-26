@@ -533,129 +533,146 @@
 
                 <div class="clearfix"></div>
 
-                <div class="itemscontainer offset-1">
+                <div class="itemscontainer offset-1" style="opacity: 1;">
+
+                    <?php $r = 0; ?>
                     @foreach($hotels as $hotel)
-                        <div class="col-md-4">
+                        @if($r<3)
+                            <div class="col-md-4">
 
-                            <?php
-                            $directory = 'public/images/hotel_images/';
-                            $images = glob($directory . $hotel->id . "_*");
-                            $img_path = array_shift($images);
-                            $img_name = basename($img_path);
+                                <?php
+                                $directory = 'public/images/hotel_images/';
+                                $images = glob($directory . $hotel->id . "_*");
+                                $img_path = array_shift($images);
+                                $img_name = basename($img_path);
 
-                            $city_id = $hotel->city_id;
-                            $get_city = DB::table('cities')->where('id', $city_id)->first();
-                            $city = $get_city->city;
-                            ?>
+                                $city_id = $hotel->city_id;
+                                $get_city = DB::table('cities')->where('id', $city_id)->first();
+                                $city = $get_city->city;
+                                ?>
 
-                            <div class="listitem">
+                                <div class="listitem">
 
-                                @if(count($img_path)>0)
-                                    {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'hotel_img_1'))}}
-                                @else
-                                    {{ HTML::image('images/no-image.jpg', '', array('class' => 'hotel_grid_img')) }}
-                                @endif
-
-                                <div class="liover"></div>
-                                <a class="fav-icon" href="#"></a>
-                                <a class="book-icon" href="#"></a>
-
-                            </div>
-
-                            <div class="itemlabel2">
-                                <h4>
-                                    <a style="color: #006699"
-                                       href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
-                                        &nbsp;&nbsp;&nbsp;&nbsp; {{ Str::limit($hotel->name, 20) }}
-                                    </a>
-                                </h4>
-
-                                <div class="labelright">
-                                    <?php
-                                    $stars = $hotel->star_category_id;
-                                    $star = DB::table('star_categories')->where('id', $stars)->first();
-                                    $hotel_star = $star->stars;
-                                    ?>
-
-                                    {{ Star::star_loop_blue($hotel_star)}}<br/><br/>
-
-                                    {{ HTML::image('images/user-rating-5.png', '')}}<br/><br/>
-
-                                    @if(!empty($hotel->hotelReview->count()))
-                                        <span class="size11 grey">{{ $hotel->hotelReview->count(); }}
-                                            Reviews </span><br/><br/>
+                                    @if(count($img_path)>0)
+                                        {{ HTML::image('images/hotel_images/'.$img_name, '', array('class' => 'hotel_img_1'))}}
                                     @else
-                                        <span class="size11 grey">
-                                                No Reviews </span><br/><br/>
+                                        {{ HTML::image('images/no-image.jpg', '', array('class' => 'hotel_grid_img')) }}
                                     @endif
 
-                                    <?php $low_hotel_rate = RoomRates::lowestHotelRate($hotel->id, $st_date, $ed_date); ?>
+                                    <div class="liover"></div>
+                                    <a class="fav-icon" href="#"></a>
+                                    <a class="book-icon" href="#"></a>
 
-                                    @if(!empty($low_hotel_rate))
-                                        <span class="green size18">
+                                </div>
+
+                                <div class="itemlabel2">
+                                    <h4>
+                                        <a style="color: #006699"
+                                           href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
+                                            &nbsp;&nbsp;&nbsp;&nbsp; {{ Str::limit($hotel->name, 20) }}
+                                        </a>
+                                    </h4>
+
+                                    <div class="labelright">
+                                        <?php
+                                        $stars = $hotel->star_category_id;
+                                        $star = DB::table('star_categories')->where('id', $stars)->first();
+                                        $hotel_star = $star->stars;
+                                        ?>
+
+                                        {{ Star::star_loop_blue($hotel_star)}}<br/><br/>
+
+                                        {{ HTML::image('images/user-rating-5.png', '')}}<br/><br/>
+
+                                        @if(!empty($hotel->hotelReview->count()))
+                                            <span class="size11 grey">{{ $hotel->hotelReview->count(); }}
+                                                Reviews </span><br/><br/>
+                                        @else
+                                            <span class="size11 grey">
+                                                No Reviews
+                                        </span><br/><br/>
+                                        @endif
+
+                                        <?php $low_hotel_rate = RoomRates::lowestHotelRate($hotel->id, $st_date, $ed_date); ?>
+
+                                        @if(!empty($low_hotel_rate))
+                                            <span class="green size18">
                                             <b>
                                                 USD {{ $low_hotel_rate }}
                                             </b>
                                         </span>
-                                        <br/>
-                                        <span class="size11 grey">avg/night</span><br/><br/>
-                                    @else
-                                        <span class="green">
-                                                No Rate <br/> Available
-                                                <br/><br/>
-                                            </span>
-                                    @endif
+                                            <br/>
+                                            <span class="size11 grey">avg/night</span><br/><br/>
+                                        @else
 
-                                    <a href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"
-                                       class="bookbtn mt1">Book</a>
-                                    <br/> <br/>
-                                </div>
-                                <div class="labelleft">
-                                    <p class="grey">
-                                        {{ Str::limit($hotel->overview, 50) }}
-                                    </p>
+                                        @endif
 
-                                    @if(Input::has('facility') || Input::has('price_range'))
-                                        <ul class="hotelpreferences">
-                                            <?php
-                                            $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
-                                            ?>
-                                            @foreach($hotel_facilities->hotelFacility as $hotel_facility)
+                                        <form method="POST" target="_blank"
+                                              action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
+                                            <button style="background: #006699; color: #ffffff"
+                                                    class="bookbtn mt1"
+                                                    type="submit">Book
+                                            </button>
+                                        </form>
+                                        <br/> <br/>
+                                    </div>
+
+                                    <div class="labelleft">
+                                        <p class="grey">
+                                            {{ Str::limit($hotel->overview, 50) }}
+                                        </p>
+
+                                        @if(Input::has('facility') || Input::has('price_range'))
+                                            <ul class="hotelpreferences">
                                                 <?php
-                                                //echo public_path();
-                                                $directory = 'public/images/hotel_facilities/';
-                                                $images = glob($directory . $hotel_facility->id . "*");
-                                                $img_path = array_shift($images);
-                                                $img_name = basename($img_path);
+                                                $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
                                                 ?>
+                                                @foreach($hotel_facilities->hotelFacility as $hotel_facility)
+                                                    <?php
+                                                    //echo public_path();
+                                                    $directory = 'public/images/hotel_facilities/';
+                                                    $images = glob($directory . $hotel_facility->id . "*");
+                                                    $img_path = array_shift($images);
+                                                    $img_name = basename($img_path);
+                                                    ?>
 
-                                                {{ HTML::image('images/hotel_facilities/'.$img_name, '', array('class' => 'hot_facilities_icon'))}}
+                                                    {{ HTML::image('images/hotel_facilities/'.$img_name, '', array('class' => 'hot_facilities_icon'))}}
 
-                                            @endforeach
-                                        </ul>
-                                    @else
-                                        <ul class="hotelpreferences">
-                                            <?php
-                                            $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
-                                            ?>
-                                            @foreach($hotel_facilities->hotelFacility as $hotel_facility)
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            <ul class="hotelpreferences">
                                                 <?php
-                                                //echo public_path();
-                                                $directory = 'public/images/hotel_facilities/';
-                                                $images = glob($directory . $hotel_facility->id . "*");
-                                                $img_path = array_shift($images);
-                                                $img_name = basename($img_path);
+                                                $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
                                                 ?>
+                                                @foreach($hotel_facilities->hotelFacility as $hotel_facility)
+                                                    <?php
+                                                    //echo public_path();
+                                                    $directory = 'public/images/hotel_facilities/';
+                                                    $images = glob($directory . $hotel_facility->id . "*");
+                                                    $img_path = array_shift($images);
+                                                    $img_name = basename($img_path);
+                                                    ?>
 
-                                                {{ HTML::image('images/hotel_facilities/'.$img_name, '', array('class' => 'hot_facilities_icon'))}}
-                                            @endforeach
-                                        </ul>
-                                    @endif
+                                                    {{ HTML::image('images/hotel_facilities/'.$img_name, '', array('class' => 'hot_facilities_icon'))}}
+
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </div>
                                 </div>
+
                             </div>
-
-                        </div>
+                        @else
+                            <div class="clearfix"></div>
+                            <div class="offset-2">
+                                <hr class="featurette-divider3">
+                            </div>
+                            <?php $r = -1; ?>
+                        @endif
+                        <?php $r = $r + 1; ?>
                     @endforeach
+
                     <div class="clearfix"></div>
                     <div class="offset-2">
                         <hr class="featurette-divider3">
@@ -667,7 +684,7 @@
                 <div class="hpadding20" align="right">
                     {{ $hotels->links() }}
                 </div>
-
+                <br/>
             </div>
             <!-- END OF LIST CONTENT-->
 

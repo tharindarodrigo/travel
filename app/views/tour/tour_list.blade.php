@@ -31,6 +31,33 @@
         .labelleft2 li {
             color: #333333 !important;
         }
+
+        #commentbox {
+            background-image: url(../../images/site/ratings.png);
+            background-repeat: no-repeat;
+            z-index: 90;
+            height: 50px;
+            width: 52px;
+            position: absolute;
+            top: 150px;
+            right: 90px;
+            text-align: center;
+        }
+
+        #commentrating {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10px;
+            font-weight: bold;
+            color: #FFF;
+            padding-top: 8px;
+        }
+
+        #commentnums {
+            color: #FFF;
+            font-family: Georgia, "Times New Roman", Times, serif;
+            font-size: 14px;
+            font-weight: bolder;
+        }
     </style>
 
     <!-- bin/jquery.slider.min.css -->
@@ -255,7 +282,6 @@
                                     <a class="book-icon"
                                        href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $types->Tour->tour_title).'/'.str_replace(' ', '-', $types->tour_type_title))}}">
                                     </a>
-
                                 </div>
                             </div>
 
@@ -273,14 +299,14 @@
                                         {{--<span class="size11 grey"></span><br/><br/><br/>--}}
 
                                         <a style="background: #006699; color: #FFFFFF" class="bookbtn mt1"
+                                           target="_blank"
                                            href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $types->Tour->tour_title).'/'.str_replace(' ', '-', $types->tour_type_title))}}">
                                             Book
                                         </a>
-
                                     </div>
                                     <div class="labelleft2">
 
-                                        <a href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $types->tour->tour_title).'/'.str_replace(' ', '-', $types->tour_type_title))}}">
+                                        <a target="_blank" href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $types->tour->tour_title).'/'.str_replace(' ', '-', $types->tour_type_title))}}">
                                             <span class="size16">
                                                 <h4 style="color: #006699; font-family: 'Play', sans-serif;">{{ $types->tour_type_title }}</h4>
                                             </span>
@@ -288,10 +314,23 @@
 
                                         <div class="line4"></div>
 
-                                        <p class="grey size14 lh6">
-                                            {{ $types->short_description }}
-                                        </p>
-                                        <br/>
+                                        <div>
+                                            <div class="left">
+                                                <p class="grey size14 lh6">
+                                                    {{ $types->short_description }}
+                                                </p>
+                                                <br/>
+                                            </div>
+
+                                            <div class="right hidden-xs hidden-md">
+                                                <div id="commentbox">
+                                                    <div id="commentrating">Rating</div>
+                                                    <div id="commentnums">
+                                                        5/7
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>

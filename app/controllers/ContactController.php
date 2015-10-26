@@ -57,7 +57,7 @@ class ContactController extends BaseController
 
                     $message->from($email, $name);
 
-                    $message->to('thilina.exotic@gmail.com', 'Thilina Herath')->subject('Contact us emails');
+                    $message->to('sarada@exotic-intl.com', 'Thilina Herath')->subject('Contact us emails');
 
                 });
 

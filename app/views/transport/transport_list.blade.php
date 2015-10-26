@@ -32,6 +32,11 @@
             color: #FFFFFF;
         }
 
+        h1 {
+            color: #006699;
+            font-family: 'Rokkitt', serif !important;
+        }
+
         h4 {
             color: #006699;
         }
@@ -371,65 +376,13 @@
             <!-- LIST CONTENT-->
             <div class="rightcontent col-md-9 offset-0">
 
-                <div class="hpadding20">
-                    <!-- Top filters -->
-                    <div class="topsortby">
-                        <div class="col-md-4 offset-0">
+                <div class="hpadding50c">
+                    <h1> Predefined Packages  </h1>
 
-                            <div class="left mt7"><b>Sort by:</b></div>
-
-                            <div class="right wh70percent">
-                                <select class="form-control mySelectBoxClass ">
-                                    <option selected>Manufacturer</option>
-                                    <option>Audi</option>
-                                    <option>BMW</option>
-                                    <option>Mazda</option>
-                                    <option>Lamborghini</option>
-                                    <option>Porsche</option>
-                                    <option>Volkswagen</option>
-                                    <option>...</option>
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="col-md-4">
-                            <div class="w50percent">
-                                <div class="wh90percent">
-                                    <select class="form-control mySelectBoxClass ">
-                                        <option selected>Automatic</option>
-                                        <option>Manual</option>
-                                        <option>CVT (Continuous variable transmission)</option>
-                                        <option>Semi automatic</option>
-                                        <option>TipTronic® gearbox</option>
-                                        <option>DSG (Direct shift gearbox)</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="w50percentlast">
-                                <div class="wh90percent">
-                                    <select class="form-control mySelectBoxClass ">
-                                        <option selected>Price</option>
-                                        <option>Ascending</option>
-                                        <option>Descending</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 offset-0">
-                            <div class="wh50percent left">
-                                <select class="form-control mySelectBoxClass ">
-                                    <option selected>Fuel type</option>
-                                    <option>Diesel</option>
-                                    <option>Petrol</option>
-                                    <option>Hibrid</option>
-                                    <option>Electric</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End of topfilters-->
+                    <p class="aboutarrow"></p>
                 </div>
-                <!-- End of padding -->
+
+                <div class="line3"></div>
 
                 <br/><br/>
 

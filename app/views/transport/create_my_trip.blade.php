@@ -58,9 +58,9 @@
 
     <body id="top" class="thebg">
 
-    <!-- navbar -->
-    @include('layout.navbar')
-    <!-- / navbar -->
+    <div class="navbar-wrapper2 navbar-fixed-top">
+        @include('layout.navbar')
+    </div>
 
     <div class="container breadcrub">
         <div>
@@ -68,18 +68,16 @@
 
             <div class="left">
                 <ul class="bcrumbs">
+                    <li><a href="{{URL::route('index')}}" class="active">Home </a></li>
                     <li>/</li>
-                    <li><a href="#">Hotels</a></li>
+                    <li><a href="{{ URL::to('create-my-trip') }}"
+                           class="active"> Create My Trip </a></li>
                     <li>/</li>
-                    <li><a href="#">U.S.A.</a></li>
-                    <li>/</li>
-                    <li><a href="#" class="active">New York</a></li>
                 </ul>
             </div>
             <a class="backbtn right" href="#"></a>
         </div>
         <div class="clearfix"></div>
-        <div class="brlines"></div>
     </div>
 
     <!-- CONTENT -->
@@ -145,7 +143,33 @@
                         <div class="col-md-6">
                             <div class="w50percent">
                                 <div class="wh90percent ">
-
+                                    <span class="opensans size13">Hour</span>
+                                    <select class="form-control mySelectBoxClass pick_up_hour">
+                                        <option>00</option>
+                                        <option>01</option>
+                                        <option>02</option>
+                                        <option>03</option>
+                                        <option>04</option>
+                                        <option>05</option>
+                                        <option>06</option>
+                                        <option>07</option>
+                                        <option>08</option>
+                                        <option>09</option>
+                                        <option>10</option>
+                                        <option>11</option>
+                                        <option selected="yes">12</option>
+                                        <option>13</option>
+                                        <option>14</option>
+                                        <option>15</option>
+                                        <option>16</option>
+                                        <option>17</option>
+                                        <option>18</option>
+                                        <option>19</option>
+                                        <option>20</option>
+                                        <option>21</option>
+                                        <option>22</option>
+                                        <option>23</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -178,7 +202,7 @@
                         <div class="col-md-6">
                             {{ Form::select('city', $city, null, array('class' => 'form-control mySelectBoxClass transport_origin_select', 'id' => 'transport_origin')) }}
                         </div>
-                        <div class="col-md-6  margtop15">
+                        <div class="col-md-6  margtop15" id="ssaa">
                         </div>
                         <div class="clearfix"></div>
 
@@ -357,10 +381,10 @@
                         <br/>
 
                     </div>
-<input type="hidden"/>
+
                     <div align="right">
                         <button id="transport_cart_box" style="text-align: right" type="submit"
-                                class="bluebtn margtop20 transport_get_cart_box">book
+                                class="bluebtn margtop20 transport_get_cart_box">Complete booking
                         </button>
                     </div>
 
@@ -370,59 +394,59 @@
             <!-- END OF LEFT CONTENT -->
 
             <!-- RIGHT CONTENT -->
-            {{--<div class="col-md-4" id="transport_rate_box">--}}
+            <div class="col-md-4" id="transport_rate_box">
 
-                {{--<div class="pagecontainer2 paymentbox grey">--}}
-                    {{--<div class="padding20">--}}
-                        {{--<span class="opensans size18 dark bold caps"> Transport Summery </span>--}}
-                    {{--</div>--}}
-                    {{--<div class="line3"></div>--}}
+                <div class="pagecontainer2 paymentbox grey">
+                    <div class="padding20">
+                        <span class="opensans size18 dark bold caps"> Transport Summery </span>
+                    </div>
+                    <div class="line3"></div>
 
-                    {{--<div class="hpadding30 margtop30">--}}
+                    <div class="hpadding30 margtop30">
 
-                        {{--<img src="updates/update1/img/cars/car02.jpg" width="100" alt=""/><br/>--}}
+                        <img src="updates/update1/img/cars/car02.jpg" width="100" alt=""/><br/>
 
-                        {{--<table class="table table-bordered margbottom20">--}}
-                            {{--<tbody id="transport_cart_box_table">--}}
+                        <table class="table table-bordered margbottom20">
+                            <tbody id="transport_cart_box_table">
 
-                            {{--</tbody>--}}
-                        {{--</table>--}}
-                        {{--<br/>--}}
-                    {{--</div>--}}
+                            </tbody>
+                        </table>
+                        <br/>
+                    </div>
 
-                    {{--<div class="line3"></div>--}}
-                    {{--<div class="padding30">--}}
-                            {{--<span class="left size14 dark"> <h3 style="font-size: 18px; display: inline"> Total Cost--}}
-                                    {{--: </h3></span>--}}
-                        {{--<span id="room_total_cost" class="right green bold size18">USD 100  </span>--}}
+                    <div class="line3"></div>
+                    <div class="padding30">
+                            <span class="left size14 dark"> <h3 style="font-size: 18px; display: inline"> Total Cost
+                                    : </h3></span>
+                        <span id="room_total_cost" class="right green bold size18">USD 100  </span>
 
-                        {{--<div class="clearfix"></div>--}}
-                    {{--</div>--}}
+                        <div class="clearfix"></div>
+                    </div>
 
-                    {{--<div class="line3"></div>--}}
-                    {{--<br/>--}}
-                    {{--&nbsp;&nbsp;&nbsp;--}}
-                    {{--<a id="add_to_cart" name="aa" href="{{URL::to('/booking-cart')}}" class="bluebtn margtop20">--}}
-                        {{--<span class="glyphicon glyphicon-shopping-cart"></span>--}}
-                        {{--Add To Cart--}}
-                    {{--</a>--}}
+                    <div class="line3"></div>
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;
+                    <a id="add_to_cart" name="aa" href="{{URL::to('/booking-cart')}}" class="bluebtn margtop20">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                        Add To Cart
+                    </a>
 
-                    {{--&nbsp;&nbsp;--}}
-                    {{--<a href="" class="bluebtn margtop20">--}}
-                        {{--<span class="glyphicon glyphicon-play"></span>--}}
-                        {{--Checkout--}}
-                    {{--</a>--}}
+                    &nbsp;&nbsp;
+                    <a href="" class="bluebtn margtop20">
+                        <span class="glyphicon glyphicon-play"></span>
+                        Checkout
+                    </a>
 
-                    {{--<div class="clearfix"></div>--}}
-                    {{--<br/>--}}
-                {{--</div>--}}
-            {{--</div>--}}
+                    <div class="clearfix"></div>
+                    <br/>
+                </div>
+            </div>
             <!-- END OF RIGHT CONTENT -->
 
         </div>
         <br/>
 
-        <div class="container mt25 offset-0">
+        <div class="container mt25 offset-0" id="show_map_create_my_trip">
             <div class="col-md-8 pagecontainer2 offset-0">
                 <!-- GOING TO -->
                 <div class="col-md-8" style="width:100%; height: 400px;" id="dvMap"></div>
@@ -449,6 +473,7 @@
         {{ HTML::script('assets/js/counter.js') }}
 
         <!-- Custom js -->
+        {{ HTML::script('js/my_script.js') }}
 
         {{ HTML::script('js/transport_cart.js') }}
 
@@ -458,195 +483,14 @@
 
         <script type="text/javascript">
             $(document).ready(function () {
-
-                var markers = [{
-                    "title": '1',
-                    "lat": '6.8344',
-                    "lng": '79.8428',
-                    "description": '1'
-                }, {
-                    "title": '2',
-                    "lat": '7.1500',
-                    "lng": '80.1',
-                    "description": '2'
-                }, {
-                    "title": '2',
-                    "lat": '7.2964',
-                    "lng": '80.6350',
-                    "description": '2'
-                }];
-
-                loadMap(markers);
-
-                $('#from').change(function () {
-                    var from = $(this).val();
-
-                    var start = from.split(',');
-
-                    markers[0] = {
-                        "title": '1',
-                        "lat": start[0],
-                        "lng": start[1],
-                        "description": '1'
-                    };
-                    //console.log(markers);
-                    loadMap();
-                });
-
-                $('#to').change(function () {
-                    var to = $(this).val();
-
-                    var destination = to.split(',');
-                    markers[1] = {
-                        "title": '2',
-                        "lat": destination[0],
-                        "lng": destination[1],
-                        "description": '2'
-                    };
-                    //markers.push(mark);
-                    loadMap();
-                });
-
-                $('.destination').change(function () {
-                    var destination_id = $(this).attr('id');
-                    var destination = to.split(',');
-                    markers[destination_id] = {
-                        "title": '2',
-                        "lat": destination[0],
-                        "lng": destination[1],
-                        "description": '2'
-                    };
-                    //markers.push(mark);
-                    loadMap();
-                });
-
-
+                $('#show_map_create_my_trip').hide("blind", 500);
+                var url = 'http://' + window.location.host + '/sri-lanka/get_transport_box';
+                sendTransportData(url);
             });
-                var totalDistance =0;
-
-            function loadMap(markers) {
-                var mapOptions = {
-                    center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
-                    zoom: 5,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-                var infoWindow = new google.maps.InfoWindow();
-                var lat_lng = new Array();
-                var latlngbounds = new google.maps.LatLngBounds();
-                for (i = 0; i < markers.length; i++) {
-                    var data = markers[i]
-                    var myLatlng = new google.maps.LatLng(data.lat, data.lng);
-                    lat_lng.push(myLatlng);
-                    var marker = new google.maps.Marker({
-                        position: myLatlng,
-                        map: map,
-                        title: data.title
-                    });
-                    latlngbounds.extend(marker.position);
-                    (function (marker, data) {
-                        google.maps.event.addListener(marker, "click", function (e) {
-                            infoWindow.setContent(data.description);
-                            infoWindow.open(map, marker);
-                        });
-                    })(marker, data);
-                }
-                map.setCenter(latlngbounds.getCenter());
-                map.fitBounds(latlngbounds);
-
-                //***********ROUTING****************//
-
-                //Intialize the Path Array
-                var path = new google.maps.MVCArray();
-
-                //Intialize the Direction Service
-                var service = new google.maps.DirectionsService();
-
-                //Set the Path Stroke Color
-                var poly = new google.maps.Polyline({
-                    map: map,
-                    strokeColor: '#4986E7'
-                });
-
-                var allDis = 0;
-                //Loop and Draw Path Route between the Points on MAP
-                for (var i = 0; i < lat_lng.length; i++) {
-                    if ((i + 1) < lat_lng.length) {
-                        var src = lat_lng[i];
-                        var des = lat_lng[i + 1];
-
-//            alert('asdas');
-
-                        // path.push(src);
-                        poly.setPath(path);
-                        service.route({
-                            origin: src,
-                            destination: des,
-                            travelMode: google.maps.DirectionsTravelMode.DRIVING
-                        }, function (result, status) {
-                            if (status == google.maps.DirectionsStatus.OK) {
-                                for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
-                                    path.push(result.routes[0].overview_path[i]);
-
-                                }
-                            }
-                        });
-
-
-                        //distance
-
-                        (getDistance(src, des));
-
-
-                    }
-
-                }
-//    alert(totalDistance);
-
-
-            }
-
-            function getDistance(src, des) {
-                var distance = 0;
-
-                var distanceService = new google.maps.DistanceMatrixService();
-
-                distanceService.getDistanceMatrix({
-                    origins: [src],
-                    destinations: [des],
-                    travelMode: google.maps.TravelMode.DRIVING,
-                    unitSystem: google.maps.UnitSystem.METRIC,
-                    avoidHighways: false,
-                    avoidTolls: false
-                }, function (response, status) {
-                    if (status == google.maps.DistanceMatrixStatus.OK && response.rows[0].elements[0].status != "ZERO_RESULTS") {
-                        console.log(response);
-
-
-                        distance = response.rows[0].elements[0].distance.value;
-                        //                                var duration = response.rows[0].elements[0].duration.text;
-                        //                                var dvDistance = document.getElementById("dvDistance");
-                        totalDistance = totalDistance + distance;
-
-
-                    } else {
-
-                        return false
-                    }
-
-//                       alert(distance);
-                    $('#aaa').val(totalDistance);
-                });
-
-
-            }
-
         </script>
 
         <script type="text/javascript">
             $(function () {
-
-                $('#transport_rate_box').hide();
 
                 $('.transport_get_cart_box').click(function () {
 
@@ -682,13 +526,85 @@
                         formData.append('drop_off_date', drop_off_date);
                         formData.append('drop_off_time_hour', drop_off_time_hour);
                         formData.append('drop_off_time_minutes', drop_off_time_minutes);
-                        formData.append('total_distance', $('#aaa').attr('value'));
 
                         sendTransportData(url, formData);
 
                     } else {
                         alert('please select dates');
                     }
+
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(function () {
+                $('#transport_origin').change(function () {
+
+                    var origin = $('.transport_origin_select :selected').val();
+
+                    var url = 'http://' + window.location.host + '/sri-lanka/create_transport_map';
+
+                    var formData = new FormData();
+
+                    formData.append('origin', origin);
+
+                    sendMapData(url, formData);
+                });
+
+                $('#transport_destination_1').change(function () {
+
+                    $('#show_map_create_my_trip').show("blind", 500);
+
+                    var origin = $('.transport_origin_select :selected').val();
+                    var destination_1 = $('.transport_destination_select_1 :selected').val();
+
+                    var url = 'http://' + window.location.host + '/sri-lanka/create_transport_map';
+
+                    var formData = new FormData();
+
+                    formData.append('origin', origin);
+                    formData.append('destination_1', destination_1);
+
+                    sendMapData(url, formData);
+
+                });
+
+                $('#transport_destination_2').change(function () {
+
+                    var origin = $('.transport_origin_select :selected').val();
+                    var destination_1 = $('.transport_destination_select_1 :selected').val();
+                    var destination_2 = $('.transport_destination_select_2 :selected').val();
+
+                    var url = 'http://' + window.location.host + '/sri-lanka/create_transport_map';
+
+                    var formData = new FormData();
+
+                    formData.append('origin', origin);
+                    formData.append('destination_1', destination_1);
+                    formData.append('destination_2', destination_2);
+
+                    sendMapData(url, formData);
+
+                });
+
+                $('#transport_destination_3').change(function () {
+
+                    var origin = $('.transport_origin_select :selected').val();
+                    var destination_1 = $('.transport_destination_select_1 :selected').val();
+                    var destination_2 = $('.transport_destination_select_2 :selected').val();
+                    var destination_3 = $('.transport_destination_select_3 :selected').val();
+
+                    var url = 'http://' + window.location.host + '/sri-lanka/create_transport_map';
+
+                    var formData = new FormData();
+
+                    formData.append('origin', origin);
+                    formData.append('destination_1', destination_1);
+                    formData.append('destination_2', destination_2);
+                    formData.append('destination_3', destination_3);
+
+                    sendMapData(url, formData);
 
                 });
             });

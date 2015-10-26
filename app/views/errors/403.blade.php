@@ -61,12 +61,7 @@
 
             <div class="left">
                 <ul class="bcrumbs">
-                    <li>/</li>
-                    <li><a href="#">Hotels</a></li>
-                    <li>/</li>
-                    <li><a href="#">U.S.A.</a></li>
-                    <li>/</li>
-                    <li><a href="#" class="active">New York</a></li>
+                    <li><a href="http://localhost:8888" class="active">Home </a></li>
                 </ul>
             </div>
             <a class="backbtn right" href="#"></a>
@@ -106,64 +101,6 @@
 
             <!-- LIST CONTENT-->
             <div class="rightcontent col-md-9 offset-0">
-
-                <div class="hpadding20">
-
-                    <!-- Top filters -->
-                    <div class="topsortby">
-                        <div class="col-md-4 offset-0">
-
-                            <div class="left mt7"><b>Sort by:</b></div>
-
-                            <div class="right wh70percent">
-                                <select class="form-control mySelectBoxClass ">
-                                    <option selected>Guest rating</option>
-                                    <option>5 stars</option>
-                                    <option>4 stars</option>
-                                    <option>3 stars</option>
-                                    <option>2 stars</option>
-                                    <option>1 stars</option>
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="col-md-4">
-                            <div class="w50percent">
-                                <div class="wh90percent">
-                                    <select class="form-control mySelectBoxClass ">
-                                        <option selected>Name</option>
-                                        <option>A to Z</option>
-                                        <option>Z to A</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="w50percentlast">
-                                <div class="wh90percent">
-                                    <select class="form-control mySelectBoxClass ">
-                                        <option selected>Price</option>
-                                        <option>Ascending</option>
-                                        <option>Descending</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 offset-0">
-                            <button class="popularbtn left">Most Popular</button>
-                            <div class="right">
-                                <a class="listbtn active" href="{{URL::to('home')}}"></a>
-                                <a class="gridbtn" href="{{URL::to('home')}}"></a>
-                                {{--<button class="listbtn active" onclick="location.href='http://google.com';">&nbsp;</button>--}}
-                                {{--<button class="gridbtn" onclick="location.href='http://google.com';"">&nbsp;</button>--}}
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End of topfilters-->
-                </div>
-                <!-- End of padding -->
-
-                <br/><br/>
-
-                <div class="clearfix"></div>
 
                 <div class="itemscontainer offset-1">
                     <br/><br/>

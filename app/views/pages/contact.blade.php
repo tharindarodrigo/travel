@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> srilankahotel.travel - About Us</title>
 
+    <style type="text/css">
+
+    </style>
+
 @endsection
 
 @section('content')

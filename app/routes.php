@@ -744,6 +744,9 @@ Route::any('sri-lanka/get_room_rate_box', array(
 Route::post('sri-lanka/get_room_rate_box/delete', 'HotelController@roomRateBoxDestroy');
 
 
+Route::post('sri-lanka/get_cart_hot_id', 'HotelController@cartHotId');
+
+
 // Star Category Rating
 
 Route::post('/star_rating', array(

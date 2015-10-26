@@ -594,10 +594,10 @@
                                             </span>
                                             @endif
 
-                                            <form action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
+                                            <form method="POST" target="_blank" action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
                                                 <button style="background: #006699; color: #ffffff"
                                                         class="bookbtn mt1"
-                                                        type="submit"> Book
+                                                        type="submit">Book
                                                 </button>
                                             </form>
                                         </div>
@@ -605,7 +605,7 @@
                                         <div class="labelleft2 get_hotel_id" hotel_id="{{ $hotel->id }}">
 
                                             <a href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"
-                                               style="text-decoration: none">
+                                               style="text-decoration: none" target="_blank">
                                                 <h4 style="display: inline;"> {{ $hotel->name }} </h4>
                                             </a>
                                             <br/>

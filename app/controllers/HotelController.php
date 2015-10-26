@@ -89,6 +89,7 @@ class HotelController extends \BaseController
         $star_id = array();
         $facility_id = array();
 
+
         if (Input::has('star_rating')) {
             $star = Input::get('star_rating');
             $get_star_ids = StarCategory::whereIn('stars', $star)->select('id')->get();
@@ -109,7 +110,6 @@ class HotelController extends \BaseController
                 //   Session::forget('facility');
             }
         }
-
 
         if (Input::has('facility')) {
             $facility = Input::get('facility');
@@ -787,77 +787,111 @@ class HotelController extends \BaseController
     public function getRoomRateBox()
     {
 
-        $room_identity = Input::get('check_room');
+        $hot_id = Input::get('hotel_id');
 
-        $hotel_id = Input::get('hotel_id');
-        $room_id = Input::get('room_id');
-        $meal_basis_id = Input::get('meal_basis_id');
-        $room_specification_id = Input::get('room_specification_id');
-        $room_count = Input::get('room_count');
+        if (Input::has('check_room')) {
 
-        $hotel_name = Hotel::where('id', $hotel_id)->first()->name;
-        $hotel_address = Hotel::where('id', $hotel_id)->first()->address;
-        $room_name = RoomType::where('id', $room_id)->first()->room_type;
+            $room_identity = Input::get('check_room');
 
-        $room_specification = RoomSpecification::where('id', $room_specification_id)->first()->room_specification;
-        $meal_basis = MealBasis::where('id', $meal_basis_id)->first()->meal_basis_name;
+            $hotel_id = Input::get('hotel_id');
+            $room_id = Input::get('room_id');
+            $meal_basis_id = Input::get('meal_basis_id');
+            $room_specification_id = Input::get('room_specification_id');
+            $room_count = Input::get('room_count');
 
-        $adult = Session::get('adult');
-        $child = Session::get('child');
-        $nights = Session::get('date_gap');
+            $hotel_name = Hotel::where('id', $hotel_id)->first()->name;
+            $hotel_address = Hotel::where('id', $hotel_id)->first()->address;
+            $room_name = RoomType::where('id', $room_id)->first()->room_type;
 
-        if (Input::has('check_in_date')) {
-            $st_date = date('Y-m-d', strtotime(Input::get('check_in_date')));
-        } else {
-            $st_date = date('Y-m-d', strtotime(Session::get('st_date')));
+            $room_specification = RoomSpecification::where('id', $room_specification_id)->first()->room_specification;
+            $meal_basis = MealBasis::where('id', $meal_basis_id)->first()->meal_basis_name;
+
+            $adult = Session::get('adult');
+            $child = Session::get('child');
+            $nights = Session::get('date_gap');
+
+            if (Input::has('check_in_date')) {
+                $st_date = date('Y-m-d', strtotime(Input::get('check_in_date')));
+            } else {
+                $st_date = date('Y-m-d', strtotime(Session::get('st_date')));
+            }
+
+            if (Input::has('check_out_date')) {
+                $ed_date = date('Y-m-d', strtotime(Input::get('check_out_date')));
+            } else {
+                $ed_date = date('Y-m-d', strtotime(Session::get('ed_date')));
+            }
+
+
+            $total_rate = $low_room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
+
+            $room_cost = $total_rate * $room_count;
+
+            $rate_box_details = array(
+                'hotel_id' => $hotel_id,
+                'hotel_name' => $hotel_name,
+                'hotel_address' => $hotel_address,
+                'room_name' => $room_name,
+                'room_type_id' => $room_id,
+                'room_specification' => $room_specification,
+                'room_specification_id' => $room_specification_id,
+                'meal_basis' => $meal_basis,
+                'meal_basis_id' => $meal_basis_id,
+                'room_cost' => $room_cost,
+                'room_count' => $room_count,
+                'unit_price' => $total_rate,
+                'adult' => $adult,
+                'child' => $child,
+                'nights' => $nights,
+                'room_identity' => $room_identity,
+                'check_in' => $st_date,
+                'check_out' => $ed_date,
+            );
+
+            if (Session::has('rate_box_details')) {
+                $data = Session::get('rate_box_details');
+                $data[$room_identity] = $rate_box_details;
+            } else {
+                $data = [];
+                $data[$room_identity] = $rate_box_details;
+            }
+
+            //$data['total_cost'] = $total_cost;
+
+            Session::put('rate_box_details', $data);
+
         }
 
-        if (Input::has('check_out_date')) {
-            $ed_date = date('Y-m-d', strtotime(Input::get('check_out_date')));
-        } else {
-            $ed_date = date('Y-m-d', strtotime(Session::get('ed_date')));
+        $data = Session::get('rate_box_details');
+
+        if(Session::has('rate_box_details')) {
+            foreach ($data as $page_hot_id) {
+                $page_hotel_id = $page_hot_id['hotel_id'];
+
+                if ($hot_id == $page_hotel_id) {
+                    if ((Session::has('rate_box_details')) || (Input::has('check_room'))) {
+                        return Response::json(Session::get('rate_box_details'));
+                    } else {
+                        return null;
+                    }
+                } else {
+                    return null;
+                }
+
+            }
+        }else{
+            return null;
         }
 
-        $total_rate = $low_room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
-
-        $room_cost = $total_rate * $room_count;
-
-        $rate_box_details = array(
-            'hotel_id' => $hotel_id,
-            'hotel_name' => $hotel_name,
-            'hotel_address' => $hotel_address,
-            'room_name' => $room_name,
-            'room_type_id' => $room_id,
-            'room_specification' => $room_specification,
-            'room_specification_id' => $room_specification_id,
-            'meal_basis' => $meal_basis,
-            'meal_basis_id' => $meal_basis_id,
-            'room_cost' => $room_cost,
-            'room_count' => $room_count,
-            'unit_price'=>$total_rate,
-            'adult' => $adult,
-            'child' => $child,
-            'nights' => $nights,
-            'room_identity' => $room_identity,
-            'check_in' => $st_date,
-            'check_out' => $ed_date,
-        );
-
-        if (Session::has('rate_box_details')) {
-            $data = Session::get('rate_box_details');
-            $data[$room_identity] = $rate_box_details;
-        } else {
-            $data = [];
-            $data[$room_identity] = $rate_box_details;
-        }
-
-        //$data['total_cost'] = $total_cost;
-
-        Session::put('rate_box_details', $data);
-
-        return Response::json(Session::get('rate_box_details'));
+        //return Response::json(Session::get('rate_box_details'));
 
     }
+
+//    public function cartHotId(){
+//        $hot_id = Input::get('hotel_id');
+//        dd($hot_id);
+//        return Response::json($hot_id);
+//    }
 
     // room rates destroy
 
@@ -875,6 +909,7 @@ class HotelController extends \BaseController
                 Session::put('rate_box_details', $data);
             } else {
                 Session::forget('rate_box_details');
+                return null;
             }
         }
 
@@ -938,7 +973,7 @@ class HotelController extends \BaseController
 
                         foreach ($hotels as $hotel) {
 
-                            $directory = public_path().'/images/site/';
+                            $directory = public_path() . '/images/site/';
                             $images = glob($directory . "hotel.png");
                             $img_path = array_shift($images);
                             $img_name = basename($img_path);

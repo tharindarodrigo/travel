@@ -11,6 +11,32 @@
 @section('custom_style')
 
     <style type="text/css">
+        #commentbox {
+            background-image: url(../../images/site/ratings.png);
+            background-repeat: no-repeat;
+            z-index: 90;
+            height: 50px;
+            width: 52px;
+            position: absolute;
+            top: 90px;
+            right: 90px;
+            text-align: center;
+        }
+
+        #commentrating {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10px;
+            font-weight: bold;
+            color: #FFF;
+            padding-top: 8px;
+        }
+
+        #commentnums {
+            color: #FFF;
+            font-family: Georgia, "Times New Roman", Times, serif;
+            font-size: 14px;
+            font-weight: bolder;
+        }
 
         .hotel_img_1 {
             width: 325px;
@@ -270,7 +296,7 @@
 
                                         {{--<span class="size11 grey"></span><br/><br/><br/>--}}
 
-                                        <a style="background: #006699; color: #FFFFFF" class="bookbtn mt1"
+                                        <a style="background: #006699; color: #FFFFFF" class="bookbtn mt1" target="_blank"
                                            href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursion->ExcursionType->excursion_type).'/'.str_replace(' ', '-', $excursion->excursion))}}">
                                             Book
                                         </a>
@@ -278,7 +304,7 @@
                                     </div>
                                     <div class="labelleft2">
 
-                                        <a href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursion->ExcursionType->excursion_type).'/'.str_replace(' ', '-', $excursion->excursion))}}">
+                                        <a target="_blank" href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursion->ExcursionType->excursion_type).'/'.str_replace(' ', '-', $excursion->excursion))}}">
                                             <span class="size16">
                                                 <h4 style="color: #006699; font-family: 'Play', sans-serif;">{{ $excursion->excursion }}</h4>
                                             </span>
@@ -286,10 +312,25 @@
 
                                         <div class="line4"></div>
 
-                                        <div class="excursion_short">
-                                            {{ $excursion->short_description }}.
+                                        <div>
+                                            <div class="left">
+                                                <div class="excursion_short">
+                                                    {{ $excursion->short_description }}.
+                                                </div>
+                                                <br/>
+                                            </div>
+
+                                            <div class="right hidden-xs hidden-md">
+                                                <div class="right">
+                                                    <div id="commentbox">
+                                                        <div id="commentrating">Rating</div>
+                                                        <div id="commentnums">
+                                                            5/7
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <br/>
 
                                     </div>
                                 </div>

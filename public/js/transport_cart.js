@@ -15,12 +15,14 @@ function sendTransportData(url, formData) {
         dataType: 'json',
         data: formData,
         success: function (data) {
-
-            var table_content = generateTransportTable(data);
-
-            $('#transport_cart_box_table').html(table_content);
-
-            deleteTransport();
+            if (data == null) {
+                $('#transport_rate_box').hide("blind");
+            } else {
+                $('#transport_rate_box').show("blind", 500);
+                var table_content = generateTransportTable(data);
+                $('#transport_cart_box_table').html(table_content);
+                deleteTransport();
+            }
         },
 
         error: function () {
@@ -42,7 +44,7 @@ function generateTransportTable(data) {
             if (index != 'total_cost') {
 
                 table += '<tr>';
-                table += '<td><span class="dark">' + 'Trip &nbsp;' + y + '</span> &nbsp;&nbsp;' + item.origin + '&nbsp;To&nbsp;' + item.destination_1 + ' <button class="right btn delete_transport btn-xs btn-danger" value="' + index + '">X</button><br>' +
+                table += '<td><span class="dark">' + 'Trip &nbsp;' + y + '</span> &nbsp;&nbsp;' + item.origin + '&nbsp;To&nbsp;' + item.destination_last + ' <button class="right btn delete_transport btn-xs btn-danger" value="' + index + '">X</button><br>' +
                 '<button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse" data-target="#collapse' + y + '"></button>' +
                 '<div id="collapse' + y + '" class="collapse">' +
                 '<div class="lblue">' +

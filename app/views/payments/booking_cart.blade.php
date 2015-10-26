@@ -87,21 +87,25 @@
     <div class="container pagecontainer offset-0">
 
         <div class="hpadding20">
+            <br/>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                {{ HTML::image('images/site/cart.png', '', array('class' => 'hotel_img_booking')) }}
+            </div>
 
-            <h1 style="color: #006699; font-family: 'Cinzel', serif; "> Booking Cart </h1>
-            @if(Session::has('add_new_voucher'))
+            <div class="col-md-4">
+                <h1 style="color: #006699; font-family: 'Cinzel', serif; "> Booking Cart </h1>
+            </div>
 
-            {{Form::open(array('route'=> array('bookings.vouchers.store',Session::get('add_new_voucher'))))}}
-                {{Form::submit('Add Vouchers', array('class'=>'btn btn-danger', 'id'=>'add_voucher'))}}
-                {{link_to_route('bookings.create','Continue to New Booking', null, array('class'=>'btn btn-warning', 'id'=>'checkout'))}}
-                <a href="{{URL::to('bookings/cancel-booking')}}" class="btn btn-default" >Cancel All</a>
+            <div class="col-md-4">
+                {{ HTML::image('images/site/verified.jpg', '', array('class' => '')) }}
+            </div>
 
-            {{Form::close()}}
-            @else
-                {{link_to_route('bookings.create','Checkout', null, array('class'=>'btn btn-danger', 'id'=>'checkout'))}}
-            @endif
-            <div class="line4"></div>
+        </div>
 
+        <div class="clearfix"></div>
+        <div class="offset-2">
+            <hr class="featurette-divider3">
         </div>
 
         @if(Session::has('rate_box_details'))
@@ -295,6 +299,11 @@
                                                     <a href="#">{{ $transport_booking['vehicle_type'] }}</a>
                                                 </h4>
 
+                                                <h5 style="font-size: 12px; color: #72bf66">{{ $transport_booking['origin'] }}
+                                                    - {{ $transport_booking['destination_1'] }}</h5>
+                                                <h5 style="font-size: 12px; color: #72bf66">{{ $transport_booking['destination_2'] }}
+                                                    - {{ $transport_booking['destination_3'] }}</h5>
+
 
                                             </div>
                                         </div>
@@ -303,11 +312,32 @@
                                     <td class="col-sm-2 col-md-1.5">
                                         <h5 style="display: inline"
                                             class="bk_room_name"> {{ $transport_booking['origin'] }} </h5>
+                                        @if(!empty($transport_booking['destination_2']))
+                                            <h5 style="display: inline"
+                                                class="bk_room_name"> {{ $transport_booking['destination_1'] }} </h5>
+                                        @endif
+                                        @if(!empty($transport_booking['destination_3']))
+                                            <h5 style="display: inline"
+                                                class="bk_room_name"> {{ $transport_booking['destination_2'] }} </h5>
+
+                                        @endif
+
+
                                     </td>
 
                                     <td class="col-sm-2 col-md-1.5">
-                                        <h5 style="display: inline"
-                                            class="bk_room_name"> {{ $transport_booking['destination_1'] }} </h5>
+                                        @if(!empty($transport_booking['destination_3']))
+                                            <h5 style="display: inline"
+                                                class="bk_room_name"> {{ $transport_booking['destination_1'] }} </h5>
+                                        @endif
+                                        @if(!empty($transport_booking['destination_2']))
+                                            <h5 style="display: inline"
+                                                class="bk_room_name"> {{ $transport_booking['destination_2'] }} </h5>
+                                        @endif
+                                        @if(!empty($transport_booking['destination_2']))
+                                            <h5 style="display: inline"
+                                                class="bk_room_name"> {{ $transport_booking['destination_1'] }} </h5>
+                                        @endif
                                     </td>
 
                                     <td class="col-sm-1 col-md-2 dark">
@@ -334,9 +364,7 @@
                                         </button>
                                     </td>
                                     {{ Form::close() }}
-
                                 </tr>
-
                             @endforeach
 
                             </tbody>
@@ -345,7 +373,25 @@
                 </div>
             </div>
         @endif
+
+        <br/>
+
+        <div class="container right">
+            @if(Session::has('add_new_voucher'))
+
+                {{Form::open(array('route'=> array('bookings.vouchers.store',Session::get('add_new_voucher'))))}}
+                {{Form::submit('Add Vouchers', array('class'=>'btn btn-danger', 'id'=>'add_voucher'))}}
+                {{link_to_route('bookings.create','Continue to New Booking', null, array('class'=>'btn btn-warning', 'id'=>'checkout'))}}
+                <a href="{{URL::to('bookings/cancel-booking')}}" class="btn btn-default">Cancel All</a>
+
+                {{Form::close()}}
+            @else
+                {{link_to_route('bookings.create','Complete Booking', null, array('class'=>'bluebtn', 'id'=>'checkout'))}}
+            @endif
+        </div>
+        <br/><br/><br/>
     </div>
+
     @endsection
 
     @section('script')
@@ -361,7 +407,7 @@
         {{ HTML::script('js/booking_cart.js') }}
 
         <script type="text/javascript">
-            $(document).ready(function(){
+            $(document).ready(function () {
                 $('#clear_button').click()
             })
         </script>

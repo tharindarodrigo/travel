@@ -97,7 +97,7 @@ function initialize() {
 		zoomControlOptions: {
 			style: google.maps.ZoomControlStyle.LARGE,
 			position: google.maps.ControlPosition.LEFT_CENTER
-		},
+		}
 
 	};
 
@@ -107,7 +107,7 @@ function initialize() {
 	var marker = new google.maps.Marker({
 		position: myLatlng,
 		map: map,
-		title: 'Hello World!'
+        title: 'Exotic Holidays International (Pvt ) Limited'
 	});
 
 

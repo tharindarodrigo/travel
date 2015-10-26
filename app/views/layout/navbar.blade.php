@@ -263,6 +263,31 @@
     .navbar-custom-2 a, li {
         color: #FFFFFF;
     }
+
+    .icon-cart {
+        width: 35px;
+        height: 30px;
+    }
+
+    .basket-item-count {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .basket-item-count .count {
+        position: absolute;
+        color: #fff;
+        top: 0px;
+        right: 10px;
+        border-radius: 100px;
+        width: 21px;
+        height: 21px;
+        line-height: 21px;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+    }
 </style>
 
 <script type="text/javascript">
@@ -289,11 +314,11 @@
 
 {{--Desktop version--}}
 
-<div class="navbar-wrapper2 navbar-fixed-top hidden-xs hidden-md " style="background: #006699;">
+<div class="navbar-wrapper2 navbar-fixed-top hidden-xs hidden-md" style="background: #006699;">
     <div class="row navbar-custom">
-        <div class="col-md-7"></div>
+        <div class="col-md-6"></div>
         <div class="col-md-5">
-            <table align="center">
+            <table style="display: inline" align="right">
                 <tr>
                     <th style="padding: 10px;"><a href="" style="text-decoration: none">Language &nbsp;&nbsp;|</a></th>
                     <th style="padding: 10px;"><a href="" style="text-decoration: none">USD &nbsp;&nbsp;|</a></th>
@@ -302,7 +327,7 @@
                             <ul class="nav navbar-nav">
                                 <li class="dropdown">
                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#" style="padding: 10px;">
-                                        {{(Auth::user()->first_name)}} {{(Auth::user()->last_name)}}
+                                        {{(Auth::user()->first_name)}} {{(Auth::user()->last_name)}}&nbsp;&nbsp;|
                                         {{ HTML::image('images/site/gold-arrow.png', '', array('class' => 'nav_arrow')) }}
                                     </a>
                                     <ul class="dropdown-menu">
@@ -329,13 +354,73 @@
                             or
                             <a style="padding-left: 2px; padding-right: 10px; text-decoration: none"
                                href="{{URL::to('/account/create')}}">
-                                Sign up
+                                Sign up &nbsp;&nbsp;|
                             </a>
                         @endif
                     </th>
+                    <th>
+                        <div class="basket right">
+                            <a href="{{URL::to('/booking-cart')}}">
+                                <div style="display: inline;" class="basket-item-count">
+                                    @if(Session::has('rate_box_details'))
+                                    <span class="count">{{ count(Session::get('rate_box_details')) + count(Session::get('transport_cart_box')) }}</span>
+                                    {{ HTML::image('images/site/icon-cart.png', '',  array('class' => 'icon-cart')) }}
+                                    @else
+                                        <span class="count">0</span>
+                                        {{ HTML::image('images/site/icon-cart.png', '',  array('class' => 'icon-cart')) }}
+                                    @endif
+                                </div>
+
+
+                                <div style="display: inline;" class="total-price-basket">
+                                    {{--<span class="sign">$</span>--}}
+                                    {{--<span class="value">3219,00</span>--}}
+                                    <span>View</span>
+                                </div>
+
+                            </a>
+
+                            {{--<ul class="dropdown-menu">--}}
+                            {{--<li>--}}
+                            {{--<div class="basket-item">--}}
+                            {{--<div class="row">--}}
+                            {{--<div class="col-xs-4 col-sm-4 no-margin text-center">--}}
+                            {{--<div class="thumb">--}}
+                            {{--<img alt="" src="assets/images/products/product-small-01.jpg"/>--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="col-xs-8 col-sm-8 no-margin">--}}
+                            {{--<div class="title">Blueberry</div>--}}
+                            {{--<div class="price">$270.00</div>--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<a class="close-btn" href="#"></a>--}}
+                            {{--</div>--}}
+                            {{--</li>--}}
+                            {{--<li class="checkout">--}}
+                            {{--<div class="basket-item">--}}
+                            {{--<div class="row">--}}
+                            {{--<div class="col-xs-12 col-sm-6">--}}
+                            {{--<a href="cart" class="le-button inverse">View cart</a>--}}
+                            {{--</div>--}}
+                            {{--<div class="col-xs-12 col-sm-6">--}}
+                            {{--<a href="checkout" class="le-button">Checkout</a>--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--</li>--}}
+                            {{--</ul>--}}
+
+                        </div>
+                        <!-- /.basket -->
+
+                    </th>
                 </tr>
             </table>
+
+
         </div>
+
     </div>
 
     <div class="container navbar-custom-2">
