@@ -249,7 +249,7 @@ class BookingsController extends \BaseController
     public function show($id)
     {
         try {
-            $booking = Booking::with('voucher')->with('client')->with('flightDetail')->where('id', $id)->where('user_id', Auth::user()->id)->first();
+            $booking = Booking::with('voucher')->with('client')->with('flightDetail')->where('id', $id)->first();
 
         } catch (ModelNotFoundException $e) {
             return Redirect::to('/404');

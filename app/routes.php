@@ -289,7 +289,7 @@ Route::group(array('before' => 'auth'), function () {
 Route::get('voucher/{id}', function ($id) {
     $voucher = Voucher::find($id);
     $pdf = PDF::loadView('emails/voucher', array('voucher' => $voucher));
-    $pdf->setPaper('a4')->save(public_path().'/temp_files/voucher.pdf');
+    $pdf->setPaper('a4')->save(public_path().'/temp-files/voucher.pdf');
     return $pdf->stream('abc.pdf');
 
 });
