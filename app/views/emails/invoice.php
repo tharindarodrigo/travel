@@ -66,5 +66,5 @@
     <b>Swift Code : MUCBKLC</b>
 <br>
 <br>
-
+<?php echo include_once('emailStructure/footer.php') ?>
 

@@ -2,13 +2,75 @@
 
 class AccountController extends \BaseController
 {
+    public function index()
+    {
+        return View::make('account.sign-in');
+    }
+
+    public function signUp()
+    {
+        return View::make('account.sign-up');
+    }
+
+    public function createAccount()
+    {
+        $validator = Validator::make($data = Input::all(), User::$rules);
+
+        if ($validator->fails()) {
+
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+
+        $data['role_id'] = Input::get('user_role');
+        $data['password'] = Hash::make($data['password']);
+        $data['code'] = str_random(60); //Activation code
+
+        $user = User::create($data);
+        if ($user) {
+
+            // send email
+
+            Mail::send('emails.auth.activate', array('link' => URL::to('account/activate', $data['code']), 'first_name' => $data['first_name']), function ($massage) use ($user) {
+                $massage->to($user->email, $user->first_name)->subject('Activate your account');
+            });
+
+            Session::flash('global', 'Your account has been created! We have sent you an email to activate your account');
+
+            return View::make('pages.message');
+
+        }
+
+        return 'There was an error';
+
+
+    }
+
+    public function activateAccount($code)
+    {
+        $user = User::where('code', '=', $code)->where('active', '=', 0)->first();
+
+        if ($user) {
+
+            $user->active = 1;
+            $user->code = '';
+
+            if ($user->save()) {
+                Session::flash('global', 'Your account is activated..! Now you can sign in..!');
+                return View::make('pages.message');
+            }
+        }
+
+        Session::flash('global', 'Unable to activate your account.. please try again later');
+        return View::make('pages.message');
+    }
 
     public function  getSignIn()
     {
-        return View::make('account.sign_in_new');
+        return View::make('account.sign-in');
     }
 
-    public function  postSignIn()
+    public function  signIn()
     {
         $validator = Validator::make(Input::all(),
 
@@ -20,17 +82,17 @@ class AccountController extends \BaseController
 
         if ($validator->fails()) {
 
-            // Redirect to the sign in page
-//            return Redirect::route('account-sign-in')
-//                ->withErrors($validator)
-//                ->withInput();
+            //Redirect to the sign in page
+            return Redirect::back()
+                ->withErrors($validator)
+                ->withInput();
 
-            $array = array(
-                'validation' => false,
-                'errors' => $validator->errors()->toArray()
-            );
+//            $array = array(
+//                'validation' => false,
+//                'errors' => $validator->errors()->toArray()
+//            );
 
-            return Response::json($array);
+//            return Response::json($array);
 
         } else {
 
@@ -43,33 +105,27 @@ class AccountController extends \BaseController
             ), $remember);
 
             if ($auth) {
-                // Redirect to the intend page
-//                return Redirect::intended('/');
-                $array = array(
-                    'validation' => true,
-                    'success' => true,
-                    'alert' => 'You are logged in'
-                );
+                //Redirect to the intend page
+                return Redirect::intended('/');
+//                $array = array(
+//                    'validation' => true,
+//                    'success' => true,
+//                    'alert' => 'You are logged in'
+//                );
 
-//                Entrust::hasRole('Agent') ? Session::put('market',Agent::)
-                return Response::json($array);
+//                return Response::json($array);
             } else {
-//                return Redirect::route('account-sign-in')
-//                    ->with('global', 'Email/Password wrong, or account not activated');
-                $array = array(
-                    'validation' => true,
-                    'success' => false,
-                    'alert' => 'Wrong Email/Password, or account not activated'
-                );
-                return Response::json($array);
+                return Redirect::back()
+                    ->with('global', 'Email/Password wrong, or account not activated');
+//                $array = array(
+//                    'validation' => true,
+//                    'success' => false,
+//                    'alert' => 'Wrong Email/Password, or account not activated'
+//                );
+//                return Response::json($array);
             }
         }
 
-//        return Redirect::route('account-sign-in')
-//            ->with('global', 'There was a problem signing in you');
-//        $array = array('');
-//
-//        return Response::json()
     }
 
     public function getSignOut()
@@ -78,147 +134,32 @@ class AccountController extends \BaseController
         return Redirect::route('index');
     }
 
-    public function postSignOut()
-    {
-
-    }
-
-    public function getCreate()
-    {
-        return View::make('account.sign_in_new');
-    }
-
-    public function postCreate()
-    {
-
-        // Your code here to handle a successful verification
-
-        $validator = Validator::make(Input::all(),
-
-            array(
-                'first_name' => 'required|max:50',
-                'last_name' => 'required|max:50',
-                'email' => 'required|max:50|email|unique:users',
-                'password' => 'required|min:6',
-                'confirm_password' => 'required|same:password',
-            )
-        );
-
-        if ($validator->fails()) {
-
-//            return Redirect::route('account-create')
-//                ->withInput()
-//                ->withErrors($validator);
-            $array = array(
-                'validation' => false,
-                'errors' => $validator->errors()->toArray()
-            );
-
-            return Response::json($array);
-
-        } else {
-
-            $first_name = Input::get('first_name');
-            $last_name = Input::get('last_name');
-            $email = Input::get('email');
-            $password = Input::get('password');
-
-            // Activation Code
-
-            $code = str_random(60);
-
-
-            $user = User::create(array(
-                'first_name' => $first_name,
-                'last_name' => $last_name,
-                'email' => $email,
-                'password' => Hash::make($password),
-                'code' => $code,
-                'active' => 0
-            ));
-
-
-
-            if ($user) {
-
-                // send email
-
-                Mail::send('emails.auth.activate', array('link' => URL::route('account-activate', $code), 'first_name' => $first_name), function ($massage) use ($user) {
-                    $massage->to($user->email, $user->first_name)->subject('Activate your account');
-                });
-
-                $array = array(
-                    'success' => true,
-                    'validation'=>true,
-                    'alert' => 'Your account has been created! We have sent you an email to activate your account'
-                );
-
-                return Response::json($array);
-
-            }
-
-            $array = array(
-                'success' => true,
-                'alert' =>'Your account has been created! We have sent you an email to activate your account'
-            );
-
-            return Response::json($array);
-        }
-
-    }
-
     public function profileActive()
     {
         return View::make('pages.message');
     }
 
-    public function getActivationEmail(){
-        Session::flash('global','Your account has been created! We have sent you an email to activate your account');
+    public function getActivationEmail()
+    {
+        Session::flash('global', 'Your account has been created! We have sent you an email to activate your account');
         return View::make('pages.message');
     }
 
-    public function getActivate($code)
+    public function updateProfile()
     {
-        $user = User::where('code', '=', $code)->where('active', '=', 0)->first();
-        if ($user) {
-
-            //update user to active state
-
-            $user->active = 1;
-            $user->code = '';
-
-            if ($user->save()) {
-                return Redirect::route('profile-activate')
-                    ->with('global', 'Your account is activated..! Now you can sign in..!');
-            }
-        }
-
-        return Redirect::route('profile-activate')
-            ->with('global', 'Unable to activate your account.. please try again later');
-    }
-
-    public function getChangePassword()
-    {
-        return View::make('account.forgot');
-    }
-
-    public function postChangePassword()
-    {
-
         $validator = Validator::make(Input::all(),
 
             array(
                 'first_name' => 'max:50',
                 'last_name' => 'max:50',
-                'phone' => 'max:12',
-                'old_password' => 'required',
-                'password' => 'min:6',
-                'password_conf' => 'same:password',
+                'current_password' => 'required',
+                'new_password' => 'min:6',
+                'password_again' => 'same:new_password',
             )
         );
 
         if ($validator->fails()) {
-            return Redirect::route('profile-edit-user-post')
+            return Redirect::back()
                 ->withErrors($validator);
         } else {
 
@@ -226,11 +167,12 @@ class AccountController extends \BaseController
 
             $first_name = Input::get('first_name');
             $last_name = Input::get('last_name');
-            $phone = Input::get('phone');
-            $old_password = Input::get('old_password');
-            $password = Input::get('password');
+            $old_password = Input::get('current_password');
+            $password = Input::get('new_password');
 
             if (Hash::check($old_password, $user->getAuthPassword())) {
+
+
 
                 $user->password = Hash::make($password);
 
@@ -240,22 +182,18 @@ class AccountController extends \BaseController
                 if ($last_name) {
                     $user->last_name = $last_name;
                 }
-                if ($phone) {
-                    $user->phone = $phone;
-                }
 
                 if ($user->save()) {
-                    return Redirect::route('profile-activate')
-                        ->with('global', 'Your password has been changed..');
+                    Session::flash('global', 'Your credential have been updated');
+                    return Redirect::back();
                 }
                 return Redirect::route('profile-edit-user-post')
                     ->with('global', 'please check again');
             }
-            return Redirect::route('profile-edit-user-post')
+            return Redirect::back()
                 ->with('global', 'Your password is wrong');
         }
-        return Redirect::route('profile-edit-user-post')
-            ->with('global', 'Your data could not be changed..');
+
     }
 
     public function getForgotPassword()
@@ -274,10 +212,11 @@ class AccountController extends \BaseController
         );
 
         if ($validator->fails()) {
-            return Redirect::route('account-forgot-password')
+            return Redirect::back()
                 ->withErrors($validator)
                 ->withInput();
         } else {
+
             $user = User::where('email', '=', Input::get('email'));
 
             if ($user->count()) {
@@ -292,12 +231,12 @@ class AccountController extends \BaseController
                 $user->password_temp = Hash::make($password);
 
                 if ($user->save()) {
-                    Mail::send('emails.auth.forgot', array('link' => URL::route('account-recover', $code), 'first_name' => $user->first_name, 'password' => $password), function ($message) use ($user) {
+                    Mail::send('emails.auth.forgot', array('link' => URL::to('account/recover', $code), 'first_name' => $user->first_name, 'password' => $password), function ($message) use ($user) {
                         $message->to($user->email, $user->first_name)->subject('Your new password');
                     });
 
-                    return Redirect::route('account-password-reset')
-                        ->with('global', 'we have sent you a new password by email');
+                    Session::flash('global', 'we have sent you a new password by email');
+                    return View::make('pages.message');
                 }
             }
         }
@@ -306,7 +245,7 @@ class AccountController extends \BaseController
             ->with('global', 'Could not request new password');
     }
 
-    public function getRecover($code)
+    public function recoverAccount($code)
     {
         $user = User::where('code', '=', $code)
             ->where('password_temp', '!=', '');
@@ -319,11 +258,11 @@ class AccountController extends \BaseController
             $user->code = '';
 
             if ($user->save()) {
-                return Redirect::route('account-password-reset-done')
-                    ->with('global', 'Your account has been recovered and you can sign in with your new password');
+                Session::flash('global', 'Your account has been recovered and you can sign in with your new password we emailed you just now');
+                return View::make('pages.message');
             }
 
-            return Redirect::route('account-create')
+            return Redirect::route('account/sign-in')
                 ->with('global', 'Could not recover your account.');
         }
     }

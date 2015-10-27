@@ -11,6 +11,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface
 
     protected $fillable = array('email', 'first_name', 'last_name', 'password', 'password_temp', 'code', 'role_id');
 
+    public static $rules = [
+        'first_name' => 'required|max:50',
+        'last_name' => 'required|max:50',
+        'email' => 'required|max:50|email|unique:users',
+        'password' => 'required|min:6',
+        'confirm_password' => 'required|same:password',
+        'use_as' => 'required|numeric|between:1,3',
+        'company' => 'required_if:user_role,2,3',
+        'telephone'=> 'required_if:user_role,2,3',
+        'fax'=> 'numeric',
+
+    ];
+
     use HasRole, UserTrait, RemindableTrait;
 
     /**
@@ -26,8 +39,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface
      * @var array
      */
     protected $hidden = array('password', 'remember_token');
-
-
 
 
     public static function getHoteliers()
@@ -47,9 +58,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface
 //            ->get();
 
     }
-
-
-
 
 
     public static function getAgentOfUser($id)

@@ -50,10 +50,13 @@
                     <div class="line4"></div>
 
                     <div class="row">
+
                         <div class="col-md-6">
+                            <div class="col-md-12">
+                                {{Session::get('global')}}
+                            </div>
 
-
-                            {{Form::model(Auth::user())}}
+                            {{Form::model(Auth::user(),array('url'=>array('account/update-profile')))}}
                             <div class="form-group">
                                 <label for="">Email</label>
                                 {{Form::text('email',null,array('class'=>'form-control'))}}
@@ -61,10 +64,20 @@
                             <div class="form-group">
                                 <label for="first_name">First Name</label>
                                 {{Form::text('first_name',null,array('class'=>'form-control'))}}
+                                {{$errors->first('first_name', '<span class="size12" style="color: red;">:message</span>') }}
+
                             </div>
                             <div class="form-group">
                                 <label for="last_name">Last Name</label>
                                 {{Form::text('last_name',null,array('class'=>'form-control'))}}
+                                {{$errors->first('last_name', '<span class="size12" style="color: red;">:message</span>') }}
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="old_password">Current Password</label>
+                                {{Form::password('current_password',array('class'=>'form-control'))}}
+                                {{$errors->first('current_password', '<span class="size12" style="color: red;">:message</span>') }}
                             </div>
                             <hr>
                             <h4>Change Password</h4>
@@ -72,11 +85,14 @@
                             <div class="form-group">
                                 <label for="new_password">New Password</label>
                                 {{Form::password('new_password',array('class'=>'form-control'))}}
-                            </div>
+                                {{$errors->first('new_password', '<span class="size12" style="color: red;">:message</span>') }}
 
+                            </div>
                             <div class="form-group">
                                 <label for="password_again">Password Again</label>
                                 {{Form::password('password_again',array('class'=>'form-control'))}}
+                                {{$errors->first('password_again', '<span class="size12" style="color: red;">:message</span>') }}
+
                             </div>
                             <div class="form-group">
 
@@ -92,7 +108,7 @@
     <br>
 
     @if(Entrust::hasRole('Agent'))
-    @include('profile._partials.agent')
+        @include('profile._partials.agent')
     @endif
 
 

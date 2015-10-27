@@ -18,54 +18,28 @@
 
 Route::group(array('before' => 'auth'), function () {
 
+    /**
+     * User Account - after signIn
+     */
+
     Route::group(array('before' => 'csrf'), function () {
 
         /*
              Change Password (POST)
          */
-        Route::post('/profile/edit-user', array(
-            'as' => 'profile-edit-user-post',
-            'uses' => 'AccountController@postChangePassword',
-        ));
+
+        Route::post('account/update-profile', 'AccountController@updateProfile');
+
+//        Route::post('/profile/edit-user', array(
+//            'as' => 'profile-edit-user-post',
+//            'uses' => 'AccountController@postChangePassword',
+//        ));
 
 
     });
 
-    //Change password
+//    Route::post('account/update-profile', 'AccountController@updateProfile');
 
-    Route::get('account/change-password', array(
-        'as' => 'account-change-password',
-        'uses' => 'AccountController@getChangePassword'
-    ));
-
-    //Sign Out
-
-    /*
-        Change password (GET)
-    */
-
-    Route::get('/profile/edit-user', array(
-        'as' => 'profile-edit-user',
-        'uses' => 'AccountController@getChangePassword',
-    ));
-
-    /*
-        My Properties
-    */
-
-    Route::get('/profile/my-properties', array(
-        'as' => 'profile-my-properties',
-        'uses' => 'AccountController@myProperties',
-    ));
-
-    /*
-        Delete Properties
-    */
-
-    Route::post('/profile/my-properties-delete', array(
-        'as' => 'profile-my-properties-delete',
-        'uses' => 'AccountController@destroy',
-    ));
 
     /*
         Sign out (GET)
@@ -76,11 +50,6 @@ Route::group(array('before' => 'auth'), function () {
         'uses' => 'AccountController@getSignOut',
     ));
 
-
-    Route::get('/account/account-confirmation', array(
-        'as' => 'activation-email',
-        'uses' => 'AccountController@getActivationEmail'
-    ));
 
 //=====================================================================================================================|
 //    Control Panel                                                                                                    |
@@ -286,6 +255,19 @@ Route::group(array('before' => 'auth'), function () {
 });
 
 
+Route::group(array('prefix' => 'account'), function(){
+    Route::get('sign-up','AccountController@signUp');
+    Route::post('create', 'AccountController@createAccount');
+    Route::get('activate/{code}','AccountController@activateAccount');
+    Route::get('sign-in','AccountController@getSignIn');
+    Route::post('sign-in','AccountController@signIn');
+    Route::get('forgot-password','AccountController@getForgotPassword');
+    Route::post('forgot-password','AccountController@postForgotPassword');
+    Route::get('recover/{code}', 'AccountController@recoverAccount');
+});
+
+
+
 Route::get('voucher/{id}', function ($id) {
     $voucher = Voucher::find($id);
     $pdf = PDF::loadView('emails/voucher', array('voucher' => $voucher));
@@ -318,98 +300,9 @@ Route::group(array('before' => 'guest'), function () {
 
     Route::group(array('before' => 'csrf'), function () {
 
-        /*
-             Create account (POST)
-         */
-
-        Route::post('/account/create', array(
-            'as' => 'account-create-post',
-            'uses' => 'AccountController@postCreate',
-        ));
-
-        /*
-            Sign in (POST)
-        */
-
-        Route::post('/account/sign-in', array(
-            'as' => 'account-sign-in-post',
-            'uses' => 'AccountController@postSignIn',
-        ));
-
-        /*
-            Forgot password (POST)
-        */
-
-        Route::post('/account/forgot-password', array(
-            'as' => 'account-forgot-password-post',
-            'uses' => 'AccountController@postForgotPassword',
-        ));
-
 
     });
 
-    /*
-          Forgot password (GET)
-     */
-
-    Route::get('/account/forgot-password', array(
-        'as' => 'account-forgot-password',
-        'uses' => 'AccountController@getForgotPassword',
-    ));
-
-    Route::get('/account/password-reset', array(
-        'as' => 'account-password-reset',
-        'uses' => 'AccountController@profileActive',
-    ));
-
-    Route::get('/account/password-reset-done', array(
-        'as' => 'account-password-reset-done',
-        'uses' => 'AccountController@profileActive',
-    ));
-
-    Route::get('/account/recover/{code}', array(
-        'as' => 'account-recover',
-        'uses' => 'AccountController@getRecover'
-    ));
-
-    /*
-        Sign in (GET)
-    */
-
-    Route::get('/account/sign-in', array(
-        'as' => 'account-sign-in',
-        'uses' => 'AccountController@getSignIn',
-    ));
-
-    /*
-        My Profile
-     */
-
-    Route::get('/profile/my-profile', array(
-        'as' => 'profile-my-profile',
-        'uses' => 'AccountController@profileActive',
-    ));
-
-
-    /*
-        Create account (GET)
-    */
-
-    Route::get('/account/create', array(
-        'as' => 'account-create',
-        'uses' => 'AccountController@getCreate',
-    ));
-
-    Route::get('/profile/activate', array(
-        'as' => 'profile-activate',
-        'uses' => 'AccountController@profileActive',
-    ));
-
-
-    Route::get('/account/activate/{code}', array(
-        'as' => 'account-activate',
-        'uses' => 'AccountController@getActivate'
-    ));
 
 });
 

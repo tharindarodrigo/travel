@@ -52,6 +52,7 @@
 @endsection
 
 @section('script')
+
 {{HTML::script('https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.js')}}
 {{HTML::script('control-panel-assets/ajax/commonFunctions.js')}}
 
@@ -72,6 +73,7 @@
              changeMonth: true,
              changeYear: true
         });
+
         $('.date-control').datepicker({
             dateFormat: 'yy-mm-dd',
             changeMonth: true,

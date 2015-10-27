@@ -48,26 +48,19 @@
                 <div class="line3"></div>
 
                 <div class="hpadding50c">
-
                     <h2 style="font-size: 30px; color: #72bf66; text-align: center" ><i class="fa fa-fa fa-check"></i> successfully completed  </h2>
-
                 </div>
-
 
                 <div class="clearfix"></div>
                 <br/><br/>
             </div>
             <!-- END CONTENT -->
-
-
         </div>
-
 
     </div>
     <!-- END OF CONTENT -->
 
 @endsection
-
 
 </body>
 

@@ -73,7 +73,7 @@ class BookingsController extends \BaseController
         if (Auth::check()) {
             $user = Auth::user();
             $data['user_id'] = $user->id;
-            $rules = Booking::$rules;
+            $rules = Booking::$agentRules;
         } else {
             $rules = Booking::$guestRules;
         }
