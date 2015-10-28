@@ -499,10 +499,10 @@
                     var destination_1 = $('.transport_destination_select_1 :selected').text();
                     var destination_2 = $('.transport_destination_select_2 :selected').text();
                     var destination_3 = $('.transport_destination_select_3 :selected').text();
-                    var pick_up_date = $('.pick_up').datepicker({dateFormat: 'dd-mm-yy'}).val();
+                    var pick_up_date = $('.pick_up').datepicker({dateFormat: 'yyyy-mm-dd'}).val();
                     var pick_up_time_hour = $('.pick_up_hour :selected').text();
                     var pick_up_time_minutes = $('.pick_up_minutes :selected').text();
-                    var drop_off_date = $('.drop_off').datepicker({dateFormat: 'dd-mm-yy'}).val();
+                    var drop_off_date = $('.drop_off').datepicker({dateFormat: 'yyyy-mm-dd'}).val();
                     var drop_off_time_hour = $('.drop_off_hour :selected').text();
                     var drop_off_time_minutes = $('.drop_off_minutes :selected').text();
 
