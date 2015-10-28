@@ -314,6 +314,7 @@ Route::group(array('before' => 'guest'), function () {
 //    Front End                                                                                                    |
 //=====================================================================================================================|
 
+// index page
 
 Route::get('/', array(
     'as' => 'index',
@@ -461,25 +462,35 @@ Route::get('/403', array(
 /*------------------------- Excursion List -------------------------------*/
 //=====================================================================================================================|
 
+// create excursion list
+
 Route::get('excursion/sri-lanka/{excursion_type_name?}', array(
     'as' => 'excursion-list',
     'uses' => 'ExcursionController@excursionList'
 ));
+
+// excursion details
 
 Route::get('excursion/{country?}/{excursion_type_name?}/{excursion_name?}', array(
     'as' => 'excursion-details',
     'uses' => 'ExcursionController@excursionDetail'
 ));
 
+// excursion filter
+
 Route::any('sri-lanka/excursion/filter', array(
     'as' => 'excursion-filter',
     'uses' => 'ExcursionController@viewFilter'
 ));
 
+// excursion transport
+
 Route::post('sri-lanka/set_excursion_transport', array(
     'as' => 'excursion-set-transport',
     'uses' => 'ExcursionController@excursionSetTransport'
 ));
+
+// excursion rate calculate
 
 Route::post('sri-lanka/get_excursion_total', array(
     'as' => 'excursion-get-total',
@@ -496,15 +507,21 @@ Route::post('sri-lanka/get_excursion_total', array(
 /*------------------------- Tour List -------------------------------*/
 //=====================================================================================================================|
 
+// tour list
+
 Route::any('tour/sri-lanka/{tour_name?}', array(
     'as' => 'tour-list',
     'uses' => 'TourController@tourList'
 ));
 
+// tour details
+
 Route::get('tour/{country?}/{tour_name?}/{tour_type_name?}', array(
     'as' => 'tour-details',
     'uses' => 'TourController@tourDetail'
 ));
+
+// tour filter
 
 Route::any('sri-lanka/tour/filter', array(
     'as' => 'tour-filter',
@@ -560,7 +577,14 @@ Route::post('/sri-lanka/transport_cart_rate_box/delete', 'CartController@transpo
 
 Route::post('/sri-lanka/create_transport_map', 'TransportPackageController@transportMapCreate');
 
+// create predefined transport cart
+
 Route::post('/sri-lanka/predefined_transport_add_to_cart', 'TransportPackageController@predefinedTransportCartCreate');
+
+// delete item from predefined transport cart
+
+Route::post('/sri-lanka/predefined_transport_cart/delete', 'CartController@predefinedTransportCartItemDelete');
+
 
 
 //=====================================================================================================================|
@@ -636,9 +660,11 @@ Route::any('sri-lanka/get_room_rate_box', array(
     'uses' => 'HotelController@getRoomRateBox'
 ));
 
+// delete item from room rate box
 
 Route::post('sri-lanka/get_room_rate_box/delete', 'HotelController@roomRateBoxDestroy');
 
+// get hotel id for check hotel
 
 Route::post('sri-lanka/get_cart_hot_id', 'HotelController@cartHotId');
 

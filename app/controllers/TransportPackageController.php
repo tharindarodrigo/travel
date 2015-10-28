@@ -116,13 +116,14 @@ class TransportPackageController extends \BaseController
         $check_in_date = date("Y-m-d", strtotime(Input::get('check_in')));
         $check_out_date = date("Y-m-d", strtotime(Input::get('check_out')));
 
+        $predefined_key = $check_in_date . '_' . $check_out_date . '_' . $predefine_id;
+
         $predefined_transport_details = array(
             'predefine_id' => $predefine_id,
+            'predefined_key' => $predefined_key,
             'check_in_date' => $check_in_date,
             'check_out_date' => $check_out_date,
         );
-
-        $predefined_key = $check_in_date . '_' . $check_out_date . '_' . $predefine_id;
 
         if (Session::has('predefined_transport')) {
             $data = Session::get('predefined_transport');
@@ -139,6 +140,7 @@ class TransportPackageController extends \BaseController
         return Response::json(Session::get('predefined_transport'));
 
     }
+
 
     /**
      * Create Transport Package

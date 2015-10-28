@@ -443,7 +443,7 @@ if (Session::has('predefined_transport')) {
                                         </h5>
                                     </td>
 
-                                    <td class="col-sm-1 col-md-1">
+                                    <td class="col-sm-2 col-md-2">
                                         <h5 style="display: inline"
                                             class="bk_room_name"> {{ City::where('id' , TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->destination)->first()->city; }} </h5>
                                     </td>
@@ -456,16 +456,16 @@ if (Session::has('predefined_transport')) {
                                         <h5 style="font-weight: 700 !important;">{{$predefined_transport['check_out_date']   }}</h5>
                                     </td>
 
-                                    <td class="col-sm-2 col-md-2">
+                                    <td class="col-sm-2 col-md-1">
                                         <span class="green bold size18"> USD </span> <br/>
                                         <span class="green bold size18">{{ number_format(TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->rate, 2, '.', '') }}</span>
                                     </td>
 
-                                    {{ Form::open(array('url' => '/sri-lanka/transport_cart_rate_box/delete', 'method' => 'POST', 'id'=>'booking_cart_item_delete')) }}
+                                    {{ Form::open(array('url' => '/sri-lanka/predefined_transport_cart/delete', 'method' => 'POST', 'id'=>'booking_cart_item_delete')) }}
                                     <td class="col-sm-1 col-md-1">
                                         <button id="delete_transport_cart_item" type="submit" class="btn btn-danger"
                                                 name="delete_transport_item"
-                                                value="{{ 'as' }}">
+                                                value="{{ $predefined_transport['predefined_key'] }}">
                                             <span class="glyphicon glyphicon-remove"></span> Remove
                                         </button>
                                     </td>

@@ -141,6 +141,31 @@ class CartController extends \BaseController
 
     }
 
+// delete predefined transport cart item
+
+    public function predefinedTransportCartItemDelete()
+    {
+
+        $deletable = Input::get('del_transport_id');
+        dd($deletable);
+
+        if (Session::has('predefined_transport')) {
+            $data = Session::get('predefined_transport');
+            //dd($data);
+            unset($data[$deletable]);
+
+            if (!empty($data)) {
+                Session::put('predefined_transport', $data);
+            } else {
+                Session::forget('predefined_transport');
+                return null;
+            }
+
+        }
+
+        return Redirect::to('/booking-cart');
+
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -208,53 +233,5 @@ class CartController extends \BaseController
 
         return Redirect::to('booking-cart');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function update($id)
-    {
-        //
-    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
 
 }

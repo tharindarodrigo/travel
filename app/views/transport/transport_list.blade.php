@@ -90,8 +90,7 @@
                     <div class="padding20">
 
                         <p class="size13"><span class="size18 bold ">{{ $transport_packages->getTotal(); }}</span>
-                            Package starting
-                            at
+                            Package starting at
                         </p>
 
                         <p class="size30 bold">$<span class=""> {{ $min_trans_rate }} </span></p>
