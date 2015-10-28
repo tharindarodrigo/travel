@@ -21,13 +21,25 @@ class AccountController extends \BaseController
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-
-        $data['role_id'] = Input::get('user_role');
+        $data['role'] = Input::get('user_role');
         $data['password'] = Hash::make($data['password']);
         $data['code'] = str_random(60); //Activation code
 
         $user = User::create($data);
         if ($user) {
+
+            if ($data['role'] != 'Guest') {
+                $user->attachRole($data['role']);
+                Agent::create($data);
+
+                Mail::send('emails.auth.signup', array('first_name' => $data['first_name'], 'role' => $data['agent']), function ($massage) use ($user) {
+                    $massage->to($user->email, $user->first_name)->subject('Thank You for Signing Up');
+
+                });
+
+                Session::flash('global', 'Thank you for signing up with us as an ' . $data['role'] . '. We will contact you within 24 hours');
+                return View::make('pages.message');
+            }
 
             // send email
 
@@ -105,6 +117,12 @@ class AccountController extends \BaseController
             ), $remember);
 
             if ($auth) {
+
+                if (Entrust::hasRole('Agent')) {
+                    $market = Auth::user()->agent()->first()->market()->first();
+
+                    Session::put('market', $market);
+                }
                 //Redirect to the intend page
                 return Redirect::intended('/');
 //                $array = array(
@@ -130,6 +148,7 @@ class AccountController extends \BaseController
 
     public function getSignOut()
     {
+        Session::forget('market');
         Auth::logout();
         return Redirect::route('index');
     }
@@ -171,7 +190,6 @@ class AccountController extends \BaseController
             $password = Input::get('new_password');
 
             if (Hash::check($old_password, $user->getAuthPassword())) {
-
 
 
                 $user->password = Hash::make($password);
@@ -265,6 +283,14 @@ class AccountController extends \BaseController
             return Redirect::route('account/sign-in')
                 ->with('global', 'Could not recover your account.');
         }
+    }
+
+    public function custom()
+    {
+        Session::put('s1','asd');
+        Session::put('s2','zxc');
+        Session::put('s3', array(Session::get('s1'),Session::get('s2')));
+
     }
 
 }

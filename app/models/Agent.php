@@ -8,7 +8,7 @@ class Agent extends \Eloquent
         'company' => 'required',
         'address' => 'required',
         'email'=>'required',
-        'phone'=>'required',
+        'fax'=>'required',
         'tax'=>'required|numeric',
         'handling_fee'=>'required|numeric'
     ];

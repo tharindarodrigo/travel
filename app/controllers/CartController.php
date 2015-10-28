@@ -12,6 +12,8 @@ class CartController extends \BaseController
     {
 
         if (Session::has('rate_box_details')) {
+
+
             $bookings = Session::get('rate_box_details');
             $hotel_bookings = [];
             $rate_keys = array_keys($bookings);
@@ -185,6 +187,21 @@ class CartController extends \BaseController
 
     }
 
+    public function addToCart()
+    {
+        $x =Session::pull('rate_box_details1');
+        $y = Session::get('rate_box_details');
+
+        if (Session::has('rate_box_details')) {
+            Session::put('rate_box_details',$x+$y);
+
+        } else {
+            Session::put('rate_box_details',$x);
+
+        }
+
+        return Redirect::to('booking-cart');
+    }
 
     /**
      * Display the specified resource.
@@ -232,6 +249,8 @@ class CartController extends \BaseController
     {
         //
     }
+
+
 
 
 }

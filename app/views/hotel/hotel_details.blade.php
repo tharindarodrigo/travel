@@ -951,7 +951,7 @@
                     <div class="line3"></div>
                     <br/>
                     &nbsp;&nbsp;&nbsp;
-                    <a id="add_to_cart" name="aa" href="{{URL::to('/booking-cart')}}" class="bluebtn margtop20">
+                    <a id="add_to_cart" name="aa" href="{{URL::to('/add-to-cart')}}" class="bluebtn margtop20">
                         <span class="glyphicon glyphicon-shopping-cart"></span>
                         Add To Cart
                     </a>

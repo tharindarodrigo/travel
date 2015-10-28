@@ -266,7 +266,7 @@ Route::group(array('prefix' => 'account'), function(){
     Route::get('recover/{code}', 'AccountController@recoverAccount');
 });
 
-
+Route::get('add-to-cart', 'CartController@addToCart');
 
 Route::get('voucher/{id}', function ($id) {
     $voucher = Voucher::find($id);

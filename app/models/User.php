@@ -17,10 +17,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         'email' => 'required|max:50|email|unique:users',
         'password' => 'required|min:6',
         'confirm_password' => 'required|same:password',
-        'use_as' => 'required|numeric|between:1,3',
-        'company' => 'required_if:user_role,2,3',
-        'telephone'=> 'required_if:user_role,2,3',
-        'fax'=> 'numeric',
+        'user_role' => 'required',
+        'company' => 'required_if:user_role,Agent,Hotelier,',
+        'phone' => 'required_if:user_role,Agent,Hotelier',
+        'agreement' => 'required',
 
     ];
 
@@ -48,7 +48,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface
 //            ->where('assigned_roles.role_id', Role::where('name', 'Hotelier')->first()->id)
 //            ->get();
 
-        return $users = User::with('role')->where('role.name','=','Hotelier')->get();
+        return $users = User::with('role')->where('role.name', '=', 'Hotelier')->get();
     }
 
     public static function getAgents()
@@ -70,24 +70,29 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         return false;
     }
 
+
+
     public static function userHasAgent()
     {
         if (Entrust::hasRole('Agent')) {
-            if ($x=User::getAgentOfUser(Auth::user()->id)) {
+            if ($x = User::getAgentOfUser(Auth::user())) {
                 return Agent::with('market')->find($x->agent_id);
             }
-
-            return false;
         }
 
         return false;
     }
 
-    public static function hasHotelPermission($user,$hotelid)
+    public function getAgentMarket()
     {
-        return $user->whereHas('hotel',function($q) use ($hotelid){
-            $q->where('hotels.id',$hotelid);
-        })->count()>0;
+
+    }
+
+    public static function hasHotelPermission($user, $hotelid)
+    {
+        return $user->whereHas('hotel', function ($q) use ($hotelid) {
+            $q->where('hotels.id', $hotelid);
+        })->count() > 0;
     }
 
     public function hotel()
@@ -104,4 +109,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface
     {
         return $this->belongsToMany('Role', 'assigned_roles');
     }
+
+    public function market()
+    {
+        return $this->hasManyThrough('Market', 'Agent');
+    }
+
 }

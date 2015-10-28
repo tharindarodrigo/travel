@@ -100,7 +100,7 @@
                     <label for="user_role">I want to register as :</label>
 
                     <div class="form-group">
-                        {{Form::select('user_role',Role::where('name', '!=', 'Admin')->orderBy('id')->lists('name','id'), null, array('class'=> 'form-control', 'id'=>'role'))}}
+                        {{Form::select('user_role',Role::where('name', '!=', 'Admin')->orderBy('id')->lists('name','name'), null, array('class'=> 'form-control', 'id'=>'role'))}}
                         {{$errors->first('user_role', '<span class="size12" style="color: red;">:message</span>') }}
 
                     </div>
@@ -135,8 +135,8 @@
                         <label for="telephone2">Telephone:</label>
 
                         <div class="form-group">
-                            {{Form::text('telephone', null, array('class'=> 'form-control'))}}
-                            {{$errors->first('telephone', '<span class="size12" style="color: red;">:message</span>') }}
+                            {{Form::text('phone', null, array('class'=> 'form-control'))}}
+                            {{$errors->first('phone', '<span class="size12" style="color: red;">:message</span>') }}
 
                         </div>
                     </div>
@@ -192,16 +192,15 @@
         $(document).ready(function () {
             var agent = $("#agent_details");
             agent.hide();
-            if ($("#role").val() != 1) {
+            if ($("#role").val() != 'Guest') {
                 agent.show();
             }
             $("#role").change(function () {
                 var x = $(this).val();
-                if (x != 1) {
-                    agent.slideDown();
+                if (x != 'Guest') {
+                    agent.show();
                 } else {
-
-                    agent.slideUp(0);
+                    agent.slideUp(200);
                 }
             });
         });

@@ -20,7 +20,7 @@ class Market extends \Eloquent {
 
     public function agent()
     {
-        return $this->belongsTo('Agent');
+        return $this->hasMany('Agent');
     }
 
 }
