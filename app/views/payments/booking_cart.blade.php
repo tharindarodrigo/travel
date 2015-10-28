@@ -1,3 +1,11 @@
+<?php
+if (Session::has('predefined_transport')) {
+    $predefined_transports = Session::get('predefined_transport');
+} else {
+    $predefined_transports = '';
+}
+?>
+
 @extends('layout.master')
 
 @section('title')
@@ -29,6 +37,11 @@
     <style type="text/css">
         #booking_cart_single_item_delete {
             display: inline;
+        }
+
+        .visa_cards {
+            /*padding-right: 150px;*/
+            height: 60px;
         }
 
         .hotel_img_booking {
@@ -96,10 +109,6 @@
 
             <div class="col-md-3">
                 <h1 style="color: #006699; font-family: 'Cinzel', serif;"> Booking Cart </h1>
-            </div>
-
-            <div class="col-md-2">
-
             </div>
 
         </div>
@@ -253,10 +262,9 @@
             </div>
         @endif
 
-        <br/><br/><br/>
+        <br/><br/>
 
         @if(Session::has('transport_cart_box'))
-
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12 col-md-10 col-md-offset-1">
@@ -377,32 +385,129 @@
             </div>
         @endif
 
-        <br/><br/><br/>
+        <br/><br/>
 
-        <div class="container">
+        @if(Session::has('predefined_transport'))
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-10 col-md-offset-1">
+                        <span class="opensans size18 dark bold caps"> Predefined Transport Summery </span>
+                        <br/><br/>
+                        <table class="table table-responsive table-hover">
+                            <thead>
+                            <tr style="background: #006699">
+                                <th><h4> Vehicle </h4></th>
+                                <th><h4> From </h4></th>
+                                <th><h4> To </h4></th>
+                                <th><h4> Pick Up </h4></th>
+                                <th><h4> Drop Off </h4></th>
+                                <th><h4> Cost </h4></th>
+                                <th><h4></h4></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($predefined_transports as $predefined_transport)
+                                <tr>
+                                    <td class="col-sm-3 col-md-3">
+                                        <div class="media">
+                                            <a class="thumbnail pull-left" href="#">
+                                                <?php
+                                                $total_cost = 0;
+                                                $directory = 'public/images/transport_images/vehicles';
+                                                $img_vehicle_id = 1;
+                                                $images = glob($directory . $img_vehicle_id . "_*");
+                                                $img_path = array_shift($images);
+                                                $img_name = basename($img_path);
+                                                ?>
 
-            <div class="col-md-6">
-                {{ HTML::image('images/site/verified.jpg', '', array('class' => '')) }}
-            </div>
+                                                @if(count($img_path)>0)
+                                                    {{ HTML::image('images/transport_images/vehicles/'.$img_name, '', array('class' => 'hotel_img_booking'))}}
+                                                @else
+                                                    {{ HTML::image('images/no-image.jpg', '', array('class' => 'hotel_img_booking')) }}
+                                                @endif
 
-            <div class="col-md-6">
-                <div class="right">
-                    @if(Session::has('add_new_voucher'))
+                                            </a>
 
-                        {{Form::open(array('route'=> array('bookings.vouchers.store',Session::get('add_new_voucher'))))}}
-                        {{Form::submit('Add Vouchers', array('class'=>'btn btn-danger', 'id'=>'add_voucher'))}}
-                        {{link_to_route('bookings.create','Continue to New Booking', null, array('class'=>'btn btn-warning', 'id'=>'checkout'))}}
-                        <a href="{{URL::to('bookings/cancel-booking')}}" class="btn btn-default">Cancel All</a>
+                                            <div class="media-body">
+                                                <h4 class="media-heading">
+                                                    <a href="#">{{ Vehicle::where('id', TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->vehicle_id)->first()->vehicle_type }}</a>
+                                                </h4>
+                                            </div>
 
-                        {{Form::close()}}
-                    @else
-                        {{link_to_route('bookings.create','Complete Booking', null, array('class'=>'bluebtn', 'id'=>'checkout'))}}
-                    @endif
+                                        </div>
+                                    </td>
+
+                                    <td class="col-sm-1 col-md-1">
+                                        <h5 style="display: inline"
+                                            class="bk_room_name"> {{ City::where('id' , TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->origin)->first()->city; }}
+                                        </h5>
+                                    </td>
+
+                                    <td class="col-sm-1 col-md-1">
+                                        <h5 style="display: inline"
+                                            class="bk_room_name"> {{ City::where('id' , TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->destination)->first()->city; }} </h5>
+                                    </td>
+
+                                    <td class="col-sm-2 col-md-2 dark">
+                                        <h5 style="font-weight: 700 !important;">{{ $predefined_transport['check_in_date']  }}</h5>
+                                    </td>
+
+                                    <td class="col-sm-2 col-md-2">
+                                        <h5 style="font-weight: 700 !important;">{{$predefined_transport['check_out_date']   }}</h5>
+                                    </td>
+
+                                    <td class="col-sm-2 col-md-2">
+                                        <span class="green bold size18"> USD </span> <br/>
+                                        <span class="green bold size18">{{ number_format(TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->rate, 2, '.', '') }}</span>
+                                    </td>
+
+                                    {{ Form::open(array('url' => '/sri-lanka/transport_cart_rate_box/delete', 'method' => 'POST', 'id'=>'booking_cart_item_delete')) }}
+                                    <td class="col-sm-1 col-md-1">
+                                        <button id="delete_transport_cart_item" type="submit" class="btn btn-danger"
+                                                name="delete_transport_item"
+                                                value="{{ 'as' }}">
+                                            <span class="glyphicon glyphicon-remove"></span> Remove
+                                        </button>
+                                    </td>
+                                    {{ Form::close() }}
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+        @endif
 
+        <br/><br/><br/>
+
+        <div class="col-md-5">
+            {{ HTML::image('images/site/verified.jpg', '', array('class' => '')) }}
         </div>
 
+        <div class="col-md-4">
+            {{ HTML::image('images/site/CreditCardLogos-2.jpg', '', array('class' => 'visa_cards')) }}
+        </div>
+
+        <div class="col-md-3">
+
+            {{--{{ HTML::image('images/site/Paypal_logo_ebay.gif', '', array('class' => '')) }}--}}
+
+            @if(Session::has('add_new_voucher'))
+
+                {{Form::open(array('route'=> array('bookings.vouchers.store',Session::get('add_new_voucher'))))}}
+                {{Form::submit('Add Vouchers', array('class'=>'btn btn-danger', 'id'=>'add_voucher'))}}
+                {{link_to_route('bookings.create','Continue to New Booking', null, array('class'=>'btn btn-warning', 'id'=>'checkout'))}}
+                <a href="{{URL::to('bookings/cancel-booking')}}" class="btn btn-default">Cancel All</a>
+
+                {{Form::close()}}
+            @else
+                {{link_to_route('bookings.create','Complete Booking', null, array('class'=>'bluebtn', 'id'=>'checkout'))}}
+            @endif
+            <br/><br/><br/>
+
+        </div>
 
         <br/><br/><br/>
     </div>

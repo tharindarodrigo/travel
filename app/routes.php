@@ -271,7 +271,7 @@ Route::get('add-to-cart', 'CartController@addToCart');
 Route::get('voucher/{id}', function ($id) {
     $voucher = Voucher::find($id);
     $pdf = PDF::loadView('emails/voucher', array('voucher' => $voucher));
-    $pdf->setPaper('a4')->save(public_path().'/temp-files/voucher.pdf');
+    $pdf->setPaper('a4')->save(public_path() . '/temp-files/voucher.pdf');
     return $pdf->stream('abc.pdf');
 
 });
@@ -560,6 +560,8 @@ Route::post('/sri-lanka/transport_cart_rate_box/delete', 'CartController@transpo
 
 Route::post('/sri-lanka/create_transport_map', 'TransportPackageController@transportMapCreate');
 
+Route::post('/sri-lanka/predefined_transport_add_to_cart', 'TransportPackageController@predefinedTransportCartCreate');
+
 
 //=====================================================================================================================|
 /*------------------------- End Of Transport  -------------------------------*/
@@ -593,6 +595,7 @@ Route::get('/booking-cart', array(
     'as' => 'booking-cart-get',
     'uses' => 'CartController@bookingCart'
 ));
+
 
 // Delete Hotel From Cart
 

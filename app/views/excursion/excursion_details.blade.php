@@ -179,6 +179,7 @@
 
                 <div class="hpadding20">
                     <a href="#" class="booknow margtop20 btnmarg">Book now</a>
+                    <br/>
                 </div>
             </div>
             <!-- END OF RIGHT INFO -->

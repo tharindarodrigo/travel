@@ -26,6 +26,10 @@
     {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
     <!-- end -->
 
+    {{--my styles--}}
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+
+
     <style type="text/css">
         .collapsebtn {
             background: #006699;
@@ -377,7 +381,7 @@
             <div class="rightcontent col-md-9 offset-0">
 
                 <div class="hpadding50c">
-                    <h1> Predefined Packages  </h1>
+                    <h1> Predefined Packages </h1>
 
                     <p class="aboutarrow"></p>
                 </div>
@@ -391,13 +395,15 @@
                 <div class="itemscontainer offset-1">
 
 
-
                     @foreach($transport_packages as $transport_package)
 
                         <script>
                             //Popover tooltips
                             $(function () {
-                                $("#username<?php echo $transport_package->id ?>").popover({placement: 'top', trigger: 'hover'});
+                                $("#username<?php echo $transport_package->id ?>").popover({
+                                    placement: 'top',
+                                    trigger: 'hover'
+                                });
                             });
                         </script>
 
@@ -423,39 +429,94 @@
                                 </div>
                                 <div class="hpadding20">
                                     <span class="glyphicon glyphicon-info-sign right lblue cpointer" rel="popover"
-                                          id="username{{ $transport_package->id }}" data-content="This field is mandatory"
+                                          id="username{{ $transport_package->id }}"
+                                          data-content="This field is mandatory"
                                           data-original-title="Here you can add additional information about the car">
-
                                     </span>
 
-                                    <span class="size14 bold dark">{{ $transport_package->Vehicle->vehicle_type }}</span><br/>
-								<span class="size13 grey">
+                                    <span class="predefine_vehicle_name size14 bold dark">{{ $transport_package->Vehicle->vehicle_type }}</span><br/>
 
-									<table>
-                                        <tr>
-                                            <td class="dark bold" valign="top">From:&nbsp;&nbsp;&nbsp;</td>
-                                            <td>
-                                                {{ City::where('id', $transport_package->origin)->first()->city }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="dark bold" valign="top">To:</td>
-                                            <td>
-                                                {{ City::where('id', $transport_package->destination)->first()->city }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="dark bold" valign="top">On:</td>
-                                            <td>Feb 6, 2014 at 06:12 for 2 person(s)</td>
-                                        </tr>
-                                    </table>
+                                    <div class="size13 grey">
 
-								</span>
+                                        <table>
+                                            <tr>
+                                                <td class=" dark bold" valign="top">From:&nbsp;&nbsp;&nbsp;</td>
+                                                <td class="predefine_origin">
+                                                    {{ City::where('id', $transport_package->origin)->first()->city }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="dark bold" valign="top">To:</td>
+                                                <td class="predefine_destination">
+                                                    {{ City::where('id', $transport_package->destination)->first()->city }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="dark bold" valign="top">On:</td>
+                                                <td>Feb 6, 2014 at 06:12 for 2 person(s)</td>
+                                            </tr>
+                                        </table>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="myModal{{ $transport_package->id }}" tabindex="-1"
+                                             role="dialog"
+                                             aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close"><span
+                                                                    aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        <h4 class="modal-title" id="myModalLabel"> Select Your
+                                                            Date </h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="w50percent">
+                                                            <div class="wh90percent textleft right">
+                                                                <span class="opensans size13"><b>Check In</b></span>
+                                                                <input type="text" name="check_in_date"
+                                                                       class="form-control mySelectCalendar chk_in"
+                                                                       id="datepicker2"
+                                                                       value="{{ Session::has('st_date') ? Session::get('st_date') : '' }}"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="w50percent">
+                                                            <div class="wh90percent textleft right">
+                                                                <span class="opensans size13"><b>Check Out</b></span>
+                                                                <input type="text" name="check_out_date"
+                                                                       class="form-control mySelectCalendar chk_out"
+                                                                       id="datepicker2"
+                                                                       value="{{ Session::has('ed_date') ? Session::get('ed_date') : '' }}"/>
+                                                            </div>
+                                                        </div>
+                                                        <br/>
+                                                    </div>
+                                                    <br/>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+                                                        <button predefine_id="{{ $transport_package->id }}"
+                                                                id="predefine_packages_book" type="button"
+                                                                class="predefined_book btn btn-primary">Add To Cart
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
                                 <div class="purchasecontainer">
-                                    <span class="size18 bold green mt5"> USD {{ $transport_package->rate }}</span><br/>
-                                    <span class="size12 mt-3 grey"><i>per way</i></span>
-                                    <button style="background: #006699; color: #ffffff" class="bookbtn right margtop-20">Book</button>
+                                    <span class="predefine_rate size18 bold green mt5"> USD {{ $transport_package->rate }} </span><br/>
+                                    <span class="size12 mt-3 grey"><i>Per KM</i></span>
+                                    <button data-toggle="modal" data-target="#myModal{{ $transport_package->id }}"
+                                            style="background: #006699; color: #ffffff"
+                                            class="bookbtn right margtop-20">Add To Cart
+                                    </button>
                                 </div>
                             </div>
                             <!-- END OF CONTAINER-->
@@ -498,6 +559,51 @@
 
         <!-- Custom js -->
         {{ HTML::script('js/my_script.js') }}
+        {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js') }}
+
+        <script type="text/javascript">
+            $(function () {
+
+                $('.predefined_book').click(function () {
+
+                    var predefine_id = $(this).attr('predefine_id');
+                    var check_in = $('.chk_in').datepicker({dateFormat: 'yy-mm-dd'}).val();
+                    var check_out = $('.chk_out').datepicker({dateFormat: 'yy-mm-dd'}).val();
+
+                    var url = 'http://' + window.location.host + '/sri-lanka/predefined_transport_add_to_cart';
+
+                    var formData = new FormData();
+
+                    formData.append('predefine_id', predefine_id);
+                    formData.append('check_in', check_in);
+                    formData.append('check_out', check_out);
+
+                    $.ajax({
+                        url: url,
+                        method: 'post',
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        dataType: 'json',
+                        data: formData,
+                        success: function (data) {
+
+                            $.each(data, function (index, item) {
+                                $('#myModal' + item.predefine_id).modal('hide');
+                            });
+
+                            toastr.success('Successfully Added To The Cart...!!');
+
+                        },
+
+                        error: function () {
+                            //alert('There was an error signing In');
+                        }
+                    });
+
+                });
+            });
+        </script>
 
     @endsection
 

@@ -13,7 +13,6 @@ class CartController extends \BaseController
 
         if (Session::has('rate_box_details')) {
 
-
             $bookings = Session::get('rate_box_details');
             $hotel_bookings = [];
             $rate_keys = array_keys($bookings);
@@ -30,6 +29,12 @@ class CartController extends \BaseController
             $hotel_bookings = '';
         }
 
+        if (Session::has('predefined_transport')) {
+            $predefined_transports = Session::get('predefined_transport');
+        } else {
+            $predefined_transports = '';
+        }
+
         if (Session::has('transport_cart_box')) {
             $transport_bookings = Session::get('transport_cart_box');
         } else {
@@ -38,11 +43,12 @@ class CartController extends \BaseController
 
 //dd($hotel_bookings);
 
-        if ((Session::has('rate_box_details')) || (Session::has('transport_cart_box'))) {
+        if ((Session::has('rate_box_details')) || (Session::has('transport_cart_box')) || (Session::has('predefined_transport'))) {
             return View::make('payments.booking_cart')
                 ->with(
                     array(
                         'hotel_bookings' => $hotel_bookings,
+                        'predefined_transport' => $predefined_transports,
                         'transport_bookings' => $transport_bookings,
                     )
                 );
@@ -189,14 +195,14 @@ class CartController extends \BaseController
 
     public function addToCart()
     {
-        $x =Session::pull('rate_box_details1');
+        $x = Session::pull('rate_box_details1');
         $y = Session::get('rate_box_details');
 
         if (Session::has('rate_box_details')) {
-            Session::put('rate_box_details',$x+$y);
+            Session::put('rate_box_details', $x + $y);
 
         } else {
-            Session::put('rate_box_details',$x);
+            Session::put('rate_box_details', $x);
 
         }
 
@@ -249,8 +255,6 @@ class CartController extends \BaseController
     {
         //
     }
-
-
 
 
 }

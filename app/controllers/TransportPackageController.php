@@ -4,9 +4,9 @@ class TransportPackageController extends \BaseController
 {
 
     /**
-     * Display a listing of transportpackages
      *
-     * @return Response
+     * Predefined Transport List
+     *
      */
     public function transportList()
     {
@@ -107,10 +107,43 @@ class TransportPackageController extends \BaseController
             );
     }
 
+    // Predefined Transport Cart Create
+
+    public function predefinedTransportCartCreate()
+    {
+
+        $predefine_id = Input::get('predefine_id');
+        $check_in_date = date("Y-m-d", strtotime(Input::get('check_in')));
+        $check_out_date = date("Y-m-d", strtotime(Input::get('check_out')));
+
+        $predefined_transport_details = array(
+            'predefine_id' => $predefine_id,
+            'check_in_date' => $check_in_date,
+            'check_out_date' => $check_out_date,
+        );
+
+        $predefined_key = $check_in_date . '_' . $check_out_date . '_' . $predefine_id;
+
+        if (Session::has('predefined_transport')) {
+            $data = Session::get('predefined_transport');
+            $data[$predefined_key] = $predefined_transport_details;
+        } else {
+            $data = [];
+            $data[$predefined_key] = $predefined_transport_details;
+        }
+
+        //$data['total_cost'] = $total_cost;
+
+        Session::put('predefined_transport', $data);
+
+        return Response::json(Session::get('predefined_transport'));
+
+    }
+
     /**
-     * Show the search for transportpackage
+     * Create Transport Package
      *
-     * @return Response
+     *
      */
     public function createMyTrip()
     {
@@ -302,6 +335,8 @@ class TransportPackageController extends \BaseController
 
         return Response::json($lan_lot_arr_full);
     }
+
+    // search option
 
     public function viewSearch()
     {

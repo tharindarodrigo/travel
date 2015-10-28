@@ -746,7 +746,6 @@ class HotelController extends \BaseController
         return View::make('hotel.hotel_details')
             ->with(
                 array(
-
                     'hotel' => $hotel,
                     'hotel_id' => $hotel_id,
                     'hotel_type' => $hotel_type,
@@ -865,23 +864,23 @@ class HotelController extends \BaseController
 
         $data = Session::get('rate_box_details1');
 
-        if(Session::has('rate_box_details1')) {
+        if (Session::has('rate_box_details1')) {
             foreach ($data as $page_hot_id) {
                 $page_hotel_id = $page_hot_id['hotel_id'];
 
                 if ($hot_id == $page_hotel_id) {
-                        if ((Session::has('rate_box_details1')) || (Input::has('check_room'))) {
+                    if ((Session::has('rate_box_details1')) || (Input::has('check_room'))) {
                         return Response::json(Session::get('rate_box_details'));
                     } else {
-//                        return null;
+                        return null;
                     }
                 } else {
-//                    return null;
+                    return null;
                 }
 
             }
-        }else{
-//            return null;
+        } else {
+            return null;
         }
 
         //return Response::json(Session::get('rate_box_details'));

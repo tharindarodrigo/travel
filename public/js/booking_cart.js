@@ -42,7 +42,6 @@ function generateRoomRateTable(data) {
     if (data != null) {
 
         $.each(data, function (index, item) {
-
             if (index != 'total_cost') {
                 var hotel_id = $('.hidden_hotel_id').val();
 
@@ -80,6 +79,7 @@ function generateRoomRateTable(data) {
                 }
             }
         });
+
         $('#room_total_cost').html('USD' + '&nbsp;&nbsp;&nbsp;' + room_total_cost);
     }
 
