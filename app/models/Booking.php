@@ -76,7 +76,7 @@ class Booking extends \Eloquent
 
     public static function getBookingData($booking_id)
     {
-        return Booking::where('id', $booking_id)->with('Client')->with('FlightDetail')->with('Voucher')->with('Invoice')->first();
+        return Booking::where('id', $booking_id)->with('Client')->with('FlightDetail')->with('Voucher')->with('Invoice')->with('CustomTripB')->first();
     }
 
 
@@ -128,6 +128,12 @@ class Booking extends \Eloquent
     public function user()
     {
         return $this->belongsToMany('user');
+    }
+
+    public function customTrip()
+    {
+        return $this->hasMany('CustomTrip');
+
     }
 
 }

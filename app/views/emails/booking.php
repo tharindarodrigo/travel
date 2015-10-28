@@ -196,6 +196,8 @@
 
 <br/>
 
+<?php if($booking->voucher->count()){?>
+
 <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
     <h4>Hotel Details</h4>
 </div>
@@ -267,6 +269,8 @@
 
     </table>
 </div>
+
+<?php }?>
 
 <br/>
 
@@ -342,8 +346,46 @@
     </div>
 
     <br/>
+    <?php } ?>
 </div>
-<?php } ?>
+
+<div>
+    <?php if ($booking->customTrip->count()) { ?>
+        <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
+            <h4>Custom Trips</h4>
+        </div>
+        <br/>
+        <div class="CSSTableGenerator">
+            <table>
+                <tr>
+                    <td>Reference No.</td>
+                    <td>From</td>
+                    <td>TO</td>
+                    <td>Vehicle</td>
+                    <td>Locations</td>
+                    <td>Amount</td>
+                </tr>
+                <?php foreach($booking->customTrip as $customTrip) { ?>
+                    <tr>
+                        <td><?php echo $customTrip->reference_number ?></td>
+                        <td><?php echo $customTrip->from ?></td>
+                        <td><?php echo $customTrip->to ?></td>
+                        <td><?php echo $customTrip->vehicle->vehicle_type ?></td>
+                        <td><?php echo $customTrip->locations ?></td>
+                        <td style="text-align: right"><?php echo number_format($customTrip->amount,2) ?></td>
+                    </tr>
+                <?php }?>
+            </table>
+
+        </div>
+
+    <?php }?>
+</div>
+
+
+
+
+
 
 
 

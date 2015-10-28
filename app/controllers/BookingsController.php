@@ -139,11 +139,22 @@ class BookingsController extends \BaseController
                  */
 
                 if (Session::has('transport_cart_box')) {
-                    $custom_trip = Session::pull('transport_cart_box');
-                    $custom_trip['from'] = $custom_trip['pick_up_date'] . ' ' . $custom_trip['pick_up_time_hour'] . ':' . $custom_trip['pick_up_time_minutes'];
-                    $custom_trip['to'] = $custom_trip['drop_off_date'] . ' ' . $custom_trip['drop_off_time_hour'] . ':' . $custom_trip['drop_off_time_minute'];
-                    $custom_trip['reference_number'] = 'TR011000';
-                    CustomTrip::create($custom_trip);
+
+//                    dd(Session::get('transport_cart_box'));
+                    $custom_trips = Session::get('transport_cart_box');
+
+                    $x=1;
+                    foreach($custom_trips as $custom_trip) {
+                        $custom_trip['from'] = date('Y-m-d H:i',strtotime($custom_trip['pick_up_date'].' '.$custom_trip['pick_up_time_hour'].':'.$custom_trip['pick_up_time_minutes']) );
+                        $custom_trip['to'] = date('Y-m-d H:i',strtotime($custom_trip['drop_off_date'].' '.$custom_trip['drop_off_time_hour'] . ':' . $custom_trip['drop_off_time_minutes']));
+                        $custom_trip['reference_number'] = 'TR'.($booking->reference_number*1000+$x++);
+                        $custom_trip['booking_id'] = $booking->id;
+                        $custom_trip['locations'] = $custom_trip['destination_1'];
+                        $custom_trip['amount'] = rand(100,200);
+
+                        CustomTrip::create($custom_trip);
+                    }
+
                 }
 
                 /**
