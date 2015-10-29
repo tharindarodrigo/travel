@@ -16,17 +16,19 @@
         <th width="80%">Description</th>
         <th width="20%">Amount</th>
     </tr>
+    <?php if($booking->voucher->count()){ ?>
     <tr>
+
         <td>
+
             <h3>Hotel Reservations</h3>
-            <hr/>
 
             <?php foreach ($booking->voucher as $voucher) { ?>
                 <p>
                 Being cost for <?php echo $voucher->hotel->name; ?>
                     <?php foreach($voucher->roomBooking as $roomBooking)?>
                     for <?php echo $roomBooking->room_count.' '.$roomBooking->roomSpecification->room_specification.' '.$roomBooking->roomType->room_type.' '?> rooms on
-                    <?php echo $roomBooking->mealBasis->meal_basis; ?> basis - <?php echo $f = $voucher->check_in; ?> TO <?php echo $t = $voucher->check_out; ?> at USD <?php echo number_format(Voucher::getVoucherAmount($voucher),2);?> x <?php echo Voucher::getNights($f, $t)->days;?>
+                    <?php echo $roomBooking->mealBasis->meal_basis; ?> basis - <?php echo $f = $voucher->check_in; ?> TO <?php echo $t = $voucher->check_out; ?> at USD <?php echo number_format(Voucher::getVoucherAmount($voucher),2);?>  <?php // echo Voucher::getNights($f, $t)->days;?>
                 </p>
                 <?php foreach ($voucher->roomBooking as $roomBooking){ ?>
 
@@ -37,22 +39,58 @@
         </td>
 
         <td align="right">
-            <?php echo Invoice::getInvoiceAmount($booking) ?>
+            <?php echo Booking::getTotalVoucherAmount($booking) ?>
+        </td>
+    </tr>
+    <?php } ?>
+
+    <?php if($booking->customTrip->count()){ ?>
+
+    <tr>
+        <td>
+            <h3>Transportation</h3>
+            <?php foreach($booking->customTrip as $trip) { ?>
+                <p>Trip By <?php echo $trip->vehicle->vehicle_type; ?>, picked up on <?php echo date('Y-m-d', strtotime($trip->from)); ?> at <?php echo date('H:i', strtotime($trip->from))?>. Path (Origin to Destination) : <?php echo $trip->locations?></p>
+
+            <?php } ?>
+
+            <?php foreach($booking->predefinedTrip as $trip) { ?>
+                <?php print_r($trip); ?>
+            <?php } ?>
+
+
+        </td>
+        <td align="right">
+            <?php echo number_format(TransportPackage::getTotalTransportationAmount($booking),2);  ?>
         </td>
     </tr>
 
-    <?php //transportation here ?>
+    <?php } ?>
+
+    <?php //predefined transportation here ?>
 
     <tr>
         <td></td>
         <td align="right"></td>
     </tr>
 
+    <?php //predefined transportation ends here ?>
+
+    <?php //Excursions ?>
+
+    <tr>
+        <td></td>
+        <td align="right"></td>
+    </tr>
+
+    <?php //Excursion ends here ?>
+
     <tr>
         <th>Total
 
-        <td align="right">USD. <?php echo number_format(Booking::getTotalVoucherAmount($booking->id), 2) ?></td>
+        <td align="right">USD. <?php echo number_format(Booking::getTotalBookingAmount($booking), 2) ?></td>
     </tr>
+
 </table>
 
     <h4>Bank Details</h4>

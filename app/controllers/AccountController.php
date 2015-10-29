@@ -22,17 +22,23 @@ class AccountController extends \BaseController
         }
 
         $data['role'] = Input::get('user_role');
+        $data['country_id'] = Input::get('country');
         $data['password'] = Hash::make($data['password']);
         $data['code'] = str_random(60); //Activation code
 
         $user = User::create($data);
         if ($user) {
 
-            if ($data['role'] != 'Guest') {
-                $user->attachRole($data['role']);
+            $data['user_id'] = $user->id;
+
+            if ($data['role'] = 'Agent') {
+                $data['market_id'] = Market::where('market','All Market')->first()->id;
+                $role = Role::where('name',$data['role'])->first();
+
+                $user->attachRole($role);
                 Agent::create($data);
 
-                Mail::send('emails.auth.signup', array('first_name' => $data['first_name'], 'role' => $data['agent']), function ($massage) use ($user) {
+                Mail::send('emails.auth.signup', array('first_name' => $data['first_name'], 'role' => $data['role']), function ($massage) use ($user) {
                     $massage->to($user->email, $user->first_name)->subject('Thank You for Signing Up');
 
                 });
@@ -283,14 +289,6 @@ class AccountController extends \BaseController
             return Redirect::route('account/sign-in')
                 ->with('global', 'Could not recover your account.');
         }
-    }
-
-    public function custom()
-    {
-        Session::put('s1','asd');
-        Session::put('s2','zxc');
-        Session::put('s3', array(Session::get('s1'),Session::get('s2')));
-
     }
 
 }
