@@ -477,7 +477,7 @@
                                                                 <input type="text" name="check_in_date"
                                                                        class="form-control mySelectCalendar chk_in"
                                                                        id="datepicker2"
-                                                                       value="{{ Session::has('st_date') ? Session::get('st_date') : '' }}"/>
+                                                                       value="{{ Session::has('st_date') ? Session::get('st_date') : $st_date }}"/>
                                                             </div>
                                                         </div>
 
@@ -487,7 +487,7 @@
                                                                 <input type="text" name="check_out_date"
                                                                        class="form-control mySelectCalendar chk_out"
                                                                        id="datepicker2"
-                                                                       value="{{ Session::has('ed_date') ? Session::get('ed_date') : '' }}"/>
+                                                                       value="{{ Session::has('ed_date') ? Session::get('ed_date') : $ed_date }}"/>
                                                             </div>
                                                         </div>
                                                         <br/>
@@ -558,6 +558,7 @@
 
         <!-- Custom js -->
         {{ HTML::script('js/my_script.js') }}
+        {{ HTML::script('js/toastr.js') }}
         {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js') }}
 
         <script type="text/javascript">

@@ -28,6 +28,7 @@
 
     {{--my styles--}}
     {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
     <style type="text/css">
         .ex_details {
@@ -59,6 +60,10 @@
         .book_img_excursin {
             width: 70px;
             height: 70px;
+            display: inline;
+        }
+
+        .book_img_rate {
             display: inline;
         }
 
@@ -319,32 +324,17 @@
                         $images = glob($directory . $excursion->id . "_*");
                         $img_path = array_shift($images);
                         $img_name = basename($img_path);
-
                         ?>
+                        <span>
                         {{ HTML::image('images/excursion_images/excursion_types/'.$img_name, '', array('class' => 'book_img_excursin')) }}
-                        {{--<img src="images/thumb.png" class="left margright20" alt="">--}}
-                        <h4 style="display: inline" class="opensans size18 dark bold">{{ $excursion->excursion }}</h4>
-                        {{--<span class="opensans size13 grey">Zakynthos, Greece</span><br>--}}
-                        <br/>
-                        {{ HTML::image('images/smallrating-5.png') }}
+                            <h4 style="display: inline"
+                                class="opensans size18 dark bold">{{ $excursion->excursion }}
+                            </h4>
+                            {{ HTML::image('images/smallrating-5.png', '', array('class' => 'book_img_rate'))  }}
+                        </span>
                     </div>
                     <div class="line3"></div>
 
-                    <div class="hpadding30 margtop30">
-                        <table class="table table-bordered margbottom20">
-                            <tbody>
-                            <tr>
-                                <td>Guests recommendations</td>
-                                <td class="center green bold">97%</td>
-                            </tr>
-                            <tr>
-                                <td>Guest ratings</td>
-                                <td class="center green bold">4.5</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="line3"></div>
                     <div class="hpadding30 margtop30">
                         <table class="table table-bordered margbottom20">
                             <tbody>
@@ -367,18 +357,20 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="padding30">
-                        <span class="left size14 dark">Excursion Total:</span>
-                        <span id="excursion_rate_total" class="right lred2 bold size18"></span>
+
+                    <div class="">
+                        <span class="left size18 green" style="padding-left: 20px;">Excursion Total &nbsp;&nbsp;&nbsp; :</span>
+                        <span style="margin-right: 50px;" id="excursion_rate_total" class="right green bold size18"></span>
 
                         <br/>
 
-                        <a href="{{URL::to('/bookings/create')}}" class="bluebtn right margtop20">
-                            <span class="glyphicon glyphicon-play"></span>
-                            Checkout
+                        <a id="excursion_add_to_cart" href="{{URL::to('/add-to-cart')}}" class="excursion_add_car_btn bluebtn margtop20 right" style="margin-right: 20px;">
+                            <span class="glyphicon glyphicon-shopping-cart"></span>
+                            Add To Cart
                         </a>
 
                         <div class="clearfix"></div>
+                        <br/>
                     </div>
                 </div>
 
@@ -406,11 +398,14 @@
         <!-- Carousel-->
         {{ HTML::script('assets/js/initialize-carousel-detailspage.js') }}
 
+        <!-- Custom js -->
+        {{ HTML::script('js/toastr.js') }}
+        {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js') }}
 
         <script type="text/javascript">
             $(function () {
 
-                $('.price-box').hide();
+                // $('.price-box').hide();
 
                 $('.transport_select').change(function () {
                     var transport_value = $(this).val();
@@ -473,6 +468,51 @@
                             $('#excursion_pax').html(data.pax);
                             $('#excursion_rate').html('USD ' + data.ex_rate);
                             $('#excursion_rate_total').html('USD ' + data.ex_rate);
+
+                            $('.excursion_add_car_btn').click(function () {
+
+                                var price_box_city_id = $(this).attr('city_id');
+                                var price_box_pax = $(this).val();
+                                var price_box_ex_id = $('#hidden_ex_id').val();
+                                var price_box_transport_id = $('#ex_transport_type_' + price_box_city_id).val();
+
+                                alert(price_box_city_id);
+
+                                var url = 'http://' + window.location.host + '/sri-lanka/predefined_transport_add_to_cart';
+
+                                var formData = new FormData();
+
+                                formData.append('predefine_id', predefine_id);
+                                formData.append('check_in', check_in);
+                                formData.append('check_out', check_out);
+
+//                                $.ajax({
+//                                    url: url,
+//                                    method: 'post',
+//                                    processData: false,
+//                                    contentType: false,
+//                                    cache: false,
+//                                    dataType: 'json',
+//                                    data: formData,
+//                                    success: function (data) {
+//
+//                                        $.each(data, function (index, item) {
+//                                            $('#myModal' + item.predefine_id).modal('hide');
+//                                        });
+//
+//                                        toastr.success('Successfully Added To The Cart...!!');
+//
+//                                    },
+//
+//                                    error: function () {
+//                                        //alert('There was an error signing In');
+//                                    }
+//                                });
+
+                            });
+
+
+
                         },
                         error: function () {
                             // alert('error');
@@ -484,6 +524,14 @@
 
             });
         </script>
+
+        <script type="text/javascript">
+            $(function () {
+
+
+            });
+        </script>
+
 
 
     @endsection

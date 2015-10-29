@@ -82,7 +82,7 @@
 {{ HTML::script('assets/js/helper-plugins/jquery.touchSwipe.min.js') }}
 {{ HTML::script('assets/js/helper-plugins/jquery.mousewheel.min.js') }}
 {{ HTML::script('assets/js/helper-plugins/jquery.transit.min.js') }}
-{{ HTML::script('assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js') }}
+{{ HTML::script('assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js') }}p
 
 <!-- Custom Select -->
 {{ HTML::script('assets/js/jquery.customSelect.js') }}

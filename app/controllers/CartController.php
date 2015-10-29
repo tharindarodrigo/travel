@@ -146,8 +146,7 @@ class CartController extends \BaseController
     public function predefinedTransportCartItemDelete()
     {
 
-        $deletable = Input::get('del_transport_id');
-        dd($deletable);
+        $deletable = Input::get('predefined_transport_cart_item_delete');
 
         if (Session::has('predefined_transport')) {
             $data = Session::get('predefined_transport');
@@ -158,7 +157,6 @@ class CartController extends \BaseController
                 Session::put('predefined_transport', $data);
             } else {
                 Session::forget('predefined_transport');
-                return null;
             }
 
         }

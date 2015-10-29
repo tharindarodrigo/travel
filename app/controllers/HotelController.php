@@ -686,6 +686,8 @@ class HotelController extends \BaseController
         } else {
             $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
         }
+
+
         $date_ed = new DateTime(Session::get('ed_date'));
         $date_st = new DateTime(Session::get('st_date'));
         $date_difference = $date_ed->diff($date_st);

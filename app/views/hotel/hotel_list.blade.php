@@ -212,6 +212,7 @@
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse1">
                     Star rating <span class="collapsearrow"></span>
                 </button>
+
                 {{ Form::open(array('url' => '/sri-lanka/'.$city_or_acc, 'method' => 'POST', 'id'=>'star_rating_form')) }}
                 <div id="collapse1" class="collapse in">
                     <div class="hpadding20">
@@ -717,7 +718,24 @@
         {{ HTML::script('js/my_script.js') }}
 
         <!-- for full map -->
+        <script type="text/javascript">
 
+            $(document).ready(function () {
+
+                var get_full_url = window.location.pathname.split('/');
+                var hotel_list = get_full_url[2];
+
+                var url = 'http://' + window.location.host + '/get_hotel_list_full_map';
+
+                var formData = new FormData();
+
+                formData.append('hotel_list', hotel_list);
+
+                sendHotelListFullMapData(url, formData);
+
+            });
+
+        </script>
         <script type="text/javascript">
 
             $("#hotel_list_map").click(function () {
@@ -737,28 +755,12 @@
 
         </script>
 
-        <script type="text/javascript">
 
-            $(document).ready(function () {
-
-                var get_full_url = window.location.pathname.split('/');
-                var hotel_list = get_full_url[2];
-
-                var url = 'http://' + window.location.host + '/get_hotel_list_full_map';
-
-                var formData = new FormData();
-
-                formData.append('hotel_list', hotel_list);
-
-                sendHotelListFullMapData(url, formData);
-
-            });
-
-        </script>
 
         <script type="text/javascript">
             $(function () {
                 $("#hotel_list_map").click(function () {
+
                     $('html, body').css({
                         'overflow': 'hidden',
                         'height': '100%'

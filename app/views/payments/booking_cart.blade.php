@@ -461,10 +461,10 @@ if (Session::has('predefined_transport')) {
                                         <span class="green bold size18">{{ number_format(TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->rate, 2, '.', '') }}</span>
                                     </td>
 
-                                    {{ Form::open(array('url' => '/sri-lanka/predefined_transport_cart/delete', 'method' => 'POST', 'id'=>'booking_cart_item_delete')) }}
+                                    {{ Form::open(array('url' => '/sri-lanka/predefined_transport_cart/delete', 'method' => 'POST', 'id'=>'predefined_transport_cart_item_delete')) }}
                                     <td class="col-sm-1 col-md-1">
                                         <button id="delete_transport_cart_item" type="submit" class="btn btn-danger"
-                                                name="delete_transport_item"
+                                                name="predefined_transport_cart_item_delete"
                                                 value="{{ $predefined_transport['predefined_key'] }}">
                                             <span class="glyphicon glyphicon-remove"></span> Remove
                                         </button>
