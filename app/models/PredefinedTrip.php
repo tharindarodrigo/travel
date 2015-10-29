@@ -16,4 +16,9 @@ class PredefinedTrip extends \Eloquent {
 		return $this->belongsTo('Booking');
 	}
 
+	public function transportPackage()
+	{
+		return $this->belongsTo('TransportPackage');
+	}
+
 }

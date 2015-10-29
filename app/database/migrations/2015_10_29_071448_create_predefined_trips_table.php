@@ -16,6 +16,7 @@ class CreatePredefinedTripsTable extends Migration
         Schema::create('predefined_trips', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('pick_up_date_time');
+            $table->smallInteger('count');
             $table->integer('booking_id')->unsigned();
             $table->integer('transport_package_id')->unsigned();
             $table->timestamps();
