@@ -4,6 +4,12 @@ if (Session::has('predefined_transport')) {
 } else {
     $predefined_transports = '';
 }
+
+if (Session::has('excursion_cart_details')) {
+    $excursion_cart_details = Session::get('excursion_cart_details');
+} else {
+    $excursion_cart_details = '';
+}
 ?>
 
 @extends('layout.master')
@@ -260,9 +266,9 @@ if (Session::has('predefined_transport')) {
                     </div>
                 </div>
             </div>
+            <br/><br/>
         @endif
 
-        <br/><br/>
 
         @if(Session::has('transport_cart_box'))
             <div class="container">
@@ -383,9 +389,9 @@ if (Session::has('predefined_transport')) {
                     </div>
                 </div>
             </div>
+            <br/><br/>
         @endif
 
-        <br/><br/>
 
         @if(Session::has('predefined_transport'))
             <div class="container">
@@ -413,9 +419,9 @@ if (Session::has('predefined_transport')) {
                                             <a class="thumbnail pull-left" href="#">
                                                 <?php
                                                 $total_cost = 0;
-                                                $directory = 'public/images/transport_images/vehicles';
-                                                $img_vehicle_id = 1;
-                                                $images = glob($directory . $img_vehicle_id . "_*");
+                                                $directory = 'public/images/transport_images/vehicles/';
+                                                $img_vehicle_id = Vehicle::where('id', TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->vehicle_id)->first()->vehicle_id;
+                                                $images = glob($directory . $img_vehicle_id . "*");
                                                 $img_path = array_shift($images);
                                                 $img_name = basename($img_path);
                                                 ?>
@@ -438,14 +444,12 @@ if (Session::has('predefined_transport')) {
                                     </td>
 
                                     <td class="col-sm-1 col-md-1">
-                                        <h5 style="display: inline"
-                                            class="bk_room_name"> {{ City::where('id' , TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->origin)->first()->city; }}
+                                        <h5 class="bk_room_name"> {{ City::where('id' , TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->origin)->first()->city; }}
                                         </h5>
                                     </td>
 
                                     <td class="col-sm-2 col-md-2">
-                                        <h5 style="display: inline"
-                                            class="bk_room_name"> {{ City::where('id' , TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->destination)->first()->city; }} </h5>
+                                        <h5 class="bk_room_name"> {{ City::where('id' , TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->destination)->first()->city; }} </h5>
                                     </td>
 
                                     <td class="col-sm-2 col-md-2 dark">
@@ -466,6 +470,104 @@ if (Session::has('predefined_transport')) {
                                         <button id="delete_transport_cart_item" type="submit" class="btn btn-danger"
                                                 name="predefined_transport_cart_item_delete"
                                                 value="{{ $predefined_transport['predefined_key'] }}">
+                                            <span class="glyphicon glyphicon-remove"></span> Remove
+                                        </button>
+                                    </td>
+                                    {{ Form::close() }}
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <br/><br/>
+        @endif
+
+
+        @if(Session::has('excursion_cart_details'))
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-10 col-md-offset-1">
+                        <span class="opensans size18 dark bold caps"> Excursion Summery </span>
+                        <br/><br/>
+                        <table class="table table-responsive table-hover">
+                            <thead>
+                            <tr style="background: #006699">
+                                <th><h4> Excursion </h4></th>
+                                <th><h4> From </h4></th>
+                                <th><h4> Transport </h4></th>
+                                <th><h4> Pick Up </h4></th>
+                                <th><h4> Rate </h4></th>
+                                <th><h4> Pax </h4></th>
+                                <th><h4> Cost </h4></th>
+                                <th><h4></h4></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($excursion_cart_details as $excursion_cart_detail)
+                                <tr>
+                                    <td class="col-sm-3 col-md-3">
+                                        <div class="media">
+                                            <a class="thumbnail pull-left" href="#">
+                                                <?php
+                                                $total_cost = 0;
+                                                $directory = 'public/images/excursion_images/';
+                                                $images = glob($directory . $excursion_cart_detail['excursion'] . "*");
+                                                $img_path = array_shift($images);
+                                                $img_name = basename($img_path);
+                                                ?>
+
+                                                @if(count($img_path)>0)
+                                                    {{ HTML::image('images/excursion_images/'.$img_name, '', array('class' => 'hotel_img_booking'))}}
+                                                @else
+                                                    {{ HTML::image('images/no-image.jpg', '', array('class' => 'hotel_img_booking')) }}
+                                                @endif
+
+                                            </a>
+
+                                            <div class="media-body">
+                                                <h4 class="media-heading">
+                                                    <a href="#">{{ Excursion::where('id', $excursion_cart_detail['excursion'])->first()->excursion }}</a>
+                                                </h4>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                    <td class="col-sm-2 col-md-2">
+                                        <h5 class="bk_room_name"> {{ $excursion_cart_detail['excursion_city'] }}
+                                        </h5>
+                                    </td>
+
+                                    <td class="col-sm-1 col-md-1">
+                                        <h5 class="bk_room_name"> {{ $excursion_cart_detail['excursion_transport'] }} </h5>
+                                    </td>
+
+                                    <td class="col-sm-2 col-md-2 ">
+                                        <h5 style="font-weight: 700 !important;">{{ 'as'  }}</h5>
+                                    </td>
+
+                                    <td class="col-sm-1 col-md-1">
+                                        <h5 style="font-weight: 700 !important;"> USD
+                                            <br/> {{ $excursion_cart_detail['excursion_rate']   }}</h5>
+                                    </td>
+
+                                    <td class="col-sm-1 col-md-1">
+                                        <h5 style="font-weight: 700 !important;">{{ $excursion_cart_detail['excursion_pax']   }}</h5>
+                                    </td>
+
+                                    <td class="col-sm-2 col-md-1">
+                                        <span class="green bold size18"> USD </span> <br/>
+                                        <span class="green bold size18">{{  $excursion_cart_detail['excursion_total'] }}</span>
+                                    </td>
+
+                                    {{ Form::open(array('url' => '/sri-lanka/excursion_cart/delete', 'method' => 'POST', 'id'=>'excursion_cart_item_delete')) }}
+                                    <td class="col-sm-1 col-md-1">
+                                        <button id="delete_excursion_cart_item" type="submit" class="btn btn-danger"
+                                                name="delete_excursion_cart_item"
+                                                value="{{ $excursion_cart_detail['excursion_cart_key'] }}">
                                             <span class="glyphicon glyphicon-remove"></span> Remove
                                         </button>
                                     </td>

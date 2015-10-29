@@ -3,6 +3,7 @@
 class TransportPackageController extends \BaseController
 {
 
+
     /**
      *
      * Predefined Transport List
@@ -141,6 +142,30 @@ class TransportPackageController extends \BaseController
 
     }
 
+    // delete predefined transport cart item
+
+    public function predefinedTransportCartItemDelete()
+    {
+
+        $deletable = Input::get('predefined_transport_cart_item_delete');
+
+        if (Session::has('predefined_transport')) {
+            $data = Session::get('predefined_transport');
+            //dd($data);
+            unset($data[$deletable]);
+
+            if (!empty($data)) {
+                Session::put('predefined_transport', $data);
+            } else {
+                Session::forget('predefined_transport');
+            }
+
+        }
+
+        return Redirect::to('/booking-cart');
+
+    }
+
 
     /**
      * Create Transport Package
@@ -276,12 +301,11 @@ class TransportPackageController extends \BaseController
                 Session::put('transport_cart_box', $data);
             } else {
                 Session::forget('transport_cart_box');
-                return null;
             }
 
         }
 
-        return Response::json(Session::get('transport_cart_box'));
+        return Redirect::to('/booking-cart');
 
     }
 

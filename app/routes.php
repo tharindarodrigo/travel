@@ -497,6 +497,14 @@ Route::post('sri-lanka/get_excursion_total', array(
     'uses' => 'ExcursionController@excursionGetTotal'
 ));
 
+// excursion cart create
+
+Route::post('/sri-lanka/excursion_add_to_cart', 'ExcursionController@excursionAddToCart');
+
+// excursion cart item delete
+
+Route::post('/sri-lanka/excursion_cart/delete', 'ExcursionController@excursionCartItemDelete');
+
 
 //=====================================================================================================================|
 /*------------------------- End Of Excursion List -------------------------------*/
@@ -583,7 +591,7 @@ Route::post('/sri-lanka/predefined_transport_add_to_cart', 'TransportPackageCont
 
 // delete item from predefined transport cart
 
-Route::post('/sri-lanka/predefined_transport_cart/delete', 'CartController@predefinedTransportCartItemDelete');
+Route::post('/sri-lanka/predefined_transport_cart/delete', 'TransportPackageController@predefinedTransportCartItemDelete');
 
 
 

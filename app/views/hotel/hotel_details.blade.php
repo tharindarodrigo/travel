@@ -56,6 +56,30 @@
         }
     </style>
 
+    {{--<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">--}}
+    <script src="//code.jquery.com/jquery-2.0.3.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#datepicker").datepicker({
+
+                onClose: function (selectedDate) {
+                    $("#datepicker2").datepicker("option", "minDate", selectedDate);
+                    $("#datepicker2").datepicker("show");
+                }
+            });
+            $("#datepicker2").datepicker({
+
+                onClose: function (selectedDate) {
+                    $("#datepicker").datepicker("option", "maxDate", selectedDate + 1);
+                }
+            });
+        });
+
+    </script>
+
+
 @endsection
 
 @section('content')
@@ -988,7 +1012,6 @@
 
         <!-- my script-->
         {{ HTML::script('js/booking_cart.js') }}
-
 
         <script type="text/javascript">
             $(document).ready(function () {

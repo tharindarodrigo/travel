@@ -43,7 +43,7 @@ class CartController extends \BaseController
 
 //dd($hotel_bookings);
 
-        if ((Session::has('rate_box_details')) || (Session::has('transport_cart_box')) || (Session::has('predefined_transport'))) {
+        if ((Session::has('rate_box_details')) || (Session::has('transport_cart_box')) || (Session::has('predefined_transport')) || (Session::has('excursion_cart_details'))) {
             return View::make('payments.booking_cart')
                 ->with(
                     array(
@@ -133,30 +133,6 @@ class CartController extends \BaseController
                     }
                 }
 
-            }
-
-        }
-
-        return Redirect::to('/booking-cart');
-
-    }
-
-// delete predefined transport cart item
-
-    public function predefinedTransportCartItemDelete()
-    {
-
-        $deletable = Input::get('predefined_transport_cart_item_delete');
-
-        if (Session::has('predefined_transport')) {
-            $data = Session::get('predefined_transport');
-            //dd($data);
-            unset($data[$deletable]);
-
-            if (!empty($data)) {
-                Session::put('predefined_transport', $data);
-            } else {
-                Session::forget('predefined_transport');
             }
 
         }

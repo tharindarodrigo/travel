@@ -272,13 +272,12 @@
     .basket-item-count {
         position: relative;
         display: inline-block;
-        vertical-align: top;
+        vertical-align: middle;
     }
 
     .basket-item-count .count {
         position: absolute;
         color: #fff;
-        top: 0px;
         right: 10px;
         border-radius: 100px;
         width: 21px;

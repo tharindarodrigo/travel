@@ -27,7 +27,7 @@
     <!-- end -->
 
     {{--my styles--}}
-    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+    {{--    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}--}}
 
 
     <style type="text/css">
@@ -472,22 +472,24 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="w50percent">
-                                                            <div class="wh90percent textleft right">
-                                                                <span class="opensans size13"><b>Check In</b></span>
+                                                            <div class="wh90percent textleft">
+                                                                <span class="opensans size13"><b>Check in</b></span>
                                                                 <input type="text" name="check_in_date"
+                                                                       style="z-index: 1151 !important;"
                                                                        class="form-control mySelectCalendar chk_in"
-                                                                       id="datepicker2"
-                                                                       value="{{ Session::has('st_date') ? Session::get('st_date') : $st_date }}"/>
+                                                                       id="datepicker"
+                                                                       value="{{ Session::has('st_date') ? Session::get('st_date') : '' }}"/>
                                                             </div>
                                                         </div>
 
-                                                        <div class="w50percent">
+                                                        <div class="w50percentlast">
                                                             <div class="wh90percent textleft right">
-                                                                <span class="opensans size13"><b>Check Out</b></span>
+                                                                <span class="opensans size13"><b>Check out</b></span>
                                                                 <input type="text" name="check_out_date"
+                                                                       style="z-index: 1151 !important;"
                                                                        class="form-control mySelectCalendar chk_out"
                                                                        id="datepicker2"
-                                                                       value="{{ Session::has('ed_date') ? Session::get('ed_date') : $ed_date }}"/>
+                                                                       value="{{ Session::has('ed_date') ? Session::get('ed_date') : '' }}"/>
                                                             </div>
                                                         </div>
                                                         <br/>
@@ -604,6 +606,27 @@
                 });
             });
         </script>
+
+        <script type="text/javascript">
+
+            $('.mySelectCalendar').datepicker({
+
+                dateFormat: 'yy-mm-dd', minDate: new Date,
+                beforeShow: function (input) {
+                    $(input).css({
+                        "position": "relative",
+                        "z-index": 999999
+                    });
+                }
+
+            });
+            $(function () {
+                $("#datepicker").datepicker({dateFormat: "yy-mm-dd"});
+                $("#datepicker2").datepicker({dateFormat: "yy-mm-dd"});
+            });
+
+        </script>
+
 
     @endsection
 

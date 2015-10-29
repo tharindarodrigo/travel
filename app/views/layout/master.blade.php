@@ -59,8 +59,6 @@
 
 <!-- This page JS --02>
 
-
-
 <!-- Custom functions -->
 {{ HTML::script('assets/js/functions.js') }}
 
@@ -82,7 +80,7 @@
 {{ HTML::script('assets/js/helper-plugins/jquery.touchSwipe.min.js') }}
 {{ HTML::script('assets/js/helper-plugins/jquery.mousewheel.min.js') }}
 {{ HTML::script('assets/js/helper-plugins/jquery.transit.min.js') }}
-{{ HTML::script('assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js') }}p
+{{ HTML::script('assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js') }}
 
 <!-- Custom Select -->
 {{ HTML::script('assets/js/jquery.customSelect.js') }}
@@ -91,6 +89,7 @@
 {{ HTML::script('dist/js/bootstrap.min.js') }}
 
 @yield('script')
+
 {{ HTML::script('assets/js/filterable.js') }}
 
 </html>

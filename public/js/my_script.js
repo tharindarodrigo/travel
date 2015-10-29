@@ -289,5 +289,22 @@ function removeroom3() {
     $('.addroom2').addClass('block');
 }
 
+$('.mySelectCalendar').datepicker({
+
+    dateFormat: 'yy-mm-dd', minDate: new Date,
+    beforeShow: function (input) {
+        $(input).css({
+            "position": "relative",
+            "z-index": 999999
+        });
+    }
+
+});
+
+$(function () {
+    $("#datepicker").datepicker({dateFormat: "yy-mm-dd"});
+    $("#datepicker2").datepicker({dateFormat: "yy-mm-dd"});
+});
+
 
 

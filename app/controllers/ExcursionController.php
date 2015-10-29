@@ -254,5 +254,65 @@ class ExcursionController extends \BaseController
 
     }
 
+    public function excursionAddToCart()
+    {
+
+        $excursion = Input::get('excursion');
+        $excursion_city = Input::get('excursion_city');
+        $excursion_transport = Input::get('excursion_transport');
+        $excursion_pax = Input::get('excursion_pax');
+        $excursion_rate = Input::get('excursion_rate');
+        $excursion_total = Input::get('excursion_total');
+
+
+        $excursion_cart_key = $excursion . '_' . City::where('city', $excursion_city)->first()->id . '_' . $excursion_rate . '_' . $excursion_total;
+
+        $excursion_details = array(
+            'excursion' => $excursion,
+            'excursion_city' => $excursion_city,
+            'excursion_transport' => $excursion_transport,
+            'excursion_pax' => $excursion_pax,
+            'excursion_rate' => $excursion_rate,
+            'excursion_total' => $excursion_total,
+            'excursion_cart_key' => $excursion_cart_key,
+        );
+
+        if (Session::has('excursion_cart_details')) {
+            $data = Session::get('excursion_cart_details');
+            $data[$excursion_cart_key] = $excursion_details;
+        } else {
+            $data = [];
+            $data[$excursion_cart_key] = $excursion_details;
+        }
+
+        //$data['total_cost'] = $total_cost;
+
+        Session::put('excursion_cart_details', $data);
+
+        return Response::json(Session::get('excursion_cart_details'));
+
+    }
+
+    public function excursionCartItemDelete()
+    {
+
+        $deletable = Input::get('delete_excursion_cart_item');
+
+        if (Session::has('excursion_cart_details')) {
+            $data = Session::get('excursion_cart_details');
+            //dd($data);
+            unset($data[$deletable]);
+
+            if (!empty($data)) {
+                Session::put('excursion_cart_details', $data);
+            } else {
+                Session::forget('excursion_cart_details');
+            }
+
+        }
+
+        return Redirect::to('/booking-cart');
+
+    }
 
 }

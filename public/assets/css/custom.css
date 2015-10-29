@@ -997,6 +997,7 @@ img.imgpos1 {
     background: #f7f7f7;
     border-top: 1px solid #e8e8e8;
     z-index: 100;
+    left: 0px;
 }
 
 .searchbg2 {

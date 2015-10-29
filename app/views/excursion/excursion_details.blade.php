@@ -359,15 +359,18 @@
                     </div>
 
                     <div class="">
-                        <span class="left size18 green" style="padding-left: 20px;">Excursion Total &nbsp;&nbsp;&nbsp; :</span>
-                        <span style="margin-right: 50px;" id="excursion_rate_total" class="right green bold size18"></span>
+                        <span class="left size18 green"
+                              style="padding-left: 20px;">Excursion Total &nbsp;&nbsp;&nbsp; :</span>
+                        <span style="margin-right: 50px;" id="excursion_rate_total"
+                              class="right green bold size18"></span>
 
                         <br/>
 
-                        <a id="excursion_add_to_cart" href="{{URL::to('/add-to-cart')}}" class="excursion_add_car_btn bluebtn margtop20 right" style="margin-right: 20px;">
+                        <button type="button" id="excursion_add_to_cart" class="excursion_add_car_btn bluebtn margtop20 right"
+                           style="margin-right: 20px;">
                             <span class="glyphicon glyphicon-shopping-cart"></span>
                             Add To Cart
-                        </a>
+                        </button>
 
                         <div class="clearfix"></div>
                         <br/>
@@ -462,55 +465,52 @@
                         dataType: 'json',
                         data: priceData,
                         success: function (data) {
+
                             $('#excursion_total').html(data.total_rate);
                             $('#excursion_city').html(data.city);
                             $('#excursion_transport').html(data.transport_type);
                             $('#excursion_pax').html(data.pax);
                             $('#excursion_rate').html('USD ' + data.ex_rate);
-                            $('#excursion_rate_total').html('USD ' + data.ex_rate);
+                            $('#excursion_rate_total').html('USD ' + data.total_rate);
 
                             $('.excursion_add_car_btn').click(function () {
 
-                                var price_box_city_id = $(this).attr('city_id');
-                                var price_box_pax = $(this).val();
-                                var price_box_ex_id = $('#hidden_ex_id').val();
-                                var price_box_transport_id = $('#ex_transport_type_' + price_box_city_id).val();
+                                var excursion = $('#hidden_ex_id').val();
+                                var excursion_city = data.city;
+                                var excursion_transport = data.transport_type;
+                                var excursion_pax = data.pax;
+                                var excursion_rate = data.ex_rate;
+                                var excursion_total = data.total_rate;
 
-                                alert(price_box_city_id);
+                                var ex_url = 'http://' + window.location.host + '/sri-lanka/excursion_add_to_cart';
 
-                                var url = 'http://' + window.location.host + '/sri-lanka/predefined_transport_add_to_cart';
+                                var ex_formData = new FormData();
 
-                                var formData = new FormData();
+                                ex_formData.append('excursion_city', excursion_city);
+                                ex_formData.append('excursion_transport', excursion_transport);
+                                ex_formData.append('excursion_pax', excursion_pax);
+                                ex_formData.append('excursion_rate', excursion_rate);
+                                ex_formData.append('excursion_total', excursion_total);
+                                ex_formData.append('excursion', excursion);
 
-                                formData.append('predefine_id', predefine_id);
-                                formData.append('check_in', check_in);
-                                formData.append('check_out', check_out);
+                                $.ajax({
+                                    url: ex_url,
+                                    method: 'post',
+                                    processData: false,
+                                    contentType: false,
+                                    cache: false,
+                                    dataType: 'json',
+                                    data: ex_formData,
+                                    success: function (data) {
+                                        toastr.success('Successfully Added To The Cart...!!');
+                                    },
 
-//                                $.ajax({
-//                                    url: url,
-//                                    method: 'post',
-//                                    processData: false,
-//                                    contentType: false,
-//                                    cache: false,
-//                                    dataType: 'json',
-//                                    data: formData,
-//                                    success: function (data) {
-//
-//                                        $.each(data, function (index, item) {
-//                                            $('#myModal' + item.predefine_id).modal('hide');
-//                                        });
-//
-//                                        toastr.success('Successfully Added To The Cart...!!');
-//
-//                                    },
-//
-//                                    error: function () {
-//                                        //alert('There was an error signing In');
-//                                    }
-//                                });
+                                    error: function () {
+                                        //alert('There was an error signing In');
+                                    }
+                                });
 
                             });
-
 
 
                         },
@@ -524,15 +524,6 @@
 
             });
         </script>
-
-        <script type="text/javascript">
-            $(function () {
-
-
-            });
-        </script>
-
-
 
     @endsection
 
