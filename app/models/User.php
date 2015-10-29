@@ -20,7 +20,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         'user_role' => 'required',
         'company' => 'required_if:user_role,Agent,Hotelier,',
         'phone' => 'required_if:user_role,Agent,Hotelier',
-        'agreement' => 'required',
+        'agreement' => 'required_if:user_role,Agent,Hotelier',
 
     ];
 

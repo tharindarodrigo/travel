@@ -80,8 +80,4 @@ class Voucher extends \Eloquent {
         return $this->hasMany('RoomBooking');
     }
 
-
-
-
-
 }

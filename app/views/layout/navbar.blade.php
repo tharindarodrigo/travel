@@ -353,7 +353,7 @@
                             </a>
                             or
                             <a style="padding-left: 2px; padding-right: 10px; text-decoration: none"
-                               href="{{URL::to('/account/create')}}">
+                               href="{{URL::to('/account/sign-up')}}">
                                 Sign up &nbsp;&nbsp;|
                             </a>
                         @endif
@@ -564,7 +564,7 @@
                             </a>
                             or
                             <a style="padding-left: 2px; padding-right: 10px; text-decoration: none"
-                               href="{{URL::to('/account/create')}}">
+                               href="{{URL::to('/account/sign-up')}}">
                                 Sign up
                             </a>
                         @endif

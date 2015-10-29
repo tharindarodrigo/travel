@@ -76,18 +76,32 @@ class Booking extends \Eloquent
 
     public static function getBookingData($booking_id)
     {
-        return Booking::where('id', $booking_id)->with('Client')->with('FlightDetail')->with('Voucher')->with('Invoice')->with('CustomTripB')->first();
+        return Booking::where('id', $booking_id)->with('client')->with('flightDetail')->with('voucher')->with('invoice')->with('customTrip')->with('predefinedTrip')->first();
     }
 
 
-    public static function getTotalVoucherAmount($booking_id)
+    public static function getTotalVoucherAmount($booking)
     {
-        $booking = Booking::with('voucher')->with('roomBooking')->find($booking_id);
+//        $booking = Booking::with('voucher')->with('roomBooking')->find($booking_id);
         $total = 0.0;
         foreach ($booking->voucher as $voucher) {
             $total += Voucher::getVoucherAmount($voucher);
         }
         return $total;
+    }
+
+    public static function getTotalBookingAmount($booking)
+    {
+        $total =0;
+
+        $total += Booking::getTotalVoucherAmount($booking);
+        $total += TransportPackage::getTotalTransportationAmount($booking);
+        $total += Excursion::getTotalExcursionAmount($booking);
+
+        return $total;
+
+
+
     }
 
 
@@ -134,6 +148,11 @@ class Booking extends \Eloquent
     {
         return $this->hasMany('CustomTrip');
 
+    }
+
+    public function predefinedTrip()
+    {
+        return $this->hasMany('PredefinedTrip');
     }
 
 }
