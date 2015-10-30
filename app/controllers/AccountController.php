@@ -125,9 +125,8 @@ class AccountController extends \BaseController
             if ($auth) {
 
                 if (Entrust::hasRole('Agent')) {
-                    $market = Auth::user()->agent()->first()->market()->first();
-
-                    Session::put('market', $market);
+                    $market = User::find(Auth::id())->agent()->first()->market->first();;
+                    Session::put('market', $market->id);
                 }
                 //Redirect to the intend page
                 return Redirect::intended('/');

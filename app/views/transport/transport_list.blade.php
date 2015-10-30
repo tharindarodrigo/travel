@@ -476,22 +476,12 @@
                                                                 <span class="opensans size13"><b>Check in</b></span>
                                                                 <input type="text" name="check_in_date"
                                                                        style="z-index: 1151 !important;"
-                                                                       class="form-control mySelectCalendar chk_in"
-                                                                       id="datepicker"
+                                                                       class="form-control mySelectCalendar date_pick chk_in"
+                                                                       id=""
                                                                        value="{{ Session::has('st_date') ? Session::get('st_date') : '' }}"/>
                                                             </div>
                                                         </div>
 
-                                                        <div class="w50percentlast">
-                                                            <div class="wh90percent textleft right">
-                                                                <span class="opensans size13"><b>Check out</b></span>
-                                                                <input type="text" name="check_out_date"
-                                                                       style="z-index: 1151 !important;"
-                                                                       class="form-control mySelectCalendar chk_out"
-                                                                       id="datepicker2"
-                                                                       value="{{ Session::has('ed_date') ? Session::get('ed_date') : '' }}"/>
-                                                            </div>
-                                                        </div>
                                                         <br/>
                                                     </div>
                                                     <br/>
@@ -566,11 +556,14 @@
         <script type="text/javascript">
             $(function () {
 
+                $('.date_pick').datepicker({
+                    dateFormat: 'yy-mm-dd'
+                });
+
                 $('.predefined_book').click(function () {
 
                     var predefine_id = $(this).attr('predefine_id');
                     var check_in = $('.chk_in').datepicker({dateFormat: 'yy-mm-dd'}).val();
-                    var check_out = $('.chk_out').datepicker({dateFormat: 'yy-mm-dd'}).val();
 
                     var url = 'http://' + window.location.host + '/sri-lanka/predefined_transport_add_to_cart';
 
@@ -578,7 +571,6 @@
 
                     formData.append('predefine_id', predefine_id);
                     formData.append('check_in', check_in);
-                    formData.append('check_out', check_out);
 
                     $.ajax({
                         url: url,

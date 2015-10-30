@@ -113,17 +113,17 @@ class TransportPackageController extends \BaseController
     public function predefinedTransportCartCreate()
     {
 
-        $predefine_id = Input::get('predefine_id');
-        $check_in_date = date("Y-m-d", strtotime(Input::get('check_in')));
-        $check_out_date = date("Y-m-d", strtotime(Input::get('check_out')));
+//        Session::forget('predefined_transport');
 
-        $predefined_key = $check_in_date . '_' . $check_out_date . '_' . $predefine_id;
+        $predefined_id = Input::get('predefine_id');
+        $check_in_date = date("Y-m-d", strtotime(Input::get('check_in')));
+
+        $predefined_key = $predefined_id;
 
         $predefined_transport_details = array(
-            'predefine_id' => $predefine_id,
-            'predefined_key' => $predefined_key,
             'check_in_date' => $check_in_date,
-            'check_out_date' => $check_out_date,
+            'predefine_id' => $predefined_id,
+            
         );
 
         if (Session::has('predefined_transport')) {
@@ -159,7 +159,6 @@ class TransportPackageController extends \BaseController
             } else {
                 Session::forget('predefined_transport');
             }
-
         }
 
         return Redirect::to('/booking-cart');

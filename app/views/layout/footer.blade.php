@@ -188,6 +188,7 @@
             </div>
         </div>
 
+
         <div class="col-md-3">
             <span>
                 {{ HTML::image('images/cards1.jpg', '', array('class' => '')) }}

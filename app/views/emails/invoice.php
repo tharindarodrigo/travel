@@ -30,32 +30,29 @@
                     for <?php echo $roomBooking->room_count.' '.$roomBooking->roomSpecification->room_specification.' '.$roomBooking->roomType->room_type.' '?> rooms on
                     <?php echo $roomBooking->mealBasis->meal_basis; ?> basis - <?php echo $f = $voucher->check_in; ?> TO <?php echo $t = $voucher->check_out; ?> at USD <?php echo number_format(Voucher::getVoucherAmount($voucher),2);?>  <?php // echo Voucher::getNights($f, $t)->days;?>
                 </p>
-                <?php foreach ($voucher->roomBooking as $roomBooking){ ?>
 
-                <?php } ?>
 
             <?php } ?>
 
         </td>
 
         <td align="right">
-            <?php echo Booking::getTotalVoucherAmount($booking) ?>
+            <?php echo number_format(Booking::getTotalVoucherAmount($booking),2) ?>
         </td>
     </tr>
     <?php } ?>
 
-    <?php if($booking->customTrip->count()){ ?>
+    <?php if($booking->customTrip->count() || $booking->predefinedTrip->count()){ ?>
 
     <tr>
         <td>
             <h3>Transportation</h3>
             <?php foreach($booking->customTrip as $trip) { ?>
                 <p>Trip By <?php echo $trip->vehicle->vehicle_type; ?>, picked up on <?php echo date('Y-m-d', strtotime($trip->from)); ?> at <?php echo date('H:i', strtotime($trip->from))?>. Path (Origin to Destination) : <?php echo $trip->locations?></p>
-
             <?php } ?>
 
             <?php foreach($booking->predefinedTrip as $trip) { ?>
-                <?php print_r($trip); ?>
+                <p>Trip By <?php echo $trip->transportPackage->vehicle->vehicle_type ?>, picked up on <?php echo date('Y-m-d', strtotime($trip->transportPackage->start_date)); ?> at <?php echo date('H:i', strtotime($trip->pick_up_date_time))?>. Path (Origin to Destination) : <?php echo City::find($trip->transportPackage->origin)->city;?> <?php echo City::find($trip->transportPackage->destination)->city;?> @ <?php echo number_format($trip->transportPackage->rate*$trip->transportPackage->millage,2);?></p>
             <?php } ?>
 
 
@@ -67,16 +64,7 @@
 
     <?php } ?>
 
-    <?php //predefined transportation here ?>
 
-    <tr>
-        <td></td>
-        <td align="right"></td>
-    </tr>
-
-    <?php //predefined transportation ends here ?>
-
-    <?php //Excursions ?>
 
     <tr>
         <td></td>

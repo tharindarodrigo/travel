@@ -55,7 +55,7 @@ class BookingsController extends \BaseController
     public function create()
     {
 
-        if (Session::has('rate_box_details') || Session::has('transport_cart_box'))
+        if (Session::has('rate_box_details') || Session::has('transport_cart_box') || Session::has('predefined_transport'))
             return View::make('bookings.create');
         return Redirect::to('/');
 
@@ -93,10 +93,9 @@ class BookingsController extends \BaseController
         $data['reference_number'] = 123456789;
         $clients = null;
 
-        if (Session::has('rate_box_details') || Session::has('transport_cart_box')) {
+        if (Session::has('rate_box_details') || Session::has('transport_cart_box') || Session::has('predefined_transport')) {
 
             if ($booking = Booking::create($data)) {
-
 
                 if (Auth::check()) {
                     DB::table('booking_user')->insert(array('booking_id' => $booking->id, 'user_id' => $user->id));
@@ -143,19 +142,45 @@ class BookingsController extends \BaseController
 //                    dd(Session::get('transport_cart_box'));
                     $custom_trips = Session::get('transport_cart_box');
 
-                    $x=1;
-                    foreach($custom_trips as $custom_trip) {
-                        $custom_trip['from'] = date('Y-m-d H:i',strtotime($custom_trip['pick_up_date'].' '.$custom_trip['pick_up_time_hour'].':'.$custom_trip['pick_up_time_minutes']) );
-                        $custom_trip['to'] = date('Y-m-d H:i',strtotime($custom_trip['drop_off_date'].' '.$custom_trip['drop_off_time_hour'] . ':' . $custom_trip['drop_off_time_minutes']));
-                        $custom_trip['reference_number'] = 'TR'.($booking->reference_number*1000+$x++);
+                    $x = 1;
+                    foreach ($custom_trips as $custom_trip) {
+
+                        $custom_trip['from'] = date('Y-m-d H:i', strtotime($custom_trip['pick_up_date'] . ' ' . $custom_trip['pick_up_time_hour'] . ':' . $custom_trip['pick_up_time_minutes']));
+                        $custom_trip['to'] = date('Y-m-d H:i', strtotime($custom_trip['drop_off_date'] . ' ' . $custom_trip['drop_off_time_hour'] . ':' . $custom_trip['drop_off_time_minutes']));
+                        $custom_trip['reference_number'] = 'TR' . ($booking->reference_number * 1000 + $x++);
                         $custom_trip['booking_id'] = $booking->id;
                         $custom_trip['locations'] = $custom_trip['destination_1'];
-                        $custom_trip['amount'] = rand(100,200);
+                        $custom_trip['amount'] = rand(100, 200);
 
                         CustomTrip::create($custom_trip);
                     }
 
                 }
+
+
+                /**
+                 *  predefined package bookings
+                 */
+
+                if (Session::has('predefined_transport')) {
+
+                    $predefined_packages = Session::get('predefined_transport');
+                    foreach($predefined_packages as $predefined_package){
+                        $package = [];
+                        $package['transport_package_id'] = $predefined_package['predefine_id'];
+                        $package['booking_id'] = $booking->id;
+                        $package['pick_up_date_time'] = $predefined_package['check_in_date'];
+                        PredefinedTrip::create($package);
+                    }
+                }
+
+                /**
+                 * Excursions
+                 */
+                if(Session::has('excursions')){
+
+                }
+
 
                 /**
                  *  hotel bookings
@@ -190,11 +215,11 @@ class BookingsController extends \BaseController
                             'voucher' => Voucher::find($created_voucher->id)
                         ), function ($message) use ($booking, $hotel_users) {
                             $message->attach(public_path() . '/temp-files/voucher.pdf');
-                            if(!empty($hotel_users))
-                            foreach ($hotel_users as $hotel_user) {
-                                $message->to($hotel_user->email, $hotel_user->first_name)
-                                    ->subject('Booking Voucher : ' . $booking->reference_number);
-                            }
+                            if (!empty($hotel_users))
+                                foreach ($hotel_users as $hotel_user) {
+                                    $message->to($hotel_user->email, $hotel_user->first_name)
+                                        ->subject('Booking Voucher : ' . $booking->reference_number);
+                                }
 
                         });
 
@@ -239,8 +264,10 @@ class BookingsController extends \BaseController
                             ->attach(public_path() . '/temp-files/invoice.pdf');
                     });
                 }
-
-                Session::put('sent_emails', 'Emails have been sent to the Respective parties');
+                if (!Auth::check()) {
+                    Session::flash('global', 'Emails have been sent to the Respective parties');
+                  return View::make('pages.message');
+                }
 
             }
 
