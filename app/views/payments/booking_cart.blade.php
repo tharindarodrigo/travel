@@ -282,8 +282,8 @@ if (Session::has('excursion_cart_details')) {
                                 <th><h4> Vehicle </h4></th>
                                 <th><h4> From </h4></th>
                                 <th><h4> To </h4></th>
-                                <th><h4> Pick Up </h4></th>
-                                <th><h4> Drop Off </h4></th>
+                                <th><h4> Pick Up Date</h4></th>
+                                <th><h4> Pick Up Time </h4></th>
                                 <th><h4> Cost </h4></th>
                                 <th><h4></h4></th>
                             </tr>
@@ -457,7 +457,7 @@ if (Session::has('excursion_cart_details')) {
                                     </td>
 
                                     <td class="col-sm-2 col-md-2">
-                                        <h5 style="font-weight: 700 !important;">{{$predefined_transport['check_out_date']   }}</h5>
+                                        <h5 style="font-weight: 700 !important;">{{$predefined_transport['check_in_date']   }}</h5>
                                     </td>
 
                                     <td class="col-sm-2 col-md-1">
@@ -469,7 +469,7 @@ if (Session::has('excursion_cart_details')) {
                                     <td class="col-sm-1 col-md-1">
                                         <button id="delete_transport_cart_item" type="submit" class="btn btn-danger"
                                                 name="predefined_transport_cart_item_delete"
-                                                value="{{ $predefined_transport['predefined_key'] }}">
+                                                value="{{ $predefined_transport['predefine_id'] }}">
                                             <span class="glyphicon glyphicon-remove"></span> Remove
                                         </button>
                                     </td>

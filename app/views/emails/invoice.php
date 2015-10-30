@@ -42,7 +42,7 @@
     </tr>
     <?php } ?>
 
-    <?php if($booking->customTrip->count()){ ?>
+    <?php if($booking->customTrip->count() || $booking->predefinedTrip->count()){ ?>
 
     <tr>
         <td>
@@ -52,7 +52,7 @@
             <?php } ?>
 
             <?php foreach($booking->predefinedTrip as $trip) { ?>
-                <p>Trip By <?php echo $trip->transportPackage->vehicle->vehicle_type ?>, picked up on <?php echo date('Y-m-d', strtotime($trip->transportPackage->start_date)); ?> at <?php echo date('H:i', strtotime($trip->pick_up_date_time))?>. Path (Origin to Destination) : <?php echo City::find($trip->transportPackage->origin)->city;?> <?php echo City::find($trip->transportPackage->destination)->city;?></p>
+                <p>Trip By <?php echo $trip->transportPackage->vehicle->vehicle_type ?>, picked up on <?php echo date('Y-m-d', strtotime($trip->transportPackage->start_date)); ?> at <?php echo date('H:i', strtotime($trip->pick_up_date_time))?>. Path (Origin to Destination) : <?php echo City::find($trip->transportPackage->origin)->city;?> <?php echo City::find($trip->transportPackage->destination)->city;?> @ <?php echo number_format($trip->transportPackage->rate*$trip->transportPackage->millage,2);?></p>
             <?php } ?>
 
 
@@ -64,16 +64,7 @@
 
     <?php } ?>
 
-    <?php //predefined transportation here ?>
 
-    <tr>
-        <td></td>
-        <td align="right"></td>
-    </tr>
-
-    <?php //predefined transportation ends here ?>
-
-    <?php //Excursions ?>
 
     <tr>
         <td></td>

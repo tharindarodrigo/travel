@@ -20,7 +20,7 @@ class TransportPackage extends \Eloquent
     public static function getTotalTransportationAmount($booking)
     {
         $transport = new TransportPackage();
-        $total = $transport->getCustomTripTotal($booking)+ $transport->getPredefinedTripTotal($booking);
+        $total = $transport->getCustomTripTotal($booking) + $transport->getPredefinedTripTotal($booking);
 
         return $total;
 
@@ -37,8 +37,15 @@ class TransportPackage extends \Eloquent
 
     public function getPredefinedTripTotal($booking)
     {
+        $total = 0;
         if ($booking->predefinedTrip->count()) {
-            return $total = $booking->predefinedTrip->sum('amount');
+
+            foreach ($booking->predefinedTrip as $predefinedTrip) {
+
+                $total += ($predefinedTrip->transportPackage->rate*$predefinedTrip->transportPackage->millage);
+
+                return $total;
+            }
         }
 
         return 0;

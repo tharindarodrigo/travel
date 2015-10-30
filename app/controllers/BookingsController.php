@@ -55,7 +55,7 @@ class BookingsController extends \BaseController
     public function create()
     {
 
-        if (Session::has('rate_box_details') || Session::has('transport_cart_box'))
+        if (Session::has('rate_box_details') || Session::has('transport_cart_box') || Session::has('predefined_transport'))
             return View::make('bookings.create');
         return Redirect::to('/');
 
@@ -162,16 +162,14 @@ class BookingsController extends \BaseController
                  *  predefined package bookings
                  */
 
-                if (Session::has('predefined_packages')) {
+                if (Session::has('predefined_transport')) {
 
-                    $predefined_packages = Session::get('predefined_packages');
-
+                    $predefined_packages = Session::get('predefined_transport');
                     foreach($predefined_packages as $predefined_package){
                         $package = [];
-                        $package['transport_package_id'] = $predefined_package['predefined_id'];
+                        $package['transport_package_id'] = $predefined_package['predefine_id'];
                         $package['booking_id'] = $booking->id;
                         $package['pick_up_date_time'] = $predefined_package['check_in_date'];
-                        $package['count'] = rand(1,4); //$predefined_package['count'];
                         PredefinedTrip::create($package);
                     }
                 }
@@ -266,8 +264,10 @@ class BookingsController extends \BaseController
                             ->attach(public_path() . '/temp-files/invoice.pdf');
                     });
                 }
-
-                Session::put('sent_emails', 'Emails have been sent to the Respective parties');
+                if (!Auth::check()) {
+                    Session::flash('global', 'Emails have been sent to the Respective parties');
+                  return View::make('pages.message');
+                }
 
             }
 

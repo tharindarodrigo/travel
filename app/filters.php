@@ -44,7 +44,7 @@ Route::filter('auth', function () {
 Route::filter('hotelier', function () {
     if (!Entrust::hasRole('Hotelier') && !Entrust::hasRole('Admin')) // Checks the current user
     {
-        App::abort(404);
+        App::abort(403,'Access Denied',array('route'));
     }
 
 });
@@ -52,14 +52,14 @@ Route::filter('hotelier', function () {
 Route::filter('agent', function () {
     if (!Entrust::hasRole('Agent') && !Entrust::hasRole('Admin')) // Checks if the current user is an Agent
     {
-        App::abort(404);
+        App::abort(403,'Access Denied');
     }
 });
 
 Route::filter('admin', function () {
     if (!Entrust::hasRole('Admin')) // Checks the current user
     {
-        App::abort(404);
+        App::abort(403,'Access Denied');
     }
 });
 
