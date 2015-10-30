@@ -202,7 +202,7 @@
                             <a href="#">
                                 <img src="images/spacer.png" alt=""/>
                             </a>
-                            <span>$59.99</span>
+                            <span>{{ Session::get('currency') . '&nbsp;' . ( 59.99 * Session::get('currency_rate')); }} </span>
                         </div>
                     </div>
                 </div>
@@ -223,7 +223,7 @@
                             <a href="#">
                                 <img src="images/spacer.png" alt=""/>
                             </a>
-                            <span>$59.99</span>
+                            <span>{{ Session::get('currency') . '&nbsp;' . ( 59.99 * Session::get('currency_rate')); }}</span>
                         </div>
                     </div>
                 </div>

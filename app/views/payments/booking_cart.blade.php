@@ -546,7 +546,7 @@ if (Session::has('excursion_cart_details')) {
                                     </td>
 
                                     <td class="col-sm-2 col-md-2 ">
-                                        <h5 style="font-weight: 700 !important;">{{ 'as'  }}</h5>
+                                        <h5 style="font-weight: 700 !important;">{{ $excursion_cart_detail['excursion_date'] }}</h5>
                                     </td>
 
                                     <td class="col-sm-1 col-md-1">

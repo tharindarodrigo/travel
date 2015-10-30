@@ -284,8 +284,8 @@
                         {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
                         <!-- end -->
 
-                        {{ Form::hidden('min_trans_rate', $min_trans_rate, array('id' => 'min_trans_rate')) }}
-                        {{ Form::hidden('max_trans_rate', $max_trans_rate, array('id' => 'max_trans_rate')) }}
+                        {{ Form::hidden('min_trans_rate', (Session::get('currency_rate') * $min_trans_rate), array('id' => 'min_trans_rate')) }}
+                        {{ Form::hidden('max_trans_rate', (Session::get('currency_rate') * $max_trans_rate), array('id' => 'max_trans_rate')) }}
 
                         <script type="text/javascript">
                             var min = parseInt($('#min_trans_rate').val());
@@ -296,7 +296,7 @@
                                 step: 5,
                                 smooth: true,
                                 round: 0,
-                                dimension: "&nbsp;$",
+                                dimension: "&nbsp;",
                                 skin: "round"
                             });
                         </script>
@@ -512,10 +512,10 @@
                                     </div>
                                 </div>
                                 <div class="purchasecontainer">
-                                    <span class="predefine_rate size18 bold green mt5"> USD {{ $transport_package->rate }} </span><br/>
-                                    <span class="size12 mt-3 grey"><i>Per KM</i></span>
+                                    <span class="predefine_rate size18 bold green mt5"> {{ Session::get('currency') . '&nbsp;' . number_format(($transport_package->rate * Session::get('currency_rate')), 2, '.', ''); }} </span><br/>
+                                    <span class="size12 mt-3 grey"><i>Per KM</i></span>&nbsp;&nbsp;&nbsp;
                                     <button data-toggle="modal" data-target="#myModal{{ $transport_package->id }}"
-                                            style="background: #006699; color: #ffffff"
+                                            style="background: #006699; color: #ffffff;"
                                             class="bookbtn right margtop-20">Add To Cart
                                     </button>
                                 </div>

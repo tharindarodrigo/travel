@@ -141,7 +141,9 @@
                             at
                         </p>
 
-                        <p class="size30 bold">$<span class=""> {{ number_format($min_hot_rate, 2, '.', '') }} </span>
+                        <p class="size30 bold">{{ Session::get('currency') }}
+                            <span class=""> {{ number_format(($min_hot_rate * Session::get('currency_rate')), 2, '.', '') }}
+                            </span>
                         </p>
 
                         <p class="size13">In {{ str_replace('-', ' ', Request::segment(2)); }} </p>
@@ -183,8 +185,8 @@
                         {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
                         <!-- end -->
 
-                        {{ Form::hidden('min_hot_rate', $min_hot_rate, array('id' => 'min_rate_slider')) }}
-                        {{ Form::hidden('max_hot_rate', $max_hot_rate, array('id' => 'max_rate_slider')) }}
+                        {{ Form::hidden('min_hot_rate', ($min_hot_rate * Session::get('currency_rate'))  , array('id' => 'min_rate_slider')) }}
+                        {{ Form::hidden('max_hot_rate', ($max_hot_rate * Session::get('currency_rate')), array('id' => 'max_rate_slider')) }}
 
                         <script type="text/javascript">
                             var min = parseInt($('#min_rate_slider').val());
@@ -195,7 +197,7 @@
                                 step: 5,
                                 smooth: true,
                                 round: 0,
-                                dimension: "&nbsp;$",
+                                dimension: "&nbsp;",
                                 skin: "round"
                             });
                         </script>
@@ -583,7 +585,7 @@
                                             @if(!empty($low_hotel_rate))
                                                 <span class="green size18">
                                             <b>
-                                                USD {{ number_format($low_hotel_rate, 2, '.', '') }}
+                                                {{ Session::get('currency') . '&nbsp;' . number_format(($low_hotel_rate * Session::get('currency_rate')), 2, '.', '') }}
                                             </b>
                                             </span>
                                                 <br/>
@@ -595,7 +597,8 @@
                                             </span>
                                             @endif
 
-                                            <form method="POST" target="_blank" action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
+                                            <form method="POST" target="_blank"
+                                                  action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
                                                 <button style="background: #006699; color: #ffffff"
                                                         class="bookbtn mt1"
                                                         type="submit">Book

@@ -266,7 +266,7 @@
 
                                             {{--{{ Form::open(array('url' => 'sri-lanka/set_excursion_transport', 'files'=> true, 'id' => 'transport_select_form', 'method' => 'POST', )) }}--}}
                                             {{ Form::hidden('ex_city_id', $x , array('class' => 'hidden_ex_city_id') ) }}
-                                            {{ Form::select('transport_type', $transport_type, null, array('class' => 'form-control mySelectBoxClass transport_select', 'id' => 'ex_transport_type_'.$x)) }}
+                                            {{ Form::select('transport_type', $transport_type, null, array('class' => 'form-control transport_select', 'id' => 'ex_transport_type_'.$x)) }}
                                             {{--{{ Form::close() }}--}}
 
                                         </div>
@@ -279,12 +279,12 @@
                                                     ->select('rate')
                                                     ->first();
 
-                                            echo $ex_rate->rate;
+                                            echo ($ex_rate->rate * Session::get('currency_rate'));
                                             ?>
                                         </div>
 
                                         <div class="col-md-3">
-                                            {{ Form::selectRange('number', 1, 10, null, ['class' => 'form-control mySelectBoxClass pax', 'city_id' => $x]) }}
+                                            {{ Form::selectRange('number', 1, 10, null, ['class' => 'form-control pax', 'city_id' => $x]) }}
                                         </div>
 
                                     </div>
@@ -358,6 +358,19 @@
                         </table>
                     </div>
 
+                    <div class="container">
+                        <div class="size18">
+                            <span class="opensans">Please Select Date</span>
+
+                            <input type="text" name="ex_check_out_date"
+                                   class="form-control mySelectCalendar chk_out"
+                                   id="datepicker"
+                                   value=""/>
+                        </div>
+                    </div>
+
+                    <br/>
+
                     <div class="">
                         <span class="left size18 green"
                               style="padding-left: 20px;">Excursion Total &nbsp;&nbsp;&nbsp; :</span>
@@ -366,8 +379,9 @@
 
                         <br/>
 
-                        <button type="button" id="excursion_add_to_cart" class="excursion_add_car_btn bluebtn margtop20 right"
-                           style="margin-right: 20px;">
+                        <button type="button" id="excursion_add_to_cart"
+                                class="excursion_add_car_btn bluebtn margtop20 right"
+                                style="margin-right: 20px;">
                             <span class="glyphicon glyphicon-shopping-cart"></span>
                             Add To Cart
                         </button>
@@ -407,8 +421,9 @@
 
         <script type="text/javascript">
             $(function () {
+                toastr.options.positionClass = 'toast-bottom-right';
 
-                // $('.price-box').hide();
+                $('.price-box').hide();
 
                 $('.transport_select').change(function () {
                     var transport_value = $(this).val();
@@ -422,7 +437,7 @@
                     formData.append('hidden_ex_city_id', hidden_ex_city_id);
 
                     $.ajax({
-                        url: 'http://localhost/travel/public/sri-lanka/set_excursion_transport',
+                        url: 'http://' + window.location.host + '/sri-lanka/set_excursion_transport',
                         method: 'post',
                         processData: false,
                         contentType: false,
@@ -470,8 +485,8 @@
                             $('#excursion_city').html(data.city);
                             $('#excursion_transport').html(data.transport_type);
                             $('#excursion_pax').html(data.pax);
-                            $('#excursion_rate').html('USD ' + data.ex_rate);
-                            $('#excursion_rate_total').html('USD ' + data.total_rate);
+                            $('#excursion_rate').html(data.ex_rate);
+                            $('#excursion_rate_total').html(data.total_rate);
 
                             $('.excursion_add_car_btn').click(function () {
 
@@ -481,37 +496,49 @@
                                 var excursion_pax = data.pax;
                                 var excursion_rate = data.ex_rate;
                                 var excursion_total = data.total_rate;
+                                var excursion_date = $('#datepicker').datepicker({dateFormat: 'dd-mm-yy'}).val();
 
-                                var ex_url = 'http://' + window.location.host + '/sri-lanka/excursion_add_to_cart';
+                                if (excursion_date != '') {
 
-                                var ex_formData = new FormData();
+                                    var ex_url = 'http://' + window.location.host + '/sri-lanka/excursion_add_to_cart';
 
-                                ex_formData.append('excursion_city', excursion_city);
-                                ex_formData.append('excursion_transport', excursion_transport);
-                                ex_formData.append('excursion_pax', excursion_pax);
-                                ex_formData.append('excursion_rate', excursion_rate);
-                                ex_formData.append('excursion_total', excursion_total);
-                                ex_formData.append('excursion', excursion);
+                                    var ex_formData = new FormData();
 
-                                $.ajax({
-                                    url: ex_url,
-                                    method: 'post',
-                                    processData: false,
-                                    contentType: false,
-                                    cache: false,
-                                    dataType: 'json',
-                                    data: ex_formData,
-                                    success: function (data) {
-                                        toastr.success('Successfully Added To The Cart...!!');
-                                    },
+                                    ex_formData.append('excursion_city', excursion_city);
+                                    ex_formData.append('excursion_transport', excursion_transport);
+                                    ex_formData.append('excursion_pax', excursion_pax);
+                                    ex_formData.append('excursion_rate', excursion_rate);
+                                    ex_formData.append('excursion_total', excursion_total);
+                                    ex_formData.append('excursion', excursion);
+                                    ex_formData.append('excursion_date', excursion_date);
 
-                                    error: function () {
-                                        //alert('There was an error signing In');
-                                    }
-                                });
+                                    $.ajax({
+                                        url: ex_url,
+                                        method: 'post',
+                                        processData: false,
+                                        contentType: false,
+                                        cache: false,
+                                        dataType: 'json',
+                                        data: ex_formData,
+                                        success: function (data) {
+                                            $('.price-box').hide();
+
+                                            toastr.success('Successfully Added To The Cart...!!');
+
+                                            $('.pax').val(1);
+                                            $('.transport_select').val(1);
+                                        },
+
+                                        error: function () {
+                                            //alert('There was an error signing In');
+                                        }
+                                    });
+
+                                } else {
+                                    toastr.warning('Please Select a Data...!!');
+                                }
 
                             });
-
 
                         },
                         error: function () {

@@ -212,7 +212,7 @@ class ExcursionController extends \BaseController
             ->select('rate')
             ->first();
 
-        $ex_rate = $get_excursion_rate->rate;
+        $ex_rate = ($get_excursion_rate->rate * Session::get('currency_rate'));
 
         return Response::json($ex_rate);
 
@@ -238,9 +238,11 @@ class ExcursionController extends \BaseController
             ->select('rate')
             ->first();
 
-        $ex_rate = $get_excursion_price->rate;
+        $get_ex_rate = $get_excursion_price->rate;
+        $ex_rate = Session::get('currency') . '&nbsp;' . number_format(($get_ex_rate * Session::get('currency_rate')), 2, '.', '');
 
-        $total_rate = $ex_rate * $pax;
+        $get_total_rate = $get_ex_rate * $pax;
+        $total_rate = Session::get('currency') . '&nbsp;' . number_format(($get_total_rate * Session::get('currency_rate')), 2, '.', '');
 
         $price_details = array(
             'city' => $city,
@@ -263,9 +265,9 @@ class ExcursionController extends \BaseController
         $excursion_pax = Input::get('excursion_pax');
         $excursion_rate = Input::get('excursion_rate');
         $excursion_total = Input::get('excursion_total');
+        $excursion_date = date("Y-m-d", strtotime(Input::get('excursion_date')));
 
-
-        $excursion_cart_key = $excursion . '_' . City::where('city', $excursion_city)->first()->id . '_' . $excursion_rate . '_' . $excursion_total;
+        $excursion_cart_key = $excursion_date . '_' . $excursion . '_' . City::where('city', $excursion_city)->first()->id . '_' . $excursion_transport;
 
         $excursion_details = array(
             'excursion' => $excursion,
@@ -274,6 +276,7 @@ class ExcursionController extends \BaseController
             'excursion_pax' => $excursion_pax,
             'excursion_rate' => $excursion_rate,
             'excursion_total' => $excursion_total,
+            'excursion_date' => $excursion_date,
             'excursion_cart_key' => $excursion_cart_key,
         );
 

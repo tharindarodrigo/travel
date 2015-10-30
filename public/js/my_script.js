@@ -204,7 +204,7 @@ function sendHotelListSingleMapData(url, formData) {
                 });
 
             }
-            else{
+            else {
                 alert('No Longitude And Latitude Where Found');
             }
         },
@@ -293,10 +293,7 @@ $('.mySelectCalendar').datepicker({
 
     dateFormat: 'yy-mm-dd', minDate: new Date,
     beforeShow: function (input) {
-        $(input).css({
-            "position": "relative",
-            "z-index": 999999
-        });
+
     }
 
 });

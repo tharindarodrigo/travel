@@ -872,28 +872,22 @@ class HotelController extends \BaseController
 
                 if ($hot_id == $page_hotel_id) {
                     if ((Session::has('rate_box_details1')) || (Input::has('check_room'))) {
-                        return Response::json(Session::get('rate_box_details'));
+                        return Response::json(Session::get('rate_box_details1'));
                     } else {
                         return null;
                     }
                 } else {
-                    return null;
+                   // return null;
                 }
 
             }
         } else {
-            return null;
+          //  return null;
         }
 
         //return Response::json(Session::get('rate_box_details'));
 
     }
-
-//    public function cartHotId(){
-//        $hot_id = Input::get('hotel_id');
-//        dd($hot_id);
-//        return Response::json($hot_id);
-//    }
 
     // room rates destroy
 
@@ -911,11 +905,11 @@ class HotelController extends \BaseController
                 Session::put('rate_box_details1', $data);
             } else {
                 Session::forget('rate_box_details1');
-                return null;
+                //return null;
             }
         }
 
-        return Response::json(Session::get('rate_box_details1'));
+        return Redirect::to('/booking-cart');
 
     }
 

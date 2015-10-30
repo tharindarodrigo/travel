@@ -294,12 +294,12 @@ function sendMapData(url, formData) {
                             (getDistance(src, des));
                         }
                     }
-//    alert(totalDistance);
+
                 }
 
                 function getDistance(src, des) {
                     var distance = 0;
-
+                    var totalDistance = 0;
                     var distanceService = new google.maps.DistanceMatrixService();
 
                     distanceService.getDistanceMatrix({
@@ -316,16 +316,15 @@ function sendMapData(url, formData) {
                             distance = response.rows[0].elements[0].distance.value;
                             //var duration = response.rows[0].elements[0].duration.text;
                             //var dvDistance = document.getElementById("dvDistance");
-                            //totalDistance = totalDistance + distance;
-//            alert(distance);
-
+                            totalDistance = distance + totalDistance;
+                            
                         } else {
-
                             return false
                         }
-                        //   alert(distance);
+//                           alert(distance);
                     });
                 }
+
             }
         },
 

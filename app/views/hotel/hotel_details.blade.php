@@ -56,10 +56,6 @@
         }
     </style>
 
-    {{--<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">--}}
-    <script src="//code.jquery.com/jquery-2.0.3.js"></script>
-    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
     <script type="text/javascript">
         $(function () {
             $("#datepicker").datepicker({
@@ -442,7 +438,7 @@
 
                                                     <div class="col-md-4 center bordertype4">
                                                         @if($low_room_rate > 0 )
-                                                            <span class="opensans green size24">USD {{ number_format($low_room_rate, 2, '.', '')  }} </span>
+                                                            <span class="opensans green size24">  {{ Session::get('currency') . '&nbsp;' . number_format(($low_room_rate * Session::get('currency_rate')), 2, '.', '') }}</span>
                                                             <br/>
                                                             <span class="opensans lightgrey size12">avg/night</span>
                                                             <br/>
