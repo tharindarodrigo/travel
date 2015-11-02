@@ -12,7 +12,7 @@ class ExcursionTransportType extends \Eloquent {
 
     public function excursionRate()
     {
-        return $this->hasMany('excursionRate');
+        return $this->hasMany('ExcursionRate');
     }
 
 }

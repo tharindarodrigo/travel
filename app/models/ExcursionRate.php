@@ -13,12 +13,12 @@ class ExcursionRate extends \Eloquent
 
     public function excursion()
     {
-        return $this->belongsTo('excursion');
+        return $this->belongsTo('Excursion');
     }
 
     public function excursionTransport()
     {
-        return $this->belongsTo('excursionTransport');
+        return $this->belongsTo('ExcursionTransportType');
     }
 
 }

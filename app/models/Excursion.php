@@ -18,12 +18,12 @@ class Excursion extends \Eloquent
     
     public function excursionType()
     {
-        return $this->belongsTo('excursionType');
+        return $this->belongsTo('ExcursionType');
     }
 
     public function excursionRate()
     {
-        return $this->hasMany('excursionRate');
+        return $this->hasMany('ExcursionRate');
     }
 
 }
