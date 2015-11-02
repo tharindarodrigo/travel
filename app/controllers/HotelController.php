@@ -850,8 +850,8 @@ class HotelController extends \BaseController
                 'check_out' => $ed_date,
             );
 
-            if (Session::has('rate_box_details1')) {
-                $data = Session::get('rate_box_details1');
+            if (Session::has('rate_box_details_' . $hotel_id)) {
+                $data = Session::get('rate_box_details_' . $hotel_id);
                 $data[$room_identity] = $rate_box_details;
             } else {
                 $data = [];
@@ -860,29 +860,30 @@ class HotelController extends \BaseController
 
             //$data['total_cost'] = $total_cost;
 
-            Session::put('rate_box_details1', $data);
+            Session::put('rate_box_details_' . $hotel_id, $data);
 
         }
 
-        $data = Session::get('rate_box_details1');
 
-        if (Session::has('rate_box_details1')) {
+        $data = Session::get('rate_box_details_' . $hot_id);
+
+        if (Session::has('rate_box_details_' . $hotel_id)) {
             foreach ($data as $page_hot_id) {
                 $page_hotel_id = $page_hot_id['hotel_id'];
 
                 if ($hot_id == $page_hotel_id) {
-                    if ((Session::has('rate_box_details1')) || (Input::has('check_room'))) {
-                        return Response::json(Session::get('rate_box_details1'));
+                    if ((Session::has('rate_box_details_' . $hotel_id)) || (Input::has('check_room'))) {
+                        return Response::json(Session::get('rate_box_details_' . $hotel_id));
                     } else {
                         return null;
                     }
                 } else {
-                   // return null;
+                    // return null;
                 }
 
             }
         } else {
-          //  return null;
+            //  return null;
         }
 
         //return Response::json(Session::get('rate_box_details'));
@@ -896,17 +897,25 @@ class HotelController extends \BaseController
 
         $deletable = Input::get('del_room_id');
 
-        if (Session::has('rate_box_details1')) {
-            $data = Session::get('rate_box_details1');
-            //dd($data);
-            unset($data[$deletable]);
+        $bookings = Input::get('del_room_id');
+        $rate_keys = array_keys($bookings);
 
-            if (!empty($data)) {
-                Session::put('rate_box_details1', $data);
-            } else {
-                Session::forget('rate_box_details1');
-                //return null;
+        foreach ($rate_keys as $rate_key) {
+            $hotel_id = explode('_', $rate_key)[2];
+
+            if (Session::has('rate_box_details_' . $hotel_id)) {
+                $data = Session::get('rate_box_details_' . $hotel_id);
+                //dd($data);
+                unset($data[$deletable]);
+
+                if (!empty($data)) {
+                    Session::put('rate_box_details' . $hotel_id, $data);
+                } else {
+                    Session::forget('rate_box_details' . $hotel_id);
+                    //return null;
+                }
             }
+
         }
 
         return Redirect::to('/booking-cart');

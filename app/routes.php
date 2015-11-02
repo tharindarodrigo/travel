@@ -10,7 +10,6 @@
 |
 */
 
-
 /*------------------------------ Sign in & Register --------------------------------*/
 
 
@@ -255,18 +254,17 @@ Route::group(array('before' => 'auth'), function () {
 });
 
 
-Route::group(array('prefix' => 'account'), function(){
-    Route::get('sign-up','AccountController@signUp');
+Route::group(array('prefix' => 'account'), function () {
+    Route::get('sign-up', 'AccountController@signUp');
     Route::post('create', 'AccountController@createAccount');
-    Route::get('activate/{code}','AccountController@activateAccount');
-    Route::get('sign-in','AccountController@getSignIn');
-    Route::post('sign-in','AccountController@signIn');
-    Route::get('forgot-password','AccountController@getForgotPassword');
-    Route::post('forgot-password','AccountController@postForgotPassword');
+    Route::get('activate/{code}', 'AccountController@activateAccount');
+    Route::get('sign-in', 'AccountController@getSignIn');
+    Route::post('sign-in', 'AccountController@signIn');
+    Route::get('forgot-password', 'AccountController@getForgotPassword');
+    Route::post('forgot-password', 'AccountController@postForgotPassword');
     Route::get('recover/{code}', 'AccountController@recoverAccount');
 });
 
-Route::get('add-to-cart', 'CartController@addToCart');
 
 Route::get('voucher/{id}', function ($id) {
     $voucher = Voucher::find($id);
@@ -320,6 +318,10 @@ Route::get('/', array(
     'as' => 'index',
     'uses' => 'HomeController@index'
 ));
+
+// currency rate create
+
+Route::post('/sri-lanka/get-currency-rate', 'HomeController@createCurrency');
 
 //Bookings
 Route::get('bookings/cancel-booking', 'BookingsController@cancelBooking');
@@ -594,7 +596,6 @@ Route::post('/sri-lanka/predefined_transport_add_to_cart', 'TransportPackageCont
 Route::post('/sri-lanka/predefined_transport_cart/delete', 'TransportPackageController@predefinedTransportCartItemDelete');
 
 
-
 //=====================================================================================================================|
 /*------------------------- End Of Transport  -------------------------------*/
 //=====================================================================================================================|
@@ -621,13 +622,16 @@ Route::post('/get_single_hotel_map', 'HotelController@hotelListSingleMap');
 
 /************* Create Booking Cart ********************/
 
+// booking rate box create
+
+Route::any('add-to-cart/{hotel_id}', 'CartController@addToCart');
+
 // booking cart
 
 Route::get('/booking-cart', array(
     'as' => 'booking-cart-get',
     'uses' => 'CartController@bookingCart'
 ));
-
 
 // Delete Hotel From Cart
 

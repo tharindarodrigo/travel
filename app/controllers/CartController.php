@@ -192,9 +192,10 @@ class CartController extends \BaseController
 
     }
 
-    public function addToCart()
+    public function addToCart($hotel_id)
     {
-        $x = Session::pull('rate_box_details1');
+
+        $x = Session::pull('rate_box_details_' . $hotel_id);
         $y = Session::get('rate_box_details');
 
         if (Session::has('rate_box_details')) {

@@ -215,3 +215,145 @@ function converCurrency($from,$to,$amount){
 </form>
 
 
+<ul class="dropdown">
+
+    <li class=active>
+        <a class="currency" id="AED" title="Arab Emirates Dirham"><span class="blue">AED</span>Arab Emirates Dirham</a>
+    </li>
+    <li >
+        <a class="currency" id="IDR" title="Indonesian Rupiah"><span class="blue">IDR</span>Indonesian Rupiah</a>
+    </li>
+    <li >
+        <a class="currency" id="PLN" title="Polish Zloty"><span class="blue">PLN</span>Polish Zloty</a>
+    </li>
+    <li >
+        <a class="currency" id="ARS" title="Argentine Peso"><span class="blue">ARS</span>Argentine Peso</a>
+    </li>
+    <li >
+        <a class="currency" id="JPY" title="Japanese Yen"><span class="blue">JPY</span>Japanese Yen</a>
+    </li>
+    <li >
+        <a class="currency" id="QAR" title="Qatari Rial"><span class="blue">QAR</span>Qatari Rial</a>
+    </li>
+    <li >
+        <a class="currency" id="AUD" title="Australian Dollar"><span class="blue">AUD</span>Australian Dollar</a>
+    </li>
+    <li >
+        <a class="currency" id="JOD" title="Jordanian Dinar"><span class="blue">JOD</span>Jordanian Dinar</a>
+    </li>
+    <li >
+        <a class="currency" id="RON" title="Romanian Leu"><span class="blue">RON</span>Romanian Leu</a>
+    </li>
+    <li >
+        <a class="currency" id="BHD" title="Bahrain Dinar"><span class="blue">BHD</span>Bahrain Dinar</a>
+    </li>
+    <li >
+        <a class="currency" id="KZT" title="Kazakh Tenge"><span class="blue">KZT</span>Kazakh Tenge</a>
+    </li>
+    <li >
+        <a class="currency" id="RUB" title="Russian Ruble"><span class="blue">RUB</span>Russian Ruble</a>
+    </li>
+    <li >
+        <a class="currency" id="GBP" title="British Pound"><span class="blue">GBP</span>British Pound</a>
+    </li>
+    <li >
+        <a class="currency" id="KRW" title="Korean Won"><span class="blue">KRW</span>Korean Won</a>
+    </li>
+    <li >
+        <a class="currency" id="SAR" title="Saudi Riyal"><span class="blue">SAR</span>Saudi Riyal</a>
+    </li>
+    <li >
+        <a class="currency" id="BGN" title="Bulgarian Lev"><span class="blue">BGN</span>Bulgarian Lev</a>
+    </li>
+    <li >
+        <a class="currency" id="KWD" title="Kuwaiti Dinar"><span class="blue">KWD</span>Kuwaiti Dinar</a>
+    </li>
+    <li >
+        <a class="currency" id="SGD" title="Singapore Dollar"><span class="blue">SGD</span>Singapore Dollar</a>
+    </li>
+    <li >
+        <a class="currency" id="CAD" title="Canadian Dollar"><span class="blue">CAD</span>Canadian Dollar</a>
+    </li>
+    <li >
+        <a class="currency" id="MYR" title="Malaysian Ringgit"><span class="blue">MYR</span>Malaysian Ringgit</a>
+    </li>
+    <li >
+        <a class="currency" id="ZAR" title="South African Rand"><span class="blue">ZAR</span>South African Rand</a>
+    </li>
+    <li >
+        <a class="currency" id="XPF" title="CFP Franc"><span class="blue">XPF</span>CFP Franc</a>
+    </li>
+    <li >
+        <a class="currency" id="MXN" title="Mexican Peso"><span class="blue">MXN</span>Mexican Peso</a>
+    </li>
+    <li >
+        <a class="currency" id="SEK" title="Swedish Krona"><span class="blue">SEK</span>Swedish Krona</a>
+    </li>
+    <li >
+        <a class="currency" id="CNY" title="Chinese Yuan"><span class="blue">CNY</span>Chinese Yuan</a>
+    </li>
+    <li >
+        <a class="currency" id="ILS" title="New Israeli Sheqel"><span class="blue">ILS</span>New Israeli Sheqel</a>
+    </li>
+    <li >
+        <a class="currency" id="CHF" title="Swiss Franc"><span class="blue">CHF</span>Swiss Franc</a>
+    </li>
+    <li >
+        <a class="currency" id="CZK" title="Czech Koruna"><span class="blue">CZK</span>Czech Koruna</a>
+    </li>
+    <li >
+        <a class="currency" id="NZD" title="New Zealand Dollar"><span class="blue">NZD</span>New Zealand Dollar</a>
+    </li>
+    <li >
+        <a class="currency" id="TWD" title="Taiwan Dollar"><span class="blue">TWD</span>Taiwan Dollar</a>
+    </li>
+    <li >
+        <a class="currency" id="DKK" title="Danish Krone"><span class="blue">DKK</span>Danish Krone</a>
+    </li>
+    <li >
+        <a class="currency" id="NGN" title="Nigerian Naira"><span class="blue">NGN</span>Nigerian Naira</a>
+    </li>
+    <li >
+        <a class="currency" id="THB" title="Thai Baht"><span class="blue">THB</span>Thai Baht</a>
+    </li>
+    <li >
+        <a class="currency" id="EUR" title="Euro"><span class="blue">EUR</span>Euro</a>
+    </li>
+    <li >
+        <a class="currency" id="NOK" title="Norwegian Krone"><span class="blue">NOK</span>Norwegian Krone</a>
+    </li>
+    <li >
+        <a class="currency" id="TRY" title="Turkish Lira"><span class="blue">TRY</span>Turkish Lira</a>
+    </li>
+    <li >
+        <a class="currency" id="FJD" title="Fiji Dollar"><span class="blue">FJD</span>Fiji Dollar</a>
+    </li>
+    <li >
+        <a class="currency" id="OMR" title="Omani Rial"><span class="blue">OMR</span>Omani Rial</a>
+    </li>
+    <li >
+        <a class="currency" id="UAH" title="Ukrainian Grivna"><span class="blue">UAH</span>Ukrainian Grivna</a>
+    </li>
+    <li >
+        <a class="currency" id="HKD" title="Hong Kong Dollar"><span class="blue">HKD</span>Hong Kong Dollar</a>
+    </li>
+    <li >
+        <a class="currency" id="PKR" title="Pakistan Rupee"><span class="blue">PKR</span>Pakistan Rupee</a>
+    </li>
+    <li >
+        <a class="currency" id="USD" title="US Dollar"><span class="blue">USD</span>US Dollar</a>
+    </li>
+    <li >
+        <a class="currency" id="HUF" title="Hungarian Forint"><span class="blue">HUF</span>Hungarian Forint</a>
+    </li>
+    <li >
+        <a class="currency" id="PHP" title="Philippine Peso"><span class="blue">PHP</span>Philippine Peso</a>
+    </li>
+    <li >
+        <a class="currency" id="VND" title="Vietnamese Dong"><span class="blue">VND</span>Vietnamese Dong</a>
+    </li>
+    <li >
+        <a class="currency" id="INR" title="Indian Rupee"><span class="blue">INR</span>Indian Rupee</a>
+    </li>
+
+</ul>

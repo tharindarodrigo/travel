@@ -1,41 +1,11 @@
 <?php
-//$rate = 2;
-//Session::put('currency', 'USD');
-//Session::put('currency_rate', $rate);
+$rate = 1;
 
-if (isset($_POST["to"])) {
-    dd('yes');
-    $from_currency = 'USD';
-    $to_currency = $_POST["to"];
-    dd($to_currency);
-    $amount = 1;
-    $results = converCurrency($from_currency, $to_currency, $amount);
+if (Session::has('currency') && (Session::has('currency_rate'))) {
 
-    $regularExpression = '#\<span class=bld\>(.+?)\<\/span\>#s';
-    preg_match($regularExpression, $results, $finalData);
-    $finalData[1];
-    $str = $finalData[1];
-    $rr = (explode(" ", $str));
-
-    echo $rr[0];
-    echo '<br>';
-    echo $rr[1];
-}else{
-    //dd('no');
-}
-
-function converCurrency($from, $to, $amount)
-{
-    $url = "http://www.google.com/finance/converter?a=$amount&from=$from&to=$to";
-    $request = curl_init();
-    $timeOut = 0;
-    curl_setopt($request, CURLOPT_URL, $url);
-    curl_setopt($request, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($request, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)");
-    curl_setopt($request, CURLOPT_CONNECTTIMEOUT, $timeOut);
-    $response = curl_exec($request);
-    curl_close($request);
-    return $response;
+} else {
+    Session::put('currency', 'USD');
+    Session::put('currency_rate', $rate);
 }
 
 ?>
@@ -366,188 +336,193 @@ function converCurrency($from, $to, $amount)
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 Crruency {{ HTML::image('images/site/white-arrow.png', '', array('class' => 'nav_arrow')) }}
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| </a>
-                            <ul class="dropdown-menu" style="padding: 5px 20px; max-width: 1000px; width: 1000px; left: -600px; right: 50px">
+                            <ul class="dropdown-menu"
+                                style="padding: 5px 20px; max-width: 1000px; width: 1000px; left: -600px; right: 50px">
                                 <form name="to" id="bb" action="" method="POST">
                                     <div class="col-md-3">
-                                        <li><a class="currency"  id="BRL">Brazilian Real (R$)</a></li>
-                                        <li><a class="currency"  id="BSD">Bahamian Dollar (BSD)</a></li>
-                                        <li><a class="currency"  id="BTC">Bitcoin (฿)</a></li>
-                                        <li><a class="currency"  id="BTN">Bhutanese Ngultrum (BTN)</a></li>
-                                        <li><a class="currency"  id="BWP">Botswanan Pula (BWP)</a></li>
-                                        <li><a class="currency"  id="BYR">Belarusian Ruble (BYR)</a></li>
-                                        <li><a class="currency"  id="BZD">Belize Dollar (BZD)</a></li>
-                                        <li><a class="currency"  id="CAD">Canadian Dollar (CA$)</a></li>
-                                        <li><a class="currency"  id="CDF">Congolese Franc (CDF)</a></li>
-                                        <li><a class="currency"  id="CHF">Swiss Franc (CHF)</a></li>
-                                        <li><a class="currency"  id="CLF">Chilean Unit of Account (UF) (CLF)</a></li>
-                                        <li><a class="currency"  id="CLP">Chilean Peso (CLP)</a></li>
-                                        <li><a class="currency"  id="CNH">CNH (CNH)</a></li>
-                                        <li><a class="currency"  id="CNY">Chinese Yuan (CN¥)</a></li>
-                                        <li><a class="currency"  id="COP">Colombian Peso (COP)</a></li>
-                                        <li><a class="currency"  id="CRC">Costa Rican Colón (CRC)</a></li>
-                                        <li><a class="currency"  id="CUP">Cuban Peso (CUP)</a></li>
-                                        <li><a class="currency"  id="CVE">Cape Verdean Escudo (CVE)</a></li>
-                                        <li><a class="currency"  id="CZK">Czech Republic Koruna (CZK)</a></li>
-                                        <li><a class="currency"  id="DEM">German Mark (DEM)</a></li>
-                                        <li><a class="currency"  id="DJF">Djiboutian Franc (DJF)</a></li>
-                                        <li><a class="currency"  id="DKK">Danish Krone (DKK)</a></li>
-                                        <li><a class="currency"  id="DOP">Dominican Peso (DOP)</a></li>
-                                        <li><a class="currency"  id="DZD">Algerian Dinar (DZD)</a></li>
-                                        <li><a class="currency"  id="EGP">Egyptian Pound (EGP)</a></li>
-                                        <li><a class="currency"  id="ERN">Eritrean Nakfa (ERN)</a></li>
-                                        <li><a class="currency"  id="ETB">Ethiopian Birr (ETB)</a></li>
-                                        <li><a class="currency"  id="EUR">Euro (€)</a></li>
-                                        <li><a class="currency"  id="FIM">Finnish Markka (FIM)</a></li>
-                                        <li><a class="currency"  id="FJD">Fijian Dollar (FJD)</a></li>
-                                        <li><a class="currency"  id="FKP">Falkland Islands Pound (FKP)</a></li>
-                                        <li><a class="currency"  id="FRF">French Franc (FRF)</a></li>
-                                        <li><a class="currency"  id="GBP">British Pound (£)</a></li>
-                                        <li><a class="currency"  id="GEL">Georgian Lari (GEL)</a></li>
-                                        <li><a class="currency"  id="GHS">Ghanaian Cedi (GHS)</a></li>
-                                        <li><a class="currency"  id="GIP">Gibraltar Pound (GIP)</a></li>
-                                        <li><a class="currency"  id="GMD">Gambian Dalasi (GMD)</a></li>
-                                        <li><a class="currency"  id="GNF">Guinean Franc (GNF)</a></li>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <li><a class="currency"  id="KGS">Kyrgystani Som (KGS)</a></li>
-                                        <li><a class="currency"  id="KHR">Cambodian Riel (KHR)</a></li>
-                                        <li><a class="currency"  id="KMF">Comorian Franc (KMF)</a></li>
-                                        <li><a class="currency"  id="KPW">North Korean Won (KPW)</a></li>
-                                        <li><a class="currency"  id="KRW">South Korean Won (₩)</a></li>
-                                        <li><a class="currency"  id="KWD">Kuwaiti Dinar (KWD)</a></li>
-                                        <li><a class="currency"  id="KYD">Cayman Islands Dollar (KYD)</a></li>
-                                        <li><a class="currency"  id="KZT">Kazakhstani Tenge (KZT)</a></li>
-                                        <li><a class="currency"  id="LAK">Laotian Kip (LAK)</a></li>
-                                        <li><a class="currency"  id="LBP">Lebanese Pound (LBP)</a></li>
-                                        <li><a class="currency"  id="LKR">Sri Lankan Rupee (LKR)</a></li>
-                                        <li><a class="currency"  id="LRD">Liberian Dollar (LRD)</a></li>
-                                        <li><a class="currency"  id="LSL">Lesotho Loti (LSL)</a></li>
-                                        <li><a class="currency"  id="LTL">Lithuanian Litas (LTL)</a></li>
-                                        <li><a class="currency"  id="LVL">Latvian Lats (LVL)</a></li>
-                                        <li><a class="currency"  id="LYD">Libyan Dinar (LYD)</a></li>
-                                        <li><a class="currency"  id="MAD">Moroccan Dirham (MAD)</a></li>
-                                        <li><a class="currency"  id="MDL">Moldovan Leu (MDL)</a></li>
-                                        <li><a class="currency"  id="MGA">Malagasy Ariary (MGA)</a></li>
-                                        <li><a class="currency"  id="MKD">Macedonian Denar (MKD)</a></li>
-                                        <li><a class="currency"  id="MMK">Myanmar Kyat (MMK)</a></li>
-                                        <li><a class="currency"  id="MNT">Mongolian Tugrik (MNT)</a></li>
-                                        <li><a class="currency"  id="MOP">Macanese Pataca (MOP)</a></li>
-                                        <li><a class="currency"  id="MRO">Mauritanian Ouguiya (MRO)</a></li>
-                                        <li><a class="currency"  id="MUR">Mauritian Rupee (MUR)</a></li>
-                                        <li><a class="currency"  id="MVR">Maldivian Rufiyaa (MVR)</a></li>
-                                        <li><a class="currency"  id="MWK">Malawian Kwacha (MWK)</a></li>
-                                        <li><a class="currency"  id="MXN">Mexican Peso (MX$)</a></li>
-                                        <li><a class="currency"  id="MYR">Malaysian Ringgit (MYR)</a></li>
-                                        <li><a class="currency"  id="MZN">Mozambican Metical (MZN)</a></li>
-                                        <li><a class="currency"  id="NAD">Namibian Dollar (NAD)</a></li>
-                                        <li><a class="currency"  id="NGN">Nigerian Naira (NGN)</a></li>
-                                        <li><a class="currency"  id="NIO">Nicaraguan Córdoba (NIO)</a></li>
-                                        <li><a class="currency"  id="NOK">Norwegian Krone (NOK)</a></li>
-                                        <li><a class="currency"  id="NPR">Nepalese Rupee (NPR)</a></li>
-                                        <li><a class="currency"  id="NZD">New Zealand Dollar (NZ$)</a></li>
-                                        <li><a class="currency"  id="OMR">Omani Rial (OMR)</a></li>
-                                        <li><a class="currency"  id="PAB">Panamanian Balboa (PAB)</a></li>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <li><a class="currency"  id="SGD">Singapore Dollar (SGD)</a></li>
-                                        <li><a class="currency"  id="SHP">St. Helena Pound (SHP)</a></li>
-                                        <li><a class="currency"  id="SKK">Slovak Koruna (SKK)</a></li>
-                                        <li><a class="currency"  id="SLL">Sierra Leonean Leone (SLL)</a></li>
-                                        <li><a class="currency"  id="SOS">Somali Shilling (SOS)</a></li>
-                                        <li><a class="currency"  id="SRD">Surinamese Dollar (SRD)</a></li>
-                                        <li><a class="currency"  id="STD">São Tomé &amp; Príncipe Dobra (STD)</a></li>
-                                        <li><a class="currency"  id="SVC">Salvadoran Colón (SVC)</a></li>
-                                        <li><a class="currency"  id="SYP">Syrian Pound (SYP)</a></li>
-                                        <li><a class="currency"  id="SZL">Swazi Lilangeni (SZL)</a></li>
-                                        <li><a class="currency"  id="THB">Thai Baht (THB)</a></li>
-                                        <li><a class="currency"  id="TJS">Tajikistani Somoni (TJS)</a></li>
-                                        <li><a class="currency"  id="TMT">Turkmenistani Manat (TMT)</a></li>
-                                        <li><a class="currency"  id="TND">Tunisian Dinar (TND)</a></li>
-                                        <li><a class="currency"  id="TOP">Tongan Paʻanga (TOP)</a></li>
-                                        <li><a class="currency"  id="TRY">Turkish Lira (TRY)</a></li>
-                                        <li><a class="currency"  id="TTD">Trinidad &amp; Tobago Dollar (TTD)</a></li>
-                                        <li><a class="currency"  id="TWD">New Taiwan Dollar (NT$)</a></li>
-                                        <li><a class="currency"  id="TZS">Tanzanian Shilling (TZS)</a></li>
-                                        <li><a class="currency"  id="UAH">Ukrainian Hryvnia (UAH)</a></li>
-                                        <li><a class="currency"  id="UGX">Ugandan Shilling (UGX)</a></li>
-                                        <li><a class="currency" SELECTED id="USD">US Dollar ($)</a></li>
-                                        <li><a class="currency"  id="UYU">Uruguayan Peso (UYU)</a></li>
-                                        <li><a class="currency"  id="UZS">Uzbekistani Som (UZS)</a></li>
-                                        <li><a class="currency"  id="VEF">Venezuelan Bolívar (VEF)</a></li>
-                                        <li><a class="currency"  id="VND">Vietnamese Dong (₫)</a></li>
-                                        <li><a class="currency"  id="VUV">Vanuatu Vatu (VUV)</a></li>
-                                        <li><a class="currency"  id="WST">Samoan Tala (WST)</a></li>
-                                        <li><a class="currency"  id="XAF">Central African CFA Franc (FCFA)</a></li>
-                                        <li><a class="currency"  id="XCD">East Caribbean Dollar (EC$)</a></li>
-                                        <li><a class="currency"  id="XDR">Special Drawing Rights (XDR)</a></li>
-                                        <li><a class="currency"  id="XOF">West African CFA Franc (CFA)</a></li>
-                                        <li><a class="currency"  id="XPF">CFP Franc (CFPF)</a></li>
-                                        <li><a class="currency"  id="YER">Yemeni Rial (YER)</a></li>
-                                        <li><a class="currency"  id="ZAR">South African Rand (ZAR)</a></li>
-                                        <li><a class="currency"  id="ZMK">Zambian Kwacha (1968–2012) (ZMK)</a></li>
-                                        <li><a class="currency"  id="ZMW">Zambian Kwacha (ZMW)</a></li>
-                                        <li><a class="currency"  id="ZWL">Zimbabwean Dollar (2009) (ZWL)</a></li>
-                                        <li><a class="currency"  id="LKR">Sri Lankan Rupee (LKR)</a></li>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <li><a class="currency"  id="AED">United Arab Emirates Dirham (AED)</a></li>
-                                        <li><a class="currency"  id="AFN">Afghan Afghani (AFN)</a></li>
-                                        <li><a class="currency"  id="ALL">Albanian Lek (ALL)</a></li>
-                                        <li><a class="currency"  id="AMD">Armenian Dram (AMD)</a></li>
-                                        <li><a class="currency"  id="ANG">Netherlands Antillean Guilder (ANG)</a></li>
-                                        <li><a class="currency"  id="AOA">Angolan Kwanza (AOA)</a></li>
-                                        <li><a class="currency"  id="ARS">Argentine Peso (ARS)</a></li>
-                                        <li><a class="currency"  id="AUD">Australian Dollar (A$)</a></li>
-                                        <li><a class="currency"  id="AWG">Aruban Florin (AWG)</a></li>
-                                        <li><a class="currency"  id="AZN">Azerbaijani Manat (AZN)</a></li>
-                                        <li><a class="currency"  id="BAM">Bosnia-Herzegovina Convertible Mark (BAM)</a></li>
-                                        <li><a class="currency"  id="BBD">Barbadian Dollar (BBD)</a></li>
-                                        <li><a class="currency"  id="BDT">Bangladeshi Taka (BDT)</a></li>
-                                        <li><a class="currency"  id="BGN">Bulgarian Lev (BGN)</a></li>
-                                        <li><a class="currency"  id="BHD">Bahraini Dinar (BHD)</a></li>
-                                        <li><a class="currency"  id="BIF">Burundian Franc (BIF)</a></li>
-                                        <li><a class="currency"  id="BMD">Bermudan Dollar (BMD)</a></li>
-                                        <li><a class="currency"  id="BND">Brunei Dollar (BND)</a></li>
-                                        <li><a class="currency"  id="BOB">Bolivian Boliviano (BOB)</a></li>
-                                        <li><a class="currency"  id="GTQ">Guatemalan Quetzal (GTQ)</a></li>
-                                        <li><a class="currency"  id="GYD">Guyanaese Dollar (GYD)</a></li>
-                                        <li><a class="currency"  id="HKD">Hong Kong Dollar (HK$)</a></li>
-                                        <li><a class="currency"  id="HNL">Honduran Lempira (HNL)</a></li>
-                                        <li><a class="currency"  id="HRK">Croatian Kuna (HRK)</a></li>
-                                        <li><a class="currency"  id="HTG">Haitian Gourde (HTG)</a></li>
-                                        <li><a class="currency"  id="HUF">Hungarian Forint (HUF)</a></li>
-                                        <li><a class="currency"  id="IDR">Indonesian Rupiah (IDR)</a></li>
-                                        <li><a class="currency"  id="IEP">Irish Pound (IEP)</a></li>
-                                        <li><a class="currency"  id="ILS">Israeli New Sheqel (₪)</a></li>
-                                        <li><a class="currency"  id="INR">Indian Rupee (Rs.)</a></li>
-                                        <li><a class="currency"  id="IQD">Iraqi Dinar (IQD)</a></li>
-                                        <li><a class="currency"  id="IRR">Iranian Rial (IRR)</a></li>
-                                        <li><a class="currency"  id="ISK">Icelandic Króna (ISK)</a></li>
-                                        <li><a class="currency"  id="ITL">Italian Lira (ITL)</a></li>
-                                        <li><a class="currency"  id="JMD">Jamaican Dollar (JMD)</a></li>
-                                        <li><a class="currency"  id="JOD">Jordanian Dinar (JOD)</a></li>
-                                        <li><a class="currency"  id="JPY">Japanese Yen (¥)</a></li>
-                                        <li><a class="currency"  id="KES">Kenyan Shilling (KES)</a></li>
-                                        <li><a class="currency"  id="PEN">Peruvian Nuevo Sol (PEN)</a></li>
-                                        <li><a class="currency"  id="PGK">Papua New Guinean Kina (PGK)</a></li>
-                                        <li><a class="currency"  id="PHP">Philippine Peso (Php)</a></li>
-                                        <li><a class="currency"  id="PKG">PKG (PKG)</a></li>
-                                        <li><a class="currency"  id="PKR">Pakistani Rupee (PKR)</a></li>
-                                        <li><a class="currency"  id="PLN">Polish Zloty (PLN)</a></li>
-                                        <li><a class="currency"  id="PYG">Paraguayan Guarani (PYG)</a></li>
-                                        <li><a class="currency"  id="QAR">Qatari Rial (QAR)</a></li>
-                                        <li><a class="currency"  id="RON">Romanian Leu (RON)</a></li>
-                                        <li><a class="currency"  id="RSD">Serbian Dinar (RSD)</a></li>
-                                        <li><a class="currency"  id="RUB">Russian Ruble (RUB)</a></li>
-                                        <li><a class="currency"  id="RWF">Rwandan Franc (RWF)</a></li>
-                                        <li><a class="currency"  id="SAR">Saudi Riyal (SAR)</a></li>
-                                        <li><a class="currency"  id="SBD">Solomon Islands Dollar (SBD)</a></li>
-                                        <li><a class="currency"  id="SCR">Seychellois Rupee (SCR)</a></li>
-                                        <li><a class="currency"  id="SDG">Sudanese Pound (SDG)</a></li>
-                                        <li><a class="currency"  id="SEK">Swedish Krona (SEK)</a></li>
+                                        <li>
+                                            <a class="currency" id="AED" title="Arab Emirates Dirham"><span
+                                                        class="blue">AED</span>Arab Emirates Dirham</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="IDR" title="Indonesian Rupiah"><span class="blue">IDR</span>Indonesian
+                                                Rupiah</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="PLN" title="Polish Zloty"><span
+                                                        class="blue">PLN</span>Polish Zloty</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="ARS" title="Argentine Peso"><span
+                                                        class="blue">ARS</span>Argentine Peso</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="JPY" title="Japanese Yen"><span
+                                                        class="blue">JPY</span>Japanese Yen</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="QAR" title="Qatari Rial"><span
+                                                        class="blue">QAR</span>Qatari Rial</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="AUD" title="Australian Dollar"><span class="blue">AUD</span>Australian
+                                                Dollar</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="JOD" title="Jordanian Dinar"><span
+                                                        class="blue">JOD</span>Jordanian Dinar</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="RON" title="Romanian Leu"><span
+                                                        class="blue">RON</span>Romanian Leu</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="BHD" title="Bahrain Dinar"><span
+                                                        class="blue">BHD</span>Bahrain Dinar</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="KZT" title="Kazakh Tenge"><span
+                                                        class="blue">KZT</span>Kazakh Tenge</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="RUB" title="Russian Ruble"><span
+                                                        class="blue">RUB</span>Russian Ruble</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="GBP" title="British Pound"><span
+                                                        class="blue">GBP</span>British Pound</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="KRW" title="Korean Won"><span
+                                                        class="blue">KRW</span>Korean Won</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="SAR" title="Saudi Riyal"><span
+                                                        class="blue">SAR</span>Saudi Riyal</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="BGN" title="Bulgarian Lev"><span
+                                                        class="blue">BGN</span>Bulgarian Lev</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="KWD" title="Kuwaiti Dinar"><span
+                                                        class="blue">KWD</span>Kuwaiti Dinar</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="SGD" title="Singapore Dollar"><span
+                                                        class="blue">SGD</span>Singapore Dollar</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="CAD" title="Canadian Dollar"><span
+                                                        class="blue">CAD</span>Canadian Dollar</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="MYR" title="Malaysian Ringgit"><span class="blue">MYR</span>Malaysian
+                                                Ringgit</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="ZAR" title="South African Rand"><span class="blue">ZAR</span>South
+                                                African Rand</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="XPF" title="CFP Franc"><span class="blue">XPF</span>CFP
+                                                Franc</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="MXN" title="Mexican Peso"><span
+                                                        class="blue">MXN</span>Mexican Peso</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="SEK" title="Swedish Krona"><span
+                                                        class="blue">SEK</span>Swedish Krona</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="CNY" title="Chinese Yuan"><span
+                                                        class="blue">CNY</span>Chinese Yuan</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="ILS" title="New Israeli Sheqel"><span class="blue">ILS</span>New
+                                                Israeli Sheqel</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="CHF" title="Swiss Franc"><span
+                                                        class="blue">CHF</span>Swiss Franc</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="CZK" title="Czech Koruna"><span
+                                                        class="blue">CZK</span>Czech Koruna</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="NZD" title="New Zealand Dollar"><span class="blue">NZD</span>New
+                                                Zealand Dollar</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="TWD" title="Taiwan Dollar"><span
+                                                        class="blue">TWD</span>Taiwan Dollar</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="DKK" title="Danish Krone"><span
+                                                        class="blue">DKK</span>Danish Krone</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="NGN" title="Nigerian Naira"><span
+                                                        class="blue">NGN</span>Nigerian Naira</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="THB" title="Thai Baht"><span class="blue">THB</span>Thai
+                                                Baht</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="EUR" title="Euro"><span class="blue">EUR</span>Euro</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="NOK" title="Norwegian Krone"><span
+                                                        class="blue">NOK</span>Norwegian Krone</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="TRY" title="Turkish Lira"><span
+                                                        class="blue">TRY</span>Turkish Lira</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="FJD" title="Fiji Dollar"><span
+                                                        class="blue">FJD</span>Fiji Dollar</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="OMR" title="Omani Rial"><span
+                                                        class="blue">OMR</span>Omani Rial</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="UAH" title="Ukrainian Grivna"><span
+                                                        class="blue">UAH</span>Ukrainian Grivna</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="HKD" title="Hong Kong Dollar"><span
+                                                        class="blue">HKD</span>Hong Kong Dollar</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="PKR" title="Pakistan Rupee"><span
+                                                        class="blue">PKR</span>Pakistan Rupee</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="USD" title="US Dollar"><span class="blue">USD</span>US
+                                                Dollar</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="HUF" title="Hungarian Forint"><span
+                                                        class="blue">HUF</span>Hungarian Forint</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="PHP" title="Philippine Peso"><span
+                                                        class="blue">PHP</span>Philippine Peso</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="VND" title="Vietnamese Dong"><span
+                                                        class="blue">VND</span>Vietnamese Dong</a>
+                                        </li>
+                                        <li>
+                                            <a class="currency" id="INR" title="Indian Rupee"><span
+                                                        class="blue">INR</span>Indian Rupee</a>
+                                        </li>
                                     </div>
                                 </form>
                             </ul>
@@ -595,7 +570,7 @@ function converCurrency($from, $to, $amount)
                             <a href="{{URL::to('/booking-cart')}}">
                                 <div style="display: inline;" class="basket-item-count">
                                     @if(Session::has('rate_box_details'))
-                                        <span class="count">{{ count(Session::get('rate_box_details')) + count(Session::get('transport_cart_box')) + count(Session::get('predefined_transport')) + count(Session::get('excursion_cart_details')) }}</span>
+                                        <span class="count">{{ (count(Session::get('rate_box_details')) + count(Session::get('transport_cart_box')) + count(Session::get('predefined_transport')) + count(Session::get('excursion_cart_details'))) }}</span>
                                         {{ HTML::image('images/site/icon-cart.png', '',  array('class' => 'icon-cart')) }}
                                     @else
                                         <span class="count">0</span>
@@ -904,8 +879,34 @@ function converCurrency($from, $to, $amount)
     </div>
 </div>
 
-<script type="text/javascript">
-    $('.aa').click(function () {
-        $('#bb').submit();
+<script>
+    $('.currency').click(function () {
+        var text = $(this).attr('id');
+
+        var formData = new FormData();
+        var url = 'http://' + window.location.host + '/sri-lanka/get-currency-rate';
+
+        formData.append('currency', text);
+
+        $.ajax({
+            url: url,
+            method: 'post',
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            cache: false,
+            data: formData,
+            success: function (data) {
+                // alert(data);
+                location.reload();
+            },
+
+            error: function () {
+                //alert('There was an error signing In');
+            }
+        });
+
     });
+
 </script>
+
