@@ -6,18 +6,18 @@
 
 {{--Title--}}
 @section('control-title')
-    {{'agents'}}
+    {{'Users'}}
 @endsection
 
 {{--Sub Title--}}
 @section('control-sub-title')
-    {{'All agents'}}
+    {{'Agents'}}
 @endsection
 
 {{--Breadcrumbs--}}
 @section('bread-crumbs')
-    <li class="active">agents</li>
-    <li class="active">All agents</li>
+    <li class="active">Users </li>
+    <li class="active">Agents</li>
 @endsection
 
 {{--Active Main Menu Item--}}
@@ -36,7 +36,7 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title"><b>Search / Update / Delete</b> agents</h3>
+                    <h3 class="box-title"><b>Search / Update / Delete</b> Agents</h3>
                 </div>
                 <div class="box-body">
 
@@ -61,10 +61,10 @@
                                     <td>{{ $agent->email }}</td>
 
                                     <td>
-                                        @foreach($agent->agent as $a)
-                                            {{$a}}
-                                        @endforeach
-                                        {{--{{Form::select('agent', Agent::lists('company', 'id'),null, array('class'=> 'form-control'))}}--}}
+                                        {{--@foreach($agent->agent as $a)--}}
+{{--                                            {{dd($agent->agent)}}--}}
+                                        {{--@endforeach--}}
+                                        {{Form::select('agent',array('0'=>'Not Assigned')+Agent::lists('company', 'id'), User::getAgentOfUser($agent->id) or 0, array('class'=> 'form-control'))}}
                                     </td>
                                 </tr>
                             @endforeach

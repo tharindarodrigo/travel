@@ -301,11 +301,11 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="@yield('active-users-agents')"><a href="#"><i class="fa fa-circle-o"></i> Agents</a>
+                            <li class="@yield('active-users-agents')"><a href="{{URL::to('control-panel/users/agents')}}"><i class="fa fa-circle-o"></i> Agents</a>
                             </li>
-                            <li class="@yield('active-users-hoteliers')"><a href="#"><i class="fa fa-circle-o"></i>
+                            <li class="@yield('active-users-hoteliers')"><a href="{{URL::to('control-panel/users/hoteliers')}}"><i class="fa fa-circle-o"></i>
                                     Hoteliers</a></li>
-                            <li class="@yield('active-users-all')"><a href="#"><i class="fa fa-circle-o"></i> Users</a>
+                            <li class="@yield('active-users-all')"><a href="{{URL::to('control-panel/users')}}"><i class="fa fa-circle-o"></i> Users</a>
                             </li>
                         </ul>
                     </li>

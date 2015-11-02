@@ -11,7 +11,7 @@ class BookingsController extends \BaseController
     public function __construct()
     {
         $this->_user = Auth::user();
-//        $this->beforeFilter('agent', array('except' => 'create'));
+        $this->beforeFilter('agent', array('except' => 'create'));
     }
 
     /**
@@ -55,7 +55,7 @@ class BookingsController extends \BaseController
     public function create()
     {
 
-        if (Session::has('rate_box_details') || Session::has('transport_cart_box') || Session::has('predefined_transport'))
+        if (Session::has('rate_box_details') || Session::has('transport_cart_box') || Session::has('predefined_transport') || Session::has('excursion'))
             return View::make('bookings.create');
         return Redirect::to('/');
 

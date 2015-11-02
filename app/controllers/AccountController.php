@@ -39,8 +39,8 @@ class AccountController extends \BaseController
                 Agent::create($data);
 
                 Mail::send('emails.auth.signup', array('first_name' => $data['first_name'], 'role' => $data['role']), function ($massage) use ($user) {
-                    $massage->to($user->email, $user->first_name)->subject('Thank You for Signing Up');
-
+                    $massage->to($user->email, $user->first_name)
+                        ->subject('Thank You for Signing Up');
                 });
 
                 Session::flash('global', 'Thank you for signing up with us as an ' . $data['role'] . '. We will contact you within 24 hours');
@@ -60,7 +60,6 @@ class AccountController extends \BaseController
         }
 
         return 'There was an error';
-
 
     }
 
@@ -105,13 +104,6 @@ class AccountController extends \BaseController
                 ->withErrors($validator)
                 ->withInput();
 
-//            $array = array(
-//                'validation' => false,
-//                'errors' => $validator->errors()->toArray()
-//            );
-
-//            return Response::json($array);
-
         } else {
 
             $remember = (Input::has('remember')) ? true : false;
@@ -125,30 +117,29 @@ class AccountController extends \BaseController
             if ($auth) {
 
                 if (Entrust::hasRole('Agent')) {
-                    $market = User::find(Auth::id())->agent()->first()->market->first();;
+                    $market = User::find(Auth::id())->agent()->first()->market->first();
                     Session::put('market', $market->id);
                 }
                 //Redirect to the intend page
                 return Redirect::intended('/');
-//                $array = array(
-//                    'validation' => true,
-//                    'success' => true,
-//                    'alert' => 'You are logged in'
-//                );
+
 
 //                return Response::json($array);
             } else {
                 return Redirect::back()
                     ->with('global', 'Email/Password wrong, or account not activated');
-//                $array = array(
-//                    'validation' => true,
-//                    'success' => false,
-//                    'alert' => 'Wrong Email/Password, or account not activated'
-//                );
-//                return Response::json($array);
+
             }
         }
 
+    }
+
+    public function sendActivationCode($user)
+    {
+        Mail::send('emails.auth.activate', array('link' => URL::to('account/activate', $user->code), 'first_name' => $user->first_name), function ($massage) use ($user) {
+            $massage->to($user->email, $user->first_name)
+                ->subject('Activate your account');
+        });
     }
 
     public function getSignOut()

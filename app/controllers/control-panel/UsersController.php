@@ -136,11 +136,9 @@ class UsersController extends \BaseController
 
     public function getAgents()
     {
-        $agents = User::whereHas('role', function ($q) {
-            $q->where('name', 'Like', 'Agent');
-        });
+        $agents = User::getAgents();
 
-        dd($agents);
+//        dd($agents);
 
         return View::make('control-panel.users.agents.index', compact('agents'));
     }

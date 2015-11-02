@@ -192,15 +192,15 @@
         $(document).ready(function () {
             var agent = $("#agent_details");
             agent.hide();
-            if ($("#role").val() != 'Guest') {
+            if ($("#role").val() == 'Agent') {
                 agent.show();
             }
             $("#role").change(function () {
                 var x = $(this).val();
-                if (x != 'Guest') {
+                if (x == 'Agent') {
                     agent.show();
                 } else {
-                    agent.slideUp(200);
+                    agent.hide();
                 }
             });
         });
