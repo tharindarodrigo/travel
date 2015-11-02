@@ -266,18 +266,23 @@ class ExcursionController extends \BaseController
         $excursion_rate = Input::get('excursion_rate');
         $excursion_total = Input::get('excursion_total');
         $excursion_date = date("Y-m-d", strtotime(Input::get('excursion_date')));
+        $city_id = City::where('city', $excursion_city)->first()->id;
+        $transport_type = Input::get('excursion_transport_type');
 
-        $excursion_cart_key = $excursion_date . '_' . $excursion . '_' . City::where('city', $excursion_city)->first()->id . '_' . $excursion_transport;
+        $excursion_cart_key = $excursion_date . '_' . $excursion . '_' . $city_id . '_' . $excursion_transport;
 
         $excursion_details = array(
             'excursion' => $excursion,
             'excursion_city' => $excursion_city,
             'excursion_transport' => $excursion_transport,
+            'transport_type' => $excursion_transport,
+            'city_id' => $city_id,
             'excursion_pax' => $excursion_pax,
             'excursion_rate' => $excursion_rate,
             'excursion_total' => $excursion_total,
             'excursion_date' => $excursion_date,
             'excursion_cart_key' => $excursion_cart_key,
+            'excursion_transport_type' => $transport_type
         );
 
         if (Session::has('excursion_cart_details')) {

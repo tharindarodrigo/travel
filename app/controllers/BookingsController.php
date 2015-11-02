@@ -11,7 +11,7 @@ class BookingsController extends \BaseController
     public function __construct()
     {
         $this->_user = Auth::user();
-        $this->beforeFilter('agent', array('except' => 'create'));
+//        $this->beforeFilter('agent', array('except' => 'create'));
     }
 
     /**
@@ -93,7 +93,7 @@ class BookingsController extends \BaseController
         $data['reference_number'] = 123456789;
         $clients = null;
 
-        if (Session::has('rate_box_details') || Session::has('transport_cart_box') || Session::has('predefined_transport')) {
+        if (Session::has('rate_box_details') || Session::has('transport_cart_box') || Session::has('predefined_transport') || Session::has('excursion_cart_details')) {
 
             if ($booking = Booking::create($data)) {
 
@@ -132,7 +132,6 @@ class BookingsController extends \BaseController
                     FlightDetail::create($flight_data);
                 }
 
-
                 /**
                  *  transport - custom trips
                  */
@@ -154,7 +153,6 @@ class BookingsController extends \BaseController
 
                         CustomTrip::create($custom_trip);
                     }
-
                 }
 
 
@@ -165,7 +163,7 @@ class BookingsController extends \BaseController
                 if (Session::has('predefined_transport')) {
 
                     $predefined_packages = Session::get('predefined_transport');
-                    foreach($predefined_packages as $predefined_package){
+                    foreach ($predefined_packages as $predefined_package) {
                         $package = [];
                         $package['transport_package_id'] = $predefined_package['predefine_id'];
                         $package['booking_id'] = $booking->id;
@@ -177,14 +175,29 @@ class BookingsController extends \BaseController
                 /**
                  * Excursions
                  */
-                if(Session::has('excursion_cart_details')){
+                if (Session::has('excursion_cart_details')) {
                     $excursions = Session::get('excursion_cart_details');
-                    $excursion_ids = [];
-                    foreach($excursions as $excursion){
-                        $excursion_ids[] = $excursion->id;
-                    }
+                    $x = 1;
+                    foreach ($excursions as $excursion) {
+                        $excursionBooking = ExcursionRate::with(array('city', 'excursion', 'excursionTransportType'))
+                            ->where('city_id', $excursion['city_id'])
+                            ->where('excursion_transport_type_id', $excursion['excursion_transport_type'])
+                            ->where('excursion_id', $excursion['excursion'])
+                            ->first();
 
-                    Excursion::with();
+                        $excursionBookingData = array(
+                            'booking_id' => $booking->id,
+                            'city_id' => $excursionBooking->city_id,
+                            'excursion_transport_type_id' => $excursionBooking->excursion_transport_type_id,
+                            'excursion_id' => $excursionBooking->excursion_id,
+                            'unit_price' => $excursionBooking->rate,
+                            'pax' => $excursion['excursion_pax'],
+                            'date'=> $excursion['excursion_date'],
+                            'reference_number' => 'EX'.($booking->reference_number*1000+$x++)
+                        );
+
+                        ExcursionBooking::create($excursionBookingData);
+                    }
                 }
 
 
@@ -272,7 +285,7 @@ class BookingsController extends \BaseController
                 }
                 if (!Auth::check()) {
                     Session::flash('global', 'Emails have been sent to the Respective parties');
-                  return View::make('pages.message');
+                    return View::make('pages.message');
                 }
 
             }

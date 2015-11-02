@@ -511,6 +511,7 @@
                                     ex_formData.append('excursion_total', excursion_total);
                                     ex_formData.append('excursion', excursion);
                                     ex_formData.append('excursion_date', excursion_date);
+                                    ex_formData.append('excursion_transport_type', price_box_transport_id);
 
                                     $.ajax({
                                         url: ex_url,
