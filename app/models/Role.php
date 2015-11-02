@@ -10,5 +10,7 @@ class Role extends EntrustRole{
 	{
 		return $this->belongsToMany('User','assigned_roles');
 	}
+
+
 }
 

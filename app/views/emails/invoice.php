@@ -64,8 +64,6 @@
 
     <?php } ?>
 
-
-
     <tr>
         <td></td>
         <td align="right"></td>
@@ -74,9 +72,10 @@
     <?php //Excursion ends here ?>
 
     <tr>
-        <th>Total
+        <th>Total</th>
 
         <td align="right">USD. <?php echo number_format(Booking::getTotalBookingAmount($booking), 2) ?></td>
+
     </tr>
 
 </table>

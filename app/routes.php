@@ -101,7 +101,7 @@ Route::group(array('before' => 'auth'), function () {
                  * users/agents
                  */
                 Route::group(array('prefix' => 'agents'), function () {
-                    Route::get('/', 'UsersController@getAgentsOfUsers');
+                    Route::get('/', 'UsersController@getAgents');
                     Route::get('changeMarket', 'UsersController@changeMarket');
                 });
             });

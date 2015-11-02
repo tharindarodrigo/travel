@@ -9,8 +9,12 @@
 @endsection
 
 @section('custom_style')
-{{--    {{HTML::style('https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.css')}}--}}
+    {{HTML::style('https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.css')}}
+
     @yield('styles')
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
 @endsection
 
 @section('content')
@@ -52,7 +56,6 @@
 @endsection
 
 @section('script')
-
 {{HTML::script('https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.js')}}
 {{HTML::script('control-panel-assets/ajax/commonFunctions.js')}}
 
@@ -62,10 +65,11 @@
 
     $(document).ready(function(){
 
+//
+//        $("#agent-bookings").dataTable(
+//
+//        );
 
-        $("#agent-bookings").dataTable(
-
-        );
 
 
         $('#date1, #date2, #dob, #date3, #date4').datepicker({

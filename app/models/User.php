@@ -43,34 +43,34 @@ class User extends Eloquent implements UserInterface, RemindableInterface
 
     public static function getHoteliers()
     {
-//        return $users = DB::table('users')
-//            ->leftJoin('assigned_roles', 'users.id', '=', 'assigned_roles.user_id')
-//            ->where('assigned_roles.role_id', Role::where('name', 'Hotelier')->first()->id)
-//            ->get();
-
-        return $users = User::with('role')->where('role.name', '=', 'Hotelier')->get();
+        return $users = DB::table('users')
+            ->leftJoin('assigned_roles', 'users.id', '=', 'assigned_roles.user_id')
+            ->where('assigned_roles.role_id', Role::where('name', 'Hotelier')->first()->id)
+            ->get();
+//        return $user->whereHas('hotel', function ($q) use ($hotelid) {
+//            $q->where('hotels.id', $hotelid);
+//        })->count() > 0;
+//        return $users = User::whereHas('role', function($q){
+//            $q->where('role.name', 'Hotelier');
+//        })->get();
     }
 
     public static function getAgents()
     {
-//        return $agents = User::leftJoin('assigned_roles', 'users.id', '=', 'assigned_roles.user_id')
-//            ->where('assigned_roles.role_id', Role::where('name', 'Agent')->first()->id)
-//            ->get();
-
+        return $agents = User::with('Agent')->leftJoin('assigned_roles', 'users.id', '=', 'assigned_roles.user_id')
+            ->where('assigned_roles.role_id', Role::where('name', 'Agent')->first()->id)
+            ->get();
     }
 
 
     public static function getAgentOfUser($id)
     {
         $user_agent = DB::table('agent_user')->where('user_id', $id)->first();
-        if ($user_agent) {
+//        if ($user_agent) {
             return $user_agent;
-        }
+//        }
 
-        return false;
     }
-
-
 
     public static function userHasAgent()
     {
