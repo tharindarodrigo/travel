@@ -55,7 +55,7 @@ class BookingsController extends \BaseController
     public function create()
     {
 
-        if (Session::has('rate_box_details') || Session::has('transport_cart_box') || Session::has('predefined_transport') || Session::has('excursion'))
+        if (Session::has('rate_box_details') || Session::has('transport_cart_box') || Session::has('predefined_transport') || Session::has('excursion_cart_details'))
             return View::make('bookings.create');
         return Redirect::to('/');
 
@@ -177,8 +177,14 @@ class BookingsController extends \BaseController
                 /**
                  * Excursions
                  */
-                if(Session::has('excursions')){
+                if(Session::has('excursion_cart_details')){
+                    $excursions = Session::get('excursion_cart_details');
+                    $excursion_ids = [];
+                    foreach($excursions as $excursion){
+                        $excursion_ids[] = $excursion->id;
+                    }
 
+                    Excursion::with();
                 }
 
 
