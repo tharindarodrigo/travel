@@ -96,13 +96,13 @@ class Booking extends \Eloquent
 
         $total += Booking::getTotalVoucherAmount($booking);
         $total += TransportPackage::getTotalTransportationAmount($booking);
-        $total += Excursion::getTotalExcursionAmount($booking);
+        $total += ExcursionBooking::getTotalExcursionBookingAmount($booking);
 
         return $total;
 
-
-
     }
+
+
 
 
     /**
@@ -147,12 +147,16 @@ class Booking extends \Eloquent
     public function customTrip()
     {
         return $this->hasMany('CustomTrip');
-
     }
 
     public function predefinedTrip()
     {
         return $this->hasMany('PredefinedTrip');
+    }
+
+    public function excursionBooking()
+    {
+        return $this->hasMany('ExcursionBooking');
     }
 
 }

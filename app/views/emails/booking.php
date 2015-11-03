@@ -152,7 +152,8 @@
                     <tr>
                         <th align="left">Booked By</th>
                         <td>
-                            : <?php echo !empty($y = $booking->user->first()) ? $y->first_name . ' ' . $y->last_name : $booking->name; ?></td>
+                            : <?php echo !empty($y = $booking->user->first()) ? $y->first_name . ' ' . $y->last_name : $booking->booking_name; ?>
+                        </td>
                     </tr>
                     <tr>
                         <th align="left">Tour</th>
@@ -196,116 +197,116 @@
 
 <br/>
 
-<?php if($booking->voucher->count()){?>
+<?php if ($booking->voucher->count()) { ?>
 
+    <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
+        <h4>Hotel Details</h4>
+    </div>
+
+    <br/>
+
+    <div class="CSSTableGenerator">
+        <table width="100%">
+
+
+            <tr align="left">
+                <td width="30%">Hotel Name</td>
+                <td width="15%">Check In</td>
+                <td width="15%">Check Out</td>
+                <td width="10%">Rooms</td>
+                <td width="10%">Basis</td>
+                <td width="10%">No. of Rooms</td>
+
+            </tr>
+
+
+            <!--            --><?php //dd($clients); ?>
+            <?php foreach ($booking->voucher as $voucher) { ?>
+
+                <tr>
+                    <td><?php echo $voucher->hotel->name; ?></td>
+                    <td style="text-align: center"><?php echo $voucher->check_in; ?></td>
+                    <td style="text-align: center"><?php echo $voucher->check_out; ?></td>
+                    <td style="text-align: center">
+                        <?php
+                        $x = 1;
+                        foreach ($voucher->roomBooking as $roomBooking) { ?>
+                            <?php
+
+                            echo $roomBooking->roomType->room_type;
+                            echo count($voucher->roomBooking) != $x ? '<br><hr>' : '';
+                            $x++;
+                            ?>
+
+                        <?php } ?>
+                    </td>
+                    <td style="text-align: center">
+                        <?php
+                        $x = 1;
+                        foreach ($voucher->roomBooking as $roomBooking) { ?>
+                            <?php
+
+                            echo $roomBooking->mealBasis->meal_basis;
+                            echo count($voucher->roomBooking) != $x ? '<br><hr>' : '';
+                            $x++;
+                            ?>
+                        <?php } ?>
+                    </td>
+                    <td style="text-align: right">
+                        <?php
+                        $x = 1;
+                        foreach ($voucher->roomBooking as $roomBooking) { ?>
+
+                            <?php
+                            echo $roomBooking->room_count;
+                            echo count($voucher->roomBooking) != $x ? '<br><hr>' : '';
+                            $x++;
+                            ?>
+                        <?php } ?>
+                    </td>
+                </tr>
+            <?php } ?>
+
+
+        </table>
+    </div>
+
+<?php } ?>
+
+<br/>
+
+<?php if ($booking->client->count()) { ?>
 <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
-    <h4>Hotel Details</h4>
+    <h4>Client Details</h4>
 </div>
 
 <br/>
 
 <div class="CSSTableGenerator">
-    <table width="100%">
-
+    <table>
 
         <tr align="left">
-            <td width="30%">Hotel Name</td>
-            <td width="15%">Check In</td>
-            <td width="15%">Check Out</td>
-            <td width="10%">Rooms</td>
-            <td width="10%">Basis</td>
-            <td width="10%">No. of Rooms</td>
-
+            <td width="50%">Name</td>
+            <td width="20%">Passport</td>
+            <td width="20%">DoB</td>
+            <td width="10%">Gender</td>
         </tr>
 
+        <?php
 
-        <!--            --><?php //dd($clients); ?>
-        <?php foreach ($booking->voucher as $voucher) { ?>
+        foreach ($booking->client as $client) { ?>
+            <!--        --><?php //foreach (Client::all() as $client) { ?>
 
             <tr>
-                <td><?php echo $voucher->hotel->name; ?></td>
-                <td style="text-align: center"><?php echo $voucher->check_in; ?></td>
-                <td style="text-align: center"><?php echo $voucher->check_out; ?></td>
-                <td style="text-align: center">
-                    <?php
-                    $x = 1;
-                    foreach ($voucher->roomBooking as $roomBooking) { ?>
-                        <?php
-
-                        echo $roomBooking->roomType->room_type;
-                        echo count($voucher->roomBooking) != $x ? '<br><hr>' : '';
-                        $x++;
-                        ?>
-
-                    <?php } ?>
-                </td>
-                <td style="text-align: center">
-                    <?php
-                    $x = 1;
-                    foreach ($voucher->roomBooking as $roomBooking) { ?>
-                        <?php
-
-                        echo $roomBooking->mealBasis->meal_basis;
-                        echo count($voucher->roomBooking) != $x ? '<br><hr>' : '';
-                        $x++;
-                        ?>
-                    <?php } ?>
-                </td>
-                <td style="text-align: right">
-                    <?php
-                    $x = 1;
-                    foreach ($voucher->roomBooking as $roomBooking) { ?>
-
-                        <?php
-                        echo $roomBooking->room_count;
-                        echo count($voucher->roomBooking) != $x ? '<br><hr>' : '';
-                        $x++;
-                        ?>
-                    <?php } ?>
-                </td>
+                <td><?php echo $client['name'] ?></td>
+                <td><?php echo $client['passport_number'] ?></td>
+                <td><?php echo $client['dob'] ?></td>
+                <td><?php echo $client['gender'] == 1 ? 'Male' : 'Female' ?></td>
             </tr>
         <?php } ?>
 
-
     </table>
 </div>
-
-<?php }?>
-
-<br/>
-
-<?php if ($booking->client->count()) { ?>
-    <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
-        <h4>Client Details</h4>
-    </div>
-
-<br/>
-
-    <div class="CSSTableGenerator">
-        <table>
-
-            <tr align="left">
-                <td width="50%">Name</td>
-                <td width="20%">Passport</td>
-                <td width="20%">DoB</td>
-                <td width="10%">Gender</td>
-            </tr>
-
-            <?php
-
-            foreach ($booking->client as $client) { ?>
-                <!--        --><?php //foreach (Client::all() as $client) { ?>
-
-                <tr>
-                    <td><?php echo $client['name'] ?></td>
-                    <td><?php echo $client['passport_number'] ?></td>
-                    <td><?php echo $client['dob'] ?></td>
-                    <td><?php echo $client['gender'] == 1 ? 'Male' : 'Female' ?></td>
-                </tr>
-            <?php } ?>
-
-        </table>
-    </div>
 
 
 <br/>
@@ -317,42 +318,42 @@
     <?php if ($booking->flightDetail->count()) { ?>
 
 
-    <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
-        <h4>Flight Details</h4>
-    </div>
-    <br/>
+        <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
+            <h4>Flight Details</h4>
+        </div>
+        <br/>
 
-    <div class="CSSTableGenerator">
-        <table>
-            <tr align="left">
-                <td width="20%">Date</td>
-                <td width="20%">Time</td>
-                <td width="40%">Flight</td>
-                <td width="20%">Flight Type</td>
+        <div class="CSSTableGenerator">
+            <table>
+                <tr align="left">
+                    <td width="20%">Date</td>
+                    <td width="20%">Time</td>
+                    <td width="40%">Flight</td>
+                    <td width="20%">Flight Type</td>
 
-            </tr>
-            <?php foreach ($booking['flight_detail'] as $flight) { ?>
-                <?php //foreach (FlightDetail::all() as $flight) { ?>
-
-                <tr>
-                    <td><?php echo $flight['date'] ?></td>
-                    <td><?php echo $flight['time'] ?></td>
-                    <td><?php echo $flight['flight'] ?></td>
-                    <td><?php echo $flight['flight_type'] == 1 ? 'Arrival' : 'Departure' ?></td>
                 </tr>
-            <?php } ?>
+                <?php foreach ($booking['flight_detail'] as $flight) { ?>
+                    <?php //foreach (FlightDetail::all() as $flight) { ?>
 
-        </table>
-    </div>
+                    <tr>
+                        <td><?php echo $flight['date'] ?></td>
+                        <td><?php echo $flight['time'] ?></td>
+                        <td><?php echo $flight['flight'] ?></td>
+                        <td><?php echo $flight['flight_type'] == 1 ? 'Arrival' : 'Departure' ?></td>
+                    </tr>
+                <?php } ?>
 
-    <br/>
+            </table>
+        </div>
+
+        <br/>
     <?php } ?>
 </div>
 
 <div>
-    <?php if ($booking->customTrip->count()) { ?>
+    <?php if ($booking->customTrip->count() || $booking->predefinedTrip->count()) { ?>
         <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
-            <h4>Custom Trips</h4>
+            <h4>Transportation</h4>
         </div>
         <br/>
         <div class="CSSTableGenerator">
@@ -360,26 +361,72 @@
                 <tr>
                     <td>Reference No.</td>
                     <td>From</td>
-                    <td>TO</td>
                     <td>Vehicle</td>
                     <td>Locations</td>
                     <td>Amount</td>
                 </tr>
-                <?php foreach($booking->customTrip as $customTrip) { ?>
+                <?php foreach ($booking->customTrip as $customTrip) { ?>
                     <tr>
                         <td><?php echo $customTrip->reference_number ?></td>
                         <td><?php echo $customTrip->from ?></td>
-                        <td><?php echo $customTrip->to ?></td>
                         <td><?php echo $customTrip->vehicle->vehicle_type ?></td>
-                        <td><?php echo $customTrip->locations ?></td>
-                        <td style="text-align: right"><?php echo number_format($customTrip->amount,2) ?></td>
+                        <td><?php str_replace(',','<br>',$customTrip->locations) ?></td>
+                        <td style="text-align: right"><?php echo number_format($customTrip->amount, 2) ?></td>
                     </tr>
-                <?php }?>
+                <?php } ?>
+                <?php foreach ($booking->predefinedTrip as $predefinedTrip) { ?>
+                    <tr>
+                        <td><?php echo $predefinedTrip->reference_number ?></td>
+                        <td><?php echo $predefinedTrip->pick_up_date_time ?></td>
+                        <td><?php echo $predefinedTrip->transportPackage->vehicle->vehicle_type ?></td>
+                        <td><?php echo $predefinedTrip->transportPackage->originCity->city?><br>
+                            <?php echo $predefinedTrip->transportPackage->originCity->city ?></td>
+                        <td style="text-align: right"><?php echo number_format($predefinedTrip->transportPackage->rate*$predefinedTrip->transportPackage->millage, 2) ?></td>
+                    </tr>
+                <?php } ?>
+
             </table>
 
         </div>
 
-    <?php }?>
+    <?php } ?>
+</div>
+
+<br>
+
+<div>
+    <?php if ($booking->excursionBooking->count()) { ?>
+        <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
+            <h4> Excursions</h4>
+        </div>
+        <br/>
+        <div class="CSSTableGenerator">
+            <table>
+                <tr>
+                    <td>Reference No.</td>
+                    <td>Excursion</td>
+                    <td>Date</td>
+                    <td>Type</td>
+                    <td>Pax</td>
+                    <td>Unit Prices</td>
+                    <td>Amount</td>
+                </tr>
+                <?php foreach ($booking->excursionBooking as $excursionBooking) { ?>
+                    <tr>
+                        <td><?php echo $excursionBooking->reference_number ?></td>
+                        <td><?php echo $excursionBooking->excursion->excursion ?></td>
+                        <td><?php echo date('Y-m-d', strtotime($excursionBooking->date)) ?></td>
+                        <td style="text-align: right"><?php echo $excursionBooking->excursionTransportType->transport_type ?></td>
+                        <td style="text-align: right"><?php echo $excursionBooking->pax ?></td>
+                        <td style="text-align: right"><?php echo number_format($excursionBooking->unit_price, 2) ?></td>
+                        <td style="text-align: right"><?php echo number_format($customTrip->amount, 2) ?></td>
+                    </tr>
+                <?php } ?>
+            </table>
+
+        </div>
+
+    <?php } ?>
 </div>
 
 

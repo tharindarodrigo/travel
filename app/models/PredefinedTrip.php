@@ -21,4 +21,8 @@ class PredefinedTrip extends \Eloquent {
 		return $this->belongsTo('TransportPackage');
 	}
 
+
+
+
+
 }

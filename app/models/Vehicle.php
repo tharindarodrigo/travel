@@ -18,5 +18,4 @@ class Vehicle extends \Eloquent
         return $this->hasMany('TransportPackage');
     }
 
-
 }
