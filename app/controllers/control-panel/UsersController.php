@@ -12,7 +12,8 @@ class UsersController extends \BaseController
     public function index()
     {
         $users = User::with('role')->get();
-        return View::make('control-panel.users.index', compact('users'));
+        $roles = Role::orderBy('id','asc')->lists('name','id');
+        return View::make('control-panel.users.index', compact('users', 'roles'));
     }
 
     /**
@@ -32,8 +33,8 @@ class UsersController extends \BaseController
 
         $role_id = Input::get('role_id');
 
-        if(!$role) {
-            $insert = DB::table('assigned_roles')->insert(array('user_id'=>$id, 'role_id' => $role_id));
+        if (!$role) {
+            $insert = DB::table('assigned_roles')->insert(array('user_id' => $id, 'role_id' => $role_id));
             if ($insert) {
                 return Response::json(array(
                     'success' => true,
@@ -145,25 +146,39 @@ class UsersController extends \BaseController
 
     public function getHotelSuggestions()
     {
-        dd('asdasdasd');
+//        dd('asdasdasd');
         $hotel_name = Input::get('hotel_name');
         $hotel_list = Hotel::where('name', 'like', $hotel_name)->lists('name', 'id');
 
         return Response::json($hotel_list);
-
     }
 
     public function getProfile()
     {
-
         return View::make('profile.profile');
     }
 
     public function getAgentsOfUsers()
     {
         $agents = User::has('role');
-
         return View::make('control-panel.users.agents.index', compact('agents'));
+    }
+
+    public function getHotelWithUserPermissions($id)
+    {
+        $hotelier = User::with('hotel')->find($id);
+
+        $permitted_hotels = $hotelier->hotel->lists('id');
+        $hotels = Hotel::select(array('name','id'))->get();
+        return View::make('control-panel.users.hoteliers.hotel-permissions', compact('hotelier', 'hotels','permitted_hotels'));
+    }
+
+    public function assignHotelPermissions($id)
+    {
+        $hotelIDs = Input::get('hotel_ids');
+        $user = User::find($id);
+        $user->hotel()->sync($hotelIDs);
+        return Redirect::back();
     }
 
 }

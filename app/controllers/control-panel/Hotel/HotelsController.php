@@ -12,7 +12,6 @@ class HotelsController extends \BaseController
     {
         $this->beforeFilter('admin', array('only' => 'create'));
         $this->_user = Auth::user();
-
     }
 
     /**
@@ -138,7 +137,9 @@ class HotelsController extends \BaseController
      */
     public function edit($id)
     {
-
+        if(!User::hasHotelPermission($this->_user,$id)){
+            App::abort(403);
+        }
 
         Session::forget('edit');
 

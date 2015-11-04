@@ -365,24 +365,28 @@
                     <td>Locations</td>
                     <td>Amount</td>
                 </tr>
-                <?php foreach ($booking->customTrip as $customTrip) { ?>
-                    <tr>
-                        <td><?php echo $customTrip->reference_number ?></td>
-                        <td><?php echo $customTrip->from ?></td>
-                        <td><?php echo $customTrip->vehicle->vehicle_type ?></td>
-                        <td><?php str_replace(',','<br>',$customTrip->locations) ?></td>
-                        <td style="text-align: right"><?php echo number_format($customTrip->amount, 2) ?></td>
-                    </tr>
+                <?php if ($booking->customTrip->count()) { ?>
+                    <?php foreach ($booking->customTrip as $customTrip) { ?>
+                        <tr>
+                            <td><?php echo $customTrip->reference_number ?></td>
+                            <td><?php echo $customTrip->from ?></td>
+                            <td><?php echo $customTrip->vehicle->vehicle_type ?></td>
+                            <td><?php str_replace(',', '<br>', $customTrip->locations) ?></td>
+                            <td style="text-align: right"><?php echo number_format($customTrip->amount, 2) ?></td>
+                        </tr>
+                    <?php } ?>
                 <?php } ?>
-                <?php foreach ($booking->predefinedTrip as $predefinedTrip) { ?>
-                    <tr>
-                        <td><?php echo $predefinedTrip->reference_number ?></td>
-                        <td><?php echo $predefinedTrip->pick_up_date_time ?></td>
-                        <td><?php echo $predefinedTrip->transportPackage->vehicle->vehicle_type ?></td>
-                        <td><?php echo $predefinedTrip->transportPackage->originCity->city?><br>
-                            <?php echo $predefinedTrip->transportPackage->originCity->city ?></td>
-                        <td style="text-align: right"><?php echo number_format($predefinedTrip->transportPackage->rate*$predefinedTrip->transportPackage->millage, 2) ?></td>
-                    </tr>
+                <?php if ($booking->predefinedTrip->count()) { ?>
+                    <?php foreach ($booking->predefinedTrip as $predefinedTrip) { ?>
+                        <tr>
+                            <td><?php echo $predefinedTrip->reference_number ?></td>
+                            <td><?php echo $predefinedTrip->pick_up_date_time ?></td>
+                            <td><?php echo $predefinedTrip->transportPackage->vehicle->vehicle_type ?></td>
+                            <td><?php echo $predefinedTrip->transportPackage->originCity->city ?><br>
+                                <?php echo $predefinedTrip->transportPackage->originCity->city ?></td>
+                            <td style="text-align: right"><?php echo number_format($predefinedTrip->transportPackage->rate * $predefinedTrip->transportPackage->millage, 2) ?></td>
+                        </tr>
+                    <?php } ?>
                 <?php } ?>
 
             </table>
@@ -419,7 +423,7 @@
                         <td style="text-align: right"><?php echo $excursionBooking->excursionTransportType->transport_type ?></td>
                         <td style="text-align: right"><?php echo $excursionBooking->pax ?></td>
                         <td style="text-align: right"><?php echo number_format($excursionBooking->unit_price, 2) ?></td>
-                        <td style="text-align: right"><?php echo number_format($customTrip->amount, 2) ?></td>
+                        <td style="text-align: right"><?php echo number_format(ExcursionBooking::getTotalExcursionBookingAmount($booking),2) ?></td>
                     </tr>
                 <?php } ?>
             </table>

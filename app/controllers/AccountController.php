@@ -32,8 +32,8 @@ class AccountController extends \BaseController
             $data['user_id'] = $user->id;
 
             if ($data['role'] = 'Agent') {
-                $data['market_id'] = Market::where('market','All Market')->first()->id;
-                $role = Role::where('name',$data['role'])->first();
+                $data['market_id'] = Market::where('market', 'All Market')->first()->id;
+                $role = Role::where('name', $data['role'])->first();
 
                 $user->attachRole($role);
                 Agent::create($data);
@@ -123,23 +123,28 @@ class AccountController extends \BaseController
                 //Redirect to the intend page
                 return Redirect::intended('/');
 
-
 //                return Response::json($array);
             } else {
                 return Redirect::back()
-                    ->with('global', 'Email/Password wrong, or account not activated');
+                    ->with('global', 'check your username and password');
 
             }
         }
 
     }
 
-    public function sendActivationCode($user)
+    public function sendActivationCode($id)
     {
-        Mail::send('emails.auth.activate', array('link' => URL::to('account/activate', $user->code), 'first_name' => $user->first_name), function ($massage) use ($user) {
+        $user = User::find($id);
+        $mail = Mail::send('emails.auth.activate', array('link' => URL::to('account/activate', $user->code), 'first_name' => $user->first_name), function ($massage) use ($user) {
             $massage->to($user->email, $user->first_name)
                 ->subject('Activate your account');
         });
+
+
+            Session::flash('global', 'Email Sent to <b>'. $user->email.'</b>' );
+            return Redirect::back();
+
     }
 
     public function getSignOut()
@@ -280,5 +285,24 @@ class AccountController extends \BaseController
                 ->with('global', 'Could not recover your account.');
         }
     }
+
+    public function activateUser($id)
+    {
+        $user = User::find($id);
+        $user->active = 1;
+        $user->save();
+        return Redirect::back();
+    }
+
+    public function deactivateUser($id)
+    {
+        $user = User::find($id);
+        $user->active = 0;
+        $user->save();
+        return Redirect::back();
+
+    }
+
+
 
 }

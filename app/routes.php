@@ -92,7 +92,12 @@ Route::group(array('before' => 'auth'), function () {
 
             Route::group(array('prefix' => 'users'), function () {
 
+                Route::get('{id}/activate','AccountController@activateUser');
+                Route::get('{id}/deactivate','AccountController@deactivateUser');
+                Route::get('{id}/send-activation-email','AccountController@sendActivationCode');
                 Route::get('hoteliers', 'UsersController@getHoteliers');
+                Route::get('hoteliers/{id}/permissions', 'UsersController@getHotelWithUserPermissions');
+                Route::post('hoteliers/{id}/assign-permissions', 'UsersController@assignHotelPermissions');
                 Route::post('change-role/{user_id}', 'UsersController@changeRole');
                 Route::post('hoteliers/get-hotel-suggestions', 'UsersController@getHotelSuggestions');
 
@@ -103,6 +108,8 @@ Route::group(array('before' => 'auth'), function () {
                     Route::get('/', 'UsersController@getAgents');
                     Route::get('changeMarket', 'UsersController@changeMarket');
                 });
+
+
             });
             Route::resource('agents', 'AgentsController');
             Route::resource('users', 'UsersController');

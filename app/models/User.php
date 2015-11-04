@@ -18,9 +18,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         'password' => 'required|min:6',
         'confirm_password' => 'required|same:password',
         'user_role' => 'required',
-        'company' => 'required_if:user_role,Agent,Hotelier,',
-        'phone' => 'required_if:user_role,Agent,Hotelier',
-        'agreement' => 'required_if:user_role,Agent,Hotelier',
+        'company' => 'required_if:user_role,Agent',
+        'phone' => 'required_if:user_role,Agent',
+        'agreement' => 'required_if:user_role,Agent',
 
     ];
 
@@ -114,5 +114,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface
     {
         return $this->hasManyThrough('Market', 'Agent');
     }
+
 
 }

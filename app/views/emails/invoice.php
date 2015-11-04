@@ -86,7 +86,7 @@
                         From <?php echo $excursionBooking->city->city; ?>
                         on the <?php echo date('Y-m-d',strtotime($excursionBooking->date)); ?>
                         @ USD. <?php echo number_format($excursionBooking->unit_price,2); ?> <b>X</b>
-                        <?php echo $excursionBooking->pax2; ?> pax
+                        <?php echo $excursionBooking->pax; ?> pax
 
                     </p>
                 <?php } ?>
