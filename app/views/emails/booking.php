@@ -161,7 +161,7 @@
                     </tr>
                     <tr>
                         <th align="left">Remark</th>
-                        <td>: <?php echo $booking->remark; ?></td>
+                        <td>: <?php echo $booking->remarks; ?></td>
                     </tr>
                     </thead>
                 </table>
@@ -383,14 +383,12 @@
                             <td><?php echo $predefinedTrip->pick_up_date_time ?></td>
                             <td><?php echo $predefinedTrip->transportPackage->vehicle->vehicle_type ?></td>
                             <td><?php echo $predefinedTrip->transportPackage->originCity->city ?><br>
-                                <?php echo $predefinedTrip->transportPackage->originCity->city ?></td>
+                                <?php echo $predefinedTrip->transportPackage->destinationCity->city ?></td>
                             <td style="text-align: right"><?php echo number_format($predefinedTrip->transportPackage->rate * $predefinedTrip->transportPackage->millage, 2) ?></td>
                         </tr>
                     <?php } ?>
                 <?php } ?>
-
             </table>
-
         </div>
 
     <?php } ?>

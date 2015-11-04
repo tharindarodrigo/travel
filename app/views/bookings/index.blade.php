@@ -35,36 +35,23 @@
                 <div class="row">
                     <br>
                     <br>
+
                     <div class="col-md-12">
 
-                    <form action="" method="get">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            {{Form::text('reference_number',null,array('class'=> 'form-control'))}}
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-
-                        {{Form::submit('Search', array('class'=> 'btn btn-primary'))}}
-                    </div>
-                    </form>
-
                         <form action="" method="get">
+                            <div class="col-md-4"></div>
                             <div class="col-md-3">
-                                <div class="form-group">
-                                    {{Form::text('check_in',null,array('class'=> 'form-control'))}}
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    {{Form::text('check_out',null,array('class'=> 'form-control'))}}
+                                <div class="form-group" align="center">
+                                    {{Form::text('reference_number',Input::old('reference_number'),array('class'=> 'form-control'))}}
                                 </div>
                             </div>
                             <div class="col-md-3">
 
                                 {{Form::submit('Search', array('class'=> 'btn btn-primary'))}}
                             </div>
+
                         </form>
+
                     </div>
 
 

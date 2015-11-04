@@ -4,9 +4,7 @@
 <thead>
     <tr>
         <th>Id</th>
-        <th>Date</th>
-        <th>Ref. No</th>
-        <th>Type</th>
+        <th>Reference Number</th>
         <th>Amount</th>
         <th>Manage</th>
     </tr>
@@ -14,14 +12,11 @@
 <tbody>
 
 <tr>
-    @if($booking->invoice)
-    <td>{{$booking->invoice->id}}</td>
-    <td>{{$booking->arrival_date}}</td>
+    
+    <td>{{$booking->id}}</td>
     <td>{{$booking->reference_number}}</td>
-    <td>{{$booking->invoice->updated_at}}</td>
-    <td align="right">USD. {{number_format($booking->invoice->amount,2)}}</td>
-    <td></td>
-    @endif
+    <td align="right">USD. {{number_format(Booking::getTotalBookingAmount($booking),2)}}</td>
+    <td><a class="btn btn-default" href="{{URL::to('invoice/'.$booking->id)}}" target="_blank">View Invoice</a></td>
 </tr>
 
 </tbody>

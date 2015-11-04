@@ -53,39 +53,39 @@ vertical-align: middle;
 
     @endif
         <button type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></button>
-
-        <button class="btn btn-sm" data-toggle="modal" data-target="#voucherModal_{{$voucher->id}}" ><span class="glyphicon glyphicon-eye-open"></span></button>
+        <a href="{{URL::to('voucher/'.$voucher->id)}}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a>
+        {{--<button class="btn btn-sm" data-toggle="modal" data-target="#voucherModal_{{$voucher->id}}" ><span class="glyphicon glyphicon-eye-open"></span></button>--}}
     {{Form::close()}}
-        <div class="modal fade" id="voucherModal_{{$voucher->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Booking - Clients</h4>
-              </div>
+        {{--<div class="modal fade" id="voucherModal_{{$voucher->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">--}}
+          {{--<div class="modal-dialog" role="document">--}}
+            {{--<div class="modal-content">--}}
+              {{--<div class="modal-header">--}}
+                {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
+                {{--<h4 class="modal-title" id="myModalLabel">Booking - Clients</h4>--}}
+              {{--</div>--}}
 
-              <div class="modal-body">
+              {{--<div class="modal-body">--}}
 
-                <div class="row">
-                    <div class="col-xs-3 bold">Hotel</div><div class="col-xs-7">: {{$voucher->hotel->name}}</div>
+                {{--<div class="row">--}}
+                    {{--<div class="col-xs-3 bold">Hotel</div><div class="col-xs-7">: {{$voucher->hotel->name}}</div>--}}
 
-                    <div class="col-xs-3 bold">Checkin</div><div class="col-xs-7">: {{$voucher->check_in}}</div>
+                    {{--<div class="col-xs-3 bold">Checkin</div><div class="col-xs-7">: {{$voucher->check_in}}</div>--}}
 
-                    <div class="col-xs-3 bold">Checkout</div><div class="col-xs-7">: {{$voucher->check_out}}</div>
+                    {{--<div class="col-xs-3 bold">Checkout</div><div class="col-xs-7">: {{$voucher->check_out}}</div>--}}
 
-                    <div class="col-xs-3 bold">Meal Basis</div><div class="col-xs-7">: {{ ' ' }}</div>
+                    {{--<div class="col-xs-3 bold">Meal Basis</div><div class="col-xs-7">: {{ ' ' }}</div>--}}
 
-                    <div class="col-xs-3 bold">Amount</div><div class="col-xs-7">: USD {{' '}}</div>
-                </div>
+                    {{--<div class="col-xs-3 bold">Amount</div><div class="col-xs-7">: USD {{' '}}</div>--}}
+                {{--</div>--}}
 
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
+              {{--</div>--}}
+              {{--<div class="modal-footer">--}}
+                {{--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
+              {{--</div>--}}
 
-            </div>
-          </div>
-        </div>
+            {{--</div>--}}
+          {{--</div>--}}
+        {{--</div>--}}
     </td>
 </tr>
 @endforeach

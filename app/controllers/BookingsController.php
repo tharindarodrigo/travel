@@ -139,7 +139,7 @@ class BookingsController extends \BaseController
                 if (Session::has('transport_cart_box')) {
 
 //                    dd(Session::get('transport_cart_box'));
-                    $custom_trips = Session::get('transport_cart_box');
+                    $custom_trips = Session::pull('transport_cart_box');
 
                     $x = 1;
                     foreach ($custom_trips as $custom_trip) {
@@ -162,7 +162,7 @@ class BookingsController extends \BaseController
 
                 if (Session::has('predefined_transport')) {
 
-                    $predefined_packages = Session::get('predefined_transport');
+                    $predefined_packages = Session::pull('predefined_transport');
                     foreach ($predefined_packages as $predefined_package) {
                         $package = [];
                         $package['transport_package_id'] = $predefined_package['predefine_id'];
@@ -176,7 +176,7 @@ class BookingsController extends \BaseController
                  * Excursions
                  */
                 if (Session::has('excursion_cart_details')) {
-                    $excursions = Session::get('excursion_cart_details');
+                    $excursions = Session::pull('excursion_cart_details');
                     $x = 1;
                     foreach ($excursions as $excursion) {
                         $excursionBooking = ExcursionRate::with(array('city', 'excursion', 'excursionTransportType'))
@@ -408,7 +408,6 @@ class BookingsController extends \BaseController
 
     public function getClientList()
     {
-
         return Response::json(Session::get('client-list'));
     }
 
