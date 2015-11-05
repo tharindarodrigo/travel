@@ -24,7 +24,7 @@ class AllotmentsController extends \BaseController {
 	public function index($hotelid)
 	{
         Session::forget('edit');
-		$allotments = Allotment::all();
+		$allotments = Allotment::where('hotel_id',$hotelid)->get();
 
 		return View::make('control-panel.hotel.allotments.index', compact('allotments', 'hotelid'));
 	}
