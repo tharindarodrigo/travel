@@ -107,7 +107,6 @@
                 </div>
             </div>
             <div id="agent_details">
-
                 <div class="col-md-12">
                     <div class="col-md-offset-4 col-md-4">
                         <label for="last_name">Country</label>

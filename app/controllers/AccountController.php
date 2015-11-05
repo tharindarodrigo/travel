@@ -22,6 +22,7 @@ class AccountController extends \BaseController
         }
 
         $data['role'] = Input::get('user_role');
+        dd($data['role']);
         $data['country_id'] = Input::get('country');
         $data['password'] = Hash::make($data['password']);
         $data['code'] = str_random(60); //Activation code
@@ -31,13 +32,23 @@ class AccountController extends \BaseController
 
             $data['user_id'] = $user->id;
 
-            if ($data['role'] = 'Agent') {
+            if ($data['role'] == 'Agent') {
                 $data['market_id'] = Market::where('market', 'All Market')->first()->id;
                 $role = Role::where('name', $data['role'])->first();
 
                 $user->attachRole($role);
                 Agent::create($data);
 
+                Mail::send('emails.auth.signup', array('first_name' => $data['first_name'], 'role' => $data['role']), function ($massage) use ($user) {
+                    $massage->to($user->email, $user->first_name)
+                        ->subject('Thank You for Signing Up');
+                });
+
+                Session::flash('global', 'Thank you for signing up with us as an ' . $data['role'] . '. We will contact you within 24 hours');
+                return View::make('pages.message');
+            }
+
+            if ($data['role'] == 'Hotelier') {
                 Mail::send('emails.auth.signup', array('first_name' => $data['first_name'], 'role' => $data['role']), function ($massage) use ($user) {
                     $massage->to($user->email, $user->first_name)
                         ->subject('Thank You for Signing Up');
