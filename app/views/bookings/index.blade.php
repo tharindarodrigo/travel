@@ -82,7 +82,7 @@
                                             <td>{{$booking->val ==0 ? 'Inactive': 'active' }}</td>
                                             <td>
                                                 <div class="">
-                                                    {{ Form::open(array('route'=> array('bookings.edit',$booking->id), 'method' =>'get')) }}
+                                                    {{ Form::open(array('route'=> array('bookings.show',$booking->id), 'method' =>'get')) }}
                                                     <button type="submit"
                                                             class="btn btn-xs btn-flat btn-primary col-md-2"
                                                             style="float: left"><i
@@ -97,12 +97,12 @@
                                                     </button>
                                                     {{ Form::close() }}
 
-                                                    {{ Form::open(array('route'=> array('bookings.show',$booking->id), 'method' =>'get')) }}
-                                                    <button type="submit" class="btn btn-xs btn-flat  col-md-2"
-                                                            style="float: left;"><i
-                                                                class="glyphicon glyphicon-inverse glyphicon-eye-open"></i>
-                                                    </button>
-                                                    {{ Form::close() }}
+                                                    {{--{{ Form::open(array('route'=> array('bookings.show',$booking->id), 'method' =>'get')) }}--}}
+                                                    {{--<button type="submit" class="btn btn-xs btn-flat  col-md-2"--}}
+                                                            {{--style="float: left;"><i--}}
+                                                                {{--class="glyphicon glyphicon-inverse glyphicon-eye-open"></i>--}}
+                                                    {{--</button>--}}
+                                                    {{--{{ Form::close() }}--}}
                                                     @if($booking->val == 0)
 
                                                         {{ Form::open(array('route'=> array('bookings.update',$booking->id), 'method' =>'patch')) }}
