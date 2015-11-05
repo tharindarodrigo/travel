@@ -2,6 +2,6 @@
 
 $hotels = Hotel::all();
 
-foreach ($hotels as $hotel)
-    $hotel->
-}
+{{--foreach ($hotels as $hotel)--}}
+{{--    $hotel->--}}
+{{--}--}}
