@@ -28,12 +28,12 @@
                            data-toggle="tab">Bookings</a>
                     </li>
                     <li role="presentation" class="">
-                        <a href="#payments" aria-controls="clients" role="tab" data-toggle="tab">Payments</a>
+                        <a href="#payments" aria-controls="payments" role="tab" data-toggle="tab">Payments</a>
                     </li>
                 </ul>
 
                 <div class="tab-content4">
-                    <div role="tabpanel" class="tab-pane {{!Session::has('bookings_show_tabs')? 'active': '' }}"
+                    <div role="tabpanel" class="tab-pane "
                          id="bookings">
                         <div class="col-md-12">
 
@@ -149,7 +149,7 @@
 
                     </div>
 
-                    <div role="tabpanel" class="tab-pane {{!Session::has('bookings_show_tabs')? 'active': '' }}"
+                    <div role="tabpanel" class="tab-pane"
                          id="payments">
                         @if(!empty($bookings))
                             <div class="hpadding50c">
