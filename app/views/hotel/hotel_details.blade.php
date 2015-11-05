@@ -647,27 +647,32 @@
                                                                 <br/><br/>
                                                             @elseif(!empty($allotments) && ($allotments > 1))
                                                                 <br/>
-                                                                <span class="lred size12 bold"> Last {{ $allotments }} Rooms</span>
+                                                                <span class="lred size12 bold"> Last {{ $allotments }}
+                                                                    Rooms</span>
                                                                 <br/><br/>
                                                             @elseif(!empty($allotments) && ($allotments > 0))
                                                                 <br/>
                                                                 <span class="red size12 bold"> Only One Left</span>
                                                                 <br/><br/>
-                                                                @else
+                                                            @else
                                                                 <br/>
                                                                 <span class="red size12 bold">No Rooms Available</span>
                                                                 <br/><br/>
                                                             @endif
 
-
-                                                            {{ Form::hidden('room_meal_id', $room->meal_basis_id , array('class' => 'hidden_room_meal_id') ) }}
-                                                            <button id="room_book{{ $x }}"
-                                                                    class="room_book_summery bookbtn mt1"
-                                                                    room_refer="{{ $room_id.$room->meal_basis_id.$room->room_specification_id }}">
-                                                                Book
-                                                            </button>
-                                                            {{ Form::hidden('room_specification_id', $room->room_specification_id , array('class' => 'hidden_room_specification_id') ) }}
-
+                                                            @if(!empty($allotments) && ($allotments > 1))
+                                                                {{ Form::hidden('room_meal_id', $room->meal_basis_id , array('class' => 'hidden_room_meal_id') ) }}
+                                                                <button id="room_book{{ $x }}"
+                                                                        class="room_book_summery bookbtn mt1"
+                                                                        room_refer="{{ $room_id.$room->meal_basis_id.$room->room_specification_id }}">
+                                                                    Book
+                                                                </button>
+                                                                {{ Form::hidden('room_specification_id', $room->room_specification_id , array('class' => 'hidden_room_specification_id') ) }}
+                                                            @else
+                                                                <a class="bookbtn mt1" href="{{URL::to('/contact')}}">
+                                                                    Send Inquiry
+                                                                </a>
+                                                            @endif
                                                         @else
                                                             <div class="padding20">
                                                                 {{ HTML::image('images/site/rates are not available.jpg', '', array('class' => 'no_rate_img')) }}
