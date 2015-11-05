@@ -160,34 +160,34 @@
                              id="client_details">
                             <div class="container">
 
-                                @include('bookings._partials.client_details')
+                                @include('bookings.create_partials.client_details')
                             </div>
 
                         </div>
                         <div role="tabpanel" class="tab-pane {{--Session::has('') ? 'active' : ''--}}" id="vouchers">
                             <div class="container">
-                                @include('bookings._partials.vouchers')
+                                @include('bookings.create_partials.vouchers')
                             </div>
                         </div>
                         <div role="tabpanel"
                              class="tab-pane {{Session::get('bookings_show_tabs')=='flight-details-tab' ? 'active' : ''}}"
                              id="flightDetails">
                             <div class="container">
-                                @include('bookings._partials.flight_details')
+                                @include('bookings.create_partials.flight_details')
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane {{--Session::has('') ? 'active' : ''--}}"
                              id="transportation">
-                            @include('bookings._partials.transportation')
+                            @include('bookings.create_partials.transportation')
                         </div>
                         <div role="tabpanel" class="tab-pane {{--Session::has('') ? 'active' : ''--}}" id="excursions">
-                            @include('bookings._partials.excursions')
+                            @include('bookings.create_partials.excursions')
 
                         </div>
 
                         <div role="tabpanel" class="tab-pane {{--Session::has('') ? 'active' : ''--}}" id="invoice">
                             <div class="container">
-                                @include('bookings._partials.invoices')
+                                @include('bookings.create_partials.invoices')
                             </div>
                         </div>
 

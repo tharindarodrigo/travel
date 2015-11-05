@@ -148,18 +148,13 @@
                     <div style="display: block;" class="box-body">
 
                         <div class="form-group">
-                                @if(!empty($roomImages))
-                                    @foreach($roomImages as $image)
 
                                         <div class="col-md-4">
                                             <div class="checkbox">
-                                                {{ Form::checkbox('files_to_delete[]', $image) }}
-                                                {{ HTML::image('control-panel-assets/images/room-images/'.$image, 'a picture', array('class' => 'thumb', 'width'=>100, 'height'=>75)) }}
+                                                {{ HTML::image('images/room-images/'.$roomtype->id, 'a picture', array('class' => 'thumb', 'width'=>100, 'height'=>75)) }}
                                             </div>
                                         </div>
 
-                                    @endforeach
-                                @endif
                         </div>
 
 
