@@ -368,7 +368,7 @@
                 <?php if ($booking->customTrip->count()) { ?>
                     <?php foreach ($booking->customTrip as $customTrip) { ?>
                         <tr>
-                            <td><?php echo $customTrip->reference_number ?></td>
+                            <td><?php echo /*$customTrip->reference_number*/ 10000000; ?></td>
                             <td><?php echo $customTrip->from ?></td>
                             <td><?php echo $customTrip->vehicle->vehicle_type ?></td>
                             <td><?php str_replace(',', '<br>', $customTrip->locations) ?></td>
@@ -379,7 +379,7 @@
                 <?php if ($booking->predefinedTrip->count()) { ?>
                     <?php foreach ($booking->predefinedTrip as $predefinedTrip) { ?>
                         <tr>
-                            <td><?php echo $predefinedTrip->reference_number ?></td>
+                            <td><?php echo /*$predefinedTrip->reference_number*/ 10000001 ?></td>
                             <td><?php echo $predefinedTrip->pick_up_date_time ?></td>
                             <td><?php echo $predefinedTrip->transportPackage->vehicle->vehicle_type ?></td>
                             <td><?php echo $predefinedTrip->transportPackage->originCity->city ?><br>
