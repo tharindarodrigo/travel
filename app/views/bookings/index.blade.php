@@ -179,10 +179,21 @@
 
                                                 <td>100000.00</td>
                                                 <td>100000.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{$booking->id}}</td>
+                                            <td>{{$booking->reference_number}}</td>
+                                            <td>{{$booking->booking_name}}</td>
+                                            <td>{{number_format(Booking::getTotalBookingAmount($booking),2)}}</td>
+                                            <?php $y = $y + Booking::getTotalBookingAmount($booking);?>
+                                            <td>-</td>
 
+                                            <td><?php echo number_format(100000.0 -$y,2)?></td>
+                                        </tr>
 
 
                                             @else
+                                                <tr>
                                                 <td>{{$booking->id}}</td>
                                                 <td>{{$booking->reference_number}}</td>
                                                 <td>{{$booking->booking_name}}</td>
@@ -191,8 +202,8 @@
                                                 <td>-</td>
 
                                                 <td><?php echo number_format(100000.0 -$y,2)?></td>
+                                                    </tr>
                                             @endif
-                                        </tr>
                                         <?php $x++; ?>
                                     @endforeach
                                     </tbody>

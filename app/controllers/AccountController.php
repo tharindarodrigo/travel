@@ -43,6 +43,11 @@ class AccountController extends \BaseController
                         ->subject('Thank You for Signing Up');
                 });
 
+                Mail::send('emails.auth.signup', array('first_name' => $data['first_name'], 'role' => $data['role']), function ($massage) use ($user) {
+                    $massage->to('tharinda@exotic-intl.com', 'Tharinda')
+                        ->subject('Thank You for Signing Up');
+                });
+
                 Session::flash('global', 'Thank you for signing up with us as an ' . $data['role'] . '. We will contact you within 24 hours');
                 return View::make('pages.message');
             }
