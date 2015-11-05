@@ -28,12 +28,12 @@
                            data-toggle="tab">Bookings</a>
                     </li>
                     <li role="presentation" class="">
-                        <a href="#payments" aria-controls="clients" role="tab" data-toggle="tab">Payments</a>
+                        <a href="#payments" aria-controls="payments" role="tab" data-toggle="tab">Payments</a>
                     </li>
                 </ul>
 
                 <div class="tab-content4">
-                    <div role="tabpanel" class="tab-pane {{!Session::has('bookings_show_tabs')? 'active': '' }}"
+                    <div role="tabpanel" class="tab-pane "
                          id="bookings">
                         <div class="col-md-12">
 
@@ -99,8 +99,8 @@
 
                                                     {{--{{ Form::open(array('route'=> array('bookings.show',$booking->id), 'method' =>'get')) }}--}}
                                                     {{--<button type="submit" class="btn btn-xs btn-flat  col-md-2"--}}
-                                                            {{--style="float: left;"><i--}}
-                                                                {{--class="glyphicon glyphicon-inverse glyphicon-eye-open"></i>--}}
+                                                    {{--style="float: left;"><i--}}
+                                                    {{--class="glyphicon glyphicon-inverse glyphicon-eye-open"></i>--}}
                                                     {{--</button>--}}
                                                     {{--{{ Form::close() }}--}}
                                                     @if($booking->val == 0)
@@ -149,7 +149,7 @@
 
                     </div>
 
-                    <div role="tabpanel" class="tab-pane {{!Session::has('bookings_show_tabs')? 'active': '' }}"
+                    <div role="tabpanel" class="tab-pane"
                          id="payments">
                         @if(!empty($bookings))
                             <div class="hpadding50c">
@@ -158,16 +158,42 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Booking</th>
-                                        <th>Amount</th>
+                                        <th>Name</th>
+                                        <th>Credit</th>
+                                        <th>Debit</th>
+                                        <th>Balance</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody><?php
+                                    $x = 1;
+                                    $y = 0;
+                                    ?>
                                     @foreach($bookings as $booking)
+
                                         <tr>
-                                            <td>{{$booking->id}}</td>
-                                            <td>{{$booking->reference_number}}</td>
-                                            <td>{{Booking::getTotalBookingAmount($booking)}}</td>
+                                            @if($x==1)
+                                                <td>11</td>
+                                                <td>TRS 1212111</td>
+                                                <td>Bank transaction</td>
+                                                <td>-</td>
+
+                                                <td>100000.00</td>
+                                                <td>100000.00</td>
+
+
+
+                                            @else
+                                                <td>{{$booking->id}}</td>
+                                                <td>{{$booking->reference_number}}</td>
+                                                <td>{{$booking->booking_name}}</td>
+                                                <td>{{number_format(Booking::getTotalBookingAmount($booking),2)}}</td>
+                                                <?php $y = $y + Booking::getTotalBookingAmount($booking);?>
+                                                <td>-</td>
+
+                                                <td><?php echo number_format(100000.0 -$y,2)?></td>
+                                            @endif
                                         </tr>
+                                        <?php $x++; ?>
                                     @endforeach
                                     </tbody>
                                 </table>
