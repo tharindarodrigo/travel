@@ -245,8 +245,8 @@ if (Session::has('excursion_cart_details')) {
                                     </td>
 
                                     <td class="col-sm-1 col-md-2">
-                                        <span class="green bold size18"> USD </span>
-                                        <span class="green bold size18">{{ number_format($total_cost, 2, '.', '') }}</span>
+                                        <span class="green bold size18"> {{ Session::get('currency') }} </span>
+                                        <span class="green bold size18">{{ number_format(($total_cost * Session::get('currency_rate')), 2, '.', '') }}</span>
                                     </td>
 
                                     {{ Form::open(array('url' => '/get_cart_item/delete', 'method' => 'POST', 'id'=>'booking_cart_item_delete')) }}
@@ -368,8 +368,8 @@ if (Session::has('excursion_cart_details')) {
                                     </td>
 
                                     <td class="col-sm-1 col-md-1">
-                                        <span class="green bold size18"> USD </span>
-                                        <span class="green bold size18">{{ number_format($total_cost, 2, '.', '') }}</span>
+                                        <span class="green bold size18"> {{ Session::get('currency') }} </span>
+                                        <span class="green bold size18">{{ number_format(($transport_booking['cost'] * Session::get('currency_rate')), 2, '.', '') }}</span>
                                     </td>
 
                                     {{ Form::open(array('url' => '/sri-lanka/transport_cart_rate_box/delete', 'method' => 'POST', 'id'=>'booking_cart_item_delete')) }}
@@ -461,8 +461,8 @@ if (Session::has('excursion_cart_details')) {
                                     </td>
 
                                     <td class="col-sm-2 col-md-1">
-                                        <span class="green bold size18"> USD </span> <br/>
-                                        <span class="green bold size18">{{ number_format(TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->rate, 2, '.', '') }}</span>
+                                        <span class="green bold size18"> {{ Session::get('currency') }} </span> <br/>
+                                        <span class="green bold size18">{{ number_format((TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->rate * Session::get('currency_rate')), 2, '.', '') }}</span>
                                     </td>
 
                                     {{ Form::open(array('url' => '/sri-lanka/predefined_transport_cart/delete', 'method' => 'POST', 'id'=>'predefined_transport_cart_item_delete')) }}
@@ -550,8 +550,8 @@ if (Session::has('excursion_cart_details')) {
                                     </td>
 
                                     <td class="col-sm-1 col-md-1">
-                                        <h5 style="font-weight: 700 !important;"> USD
-                                            <br/> {{ $excursion_cart_detail['excursion_rate']   }}</h5>
+                                        <h5 style="font-weight: 700 !important;">
+                                            {{ $excursion_cart_detail['excursion_rate'] }}</h5>
                                     </td>
 
                                     <td class="col-sm-1 col-md-1">
@@ -559,8 +559,8 @@ if (Session::has('excursion_cart_details')) {
                                     </td>
 
                                     <td class="col-sm-2 col-md-1">
-                                        <span class="green bold size18"> USD </span> <br/>
-                                        <span class="green bold size18">{{  $excursion_cart_detail['excursion_total'] }}</span>
+{{--                                        <span class="green bold size18"> {{ Session::get('currency') }} </span> <br/>--}}
+                                        <span class="green bold size18">{{ $excursion_cart_detail['excursion_total']  }}</span>
                                     </td>
 
                                     {{ Form::open(array('url' => '/sri-lanka/excursion_cart/delete', 'method' => 'POST', 'id'=>'excursion_cart_item_delete')) }}

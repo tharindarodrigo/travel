@@ -576,7 +576,7 @@ class HotelController extends \BaseController
                 $city = str_replace(' ', '-', $city_name);
 
                 if (Session::has('hot_view') && (Session::get('hot_view') == 2)) {
-                    $url = 'grid/view/sri-lanka/' . $city . '/' . $hotel;
+                    $url = 'sri-lanka/' . $city . '/' . $hotel;
                 } else {
                     $url = 'sri-lanka/' . $city . '/' . $hotel;
                 }
@@ -867,13 +867,13 @@ class HotelController extends \BaseController
 
         $data = Session::get('rate_box_details_' . $hot_id);
 
-        if (Session::has('rate_box_details_' . $hotel_id)) {
+        if (Session::has('rate_box_details_' . $hot_id)) {
             foreach ($data as $page_hot_id) {
                 $page_hotel_id = $page_hot_id['hotel_id'];
 
                 if ($hot_id == $page_hotel_id) {
-                    if ((Session::has('rate_box_details_' . $hotel_id)) || (Input::has('check_room'))) {
-                        return Response::json(Session::get('rate_box_details_' . $hotel_id));
+                    if ((Session::has('rate_box_details_' . $hot_id)) || (Input::has('check_room'))) {
+                        return Response::json(Session::get('rate_box_details_' . $hot_id));
                     } else {
                         return null;
                     }
@@ -894,31 +894,25 @@ class HotelController extends \BaseController
 
     public function roomRateBoxDestroy()
     {
-
         $deletable = Input::get('del_room_id');
 
-        $bookings = Input::get('del_room_id');
-        $rate_keys = array_keys($bookings);
+        $hotel_id = explode('_', $deletable)[2];
 
-        foreach ($rate_keys as $rate_key) {
-            $hotel_id = explode('_', $rate_key)[2];
+        if (Session::has('rate_box_details_' . $hotel_id)) {
+            $data = Session::get('rate_box_details_' . $hotel_id);
+            ///dd($data);
+            unset($data[$deletable]);
 
-            if (Session::has('rate_box_details_' . $hotel_id)) {
-                $data = Session::get('rate_box_details_' . $hotel_id);
-                //dd($data);
-                unset($data[$deletable]);
-
-                if (!empty($data)) {
-                    Session::put('rate_box_details' . $hotel_id, $data);
-                } else {
-                    Session::forget('rate_box_details' . $hotel_id);
-                    //return null;
-                }
+            if (!empty($data)) {
+                Session::put('rate_box_details_' . $hotel_id, $data);
+            } else {
+                Session::forget('rate_box_details_' . $hotel_id);
+                return null;
             }
 
         }
 
-        return Redirect::to('/booking-cart');
+        return Response::json(Session::get('rate_box_details_' . $hotel_id));
 
     }
 

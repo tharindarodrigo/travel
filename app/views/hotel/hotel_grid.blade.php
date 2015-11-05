@@ -23,6 +23,14 @@
     {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
     <!-- end -->
 
+    <!-- google map -->
+    {{ HTML::script('http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript') }}
+
+    {{ HTML::script('text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript') }}
+    {{ HTML::script('text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript') }}
+    {{ HTML::script('http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript" type="text/javascript') }}
+    {{ HTML::style('http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+
     {{--my styles--}}
     {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
@@ -60,111 +68,41 @@
         h4 {
             color: #006699;
         }
+
+        .single_hotel_map {
+            display: inline;
+            width: 20px;
+            height: 20px;
+        }
     </style>
 
     <style type="text/css">
-        .search_thumb {
-            width: 25px;
-            height: 25px;
+        .ui-front {
+            z-index: 10000 !important;
         }
 
-        /* SEARCH FORM */
-
-        #suggestions {
-            color: #FFFFFF !important;
-            background: #FFFFFF;
-            position: relative;
-            top: 5px;
-            left: 0px;
-            /*width: 100%;*/
-            display: none;
+        .ui-widget-header {
+            background: #006699 !important;
         }
 
-        div .auto_complete:hover {
-            width: 100%;
-            background: #006699;
+        .ui-dialog .ui-dialog-titlebar-close span {
+            margin: 0 !important;
         }
 
-        .auto_complete:hover a {
-            text-decoration: none;
-            color: #FFFFFF !important;
+        .ui-button-icon-only .ui-icon {
+            margin-left: 8px !important;
         }
 
-        /* SEARCHRESULTS */
-
-        #searchresults {
-            border-width: 1px;
-            border-color: #919191;
-            border-style: solid;
-            width: 320px;
-            background-color: #a0a0a0;
-            font-size: 10px;
-            line-height: 14px;
+        .single_hotel_map {
+            display: inline;
+            width: 20px;
+            height: 20px;
         }
 
-        #searchresults a {
-            display: block;
-            background-color: #e4e4e4;
-            clear: left;
-            height: 56px;
-            text-decoration: none;
+        .city_img_1 {
+            width: 400px;
+            height: 250px;
         }
-
-        #searchresults a:hover {
-            background-color: #FFFFFF;
-            text-decoration: none;
-            color: #000000 !important;
-        }
-
-        #searchresults a img {
-            float: left;
-            padding: 5px 10px;
-        }
-
-        #searchresults a span.searchheading {
-            display: block;
-            font-weight: bold;
-            padding-top: 5px;
-            color: #191919;
-        }
-
-        #searchresults a:hover span.searchheading {
-            color: #000000;
-        }
-
-        #searchresults a span {
-            color: #555555;
-        }
-
-        #searchresults a:hover span {
-            background: #000066;
-            color: #FFFFFF !important;
-        }
-
-        #searchresults span.category {
-            font-size: 11px;
-            margin: 5px;
-            display: block;
-            color: #000000;
-        }
-
-        #searchresults span.seperator {
-            float: right;
-            padding-right: 15px;
-            margin-right: 5px;
-            background-image: url(../images/shortcuts_arrow.gif);
-            background-repeat: no-repeat;
-            background-position: right;
-        }
-
-        #searchresults span.seperator a {
-            background-color: transparent;
-            display: block;
-            margin: 5px;
-            height: auto;
-            color: #000000;
-        }
-
     </style>
 
 @endsection
@@ -528,12 +466,51 @@
                     <!-- End of topfilters-->
                 </div>
                 <!-- End of padding -->
-
+                <?php  $city_or_acc = HotelCategory::where('hotel_category', str_replace('-', ' ', Request::segment(4)))->first();?>
                 <br/><br/>
 
                 <div class="clearfix"></div>
 
                 <div class="itemscontainer offset-1" style="opacity: 1;">
+
+                    @if(!empty($city_or_acc))
+
+                        <div class="hidden-xs hidden-md container">
+                            <button id="hotel_list_map" style="text-align: right" type="submit"
+                                    class="bluebtn margtop20 right hotel_list_map_view">View Map
+                            </button>
+
+                            <div id="dialog" style="display: none;">
+                                <div id="dvMap" style="height: 380px; width: 580px;">
+                                </div>
+                            </div>
+                        </div>
+
+                    @else
+
+                        <div class="hidden-xs hidden-md offset-2">
+                            <div class="">
+                                <div class="col-md-6" style="padding: 0 !important;">
+                                    {{ HTML::image('images/city_images/'.City::where('city', str_replace('-', ' ', Request::segment(4)))->select('id')->first()->id.'.jpg', '', array('class' => 'city_img_1'))}}
+
+                                    <div class="city_blacklabel">
+                                        <h4 style="color: #FFFFFF">{{ str_replace('-', ' ', Request::segment(4)) }}
+                                            City</h4>
+
+                                        {{ $hotels->getTotal(); }} Hotel
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" style="padding: 0 !important;">
+                                    <div id="dvMap" style="height: 250px; width: 400px;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    @endif
+
+                    <div class="clearfix"></div>
+                    <br/><br/>
 
                     <?php $r = 0; ?>
                     @foreach($hotels as $hotel)
@@ -565,13 +542,20 @@
 
                                 </div>
 
-                                <div class="itemlabel2">
-                                    <h4>
-                                        <a style="color: #006699"
+                                <div class="itemlabel2 get_hotel_id" hotel_id="{{ $hotel->id }}">
+                                    <h4 style="display: inline">
+                                        <a style="color: #006699; display: inline"
                                            href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
                                             &nbsp;&nbsp;&nbsp;&nbsp; {{ Str::limit($hotel->name, 20) }}
                                         </a>
                                     </h4>
+                                    {{ HTML::image('images/google-map-marker.png', '', array('class' => 'single_hotel_map'))}}
+
+                                    <div id="dialog{{ $hotel->id }}" style="display: none;">
+                                        <div id="dvMap{{ $hotel->id }}"
+                                             style="height: 380px; width: 580px;">
+                                        </div>
+                                    </div>
 
                                     <div class="labelright">
                                         <?php
@@ -598,13 +582,16 @@
                                         @if(!empty($low_hotel_rate))
                                             <span class="green size18">
                                             <b>
-                                                USD {{ $low_hotel_rate }}
+                                                {{ Session::get('currency') }} {{ number_format(($min_hot_rate * Session::get('currency_rate')), 2, '.', '') }}
                                             </b>
                                         </span>
                                             <br/>
                                             <span class="size11 grey">avg/night</span><br/><br/>
                                         @else
-
+                                            <span class="green">
+                                                 Rate Not <br> Available
+                                                <br><br>
+                                            </span>
                                         @endif
 
                                         <form method="POST" target="_blank"
@@ -619,7 +606,7 @@
 
                                     <div class="labelleft">
                                         <p class="grey">
-                                            {{ Str::limit($hotel->overview, 50) }}
+                                            {{ strip_tags(Str::limit($hotel->overview, 50)) }}
                                         </p>
 
                                         @if(Input::has('facility') || Input::has('price_range'))
@@ -701,39 +688,154 @@
         <!-- Javascript -->
         {{ HTML::script('assets/js/js-list3.js') }}
 
+        <!-- Custom Select -->
+        {{ HTML::script('js/lightbox.js') }}
+
         <!-- Counter -->
         {{ HTML::script('assets/js/counter.js') }}
+
+        <!-- Picker -->
+        {{ HTML::script('assets/js/jquery-ui.js') }}
 
         <!-- Custom js -->
         {{ HTML::script('js/my_script.js') }}
 
+        <!-- for full map -->
         <script type="text/javascript">
 
             $(document).ready(function () {
-                $('#facility_full').hide();
-                $('#city_full').hide();
+
+                var get_full_url = window.location.pathname.split('/');
+                var hotel_list = get_full_url[4];
+
+                var url = 'http://' + window.location.host + '/get_hotel_list_full_map';
+
+                var formData = new FormData();
+
+                formData.append('hotel_list', hotel_list);
+
+                sendHotelListFullMapData(url, formData);
+
             });
 
-            $('#facility_readmore').click(function () {
-                $('#facility_half').hide();
-                $('#facility_full').show();
+        </script>
+
+        <script type="text/javascript">
+
+            $("#hotel_list_map").click(function () {
+
+                var get_full_url = window.location.pathname.split('/');
+                var hotel_list = get_full_url[4];
+
+                var url = 'http://' + window.location.host + '/get_hotel_list_full_map';
+
+                var formData = new FormData();
+
+                formData.append('hotel_list', hotel_list);
+
+                sendHotelListFullMapData(url, formData);
+
             });
 
-            $('#facility_readless').click(function () {
-                $('#facility_half').show();
-                $('#facility_full').hide();
+        </script>
+
+        <script type="text/javascript">
+            $(function () {
+                $("#hotel_list_map").click(function () {
+
+                    $('html, body').css({
+                        'overflow': 'hidden',
+                        'height': '100%'
+                    });
+
+                    $("#dialog").dialog({
+                        closeOnEscape: false,
+                        open: function (event, ui) {
+                            $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+                        },
+                        modal: true,
+                        title: "Google Map",
+                        width: 650,
+                        height: 550,
+                        buttons: {
+                            Close: function () {
+                                $(this).dialog('close');
+                                $('html, body').css({
+                                    'overflow': 'auto',
+                                    'height': 'auto'
+                                });
+                            }
+
+                        }
+                    });
+                });
+                $(".ui-dialog-titlebar-close").click(function () {
+                    $('html, body').css({
+                        'overflow': 'auto',
+                        'height': 'auto'
+                    });
+                });
+            });
+        </script>
+
+        <!-- for single map -->
+
+        <script type="text/javascript">
+            $('.single_hotel_map').click(function () {
+
+                var hotel_id = $(this).closest('.get_hotel_id').attr('hotel_id');
+
+                var url = 'http://' + window.location.host + '/get_single_hotel_map';
+
+                var formData = new FormData();
+
+                formData.append('hotel_id', hotel_id);
+
+                sendHotelListSingleMapData(url, formData);
+
             });
 
-            $('#city_readmore').click(function () {
-                $('#city_half').hide();
-                $('#city_full').show();
-            });
+        </script>
 
-            $('#city_readless').click(function () {
-                $('#city_half').show();
-                $('#city_full').hide();
-            });
+        <script type="text/javascript">
+            $(function () {
+                $(".single_hotel_map").click(function () {
 
+                    var hotel_id = $(this).closest('.get_hotel_id').attr('hotel_id');
+
+                    $('html, body').css({
+                        'overflow': 'hidden',
+                        'height': '100%'
+                    });
+
+                    $("#dialog" + hotel_id).dialog({
+                        closeOnEscape: false,
+                        open: function (event, ui) {
+                            $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+                        },
+                        modal: true,
+                        title: "Google Map",
+                        width: 650,
+                        height: 550,
+                        buttons: {
+                            Close: function () {
+                                $(this).dialog('close');
+                                $('html, body').css({
+                                    'overflow': 'auto',
+                                    'height': 'auto'
+                                });
+                            }
+
+                        }
+                    });
+                });
+                $(".ui-dialog-titlebar-close").click(function () {
+                    $('html, body').css({
+                        'overflow': 'auto',
+                        'height': 'auto'
+                    });
+                });
+            });
         </script>
 
     @endsection

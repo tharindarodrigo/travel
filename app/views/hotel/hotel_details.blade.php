@@ -54,6 +54,74 @@
         #preferences p, li {
             color: #999 !important;
         }
+
+        .hot_facilities_icon {
+            display: inline;
+            opacity: 0.5;
+            width: 20px;
+            height: 20px;
+            border: #999 double 1px !important;
+            border-radius: 3px;
+            -webkit-transition: all 1s ease;
+            -moz-transition: all 1s ease;
+            -o-transition: all 1s ease;
+            -ms-transition: all 1s ease;
+            transition: all 1s ease;
+        }
+
+        .hot_facilities_icon:hover {
+            display: inline;
+            opacity: 1;
+            color: #000000 !important;
+        }
+
+        .model_room {
+            width: 240px;
+            height: 180px;
+        }
+
+        .modal-dialog {
+            width: 800px !important;
+        }
+
+        .modal {
+            /*margin-left: -50px;*/
+            height: 800px;
+        }
+
+        @media (max-width: 767px) {
+            .modal {
+                width: auto;
+                margin-left: auto;
+            }
+        }
+
+        .modal-body {
+            overflow: hidden;
+        }
+
+        .room_right_model {
+            width: 35%;
+            float: left;
+            height: 400px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .room_left_model {
+            float: left;
+            width: 60%;
+        }
+
+        .room_right_model h5 {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #000000;
+        }
+
+        .room_right_model p {
+            font-size: 12px;
+        }
+
     </style>
 
     <script type="text/javascript">
@@ -250,7 +318,7 @@
                         <div id="summary" class="tab-pane fade ">
                             <div class="container">
                                 <p class="hpadding20">
-                                    {{ $details->overview }}
+                                    {{ Hotel::where('id', $hotel_id)->first()->overview }}
                                 </p>
                             </div>
 
@@ -392,7 +460,8 @@
                                     @foreach($room_types as $room)
 
                                         <?php $low_room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room->room_specification_id, $room->meal_basis_id, $st_date, $ed_date); ?>
-                                        <div id="room_id" room_id="{{ $room_id }}" class="padding20 get_room_id">
+                                        <div id="room_id" room_id="{{ $room_id }}" class="padding20 get_room_id"
+                                             style="padding-bottom: 10px !important;">
                                             {{ Form::hidden('rate_hotel_id', $room->hotel_id , array('class' => 'hidden_hotel_id') ) }}
                                             <div class="col-md-4 offset-0">
                                                 <a href="#">
@@ -402,37 +471,161 @@
                                                         {{ HTML::image('images/no-image.jpg', '', array('class' => 'fwimg')) }}
                                                     @endif
                                                 </a>
+
+                                                <div style="padding-top: 5px; padding-left: 20%">
+                                                    <a data-toggle="modal" data-target="#myModal{{ $room_id }}"
+                                                       class="blue bold" href="">Check Room Details</a>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="myModal{{ $room_id }}" tabindex="-1"
+                                                 role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close"><span
+                                                                        aria-hidden="true">&times;</span></button>
+                                                            <h4 style="display: inline" class="modal-title"
+                                                                id="myModalLabel">
+                                                                {{ Hotel::where('id', $hotel_id)->first()->name }}
+                                                            </h4>
+                                                            -
+                                                            <h5 style="display: inline">
+                                                                {{ $room->RoomType->room_type }}
+                                                            </h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="room_left_model col-md-5">
+                                                                    <div style="padding: 10px">
+                                                                        @if(count($img_path)>0)
+                                                                            {{ HTML::image('images/room_images/'.$img_name, '', array('class' => 'model_room'))}}
+                                                                        @else
+                                                                            {{ HTML::image('images/no-image.jpg', '', array('class' => 'model_room')) }}
+                                                                        @endif
+                                                                    </div>
+                                                                    <div style="padding: 10px; text-align: center">
+                                                                        {{ Room::roomTypeImage(Session::get('adult'), Session::get('child')) }}
+                                                                    </div>
+
+                                                                    <div class="green"
+                                                                         style="font-size: 20px; padding: 10px; text-align: center">
+                                                                        {{ Session::get('currency') . '&nbsp;' . number_format(($low_room_rate * Session::get('currency_rate')), 2, '.', '') }}
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="room_right_model col-md-7">
+
+                                                                    <div>
+                                                                        <h5>Description</h5>
+
+                                                                        <p>
+                                                                            {{ strip_tags($room->RoomType->description) }}
+                                                                        </p>
+                                                                    </div>
+
+                                                                    <div class="offset-2">
+                                                                        <hr class="featurette-divider3">
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <h5>Child Policy</h5>
+
+                                                                        <p>
+                                                                            Children below 0 years are charged 0% of the
+                                                                            adult rate
+                                                                            Children between 0 and 0 years are charged
+                                                                            0% of the adult rate
+                                                                            Age above 0 years are considered as Adults
+                                                                        </p>
+                                                                    </div>
+
+                                                                    <div class="offset-2">
+                                                                        <hr class="featurette-divider3">
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <h5>Cancellation
+                                                                            Policy </h5>
+
+                                                                        <p>Before 0 days free
+                                                                            cancellation</p>
+                                                                    </div>
+
+                                                                    <div class="offset-2">
+                                                                        <hr class="featurette-divider3">
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <h5>Facilities</h5>
+
+                                                                        @foreach($hot_room->RoomFacility as $facilities)
+                                                                            <div class="col-md-6">
+                                                                                <ul class="checklist">
+                                                                                    <li style="font-size: 12px"> {{ $facilities->room_facility }} </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        @endforeach
+
+                                                                    </div>
+
+                                                                    <div class="offset-2">
+                                                                        <hr class="featurette-divider3">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">Close
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <div class="col-md-8 offset-0">
                                                 <div class="col-md-8 mediafix1">
 
-                                        <span>
-                                            <h4 style="display: inline; !important;"
-                                                class="opensans dark bold margtop1 lh1"> {{ $room->RoomType->room_type }} </h4> -
-                                            <h5 style="color: #0099cc !important; display: inline; !important;"> {{ $room->RoomSpecification->room_specification }}
-                                                Room </h5>
-                                        </span>
+                                                    <h4 style="display: inline; !important;"
+                                                        class="opensans dark bold margtop1 lh1">
+                                                        {{ $room->RoomType->room_type }}
+                                                    </h4> -
+                                                    <h5 style="color: #0099cc !important; display: inline; !important;"> {{ $room->RoomSpecification->room_specification }}
+                                                        Room
+                                                    </h5>
+
 
                                                     <h5>{{ $room->MealBasis->meal_basis_name }}</h5>
+                                                    <?php $t = 0;?>
+                                                    @foreach($hot_room->RoomFacility as $facilities)
+                                                        <?php
+                                                        //echo public_path();
+                                                        $directory1 = 'public/images/room_facilities/';
+                                                        $images1 = glob($directory1 . $facilities->id . "*");
+                                                        $img_path1 = array_shift($images1);
+                                                        $img_name1 = basename($img_path1);
+                                                        ?>
 
-                                                    <ul class="hotelpreferences margtop10">
-                                                        <li class="icohp-internet"></li>
-                                                        <li class="icohp-air"></li>
-                                                        <li class="icohp-pool"></li>
-                                                        <li class="icohp-childcare"></li>
-                                                        <li class="icohp-fitness"></li>
-                                                        <li class="icohp-breakfast"></li>
-                                                        <li class="icohp-parking"></li>
-                                                    </ul>
+                                                        @if($t<11)
+                                                            {{ HTML::image('images/room_facilities/'.$img_name1, '', array('class' => 'hot_facilities_icon'))}}
+                                                        @endif
+
+                                                        <?php $t = $t + 1; ?>
+                                                    @endforeach
 
                                                     <div class="clearfix"></div>
-
                                                     <ul class="checklist2 margtop10">
                                                         <li>FREE Cancellation</li>
                                                         <li>Pay at hotel or pay today</li>
                                                     </ul>
+                                                    <br/>
+                                                    <span class="green size12">All Tax 16.7% and 10% service charge Not included</span>
                                                 </div>
+
 
                                                 @if(Session::has('st_date'))
 
@@ -445,7 +638,28 @@
                                                             <br/>
                                                             {{ Form::selectRange('number', 1, 10, null, ['class' => 'form-control mySelectBoxClass room_count', 'id' => $room_id.$room->meal_basis_id.$room->room_specification_id]) }}
                                                             <br/>
-                                                            <span class="lred bold">3 left</span><br/><br/>
+                                                            <?php
+                                                            $allotments = Allotments::allotmentsCount($room_id, Session::get('st_date'), Session::get('ed_date'));
+                                                            ?>
+                                                            @if(!empty($allotments) && ($allotments > 3))
+                                                                <br/>
+                                                                <span class="green size12 bold">{{ $allotments }} Rooms Available</span>
+                                                                <br/><br/>
+                                                            @elseif(!empty($allotments) && ($allotments > 1))
+                                                                <br/>
+                                                                <span class="lred size12 bold"> Last {{ $allotments }} Rooms</span>
+                                                                <br/><br/>
+                                                            @elseif(!empty($allotments) && ($allotments > 0))
+                                                                <br/>
+                                                                <span class="red size12 bold"> Only One Left</span>
+                                                                <br/><br/>
+                                                                @else
+                                                                <br/>
+                                                                <span class="red size12 bold">No Rooms Available</span>
+                                                                <br/><br/>
+                                                            @endif
+
+
                                                             {{ Form::hidden('room_meal_id', $room->meal_basis_id , array('class' => 'hidden_room_meal_id') ) }}
                                                             <button id="room_book{{ $x }}"
                                                                     class="room_book_summery bookbtn mt1"
@@ -453,6 +667,7 @@
                                                                 Book
                                                             </button>
                                                             {{ Form::hidden('room_specification_id', $room->room_specification_id , array('class' => 'hidden_room_specification_id') ) }}
+
                                                         @else
                                                             <div class="padding20">
                                                                 {{ HTML::image('images/site/rates are not available.jpg', '', array('class' => 'no_rate_img')) }}

@@ -284,7 +284,7 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            {{ Form::selectRange('number', 1, 10, null, ['class' => 'form-control pax', 'city_id' => $x]) }}
+                                            {{ Form::selectRange('number', 0, 10, null, ['class' => 'form-control pax', 'city_id' => $x]) }}
                                         </div>
 
                                     </div>
@@ -426,6 +426,8 @@
                 $('.price-box').hide();
 
                 $('.transport_select').change(function () {
+                    $('.price-box').hide();
+                    $('.pax').val(0);
                     var transport_value = $(this).val();
                     var ex_id = $('#hidden_ex_id').val();
                     var hidden_ex_city_id = $(this).prev('input:hidden').val();
@@ -526,7 +528,7 @@
 
                                             toastr.success('Successfully Added To The Cart...!!');
 
-                                            $('.pax').val(1);
+                                            $('.pax').val(0);
                                             $('.transport_select').val(1);
                                         },
 

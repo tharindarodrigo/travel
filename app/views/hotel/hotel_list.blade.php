@@ -739,6 +739,7 @@
             });
 
         </script>
+
         <script type="text/javascript">
 
             $("#hotel_list_map").click(function () {
@@ -757,8 +758,6 @@
             });
 
         </script>
-
-
 
         <script type="text/javascript">
             $(function () {

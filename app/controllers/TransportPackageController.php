@@ -123,7 +123,7 @@ class TransportPackageController extends \BaseController
         $predefined_transport_details = array(
             'check_in_date' => $check_in_date,
             'predefine_id' => $predefined_id,
-            
+
         );
 
         if (Session::has('predefined_transport')) {
@@ -217,7 +217,7 @@ class TransportPackageController extends \BaseController
             }
 
             $vehicle_type = Input::get('vehicle_type');
-            $vehicle = Vehicle::where('vehicle_type', $vehicle_type)->first();
+            $vehicle_id = Vehicle::where('vehicle_type', $vehicle_type)->first()->id;
             $origin = Input::get('origin');
             $origin_id = City::where('city', $origin)->select('id')->first()->id;
             $destination_1 = Input::get('destination_1');
@@ -230,8 +230,11 @@ class TransportPackageController extends \BaseController
             $pick_up_time_minutes = Input::get('pick_up_time_minutes');
             $drop_off_time_hour = Input::get('drop_off_time_hour');
             $drop_off_time_minutes = Input::get('drop_off_time_minutes');
-            $total_distance = Input::get('total_distance');
-            $transport_cart_key = $vehicle->id . '_' . $origin_id . '_' . $destination_1_id;
+            $distance = Input::get('totalDistance');
+            $vehicle_cost = Vehicle::where('id', $vehicle_id)->first()->rate;
+            $transport_cart_key = $vehicle_id . '_' . $origin_id . '_' . $destination_1_id;
+
+            $cost = $distance * $vehicle_cost;
 
             if (!empty($destination_3)) {
                 $destination_last = $destination_3;
@@ -241,11 +244,9 @@ class TransportPackageController extends \BaseController
                 $destination_last = $destination_1;
             }
 
-            $cost = $vehicle->rate * ($total_distance / 1000.0);
-
             $transport_cart_box = array(
                 'vehicle_type' => $vehicle_type,
-                'vehicle_id' => $vehicle->id,
+                'vehicle_id' => $vehicle_id,
                 'origin' => $origin,
                 'destination_1' => $destination_1,
                 'destination_2' => $destination_2,
@@ -259,7 +260,6 @@ class TransportPackageController extends \BaseController
                 'drop_off_time_minutes' => $drop_off_time_minutes,
                 'transport_cart_key' => $transport_cart_key,
                 'cost' => number_format($cost, 2),
-                'amount' => $cost
 
             );
 
@@ -300,11 +300,12 @@ class TransportPackageController extends \BaseController
                 Session::put('transport_cart_box', $data);
             } else {
                 Session::forget('transport_cart_box');
+                return null;
             }
 
         }
 
-        return Redirect::to('/booking-cart');
+        return Response::json(Session::get('transport_cart_box'));
 
     }
 
