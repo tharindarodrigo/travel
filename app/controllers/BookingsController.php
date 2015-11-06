@@ -239,9 +239,7 @@ class BookingsController extends \BaseController
                                     $message->to($hotel_user->email, $hotel_user->first_name)
                                         ->subject('Booking Voucher : ' . $booking->reference_number);
                                 }
-
                         });
-
                     }
                 }
 
@@ -265,6 +263,9 @@ class BookingsController extends \BaseController
                 //Invoice
                 $pdf = PDF::loadView('emails/invoice', array('booking' => $booking));
                 $pdf->save(public_path() . '/temp-files/invoice.pdf');
+                $pdf = PDF::loadView('emails/service-voucher', array('booking' => $booking));
+                $pdf->save(public_path() . '/temp-files/service-voucher.pdf');
+
 
                 if ($user = $booking->user->first()) {
                     Mail::send('emails/invoice-mail', array(
@@ -272,7 +273,8 @@ class BookingsController extends \BaseController
                     ), function ($message) use ($user, $booking, $emails) {
                         $message->to($user->email, $user->first_name . ' ' . $user->last_name)
                             ->subject('Booking Created : ' . $booking->reference_number)
-                            ->attach(public_path() . '/temp-files/invoice.pdf');
+                            ->attach(public_path() . '/temp-files/invoice.pdf')
+                            ->attach(public_path() . '/temp-files/service-voucher.pdf');
                     });
                 } else {
                     Mail::send('emails/invoice-mail', array(

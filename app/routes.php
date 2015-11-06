@@ -111,9 +111,10 @@ Route::group(array('before' => 'auth'), function () {
 
 
             });
+
             Route::resource('agents', 'AgentsController');
             Route::resource('users', 'UsersController');
-
+            Route::resource('payments', 'PaymentsController');
 
             /**
              * -------------------------------------------------------------------------------------------------------------
@@ -297,6 +298,13 @@ Route::get('invoice/{id}', function ($id) {
     return $pdf->stream();
 });
 
+Route::get('service-voucher/{id}', function ($id) {
+    $booking = Booking::find($id);
+    $pdf = PDF::loadView('emails/service-voucher', array('booking' => $booking));
+
+    return $pdf->stream();
+});
+
 /*----------------------------Unauthenticated group---------------------------*/
 
 Route::group(array('before' => 'guest'), function () {
@@ -336,7 +344,13 @@ Route::post('/bookings/create-client', 'BookingsController@addClient');
 Route::post('/bookings/destroy-client', 'BookingsController@destroyClient');
 Route::post('/bookings/get-clients', 'BookingsController@getClientList');
 
+
+
 Route::resource('bookings', 'BookingsController');
+
+Route::resource('bookings.custom-trip', 'CustomTripsController');
+Route::resource('bookings.predefined-trip', 'PredefinedTripsController');
+Route::resource('bookings.excursion-bookings', 'ExcursionBookingsController');
 
 Route::resource('bookings.clients', 'ClientsController');
 Route::resource('bookings.flightDetails', 'FlightDetailsController');
@@ -349,7 +363,6 @@ Route::get('/my-bookings', function () {
 
 //Vouchers
 Route::resource('bookings.vouchers', 'VouchersController');
-
 Route::resource('transportation', 'TransportationController');
 
 Route::get('/email-check', function () {

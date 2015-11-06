@@ -25,11 +25,23 @@
                     <td style="text-align: right"><?php echo number_format($excursionBooking->unit_price, 2) ?></td>
                     <td style="text-align: right"><?php echo number_format(ExcursionBooking::getTotalExcursionBookingAmount($booking),2) ?></td>
                     <td>
-                        {{--{{Form::open(array('route'=>array('bookings.clients.destroy',$booking->id,$client->id),'method'=>'delete'))}}--}}
-                        {{--<button type="button" class="btn btn-danger btn-sm delete-button" value="{{$client->id.'_client'}}"><span class="glyphicon glyphicon-trash"></span></button>--}}
-                        {{--<button type="button" class="btn btn-primary btn-sm edit_client" data-toggle="modal" data-target="#clientModal_{{$client->id}}" value="{{$client->id.'_client'}}"><span class="glyphicon glyphicon-edit"></span></button>--}}
-                        {{--{{Form::close()}}--}}
-
+                        @if($excursionBooking->val == 0)
+                            <div class="">
+                                {{ Form::open(array('route'=> array('bookings.excursion-bookings.update',$booking->id,$excursionBooking->id), 'method' =>'patch')) }}
+                                <button class="btn btn-xs btn-flat btn-success activate-item col-md-3"
+                                        type="submit" name="val" value="1"><i class="glyphicon glyphicon-ok-circle"></i></button>
+                                <button class="btn btn-xs btn-flat btn-default disabled deactivate-item col-md-3"
+                                        type="button"><i class="glyphicon glyphicon-remove-circle"></i></button>
+                                {{ Form::close() }}
+                            </div>
+                        @else
+                            {{ Form::open(array('route'=> array('bookings.excursion-bookings.update',$booking->id,$excursionBooking->id), 'method' =>'patch')) }}
+                            <button class="btn btn-xs btn-flat btn-default disabled activate-item col-md-3"
+                                    type="button"><i class="glyphicon glyphicon-ok-circle"></i></button>
+                            <button class="btn btn-xs btn-flat btn-warning deactivate-item col-md-3"
+                                    type="submit" name="val" value="0"><i class="glyphicon glyphicon-remove-circle"></i></button>
+                            {{ Form::close() }}
+                        @endif
                     </td>
 
                 </tr>

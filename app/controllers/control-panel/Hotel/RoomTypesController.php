@@ -44,7 +44,7 @@ class RoomTypesController extends \BaseController
 //        Session::put('roomspec',array(1,3,5));
 //        $roomspecs = DB::table('room_specifications')->whereIn('id',Session::get('roomspec'))->get();
         $roomspecifications = RoomSpecification::all();
-        $roomfacilities = RoomFacility::all();
+        $roomfacilities = RoomFacility::where('val',1)->orderBy('room_facility')->get();
         return View::make('control-panel.hotel.rooms.create', compact('hotelid', 'roomfacilities', 'roomspecifications'));
 
     }
@@ -72,7 +72,7 @@ class RoomTypesController extends \BaseController
 
             $roomFacilities = Input::get('room_facility_id');
             if (!empty($roomFacilities)) {
-                dd($roomFacilities);
+
                 foreach ($roomFacilities as $roomFacility) {
                     DB::table('room_facility_room_type')->insert(
                         array(
@@ -194,7 +194,6 @@ class RoomTypesController extends \BaseController
                 'user_id' => Auth::user()->id
             );
         } else {
-
 //            dd(Input::get('val'));
             $data = array(
                 'val' => Input::get('val')
