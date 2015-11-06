@@ -132,13 +132,13 @@ class AccountController extends \BaseController
             if ($auth) {
 
                 if (Entrust::hasRole('Agent')) {
-                    $market = User::find(Auth::id())->agent()->first()->market->first();
-                    Session::put('market', $market->id);
+                    $agent = User::find(Auth::id())->agent()->first();
+                    dd($agent->agent_id);
+                    Session::put('market', $agent->agent_id);
                 }
-                //Redirect to the intend page
+
                 return Redirect::intended('/');
 
-//                return Response::json($array);
             } else {
                 return Redirect::back()
                     ->with('global', 'check your username and password');

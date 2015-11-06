@@ -5,6 +5,10 @@
 
 @extends('control-panel.layout.main')
 
+@section('head-scripts')
+    {{ HTML::style('control-panel-assets/plugins/datepicker/datepicker3.css') }}
+@endsection
+
 @section('bread-crumbs')
     @yield('bread-crumbs')
 @endsection
@@ -45,7 +49,7 @@
 @endsection
 
 @section('scripts1')
-@yield('script')
-
+    {{ HTML::script('control-panel-assets/plugins/datepicker/bootstrap-datepicker.js')}}
+    @yield('script')
 @endsection
 
