@@ -133,7 +133,7 @@ class AccountController extends \BaseController
 
                 if (Entrust::hasRole('Agent')) {
                     $agent = User::find(Auth::id())->agent()->first();
-                    Session::put('market', $agent->agent_id);
+                    Session::put('market', $agent->market_id);
                 }
 
                 return Redirect::intended('/');
