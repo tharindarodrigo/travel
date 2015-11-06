@@ -75,9 +75,9 @@ class CustomTripsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($bookingid,$id)
 	{
-		$customtrip = Customtrip::findOrFail($id);
+		$customtrip = CustomTrip::findOrFail($id);
 
 		$validator = Validator::make($data = Input::all(), Customtrip::$rules);
 
@@ -88,7 +88,7 @@ class CustomTripsController extends \BaseController {
 
 		$customtrip->update($data);
 
-		return Redirect::route('customtrips.index');
+		return Redirect::back();
 	}
 
 	/**
@@ -100,7 +100,6 @@ class CustomTripsController extends \BaseController {
 	public function destroy($id)
 	{
 		Customtrip::destroy($id);
-
 		return Redirect::route('customtrips.index');
 	}
 

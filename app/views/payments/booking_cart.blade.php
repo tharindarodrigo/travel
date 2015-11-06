@@ -10,6 +10,7 @@ if (Session::has('excursion_cart_details')) {
 } else {
     $excursion_cart_details = '';
 }
+
 ?>
 
 @extends('layout.master')

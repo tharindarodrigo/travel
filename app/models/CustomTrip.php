@@ -8,7 +8,7 @@ class CustomTrip extends \Eloquent {
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = ['from','to','reference_number','vehicle_id','booking_id','locations','amount'];
+	protected $fillable = ['from','to','reference_number','vehicle_id','booking_id','locations','amount', 'val'];
 
 	public function vehicle()
 	{

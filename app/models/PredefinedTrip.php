@@ -8,7 +8,7 @@ class PredefinedTrip extends \Eloquent {
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = ['transport_package_id', 'booking_id','pick_up_date_time'];
+	protected $fillable = ['transport_package_id', 'booking_id','pick_up_date_time','val'];
 
 
 	public function booking()
