@@ -23,11 +23,16 @@
                         <tr>
                             @foreach($payments as $payment)
                                 <td>{{$payment->id}}</td>
-                                <td>{{$payment->refenrece_number}}</td>
+                                <td>{{$payment->reference_number}}</td>
                                 <td>{{$payment->agent->company}}</td>
-                                <td>{{$payment->payment_date_time}}</td>
-                                <td>{{$payment->amount}}</td>
+                                <td align="center">{{$payment->payment_date_time}}</td>
+                                <td align="right">{{number_format($payment->amount,2)}}</td>
                                 <td>
+                                    {{Form::open(array('route' => array('control-panel.payments.destroy', $payment->id), 'method'=>'delete'))}}
+                                    {{link_to_route('control-panel.payments.edit','', [$payment->id], ['class' => 'btn btn-sm btn-primary glyphicon glyphicon-edit '])}}
+                                    <button type="button" class="btn btn-sm btn-danger delete-button"><span
+                                                class="glyphicon glyphicon-trash "></span></button>
+                                    {{Form::close()}}
 
                                 </td>
                             @endforeach
@@ -43,7 +48,9 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#payments_table').dataTable();
+            $('#payments_table').dataTable(
+                    confirmDeleteItem()
+            );
         });
     </script>
 @endsection

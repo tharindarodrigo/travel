@@ -109,7 +109,6 @@ Route::group(array('before' => 'auth'), function () {
                     Route::get('changeMarket', 'UsersController@changeMarket');
                 });
 
-
             });
 
             Route::resource('agents', 'AgentsController');
