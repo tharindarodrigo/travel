@@ -133,7 +133,6 @@ class AccountController extends \BaseController
 
                 if (Entrust::hasRole('Agent')) {
                     $agent = User::find(Auth::id())->agent()->first();
-                    dd($agent->agent_id);
                     Session::put('market', $agent->agent_id);
                 }
 
