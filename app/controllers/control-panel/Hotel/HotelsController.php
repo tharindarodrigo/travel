@@ -71,7 +71,6 @@ class HotelsController extends \BaseController
 
         if ($hotel = Hotel::create($data)) {
 
-
             if (Input::hasFile('images')) {
 
                 $files = Input::file('images');

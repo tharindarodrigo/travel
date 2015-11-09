@@ -246,6 +246,23 @@
                     </ul>
                 </li>
                 @if(Entrust::hasRole('Admin'))
+
+                    <li class="treeview @yield('active-payments')">
+                        <a href="#">
+                            <i class="fa fa-users"></i>
+                            <span>Payments</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="@yield('active-all-payments')">
+                                <a href="{{URL::route('control-panel.payments.index')}}">
+                                    <i class="fa fa-circle-o"></i> All Payment </a></li>
+                            <li class="@yield('active-payments-create')">
+                                <a href="{{URL::route('control-panel.payments.create')}}">
+                                    <i class="fa fa-circle-o"></i> New Payment </a></li>
+                        </ul>
+                    </li>
+
                     <li class="treeview @yield('active-general')">
                         <a href="#">
                             <i class="fa fa-arrows-alt"></i>
@@ -255,13 +272,16 @@
                         <ul class="treeview-menu">
                             <li class="@yield('active-general-cities')"><a
                                         href="{{ Url::route('control-panel.general.cities.index') }}"><i
-                                            class="fa fa-circle-o"></i> Cities</a></li>
+                                            class="fa fa-circle-o"></i> Cities</a>
+                            </li>
                             <li class="@yield('active-general-countries')"><a
                                         href="{{ Url::route('control-panel.general.countries.index') }}"><i
-                                            class="fa fa-circle-o"></i> Countries</a></li>
+                                            class="fa fa-circle-o"></i> Countries</a>
+                            </li>
                             <li class="@yield('active-general-markets')"><a
                                         href="{{ Url::route('control-panel.general.markets.index') }}"><i
-                                            class="fa fa-circle-o"></i> Markets</a></li>
+                                            class="fa fa-circle-o"></i> Markets</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="treeview @yield('active-agents')">
@@ -301,11 +321,16 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="@yield('active-users-agents')"><a href="{{URL::to('control-panel/users/agents')}}"><i class="fa fa-circle-o"></i> Agents</a>
+                            <li class="@yield('active-users-agents')"><a
+                                        href="{{URL::to('control-panel/users/agents')}}"><i class="fa fa-circle-o"></i>
+                                    Agents</a>
                             </li>
-                            <li class="@yield('active-users-hoteliers')"><a href="{{URL::to('control-panel/users/hoteliers')}}"><i class="fa fa-circle-o"></i>
+                            <li class="@yield('active-users-hoteliers')"><a
+                                        href="{{URL::to('control-panel/users/hoteliers')}}"><i
+                                            class="fa fa-circle-o"></i>
                                     Hoteliers</a></li>
-                            <li class="@yield('active-users-all')"><a href="{{URL::to('control-panel/users')}}"><i class="fa fa-circle-o"></i> Users</a>
+                            <li class="@yield('active-users-all')"><a href="{{URL::to('control-panel/users')}}"><i
+                                            class="fa fa-circle-o"></i> Users</a>
                             </li>
                         </ul>
                     </li>

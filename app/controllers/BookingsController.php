@@ -90,7 +90,13 @@ class BookingsController extends \BaseController
 
 
         $data['val'] = 1;
-        $data['reference_number'] = 123456789;
+
+        if ($x = Payment::find(Booking::max('id'))) {
+            $data['reference_number'] = ++$x->reference_number;
+        } else {
+            $data['reference_number'] = 10000000;
+        }
+
         $clients = null;
 
         if (Session::has('rate_box_details') || Session::has('transport_cart_box') || Session::has('predefined_transport') || Session::has('excursion_cart_details')) {
@@ -101,8 +107,7 @@ class BookingsController extends \BaseController
                     DB::table('booking_user')->insert(array('booking_id' => $booking->id, 'user_id' => $user->id));
                     if (Session::has('client-list')) {
                         $clients = Session::pull('client-list');
-                        //dd($clients);
-                        //dd($booking->id);
+
                         foreach ($clients as $client) {
                             $client['booking_id'] = $booking->id;
                             $client['gender'] === 'male' ? $client['gender'] = 1 : $client['gender'] = 0;
@@ -112,9 +117,6 @@ class BookingsController extends \BaseController
 
                     $flight_data = [];
                     $flight_data['booking_id'] = $booking->id;
-                    //dd($flight_data['booking_id']);
-
-                    //arrival flight data
 
                     $flight_data['date'] = $data['date_arrival'];
                     $flight_data['time'] = $data['arrival_time'];

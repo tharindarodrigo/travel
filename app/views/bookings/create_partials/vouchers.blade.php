@@ -10,6 +10,7 @@
             <th style="text-align:center;">Basis</th>
             <th style="text-align:center;">Spec</th>
             <th style="text-align:center;">Amount</th>
+            <th style="text-align:center;">Status</th>
             <th style="text-align:center;">Controls</th>
         </tr>
         </thead>
@@ -20,7 +21,7 @@
             }
         </style>
         @foreach($booking->voucher as $voucher)
-            <tr>
+            <tr class="{{$voucher->val == 0 ? 'danger' : ''}}" >
                 <td>{{$voucher->id}}</td>
                 <td>{{$voucher->hotel->name}}</td>
                 <td>{{$voucher->check_in}}</td>
@@ -42,54 +43,21 @@
                     @endforeach
                 </td>
                 <td align="right">{{number_format(Voucher::getVoucherAmount($voucher),2)}}</td>
-
+                <td align="center">{{$voucher->val ==0 ? 'Canclled':'Active'}}</td>
                 <td>
-                    {{Form::open(array('route'=>array('bookings.flightDetails.destroy',$booking->id,$voucher->id), 'method'=>'delete'))}}
+
                     @if($voucher->val == 1)
-                        <button type="button" class="btn btn-danger btn-sm delete-button"
-                                value="{{$voucher->id.'_flight'}}"><span class="glyphicon glyphicon-trash"></span>
-                        </button>
-                        <button type="button" class="btn btn-warning btn-sm" value="{{$voucher->id.'_flight'}}"><span
-                                    class="glyphicon glyphicon-trash"></span></button>
+                        {{link_to('vouchers/'.$voucher->id.'/cancel','',array('class' => 'btn btn-warning glyphicon glyphicon-edit'))}}
                     @else
 
                     @endif
+
                     <button type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span>
                     </button>
                     <a href="{{URL::to('voucher/'.$voucher->id)}}" class="btn btn-default"><span
                                 class="glyphicon glyphicon-eye-open"></span></a>
                     {{--<button class="btn btn-sm" data-toggle="modal" data-target="#voucherModal_{{$voucher->id}}" ><span class="glyphicon glyphicon-eye-open"></span></button>--}}
-                    {{Form::close()}}
-                    {{--<div class="modal fade" id="voucherModal_{{$voucher->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">--}}
-                    {{--<div class="modal-dialog" role="document">--}}
-                    {{--<div class="modal-content">--}}
-                    {{--<div class="modal-header">--}}
-                    {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
-                    {{--<h4 class="modal-title" id="myModalLabel">Booking - Clients</h4>--}}
-                    {{--</div>--}}
 
-                    {{--<div class="modal-body">--}}
-
-                    {{--<div class="row">--}}
-                    {{--<div class="col-xs-3 bold">Hotel</div><div class="col-xs-7">: {{$voucher->hotel->name}}</div>--}}
-
-                    {{--<div class="col-xs-3 bold">Checkin</div><div class="col-xs-7">: {{$voucher->check_in}}</div>--}}
-
-                    {{--<div class="col-xs-3 bold">Checkout</div><div class="col-xs-7">: {{$voucher->check_out}}</div>--}}
-
-                    {{--<div class="col-xs-3 bold">Meal Basis</div><div class="col-xs-7">: {{ ' ' }}</div>--}}
-
-                    {{--<div class="col-xs-3 bold">Amount</div><div class="col-xs-7">: USD {{' '}}</div>--}}
-                    {{--</div>--}}
-
-                    {{--</div>--}}
-                    {{--<div class="modal-footer">--}}
-                    {{--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
-                    {{--</div>--}}
-
-                    {{--</div>--}}
-                    {{--</div>--}}
-                    {{--</div>--}}
                 </td>
             </tr>
         @endforeach

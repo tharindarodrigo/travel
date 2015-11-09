@@ -1,10 +1,12 @@
 @extends('control-panel.payments.payments')
-
+@section('active-all-payments')
+    {{'active'}}
+@endsection
 @section('payment-content')
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header">
-                <h3 class="box-title"><b>Search / Update / Delete </b>Payments Types</h3>
+                <h3 class="box-title"><b>Search / Update / Delete </b>Payments</h3>
             </div>
             <div class="box-body">
                 <table class="table" id="payments_table">
@@ -20,8 +22,9 @@
                     </thead>
                     @if(!empty($payments))
                         <tbody>
-                        <tr>
-                            @foreach($payments as $payment)
+                        @foreach($payments as $payment)
+                            <tr>
+
                                 <td>{{$payment->id}}</td>
                                 <td>{{$payment->reference_number}}</td>
                                 <td>{{$payment->agent->company}}</td>
@@ -33,10 +36,9 @@
                                     <button type="button" class="btn btn-sm btn-danger delete-button"><span
                                                 class="glyphicon glyphicon-trash "></span></button>
                                     {{Form::close()}}
-
                                 </td>
-                            @endforeach
-                        </tr>
+                            </tr>
+                        @endforeach
                         </tbody>
                     @endif
                 </table>

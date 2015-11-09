@@ -19,9 +19,7 @@
 @endsection
 
 {{--Sub Title--}}
-@section('control-sub-title')
-    {{'All Payments'}}
-@endsection
+
 
 {{--Breadcrumbs--}}
 @section('bread-crumbs')
@@ -36,8 +34,16 @@
 @endsection
 
 {{--Active Sub menu Item--}}
-@section('active-hotel-create-hotel')
-    {{ 'active' }}
+@section('active-payments-create')
+    @yield('active-payments-create')
+@endsection
+
+@section('active-payments-create')
+    @yield('active-payments-create')
+@endsection
+
+@section('control-sub-title')
+    {{'All Payments'}}
 @endsection
 
 @section('content')

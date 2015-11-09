@@ -76,7 +76,13 @@ class Booking extends \Eloquent
 
     public static function getBookingData($booking_id)
     {
-        return Booking::where('id', $booking_id)->with('client')->with('flightDetail')->with('voucher')->with('invoice')->with('customTrip')->with('predefinedTrip')->first();
+        return Booking::where('id', $booking_id)
+            ->with('client')
+            ->with('flightDetail')
+            ->with('voucher')
+            ->with('invoice')
+            ->with('customTrip')
+            ->with('predefinedTrip')->first();
     }
 
 

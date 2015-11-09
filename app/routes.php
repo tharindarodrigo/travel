@@ -220,6 +220,8 @@ Route::group(array('before' => 'auth'), function () {
                 Route::put('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/update', 'HotelsController@updateCancellationPolicy');
                 Route::delete('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/delete', 'HotelsController@deleteCancellationPolicy');
 
+
+
                 //Route::resource('meal-bases', 'MealBasesController');
             });
 
@@ -280,6 +282,16 @@ Route::get('voucher/{id}', function ($id) {
     return $pdf->stream('abc.pdf');
 
 });
+
+Route::get('cancellation-voucher/{id}', function ($id) {
+    $voucher = Voucher::find($id);
+    $pdf = PDF::loadView('emails/cancellation-voucher', array('voucher' => $voucher));
+    $pdf->setPaper('a4')->save(public_path() . '/temp-files/cancellation-voucher.pdf');
+    return $pdf->stream();
+
+});
+
+
 Route::get('booking/{id}', function ($id) {
 //    $hotel_users = DB::table('users')->leftJoin('hotel_user', 'users.id', '=', 'hotel_user.user_id')
 //        ->where('hotel_user.hotel_id', 1065)
@@ -291,7 +303,7 @@ Route::get('booking/{id}', function ($id) {
 });
 
 Route::get('invoice/{id}', function ($id) {
-    $booking = Booking::find($id);
+    $booking = Booking::getBookingData($id);
     $pdf = PDF::loadView('emails/invoice', array('booking' => $booking));
 
     return $pdf->stream();
@@ -343,7 +355,7 @@ Route::post('/bookings/create-client', 'BookingsController@addClient');
 Route::post('/bookings/destroy-client', 'BookingsController@destroyClient');
 Route::post('/bookings/get-clients', 'BookingsController@getClientList');
 
-
+Route::get('vouchers/{id}/cancel', 'VouchersController@cancelVoucher');
 
 Route::resource('bookings', 'BookingsController');
 
