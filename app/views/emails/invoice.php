@@ -23,7 +23,7 @@
                 <h3>Hotel Reservations</h3>
 
                 <?php foreach ($booking->voucher as $voucher) { ?>
-                    <p>
+                    <?php if ($voucher->val == 1) { ?>                    <p>
                         Being cost for <?php echo $voucher->hotel->name; ?>
                         <?php foreach ($voucher->roomBooking as $roomBooking) ?>
                             for <?php echo $roomBooking->room_count . ' ' . $roomBooking->roomSpecification->room_specification . ' ' . $roomBooking->roomType->room_type . ' ' ?>
@@ -33,13 +33,28 @@
                         USD <?php echo number_format(Voucher::getVoucherAmount($voucher), 2); ?>  <?php // echo Voucher::getNights($f, $t)->days;?>
                     </p>
 
+                    <?php } else {
+                        if ($voucher->cancellation_amount != 0) {
+                            ?>
+                            <p>
+                            Canellation charges for <?php echo $voucher->hotel->name; ?>
+                            (FROM <?php echo $f = $voucher->check_in; ?> TO <?php echo $t = $voucher->check_out; ?>/
+                            <?php foreach ($voucher->roomBooking as $roomBooking) ?>
+                                for <?php echo $roomBooking->room_count . ' ' . $roomBooking->roomSpecification->room_specification . ' ' . $roomBooking->roomType->room_type . ' ' ?>
+                            rooms on
+                            <?php echo $roomBooking->mealBasis->meal_basis; ?> basis )
+                            </p>
 
+                        <?php }
+                    } ?>
                 <?php } ?>
+
 
             </td>
 
             <td align="right">
                 <?php echo number_format(Booking::getTotalVoucherAmount($booking), 2) ?>
+                <?php //echo number_format($voucher->cancellation_voucher, 2) ?>
             </td>
         </tr>
     <?php } ?>
@@ -50,7 +65,8 @@
             <td>
                 <h3>Transportation</h3>
                 <?php foreach ($booking->customTrip as $trip) { ?>
-                    <p><b>#<?php echo $trip->reference_number ?> :</b> Trip By <?php echo $trip->vehicle->vehicle_type; ?>, picked up
+                    <p><b>#<?php echo $trip->reference_number ?> :</b> Trip
+                        By <?php echo $trip->vehicle->vehicle_type; ?>, picked up
                         on <?php echo date('Y-m-d', strtotime($trip->from)); ?>
                         at <?php echo date('H:i', strtotime($trip->from)) ?>. Path (Origin to Destination)
                         : <?php echo $trip->locations ?></p>
@@ -84,8 +100,8 @@
                         <?php echo $excursionBooking->excursionTransportType->transport_type; ?> excursion
 
                         From <?php echo $excursionBooking->city->city; ?>
-                        on the <?php echo date('Y-m-d',strtotime($excursionBooking->date)); ?>
-                        @ USD. <?php echo number_format($excursionBooking->unit_price,2); ?> <b>X</b>
+                        on the <?php echo date('Y-m-d', strtotime($excursionBooking->date)); ?>
+                        @ USD. <?php echo number_format($excursionBooking->unit_price, 2); ?> <b>X</b>
                         <?php echo $excursionBooking->pax; ?> pax
 
                     </p>
@@ -93,7 +109,7 @@
             </td>
             <td align="right">
 
-                <?php echo number_format(ExcursionBooking::getTotalExcursionBookingAmount($booking),2); ?>
+                <?php echo number_format(ExcursionBooking::getTotalExcursionBookingAmount($booking), 2); ?>
             </td>
         </tr>
     <?php } ?>

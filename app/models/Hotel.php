@@ -87,4 +87,9 @@ class Hotel extends \Eloquent
         return $this->hasMany('Rate');
     }
 
+    public function cancellationPolicy()
+    {
+        return $this->hasMany('CancellationPolicy');
+    }
+
 }

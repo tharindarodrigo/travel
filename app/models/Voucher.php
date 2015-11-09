@@ -54,6 +54,14 @@ class Voucher extends \Eloquent {
         return $voucherAmount;
     }
 
+    public static function getDaysToBooking($voucher)
+    {
+        $checkIn = new DateTime($voucher->check_in);
+        $today = new DateTime();
+
+        return $days = $today->diff($checkIn);
+    }
+
 
     public function hotel()
     {
@@ -72,12 +80,17 @@ class Voucher extends \Eloquent {
 
     public function booking()
     {
-        return $this->hasOne('Booking');
+        return $this->belongsTo('Booking');
     }
 
     public function roomBooking()
     {
         return $this->hasMany('RoomBooking');
+    }
+
+    public function user()
+    {
+
     }
 
 }
