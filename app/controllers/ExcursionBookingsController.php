@@ -75,9 +75,13 @@ class ExcursionBookingsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($booking_id,$id)
 	{
 		$excursionbooking = Excursionbooking::findOrFail($id);
+		if(Input::has('val')){
+			if (Input::get('val') == 0)
+				$excursionbooking->amount = 0;
+		}
 
 		$validator = Validator::make($data = Input::all(), Excursionbooking::$rules);
 
@@ -88,7 +92,7 @@ class ExcursionBookingsController extends \BaseController {
 
 		$excursionbooking->update($data);
 
-		return Redirect::route('excursionbookings.index');
+		return Redirect::back();
 	}
 
 	/**

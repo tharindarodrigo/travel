@@ -79,6 +79,11 @@ class CustomTripsController extends \BaseController {
 	{
 		$customtrip = CustomTrip::findOrFail($id);
 
+		if(Input::has('val')){
+			if (Input::get('val') == 0)
+			$customtrip->amount = 0;
+		}
+
 		$validator = Validator::make($data = Input::all(), Customtrip::$rules);
 
 		if ($validator->fails())
