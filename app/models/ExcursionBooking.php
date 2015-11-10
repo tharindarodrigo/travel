@@ -9,7 +9,7 @@ class ExcursionBooking extends \Eloquent
     ];
 
     // Don't forget to fill this array
-    protected $fillable = ['booking_id', 'city_id', 'excursion_transport_type_id', 'excursion_id', 'unit_price', 'pax', 'date', 'reference_number'];
+    protected $fillable = ['booking_id', 'city_id', 'excursion_transport_type_id', 'excursion_id', 'unit_price', 'pax', 'date', 'reference_number','val'];
 
     public function booking()
     {
@@ -35,7 +35,10 @@ class ExcursionBooking extends \Eloquent
     {
         $total = 0;
         foreach ($booking->excursionBooking as $excursionBooking) {
-            $total += $excursionBooking->pax * $excursionBooking->unit_price;
+            if ($excursionBooking->val == 1) {
+                $total += $excursionBooking->pax * $excursionBooking->unit_price;
+
+            }
         }
 
         return $total;

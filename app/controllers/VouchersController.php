@@ -143,7 +143,6 @@ class VouchersController extends \BaseController
                     break;
                 }
             }
-
         }
 
         $bookingAmount = Voucher::getVoucherAmount($voucher);
@@ -176,6 +175,8 @@ class VouchersController extends \BaseController
                 $message->to($agent_user->email, $agent_user->first_name);
             }
         });
+
+        Booking::getTotalBookingAmount($voucher->booking);
 
         return Redirect::back();
     }

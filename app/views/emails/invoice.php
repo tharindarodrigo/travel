@@ -11,52 +11,69 @@
 
 
 <table class="table" border="1px" cellpadding="10" cellspacing="0" width="100%">
-    <tr>
+    <tr style="background: lightgrey; " >
         <th width="80%">Description</th>
         <th width="20%">Amount</th>
     </tr>
     <?php if ($booking->voucher->count()) { ?>
-        <tr>
+<!--        <tr style="padding-left: 10px;">-->
+<!---->
+<!--            <td colspan="2" >-->
+<!---->
+<!--                <h3>Hotel Reservations</h3>-->
+<!--            </td>-->
+<!--        </tr>-->
 
-            <td>
-
-                <h3>Hotel Reservations</h3>
-
-                <?php foreach ($booking->voucher as $voucher) { ?>
-                    <?php if ($voucher->val == 1) { ?>                    <p>
-                        Being cost for <?php echo $voucher->hotel->name; ?>
-                        <?php foreach ($voucher->roomBooking as $roomBooking) ?>
-                            for <?php echo $roomBooking->room_count . ' ' . $roomBooking->roomSpecification->room_specification . ' ' . $roomBooking->roomType->room_type . ' ' ?>
-                        rooms on
-                        <?php echo $roomBooking->mealBasis->meal_basis; ?> basis
-                        - <?php echo $f = $voucher->check_in; ?> TO <?php echo $t = $voucher->check_out; ?> at
-                        USD <?php echo number_format(Voucher::getVoucherAmount($voucher), 2); ?>  <?php // echo Voucher::getNights($f, $t)->days;?>
-                    </p>
-
-                    <?php } else {
-                        if ($voucher->cancellation_amount != 0) {
-                            ?>
-                            <p>
-                            Canellation charges for <?php echo $voucher->hotel->name; ?>
-                            (FROM <?php echo $f = $voucher->check_in; ?> TO <?php echo $t = $voucher->check_out; ?>/
+            <?php foreach ($booking->voucher as $voucher) { ?>
+            <tr>
+                <?php if ($voucher->val == 1) { ?>
+                    <td>
+                        <p>
+                            Being cost for <?php echo $voucher->hotel->name; ?>
                             <?php foreach ($voucher->roomBooking as $roomBooking) ?>
                                 for <?php echo $roomBooking->room_count . ' ' . $roomBooking->roomSpecification->room_specification . ' ' . $roomBooking->roomType->room_type . ' ' ?>
                             rooms on
-                            <?php echo $roomBooking->mealBasis->meal_basis; ?> basis )
+                            <?php echo $roomBooking->mealBasis->meal_basis; ?> basis
+                            - <?php echo $f = $voucher->check_in; ?> TO <?php echo $t = $voucher->check_out; ?> at
+                            USD <?php echo number_format(Voucher::getVoucherAmount($voucher), 2); ?>  <?php // echo Voucher::getNights($f, $t)->days;?>
+                        </p>
+                    </td>
+
+                    <td align="right">
+                        <?php echo number_format(Booking::getTotalVoucherAmount($booking), 2) ?>
+
+                    </td>
+                <?php } else {
+                    if ($voucher->cancellation_amount != 0) {
+                        ?>
+                        <td >
+                            <p>
+                                Canellation charges for <?php echo $voucher->hotel->name; ?>
+                                (FROM <?php echo $f = $voucher->check_in; ?> TO <?php echo $t = $voucher->check_out; ?>/
+                                <?php foreach ($voucher->roomBooking as $roomBooking) ?>
+                                    for <?php echo $roomBooking->room_count . ' ' . $roomBooking->roomSpecification->room_specification . ' ' . $roomBooking->roomType->room_type . ' ' ?>
+                                rooms on
+                                <?php echo $roomBooking->mealBasis->meal_basis; ?> basis )
                             </p>
+                        </td>
+                        <td align="right">
+                            <?php echo number_format($voucher->cancellation_amount, 2) ?>
+                        </td>
 
-                        <?php }
-                    } ?>
-                <?php } ?>
+
+                    <?php }
+                } ?>
+            </tr>
+
+        <?php } ?>
 
 
-            </td>
-
-            <td align="right">
-                <?php echo number_format(Booking::getTotalVoucherAmount($booking), 2) ?>
-                <?php //echo number_format($voucher->cancellation_voucher, 2) ?>
-            </td>
-        </tr>
+            <!--            </td>-->
+            <!---->
+            <!--            <td align="right">-->
+            <!--                --><?php //echo number_format(Booking::getTotalVoucherAmount($booking), 2) ?>
+            <!--                --><?php ////echo number_format($voucher->cancellation_voucher, 2) ?>
+            <!--            </td>-->
     <?php } ?>
 
     <?php if ($booking->customTrip->count() || $booking->predefinedTrip->count()) { ?>

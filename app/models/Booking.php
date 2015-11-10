@@ -30,7 +30,7 @@ class Booking extends \Eloquent
 
     // Don't forget to fill this array
     protected $fillable = [
-        'reference_number', 'arrival_date', 'departure_date', 'booking_name', 'adults', 'children', 'val', 'remarks','email','phone','passport_number'
+        'reference_number', 'arrival_date', 'departure_date', 'booking_name', 'adults', 'children', 'val', 'remarks', 'email', 'phone', 'passport_number'
     ];
 
     /**
@@ -91,24 +91,42 @@ class Booking extends \Eloquent
 //        $booking = Booking::with('voucher')->with('roomBooking')->find($booking_id);
         $total = 0.0;
         foreach ($booking->voucher as $voucher) {
-            $total += Voucher::getVoucherAmount($voucher);
+            if ($voucher->val == 1) {
+                $total += Voucher::getVoucherAmount($voucher);
+
+            } else {
+                $total = $voucher->cancellation_amount;
+            }
         }
         return $total;
     }
 
     public static function getTotalBookingAmount($booking)
     {
-        $total =0;
+        $total = 0;
 
         $total += Booking::getTotalVoucherAmount($booking);
         $total += TransportPackage::getTotalTransportationAmount($booking);
         $total += ExcursionBooking::getTotalExcursionBookingAmount($booking);
 
+        $invoice = Invoice::where('booking_id', $booking->id)->first();
+        if ($invoice) {
+            $invoice->amount = $total;
+            $invoice->save();
+        } else {
+            $invoiceData = array(
+                'amount'=> $total,
+                'booking_id'=> $booking->id
+            );
+
+//            dd($invoiceData);
+            Invoice::create($invoiceData);
+        }
+
+
         return $total;
 
     }
-
-
 
 
     /**
@@ -164,5 +182,6 @@ class Booking extends \Eloquent
     {
         return $this->hasMany('ExcursionBooking');
     }
+
 
 }

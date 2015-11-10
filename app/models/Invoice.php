@@ -30,6 +30,10 @@ class Invoice extends \Eloquent
          */
 
         return $total;
+    }
 
+    public function booking()
+    {
+        return $this->belongsTo('Booking');
     }
 }
