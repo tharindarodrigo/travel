@@ -27,8 +27,7 @@
     <!-- end -->
 
     {{--my styles--}}
-    {{--    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}--}}
-
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
     <style type="text/css">
         .collapsebtn {
@@ -550,11 +549,14 @@
 
         <!-- Custom js -->
         {{ HTML::script('js/my_script.js') }}
+
         {{ HTML::script('js/toastr.js') }}
         {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js') }}
 
         <script type="text/javascript">
             $(function () {
+
+                toastr.options.positionClass = 'toast-top-right';
 
                 $('.date_pick').datepicker({
                     dateFormat: 'yy-mm-dd'
@@ -584,9 +586,8 @@
 
                             $.each(data, function (index, item) {
                                 $('#myModal' + item.predefine_id).modal('hide');
+                                toastr.success('Successfully Added To The Cart...!!');
                             });
-
-                            toastr.success('Successfully Added To The Cart...!!');
 
                         },
 
@@ -618,7 +619,6 @@
             });
 
         </script>
-
 
     @endsection
 

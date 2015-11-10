@@ -41,10 +41,29 @@
     <!-- jQuery -->
     {{ HTML::script('assets/js/jquery.v2.0.3.js') }}
 
+
     {{ HTML::script('https://www.google.com/recaptcha/api.js') }}
+
+    <!-- Jquery Confirm -->
+{{--    {{ HTML::style('jquery-confirm/demo/libs/bootstrap.min.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}--}}
+{{--    {{ HTML::style('jquery-confirm/demo/libs/bootstrap-theme.min.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}--}}
+{{--    {{ HTML::style('jquery-confirm/demo/libs/font-awesome.min.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}--}}
+{{--    {{ HTML::style('jquery-confirm/demo/libs/default.min.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}--}}
+{{--    {{ HTML::style('jquery-confirm/demo/demo.min.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}--}}
+{{--    {{ HTML::script('jquery-confirm/demo/libs/jquery.min.js') }}--}}
+{{--    {{ HTML::script('jquery-confirm/demo/libs/bootstrap.min.js') }}--}}
+    {{--{{ HTML::script('jquery-confirm/demo/libs/pretty.js') }}--}}
+
+    {{ HTML::style('jquery-confirm/css/jquery-confirm.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+    {{ HTML::script('jquery-confirm/js/jquery-confirm.js') }}
 
     @yield('custom_style')
 
+    <style type="text/css">
+        body{
+            overflow-x: hidden;
+        }
+    </style>
 </head>
 
 @yield('content')
@@ -74,7 +93,6 @@
 <!-- Nicescroll  -->
 {{ HTML::script('assets/js/jquery.nicescroll.min.js') }}
 
-
 <!-- CarouFredSel -->
 {{ HTML::script('assets/js/jquery.carouFredSel-6.2.1-packed.js') }}
 {{ HTML::script('assets/js/helper-plugins/jquery.touchSwipe.min.js') }}
@@ -87,6 +105,9 @@
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 {{ HTML::script('dist/js/bootstrap.min.js') }}
+
+<!-- Jquery Confirm -->
+{{--{{ HTML::script('jquery-confirm/demo/demo.min.js') }}--}}
 
 @yield('script')
 

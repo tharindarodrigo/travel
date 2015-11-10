@@ -29,9 +29,11 @@
 
     {{--my styles--}}
     {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
     <!-- Javascript -->
     {{ HTML::script('assets/js/js-details.js') }}
+    {{ HTML::script('assets/js/jquery.v2.0.3.js') }}
 
     <style type="text/css">
         .smile_img {
@@ -54,6 +56,74 @@
         #preferences p, li {
             color: #999 !important;
         }
+
+        .hot_facilities_icon {
+            display: inline;
+            opacity: 0.5;
+            width: 20px;
+            height: 20px;
+            border: #999 double 1px !important;
+            border-radius: 3px;
+            -webkit-transition: all 1s ease;
+            -moz-transition: all 1s ease;
+            -o-transition: all 1s ease;
+            -ms-transition: all 1s ease;
+            transition: all 1s ease;
+        }
+
+        .hot_facilities_icon:hover {
+            display: inline;
+            opacity: 1;
+            color: #000000 !important;
+        }
+
+        .model_room {
+            width: 240px;
+            height: 180px;
+        }
+
+        .modal-dialog {
+            width: 800px !important;
+        }
+
+        .modal {
+            /*margin-left: -50px;*/
+            height: 800px;
+        }
+
+        @media (max-width: 767px) {
+            .modal {
+                width: auto;
+                margin-left: auto;
+            }
+        }
+
+        .modal-body {
+            overflow: hidden;
+        }
+
+        .room_right_model {
+            width: 35%;
+            float: left;
+            height: 400px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .room_left_model {
+            float: left;
+            width: 60%;
+        }
+
+        .room_right_model h5 {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #000000;
+        }
+
+        .room_right_model p {
+            font-size: 12px;
+        }
+
     </style>
 
     <script type="text/javascript">
@@ -74,7 +144,6 @@
         });
 
     </script>
-
 
 @endsection
 
@@ -111,12 +180,9 @@
     <div class="container">
         <div class="container pagecontainer offset-0">
 
-            @foreach($hotel as $details)
-
-                <!-- SLIDER -->
-
-                <div class="col-md-8 details-slider">
-
+            <!-- SLIDER -->
+            <div class="col-md-8 details-slider">
+                @foreach($hotel as $details)
                     <div id="c-carousel">
                         <div id="wrapper">
                             <div id="inner">
@@ -148,72 +214,70 @@
                         </div>
                     </div>
                     <!-- /carousel -->
+                @endforeach
+            </div>
+            <!-- END OF SLIDER -->
+
+            <!-- RIGHT INFO -->
+            <div class="col-md-4 detailsright offset-0">
+                <div class="padding20">
+
+                    <h2 class="" style="color: #006699">{{ $details->name }}</h2>
+                    <span class="size14 grey"> {{ $details->address }} </span>
+                    <br/>
+                    <?php
+                    $stars = $details->star_category_id;
+                    $star = DB::table('star_categories')->where('id', $stars)->first();
+                    $hotel_star = $star->stars;
+                    ?>
+
+                    {{ Star::star_loop_yellow($hotel_star)}}
 
                 </div>
 
-                <!-- END OF SLIDER -->
+                <div class="line3"></div>
 
+                <div class="hpadding20">
+                    <h2 class="opensans slim green2">wonderful...!!</h2>
+                </div>
+
+                @foreach($details->hotelReview as $review)
+                    <div class="hpadding20">
+                        {{--<h2 class="opensans slim green2">{{ $review->review.' !'; }}</h2>--}}
+                    </div>
                 @endforeach
 
-                        <!-- RIGHT INFO -->
-                <div class="col-md-4 detailsright offset-0">
-                    <div class="padding20">
+                <div class="line3 margtop20"></div>
 
-                        <h2 class="" style="color: #006699">{{ $details->name }}</h2>
-                        <?php
-                        $stars = $details->star_category_id;
-                        $star = DB::table('star_categories')->where('id', $stars)->first();
-                        $hotel_star = $star->stars;
-                        ?>
-
-                        {{ Star::star_loop_yellow($hotel_star)}}
-
-                    </div>
-
-                    <div class="line3"></div>
-
-                    <div class="hpadding20">
-                        <h2 class="opensans slim green2">wonderful...!!</h2>
-                    </div>
-
-                    @foreach($details->hotelReview as $review)
-                        <div class="hpadding20">
-                            {{--<h2 class="opensans slim green2">{{ $review->review.' !'; }}</h2>--}}
-                        </div>
-                        <?php break; ?>
-                    @endforeach
-
-                    <div class="line3 margtop20"></div>
-
-                    <div class="col-md-6 bordertype1 padding20">
-                        <span class="opensans size30 bold grey2">97%</span><br/>
-                        of guests<br/>recommend
-                    </div>
-                    <div class="col-md-6 bordertype2 padding20">
-                        <span class="opensans size30 bold grey2">4.5</span>/5<br/>
-                        guest ratings
-                    </div>
-                    <?php
-                    $get_reviews_count = DB::table('hotel_reviews')->where('hotel_id', $hotel_id)->count();
-                    ?>
-                    {{ Form::hidden('rate_hotel_id2', $hotel_id , array('class' => 'hidden_hotel_id2') ) }}
-                    <div class="col-md-6 bordertype3">
-                        {{ HTML::image('images/site/smile.png', '', array('class'=>'smile_img')) }}<br/>
-                        {{ $get_reviews_count }} reviews
-                    </div>
-                    <div class="col-md-6 bordertype3">
-                        <a href="#" class="grey">+Add review</a>
-                    </div>
-                    <div class="clearfix"></div>
-                    <br/>
-
-                    <div class="hpadding20">
-                        <a href="#" class="add2fav margtop5">Add to favourite</a>
-                        <a href="#" class="booknow margtop20 btnmarg">Book now</a>
-                    </div>
-                    <br/>
+                <div class="col-md-6 bordertype1 padding20">
+                    <span class="opensans size30 bold grey2">97%</span><br/>
+                    of guests<br/>recommend
                 </div>
-                <!-- END OF RIGHT INFO -->
+                <div class="col-md-6 bordertype2 padding20">
+                    <span class="opensans size30 bold grey2">4.5</span>/5<br/>
+                    guest ratings
+                </div>
+                <?php
+                $get_reviews_count = DB::table('hotel_reviews')->where('hotel_id', $hotel_id)->count();
+                ?>
+                {{ Form::hidden('rate_hotel_id2', $hotel_id , array('class' => 'hidden_hotel_id2') ) }}
+                <div class="col-md-6 bordertype3">
+                    {{ HTML::image('images/site/smile.png', '', array('class'=>'smile_img')) }}<br/>
+                    {{ $get_reviews_count }} reviews
+                </div>
+                <div class="col-md-6 bordertype3">
+                    <a href="#" class="grey">+Add review</a>
+                </div>
+                <div class="clearfix"></div>
+                <br/>
+
+                <div class="hpadding20">
+                    <a href="#" class="add2fav margtop5">Add to favourite</a>
+                    <a href="#" class="booknow margtop20 btnmarg">Book now</a>
+                </div>
+                <br/>
+            </div>
+            <!-- END OF RIGHT INFO -->
 
         </div>
         <!-- END OF container-->
@@ -229,7 +293,7 @@
                     <li onclick="mySelectUpdate()" class="active"><a data-toggle="tab" href="#roomrates"><span
                                     class="rates"></span><span class="hidetext">Room rates</span>&nbsp;</a></li>
                     <li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#preferences"><span
-                                    class="preferences"></span><span class="hidetext">Preferences</span>&nbsp;</a>
+                                    class="preferences"></span><span class="hidetext">Facilities</span>&nbsp;</a>
                     </li>
                     <li onclick="loadScript()" class=""><a data-toggle="tab" href="#maps" id=""><span
                                     class="maps"></span><span
@@ -242,210 +306,456 @@
                 </ul>
 
                 <div class="tab-content4">
+                    <!-- TAB 1 -->
 
-                    @foreach($rooms as $room)
+                    <div id="summary" class="tab-pane fade ">
+                        <div class="container">
+                            <p class="hpadding20">
+                                {{ Hotel::where('id', $hotel_id)->first()->overview }}
+                            </p>
+                        </div>
+                        <div class="line4"></div>
 
-                        <!-- TAB 1 -->
+                        <!-- Collapse 3 -->
+                        <button type="button" class="collapsebtn2 collapsed" data-toggle="collapse"
+                                data-target="#collapse3">
+                            Hotel Facilities <span class="collapsearrow"></span>
+                        </button>
 
-                        <div id="summary" class="tab-pane fade ">
-                            <div class="container">
-                                <p class="hpadding20">
-                                    {{ $details->overview }}
-                                </p>
+                        <div id="collapse3" class="collapse in">
+                            <div class="hpadding20">
+                                @foreach($details->HotelFacility as $facilities)
+                                    <div class="col-md-4">
+                                        <ul class="checklist">
+                                            <li> {{ $facilities->hotel_facility }} </li>
+                                        </ul>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <!-- End of collapse 3 -->
+                    </div>
+
+                    <!-- TAB 2 -->
+                    <div id="roomrates" class="tab-pane fade active in">
+                        <div class="hpadding20">
+                            <p class="dark">Your travel rates</p>
+                            <?php  $city = Request::segment(2); ?>
+                            {{ Form::open(array('url' => '/sri-lanka/'.$city.'/'.str_replace(' ', '-', $details->name), 'method' => 'POST', 'id'=>'details_form')) }}
+
+                            <div id="select_your_date" class="col-md-4 offset-0">
+                                <div class="w50percent">
+                                    <div class="wh90percent textleft">
+                                        <span class="opensans size13"><b>Check in</b></span>
+                                        <input type="text" name="check_in_date"
+                                               class="form-control mySelectCalendar chk_in"
+                                               id="datepicker"
+                                               value="{{ Session::has('st_date') ? Session::get('st_date') : '' }}"/>
+                                    </div>
+                                </div>
+
+                                <div class="w50percentlast">
+                                    <div class="wh90percent textleft right">
+                                        <span class="opensans size13"><b>Check out</b></span>
+                                        <input type="text" name="check_out_date"
+                                               class="form-control mySelectCalendar chk_out"
+                                               id="datepicker2"
+                                               value="{{ Session::has('ed_date') ? Session::get('ed_date') : '' }}"/>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="line4"></div>
+                            <div class="col-md-8 offset-0">
+                                <div class="col-md-8 ">
+
+                                    <div class="room1">
+
+                                        <div class="w50percentlast">
+                                            <div class="wh90percent textleft right ohidden">
+                                                <div class="w50percent">
+                                                    <div class="wh90percent textleft left">
+                                                        <span class="opensans size13"><b>Adult</b></span>
+                                                        <select class="form-control mySelectBoxClass" name="adult"
+                                                                id="change_adult">
+                                                            <option value="1" {{ Session::get('adult') == 1 ? 'selected' : '' }}>
+                                                                1
+                                                            </option>
+                                                            <option value="2" {{ Session::get('adult') == 2 ? 'selected' : '' }}>
+                                                                2
+                                                            </option>
+                                                            <option value="3" {{ Session::get('adult') == 3 ? 'selected' : '' }}>
+                                                                3
+                                                            </option>
+                                                            <option value="4" {{ Session::get('adult') == 4 ? 'selected' : '' }}>
+                                                                4
+                                                            </option>
+                                                            <option value="5" {{ Session::get('adult') == 5 ? 'selected' : '' }}>
+                                                                5
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="w50percentlast">
+                                                    <div class="wh90percent textleft right ohidden">
+                                                        <span class="opensans size13"><b>Child</b></span>
+                                                        <select class="form-control mySelectBoxClass" name="child"
+                                                                id="change_child">
+                                                            <option value="0" {{ Session::get('child') == 0 ? 'selected' : '' }}>
+                                                                0
+                                                            </option>
+                                                            <option value="1" {{ Session::get('child') == 1 ? 'selected' : '' }}>
+                                                                1
+                                                            </option>
+                                                            <option value="2" {{ Session::get('child') == 2 ? 'selected' : '' }}>
+                                                                2
+                                                            </option>
+                                                            <option value="3" {{ Session::get('child') == 3 ? 'selected' : '' }}>
+                                                                3
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4 center offset-0 left">
+                                    <input type="submit" value="Update" class="updatebtn caps center margtop20"/>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            {{ Form::close() }}
 
                         </div>
+                        <br/>
 
-                        @endforeach
+                        <p class="hpadding20 dark">Room Types</p>
 
-                                <!-- TAB 2 -->
-                        <div id="roomrates" class="tab-pane fade active in">
-                            <div class="hpadding20">
-                                <p class="dark">Your travel rates</p>
-                                <?php  $city = Request::segment(2); ?>
-                                {{ Form::open(array('url' => '/sri-lanka/'.$city.'/'.str_replace(' ', '-', $details->name), 'method' => 'POST', 'id'=>'details_form')) }}
+                        <div class="line2"></div>
+                        <?php $x = 0; $i = 0; $n = 0; ?>
+                        @foreach($rooms as $hot_room)
+                            <?php $n = $n + 1;
+                            $room_id = $hot_room->id;
+                            $from_date = date('Y-m-d', strtotime(str_replace('-', '/', $st_date)));
+                            $to_date = date('Y-m-d', strtotime(str_replace('-', '/', $ed_date)));
 
-                                <div id="select_your_date" class="col-md-4 offset-0">
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft">
-                                            <span class="opensans size13"><b>Check in</b></span>
-                                            <input type="text" name="check_in_date"
-                                                   class="form-control mySelectCalendar chk_in"
-                                                   id="datepicker"
-                                                   value="{{ Session::has('st_date') ? Session::get('st_date') : '' }}"/>
+                            if ((!empty($rooms)) && (Session::has('st_date'))) {
+                                $room_types = Rate::whereHas('RoomSpecification', function ($a) {
+                                    $a->where('adults', 'LIKE', Session::get('adult'));
+                                    $a->where('children', 'LIKE', Session::get('child'));
+                                })
+                                        ->where('room_type_id', $room_id)
+                                        ->where('market_id', $market)
+                                        ->where('from', '<=', $from_date)
+                                        ->where('to', '>=', $from_date)
+                                        ->get();
+                            } else {
+                                $room_types = Rate::with('RoomSpecification')
+                                        ->where('room_type_id', '=', $room_id)
+                                        ->get();
+                            }
+
+                            $directory = 'public/images/room_images/';
+                            $images = glob($directory . $room_id . ".*");
+                            $img_path = array_shift($images);
+                            $img_name = basename($img_path);
+                            ?>
+
+                            @if(count($room_types) > 0)
+
+                                @foreach($room_types as $room)
+
+                                    <?php $low_room_rate = RoomRates::lowestRoomRateWithTax($hotel_id, $room_id, $room->room_specification_id, $room->meal_basis_id, $st_date, $ed_date); ?>
+                                    <div id="room_id" room_id="{{ $room_id }}" class="padding20 get_room_id"
+                                         style="padding-bottom: 10px !important;">
+
+                                        {{ Form::hidden('rate_hotel_id', $room->hotel_id , array('class' => 'hidden_hotel_id') ) }}
+                                        <div class="col-md-4 offset-0">
+                                            <a href="#">
+                                                @if(count($img_path)>0)
+                                                    {{ HTML::image('images/room_images/'.$img_name, '', array('class' => 'fwimg'))}}
+                                                @else
+                                                    {{ HTML::image('images/no-image.jpg', '', array('class' => 'fwimg')) }}
+                                                @endif
+                                            </a>
+
+                                            <div style="padding-top: 5px; padding-left: 20%">
+                                                <a data-toggle="modal" data-target="#myModal{{ $room_id }}"
+                                                   class="lred bold" href="">Check Room Details</a>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right">
-                                            <span class="opensans size13"><b>Check out</b></span>
-                                            <input type="text" name="check_out_date"
-                                                   class="form-control mySelectCalendar chk_out"
-                                                   id="datepicker2"
-                                                   value="{{ Session::has('ed_date') ? Session::get('ed_date') : '' }}"/>
-                                        </div>
-                                    </div>
-                                </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="myModal{{ $room_id }}" tabindex="-1"
+                                             role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close"><span
+                                                                    aria-hidden="true">&times;</span></button>
+                                                        <h4 style="display: inline" class="modal-title"
+                                                            id="myModalLabel">
+                                                            {{ Hotel::where('id', $hotel_id)->first()->name }}
+                                                        </h4>
+                                                        -
+                                                        <h5 style="display: inline">
+                                                            {{ $room->RoomType->room_type }}
+                                                        </h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="room_left_model col-md-5">
+                                                                <div style="padding: 10px">
+                                                                    @if(count($img_path)>0)
+                                                                        {{ HTML::image('images/room_images/'.$img_name, '', array('class' => 'model_room'))}}
+                                                                    @else
+                                                                        {{ HTML::image('images/no-image.jpg', '', array('class' => 'model_room')) }}
+                                                                    @endif
+                                                                </div>
+                                                                <div style="padding: 10px; text-align: center">
+                                                                    {{ Room::roomTypeImage(Session::get('adult'), Session::get('child')) }}
+                                                                </div>
 
-                                <div class="col-md-8 offset-0">
-                                    <div class="col-md-8 ">
+                                                                <div class="green"
+                                                                     style="font-size: 20px; padding: 10px; text-align: center">
+                                                                    {{ Session::get('currency') . '&nbsp;' . number_format(($low_room_rate * Session::get('currency_rate')), 2, '.', '') }}
+                                                                </div>
 
-                                        <div class="room1">
+                                                            </div>
 
-                                            <div class="w50percentlast">
-                                                <div class="wh90percent textleft right ohidden">
-                                                    <div class="w50percent">
-                                                        <div class="wh90percent textleft left">
-                                                            <span class="opensans size13"><b>Adult</b></span>
-                                                            <select class="form-control mySelectBoxClass" name="adult"
-                                                                    id="change_adult">
-                                                                <option value="1" {{ Session::get('adult') == 1 ? 'selected' : '' }}>
-                                                                    1
-                                                                </option>
-                                                                <option value="2" {{ Session::get('adult') == 2 ? 'selected' : '' }}>
-                                                                    2
-                                                                </option>
-                                                                <option value="3" {{ Session::get('adult') == 3 ? 'selected' : '' }}>
-                                                                    3
-                                                                </option>
-                                                                <option value="4" {{ Session::get('adult') == 4 ? 'selected' : '' }}>
-                                                                    4
-                                                                </option>
-                                                                <option value="5" {{ Session::get('adult') == 5 ? 'selected' : '' }}>
-                                                                    5
-                                                                </option>
-                                                            </select>
+                                                            <div class="room_right_model col-md-7">
+
+                                                                <div>
+                                                                    <h5>Description</h5>
+
+                                                                    <p>
+                                                                        {{ strip_tags($room->RoomType->description) }}
+                                                                    </p>
+                                                                </div>
+
+                                                                <div class="offset-2">
+                                                                    <hr class="featurette-divider3">
+                                                                </div>
+
+                                                                <div>
+                                                                    <h5>Child Policy</h5>
+
+                                                                    <p>
+                                                                        Children below 0 years are charged 0% of the
+                                                                        adult rate
+                                                                        Children between 0 and 0 years are charged
+                                                                        0% of the adult rate
+                                                                        Age above 0 years are considered as Adults
+                                                                    </p>
+                                                                </div>
+
+                                                                <div class="offset-2">
+                                                                    <hr class="featurette-divider3">
+                                                                </div>
+
+                                                                <div>
+                                                                    <h5>Cancellation Policy </h5>
+
+                                                                    <p>
+                                                                        <strong style="color:#AF0B63;">You are in
+                                                                            the cancellation
+                                                                            period. Please refer the cancellation
+                                                                            policy</strong>.<br><br>
+
+                                                                        Before {{ (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->to) - (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->from) }}
+                                                                        days no cancellation.<br>
+                                                                        Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->from; }}
+                                                                        - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->to; }}
+                                                                        days 50% cancellation of the
+                                                                        <br/>
+                                                                        Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->from; }}
+                                                                        - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->to; }}
+                                                                        days 25% cancellation of the
+                                                                        total invoice value.<br>
+                                                                        Less
+                                                                        than {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 0)->first()->from; }}
+                                                                        days 100 % cancellation of the
+                                                                        total invoice value.<br>
+                                                                        No shows &amp; early departures 100%
+                                                                        cancellation of the total invoice value.
+
+                                                                    </p>
+                                                                </div>
+
+                                                                <div class="offset-2">
+                                                                    <hr class="featurette-divider3">
+                                                                </div>
+
+                                                                <div>
+                                                                    <h5>Facilities</h5>
+
+                                                                    @foreach($hot_room->RoomFacility as $facilities)
+                                                                        <div class="col-md-6">
+                                                                            <ul class="checklist">
+                                                                                <li style="font-size: 12px"> {{ $facilities->room_facility }} </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    @endforeach
+
+                                                                </div>
+
+                                                                <div class="offset-2">
+                                                                    <hr class="featurette-divider3">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="w50percentlast">
-                                                        <div class="wh90percent textleft right ohidden">
-                                                            <span class="opensans size13"><b>Child</b></span>
-                                                            <select class="form-control mySelectBoxClass" name="child"
-                                                                    id="change_child">
-                                                                <option value="0" {{ Session::get('child') == 0 ? 'selected' : '' }}>
-                                                                    0
-                                                                </option>
-                                                                <option value="1" {{ Session::get('child') == 1 ? 'selected' : '' }}>
-                                                                    1
-                                                                </option>
-                                                                <option value="2" {{ Session::get('child') == 2 ? 'selected' : '' }}>
-                                                                    2
-                                                                </option>
-                                                                <option value="3" {{ Session::get('child') == 3 ? 'selected' : '' }}>
-                                                                    3
-                                                                </option>
-                                                            </select>
-                                                        </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default"
+                                                                data-dismiss="modal">Close
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
 
-                                    </div>
+                                        <div class="col-md-8 offset-0">
+                                            <div class="col-md-8 mediafix1">
 
-                                    <div class="col-md-4 center offset-0 left">
-                                        <input type="submit" value="Update" class="updatebtn caps center margtop20"/>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
+                                                <h4 style="display: inline; !important;"
+                                                    class="opensans dark bold margtop1 lh1">
+                                                    {{ $room->RoomType->room_type }}
+                                                </h4> -
+                                                <h5 style="color: #0099cc !important; display: inline; !important;"> {{ $room->RoomSpecification->room_specification }}
+                                                    Room
+                                                </h5>
 
-                                {{ Form::close() }}
 
-                            </div>
-                            <br/>
+                                                <h5>{{ $room->MealBasis->meal_basis_name }}</h5>
+                                                <?php $t = 0;?>
+                                                @foreach($hot_room->RoomFacility as $facilities)
+                                                    <?php
+                                                    //echo public_path();
+                                                    $directory1 = 'public/images/room_facilities/';
+                                                    $images1 = glob($directory1 . $facilities->id . "*");
+                                                    $img_path1 = array_shift($images1);
+                                                    $img_name1 = basename($img_path1);
+                                                    ?>
 
-                            <p class="hpadding20 dark">Room Types</p>
-
-                            <div class="line2"></div>
-                            <?php $x = 0; ?>
-                            @foreach($rooms as $hot_room)
-                                <?php
-                                $room_id = $hot_room->id;
-                                $from_date = date('Y-m-d', strtotime(str_replace('-', '/', $st_date)));
-                                $to_date = date('Y-m-d', strtotime(str_replace('-', '/', $ed_date)));
-
-                                if (Session::has('st_date')) {
-                                    $room_types = Rate::whereHas('RoomSpecification', function ($a) {
-                                        $a->where('adults', 'LIKE', Session::get('adult'));
-                                        $a->where('children', 'LIKE', Session::get('child'));
-                                    })
-                                            ->where('room_type_id', '=', $room_id)
-                                            ->where('from', '<=', $from_date)
-                                            ->where('to', '>=', $from_date)
-                                            ->get();
-                                } else {
-                                    $room_types = Rate::with('RoomSpecification')
-                                            ->where('room_type_id', '=', $room_id)
-                                            ->get();
-                                }
-
-                                $directory = 'public/images/room_images/';
-                                $images = glob($directory . $room_id . ".*");
-                                $img_path = array_shift($images);
-                                $img_name = basename($img_path);
-                                ?>
-
-                                @if(count($room_types) > 0)
-                                    @foreach($room_types as $room)
-
-                                        <?php $low_room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room->room_specification_id, $room->meal_basis_id, $st_date, $ed_date); ?>
-                                        <div id="room_id" room_id="{{ $room_id }}" class="padding20 get_room_id">
-                                            {{ Form::hidden('rate_hotel_id', $room->hotel_id , array('class' => 'hidden_hotel_id') ) }}
-                                            <div class="col-md-4 offset-0">
-                                                <a href="#">
-                                                    @if(count($img_path)>0)
-                                                        {{ HTML::image('images/room_images/'.$img_name, '', array('class' => 'fwimg'))}}
-                                                    @else
-                                                        {{ HTML::image('images/no-image.jpg', '', array('class' => 'fwimg')) }}
+                                                    @if($t<11)
+                                                        {{ HTML::image('images/room_facilities/'.$img_name1, '', array('class' => 'hot_facilities_icon'))}}
                                                     @endif
-                                                </a>
-                                            </div>
 
-                                            <div class="col-md-8 offset-0">
-                                                <div class="col-md-8 mediafix1">
+                                                    <?php $t = $t + 1; ?>
+                                                @endforeach
 
-                                        <span>
-                                            <h4 style="display: inline; !important;"
-                                                class="opensans dark bold margtop1 lh1"> {{ $room->RoomType->room_type }} </h4> -
-                                            <h5 style="color: #0099cc !important; display: inline; !important;"> {{ $room->RoomSpecification->room_specification }}
-                                                Room </h5>
-                                        </span>
+                                                <script>
+                                                    //Popover tooltips
+                                                    $(function () {
+                                                        $("#username<?php echo $x; ?>").popover({
+                                                            container: 'body',
+                                                            placement: 'top',
+                                                            trigger: 'hover',
+                                                            html: true,
+                                                            title: function () {
+                                                                return $('#popover_title_wrapper<?php echo $x; ?>').html();
+                                                            },
+                                                            content: function () {
+                                                                return $('#popover_content_wrapper<?php echo $x; ?>').html();
+                                                            }
+                                                        });
+                                                    });
+                                                </script>
 
-                                                    <h5>{{ $room->MealBasis->meal_basis_name }}</h5>
-
-                                                    <ul class="hotelpreferences margtop10">
-                                                        <li class="icohp-internet"></li>
-                                                        <li class="icohp-air"></li>
-                                                        <li class="icohp-pool"></li>
-                                                        <li class="icohp-childcare"></li>
-                                                        <li class="icohp-fitness"></li>
-                                                        <li class="icohp-breakfast"></li>
-                                                        <li class="icohp-parking"></li>
-                                                    </ul>
-
-                                                    <div class="clearfix"></div>
-
-                                                    <ul class="checklist2 margtop10">
-                                                        <li>FREE Cancellation</li>
-                                                        <li>Pay at hotel or pay today</li>
-                                                    </ul>
+                                                <div id="popover_title_wrapper{{ $x }}" style="display: none">
+                                                    <h4 style="color: #006699"> Cancellation Policy </h4>
                                                 </div>
 
-                                                @if(Session::has('st_date'))
+                                                <div id="popover_content_wrapper{{ $x }}" style="display: none">
+                                                    <div>
 
-                                                    <div class="col-md-4 center bordertype4">
-                                                        @if($low_room_rate > 0 )
-                                                            <span class="opensans green size24">  {{ Session::get('currency') . '&nbsp;' . number_format(($low_room_rate * Session::get('currency_rate')), 2, '.', '') }}</span>
+                                                        <p>
+                                                            <strong style="color:#AF0B63;">You are in
+                                                                the cancellation
+                                                                period. Please refer the cancellation
+                                                                policy</strong>.<br><br>
+
+                                                            Before {{ (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->to) - (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->from) }}
+                                                            days no cancellation.<br><br>
+                                                            Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->from; }}
+                                                            - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->to; }}
+                                                            days 50% cancellation of the total invoice value.
+                                                            <br/><br>
+                                                            Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->from; }}
+                                                            - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->to; }}
+                                                            days 25% cancellation of the total invoice value.<br><br>
+                                                            Less
+                                                            than {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 0)->first()->from; }}
+                                                            days 100 % cancellation of the total invoice value.<br><br>
+                                                            No shows &amp; early departures 100% cancellation of the
+                                                            total invoice value.
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <ul class="checklist2 margtop10">
+                                                    <li>FREE Cancellation
+                                                        <a href="#"
+                                                           class="popover1 glyphicon glyphicon-info-sign lblue cpointer"
+                                                           rel="popover" id="username{{ $x }}"
+                                                           data-content="" data-title="">
+                                                        </a>
+
+                                                    </li>
+                                                    @if($market == 1)
+                                                        <li>Pay at hotel or pay today</li>
+                                                    @endif
+                                                </ul>
+                                                <br/>
+
+                                                @if($market == 1)
+                                                    <span class="green size12">All Tax 16.7% and 10% service charge Not included</span>
+                                                @endif
+                                            </div>
+
+
+                                            @if(Session::has('st_date'))
+
+                                                <div class="col-md-4 center bordertype4">
+                                                    @if($low_room_rate > 0 )
+                                                        <span class="opensans green size24">  {{ Session::get('currency') . '&nbsp;' . number_format(($low_room_rate * Session::get('currency_rate')), 2, '.', '') }}</span>
+                                                        <br/>
+                                                        <span class="opensans lightgrey size12">avg/night</span>
+                                                        <br/>
+                                                        <br/>
+                                                        {{ Form::selectRange('number', 1, 10, null, ['class' => 'form-control mySelectBoxClass room_count', 'id' => $room_id.$room->meal_basis_id.$room->room_specification_id]) }}
+                                                        <br/>
+                                                        <?php
+                                                        $allotments = Allotments::allotmentsCount($room_id, Session::get('st_date'), Session::get('ed_date'));
+                                                        ?>
+                                                        @if(!empty($allotments) && ($allotments > 3))
                                                             <br/>
-                                                            <span class="opensans lightgrey size12">avg/night</span>
+                                                            <span class="green size12 bold">{{ $allotments }} Rooms Available</span>
+                                                            <br/><br/>
+                                                        @elseif(!empty($allotments) && ($allotments > 1))
                                                             <br/>
+                                                            <span class="lred size12 bold"> Last {{ $allotments }}
+                                                                Rooms</span>
+                                                            <br/><br/>
+                                                        @elseif(!empty($allotments) && ($allotments > 0))
                                                             <br/>
-                                                            {{ Form::selectRange('number', 1, 10, null, ['class' => 'form-control mySelectBoxClass room_count', 'id' => $room_id.$room->meal_basis_id.$room->room_specification_id]) }}
+                                                            <span class="red size12 bold"> Only One Left</span>
+                                                            <br/><br/>
+                                                        @else
                                                             <br/>
-                                                            <span class="lred bold">3 left</span><br/><br/>
+                                                            <span class="red size12 bold">No Rooms Available</span>
+                                                            <br/><br/>
+                                                        @endif
+
+                                                        @if(!empty($allotments) && ($allotments > 0))
                                                             {{ Form::hidden('room_meal_id', $room->meal_basis_id , array('class' => 'hidden_room_meal_id') ) }}
                                                             <button id="room_book{{ $x }}"
                                                                     class="room_book_summery bookbtn mt1"
@@ -454,460 +764,474 @@
                                                             </button>
                                                             {{ Form::hidden('room_specification_id', $room->room_specification_id , array('class' => 'hidden_room_specification_id') ) }}
                                                         @else
-                                                            <div class="padding20">
-                                                                {{ HTML::image('images/site/rates are not available.jpg', '', array('class' => 'no_rate_img')) }}
-                                                            </div>
+                                                            <a class="bookbtn mt1" href="{{URL::to('/contact')}}">
+                                                                Send Inquiry
+                                                            </a>
                                                         @endif
+                                                    @else
+                                                        <div class="padding20">
+                                                            {{ HTML::image('images/site/rates are not available.jpg', '', array('class' => 'no_rate_img')) }}
+                                                        </div>
+                                                    @endif
 
-                                                    </div>
-                                                @else
-                                                    <div class="col-md-4 center bordertype4">
-                                                        <button id="date_select_button" class="bookbtn mt1">Select Date
-                                                        </button>
-                                                    </div>
-                                                @endif
-                                            </div>
-
-                                            <div class="clearfix"></div>
-
+                                                </div>
+                                            @else
+                                                <div class="col-md-4 center bordertype4">
+                                                    <button id="date_select_button" class="bookbtn mt1">Select Date
+                                                    </button>
+                                                </div>
+                                            @endif
                                         </div>
 
-                                        <div class="line2"></div>
+                                        <div class="clearfix"></div>
 
-                                        <?php $x = $x + 1; ?>
-                                    @endforeach
+                                    </div>
 
-                                @else
+                                    <div class="line2"></div>
 
-                                    <?php break; ?>
-                                @endif
+                                    <?php $x = $x + 1; ?>
 
-                            @endforeach
+                                @endforeach
 
-                        </div>
+                            @else
+                                <?php $i = $i + 1; ?>
+                            @endif
 
-                        <!-- TAB 3 -->
-                        <div id="preferences" class="tab-pane fade">
+                        @endforeach
 
-                            <!-- Collapse 6 -->
-                            <button type="button" class="collapsebtn2" data-toggle="collapse"
-                                    data-target="#collapse6">
-                                Room Facility <span class="collapsearrow"></span>
-                            </button>
+                        @if($n == $i)
+                            {{ HTML::image('images/site/rates are not available.jpg', '', array('class' => 'no_rate_img')) }}
+                        @endif
 
-                            <div id="collapse6" class="collapse in">
-                                <div class="hpadding20">
-                                    @foreach($rooms as $room)
-                                        @foreach($room->RoomFacility as $facilities)
-                                            <div class="col-md-4">
-                                                <ul class="checklist">
-                                                    <li> {{ $facilities->room_facility }} </li>
-                                                </ul>
-                                            </div>
-                                        @endforeach
-                                    @endforeach
-                                </div>
-                                <div class="clearfix"></div>
+                    </div>
+
+                    <!-- TAB 3 -->
+                    <div id="preferences" class="tab-pane fade">
+
+                        <!-- Collapse 3 -->
+                        <button type="button" class="collapsebtn2 collapsed" data-toggle="collapse"
+                                data-target="#collapse3">
+                            Hotel Facilities <span class="collapsearrow"></span>
+                        </button>
+
+                        <div id="collapse3" class="collapse in">
+                            <div class="hpadding20">
+                                @foreach($details->HotelFacility as $facilities)
+                                    <div class="col-md-4">
+                                        <ul class="checklist">
+                                            <li> {{ $facilities->hotel_facility }} </li>
+                                        </ul>
+                                    </div>
+                                @endforeach
                             </div>
-                            <!-- End of collapse 6 -->
+                            <div class="clearfix"></div>
+                        </div>
+                        <!-- End of collapse 3 -->
 
-                            <div class="line4"></div>
+                        <div class="line4"></div>
 
-                            <!-- Collapse 3 -->
-                            <button type="button" class="collapsebtn2 collapsed" data-toggle="collapse"
-                                    data-target="#collapse3">
-                                Hotel Facilities <span class="collapsearrow"></span>
-                            </button>
+                        <!-- Collapse 6 -->
+                        <button type="button" class="collapsebtn2" data-toggle="collapse"
+                                data-target="#collapse6">
+                            Room Facility <span class="collapsearrow"></span>
+                        </button>
 
-                            <div id="collapse3" class="collapse">
-                                <div class="hpadding20">
-                                    @foreach($details->HotelFacility as $facilities)
+                        <div id="collapse6" class="collapse in">
+                            <div class="hpadding20">
+                                @foreach($rooms as $room)
+                                    @foreach($room->RoomFacility as $facilities)
                                         <div class="col-md-4">
                                             <ul class="checklist">
-                                                <li> {{ $facilities->hotel_facility }} </li>
+                                                <li> {{ $facilities->room_facility }} </li>
                                             </ul>
                                         </div>
                                     @endforeach
+                                @endforeach
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <!-- End of collapse 6 -->
+
+                        <div class="line4"></div>
+
+                    </div>
+
+                    <!-- TAB 4 -->
+                    <div id="maps" class="tab-pane fade">
+                        <div class="hpadding20">
+                            <div id="map-canvas"></div>
+                        </div>
+                        <input type="hidden" id="get_map" value="{{ $hotel_id }}">
+                    </div>
+
+                    <!-- TAB 5 -->
+                    <div id="reviews" class="tab-pane fade ">
+                        <div class="hpadding20">
+                            <div class="col-md-4 offset-0">
+                                <span class="opensans dark size60 slim lh3 ">4.5/5</span><br/>
+                                <img src="images/user-rating-4.png" alt=""/>
+                            </div>
+                            <div class="col-md-8 offset-0">
+                                <div class="progress progress-striped">
+                                    <div class="progress-bar progress-bar-success wh75percent" role="progressbar"
+                                         aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                        <span class="sr-only">4.5 out of 5</span>
+                                    </div>
+                                </div>
+                                <div class="progress progress-striped">
+                                    <div class="progress-bar progress-bar-success wh100percent" role="progressbar"
+                                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                        <span class="sr-only">100% of guests recommend</span>
+                                    </div>
                                 </div>
                                 <div class="clearfix"></div>
+                                Ratings based on 5 Verified Reviews
                             </div>
-                            <!-- End of collapse 3 -->
-
-                            <div class="line4"></div>
-
+                            <div class="clearfix"></div>
+                            <br/>
+                            <span class="opensans dark size16 bold">Average ratings</span>
                         </div>
 
-                        <!-- TAB 4 -->
-                        <div id="maps" class="tab-pane fade">
-                            <div class="hpadding20">
-                                <div id="map-canvas"></div>
-                            </div>
-                            <input type="hidden" id="get_map" value="{{ $hotel_id }}">
-                        </div>
+                        <div class="line4"></div>
 
-                        <!-- TAB 5 -->
-                        <div id="reviews" class="tab-pane fade ">
-                            <div class="hpadding20">
-                                <div class="col-md-4 offset-0">
-                                    <span class="opensans dark size60 slim lh3 ">4.5/5</span><br/>
-                                    <img src="images/user-rating-4.png" alt=""/>
-                                </div>
-                                <div class="col-md-8 offset-0">
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-success wh75percent" role="progressbar"
-                                             aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="sr-only">4.5 out of 5</span>
-                                        </div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-success wh100percent" role="progressbar"
-                                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="sr-only">100% of guests recommend</span>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    Ratings based on 5 Verified Reviews
-                                </div>
+                        <div class="hpadding20">
+                            <div class="col-md-4 offset-0">
+                                <div class="scircle left">4.4</div>
+                                <div class="sctext left margtop15">Cleanliness</div>
                                 <div class="clearfix"></div>
-                                <br/>
-                                <span class="opensans dark size16 bold">Average ratings</span>
-                            </div>
-
-                            <div class="line4"></div>
-
-                            <div class="hpadding20">
-                                <div class="col-md-4 offset-0">
-                                    <div class="scircle left">4.4</div>
-                                    <div class="sctext left margtop15">Cleanliness</div>
-                                    <div class="clearfix"></div>
-                                    <div class="scircle left">4.0</div>
-                                    <div class="sctext left margtop15">Service & staff</div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="col-md-4 offset-0">
-                                    <div class="scircle left">3.8</div>
-                                    <div class="sctext left margtop15">Room comfort</div>
-                                    <div class="clearfix"></div>
-                                    <div class="scircle left">4.4</div>
-                                    <div class="sctext left margtop15">Sleep Quality</div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="col-md-4 offset-0">
-                                    <div class="scircle left">4.2</div>
-                                    <div class="sctext left margtop15">Location</div>
-                                    <div class="clearfix"></div>
-                                    <div class="scircle left">4.4</div>
-                                    <div class="sctext left margtop15">Value for Price</div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="clearfix"></div>
-
-                                <br/>
-                                <span class="opensans dark size16 bold">Reviews</span>
-                            </div>
-
-                            <div class="line2"></div>
-
-                            <div class="hpadding20">
-                                <div class="col-md-4 offset-0 center">
-                                    <div class="padding20">
-                                        <div class="bordertype5">
-                                            <div class="circlewrap">
-                                                <img src="images/user-avatar.jpg" class="circleimg" alt=""/>
-                                                <span>4.5</span>
-                                            </div>
-                                            <span class="dark">by Sena</span><br/>
-                                            from London, UK<br/>
-                                            <img src="images/check.png" alt=""/><br/>
-                                            <span class="green">Recommended<br/>for Everyone</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-8 offset-0">
-                                    <div class="padding20">
-                                        <span class="opensans size16 dark">Great experience</span><br/>
-                                        <span class="opensans size13 lgrey">Posted Jun 02, 2013</span><br/>
-
-                                        <p>Excellent hotel, friendly staff would def go there again</p>
-                                        <ul class="circle-list">
-                                            <li>4.5</li>
-                                            <li>3.8</li>
-                                            <li>4.2</li>
-                                            <li>5.0</li>
-                                            <li>4.6</li>
-                                            <li>4.8</li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <div class="scircle left">4.0</div>
+                                <div class="sctext left margtop15">Service & staff</div>
                                 <div class="clearfix"></div>
                             </div>
-
-                            <div class="line2"></div>
-
-                            <div class="hpadding20">
-                                <div class="col-md-4 offset-0 center">
-                                    <div class="padding20">
-                                        <div class="bordertype5">
-                                            <div class="circlewrap">
-                                                <img src="images/user-avatar.jpg" class="circleimg" alt=""/>
-                                                <span>4.5</span>
-                                            </div>
-                                            <span class="dark">by Sena</span><br/>
-                                            from London, UK<br/>
-                                            <img src="images/check.png" alt=""/><br/>
-                                            <span class="green">Recommended<br/>for Everyone</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-8 offset-0">
-                                    <div class="padding20">
-                                        <span class="opensans size16 dark">Great experience</span><br/>
-                                        <span class="opensans size13 lgrey">Posted Jun 02, 2013</span><br/>
-
-                                        <p>The view from our balcony in room # 409, was terrific. It was centrally
-                                            located
-                                            to
-                                            everything on and around the port area. Wonderful service and everything was
-                                            very
-                                            clean. The breakfast was below average, although not bad. If back in Zante
-                                            Town
-                                            we
-                                            would stay there again.</p>
-                                        <ul class="circle-list">
-                                            <li>4.5</li>
-                                            <li>3.8</li>
-                                            <li>4.2</li>
-                                            <li>5.0</li>
-                                            <li>4.6</li>
-                                            <li>4.8</li>
-                                        </ul>
-                                    </div>
-                                </div>
+                            <div class="col-md-4 offset-0">
+                                <div class="scircle left">3.8</div>
+                                <div class="sctext left margtop15">Room comfort</div>
+                                <div class="clearfix"></div>
+                                <div class="scircle left">4.4</div>
+                                <div class="sctext left margtop15">Sleep Quality</div>
                                 <div class="clearfix"></div>
                             </div>
-
-                            <div class="line2"></div>
-
-                            <div class="hpadding20">
-                                <div class="col-md-4 offset-0 center">
-                                    <div class="padding20">
-                                        <div class="bordertype5">
-                                            <div class="circlewrap">
-                                                <img src="images/user-avatar.jpg" class="circleimg" alt=""/>
-                                                <span>4.5</span>
-                                            </div>
-                                            <span class="dark">by Sena</span><br/>
-                                            from London, UK<br/>
-                                            <img src="images/check.png" alt=""/><br/>
-                                            <span class="green">Recommended<br/>for Everyone</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-8 offset-0">
-                                    <div class="padding20">
-                                        <span class="opensans size16 dark">Great experience</span><br/>
-                                        <span class="opensans size13 lgrey">Posted Jun 02, 2013</span><br/>
-
-                                        <p>It is close to everything but if you go in the lower season the pool won't be
-                                            ready
-                                            even though the temperature was quiet high already.</p>
-                                        <ul class="circle-list">
-                                            <li>4.5</li>
-                                            <li>3.8</li>
-                                            <li>4.2</li>
-                                            <li>5.0</li>
-                                            <li>4.6</li>
-                                            <li>4.8</li>
-                                        </ul>
-                                    </div>
-                                </div>
+                            <div class="col-md-4 offset-0">
+                                <div class="scircle left">4.2</div>
+                                <div class="sctext left margtop15">Location</div>
                                 <div class="clearfix"></div>
-                            </div>
-
-                            <div class="line2"></div>
-                            <br/>
-                            <br/>
-
-                            <div class="hpadding20">
-                                <span class="opensans dark size16 bold">Reviews</span>
-                            </div>
-
-                            <div class="line2"></div>
-
-                            <div class="wh33percent left center">
-                                <ul class="jslidetext">
-                                    <li>Cleanliness</li>
-                                    <li>Room comfort</li>
-                                    <li>Location</li>
-                                    <li>Service & staff</li>
-                                    <li>Sleep quality</li>
-                                    <li>Value for Price</li>
-                                </ul>
-
-                                <ul class="jslidetext2">
-                                    <li>Username</li>
-                                    <li>Evaluation</li>
-                                    <li>Title</li>
-                                    <li>Comment</li>
-                                </ul>
-                            </div>
-
-                            <!-- bin/jquery.slider.min.js -->
-                            {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
-                            {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
-                            <!-- end -->
-
-                            <div class="wh66percent right offset-0">
-                                <script>
-                                    //This is a fix for when the slider is used in a hidden div
-                                    function testTriger() {
-                                        setTimeout(function () {
-                                            $(".cstyle01").resize();
-                                        }, 500);
-                                    }
-                                </script>
-                                <div class="padding20 relative wh70percent">
-                                    <div class="layout-slider wh100percent">
-                                <span class="cstyle01"><input id="Slider1" type="slider" name="price"
-                                                              value="0;4.2"/></span>
-                                    </div>
-                                    <script type="text/javascript">
-                                        function trigerJslider() {
-                                            jQuery("#Slider1").slider({
-                                                from: 0,
-                                                to: 5,
-                                                step: 0.1,
-                                                smooth: true,
-                                                round: 1,
-                                                dimension: "",
-                                                skin: "round"
-                                            });
-                                            testTriger();
-                                        }
-                                    </script>
-
-
-                                    <div class="layout-slider margtop10 wh100percent">
-                                <span class="cstyle01"><input id="Slider2" type="slider" name="price"
-                                                              value="0;5.0"/></span>
-                                    </div>
-                                    <script type="text/javascript">
-                                        function trigerJslider2() {
-                                            jQuery("#Slider2").slider({
-                                                from: 0,
-                                                to: 5,
-                                                step: 0.1,
-                                                smooth: true,
-                                                round: 1,
-                                                dimension: "",
-                                                skin: "round"
-                                            });
-                                        }
-                                    </script>
-
-                                    <div class="layout-slider margtop10 wh100percent">
-                                <span class="cstyle01"><input id="Slider3" type="slider" name="price"
-                                                              value="0;2.5"/></span>
-                                    </div>
-                                    <script type="text/javascript">
-                                        function trigerJslider3() {
-                                            jQuery("#Slider3").slider({
-                                                from: 0,
-                                                to: 5,
-                                                step: 0.1,
-                                                smooth: true,
-                                                round: 1,
-                                                dimension: "",
-                                                skin: "round"
-                                            });
-                                        }
-                                    </script>
-
-                                    <div class="layout-slider margtop10 wh100percent">
-                                <span class="cstyle01"><input id="Slider4" type="slider" name="price"
-                                                              value="0;3.8"/></span>
-                                    </div>
-                                    <script type="text/javascript">
-                                        function trigerJslider4() {
-                                            jQuery("#Slider4").slider({
-                                                from: 0,
-                                                to: 5,
-                                                step: 0.1,
-                                                smooth: true,
-                                                round: 1,
-                                                dimension: "",
-                                                skin: "round"
-                                            });
-                                        }
-                                    </script>
-
-                                    <div class="layout-slider margtop10 wh100percent">
-                                <span class="cstyle01"><input id="Slider5" type="slider" name="price"
-                                                              value="0;4.4"/></span>
-                                    </div>
-                                    <script type="text/javascript">
-                                        function trigerJslider5() {
-                                            jQuery("#Slider5").slider({
-                                                from: 0,
-                                                to: 5,
-                                                step: 0.1,
-                                                smooth: true,
-                                                round: 1,
-                                                dimension: "",
-                                                skin: "round"
-                                            });
-                                        }
-                                    </script>
-
-                                    <div class="layout-slider margtop10 wh100percent">
-                                <span class="cstyle01"><input id="Slider6" type="slider" name="price"
-                                                              value="0;4.0"/></span>
-                                    </div>
-                                    <script type="text/javascript">
-                                        function trigerJslider6() {
-                                            jQuery("#Slider6").slider({
-                                                from: 0,
-                                                to: 5,
-                                                step: 0.1,
-                                                smooth: true,
-                                                round: 1,
-                                                dimension: "",
-                                                skin: "round"
-                                            });
-                                        }
-                                    </script>
-
-                                    <input type="text" class="form-control margtop10" placeholder="">
-                                    <select class="form-control mySelectBoxClass margtop10">
-                                        <option selected>Wonderful!</option>
-                                        <option>Nice</option>
-                                        <option>Neutral</option>
-                                        <option>Don't recommend</option>
-                                    </select>
-                                    <input type="text" class="form-control margtop10" placeholder="">
-
-                                    <textarea class="form-control margtop10" rows="3"></textarea>
-
-                                    <div class="clearfix"></div>
-                                    <button type="submit" class="btn-search4 margtop20">Submit</button>
-
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-
-                                </div>
+                                <div class="scircle left">4.4</div>
+                                <div class="sctext left margtop15">Value for Price</div>
+                                <div class="clearfix"></div>
                             </div>
                             <div class="clearfix"></div>
 
+                            <br/>
+                            <span class="opensans dark size16 bold">Reviews</span>
                         </div>
+
+                        <div class="line2"></div>
+
+                        <div class="hpadding20">
+                            <div class="col-md-4 offset-0 center">
+                                <div class="padding20">
+                                    <div class="bordertype5">
+                                        <div class="circlewrap">
+                                            <img src="images/user-avatar.jpg" class="circleimg" alt=""/>
+                                            <span>4.5</span>
+                                        </div>
+                                        <span class="dark">by Sena</span><br/>
+                                        from London, UK<br/>
+                                        <img src="images/check.png" alt=""/><br/>
+                                        <span class="green">Recommended<br/>for Everyone</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-8 offset-0">
+                                <div class="padding20">
+                                    <span class="opensans size16 dark">Great experience</span><br/>
+                                    <span class="opensans size13 lgrey">Posted Jun 02, 2013</span><br/>
+
+                                    <p>Excellent hotel, friendly staff would def go there again</p>
+                                    <ul class="circle-list">
+                                        <li>4.5</li>
+                                        <li>3.8</li>
+                                        <li>4.2</li>
+                                        <li>5.0</li>
+                                        <li>4.6</li>
+                                        <li>4.8</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="line2"></div>
+
+                        <div class="hpadding20">
+                            <div class="col-md-4 offset-0 center">
+                                <div class="padding20">
+                                    <div class="bordertype5">
+                                        <div class="circlewrap">
+                                            <img src="images/user-avatar.jpg" class="circleimg" alt=""/>
+                                            <span>4.5</span>
+                                        </div>
+                                        <span class="dark">by Sena</span><br/>
+                                        from London, UK<br/>
+                                        <img src="images/check.png" alt=""/><br/>
+                                        <span class="green">Recommended<br/>for Everyone</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-8 offset-0">
+                                <div class="padding20">
+                                    <span class="opensans size16 dark">Great experience</span><br/>
+                                    <span class="opensans size13 lgrey">Posted Jun 02, 2013</span><br/>
+
+                                    <p>The view from our balcony in room # 409, was terrific. It was centrally
+                                        located
+                                        to
+                                        everything on and around the port area. Wonderful service and everything was
+                                        very
+                                        clean. The breakfast was below average, although not bad. If back in Zante
+                                        Town
+                                        we
+                                        would stay there again.</p>
+                                    <ul class="circle-list">
+                                        <li>4.5</li>
+                                        <li>3.8</li>
+                                        <li>4.2</li>
+                                        <li>5.0</li>
+                                        <li>4.6</li>
+                                        <li>4.8</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="line2"></div>
+
+                        <div class="hpadding20">
+                            <div class="col-md-4 offset-0 center">
+                                <div class="padding20">
+                                    <div class="bordertype5">
+                                        <div class="circlewrap">
+                                            <img src="images/user-avatar.jpg" class="circleimg" alt=""/>
+                                            <span>4.5</span>
+                                        </div>
+                                        <span class="dark">by Sena</span><br/>
+                                        from London, UK<br/>
+                                        <img src="images/check.png" alt=""/><br/>
+                                        <span class="green">Recommended<br/>for Everyone</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-8 offset-0">
+                                <div class="padding20">
+                                    <span class="opensans size16 dark">Great experience</span><br/>
+                                    <span class="opensans size13 lgrey">Posted Jun 02, 2013</span><br/>
+
+                                    <p>It is close to everything but if you go in the lower season the pool won't be
+                                        ready
+                                        even though the temperature was quiet high already.</p>
+                                    <ul class="circle-list">
+                                        <li>4.5</li>
+                                        <li>3.8</li>
+                                        <li>4.2</li>
+                                        <li>5.0</li>
+                                        <li>4.6</li>
+                                        <li>4.8</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="line2"></div>
+                        <br/>
+                        <br/>
+
+                        <div class="hpadding20">
+                            <span class="opensans dark size16 bold">Reviews</span>
+                        </div>
+
+                        <div class="line2"></div>
+
+                        <div class="wh33percent left center">
+                            <ul class="jslidetext">
+                                <li>Cleanliness</li>
+                                <li>Room comfort</li>
+                                <li>Location</li>
+                                <li>Service & staff</li>
+                                <li>Sleep quality</li>
+                                <li>Value for Price</li>
+                            </ul>
+
+                            <ul class="jslidetext2">
+                                <li>Username</li>
+                                <li>Evaluation</li>
+                                <li>Title</li>
+                                <li>Comment</li>
+                            </ul>
+                        </div>
+
+                        <!-- bin/jquery.slider.min.js -->
+                        {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
+                        {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
+                        <!-- end -->
+
+                        <div class="wh66percent right offset-0">
+                            <script>
+                                //This is a fix for when the slider is used in a hidden div
+                                function testTriger() {
+                                    setTimeout(function () {
+                                        $(".cstyle01").resize();
+                                    }, 500);
+                                }
+                            </script>
+                            <div class="padding20 relative wh70percent">
+                                <div class="layout-slider wh100percent">
+       <span class="cstyle01"><input id="Slider1" type="slider" name="price"
+                                     value="0;4.2"/></span>
+                                </div>
+                                <script type="text/javascript">
+                                    function trigerJslider() {
+                                        jQuery("#Slider1").slider({
+                                            from: 0,
+                                            to: 5,
+                                            step: 0.1,
+                                            smooth: true,
+                                            round: 1,
+                                            dimension: "",
+                                            skin: "round"
+                                        });
+                                        testTriger();
+                                    }
+                                </script>
+
+
+                                <div class="layout-slider margtop10 wh100percent">
+       <span class="cstyle01"><input id="Slider2" type="slider" name="price"
+                                     value="0;5.0"/></span>
+                                </div>
+                                <script type="text/javascript">
+                                    function trigerJslider2() {
+                                        jQuery("#Slider2").slider({
+                                            from: 0,
+                                            to: 5,
+                                            step: 0.1,
+                                            smooth: true,
+                                            round: 1,
+                                            dimension: "",
+                                            skin: "round"
+                                        });
+                                    }
+                                </script>
+
+                                <div class="layout-slider margtop10 wh100percent">
+       <span class="cstyle01"><input id="Slider3" type="slider" name="price"
+                                     value="0;2.5"/></span>
+                                </div>
+                                <script type="text/javascript">
+                                    function trigerJslider3() {
+                                        jQuery("#Slider3").slider({
+                                            from: 0,
+                                            to: 5,
+                                            step: 0.1,
+                                            smooth: true,
+                                            round: 1,
+                                            dimension: "",
+                                            skin: "round"
+                                        });
+                                    }
+                                </script>
+
+                                <div class="layout-slider margtop10 wh100percent">
+       <span class="cstyle01"><input id="Slider4" type="slider" name="price"
+                                     value="0;3.8"/></span>
+                                </div>
+                                <script type="text/javascript">
+                                    function trigerJslider4() {
+                                        jQuery("#Slider4").slider({
+                                            from: 0,
+                                            to: 5,
+                                            step: 0.1,
+                                            smooth: true,
+                                            round: 1,
+                                            dimension: "",
+                                            skin: "round"
+                                        });
+                                    }
+                                </script>
+
+                                <div class="layout-slider margtop10 wh100percent">
+       <span class="cstyle01"><input id="Slider5" type="slider" name="price"
+                                     value="0;4.4"/></span>
+                                </div>
+                                <script type="text/javascript">
+                                    function trigerJslider5() {
+                                        jQuery("#Slider5").slider({
+                                            from: 0,
+                                            to: 5,
+                                            step: 0.1,
+                                            smooth: true,
+                                            round: 1,
+                                            dimension: "",
+                                            skin: "round"
+                                        });
+                                    }
+                                </script>
+
+                                <div class="layout-slider margtop10 wh100percent">
+       <span class="cstyle01"><input id="Slider6" type="slider" name="price"
+                                     value="0;4.0"/></span>
+                                </div>
+                                <script type="text/javascript">
+                                    function trigerJslider6() {
+                                        jQuery("#Slider6").slider({
+                                            from: 0,
+                                            to: 5,
+                                            step: 0.1,
+                                            smooth: true,
+                                            round: 1,
+                                            dimension: "",
+                                            skin: "round"
+                                        });
+                                    }
+                                </script>
+
+                                <input type="text" class="form-control margtop10" placeholder="">
+                                <select class="form-control mySelectBoxClass margtop10">
+                                    <option selected>Wonderful!</option>
+                                    <option>Nice</option>
+                                    <option>Neutral</option>
+                                    <option>Don't recommend</option>
+                                </select>
+                                <input type="text" class="form-control margtop10" placeholder="">
+
+                                <textarea class="form-control margtop10" rows="3"></textarea>
+
+                                <div class="clearfix"></div>
+                                <button type="submit" class="btn-search4 margtop20">Submit</button>
+
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                    </div>
 
                 </div>
 
             </div>
+
+            <input type="hidden" id="currency_session"
+                   value="{{ Session::has('currency') ? Session::get('currency') : 'USD' }}"/>
+            <input type="hidden" id="currency_rate_session"
+                   value="{{ Session::has('currency_rate') ? Session::get('currency_rate') : 1 }}"/>
 
             <div id="room_rate_tag" class="col-md-4">
                 <div class="pagecontainer2 paymentbox grey">
@@ -962,8 +1286,9 @@
 
                     <div class="padding30">
                         <span class="left size14 dark">Total Cost :  </span>
+
                         {{--<span class="green bold size18"> USD </span>    --}}
-                        <span id="room_total_cost" class="right green bold size18">  </span>
+                        <span id="room_total_cost" class="right green bold size18"> </span>
 
                         <div class="clearfix"></div>
                     </div>
@@ -972,14 +1297,13 @@
                     <br/>
 
                     &nbsp;&nbsp;&nbsp;
-                    <a id="add_to_cart" name="add_to_cart" href="{{URL::to('/add-to-cart/'.$hotel_id)}}"
-                       class="bluebtn margtop20">
+                    <a style="cursor: pointer" id="add_to_cart" name="add_to_cart" class="bluebtn margtop20">
                         <span class="glyphicon glyphicon-shopping-cart"></span>
                         Add To Cart
                     </a>
 
                     &nbsp;&nbsp;
-                    <a href="{{URL::to('/bookings/create')}}" class="bluebtn margtop20">
+                    <a style="cursor: pointer" href="{{URL::to('/bookings/create')}}" class="bluebtn margtop20">
                         <span class="glyphicon glyphicon-play"></span>
                         Checkout
                     </a>
@@ -999,7 +1323,6 @@
     @endsection
 
     @section('script')
-
         {{--{{ HTML::script('assets/js/js-details.js') }}--}}
 
         <!-- Google map -->
@@ -1010,6 +1333,9 @@
 
         <!-- my script-->
         {{ HTML::script('js/booking_cart.js') }}
+
+        {{ HTML::script('js/toastr.js') }}
+        {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js') }}
 
         <script type="text/javascript">
             $(document).ready(function () {
@@ -1060,6 +1386,31 @@
 
                     sendBookingData(url, formData);
 
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            $('#add_to_cart').click(function () {
+
+                var hotel_id = $('.hidden_hotel_id').val();
+                var url = 'http://' + window.location.host + '/add-to-cart/' + hotel_id;
+
+                $.ajax({
+                    url: url,
+                    method: 'post',
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#room_rate_tag').hide();
+                        toastr.success('Successfully Added To The Cart...!!');
+                    },
+
+                    error: function () {
+                        //alert('There was an error signing In');
+                    }
                 });
             });
         </script>

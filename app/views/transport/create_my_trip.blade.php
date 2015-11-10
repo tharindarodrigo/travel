@@ -418,7 +418,7 @@
                     <div class="padding30">
                             <span class="left size14 dark"> <h3 style="font-size: 18px; display: inline"> Total Cost
                                     : </h3></span>
-                        <span id="room_total_cost" class="right green bold size18">USD 100  </span>
+                        <span id="trip_total_cost" class="right green bold size18"> </span>
 
                         <div class="clearfix"></div>
                     </div>
@@ -442,6 +442,8 @@
                 </div>
             </div>
             <!-- END OF RIGHT CONTENT -->
+{{--<div id="ttt"></div>--}}
+            <input id="hidden_total_distance" type="hidden" name="hidden_total_distance">
 
         </div>
         <br/>
@@ -505,6 +507,7 @@
                     var drop_off_date = $('.drop_off').datepicker({dateFormat: 'yyyy-mm-dd'}).val();
                     var drop_off_time_hour = $('.drop_off_hour :selected').text();
                     var drop_off_time_minutes = $('.drop_off_minutes :selected').text();
+                    var totalDistance = $('#hidden_total_distance').val();
 
 
                     if ((pick_up_date != '') && (drop_off_date != '')) {
@@ -526,6 +529,7 @@
                         formData.append('drop_off_date', drop_off_date);
                         formData.append('drop_off_time_hour', drop_off_time_hour);
                         formData.append('drop_off_time_minutes', drop_off_time_minutes);
+                        formData.append('totalDistance', totalDistance);
 
                         sendTransportData(url, formData);
 

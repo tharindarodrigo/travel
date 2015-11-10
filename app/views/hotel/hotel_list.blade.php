@@ -11,6 +11,10 @@
 @section('custom_style')
 
     <style type="text/css">
+        .featurette-divider30{
+            border-top: solid 1px #006699 !important;
+        }
+
         .hotel_img_1 {
             width: 325px;
             height: 250px;
@@ -32,7 +36,7 @@
 
         /*GROW*/
         .hot_facilities_icon {
-            opacity: 0.5;
+            opacity: 0.8;
             width: 20px;
             height: 20px;
             border: #999 double 1px !important;
@@ -558,17 +562,17 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-8 offset-0">
-                                    <div class="itemlabel3">
+                                <div  class="col-md-8 offset-0">
+                                    <div style="background-color: #f9f9f9" class="itemlabel3">
 
-                                        <div class="labelright">
+                                        <div style="text-align: center" class="labelright">
                                             <?php
                                             $stars = $hotel->star_category_id;
                                             $star = DB::table('star_categories')->where('id', $stars)->first();
                                             $hotel_star = $star->stars;
                                             ?>
 
-                                            {{ Star::star_loop_blue($hotel_star)}}<br/><br/><br/>
+                                            {{ Star::star_loop_blue($hotel_star)}}<br/><br/>
 
                                             {{ HTML::image('images/user-rating-5.png', '')}}<br/><br/>
 
@@ -585,7 +589,7 @@
                                             @if(!empty($low_hotel_rate))
                                                 <span class="green size18">
                                             <b>
-                                                {{ Session::get('currency') . '&nbsp;' . number_format(($low_hotel_rate * Session::get('currency_rate')), 2, '.', '') }}
+                                                 {{ Session::get('currency') . '<br/>' . number_format(($low_hotel_rate * Session::get('currency_rate')), 2, '.', '') }}
                                             </b>
                                             </span>
                                                 <br/>
@@ -687,7 +691,7 @@
                     <div class="hpadding20" align="right">
                         {{ $hotels->links() }}
                     </div>
-
+                        <br/><br/>
                 </div>
 
                 <div class="clearfix"></div>
@@ -739,6 +743,7 @@
             });
 
         </script>
+
         <script type="text/javascript">
 
             $("#hotel_list_map").click(function () {
@@ -757,8 +762,6 @@
             });
 
         </script>
-
-
 
         <script type="text/javascript">
             $(function () {

@@ -212,7 +212,11 @@ class ExcursionController extends \BaseController
             ->select('rate')
             ->first();
 
-        $ex_rate = ($get_excursion_rate->rate * Session::get('currency_rate'));
+        if(!empty($get_excursion_rate)) {
+            $ex_rate = ($get_excursion_rate->rate * Session::get('currency_rate'));
+        }else{
+            $ex_rate = 0;
+        }
 
         return Response::json($ex_rate);
 

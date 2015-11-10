@@ -7,7 +7,6 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
     Session::put('currency', 'USD');
     Session::put('currency_rate', $rate);
 }
-
 ?>
 
 {{--{{ HTML::script('dist/js/bootstrap.min.js') }}--}}
@@ -51,6 +50,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 {{ HTML::script('//code.jquery.com/jquery-1.11.2.min.js') }}
 {{ HTML::script('//code.jquery.com/jquery-migrate-1.2.1.min.js') }}
 
+
 <!-- Bootstrap -->
 {{ HTML::style('dist/css/bootstrap.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 {{ HTML::style('assets/css/custom.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
@@ -73,6 +73,29 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 
     .popover {
         z-index: 10000 !important;
+    }
+
+    .currency li {
+        cursor: pointer;
+        padding: 5px;
+        border-bottom: double 1px #006699;
+    }
+
+    .currency li:hover {
+        background: #15262f;
+    }
+
+    .currency li span:hover{
+        color: #ffff00;
+    }
+
+    .blue {
+        color: #006699;
+        padding-right: 8px;
+    }
+
+    .currency a {
+        padding: 0px !important;
     }
 </style>
 
@@ -223,6 +246,10 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
         color: #DAA520;
     }
 
+    .navbar-custom li > a{
+        color: #DAA520;
+    }
+
     .navbar-custom .navbar-nav > li > a {
         color: #DAA520;
     }
@@ -234,7 +261,6 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 
     .navbar-custom th:hover {
         color: #FFFFFF;
-
     }
 
     .navbar-nav > li:last-child > a {
@@ -246,12 +272,9 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
         background: #006699 !important;
     }
 
-    .navbar-custom a:hover {
-        color: #FFFFFF !important;
-    }
-
     .navbar-custom li > a:hover {
-        color: #000000 !important;
+        background: #15262f !important;
+        color: #FFFFFF !important;
     }
 
     @media only screen and (min-width: 480px) and (max-width: 767px) {
@@ -270,6 +293,10 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 </style>
 
 <style type="text/css">
+    a {
+        text-decoration: none !important;
+    }
+
     .navbar-custom-2 a, li {
         color: #FFFFFF;
     }
@@ -297,6 +324,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
         font-weight: bold;
         text-align: center;
     }
+
 </style>
 
 <script type="text/javascript">
@@ -329,23 +357,27 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
         <div class="col-md-5">
             <table style="display: inline" align="right">
                 <tr>
-                    <th style="padding: 10px;"><a href="" style="text-decoration: none">Language &nbsp;&nbsp;|</a></th>
+                    <th><a href="" style="text-decoration: none">Language &nbsp;&nbsp;|</a></th>
 
-                    <th style="padding: 10px;">
-                        <li class="dropdown">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                Crruency {{ HTML::image('images/site/white-arrow.png', '', array('class' => 'nav_arrow')) }}
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| </a>
-                            <ul class="dropdown-menu"
-                                style="padding: 5px 20px; max-width: 1000px; width: 1000px; left: -600px; right: 50px">
-                                <form name="to" id="bb" action="" method="POST">
-                                    <div class="col-md-3">
+                    <th>
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown currency">
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                    {{ Session::get('currency') }} {{ HTML::image('images/site/gold-arrow.png', '', array('class' => 'nav_arrow')) }}
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+                                </a>
+
+                                <ul class="dropdown-menu"
+                                    style=" min-width: 0px; width: auto; top:30px; left: -300px; right: -300px">
+
+                                    <div class="col-md-4">
                                         <li>
                                             <a class="currency" id="AED" title="Arab Emirates Dirham"><span
                                                         class="blue">AED</span>Arab Emirates Dirham</a>
                                         </li>
                                         <li>
-                                            <a class="currency" id="IDR" title="Indonesian Rupiah"><span class="blue">IDR</span>Indonesian
+                                            <a class="currency" id="IDR" title="Indonesian Rupiah"><span
+                                                        class="blue">IDR</span>Indonesian
                                                 Rupiah</a>
                                         </li>
                                         <li>
@@ -365,7 +397,8 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                                         class="blue">QAR</span>Qatari Rial</a>
                                         </li>
                                         <li>
-                                            <a class="currency" id="AUD" title="Australian Dollar"><span class="blue">AUD</span>Australian
+                                            <a class="currency" id="AUD" title="Australian Dollar"><span
+                                                        class="blue">AUD</span>Australian
                                                 Dollar</a>
                                         </li>
                                         <li>
@@ -404,6 +437,9 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                             <a class="currency" id="BGN" title="Bulgarian Lev"><span
                                                         class="blue">BGN</span>Bulgarian Lev</a>
                                         </li>
+                                    </div>
+
+                                    <div class="col-md-4">
                                         <li>
                                             <a class="currency" id="KWD" title="Kuwaiti Dinar"><span
                                                         class="blue">KWD</span>Kuwaiti Dinar</a>
@@ -417,15 +453,18 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                                         class="blue">CAD</span>Canadian Dollar</a>
                                         </li>
                                         <li>
-                                            <a class="currency" id="MYR" title="Malaysian Ringgit"><span class="blue">MYR</span>Malaysian
+                                            <a class="currency" id="MYR" title="Malaysian Ringgit"><span
+                                                        class="blue">MYR</span>Malaysian
                                                 Ringgit</a>
                                         </li>
                                         <li>
-                                            <a class="currency" id="ZAR" title="South African Rand"><span class="blue">ZAR</span>South
+                                            <a class="currency" id="ZAR" title="South African Rand"><span
+                                                        class="blue">ZAR</span>South
                                                 African Rand</a>
                                         </li>
                                         <li>
-                                            <a class="currency" id="XPF" title="CFP Franc"><span class="blue">XPF</span>CFP
+                                            <a class="currency" id="XPF" title="CFP Franc"><span
+                                                        class="blue">XPF</span>CFP
                                                 Franc</a>
                                         </li>
                                         <li>
@@ -441,7 +480,8 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                                         class="blue">CNY</span>Chinese Yuan</a>
                                         </li>
                                         <li>
-                                            <a class="currency" id="ILS" title="New Israeli Sheqel"><span class="blue">ILS</span>New
+                                            <a class="currency" id="ILS" title="New Israeli Sheqel"><span
+                                                        class="blue">ILS</span>New
                                                 Israeli Sheqel</a>
                                         </li>
                                         <li>
@@ -453,7 +493,8 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                                         class="blue">CZK</span>Czech Koruna</a>
                                         </li>
                                         <li>
-                                            <a class="currency" id="NZD" title="New Zealand Dollar"><span class="blue">NZD</span>New
+                                            <a class="currency" id="NZD" title="New Zealand Dollar"><span
+                                                        class="blue">NZD</span>New
                                                 Zealand Dollar</a>
                                         </li>
                                         <li>
@@ -464,12 +505,18 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                             <a class="currency" id="DKK" title="Danish Krone"><span
                                                         class="blue">DKK</span>Danish Krone</a>
                                         </li>
+
+                                    </div>
+
+                                    <div class="col-md-4">
+
                                         <li>
                                             <a class="currency" id="NGN" title="Nigerian Naira"><span
                                                         class="blue">NGN</span>Nigerian Naira</a>
                                         </li>
                                         <li>
-                                            <a class="currency" id="THB" title="Thai Baht"><span class="blue">THB</span>Thai
+                                            <a class="currency" id="THB" title="Thai Baht"><span
+                                                        class="blue">THB</span>Thai
                                                 Baht</a>
                                         </li>
                                         <li>
@@ -504,7 +551,8 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                                         class="blue">PKR</span>Pakistan Rupee</a>
                                         </li>
                                         <li>
-                                            <a class="currency" id="USD" title="US Dollar"><span class="blue">USD</span>US
+                                            <a class="currency" id="USD" title="US Dollar"><span
+                                                        class="blue">USD</span>US
                                                 Dollar</a>
                                         </li>
                                         <li>
@@ -524,9 +572,10 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                                         class="blue">INR</span>Indian Rupee</a>
                                         </li>
                                     </div>
-                                </form>
-                            </ul>
-                        </li>
+
+                                </ul>
+                            </li>
+                        </ul>
                     </th>
 
                     <th>
@@ -558,7 +607,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                href="{{URL::to('/account/sign-in')}}">
                                 Sign in
                             </a>
-                            or
+                            |
                             <a style="padding-left: 2px; padding-right: 10px; text-decoration: none"
                                href="{{URL::to('/account/sign-up')}}">
                                 Sign up &nbsp;&nbsp;|

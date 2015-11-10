@@ -66,14 +66,18 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
             <div class="w50percent">
                 <div class="wh90percent textleft">
                     <span class="opensans size13"><b>Check in date</b></span>
-                    <input type="text" class="form-control mySelectCalendar" id="datepicker" placeholder="mm/dd/yyyy"/>
+                    <input type="text" name="check_in_date" class="form-control mySelectCalendar"
+                           id="datepicker"
+                           value="{{ Session::has('st_date') ? Session::get('st_date') : $st_date }}"/>
                 </div>
             </div>
 
             <div class="w50percentlast">
                 <div class="wh90percent textleft right">
                     <span class="opensans size13"><b>Check in date</b></span>
-                    <input type="text" class="form-control mySelectCalendar" id="datepicker2" placeholder="mm/dd/yyyy"/>
+                    <input type="text" name="check_out_date" class="form-control mySelectCalendar"
+                           id="datepicker2"
+                           value="{{ Session::has('ed_date') ? Session::get('ed_date') : $ed_date }}"/>
                 </div>
             </div>
 

@@ -61,12 +61,14 @@ function generateTransportTable(data) {
                 '</tr>';
 
                 y = y + 1;
+                transport_total_cost = transport_total_cost + item.cost ;
 
-                transport_total_cost = transport_total_cost + item.room_cost;
             }
 
         });
-        //  $('#room_total_cost').html('USD' + '&nbsp;&nbsp;&nbsp;' + room_total_cost);
+
+        $('#trip_total_cost').html('USD' + '&nbsp;&nbsp;&nbsp;' + transport_total_cost);
+
     }
 
     return table;
@@ -78,7 +80,7 @@ function deleteTransport() {
     $('.delete_transport').click(function () {
 
         var formData = new FormData();
-        //alert($(this).val());
+        // alert($(this).val());
         var del_transport_id = $(this).val();
 
         var url = 'http://' + window.location.host + '/sri-lanka/get_transport_rate_box/delete';
@@ -91,8 +93,10 @@ function deleteTransport() {
 
 }
 
-
 function sendMapData(url, formData) {
+    var distance = 0;
+    var totalDistance = 0;
+
     $.ajax({
         url: url,
         method: 'post',
@@ -298,8 +302,7 @@ function sendMapData(url, formData) {
                 }
 
                 function getDistance(src, des) {
-                    var distance = 0;
-                    var totalDistance = 0;
+
                     var distanceService = new google.maps.DistanceMatrixService();
 
                     distanceService.getDistanceMatrix({
@@ -309,6 +312,8 @@ function sendMapData(url, formData) {
                         unitSystem: google.maps.UnitSystem.METRIC,
                         avoidHighways: false,
                         avoidTolls: false
+
+
                     }, function (response, status) {
                         if (status == google.maps.DistanceMatrixStatus.OK && response.rows[0].elements[0].status != "ZERO_RESULTS") {
                             console.log(response);
@@ -316,20 +321,27 @@ function sendMapData(url, formData) {
                             distance = response.rows[0].elements[0].distance.value;
                             //var duration = response.rows[0].elements[0].duration.text;
                             //var dvDistance = document.getElementById("dvDistance");
-                            totalDistance = distance + totalDistance;
-                            
+                            totalDistance = totalDistance + distance;
+
+                            //$('#ttt').html(totalDistance)
+
+                            $("input[name='hidden_total_distance']").val(totalDistance/1000);
+
                         } else {
                             return false
                         }
-//                           alert(distance);
-                    });
-                }
 
+                    });
+
+                    //alert(totalDistance);
+                }
             }
+
         },
 
         error: function () {
             //alert('There was an error signing In');
         }
     });
+
 }

@@ -37,50 +37,47 @@ function generateRoomRateTable(data) {
 
     var y = 1;
     var table = '';
-    var room_total_cost = 0;
+
 
     if (data != null) {
+        var room_total_cost = 0;
+        var currency = $('#currency_session').val();
+        var currency_rate = $('#currency_rate_session').val();
 
         $.each(data, function (index, item) {
             if (index != 'total_cost') {
                 var hotel_id = $('.hidden_hotel_id').val();
 
                 if (item.hotel_id == hotel_id) {
-                    //alert('as');
 
                     table += '<tr>';
                     table += '<td><span class="dark">Room &nbsp;' + y + '</span> &nbsp;:&nbsp;&nbsp;' + item.room_name + ' <button class="right btn delete_room btn-xs btn-danger" value="' + index + '">X</button><br>' +
                     '<button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse" data-target="#collapse' + y + '"></button>' +
                     '<div id="collapse' + y + '" class="collapse">' +
                     '<div class="lblue">' +
-                    '<div class="col-md-6">' +
-                    item.room_count + '&nbsp;' +
-                    item.room_specification + ' Room <br>' +
-                    item.meal_basis + '<br>' +
-                    item.adult + ' - Adults' +
-                    '</div>' +
-                    '<div class="col-md-6">' +
-                    item.check_in + ' <br>' +
-                    item.check_out + '<br>' +
-                    item.child + ' - Child' +
-                    '</div>' +
+                    '<div class="col-md-5"> Check In </div><div class="col-md-7"> : ' + item.check_in + '</div>' +
+                    '<div class="col-md-5"> Check Out </div><div class="col-md-7"> : ' + item.check_out + '</div>' +
+                    '<div class="col-md-5"> Room Type </div><div class="col-md-7"> : ' + item.room_specification + ' room</div>' +
+                    '<div class="col-md-5">Meal Basis</div><div class="col-md-7"> : ' + item.meal_basis + '</div>' +
+                    '<div class="col-md-5">Adult / Child </div><div class="col-md-7"> : ' + item.adult + '/' + item.child + ' </div>' +
+                    '<div class="col-md-5">Room Count</div><div class="col-md-7"> : ' + item.room_count + '</div>' +
                     '</div>' +
                     '<div class="clearfix"></div>' +
-                    '</div>' +
+                    '</div> <br>' +
                     '<div class="clearfix"></div>' +
-                    'Total cost per room : <span class="right green bold">USD &nbsp;&nbsp;&nbsp;' + item.room_cost +
+                    'Total cost per room : <span class="right green bold">' + currency + '&nbsp;&nbsp;' + (item.room_cost * currency_rate).toFixed(2) +
                     '</span>' +
                     '</td>' +
                     '</tr>';
 
                     y = y + 1;
 
-                    room_total_cost = room_total_cost + item.room_cost;
+                    room_total_cost = room_total_cost + +item.room_cost;
                 }
             }
         });
 
-        $('#room_total_cost').html('USD' + '&nbsp;&nbsp;&nbsp;' + room_total_cost);
+        $('#room_total_cost').html(currency + '&nbsp;&nbsp;' + (room_total_cost * currency_rate).toFixed(2));
     }
 
     return table;
