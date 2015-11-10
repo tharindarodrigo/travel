@@ -165,6 +165,7 @@ class AccountController extends \BaseController
     public function getSignOut()
     {
         Session::forget('market');
+        //Session::forget();
         Auth::logout();
         return Redirect::route('index');
     }

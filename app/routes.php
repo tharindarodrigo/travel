@@ -280,7 +280,34 @@ Route::get('voucher/{id}', function ($id) {
     $pdf = PDF::loadView('emails/voucher', array('voucher' => $voucher));
     $pdf->setPaper('a4')->save(public_path() . '/temp-files/voucher.pdf');
     return $pdf->stream('abc.pdf');
+});
 
+Route::get('transport/{id}', function ($id) {
+    $booking = Booking::find($id);
+    $pdf = PDF::loadView('emails/transport', array('booking' => $booking));
+    $pdf->setPaper('a4')->save(public_path() . '/temp-files/transport.pdf');
+    return $pdf->stream('abc.pdf');
+});
+
+//Route::get('transport-cancellation', function ($id) {
+//    $booking = Booking::find($id);
+//    $pdf = PDF::loadView('emails/transport-cancellation', array('booking' => $booking));
+//    $pdf->setPaper('a4')->save(public_path() . '/temp-files/transport-cancellation.pdf');
+//    return $pdf->stream('abc.pdf');
+//});
+
+Route::get('excursion/{id}', function ($id) {
+    $booking = Booking::find($id);
+    $pdf = PDF::loadView('emails/excursion', array('booking' => $booking));
+    $pdf->setPaper('a4')->save(public_path() . '/temp-files/excursion.pdf');
+    return $pdf->stream('abc.pdf');
+});
+
+Route::get('excursion-cancellation/{id}', function ($id) {
+    $booking = Booking::find($id);
+    $pdf = PDF::loadView('emails/excursion', array('booking' => $booking));
+    $pdf->setPaper('a4')->save(public_path() . '/temp-files/excursion.pdf');
+    return $pdf->stream('abc.pdf');
 });
 
 Route::get('cancellation-voucher/{id}', function ($id) {

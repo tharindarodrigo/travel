@@ -170,6 +170,7 @@ class BookingsController extends \BaseController
                         $package['transport_package_id'] = $predefined_package['predefine_id'];
                         $package['booking_id'] = $booking->id;
                         $package['pick_up_date_time'] = $predefined_package['check_in_date'];
+                        $package['amount'] = TransportPackage::find($predefined_package->predefine_id)->rate;
                         PredefinedTrip::create($package);
                     }
                 }
@@ -186,7 +187,6 @@ class BookingsController extends \BaseController
                             ->where('excursion_transport_type_id', $excursion['excursion_transport_type'])
                             ->where('excursion_id', $excursion['excursion'])
                             ->first();
-
                         $excursionBookingData = array(
                             'booking_id' => $booking->id,
                             'city_id' => $excursionBooking->city_id,

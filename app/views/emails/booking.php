@@ -133,7 +133,12 @@
 </style>
 
 <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
-    <h3>Reference No. : 123456789</h3>
+    <table width="100%">
+        <tr>
+            <td><h3>Reference No : <?php echo $booking->reference_number ?></h3></td>
+            <td style="padding-right: 20px;" align="right"><h3 align="right">New Booking</h3></td>
+        </tr>
+    </table>
 </div>
 <br/>
 

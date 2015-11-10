@@ -1,111 +1,124 @@
 <?php
 
-class CustomTripsController extends \BaseController {
+class CustomTripsController extends \BaseController
+{
 
-	/**
-	 * Display a listing of customtrips
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$customtrips = Customtrip::all();
+    /**
+     * Display a listing of customtrips
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $customtrips = Customtrip::all();
 
-		return View::make('customtrips.index', compact('customtrips'));
-	}
+        return View::make('customtrips.index', compact('customtrips'));
+    }
 
-	/**
-	 * Show the form for creating a new customtrip
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('customtrips.create');
-	}
+    /**
+     * Show the form for creating a new customtrip
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return View::make('customtrips.create');
+    }
 
-	/**
-	 * Store a newly created customtrip in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), Customtrip::$rules);
+    /**
+     * Store a newly created customtrip in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        $validator = Validator::make($data = Input::all(), Customtrip::$rules);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-		Customtrip::create($data);
+        Customtrip::create($data);
 
-		return Redirect::route('customtrips.index');
-	}
+        return Redirect::route('customtrips.index');
+    }
 
-	/**
-	 * Display the specified customtrip.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$customtrip = Customtrip::findOrFail($id);
+    /**
+     * Display the specified customtrip.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $customtrip = Customtrip::findOrFail($id);
 
-		return View::make('customtrips.show', compact('customtrip'));
-	}
+        return View::make('customtrips.show', compact('customtrip'));
+    }
 
-	/**
-	 * Show the form for editing the specified customtrip.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$customtrip = Customtrip::find($id);
+    /**
+     * Show the form for editing the specified customtrip.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $customtrip = Customtrip::find($id);
 
-		return View::make('customtrips.edit', compact('customtrip'));
-	}
+        return View::make('customtrips.edit', compact('customtrip'));
+    }
 
-	/**
-	 * Update the specified customtrip in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($bookingid,$id)
-	{
-		$customtrip = CustomTrip::findOrFail($id);
+    /**
+     * Update the specified customtrip in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($bookingid, $id)
+    {
+        $customtrip = CustomTrip::findOrFail($id);
 
-		if(Input::has('val')){
-			if (Input::get('val') == 0)
-			$customtrip->amount = 0;
-		}
+        if (Input::has('val')) {
+            if (Input::get('val') == 0){
+                $customtrip->amount = 0;
+                $customtrip->val = 0;
 
-		$validator = Validator::make($data = Input::all(), Customtrip::$rules);
+                $customtrip->save();
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+                $pdf = PDF::loadView('emails/transport-cancellation',
+                    array('customTrip' => $customtrip,
+                        'booking' => Booking::find($bookingid)
+                    )
+                );
+            }
 
-		$customtrip->update($data);
 
-		return Redirect::back();
-	}
+            $pdf->setPaper('a4')->save(public_path() . '/temp-files/transport-cancellation.pdf');
+            return $pdf->stream('abc.pdf');
+        }
 
-	/**
-	 * Remove the specified customtrip from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Customtrip::destroy($id);
-		return Redirect::route('customtrips.index');
-	}
+        $validator = Validator::make($data = Input::all(), Customtrip::$rules);
+
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+        $customtrip->update($data);
+
+        return Redirect::back();
+    }
+
+    /**
+     * Remove the specified customtrip from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        Customtrip::destroy($id);
+        return Redirect::route('customtrips.index');
+    }
 
 }
