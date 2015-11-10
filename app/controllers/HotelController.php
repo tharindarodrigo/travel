@@ -648,6 +648,11 @@ class HotelController extends \BaseController
     public function hotelDetail($country = '', $city = '', $hotel_name)
     {
 
+        if (Session::has('market')) {
+            $market = Session::get('market');
+        } else {
+            $market = 1;
+        }
 
         if (Input::has('check_in_date')) {
             $start = Input::get('check_in_date');
@@ -741,9 +746,9 @@ class HotelController extends \BaseController
 
 //        dd(DB::getQueryLog());
 
-        if (!$rooms->count()) {
-            return Redirect::to('/403');
-        }
+//        if (!$rooms->count()) {
+//            return Redirect::to('/403');
+//        }
 
         return View::make('hotel.hotel_details')
             ->with(
@@ -758,6 +763,7 @@ class HotelController extends \BaseController
                     'st_date' => $st_date,
                     'ed_date' => $ed_date,
                     'date_gap' => $date_gap,
+                    'market' => $market,
                 )
             );
     }
@@ -825,9 +831,57 @@ class HotelController extends \BaseController
 
             $date_count = Voucher::getNights($st_date, $ed_date)->days;
 
-            $total_rate = $low_room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
+            $room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
+            $room_rate_with_tax = RoomRates::lowestRoomRateWithTax($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
 
-            $room_cost = ($total_rate * $room_count) * $date_count;
+            $room_cost = number_format(($room_rate_with_tax * $room_count) * $date_count , 2);
+
+            if (Session::has('market')) {
+                $market = Session::get('market');
+            } else {
+                $market = 1;
+            }
+
+            $get_market_details = Market::where('id', $market)->first();
+
+            $tax_type = $get_market_details->tax_type;
+            $tax = $get_market_details->tax;
+            $handling_fee_type = $get_market_details->handling_fee_type;
+            $handling_fee = $get_market_details->handling_fee;
+
+            if ($market == 1) {
+
+                if ($tax_type == 0) {
+                    $total_tax = ($room_rate_with_tax / 100) * $tax;
+                } else {
+                    $total_tax = $tax;
+                }
+
+                if ($handling_fee_type == 0) {
+                    $total_handling_fee = ($room_rate  / 100) * $handling_fee;
+                } else {
+                    $total_handling_fee = $handling_fee;
+                }
+
+
+                $hotel_handling_fee = $total_handling_fee;
+                $hotel_tax = $total_tax;
+
+            } else {
+
+                $total_tax = 0;
+
+                if ($handling_fee_type == 0) {
+                    $total_handling_fee = ($room_rate / 100 ) * $handling_fee;
+                } else {
+                    $total_handling_fee = $handling_fee;
+                }
+
+                $hotel_tax = $total_tax;
+                $hotel_handling_fee =  $total_handling_fee;
+            }
+
+//dd($room_rate.'/'.$total_tax.'/'.$total_handling_fee);
 
             $rate_box_details = array(
                 'hotel_id' => $hotel_id,
@@ -840,8 +894,10 @@ class HotelController extends \BaseController
                 'meal_basis' => $meal_basis,
                 'meal_basis_id' => $meal_basis_id,
                 'room_cost' => $room_cost,
+                'hotel_tax' => $hotel_tax,
+                'hotel_handling_fee' => $hotel_handling_fee,
                 'room_count' => $room_count,
-                'unit_price' => $total_rate,
+                'unit_price' => $room_rate_with_tax,
                 'adult' => $adult,
                 'child' => $child,
                 'nights' => $nights,

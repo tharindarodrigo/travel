@@ -278,15 +278,22 @@
                                                     ->where('city_id', '=', $x)
                                                     ->select('rate')
                                                     ->first();
-
-                                            echo ($ex_rate->rate * Session::get('currency_rate'));
                                             ?>
+                                            @if (!empty($ex_rate) && ($ex_rate->rate > 0))
+                                                {{  $ex_rate->rate * Session::get('currency_rate') }}
+                                            @else
+                                                <span class="red size10"> No Rate </span>
+                                            @endif
+
                                         </div>
 
-                                        <div class="col-md-3">
-                                            {{ Form::selectRange('number', 0, 10, null, ['class' => 'form-control pax', 'city_id' => $x]) }}
-                                        </div>
-
+                                        @if (!empty($ex_rate) && ($ex_rate->rate > 0))
+                                            <div class="pax_hide col-md-3">
+                                                {{ Form::selectRange('number', 0, 10, null, ['class' => 'form-control pax', 'city_id' => $x]) }}
+                                            </div>
+                                        @else
+                                            <span class="red center size12"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sorry No Rate </span>
+                                        @endif
                                     </div>
 
                                     <div class="line2"></div>
@@ -426,8 +433,10 @@
                 $('.price-box').hide();
 
                 $('.transport_select').change(function () {
+
                     $('.price-box').hide();
                     $('.pax').val(0);
+
                     var transport_value = $(this).val();
                     var ex_id = $('#hidden_ex_id').val();
                     var hidden_ex_city_id = $(this).prev('input:hidden').val();
@@ -447,7 +456,13 @@
                         dataType: 'json',
                         data: formData,
                         success: function (data) {
-                            $('#city_' + hidden_ex_city_id).html(data);
+                            if (data > 0) {
+                                $('#city_' + hidden_ex_city_id).html(data);
+                            } else {
+                                //$('.pax_hide').html('<span class="red center size12"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sorry No Rate </span>');
+                                $('.pax').hide();
+                            }
+
                         },
                         error: function () {
                             // alert('error');

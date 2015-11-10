@@ -50,6 +50,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 {{ HTML::script('//code.jquery.com/jquery-1.11.2.min.js') }}
 {{ HTML::script('//code.jquery.com/jquery-migrate-1.2.1.min.js') }}
 
+
 <!-- Bootstrap -->
 {{ HTML::style('dist/css/bootstrap.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 {{ HTML::style('assets/css/custom.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
@@ -74,10 +75,6 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
         z-index: 10000 !important;
     }
 
-    .currency{
-
-    }
-
     .currency li {
         cursor: pointer;
         padding: 5px;
@@ -85,16 +82,19 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
     }
 
     .currency li:hover {
-        background: #DBDBDB;
+        background: #15262f;
+    }
+
+    .currency li span:hover{
+        color: #ffff00;
     }
 
     .blue {
         color: #006699;
         padding-right: 8px;
-
     }
 
-    .currency a{
+    .currency a {
         padding: 0px !important;
     }
 </style>
@@ -246,6 +246,10 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
         color: #DAA520;
     }
 
+    .navbar-custom li > a{
+        color: #DAA520;
+    }
+
     .navbar-custom .navbar-nav > li > a {
         color: #DAA520;
     }
@@ -257,7 +261,6 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 
     .navbar-custom th:hover {
         color: #FFFFFF;
-
     }
 
     .navbar-nav > li:last-child > a {
@@ -269,12 +272,9 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
         background: #006699 !important;
     }
 
-    .navbar-custom a:hover {
-        color: #FFFFFF !important;
-    }
-
     .navbar-custom li > a:hover {
-        color: #000000 !important;
+        background: #15262f !important;
+        color: #FFFFFF !important;
     }
 
     @media only screen and (min-width: 480px) and (max-width: 767px) {
@@ -293,7 +293,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 </style>
 
 <style type="text/css">
-    a{
+    a {
         text-decoration: none !important;
     }
 
@@ -368,7 +368,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                 </a>
 
                                 <ul class="dropdown-menu"
-                                    style=" min-width: 0px; max-width: 800px; width: 800px; top:30px; left: -400px; right: 50px">
+                                    style=" min-width: 0px; width: auto; top:30px; left: -300px; right: -300px">
 
                                     <div class="col-md-4">
                                         <li>

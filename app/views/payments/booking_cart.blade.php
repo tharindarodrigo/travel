@@ -207,41 +207,92 @@ if (Session::has('excursion_cart_details')) {
                                                 <div id="collapse{{ $hotel_booking[$c]['room_identity']  }}"
                                                      class="collapse">
 
-                                                    <div class="left size12 lblue ">
-                                                        <span style="color: #000000"> Check In : </span>
-                                                        {{ $hotel_booking[$c]['check_in'] }}
+                                                    <div class="size14 lblue col-md-5">
+                                                        Check In
                                                     </div>
-                                                    <br/>
-
-                                                    <div class="left size12 lblue ">
-                                                        <span style="color: #000000"> Check Out : </span>
-                                                        {{ $hotel_booking[$c]['check_out'] }}
-                                                    </div>
-                                                    <br/>
-
-                                                    <div class="left size12 lblue ">
-                                                        Adult - {{ $hotel_booking[$c]['adult'] }} <br/>
-                                                        Child - {{ $hotel_booking[$c]['child'] }}
+                                                    <div class="size14 lblue col-md-7">
+                                                        : {{ $hotel_booking[$c]['check_in'] }}
                                                     </div>
 
-                                                    <div class="right size12 lblue ">
-                                                        {{ $hotel_booking[$c]['room_count'] }} {{ $hotel_booking[$c]['room_specification'] }}
-                                                        Rooms <br/>
-                                                        {{ $hotel_booking[$c]['meal_basis'] }}
+                                                    <div class="size14 lblue col-md-5">
+                                                        Check Out
                                                     </div>
+                                                    <div class="size14 lblue col-md-7">
+                                                        : {{ $hotel_booking[$c]['check_out'] }}
+                                                    </div>
+
+                                                    <div class="size14 lblue col-md-5">
+                                                        Room Type
+                                                    </div>
+                                                    <div class="size14 lblue col-md-7">
+                                                        : {{ $hotel_booking[$c]['room_specification'] }} room
+                                                    </div>
+
+                                                    <div class="size14 lblue col-md-5">
+                                                        Meal Basis
+                                                    </div>
+                                                    <div class="size14 lblue col-md-7">
+                                                        : {{ $hotel_booking[$c]['meal_basis'] }}
+                                                    </div>
+
+                                                    <div class="size14 lblue col-md-5">
+                                                        Adult/Child
+                                                    </div>
+                                                    <div class="size14 lblue col-md-7">
+                                                        : {{ $hotel_booking[$c]['adult'] }}/
+                                                        {{ $hotel_booking[$c]['child'] }}
+                                                    </div>
+
+                                                    <div class="size14 lblue col-md-5">
+                                                        Room Count
+                                                    </div>
+                                                    <div class="size14 lblue col-md-7">
+                                                        : {{ $hotel_booking[$c]['room_count'] }}
+                                                    </div>
+
                                                     <div class="clearfix"></div>
                                                 </div>
                                                 <!-- End of collapse 1 -->
                                                 <div class="clearfix"></div>
 
-                                                <h5 style="display: inline" class="bk_room_name">Room Total
-                                                    : </h5><span
-                                                        class="green"> USD {{ number_format($hotel_booking[$c]['room_cost'], 2, '.', '') }}</span>
+                                                <?php
+                                                if (Session::has('market')) {
+                                                    $market = Session::get('market');
+                                                } else {
+                                                    $market = 1;
+                                                }
+                                                ?>
+
+                                                @if($market == 1)
+                                                    <h5 style="margin-right: 57px; display: inline"
+                                                        class="bk_room_name">Room Cost </h5> <span
+                                                            style="font-weight: 700"> : </span>
+                                                    <span class="green">  {{ Session::get('currency'). '&nbsp;'  . number_format(($hotel_booking[$c]['room_cost']), 2, '.', '') }}</span>
+                                                    <br/>
+                                                    <h5 style="display: inline" class="bk_room_name">Tax and handling
+                                                        fee: </h5>
+                                                    <span class="green">{{ Session::get('currency'). '&nbsp;' . number_format(($hotel_booking[$c]['hotel_tax'] + $hotel_booking[$c]['hotel_handling_fee']) , 2, '.', '') * Session::get('currency_rate')  }}  </span>
+                                                    <br/>
+                                                    <h5 style="margin-right: 45px; display: inline"
+                                                        class="bk_room_name">Room Total : </h5> <span
+                                                            style="font-weight: 700"> : </span>
+                                                    <span class="green">  {{ Session::get('currency'). '&nbsp;'  . number_format(($hotel_booking[$c]['room_cost'] + ($hotel_booking[$c]['hotel_tax'] + $hotel_booking[$c]['hotel_handling_fee'])), 2, '.', '') }}</span>
+                                                    <br/>
+                                                    <br/>
+                                                    <?php $total_cost = $total_cost + $hotel_booking[$c]['room_cost'] + ($hotel_booking[$c]['hotel_tax'] + $hotel_booking[$c]['hotel_handling_fee']); ?>
+                                                @else
+                                                    <h5 style="margin-right: 45px; display: inline"
+                                                        class="bk_room_name">Room Total : </h5> <span
+                                                            style="font-weight: 700"> : </span>
+                                                    <span class="green">  {{ Session::get('currency'). '&nbsp;'  . number_format(($hotel_booking[$c]['room_cost'] ), 2, '.', '') }}</span>
+                                                    <br/>
+                                                    <?php $total_cost = $total_cost + $hotel_booking[$c]['room_cost'] ?>
+                                                @endif
                                             </div>
                                             <br/>
                                             <div class="line3"></div>
                                             <br/>
-                                            <?php $total_cost = $total_cost + $hotel_booking[$c]['room_cost']?>
+
                                         @endfor
                                     </td>
 
@@ -560,7 +611,7 @@ if (Session::has('excursion_cart_details')) {
                                     </td>
 
                                     <td class="col-sm-2 col-md-1">
-{{--                                        <span class="green bold size18"> {{ Session::get('currency') }} </span> <br/>--}}
+                                        {{--                                        <span class="green bold size18"> {{ Session::get('currency') }} </span> <br/>--}}
                                         <span class="green bold size18">{{ $excursion_cart_detail['excursion_total']  }}</span>
                                     </td>
 

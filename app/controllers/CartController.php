@@ -206,7 +206,8 @@ class CartController extends \BaseController
 
         }
 
-        return Redirect::to('booking-cart');
+        return Response::json(true);
+
     }
 
 }
