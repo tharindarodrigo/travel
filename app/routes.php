@@ -193,12 +193,12 @@ Route::group(array('before' => 'auth'), function () {
                  */
 
                 Route::resource('hotels.rates', 'RatesController');
-                Route::post('hotels/rates/get-rates', 'RatesController@getRateData');
-                Route::post('hotels/{hotelid}/rates/update-rates', 'RatesController@updateRates');
+                Route::post('hotels/{hotels}/rates/get-rates', 'RatesController@getRateData');
+                Route::post('hotels/{hotels}/rates/update-rates', 'RatesController@updateRates');
 
                 Route::resource('hotels.supplement-rates', 'SupplementRatesController');
-                Route::post('hotels/supplement-rates/get-rates', 'SupplementRatesController@getRateData');
-                Route::post('hotels/{hotelid}/supplement-rates/update-rates', 'SupplementRatesController@updateSupplementRates');
+                Route::post('hotels/{hotels}/supplement-rates/get-rates', 'SupplementRatesController@getRateData');
+                Route::post('hotels/{hotels}/supplement-rates/update-rates', 'SupplementRatesController@updateSupplementRates');
 
 
                 /**

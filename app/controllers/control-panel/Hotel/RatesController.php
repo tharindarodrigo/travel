@@ -7,14 +7,16 @@ class RatesController extends \BaseController
 
     public function __construct()
     {
-//        dd('fuck');
+
         $this->_user = Auth::user();
         $this->_parameters = Route::current()->parameters();
-        if (!User::hasHotelPermission($this->_user, $this->_parameters['hotels'])) {
-            if (!Entrust::hasRole('Admin')) {
-                App::abort(403);
+            //dd($this->_parameters);
+        if($x=!User::hasHotelPermission($this->_user, $this->_parameters['hotels'])){
+                if (!Entrust::hasRole('Admin')) {
+                    App::abort(403);
+                }
             }
-        }
+
     }
 
     /**
@@ -24,7 +26,7 @@ class RatesController extends \BaseController
      */
     public function index($hotelid)
     {
-        $rates = Rate::where('hotel_id', $hotelid)->get();
+        $rates = Rate::where('hotel_id',$hotelid)->get();
 
         return View::make('control-panel.hotel.rates.index', compact('hotelid', 'rates'));
     }
@@ -36,8 +38,9 @@ class RatesController extends \BaseController
      */
     public function create($hotelid)
     {
-//        $rates = Rate::all();
-        return View::make('control-panel.hotel.rates.create', compact('hotelid', 'rates'));
+//        dd('fuck');
+        //$rates = Rate::all();
+        return View::make('control-panel.hotel.rates.create', compact('hotelid'));
     }
 
     /**
@@ -292,13 +295,13 @@ class RatesController extends \BaseController
     public function edit($hotelid, $id)
     {
 
-        try {
+        try{
             $rate = Rate::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e){
             return Redirect::to('control-panel/errors/404');
         }
 
-        $rates = Rate::where('from', $rate->from)->where('to', $rate->to)->where('room_type_id', $rate->room_type_id)->where('market_id', $rate->market_id)->get();
+        $rates = Rate::where('from', $rate->from)->where('to', $rate->to)->where('room_type_id', $rate->room_type_id)->where('market_id',$rate->market_id)->get();
         $checkedmarketids = array();
 
         $roomtype = RoomType::with('roomSpecification')->find($rate->room_type_id);
@@ -330,9 +333,9 @@ class RatesController extends \BaseController
             //return $this->store($hotelid);
         }
 
-        try {
+        try{
             $rate = Rate::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e){
             return Redirect::to('control-panel/errors/record-not-found');
         }
 
@@ -539,7 +542,7 @@ class RatesController extends \BaseController
 
                 } else {
 
-                    if (!$deleted_items) {
+                    if(!$deleted_items){
                         Rate::where(array('from' => Input::get('old_from'), 'to' => Input::get('old_to'), 'room_type_id' => Input::get('room_type_id'), 'market_id' => Input::get('market_id')))->delete();
                         $deleted_items = true;
                     }
@@ -553,7 +556,7 @@ class RatesController extends \BaseController
         }
 
 
-        Return Response::json('/control-panel/hotel/hotels/' . $hotelid . '/rates');
+        Return Response::json('/control-panel/hotel/hotels/'.$hotelid.'/rates');
 
     }
 
@@ -569,7 +572,7 @@ class RatesController extends \BaseController
         return Redirect::back();
     }
 
-    public function getRateData()
+    public function getRateData($hotelid)
     {
         $room_id = Input::get('room_type_id');
         $roomspaces = RoomType::with('roomSpecification')->find($room_id);
