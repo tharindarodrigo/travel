@@ -38,7 +38,7 @@ class ExcursionController extends \BaseController
 
         // Filtering
         $filter_excursion = ExcursionType::get();
-        $filter_cities = City::get();
+        $filter_cities = City::where('val', 1)->get();
 
 
         if (!empty($excursion_type_name)) {
@@ -47,9 +47,9 @@ class ExcursionController extends \BaseController
             $excursion_type_id = $get_excursion_type_id->id;
         }
 
-
         if (!empty($excursion_type_id)) {
             $excursions = Excursion::where('excursion_type_id', '=', $excursion_type_id)
+                ->where('val', 1)
                 ->paginate(6);
         }
 
@@ -125,7 +125,7 @@ class ExcursionController extends \BaseController
 
         if (!empty($country)) {
             $country = str_replace('-', ' ', $country);
-            $get_country_id = DB::table('countries')->where('country', 'LIKE', $country)->first();
+            $get_country_id = DB::table('countries')->where('country', 'LIKE', $country)->where('val', 1)->first();
             $country_id = $get_country_id->id;
         }
 
@@ -137,7 +137,7 @@ class ExcursionController extends \BaseController
 
         if (!empty($excursion)) {
             $excursion = str_replace('-', ' ', $excursion);
-            $get_excursion_id = DB::table('excursions')->where('excursion', 'LIKE', $excursion)->first();
+            $get_excursion_id = DB::table('excursions')->where('excursion', 'LIKE', $excursion)->where('val', 1)->first();
             $excursion_id = $get_excursion_id->id;
         }
 
@@ -150,15 +150,14 @@ class ExcursionController extends \BaseController
         $images = glob($directory . $excursion_id . "_" . "*.*");
 
         foreach ($images as $image) {
-
             $path[] = $image;
         }
 
-        $excursion = Excursion::where('id', '=', $excursion_id)->first();
+        $excursion = Excursion::where('id', '=', $excursion_id)->where('val', 1)->first();
 
         $excursion_type = ExcursionType::where('id', '=', $excursion_type_id)->first();
 
-        $excursion_rate = ExcursionRate::where('excursion_id', '=', $excursion_id)->get();
+        $excursion_rate = ExcursionRate::where('excursion_id', '=', $excursion_id)->where('val', 1)->get();
 
 //        dd(DB::getQueryLog());
 
@@ -209,6 +208,7 @@ class ExcursionController extends \BaseController
         $get_excursion_rate = ExcursionRate::where('excursion_id', '=', $excursion)
             ->where('excursion_transport_type_id', '=', $transport_id)
             ->where('city_id', '=', $city_id)
+            ->where('val', 1)
             ->select('rate')
             ->first();
 
@@ -233,12 +233,13 @@ class ExcursionController extends \BaseController
         $price_box_city_id = Input::get('price_box_city_id');
         $pax = Input::get('price_box_pax');
 
-        $city = City::where('id', $price_box_city_id)->first()->city;
+        $city = City::where('id', $price_box_city_id)->where('val', 1)->first()->city;
         $transport_type = ExcursionTransportType::where('id', $price_box_transport_id)->first()->transport_type;
 
         $get_excursion_price = ExcursionRate::where('excursion_id', '=', $price_box_ex_id)
             ->where('excursion_transport_type_id', '=', $price_box_transport_id)
             ->where('city_id', '=', $price_box_city_id)
+            ->where('val', 1)
             ->select('rate')
             ->first();
 

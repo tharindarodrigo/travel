@@ -244,6 +244,7 @@
 
                             <div class="smallblacklabel">Tours</div>
                         </div>
+                        <?php $j = 7; ?>
                         @foreach($tour as $tours)
                             <div class="deal">
                                 {{ HTML::image('images/tour_images/index/'.$tours->id.'.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
@@ -263,11 +264,12 @@
                                     <div id="commentbox">
                                         <div id="commentrating">Rating</div>
                                         <div id="commentnums">
-                                            5/7
+                                            {{ $j }}/7
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <?php $j = $j-1?>
                         @endforeach
                     </div>
                     <!-- End of first row-->
@@ -280,6 +282,7 @@
 
                             <div class="smallblacklabel">Excursion</div>
                         </div>
+                        <?php $i = 7; ?>
                         @foreach($excursion as $excursions)
                             <div class="deal">
                                 {{ HTML::image('images/excursion_images/index/'.$excursions->id.'.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
@@ -298,11 +301,12 @@
                                     <div id="commentbox">
                                         <div id="commentrating">Rating</div>
                                         <div id="commentnums">
-                                            5/7
+                                            {{ $i }}/7
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <?php $i = $i-1; ?>
                         @endforeach
 
                     </div>
@@ -385,7 +389,7 @@
                                 <div id="commentbox">
                                     <div id="commentrating">Rating</div>
                                     <div id="commentnums">
-                                        5/7
+                                        7/7
                                     </div>
                                 </div>
                             </div>
@@ -409,7 +413,7 @@
                                 <div id="commentbox">
                                     <div id="commentrating">Rating</div>
                                     <div id="commentnums">
-                                        5/7
+                                        6/7
                                     </div>
                                 </div>
                             </div>

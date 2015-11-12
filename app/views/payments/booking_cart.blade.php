@@ -271,7 +271,7 @@ if (Session::has('excursion_cart_details')) {
                                                     <br/>
                                                     <h5 style="display: inline" class="bk_room_name">Tax and handling
                                                         fee: </h5>
-                                                    <span class="green">{{ Session::get('currency'). '&nbsp;' . number_format(($hotel_booking[$c]['hotel_tax'] + $hotel_booking[$c]['hotel_handling_fee']) , 2, '.', '') * Session::get('currency_rate')  }}  </span>
+                                                    <span class="green">{{ Session::get('currency'). '&nbsp;' . number_format((($hotel_booking[$c]['hotel_tax'] + $hotel_booking[$c]['hotel_handling_fee']) * Session::get('currency_rate') ) , 2, '.', '') }}  </span>
                                                     <br/>
                                                     <h5 style="margin-right: 45px; display: inline"
                                                         class="bk_room_name">Room Total : </h5> <span
@@ -603,7 +603,7 @@ if (Session::has('excursion_cart_details')) {
 
                                     <td class="col-sm-1 col-md-1">
                                         <h5 style="font-weight: 700 !important;">
-                                            {{ $excursion_cart_detail['excursion_rate'] }}</h5>
+                                            {{ Session::get('currency'). '&nbsp;'  . number_format((substr($excursion_cart_detail['excursion_rate'], 9) * Session::get('currency_rate')), 2, '.', '') }} </h5>
                                     </td>
 
                                     <td class="col-sm-1 col-md-1">
@@ -612,7 +612,9 @@ if (Session::has('excursion_cart_details')) {
 
                                     <td class="col-sm-2 col-md-1">
                                         {{--                                        <span class="green bold size18"> {{ Session::get('currency') }} </span> <br/>--}}
-                                        <span class="green bold size18">{{ $excursion_cart_detail['excursion_total']  }}</span>
+                                        <span class="green bold size18">
+                                           {{ Session::get('currency'). '&nbsp;'  . number_format((substr($excursion_cart_detail['excursion_total'], 9) * Session::get('currency_rate')), 2, '.', '') }} </h5>
+                                        </span>
                                     </td>
 
                                     {{ Form::open(array('url' => '/sri-lanka/excursion_cart/delete', 'method' => 'POST', 'id'=>'excursion_cart_item_delete')) }}

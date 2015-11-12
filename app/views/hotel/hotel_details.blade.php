@@ -439,12 +439,13 @@
                         <div class="line2"></div>
                         <?php $x = 0; $i = 0; $n = 0; ?>
                         @foreach($rooms as $hot_room)
-                            <?php $n = $n + 1;
+                            <?php
+                            $n = $n + 1;
                             $room_id = $hot_room->id;
                             $from_date = date('Y-m-d', strtotime(str_replace('-', '/', $st_date)));
                             $to_date = date('Y-m-d', strtotime(str_replace('-', '/', $ed_date)));
 
-                            if ((!empty($rooms)) && (Session::has('st_date'))) {
+                            if (Session::has('st_date')) {
                                 $room_types = Rate::whereHas('RoomSpecification', function ($a) {
                                     $a->where('adults', 'LIKE', Session::get('adult'));
                                     $a->where('children', 'LIKE', Session::get('child'));
@@ -470,7 +471,6 @@
 
                                 @foreach($room_types as $room)
 
-                                    <?php $low_room_rate = RoomRates::lowestRoomRateWithTax($hotel_id, $room_id, $room->room_specification_id, $room->meal_basis_id, $st_date, $ed_date); ?>
                                     <div id="room_id" room_id="{{ $room_id }}" class="padding20 get_room_id"
                                          style="padding-bottom: 10px !important;">
 
@@ -487,136 +487,6 @@
                                             <div style="padding-top: 5px; padding-left: 20%">
                                                 <a data-toggle="modal" data-target="#myModal{{ $room_id }}"
                                                    class="lred bold" href="">Check Room Details</a>
-                                            </div>
-                                        </div>
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="myModal{{ $room_id }}" tabindex="-1"
-                                             role="dialog" aria-labelledby="myModalLabel">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
-                                                                    aria-hidden="true">&times;</span></button>
-                                                        <h4 style="display: inline" class="modal-title"
-                                                            id="myModalLabel">
-                                                            {{ Hotel::where('id', $hotel_id)->first()->name }}
-                                                        </h4>
-                                                        -
-                                                        <h5 style="display: inline">
-                                                            {{ $room->RoomType->room_type }}
-                                                        </h5>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="row">
-                                                            <div class="room_left_model col-md-5">
-                                                                <div style="padding: 10px">
-                                                                    @if(count($img_path)>0)
-                                                                        {{ HTML::image('images/room_images/'.$img_name, '', array('class' => 'model_room'))}}
-                                                                    @else
-                                                                        {{ HTML::image('images/no-image.jpg', '', array('class' => 'model_room')) }}
-                                                                    @endif
-                                                                </div>
-                                                                <div style="padding: 10px; text-align: center">
-                                                                    {{ Room::roomTypeImage(Session::get('adult'), Session::get('child')) }}
-                                                                </div>
-
-                                                                <div class="green"
-                                                                     style="font-size: 20px; padding: 10px; text-align: center">
-                                                                    {{ Session::get('currency') . '&nbsp;' . number_format(($low_room_rate * Session::get('currency_rate')), 2, '.', '') }}
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="room_right_model col-md-7">
-
-                                                                <div>
-                                                                    <h5>Description</h5>
-
-                                                                    <p>
-                                                                        {{ strip_tags($room->RoomType->description) }}
-                                                                    </p>
-                                                                </div>
-
-                                                                <div class="offset-2">
-                                                                    <hr class="featurette-divider3">
-                                                                </div>
-
-                                                                <div>
-                                                                    <h5>Child Policy</h5>
-
-                                                                    <p>
-                                                                        Children below 0 years are charged 0% of the
-                                                                        adult rate
-                                                                        Children between 0 and 0 years are charged
-                                                                        0% of the adult rate
-                                                                        Age above 0 years are considered as Adults
-                                                                    </p>
-                                                                </div>
-
-                                                                <div class="offset-2">
-                                                                    <hr class="featurette-divider3">
-                                                                </div>
-
-                                                                <div>
-                                                                    <h5>Cancellation Policy </h5>
-
-                                                                    <p>
-                                                                        <strong style="color:#AF0B63;">You are in
-                                                                            the cancellation
-                                                                            period. Please refer the cancellation
-                                                                            policy</strong>.<br><br>
-
-                                                                        Before {{ (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->to) - (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->from) }}
-                                                                        days no cancellation.<br>
-                                                                        Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->from; }}
-                                                                        - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->to; }}
-                                                                        days 50% cancellation of the
-                                                                        <br/>
-                                                                        Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->from; }}
-                                                                        - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->to; }}
-                                                                        days 25% cancellation of the
-                                                                        total invoice value.<br>
-                                                                        Less
-                                                                        than {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 0)->first()->from; }}
-                                                                        days 100 % cancellation of the
-                                                                        total invoice value.<br>
-                                                                        No shows &amp; early departures 100%
-                                                                        cancellation of the total invoice value.
-
-                                                                    </p>
-                                                                </div>
-
-                                                                <div class="offset-2">
-                                                                    <hr class="featurette-divider3">
-                                                                </div>
-
-                                                                <div>
-                                                                    <h5>Facilities</h5>
-
-                                                                    @foreach($hot_room->RoomFacility as $facilities)
-                                                                        <div class="col-md-6">
-                                                                            <ul class="checklist">
-                                                                                <li style="font-size: 12px"> {{ $facilities->room_facility }} </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    @endforeach
-
-                                                                </div>
-
-                                                                <div class="offset-2">
-                                                                    <hr class="featurette-divider3">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">Close
-                                                        </button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
 
@@ -721,9 +591,8 @@
                                                 @endif
                                             </div>
 
-
                                             @if(Session::has('st_date'))
-
+                                                <?php $low_room_rate = RoomRates::lowestRoomRateWithTax($hotel_id, $room_id, $room->room_specification_id, $room->meal_basis_id, $st_date, $ed_date); ?>
                                                 <div class="col-md-4 center bordertype4">
                                                     @if($low_room_rate > 0 )
                                                         <span class="opensans green size24">  {{ Session::get('currency') . '&nbsp;' . number_format(($low_room_rate * Session::get('currency_rate')), 2, '.', '') }}</span>
@@ -781,9 +650,149 @@
                                                     </button>
                                                 </div>
                                             @endif
-                                        </div>
 
+                                        </div>
                                         <div class="clearfix"></div>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="myModal{{ $room_id }}" tabindex="-1"
+                                             role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close"><span
+                                                                    aria-hidden="true">&times;</span></button>
+                                                        <h4 style="display: inline" class="modal-title"
+                                                            id="myModalLabel">
+                                                            {{ Hotel::where('id', $hotel_id)->first()->name }}
+                                                        </h4>
+                                                        -
+                                                        <h5 style="display: inline">
+                                                            {{ $room->RoomType->room_type }}
+                                                        </h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="room_left_model col-md-5">
+                                                                <div style="padding: 10px">
+                                                                    @if(count($img_path)>0)
+                                                                        {{ HTML::image('images/room_images/'.$img_name, '', array('class' => 'model_room'))}}
+                                                                    @else
+                                                                        {{ HTML::image('images/no-image.jpg', '', array('class' => 'model_room')) }}
+                                                                    @endif
+                                                                </div>
+                                                                <div style="padding: 10px; text-align: center">
+                                                                    {{ Room::roomTypeImage(Session::get('adult'), Session::get('child')) }}
+                                                                </div>
+                                                                @if(Session::has('st_date'))
+                                                                    <div class="green"
+                                                                         style="font-size: 20px; padding: 10px; text-align: center">
+                                                                        {{ Session::get('currency') . '&nbsp;' . number_format(($low_room_rate * Session::get('currency_rate')), 2, '.', '') }}
+                                                                    </div>
+                                                                @else
+                                                                    <div class="green"
+                                                                         style="font-size: 20px; padding: 10px; text-align: center">
+                                                                        Please Select Date
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+
+                                                            <div class="room_right_model col-md-7">
+
+                                                                <div>
+                                                                    <h5>Description</h5>
+
+                                                                    <p>
+                                                                        {{ strip_tags($room->RoomType->description) }}
+                                                                    </p>
+                                                                </div>
+
+                                                                <div class="offset-2">
+                                                                    <hr class="featurette-divider3">
+                                                                </div>
+
+                                                                <div>
+                                                                    <h5>Child Policy</h5>
+
+                                                                    <p>
+                                                                        Children below 0 years are charged 0% of
+                                                                        the
+                                                                        adult rate
+                                                                        Children between 0 and 0 years are
+                                                                        charged
+                                                                        0% of the adult rate
+                                                                        Age above 0 years are considered as
+                                                                        Adults
+                                                                    </p>
+                                                                </div>
+
+                                                                <div class="offset-2">
+                                                                    <hr class="featurette-divider3">
+                                                                </div>
+
+                                                                <div>
+                                                                    <h5>Cancellation Policy </h5>
+
+                                                                    <p>
+                                                                        <strong style="color:#AF0B63;">You are
+                                                                            in
+                                                                            the cancellation
+                                                                            period. Please refer the
+                                                                            cancellation
+                                                                            policy</strong>.<br><br>
+
+                                                                        Before {{ (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->to) - (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->from) }}
+                                                                        days no cancellation.<br>
+                                                                        Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->from; }}
+                                                                        - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->to; }}
+                                                                        days 50% cancellation of the
+                                                                        <br/>
+                                                                        Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->from; }}
+                                                                        - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->to; }}
+                                                                        days 25% cancellation of the
+                                                                        total invoice value.<br>
+                                                                        Less
+                                                                        than {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 0)->first()->from; }}
+                                                                        days 100 % cancellation of the
+                                                                        total invoice value.<br>
+                                                                        No shows &amp; early departures 100%
+                                                                        cancellation of the total invoice value.
+
+                                                                    </p>
+                                                                </div>
+
+                                                                <div class="offset-2">
+                                                                    <hr class="featurette-divider3">
+                                                                </div>
+
+                                                                <div>
+                                                                    <h5>Facilities</h5>
+
+                                                                    @foreach($hot_room->RoomFacility as $facilities)
+                                                                        <div class="col-md-6">
+                                                                            <ul class="checklist">
+                                                                                <li style="font-size: 12px"> {{ $facilities->room_facility }} </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    @endforeach
+
+                                                                </div>
+
+                                                                <div class="offset-2">
+                                                                    <hr class="featurette-divider3">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     </div>
 

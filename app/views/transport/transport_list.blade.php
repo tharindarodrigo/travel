@@ -399,8 +399,16 @@
                             //Popover tooltips
                             $(function () {
                                 $("#username<?php echo $transport_package->id ?>").popover({
+                                    container: 'body',
                                     placement: 'top',
-                                    trigger: 'hover'
+                                    trigger: 'hover',
+                                    html: true,
+                                    title: function () {
+                                        return $('#popover_title_wrapper<?php echo $transport_package->id; ?>').html();
+                                    },
+                                    content: function () {
+                                        return $('#popover_content_wrapper<?php echo $transport_package->id; ?>').html();
+                                    }
                                 });
                             });
                         </script>
@@ -425,33 +433,49 @@
                                         @endif
                                     </a>
                                 </div>
-                                <div class="hpadding20">
-                                    <span class="glyphicon glyphicon-info-sign right lblue cpointer" rel="popover"
-                                          id="username{{ $transport_package->id }}"
-                                          data-content="This field is mandatory"
-                                          data-original-title="Here you can add additional information about the car">
-                                    </span>
 
-                                    <span class="predefine_vehicle_name size14 bold dark">{{ $transport_package->Vehicle->vehicle_type }}</span><br/>
+                                <div class="hpadding20">
+                                    <a href="#" class="glyphicon glyphicon-info-sign right lblue cpointer" rel="popover"
+                                       id="username{{ $transport_package->id }}"
+                                       data-content="" data-original-title="">
+                                    </a>
+
+                                    <div id="popover_title_wrapper{{ $transport_package->id }}" style="display: none">
+                                        <h4> {{ $transport_package->Vehicle->vehicle_type }} </h4>
+                                    </div>
+
+                                    <div id="popover_content_wrapper{{ $transport_package->id }}" style="display: none">
+                                        Additional Chargers Per KM
+                                        <span class="green">{{ Session::get('currency') . '&nbsp;' . number_format((Vehicle::where('id', $transport_package->vehicle_id)->first()->additional_charge_per_km * Session::get('currency_rate')), 2, '.', ''); }}</span>
+                                        <br/>
+                                        Additional Chargers Per Day
+                                        <span class="green">{{ Session::get('currency') . '&nbsp;' . number_format((Vehicle::where('id', $transport_package->vehicle_id)->first()->additional_charge_per_day * Session::get('currency_rate')), 2, '.', ''); }}</span>
+                                    </div>
+
+                                    <h4> {{ $transport_package->Vehicle->vehicle_type }}</h4>
 
                                     <div class="size13 grey">
 
                                         <table>
                                             <tr>
-                                                <td class=" dark bold" valign="top">From:&nbsp;&nbsp;&nbsp;</td>
+                                                <td class="dark bold" valign="top">From</td>
                                                 <td class="predefine_origin">
-                                                    {{ City::where('id', $transport_package->origin)->first()->city }}
+                                                    : {{ City::where('id', $transport_package->origin)->first()->city }}
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="dark bold" valign="top">To:</td>
+                                                <td class="dark bold" valign="top"> To</td>
                                                 <td class="predefine_destination">
-                                                    {{ City::where('id', $transport_package->destination)->first()->city }}
+                                                    : {{ City::where('id', $transport_package->destination)->first()->city }}
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="dark bold" valign="top">On:</td>
-                                                <td>Feb 6, 2014 at 06:12 for 2 person(s)</td>
+                                                <td class="dark bold" valign="top">Days</td>
+                                                <td>: {{ $transport_package->days }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="dark bold" valign="top"> Maximum KM</td>
+                                                <td>: {{ $transport_package->millage }} KM</td>
                                             </tr>
                                         </table>
 
@@ -501,12 +525,15 @@
                                     </div>
                                 </div>
                                 <div class="purchasecontainer">
-                                    <span class="predefine_rate size18 bold green mt5"> {{ Session::get('currency') . '&nbsp;' . number_format(($transport_package->rate * Session::get('currency_rate')), 2, '.', ''); }} </span><br/>
-                                    <span class="size12 mt-3 grey"><i>Per KM</i></span>&nbsp;&nbsp;&nbsp;
+                                    <span class="predefine_rate size18 bold green mt5">
+                                        {{ Session::get('currency') . '&nbsp;' . number_format(($transport_package->rate * Session::get('currency_rate')), 2, '.', ''); }}
+                                    </span>
+
                                     <button data-toggle="modal" data-target="#myModal{{ $transport_package->id }}"
                                             style="background: #006699; color: #ffffff;"
-                                            class="bookbtn right margtop-20">Add To Cart
+                                            class="bookbtn right">Add To Cart
                                     </button>
+
                                 </div>
                             </div>
                             <!-- END OF CONTAINER-->

@@ -58,11 +58,11 @@ class TourController extends \BaseController
             $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
         }
 
-        $country = Country::lists('country', 'id');
-        $city = City::lists('city', 'id');
+        $country = Country::where('val', 1)->lists('country', 'id');
+        $city = City::where('val', 1)->lists('city', 'id');
 
-        $filter_tours = Tour::get();
-        $filter_cities = City::get();
+        $filter_tours = Tour::where('val', 1)->get();
+        $filter_cities = City::where('val', 1)->get();
 
 
         if (Input::has('tour')) {
@@ -76,6 +76,7 @@ class TourController extends \BaseController
 
         if (!empty($tour_id)) {
             $tours = TourType::where('tour_id', '=', $tour_id)
+                ->where('val', 1)
                 ->paginate(6);
         }
 
@@ -127,11 +128,11 @@ class TourController extends \BaseController
     public function viewNoResult()
     {
         // Filtering
-        $country = Country::lists('country', 'id');
-        $city = City::lists('city', 'id');
+        $country = Country::where('val', 1)->lists('country', 'id');
+        $city = City::where('val', 1)->lists('city', 'id');
 
-        $filter_tours = Tour::get();
-        $filter_cities = City::get();
+        $filter_tours = Tour::where('val', 1)->get();
+        $filter_cities = City::where('val', 1)->get();
 
         return
             array(
@@ -166,8 +167,9 @@ class TourController extends \BaseController
             $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
         }
 
-        $filter_tours = Tour::get();
-        $filter_cities = City::get();
+
+        $filter_tours = Tour::where('val', 1)->get();
+        $filter_cities = City::where('val', 1)->get();
 
 
         if (!empty($country)) {
@@ -191,9 +193,9 @@ class TourController extends \BaseController
 
         $path = array();
 
-        $tour = Tour::where('id', '=', $tour)->get();
+        $tour = Tour::where('id', '=', $tour)->where('val', 1)->get();
 
-        $tour_type = TourType::where('tour_id', '=', $tour_id)->first();
+        $tour_type = TourType::where('tour_id', '=', $tour_id)->where('val', 1)->first();
 
 //        dd(DB::getQueryLog());
 

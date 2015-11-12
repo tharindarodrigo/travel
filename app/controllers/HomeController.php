@@ -77,9 +77,9 @@ class HomeController extends BaseController
 
 
         // Filtering
-        $hotel_type = DB::table('hotel_categories')->get();
-        $hotel_cities = DB::table('cities')->get();
-        $hotel_facilities = DB::table('hotel_facilities')->get();
+        $hotel_type = DB::table('hotel_categories')->where('val', 1)->get();
+        $hotel_cities = DB::table('cities')->where('val', 1)->get();
+        $hotel_facilities = DB::table('hotel_facilities')->where('val', 1)->get();
 
         return View::make('errors.403')
             ->with(

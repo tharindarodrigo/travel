@@ -145,13 +145,13 @@ class HotelController extends \BaseController
 
 
         // Filtering - Hotel
-        $hotel_type = DB::table('hotel_categories')->get();
-        $hotel_cities = DB::table('cities')->get();
-        $hotel_facilities = DB::table('hotel_facilities')->get();
+        $hotel_type = DB::table('hotel_categories')->where('val', 1)->get();
+        $hotel_cities = DB::table('cities')->where('val', 1)->get();
+        $hotel_facilities = DB::table('hotel_facilities')->where('val', 1)->get();
 
         // Filtering - Transport
-        $vehicle = Vehicle::lists('vehicle_type', 'id');
-        $city = City::lists('city', 'id');
+        $vehicle = Vehicle::where('val', 1)->lists('vehicle_type', 'id');
+        $city = City::where('val', 1)->lists('city', 'id');
 
         if (!empty($country)) {
             $country = str_replace('-', ' ', $country);
@@ -216,6 +216,7 @@ class HotelController extends \BaseController
                     ->whereHas('HotelFacility', function ($q) use ($facility) {
                         $q->whereIn('hotel_facility_id', $facility);
                     })
+                    ->where('val', 1)
                     ->where('city_id', $city_id)
                     ->whereIn('star_category_id', $star_id)
                     ->paginate(30);
@@ -223,12 +224,14 @@ class HotelController extends \BaseController
                 $min_hot_rate = DB::table('Hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->select('rates.rate')
+                    ->where('rates.val', 1)
                     ->where('hotels.city_id', $city_id)
                     ->min('rate');
 
                 $max_hot_rate = DB::table('Hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->select('rates.rate')
+                    ->where('rates.val', 1)
                     ->where('hotels.city_id', $city_id)
                     ->max('rate');
 
@@ -246,6 +249,7 @@ class HotelController extends \BaseController
                         $r->where('from', '<=', $from_date);
                         $r->where('to', '>=', $from_date);
                     })
+                    ->where('val', 1)
 //                    ->whereHas('HotelFacility', function ($q) use ($facility) {
 //                        $q->whereIn('hotel_facility_id', $facility);
 //                    })
@@ -261,6 +265,7 @@ class HotelController extends \BaseController
                     ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
                     ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
                     ->select('rates.rate')
+                    ->where('rates.val', 1)
                     ->where('hotel_category_id', $accommodation_id)
                     ->min('rate');
 
@@ -272,6 +277,7 @@ class HotelController extends \BaseController
                     ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
                     ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
                     ->select('rates.rate')
+                    ->where('rates.val', 1)
                     ->where('hotel_category_id', $accommodation_id)
                     ->whereIn('hotel_facility_id', $facility)
                     ->max('rate');
@@ -292,18 +298,21 @@ class HotelController extends \BaseController
                         $r->where('rate', '=>', $min_rate);
                         $r->where('rate', '=<', $max_rate);
                     })
+                    ->where('val', 1)
                     ->whereIn('star_category_id', $star_id)
                     ->paginate(30);
 
                 $min_hot_rate = DB::table('Hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->select('rates.rate')
+                    ->where('rates.val', 1)
                     ->where('hotels.city_id', $city_id)
                     ->min('rate');
 
                 $max_hot_rate = DB::table('Hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->select('rates.rate')
+                    ->where('rates.val', 1)
                     ->where('hotels.city_id', $city_id)
                     ->max('rate');
 
@@ -322,6 +331,7 @@ class HotelController extends \BaseController
 //                        $r->where('rate', '>=', $min_rate);
 //                        $r->where('rate', '<=', $max_rate);
 //                    })
+                    ->where('val', 1)
                     ->whereIn('star_category_id', $star_id)
                     ->paginate(30);
 
@@ -345,6 +355,7 @@ class HotelController extends \BaseController
                     ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
                     ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
                     ->select('rates.rate')
+                    ->where('rates.val', 1)
                     ->where('hotel_category_id', $accommodation_id)
                     ->whereIn('hotel_facility_id', $facility)
                     ->min('rate');
@@ -357,6 +368,7 @@ class HotelController extends \BaseController
                     ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
                     ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
                     ->select('rates.rate')
+                    ->where('rates.val', 1)
                     ->where('hotel_category_id', $accommodation_id)
                     ->whereIn('hotel_facility_id', $facility)
                     ->max('rate');
@@ -383,12 +395,14 @@ class HotelController extends \BaseController
                 $min_hot_rate = DB::table('Hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->select('rates.rate')
+                    ->where('rates.val', 1)
                     ->where('hotels.city_id', $city_id)
                     ->min('rate');
 
                 $max_hot_rate = DB::table('Hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->select('rates.rate')
+                    ->where('rates.val', 1)
                     ->where('hotels.city_id', $city_id)
                     ->max('rate');
 
@@ -423,6 +437,7 @@ class HotelController extends \BaseController
                     ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
                     ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
                     ->select('rates.rate')
+                    ->where('rates.val', 1)
                     ->where('hotel_category_id', $accommodation_id)
                     ->min('rate');
 
@@ -433,7 +448,8 @@ class HotelController extends \BaseController
                     ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
                     ->join('hotel_hotel_facility', 'hotel_hotel_facility.hotel_id', '=', 'hotels.id')
                     ->join('hotel_facilities', 'hotel_facilities.id', '=', 'hotel_hotel_facility.hotel_facility_id')
-                    ->select('rates.rate')
+                    ->select('rates.rate', 'rates.val')
+                    ->where('rates.val', 1)
                     ->where('hotel_category_id', $accommodation_id)
                     ->max('rate');
 
@@ -491,9 +507,9 @@ class HotelController extends \BaseController
 
 
         // Filtering
-        $hotel_type = DB::table('hotel_categories')->get();
-        $hotel_cities = DB::table('cities')->get();
-        $hotel_facilities = DB::table('hotel_facilities')->get();
+        $hotel_type = DB::table('hotel_categories')->where('val', 1)->get();
+        $hotel_cities = DB::table('cities')->where('val', 1)->get();
+        $hotel_facilities = DB::table('hotel_facilities')->where('val', 1)->get();
 
         return
             array(
@@ -551,7 +567,7 @@ class HotelController extends \BaseController
 
             $city_or_hotel = $get_city_or_accommodation;
 
-            $get_city_or_hotel_id = DB::table('cities')->where('city', 'LIKE', $city_or_hotel)->first();
+            $get_city_or_hotel_id = DB::table('cities')->where('city', 'LIKE', $city_or_hotel)->where('val', 1)->first();
 
             if (!is_null($get_city_or_hotel_id)) {
                 $city_id = $get_city_or_hotel_id->id;
@@ -618,7 +634,7 @@ class HotelController extends \BaseController
             if (Input::has('city')) {
                 $get_city_or_accommodation = Input::get('city');
 
-                $get_city_name = DB::table('cities')->where('id', '=', $get_city_or_accommodation)->first();
+                $get_city_name = DB::table('cities')->where('id', '=', $get_city_or_accommodation)->where('val', 1)->first();
                 $city_name = $get_city_name->city;
                 $city = str_replace(' ', '-', $city_name);
 
@@ -705,9 +721,9 @@ class HotelController extends \BaseController
 
 
         // Filtering
-        $hotel_type = DB::table('hotel_categories')->get();
-        $hotel_cities = DB::table('cities')->get();
-        $hotel_facilities = DB::table('hotel_facilities')->get();
+        $hotel_type = DB::table('hotel_categories')->where('val', 1)->get();
+        $hotel_cities = DB::table('cities')->where('val', 1)->get();
+        $hotel_facilities = DB::table('hotel_facilities')->where('val', 1)->get();
 
 
         if (!empty($country)) {
@@ -718,14 +734,13 @@ class HotelController extends \BaseController
 
         if (!empty($city)) {
             $city = str_replace('-', ' ', $city);
-            $city = DB::table('cities')->where('city', 'LIKE', $city)->first();
+            $city = DB::table('cities')->where('city', 'LIKE', $city)->where('val', 1)->first();
             $city_id = $city->id;
-
         }
 
         if (!empty($hotel_name)) {
             $hotel_name = str_replace('-', ' ', $hotel_name);
-            $get_hotel_id = DB::table('hotels')->where('name', 'LIKE', $hotel_name)->first();
+            $get_hotel_id = Hotel::where('name', 'LIKE', $hotel_name)->first();
             $hotel_id = $get_hotel_id->id;
         }
 
@@ -740,9 +755,9 @@ class HotelController extends \BaseController
             $path[] = $image;
         }
 
-        $hotel = Hotel::where('id', '=', $hotel_id)->get();
+        $hotel = Hotel::where('id', '=', $hotel_id)->where('val', 1)->get();
 
-        $rooms = RoomType::where('hotel_id', '=', $hotel_id)->get();
+        $rooms = RoomType::where('hotel_id', '=', $hotel_id)->where('val', 1)->get();
 
 //        dd(DB::getQueryLog());
 
@@ -834,7 +849,7 @@ class HotelController extends \BaseController
             $room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
             $room_rate_with_tax = RoomRates::lowestRoomRateWithTax($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
 
-            $room_cost = number_format(($room_rate_with_tax * $room_count) * $date_count , 2);
+            $room_cost = number_format(($room_rate_with_tax * $room_count) * $date_count, 2);
 
             if (Session::has('market')) {
                 $market = Session::get('market');
@@ -858,7 +873,7 @@ class HotelController extends \BaseController
                 }
 
                 if ($handling_fee_type == 0) {
-                    $total_handling_fee = ($room_rate  / 100) * $handling_fee;
+                    $total_handling_fee = ($room_rate / 100) * $handling_fee;
                 } else {
                     $total_handling_fee = $handling_fee;
                 }
@@ -872,13 +887,13 @@ class HotelController extends \BaseController
                 $total_tax = 0;
 
                 if ($handling_fee_type == 0) {
-                    $total_handling_fee = ($room_rate / 100 ) * $handling_fee;
+                    $total_handling_fee = ($room_rate / 100) * $handling_fee;
                 } else {
                     $total_handling_fee = $handling_fee;
                 }
 
                 $hotel_tax = $total_tax;
-                $hotel_handling_fee =  $total_handling_fee;
+                $hotel_handling_fee = $total_handling_fee;
             }
 
 //dd($room_rate.'/'.$total_tax.'/'.$total_handling_fee);
@@ -986,8 +1001,8 @@ class HotelController extends \BaseController
             // Is the string length greater than 0?
             if (strlen($queryString) > 0) {
 
-                $hotels = Hotel::where('name', 'LIKE', '%' . $queryString . '%')->select('name')->limit(4)->get();
-                $cities = City::where('city', 'LIKE', '%' . $queryString . '%')->select('city')->limit(4)->get();
+                $hotels = Hotel::where('name', 'LIKE', '%' . $queryString . '%')->select('name')->where('val', 1)->limit(4)->get();
+                $cities = City::where('city', 'LIKE', '%' . $queryString . '%')->select('city')->where('val', 1)->limit(4)->get();
 
                 //dd(DB::getQueryLog());
 
@@ -1025,7 +1040,6 @@ class HotelController extends \BaseController
                 if (!is_null($hotels)) {
                     if ($hotels) {
                         // While there are results loop through them - fetching an Object.
-
                         foreach ($hotels as $hotel) {
 
                             $directory = public_path() . '/images/site/';
@@ -1080,7 +1094,7 @@ class HotelController extends \BaseController
                 ->get();
 
         } else {
-            $city = DB::table('cities')->where('city', 'LIKE', $hotel_list_name)->first();
+            $city = DB::table('cities')->where('city', 'LIKE', $hotel_list_name)->where('val', 1)->first();
             $city_id = $city->id;
 
             $get_latitudes_longitudes = Hotel::where('city_id', $city_id)

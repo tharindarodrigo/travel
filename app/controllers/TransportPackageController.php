@@ -14,11 +14,11 @@ class TransportPackageController extends \BaseController
 
         $vehicle_id = array();
 
-        $vehicles = Vehicle::get();
+        $vehicles = Vehicle::where('val', 1)->get();
 
         // filtering
         $vehicle = Vehicle::lists('vehicle_type', 'id');
-        $city = City::lists('city', 'id');
+        $city = array('76' => 'Any') + City::lists('city', 'id');
         //$city['%'] = 'Any';
 
         if (Session::has('st_date')) {
@@ -74,6 +74,8 @@ class TransportPackageController extends \BaseController
             $to = '%';
         }
 
+       // dd($from.'/'.$to);
+
         if (Input::has('transport_days')) {
             $days = Input::get('transport_days');
         } else {
@@ -85,6 +87,7 @@ class TransportPackageController extends \BaseController
         $transport_packages = Transportpackage::WhereHas('Vehicle', function ($r) use ($vehicle_id) {
             $r->whereIn('id', $vehicle_id);
         })
+            ->where('val', 1)
             ->where('rate', '>=', $min_rate)
             ->where('rate', '<=', $max_rate)
             ->where('origin', 'LIKE', $from)
@@ -174,8 +177,8 @@ class TransportPackageController extends \BaseController
     public function createMyTrip()
     {
 
-        $city = City::lists('city', 'id');
-        $vehicle = Vehicle::lists('vehicle_type', 'id');
+        $city = City::where('val', 1)->lists('city', 'id');
+        $vehicle = Vehicle::where('val', 1)->lists('vehicle_type', 'id');
 
         if (Session::has('st_date')) {
             $st_date = Session::get('st_date');
