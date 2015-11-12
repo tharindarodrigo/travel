@@ -19,30 +19,35 @@ class TransportPackage extends \Eloquent
 
     public static function getTotalTransportationAmount($booking)
     {
-        $transport = new TransportPackage();
-        $total = $transport->getCustomTripTotal($booking) + $transport->getPredefinedTripTotal($booking);
+
+        $total = TransportPackage::getCustomTripTotal($booking) + TransportPackage::getPredefinedTripTotal($booking);
 
         return $total;
 
     }
 
-    public function getCustomTripTotal($booking)
+    public static function getCustomTripTotal($booking)
     {
+        $total = 0;
         if ($booking->customTrip->count()) {
-            return $total = $booking->customTrip->where('val',1)->sum('amount');
+            foreach ($booking->customTrip as $customTrip) {
+                if ($customTrip->val == 1)
+                    $total += $customTrip->amount;
+            }
+            return $total;
         }
 
         return 0;
     }
 
-    public function getPredefinedTripTotal($booking)
+    public static function getPredefinedTripTotal($booking)
     {
         $total = 0;
         if ($booking->predefinedTrip->count()) {
 
             foreach ($booking->predefinedTrip as $predefinedTrip) {
                 if ($predefinedTrip->val == 1) {
-                    $total += ($predefinedTrip->transportPackage->rate*$predefinedTrip->transportPackage->millage);
+                    $total += ($predefinedTrip->transportPackage->rate * $predefinedTrip->transportPackage->millage);
                 }
             }
             return $total;
@@ -63,14 +68,13 @@ class TransportPackage extends \Eloquent
 
     public function originCity()
     {
-        return $this->belongsTo('City','origin');
+        return $this->belongsTo('City', 'origin');
     }
 
     public function destinationCity()
     {
         return $this->belongsTo('City', 'destination');
     }
-
 
 
 }

@@ -36,4 +36,6 @@ class Invoice extends \Eloquent
     {
         return $this->belongsTo('Booking');
     }
+
+
 }

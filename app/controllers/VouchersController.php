@@ -155,7 +155,7 @@ class VouchersController extends \BaseController
 
         $agent_user = $voucher->booking->user->first();
 
-        $pdf = PDF::loadView('emails/voucher', array('voucher' => $voucher));
+        $pdf = PDF::loadView('emails/cencellation-voucher', array('voucher' => $voucher));
         $pdf->save(public_path() . '/temp-files/cancellation-voucher.pdf');
 
         $hotel = Hotel::findOrFail($voucher->hotel_id);
@@ -166,12 +166,13 @@ class VouchersController extends \BaseController
             'voucher' => $voucher
         ), function ($message) use ($voucher, $agent_user, $hotel_users) {
             $message->attach(public_path() . '/temp-files/cancellation-voucher.pdf')
-                ->subject('Cancellation Voucher :'. $voucher->reference_number);
+                ->subject('Cancellation Voucher :' . $voucher->reference_number)
+                ->from('reservations@srilankahotels.travel');
             if (!empty($hotel_users))
                 foreach ($hotel_users as $hotel_user) {
                     $message->to($hotel_user->email, $hotel_user->first_name);
                 }
-            if(!empty($agent_user)){
+            if (!empty($agent_user)) {
                 $message->to($agent_user->email, $agent_user->first_name);
             }
         });

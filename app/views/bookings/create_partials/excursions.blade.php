@@ -46,28 +46,6 @@
 
                 </tr>
             @endforeach
-            {{--<tr class="warning">--}}
-                {{--{{Form::open(array('route'=>array('bookings.clients.store',$booking->id)))}}--}}
-                {{--<td>&nbsp;</td>--}}
-                {{--<td>--}}
-                    {{--{{Form::text('name',null, array('class'=>'form-control', 'placeholder'=> 'Name'))}}--}}
-                    {{--{{$errors->first('name', '<span class="size12" style="color: red;">:message</span>') }}--}}
-                {{--</td>--}}
-                {{--<td>--}}
-                    {{--{{Form::text('passport_number',null, array('class'=>'form-control', 'placeholder'=> 'Passport No.'))}}--}}
-                    {{--{{$errors->first('passport_number', '<span class="size12" style="color: red;">:message</span>') }}--}}
-                {{--</td>--}}
-                {{--<td>--}}
-                    {{--{{Form::text('dob',null,array('class'=>'form-control date-control', 'placeholder'=> 'Date of Birth'))}}--}}
-                    {{--{{$errors->first('dob', '<span class="size12" style="color: red;">:message</span>') }}--}}
-                {{--</td>--}}
-                {{--<td>--}}
-                    {{--{{Form::select('gender',array(''=>'gender', 1=>'male',0=>'female'),null,array('class'=>'form-control'))}}--}}
-                    {{--{{$errors->first('gender', '<span class="size12" style="color: red;">:message</span>') }}--}}
-                {{--</td>--}}
-                {{--<td>{{Form::submit('add Client', array('class'=>'btn btn-primary'))}}</td>--}}
-                {{--{{Form::close()}}--}}
-            {{--</tr>--}}
 
             </tbody>
         </table>

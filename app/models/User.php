@@ -63,6 +63,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface
     }
 
 
+    public static function getEhiUsers()
+    {
+        return $ehi_users = DB::table('users')
+            ->leftJoin('assigned_roles', 'users.id', '=', 'assigned_roles.user_id')
+            ->where('assigned_roles.role_id', Role::where('name', 'EHI')->first()->id)
+            ->get();
+    }
+
     public static function getAgentOfUser($id)
     {
         $user_agent = DB::table('agent_user')->where('user_id', $id)->first();

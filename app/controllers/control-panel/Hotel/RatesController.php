@@ -7,12 +7,16 @@ class RatesController extends \BaseController
 
     public function __construct()
     {
+
         $this->_user = Auth::user();
         $this->_parameters = Route::current()->parameters();
-        if(!User::hasHotelPermission($this->_user, $this->_parameters['hotels']))
-            if (!Entrust::hasRole('Admin')) {
-                App::abort(403);
+            //dd($this->_parameters);
+        if($x=!User::hasHotelPermission($this->_user, $this->_parameters['hotels'])){
+                if (!Entrust::hasRole('Admin')) {
+                    App::abort(403);
+                }
             }
+
     }
 
     /**
@@ -34,8 +38,9 @@ class RatesController extends \BaseController
      */
     public function create($hotelid)
     {
-        $rates = Rate::all();
-        return View::make('control-panel.hotel.rates.create', compact('hotelid', 'rates'));
+//        dd('fuck');
+        //$rates = Rate::all();
+        return View::make('control-panel.hotel.rates.create', compact('hotelid'));
     }
 
     /**
@@ -567,7 +572,7 @@ class RatesController extends \BaseController
         return Redirect::back();
     }
 
-    public function getRateData()
+    public function getRateData($hotelid)
     {
         $room_id = Input::get('room_type_id');
         $roomspaces = RoomType::with('roomSpecification')->find($room_id);

@@ -133,7 +133,31 @@
 </style>
 
 <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
-    <h3>Reference No. : 123456789</h3>
+    <?php if ($booking->invoice->count == 0) { ?>
+        <table border="0" width="100%" style="margin-top: -11px;">
+            <tr>
+                <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
+                        : <?php echo $booking->reference_number . '-' . $booking->invoice->count; ?>
+                </td>
+                <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Booking
+
+                </td>
+            </tr>
+        </table>
+    <?php } else { ?>
+        <table border="0" width="100%" style="margin-top: -11px;">
+            <tr>
+                <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
+                        : <?php echo $booking->reference_number . '/' . $booking->invoice->count; ?>
+                </td>
+                <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Amended
+                        Booking
+                </td>
+            </tr>
+        </table>
+
+    <?php } ?>
+
 </div>
 <br/>
 

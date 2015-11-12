@@ -98,14 +98,15 @@
             format: 'yyyy-mm-dd'
         });
 
-        var hotel_id;
+        var hotel_id ;
 
         $('#room_type_id').change(function(){
-
+            hotel_id = $('#hotelid').val();
             hideItems();
 
             $("#change_room").slideDown(200);
-            var url = 'http://'+window.location.host+'/control-panel/hotel/hotels/rates/get-rates';
+            var url = 'http://'+window.location.host+'/control-panel/hotel/hotels/'+hotel_id+'/rates/get-rates';
+//            alert(url);
             var formData = new FormData();
             formData.append('room_type_id', $(this).val());
             $.ajax({

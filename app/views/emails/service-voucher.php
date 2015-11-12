@@ -6,8 +6,31 @@
 </style>
 
 
-<h2 align="center" style="background: #00517e; padding: 10px; color: #FFFFFF ">Service Voucher : <?php echo $booking->reference_number?></h2>
-<hr/>
+<?php if ($booking->invoice->count == 0) { ?>
+    <table border="0" width="100%" style="margin-top: -11px;">
+        <tr>
+            <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
+                    : <?php echo $booking->reference_number . '-' . $booking->invoice->count; ?>
+            </td>
+            <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Service Voucher
+
+            </td>
+        </tr>
+    </table>
+<?php } else { ?>
+    <table border="0" width="100%" style="margin-top: -11px;">
+        <tr>
+            <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
+                    : <?php echo $booking->reference_number . '/' . $booking->invoice->count; ?>
+            </td>
+            <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Amended
+                    Serveice Voucher
+            </td>
+        </tr>
+    </table>
+
+<?php } ?>
+
 
 
 <table class="table" border="1px" cellpadding="10" cellspacing="0" width="100%">

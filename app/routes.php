@@ -10,6 +10,7 @@
 |
 */
 
+
 /*------------------------------ Sign in & Register --------------------------------*/
 
 
@@ -34,10 +35,11 @@ Route::group(array('before' => 'auth'), function () {
 //            'uses' => 'AccountController@postChangePassword',
 //        ));
 
+    //Change password
 
     });
 
-//    Route::post('account/update-profile', 'AccountController@updateProfile');
+    //Sign Out
 
 
     /*
@@ -115,6 +117,7 @@ Route::group(array('before' => 'auth'), function () {
             Route::resource('users', 'UsersController');
             Route::resource('payments', 'PaymentsController');
 
+
             /**
              * -------------------------------------------------------------------------------------------------------------
              *  control-panel/agents
@@ -190,12 +193,12 @@ Route::group(array('before' => 'auth'), function () {
                  */
 
                 Route::resource('hotels.rates', 'RatesController');
-                Route::post('hotels/rates/get-rates', 'RatesController@getRateData');
-                Route::post('hotels/{hotelid}/rates/update-rates', 'RatesController@updateRates');
+                Route::post('hotels/{hotels}/rates/get-rates', 'RatesController@getRateData');
+                Route::post('hotels/{hotels}/rates/update-rates', 'RatesController@updateRates');
 
                 Route::resource('hotels.supplement-rates', 'SupplementRatesController');
-                Route::post('hotels/supplement-rates/get-rates', 'SupplementRatesController@getRateData');
-                Route::post('hotels/{hotelid}/supplement-rates/update-rates', 'SupplementRatesController@updateSupplementRates');
+                Route::post('hotels/{hotels}/supplement-rates/get-rates', 'SupplementRatesController@getRateData');
+                Route::post('hotels/{hotels}/supplement-rates/update-rates', 'SupplementRatesController@updateSupplementRates');
 
 
                 /**
@@ -219,8 +222,6 @@ Route::group(array('before' => 'auth'), function () {
                 Route::get('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/edit', 'HotelsController@editCancellationPolicy');
                 Route::put('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/update', 'HotelsController@updateCancellationPolicy');
                 Route::delete('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/delete', 'HotelsController@deleteCancellationPolicy');
-
-
 
                 //Route::resource('meal-bases', 'MealBasesController');
             });
@@ -263,6 +264,11 @@ Route::group(array('before' => 'auth'), function () {
 });
 
 
+Route::get('sign-up',function(){
+    return View::make('account.sign-up');
+});
+
+
 Route::group(array('prefix' => 'account'), function () {
     Route::get('sign-up', 'AccountController@signUp');
     Route::post('create', 'AccountController@createAccount');
@@ -280,7 +286,34 @@ Route::get('voucher/{id}', function ($id) {
     $pdf = PDF::loadView('emails/voucher', array('voucher' => $voucher));
     $pdf->setPaper('a4')->save(public_path() . '/temp-files/voucher.pdf');
     return $pdf->stream('abc.pdf');
+});
 
+Route::get('transport/{id}', function ($id) {
+    $booking = Booking::find($id);
+    $pdf = PDF::loadView('emails/transport', array('booking' => $booking));
+    $pdf->setPaper('a4')->save(public_path() . '/temp-files/transport.pdf');
+    return $pdf->stream('abc.pdf');
+});
+
+//Route::get('transport-cancellation', function ($id) {
+//    $booking = Booking::find($id);
+//    $pdf = PDF::loadView('emails/transport-cancellation', array('booking' => $booking));
+//    $pdf->setPaper('a4')->save(public_path() . '/temp-files/transport-cancellation.pdf');
+//    return $pdf->stream('abc.pdf');
+//});
+
+Route::get('excursion/{id}', function ($id) {
+    $booking = Booking::find($id);
+    $pdf = PDF::loadView('emails/excursion', array('booking' => $booking));
+    $pdf->setPaper('a4')->save(public_path() . '/temp-files/excursion.pdf');
+    return $pdf->stream('abc.pdf');
+});
+
+Route::get('excursion-cancellation/{id}', function ($id) {
+    $booking = Booking::find($id);
+    $pdf = PDF::loadView('emails/excursion', array('booking' => $booking));
+    $pdf->setPaper('a4')->save(public_path() . '/temp-files/excursion.pdf');
+    return $pdf->stream('abc.pdf');
 });
 
 Route::get('cancellation-voucher/{id}', function ($id) {
@@ -303,7 +336,7 @@ Route::get('booking/{id}', function ($id) {
 });
 
 Route::get('invoice/{id}', function ($id) {
-    $booking = Booking::getBookingData($id);
+    $booking = Booking::find($id);
     $pdf = PDF::loadView('emails/invoice', array('booking' => $booking));
 
     return $pdf->stream();
@@ -374,6 +407,7 @@ Route::get('/my-bookings', function () {
 
 //Vouchers
 Route::resource('bookings.vouchers', 'VouchersController');
+
 Route::resource('transportation', 'TransportationController');
 
 Route::get('/email-check', function () {
