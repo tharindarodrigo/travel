@@ -35,13 +35,13 @@ class CancellationPoliciesController extends \BaseController
     {
         Session::put('manage', 'policies');
 
-        $validator = Validator::make($data = Input::all(), Cancellationpolicy::$rules);
+        $validator = Validator::make($data = Input::all(), CancellationPolicy::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        Cancellationpolicy::create($data);
+        CancellationPolicy::create($data);
 
         return Redirect::route('control-panel.hotel.hotels.edit', $hotel_id);
     }
@@ -54,7 +54,7 @@ class CancellationPoliciesController extends \BaseController
      */
     public function show($id)
     {
-        $cancelationpolicy = Cancellationpolicy::findOrFail($id);
+        $cancelationpolicy = CancellationPolicy::findOrFail($id);
 
         return View::make('cancelationpolicies.show', compact('cancelationpolicy'));
     }
@@ -90,9 +90,9 @@ class CancellationPoliciesController extends \BaseController
         Session::put('manage', 'policies');
         Session::forget('edit');
 
-        $cancelationpolicy = Cancellationpolicy::findOrFail($id);
+        $cancelationpolicy = CancellationPolicy::findOrFail($id);
 
-        $validator = Validator::make($data = Input::all(), Cancellationpolicy::$rules);
+        $validator = Validator::make($data = Input::all(), CancellationPolicy::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
@@ -113,7 +113,7 @@ class CancellationPoliciesController extends \BaseController
     {
         Session::put('manage', 'policies');
 
-        Cancellationpolicy::destroy($id);
+        CancellationPolicy::destroy($id);
 
         return Redirect::route('control-panel.hotel.hotels.edit', $hotel_id);
     }

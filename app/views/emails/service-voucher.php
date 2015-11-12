@@ -12,7 +12,8 @@
             <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
                     : <?php echo $booking->reference_number . '-' . $booking->invoice->count; ?>
             </td>
-            <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Service Voucher
+            <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Service
+                    Voucher
 
             </td>
         </tr>
@@ -30,7 +31,6 @@
     </table>
 
 <?php } ?>
-
 
 
 <table class="table" border="1px" cellpadding="10" cellspacing="0" width="100%">
@@ -53,7 +53,7 @@
                         rooms on
                         <?php echo $roomBooking->mealBasis->meal_basis; ?> basis
                         - <?php echo $f = $voucher->check_in; ?> TO <?php echo $t = $voucher->check_out; ?>
-                          <?php // echo Voucher::getNights($f, $t)->days;?>
+                        <?php // echo Voucher::getNights($f, $t)->days;?>
                     </p>
 
 
@@ -70,7 +70,8 @@
             <td>
                 <h3>Transportation</h3>
                 <?php foreach ($booking->customTrip as $trip) { ?>
-                    <p><b><?php //echo $trip->reference_number ?></b> Trip By <?php echo $trip->vehicle->vehicle_type; ?>, picked up
+                    <p><b><?php //echo $trip->reference_number ?></b> Trip
+                        By <?php echo $trip->vehicle->vehicle_type; ?>, picked up
                         on <?php echo date('Y-m-d', strtotime($trip->from)); ?>
                         at <?php echo date('H:i', strtotime($trip->from)) ?>. Path (Origin to Destination)
                         : <?php echo $trip->locations ?></p>
@@ -81,7 +82,7 @@
                         on <?php echo date('Y-m-d', strtotime($trip->transportPackage->start_date)); ?>
                         at <?php echo date('H:i', strtotime($trip->pick_up_date_time)) ?>. Path (Origin to Destination)
                         : <?php echo City::find($trip->transportPackage->origin)->city; ?> <?php echo City::find($trip->transportPackage->destination)->city; ?>
-                        </p>
+                    </p>
                 <?php } ?>
 
 
@@ -102,7 +103,7 @@
                         <?php echo $excursionBooking->excursionTransportType->transport_type; ?> excursion
 
                         From <?php echo $excursionBooking->city->city; ?>
-                        on the <?php echo date('Y-m-d',strtotime($excursionBooking->date)); ?>
+                        on the <?php echo date('Y-m-d', strtotime($excursionBooking->date)); ?>
                         <?php echo $excursionBooking->pax; ?> pax
 
                     </p>

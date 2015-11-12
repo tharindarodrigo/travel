@@ -11,7 +11,7 @@ class StarCategoriesController extends \BaseController
     public function index()
     {
         Session::forget('edit');
-        $starcategories = Starcategory::all();
+        $starcategories = StarCategory::all();
 
         return View::make('control-panel.hotel.general.starCategories', compact('starcategories'));
     }
@@ -34,14 +34,14 @@ class StarCategoriesController extends \BaseController
     public function store()
     {
 
-        $validator = Validator::make($data = Input::all(), Starcategory::$rules);
+        $validator = Validator::make($data = Input::all(), StarCategory::$rules);
 
         if ($validator->fails()) {
 //            dd($validator->errors());
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        if (Starcategory::create($data)) {
+        if (StarCategory::create($data)) {
             Session::flash('successful-action', 'Hotel Facility was created Successfully');
         } else {
             Session::flash('unsuccessful-action', 'Creating Hotel Facility was Unsuccessful');
@@ -59,7 +59,7 @@ class StarCategoriesController extends \BaseController
      */
     public function show($id)
     {
-        $starcategory = Starcategory::findOrFail($id);
+        $starcategory = StarCategory::findOrFail($id);
 
         return View::make('starcategories.show', compact('starcategory'));
     }
@@ -72,8 +72,8 @@ class StarCategoriesController extends \BaseController
      */
     public function edit($id)
     {
-        $Starcategory = Starcategory::find($id);
-        $starcategories = Starcategory::all();
+        $Starcategory = StarCategory::find($id);
+        $starcategories = StarCategory::all();
         Session::put('edit', 'edit');
         return View::make('control-panel.hotel.general.starCategories')
             ->with(array(
@@ -90,12 +90,12 @@ class StarCategoriesController extends \BaseController
      */
     public function update($id)
     {
-        $starcategory = Starcategory::findOrFail($id);
+        $starcategory = StarCategory::findOrFail($id);
 
         $data = Input::all();
 
         if (!Input::has('val')) {
-            $rules = Starcategory::$rules;
+            $rules = StarCategory::$rules;
         } else {
             $rules = ['val'];
         }

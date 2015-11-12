@@ -10,7 +10,7 @@ class CustomTripsController extends \BaseController
      */
     public function index()
     {
-        $customtrips = Customtrip::all();
+        $customtrips = CustomTrip::all();
 
         return View::make('customtrips.index', compact('customtrips'));
     }
@@ -32,13 +32,13 @@ class CustomTripsController extends \BaseController
      */
     public function store()
     {
-        $validator = Validator::make($data = Input::all(), Customtrip::$rules);
+        $validator = Validator::make($data = Input::all(), CustomTrip::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        Customtrip::create($data);
+        CustomTrip::create($data);
 
         return Redirect::route('customtrips.index');
     }
@@ -51,7 +51,7 @@ class CustomTripsController extends \BaseController
      */
     public function show($id)
     {
-        $customtrip = Customtrip::findOrFail($id);
+        $customtrip = CustomTrip::findOrFail($id);
 
         return View::make('customtrips.show', compact('customtrip'));
     }
@@ -64,7 +64,7 @@ class CustomTripsController extends \BaseController
      */
     public function edit($id)
     {
-        $customtrip = Customtrip::find($id);
+        $customtrip = CustomTrip::find($id);
 
         return View::make('customtrips.edit', compact('customtrip'));
     }
@@ -122,7 +122,7 @@ class CustomTripsController extends \BaseController
             return Redirect::back();
         }
 
-        $validator = Validator::make($data = Input::all(), Customtrip::$rules);
+        $validator = Validator::make($data = Input::all(), CustomTrip::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
@@ -141,7 +141,7 @@ class CustomTripsController extends \BaseController
      */
     public function destroy($id)
     {
-        Customtrip::destroy($id);
+        CustomTrip::destroy($id);
         return Redirect::route('customtrips.index');
     }
 

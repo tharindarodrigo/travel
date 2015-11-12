@@ -9,8 +9,8 @@ class RoomSpecificationsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$roomspecificationsinlist = Roomspecification::whereIn('id',Session::get('roomspec','id'))->get();
-		$roomspecificationsnotinlist = Roomspecification::whereNotIn('id',Session::get('roomspec','id'))->get();
+		$roomspecificationsinlist = RoomSpecification::whereIn('id',Session::get('roomspec','id'))->get();
+		$roomspecificationsnotinlist = RoomSpecification::whereNotIn('id',Session::get('roomspec','id'))->get();
 
         return Response::json(
             array(
@@ -56,7 +56,7 @@ class RoomSpecificationsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$roomspecification = Roomspecification::findOrFail($id);
+		$roomspecification = RoomSpecification::findOrFail($id);
 
 		return View::make('roomspecifications.show', compact('roomspecification'));
 	}
@@ -69,7 +69,7 @@ class RoomSpecificationsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$roomspecification = Roomspecification::find($id);
+		$roomspecification = RoomSpecification::find($id);
 
 		return View::make('roomspecifications.edit', compact('roomspecification'));
 	}
@@ -82,9 +82,9 @@ class RoomSpecificationsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$roomspecification = Roomspecification::findOrFail($id);
+		$roomspecification = RoomSpecification::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Roomspecification::$rules);
+		$validator = Validator::make($data = Input::all(), RoomSpecification::$rules);
 
 		if ($validator->fails())
 		{

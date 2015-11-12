@@ -155,7 +155,7 @@ class VouchersController extends \BaseController
 
         $agent_user = $voucher->booking->user->first();
 
-        $pdf = PDF::loadView('emails/cencellation-voucher', array('voucher' => $voucher));
+        $pdf = PDF::loadView('emails/cancellation-voucher', array('voucher' => $voucher));
         $pdf->save(public_path() . '/temp-files/cancellation-voucher.pdf');
 
         $hotel = Hotel::findOrFail($voucher->hotel_id);

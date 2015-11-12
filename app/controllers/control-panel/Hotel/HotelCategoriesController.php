@@ -12,7 +12,7 @@ class HotelCategoriesController extends \BaseController
     public function index()
     {
         Session::forget('edit');
-        $hotelcategories = Hotelcategory::all();
+        $hotelcategories = HotelCategory::all();
 
         return View::make('control-panel.hotel.general.hotelCategories', compact('hotelcategories'));
     }
@@ -34,13 +34,13 @@ class HotelCategoriesController extends \BaseController
      */
     public function store()
     {
-        $validator = Validator::make($data = Input::all(), Hotelcategory::$rules);
+        $validator = Validator::make($data = Input::all(), HotelCategory::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        if (Hotelcategory::create($data)) {
+        if (HotelCategory::create($data)) {
             Session::flash('successful-action', 'Hotel Category was created Successfully');
         } else {
             Session::flash('unsuccessful-action', 'Creating Hotel Category was Unsuccessful <h3>:(</h3>');
@@ -57,7 +57,7 @@ class HotelCategoriesController extends \BaseController
      */
     public function show($id)
     {
-        $hotelcategory = Hotelcategory::findOrFail($id);
+        $hotelcategory = HotelCategory::findOrFail($id);
 
 //		return View::make('hotelcategories.show', compact('hotelcategory'));
         return Redirect::route('control-panel.hotel.hotel-categories.index', compact('hotelcategory'));
@@ -73,11 +73,11 @@ class HotelCategoriesController extends \BaseController
     {
 
         try{
-            $Hotelcategory = Hotelcategory::findOrFail($id);
+            $Hotelcategory = HotelCategory::findOrFail($id);
         } catch (ModelNotFoundException $e){
             return Redirect::to('control-panel/errors/record-not-found');
         }
-        $hotelcategories = Hotelcategory::all();
+        $hotelcategories = HotelCategory::all();
         Session::put('edit', 'edit');
 
         return View::make('control-panel.hotel.general.hotelCategories',compact('hotelcategories','Hotelcategory'));
@@ -99,7 +99,7 @@ class HotelCategoriesController extends \BaseController
 
 
         try{
-            $hotelcategory = Hotelcategory::findOrFail($id);
+            $hotelcategory = HotelCategory::findOrFail($id);
         } catch (ModelNotFoundException $e){
             return Redirect::to('control-panel/errors/record-not-found');
         }
@@ -139,7 +139,7 @@ class HotelCategoriesController extends \BaseController
     public function destroy($id)
     {
 
-        if (Hotelcategory::destroy($id)) {
+        if (HotelCategory::destroy($id)) {
             Session::flash('successful-action', 'Item was deleted Successfully');
         } else {
             {

@@ -9,7 +9,7 @@ class RoomBookingsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$roombookings = Roombooking::all();
+		$roombookings = RoomBooking::all();
 
 		return View::make('roombookings.index', compact('roombookings'));
 	}
@@ -31,14 +31,14 @@ class RoomBookingsController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Roombooking::$rules);
+		$validator = Validator::make($data = Input::all(), RoomBooking::$rules);
 
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		Roombooking::create($data);
+		RoomBooking::create($data);
 
 		return Redirect::route('roombookings.index');
 	}
@@ -51,7 +51,7 @@ class RoomBookingsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$roombooking = Roombooking::findOrFail($id);
+		$roombooking = RoomBooking::findOrFail($id);
 
 		return View::make('roombookings.show', compact('roombooking'));
 	}
@@ -64,7 +64,7 @@ class RoomBookingsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$roombooking = Roombooking::find($id);
+		$roombooking = RoomBooking::find($id);
 
 		return View::make('roombookings.edit', compact('roombooking'));
 	}
@@ -77,9 +77,9 @@ class RoomBookingsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$roombooking = Roombooking::findOrFail($id);
+		$roombooking = RoomBooking::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Roombooking::$rules);
+		$validator = Validator::make($data = Input::all(), RoomBooking::$rules);
 
 		if ($validator->fails())
 		{
@@ -99,7 +99,7 @@ class RoomBookingsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		Roombooking::destroy($id);
+		RoomBooking::destroy($id);
 
 		return Redirect::route('roombookings.index');
 	}

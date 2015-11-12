@@ -12,7 +12,7 @@ class MealBasesController extends \BaseController
     {
         Session::forget('edit');
 
-        $mealbases = Mealbasis::all();
+        $mealbases = MealBasis::all();
 
         return View::make('control-panel.hotel.general.mealBases', compact('mealbases'));
     }
@@ -35,14 +35,14 @@ class MealBasesController extends \BaseController
     public function store()
     {
 
-        $validator = Validator::make($data = Input::all(), Mealbasis::$rules);
+        $validator = Validator::make($data = Input::all(), MealBasis::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
 
-        if ($mealbasis = Mealbasis::create($data)) {
+        if ($mealbasis = MealBasis::create($data)) {
             
             Session::flash('successful-action', 'Hotel Facility was created Successfully');
         } else {
@@ -60,7 +60,7 @@ class MealBasesController extends \BaseController
      */
     public function show($id)
     {
-        $mealbasis = Mealbasis::findOrFail($id);
+        $mealbasis = MealBasis::findOrFail($id);
 
 
         return View::make('mealbases.show', compact('mealbasis'));
@@ -74,8 +74,8 @@ class MealBasesController extends \BaseController
      */
     public function edit($id)
     {
-        $Roomfacility = Mealbasis::find($id);
-        $mealbases = Mealbasis::all();
+        $Roomfacility = MealBasis::find($id);
+        $mealbases = MealBasis::all();
         Session::put('edit', 'edit');
 
         return View::make('control-panel.hotel.general.mealbases')
@@ -94,7 +94,7 @@ class MealBasesController extends \BaseController
     public function update($id)
     {
 
-        $mealbasis = Mealbasis::findOrFail($id);
+        $mealbasis = MealBasis::findOrFail($id);
 
         $data = Input::all();
 
@@ -130,7 +130,7 @@ class MealBasesController extends \BaseController
      */
     public function destroy($id)
     {
-        if ($delete = Mealbasis::destroy($id)) {
+        if ($delete = MealBasis::destroy($id)) {
 
             //Delete the icon with respect to the record
             File::delete('public/control-panel-assets/images/meal-bases/'.$id.'.png');

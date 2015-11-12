@@ -58,8 +58,8 @@ class TransportPackageController extends \BaseController
             $min_rate = 0;
             $max_rate = 10000000;
 
-            $min_trans_rate = Transportpackage::min('rate');
-            $max_trans_rate = Transportpackage::max('rate');
+            $min_trans_rate = TransportPackage::min('rate');
+            $max_trans_rate = TransportPackage::max('rate');
         }
 
         if (Input::has('from')) {
@@ -82,7 +82,7 @@ class TransportPackageController extends \BaseController
 
 //dd($min_rate.'/'.$max_rate);
 
-        $transport_packages = Transportpackage::WhereHas('Vehicle', function ($r) use ($vehicle_id) {
+        $transport_packages = TransportPackage::WhereHas('Vehicle', function ($r) use ($vehicle_id) {
             $r->whereIn('id', $vehicle_id);
         })
             ->where('rate', '>=', $min_rate)

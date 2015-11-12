@@ -12,7 +12,7 @@ class HotelFacilitiesController extends \BaseController
     {
         Session::forget('edit');
 
-        $hotelfacilities = Hotelfacility::orderBy('hotel_facility')->get();
+        $hotelfacilities = HotelFacility::orderBy('hotel_facility')->get();
 
         return View::make('control-panel.hotel.general.hotelFacilities', compact('hotelfacilities'));
     }
@@ -35,14 +35,14 @@ class HotelFacilitiesController extends \BaseController
     public function store()
     {
 
-        $validator = Validator::make($data = Input::all(), Hotelfacility::$rules);
+        $validator = Validator::make($data = Input::all(), HotelFacility::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
 
-        if ($hotelfacility = Hotelfacility::create($data)) {
+        if ($hotelfacility = HotelFacility::create($data)) {
             if(Input::file('icon')){
                 Image::make(Input::file('icon'))
                     ->encode('png')
@@ -67,7 +67,7 @@ class HotelFacilitiesController extends \BaseController
      */
     public function show($id)
     {
-        $hotelfacility = Hotelfacility::findOrFail($id);
+        $hotelfacility = HotelFacility::findOrFail($id);
 
         return View::make('hotelfacilities.show', compact('hotelfacility'));
     }
@@ -80,8 +80,8 @@ class HotelFacilitiesController extends \BaseController
      */
     public function edit($id)
     {
-        $Hotelfacility = Hotelfacility::find($id);
-        $hotelfacilities = Hotelfacility::all();
+        $Hotelfacility = HotelFacility::find($id);
+        $hotelfacilities = HotelFacility::all();
         Session::put('edit', 'edit');
 
         return View::make('control-panel.hotel.general.hotelfacilities')
@@ -100,7 +100,7 @@ class HotelFacilitiesController extends \BaseController
     public function update($id)
     {
 
-        $hotelfacility = Hotelfacility::findOrFail($id);
+        $hotelfacility = HotelFacility::findOrFail($id);
 
         $data = Input::all();
 
@@ -149,7 +149,7 @@ class HotelFacilitiesController extends \BaseController
      */
     public function destroy($id)
     {
-        if ($delete = Hotelfacility::destroy($id)) {
+        if ($delete = HotelFacility::destroy($id)) {
 
             //Delete the icon with respect to the record
             File::delete('public/control-panel-assets/images/hotel-facilities/'.$id.'.png');
