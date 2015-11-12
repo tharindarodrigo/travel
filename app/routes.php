@@ -10,6 +10,7 @@
 |
 */
 
+
 /*------------------------------ Sign in & Register --------------------------------*/
 
 
@@ -34,10 +35,11 @@ Route::group(array('before' => 'auth'), function () {
 //            'uses' => 'AccountController@postChangePassword',
 //        ));
 
+    //Change password
 
     });
 
-//    Route::post('account/update-profile', 'AccountController@updateProfile');
+    //Sign Out
 
 
     /*
@@ -114,6 +116,7 @@ Route::group(array('before' => 'auth'), function () {
             Route::resource('agents', 'AgentsController');
             Route::resource('users', 'UsersController');
             Route::resource('payments', 'PaymentsController');
+
 
             /**
              * -------------------------------------------------------------------------------------------------------------
@@ -220,8 +223,6 @@ Route::group(array('before' => 'auth'), function () {
                 Route::put('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/update', 'HotelsController@updateCancellationPolicy');
                 Route::delete('hotels/{hotel_id}/cancellation-policies/{cancellation_policy_id}/delete', 'HotelsController@deleteCancellationPolicy');
 
-
-
                 //Route::resource('meal-bases', 'MealBasesController');
             });
 
@@ -260,6 +261,11 @@ Route::group(array('before' => 'auth'), function () {
 //=====================================================================================================================|
 
     Route::get('profile', 'UsersController@getProfile');
+});
+
+
+Route::get('sign-up',function(){
+    return View::make('account.sign-up');
 });
 
 
@@ -330,7 +336,7 @@ Route::get('booking/{id}', function ($id) {
 });
 
 Route::get('invoice/{id}', function ($id) {
-    $booking = Booking::getBookingData($id);
+    $booking = Booking::find($id);
     $pdf = PDF::loadView('emails/invoice', array('booking' => $booking));
 
     return $pdf->stream();
@@ -401,6 +407,7 @@ Route::get('/my-bookings', function () {
 
 //Vouchers
 Route::resource('bookings.vouchers', 'VouchersController');
+
 Route::resource('transportation', 'TransportationController');
 
 Route::get('/email-check', function () {

@@ -1,4 +1,4 @@
-<?php require_once('emailStructure/header1.php') ?>
+<?php require_once('../../emailStructure/header1.php') ?>
 
 
 <style type="text/css">
@@ -133,31 +133,12 @@
 </style>
 
 <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
-    <?php if ($booking->invoice->count == 0) { ?>
-        <table border="0" width="100%" style="margin-top: -11px;">
-            <tr>
-                <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
-                        : <?php echo $booking->reference_number . '-' . $booking->invoice->count; ?>
-                </td>
-                <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Booking
-
-                </td>
-            </tr>
-        </table>
-    <?php } else { ?>
-        <table border="0" width="100%" style="margin-top: -11px;">
-            <tr>
-                <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
-                        : <?php echo $booking->reference_number . '/' . $booking->invoice->count; ?>
-                </td>
-                <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Amended
-                        Booking
-                </td>
-            </tr>
-        </table>
-
-    <?php } ?>
-
+    <table width="100%">
+        <tr>
+            <td><h3>Reference No : <?php echo $booking->reference_number ?></h3></td>
+            <td style="padding-right: 20px;" align="right"><h3 align="right">New Booking</h3></td>
+        </tr>
+    </table>
 </div>
 <br/>
 

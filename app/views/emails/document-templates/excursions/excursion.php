@@ -1,4 +1,4 @@
-<?php require_once('emailStructure/header1.php'); ?>
+<?php include_once('/emailStructure/header1.php'); ?>
 <style type="text/css">
     th {
         font-size: medium;
@@ -6,7 +6,7 @@
 </style>
 <table border="0" width="100%" style="margin-top: -11px;">
     <tr>
-        <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
+        <td align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
                 : <?php echo $booking->reference_number ?>
         </td>
         <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">New Excursions
@@ -29,6 +29,7 @@
                 </tr>
                 <tr>
                     <td>
+
                         Excursion <br>
                         Transport Type <br>
                         Starting From <br>

@@ -1,4 +1,4 @@
-<?php require_once('emailStructure/header1.php'); ?>
+<?php require_once('../../emailStructure/header1.php'); ?>
 <style type="text/css">
     th {
         font-size: medium;
@@ -29,7 +29,6 @@
     </table>
 
 <?php } ?>
-
 <hr/>
 
 

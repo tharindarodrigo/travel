@@ -56,6 +56,7 @@
 @endsection
 
 @section('script')
+
 {{HTML::script('https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.js')}}
 {{HTML::script('control-panel-assets/ajax/commonFunctions.js')}}
 

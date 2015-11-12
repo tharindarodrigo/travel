@@ -93,9 +93,33 @@ class CustomTripsController extends \BaseController
                 );
             }
 
+            $ehi_users = User::getEhiUsers();
+            $pdf = PDF::loadView('emails/transport-cancellation',
+                array(
+                    'customTrip' => $customtrip,
+                    'booking' => Booking::find($bookingid)
+                )
+            );
 
             $pdf->setPaper('a4')->save(public_path() . '/temp-files/transport-cancellation.pdf');
-            return $pdf->stream('abc.pdf');
+
+            Mail::send('emails/transport-cancellation-mail', array(
+                'customTrip' => $customtrip,
+            ), function ($message) use ($customtrip, $ehi_users) {
+                $message->attach(public_path() . '/temp-files/excursions.pdf')
+                    ->subject('Cancel Transfer : ' . $customtrip->reference_number)
+                    ->from('noreply@srilankahotels.travel', 'SriLankaHotels.Travel');
+
+                $message->to('transport@srilankahotels.travel', 'Transportation');
+                $message->bcc('admin@srilankahotels.travel', 'Admin');
+                if (!empty($ehi_users))
+                    foreach ($ehi_users as $ehi_user) {
+                        $message->to($ehi_user->email, $ehi_user->first_name);
+                    }
+            });
+
+
+            return Redirect::back();
         }
 
         $validator = Validator::make($data = Input::all(), Customtrip::$rules);

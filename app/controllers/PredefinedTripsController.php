@@ -87,25 +87,43 @@ class PredefinedTripsController extends \BaseController
             $predefinedtrip->save();
 
 
+            $ehi_users = User::getEhiUsers();
             $pdf = PDF::loadView('emails/transport-cancellation',
-                array('predefinedTrip' => $predefinedtrip,
+                array(
+                    'predefinedTrip' => $predefinedtrip,
                     'booking' => Booking::find($bookingid)
                 )
             );
 
             $pdf->setPaper('a4')->save(public_path() . '/temp-files/transport-cancellation.pdf');
-            return $pdf->stream('abc.pdf');
+
+            Mail::send('emails/transport-cancellation-mail', array(
+                'predefinedTrip' => $predefinedtrip,
+            ), function ($message) use ($predefinedtrip, $ehi_users) {
+                $message->attach(public_path() . '/temp-files/excursions.pdf')
+                    ->subject('Cancel Transfer : ' . $predefinedtrip->reference_number)
+                    ->from('noreply@srilankahotels.travel', 'SriLankaHotels.Travel');
+
+                $message->to('transport@srilankahotels.travel', 'Transportation');
+                $message->bcc('admin@srilankahotels.travel', 'Admin');
+                if (!empty($ehi_users))
+                    foreach ($ehi_users as $ehi_user) {
+                        $message->to($ehi_user->email, $ehi_user->first_name);
+                    }
+            });
+
+            return Redirect::back();
         }
 
-        $predefinedtrip = Predefinedtrip::findOrFail($id);
+        //$predefinedtrip = Predefinedtrip::findOrFail($id);
 
-        $validator = Validator::make($data = Input::all(), Predefinedtrip::$rules);
+//        $validator = Validator::make($data = Input::all(), Predefinedtrip::$rules);
+//
+//        if ($validator->fails()) {
+//            return Redirect::back()->withErrors($validator)->withInput();
+//        }
 
-        if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator)->withInput();
-        }
-
-        $predefinedtrip->update($data);
+//        $predefinedtrip->update($data);
 
         return Redirect::back();
     }
