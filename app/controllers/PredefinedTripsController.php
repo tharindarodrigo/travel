@@ -10,7 +10,7 @@ class PredefinedTripsController extends \BaseController
      */
     public function index()
     {
-        $predefinedtrips = Predefinedtrip::all();
+        $predefinedtrips = PredefinedTrip::all();
 
         return View::make('predefinedtrips.index', compact('predefinedtrips'));
     }
@@ -32,13 +32,13 @@ class PredefinedTripsController extends \BaseController
      */
     public function store()
     {
-        $validator = Validator::make($data = Input::all(), Predefinedtrip::$rules);
+        $validator = Validator::make($data = Input::all(), PredefinedTrip::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        Predefinedtrip::create($data);
+        PredefinedTrip::create($data);
 
         return Redirect::route('predefinedtrips.index');
     }
@@ -51,7 +51,7 @@ class PredefinedTripsController extends \BaseController
      */
     public function show($id)
     {
-        $predefinedtrip = Predefinedtrip::findOrFail($id);
+        $predefinedtrip = PredefinedTrip::findOrFail($id);
 
         return View::make('predefinedtrips.show', compact('predefinedtrip'));
     }
@@ -64,7 +64,7 @@ class PredefinedTripsController extends \BaseController
      */
     public function edit($id)
     {
-        $predefinedtrip = Predefinedtrip::find($id);
+        $predefinedtrip = PredefinedTrip::find($id);
 
         return View::make('predefinedtrips.edit', compact('predefinedtrip'));
     }
@@ -78,13 +78,15 @@ class PredefinedTripsController extends \BaseController
     public function update($bookingid, $id)
     {
         $predefinedtrip = PredefinedTrip::find($id);
-
+        $booking = Booking::getBookingData('');
         if (Input::has('val')) {
             if (Input::get('val') == 0)
                 $predefinedtrip->amount = 0;
             $predefinedtrip->val = 0;
 
             $predefinedtrip->save();
+
+            $booking_user = $booking->user;
 
 
             $ehi_users = User::getEhiUsers();
@@ -115,9 +117,9 @@ class PredefinedTripsController extends \BaseController
             return Redirect::back();
         }
 
-        //$predefinedtrip = Predefinedtrip::findOrFail($id);
+        //$predefinedtrip = PredefinedTrip::findOrFail($id);
 
-//        $validator = Validator::make($data = Input::all(), Predefinedtrip::$rules);
+//        $validator = Validator::make($data = Input::all(), PredefinedTrip::$rules);
 //
 //        if ($validator->fails()) {
 //            return Redirect::back()->withErrors($validator)->withInput();
@@ -136,7 +138,7 @@ class PredefinedTripsController extends \BaseController
      */
     public function destroy($id)
     {
-        Predefinedtrip::destroy($id);
+        PredefinedTrip::destroy($id);
 
         return Redirect::route('predefinedtrips.index');
     }

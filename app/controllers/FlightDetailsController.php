@@ -9,7 +9,7 @@ class FlightDetailsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$flightdetails = Flightdetail::all();
+		$flightdetails = FlightDetail::all();
 
 		return View::make('flightdetails.index', compact('flightdetails'));
 	}
@@ -34,7 +34,7 @@ class FlightDetailsController extends \BaseController {
         $user = Auth::user();
 
         Session::flash('bookings_show_tabs','flight-details-tab');
-		$validator = Validator::make($data = Input::all(), Flightdetail::$rules);
+		$validator = Validator::make($data = Input::all(), FlightDetail::$rules);
 
 		if ($validator->fails())
 		{
@@ -43,7 +43,7 @@ class FlightDetailsController extends \BaseController {
 
         $data['booking_id'] = $bookingId;
 
-		if(Flightdetail::create($data)){
+		if(FlightDetail::create($data)){
             Booking::emailBookingDetails($bookingId);
         }
 
@@ -58,7 +58,7 @@ class FlightDetailsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$flightdetail = Flightdetail::findOrFail($id);
+		$flightdetail = FlightDetail::findOrFail($id);
 
 		return View::make('flightdetails.show', compact('flightdetail'));
 	}
@@ -71,7 +71,7 @@ class FlightDetailsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$flightdetail = Flightdetail::find($id);
+		$flightdetail = FlightDetail::find($id);
 
 		return View::make('flightdetails.edit', compact('flightdetail'));
 	}
@@ -97,7 +97,7 @@ class FlightDetailsController extends \BaseController {
         $data['flight'] = Input::get('flight_'.$id);
         $data['flight_type'] = Input::get('flight_type_'.$id);
 
-		$validator = Validator::make($data,Flightdetail::$rules);
+		$validator = Validator::make($data,FlightDetail::$rules);
 
 		if ($validator->fails())
 		{
@@ -123,7 +123,7 @@ class FlightDetailsController extends \BaseController {
 	{
         $user = Auth::user();
         Session::flash('bookings_show_tabs','flight-details-tab');
-		if(Flightdetail::destroy($id)){
+		if(FlightDetail::destroy($id)){
             Booking::emailBookingDetails($bookingId);
         }
 

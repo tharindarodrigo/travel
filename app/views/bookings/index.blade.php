@@ -23,7 +23,7 @@
             <!-- CONTENT -->
             <div class="col-md-12 pagecontainer2 offset-0">
                 <ul class="nav nav-tabs nav-justified" role="tablist">
-                    <li role="presentation" class="{{!Session::has('bookings_show_tabs')? 'active': '' }}">
+                    <li role="presentation" class="active">
                         <a href="#bookings" aria-controls="bookings" role="tab"
                            data-toggle="tab">Bookings</a>
                     </li>

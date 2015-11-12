@@ -12,7 +12,7 @@ class RoomFacilitiesController extends \BaseController
     {
         Session::forget('edit');
 
-        $roomfacilities = Roomfacility::orderBy('room_facility','asc')->get();
+        $roomfacilities = RoomFacility::orderBy('room_facility','asc')->get();
 
         return View::make('control-panel.hotel.general.roomFacilities', compact('roomfacilities'));
     }
@@ -35,14 +35,14 @@ class RoomFacilitiesController extends \BaseController
     public function store()
     {
 
-        $validator = Validator::make($data = Input::all(), Roomfacility::$rules);
+        $validator = Validator::make($data = Input::all(), RoomFacility::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
 
-        if ($roomfacility = Roomfacility::create($data)) {
+        if ($roomfacility = RoomFacility::create($data)) {
             if(Input::file('icon')){
 
                 Image::make(Input::file('icon'))
@@ -69,7 +69,7 @@ class RoomFacilitiesController extends \BaseController
      */
     public function show($id)
     {
-        $roomfacility = Roomfacility::findOrFail($id);
+        $roomfacility = RoomFacility::findOrFail($id);
 
         return View::make('roomfacilities.show', compact('roomfacility'));
     }
@@ -82,8 +82,8 @@ class RoomFacilitiesController extends \BaseController
      */
     public function edit($id)
     {
-        $Roomfacility = Roomfacility::find($id);
-        $roomfacilities = Roomfacility::all();
+        $Roomfacility = RoomFacility::find($id);
+        $roomfacilities = RoomFacility::all();
         Session::put('edit', 'edit');
 
         return View::make('control-panel.hotel.general.roomfacilities')
@@ -102,7 +102,7 @@ class RoomFacilitiesController extends \BaseController
     public function update($id)
     {
 
-        $roomfacility = Roomfacility::findOrFail($id);
+        $roomfacility = RoomFacility::findOrFail($id);
 
         $data = Input::all();
 
@@ -151,7 +151,7 @@ class RoomFacilitiesController extends \BaseController
      */
     public function destroy($id)
     {
-        if ($delete = Roomfacility::destroy($id)) {
+        if ($delete = RoomFacility::destroy($id)) {
 
             //Delete the icon with respect to the record
             File::delete('public/control-panel-assets/images/room-facilities/'.$id.'.png');

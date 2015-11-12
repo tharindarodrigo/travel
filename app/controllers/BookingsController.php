@@ -174,7 +174,7 @@ class BookingsController extends \BaseController
                         $package['transport_package_id'] = $predefined_package['predefine_id'];
                         $package['booking_id'] = $booking->id;
                         $package['pick_up_date_time'] = $predefined_package['check_in_date'];
-                        $package['amount'] = TransportPackage::find($predefined_package->predefine_id)->rate;
+                        $package['amount'] = TransportPackage::find($predefined_package['predefine_id'])->rate;
                         PredefinedTrip::create($package);
                     }
                 }
@@ -191,7 +191,8 @@ class BookingsController extends \BaseController
                     ), function ($message) use ($booking, $ehi_users) {
                         $message->attach(public_path() . '/temp-files/excursion.pdf')
                             ->subject('New Transfer : ' . $booking->reference_number)
-                            ->from('transport@srilankahotels.travel', 'SriLankaHotels.Travel');
+                            ->from('transport@srilankahotels.travel', 'SriLankaHotels.Travel')
+                            ->bcc('admin@srilankahotels.travel');
                         if (!empty($ehi_users))
                             foreach ($ehi_users as $ehi_user) {
                                 $message->to($ehi_user->email, $ehi_user->first_name);
@@ -228,18 +229,18 @@ class BookingsController extends \BaseController
 
                     }
 
-                    $pdf = PDF::loadView('emails/excursions', array('booking' => $booking));
+                    $pdf = PDF::loadView('emails/excursion', array('booking' => $booking));
                     $pdf->save(public_path() . '/temp-files/excursions.pdf');
 
                     Mail::send('emails/excursion-mail', array(
-                        'booking' => Booking::find($booking->id)
+                        'booking' => $booking
                     ), function ($message) use ($booking, $ehi_users) {
                         $message->attach(public_path() . '/temp-files/excursions.pdf')
                             ->subject('New Excursions : ' . $booking->reference_number)
                             ->from('noreply@srilankahotels.travel', 'SriLankaHotels.Travel');
 
                         $message->to('excursions@srilankahotels.travel', 'Excursions');
-                        $message->to('admin@srilankahotels.travel', 'Admin');
+                        $message->bcc('admin@srilankahotels.travel', 'Admin');
                         if (!empty($ehi_users))
                             foreach ($ehi_users as $ehi_user) {
                                 $message->to($ehi_user->email, $ehi_user->first_name);
@@ -281,8 +282,8 @@ class BookingsController extends \BaseController
                         ), function ($message) use ($booking, $hotel_users) {
                             $message->attach(public_path() . '/temp-files/voucher.pdf')
                                 ->subject('Booking Voucher : ' . $booking->reference_number)
-                                ->from('reservations@srilankahotels.travel', 'SriLankaHotels.Travel');
-                            $message->to('admin@srilankahotels.travel', 'SriLankaHotels.Travel');
+                                ->from('reservations@srilankahotels.travel', 'SriLankaHotels.Travel')
+                                ->bcc('admin@srilankahotels.travel', 'SriLankaHotels.Travel');
                             if (!empty($hotel_users))
                                 foreach ($hotel_users as $hotel_user) {
                                     $message->to($hotel_user->email, $hotel_user->first_name);
@@ -322,7 +323,7 @@ class BookingsController extends \BaseController
                 Invoice::create(
                     array(
                         'booking_id' => $booking->id,
-                        'amount' =>Booking::getTotalBookingAmount($booking),
+                        'amount' => Booking::getTotalBookingAmount($booking),
                         'count' => 1
                     )
                 );

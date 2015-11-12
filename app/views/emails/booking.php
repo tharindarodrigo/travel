@@ -133,13 +133,13 @@
 </style>
 
 <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
-    <?php if ($booking->invoice->count == 0) { ?>
+    <?php if ($booking->count == 1) { ?>
         <table border="0" width="100%" style="margin-top: -11px;">
             <tr>
                 <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
-                        : <?php echo $booking->reference_number . '-' . $booking->invoice->count; ?>
+                        : <?php echo $booking->reference_number; ?>
                 </td>
-                <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Booking
+                <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Booking</h2>
 
                 </td>
             </tr>
@@ -148,14 +148,13 @@
         <table border="0" width="100%" style="margin-top: -11px;">
             <tr>
                 <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
-                        : <?php echo $booking->reference_number . '/' . $booking->invoice->count; ?>
+                        : <?php echo $booking->reference_number . '/' . $booking->count; ?>
                 </td>
                 <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Amended
-                        Booking
-                </td>
+                        Booking</h2>
+                </td>1
             </tr>
         </table>
-
     <?php } ?>
 
 </div>

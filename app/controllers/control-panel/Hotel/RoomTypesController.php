@@ -25,7 +25,7 @@ class RoomTypesController extends \BaseController
      */
     public function index($hotelid)
     {
-        $roomtypes = Roomtype::where('hotel_id', $hotelid)->get();
+        $roomtypes = RoomType::where('hotel_id', $hotelid)->get();
 
         return View::make('control-panel.hotel.rooms.index')->with(array(
             'hotelid' => $hotelid,
@@ -62,13 +62,13 @@ class RoomTypesController extends \BaseController
         $data['val'] = 1;
 
 
-        $validator = Validator::make($data, Roomtype::$rules);
+        $validator = Validator::make($data, RoomType::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        if ($roomType = Roomtype::create($data)) {
+        if ($roomType = RoomType::create($data)) {
 
             $roomFacilities = Input::get('room_facility_id');
             if (!empty($roomFacilities)) {
@@ -120,7 +120,7 @@ class RoomTypesController extends \BaseController
      */
     public function show($id)
     {
-        $roomtype = Roomtype::findOrFail($id);
+        $roomtype = RoomType::findOrFail($id);
 
         return View::make('roomtypes.show', compact('roomtype'));
     }
@@ -135,7 +135,7 @@ class RoomTypesController extends \BaseController
     {
 
         try {
-            $roomtype = Roomtype::find($id);
+            $roomtype = RoomType::find($id);
         } catch (ModelNotFoundException $e) {
             return Redirect::to('control-panel/errors/recordNotFound');
         }
@@ -185,7 +185,7 @@ class RoomTypesController extends \BaseController
             return Redirect::back();
         }
 
-        $roomtype = Roomtype::findOrFail($id);
+        $roomtype = RoomType::findOrFail($id);
 
         if (!Input::has('val')) {
             $data = array(
@@ -207,7 +207,7 @@ class RoomTypesController extends \BaseController
         }
 
 
-        $validator = Validator::make($data, Roomtype::$rules);
+        $validator = Validator::make($data, RoomType::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
@@ -272,7 +272,7 @@ class RoomTypesController extends \BaseController
 
         try {
 
-            $delete = Roomtype::destroy($id);
+            $delete = RoomType::destroy($id);
 
             $files = File::glob('public/images/room_images/' . $id . '_*');
 

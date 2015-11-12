@@ -9,7 +9,7 @@ class TourTypesController extends \BaseController {
 	 */
 	public function index()
 	{
-		$tourtypes = Tourtype::all();
+		$tourtypes = TourType::all();
 
 		return View::make('tourtypes.index', compact('tourtypes'));
 	}
@@ -31,14 +31,14 @@ class TourTypesController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Tourtype::$rules);
+		$validator = Validator::make($data = Input::all(), TourType::$rules);
 
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		Tourtype::create($data);
+		TourType::create($data);
 
 		return Redirect::route('tourtypes.index');
 	}
@@ -51,7 +51,7 @@ class TourTypesController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$tourtype = Tourtype::findOrFail($id);
+		$tourtype = TourType::findOrFail($id);
 
 		return View::make('tourtypes.show', compact('tourtype'));
 	}
@@ -64,7 +64,7 @@ class TourTypesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$tourtype = Tourtype::find($id);
+		$tourtype = TourType::find($id);
 
 		return View::make('tourtypes.edit', compact('tourtype'));
 	}
@@ -77,9 +77,9 @@ class TourTypesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$tourtype = Tourtype::findOrFail($id);
+		$tourtype = TourType::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Tourtype::$rules);
+		$validator = Validator::make($data = Input::all(), TourType::$rules);
 
 		if ($validator->fails())
 		{
@@ -99,7 +99,7 @@ class TourTypesController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		Tourtype::destroy($id);
+		TourType::destroy($id);
 
 		return Redirect::route('tourtypes.index');
 	}

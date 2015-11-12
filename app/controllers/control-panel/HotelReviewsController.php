@@ -9,7 +9,7 @@ class HotelReviewsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$hotelreviews = Hotelreview::all();
+		$hotelreviews = HotelReview::all();
 
 		return View::make('hotelreviews.index', compact('hotelreviews'));
 	}
@@ -31,14 +31,14 @@ class HotelReviewsController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Hotelreview::$rules);
+		$validator = Validator::make($data = Input::all(), HotelReview::$rules);
 
 		if ($validator->fails())
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		Hotelreview::create($data);
+		HotelReview::create($data);
 
 		return Redirect::route('hotelreviews.index');
 	}
@@ -51,7 +51,7 @@ class HotelReviewsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$hotelreview = Hotelreview::findOrFail($id);
+		$hotelreview = HotelReview::findOrFail($id);
 
 		return View::make('hotelreviews.show', compact('hotelreview'));
 	}
@@ -64,7 +64,7 @@ class HotelReviewsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$hotelreview = Hotelreview::find($id);
+		$hotelreview = HotelReview::find($id);
 
 		return View::make('hotelreviews.edit', compact('hotelreview'));
 	}
@@ -77,9 +77,9 @@ class HotelReviewsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$hotelreview = Hotelreview::findOrFail($id);
+		$hotelreview = HotelReview::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Hotelreview::$rules);
+		$validator = Validator::make($data = Input::all(), HotelReview::$rules);
 
 		if ($validator->fails())
 		{
@@ -99,7 +99,7 @@ class HotelReviewsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		Hotelreview::destroy($id);
+		HotelReview::destroy($id);
 
 		return Redirect::route('hotelreviews.index');
 	}

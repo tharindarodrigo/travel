@@ -77,7 +77,8 @@ class ExcursionBookingsController extends \BaseController
      */
     public function update($booking_id, $id)
     {
-        $excursionbooking = Excursionbooking::find($id);
+        $excursionbooking = Excursionbooking::findOrFail($id);
+
         if (Input::has('val')) {
             if (Input::get('val') == 0) {
                 $excursionbooking->val = 0;
@@ -87,13 +88,13 @@ class ExcursionBookingsController extends \BaseController
                 $ehi_users = User::getEhiUsers();
 
                 $pdf = PDF::loadView('emails/excursion-cancellation', array('booking' => $booking));
-                $pdf->save(public_path() . '/temp-files/excursions.pdf');
+                $pdf->save(public_path() . '/temp-files/excursion-cancellations.pdf');
 
                 Mail::send('emails/excursion-mail', array(
                     'booking' => Booking::find($booking->id)
                 ), function ($message) use ($booking, $ehi_users) {
                     $message->attach(public_path() . '/temp-files/excursions.pdf')
-                        ->subject('New Excursions : ' . $booking->reference_number)
+                        ->subject('Cancel Excursion : ' . $booking->reference_number)
                         ->from('noreply@srilankahotels.travel', 'SriLankaHotels.Travel');
 
                     $message->to('excursions@srilankahotels.travel', 'Excursions');

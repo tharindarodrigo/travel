@@ -9,7 +9,7 @@
     <table border="0" width="100%" style="margin-top: -11px;">
         <tr>
             <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
-                    : <?php echo $booking->reference_number . '-' . $booking->invoice->count; ?>
+                    : <?php echo $booking->reference_number; ?>
             </td>
             <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">INVOICE
 
