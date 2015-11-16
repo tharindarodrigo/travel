@@ -133,7 +133,7 @@
 </style>
 
 <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
-    <?php if ($booking->count == 1) { ?>
+    <?php if ($booking->count == 0) { ?>
         <table border="0" width="100%" style="margin-top: -11px;">
             <tr>
                 <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
@@ -152,7 +152,7 @@
                 </td>
                 <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Amended
                         Booking</h2>
-                </td>1
+                </td>
             </tr>
         </table>
     <?php } ?>
@@ -343,7 +343,7 @@
 
         <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
             <h4>Flight Details</h4>
-        </div>
+        </div>2
         <br/>
 
         <div class="CSSTableGenerator">
@@ -407,7 +407,7 @@
                             <td><?php echo $predefinedTrip->transportPackage->vehicle->vehicle_type ?></td>
                             <td><?php echo $predefinedTrip->transportPackage->originCity->city ?><br>
                                 <?php echo $predefinedTrip->transportPackage->destinationCity->city ?></td>
-                            <td style="text-align: right"><?php echo number_format($predefinedTrip->transportPackage->rate * $predefinedTrip->transportPackage->millage, 2) ?></td>
+                            <td style="text-align: right"><?php echo number_format($predefinedTrip->amount, 2) ?></td>
                         </tr>
                     <?php } ?>
                 <?php } ?>

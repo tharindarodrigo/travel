@@ -78,7 +78,7 @@ class PredefinedTripsController extends \BaseController
     public function update($bookingid, $id)
     {
         $predefinedtrip = PredefinedTrip::find($id);
-        $booking = Booking::getBookingData('');
+        $booking = Booking::getBookingData($bookingid);
         if (Input::has('val')) {
             if (Input::get('val') == 0)
                 $predefinedtrip->amount = 0;
@@ -86,23 +86,20 @@ class PredefinedTripsController extends \BaseController
 
             $predefinedtrip->save();
 
-            $booking_user = $booking->user;
-
-
             $ehi_users = User::getEhiUsers();
             $pdf = PDF::loadView('emails/transport-cancellation',
                 array(
                     'predefinedTrip' => $predefinedtrip,
-                    'booking' => Booking::find($bookingid)
+                    'booking' => $booking
                 )
             );
 
-            $pdf->setPaper('a4')->save(public_path() . '/temp-files/transport-cancellation.pdf');
+            $pdf->setPaper('a4')->save(public_path() . '/temp-files/predefined-transport-cancellation_' . $bookingid . '.pdf');
 
             Mail::send('emails/transport-cancellation-mail', array(
                 'predefinedTrip' => $predefinedtrip,
-            ), function ($message) use ($predefinedtrip, $ehi_users) {
-                $message->attach(public_path() . '/temp-files/excursions.pdf')
+            ), function ($message) use ($predefinedtrip, $ehi_users, $bookingid) {
+                $message->attach(public_path() . '/temp-files/predefined-transport-cancellation_' . $bookingid . '.pdf')
                     ->subject('Cancel Transfer : ' . $predefinedtrip->reference_number)
                     ->from('noreply@srilankahotels.travel', 'SriLankaHotels.Travel');
 
@@ -112,6 +109,83 @@ class PredefinedTripsController extends \BaseController
                     foreach ($ehi_users as $ehi_user) {
                         $message->to($ehi_user->email, $ehi_user->first_name);
                     }
+            });
+
+
+            //Cancellation email
+
+            Invoice::amendInvoice($booking);
+            Booking::amendBooking($bookingid);
+
+            // Service Voucher
+
+            $booking = Booking::getTotalBookingAmount($booking);
+            $pdf = PDF::loadView('emails/service-voucher', array('booking' => $booking));
+            $pdf->save(public_path() . '/temp-files/service_voucher_' . $booking->id . '.pdf');
+
+            $ehi_users = User::getEhiUsers();
+            $booking = Booking::getBookingData($booking->id);
+            Mail::send('emails/service-voucher-mail', array(
+                'booking' => $booking
+            ), function ($message) use ($booking, $ehi_users) {
+                $message->attach(public_path() . '/temp-files/service_voucher_' . $booking->id . '.pdf')
+                    ->subject('Amended Booking: ' . $booking->reference_number)
+                    ->from('noreply@srilankahotels.com')
+                    ->bcc('admin@srilankahotels.travel', 'Admin');
+                $message->to(Auth::user()->email, Auth::user()->first_name);
+
+                if (!empty($ehi_users)) {
+                    foreach ($ehi_users as $ehi_user) {
+                        $message->to($ehi_user->email, $ehi_user->first_name);
+                    }
+                }
+
+            });
+
+            $emails = array('tharinda@exotic-intl.com', 'lahiru@exotic-intl.com', 'umesh@exotic-intl.com');
+
+            $pdf = PDF::loadView('emails/booking', array('booking' => $booking));
+            $pdf->save(public_path() . '/temp-files/booking_' . $booking->id . '.pdf');
+
+            Mail::send('emails/booking-mail', array(
+                'booking' => $booking
+            ), function ($message) use ($booking, $emails, $ehi_users) {
+                $message->attach(public_path() . '/temp-files/booking_' . $booking->id . '.pdf')
+                    ->subject('Amended Booking: ' . $booking->reference_number)
+                    ->from('noreply@srilankahotels.com')
+                    ->bcc('admin@srilankahotels.travel', 'Admin');
+//                foreach ($emails as $emailaddress) {
+//                    $message->to($emailaddress, 'Admin');
+//                }
+
+                if (!empty($ehi_users)) {
+                    foreach ($ehi_users as $ehi_user) {
+                        $message->to($ehi_user->email, $ehi_user->first_name);
+                    }
+                }
+
+            });
+
+            $pdf = PDF::loadView('emails/booking', array('booking' => $booking));
+            $pdf->save(public_path() . '/temp-files/booking_' . $booking->id . '.pdf');
+
+            Mail::send('emails/invoice-mail', array(
+                'booking' => $booking
+            ), function ($message) use ($booking, $emails, $ehi_users) {
+                $message->attach(public_path() . '/temp-files/invoice_' . $booking->id . '.pdf')
+                    ->subject('Amended Invoice: ' . $booking->reference_number)
+                    ->from('noreply@srilankahotels.com')
+                    ->bcc('admin@srilankahotels.travel', 'Admin');
+//                foreach ($emails as $emailaddress) {
+//                    $message->bcc($emailaddress, 'SysAdmin');
+//                }
+
+                if (!empty($ehi_users)) {
+                    foreach ($ehi_users as $ehi_user) {
+                        $message->to($ehi_user->email, $ehi_user->first_name);
+                    }
+                }
+
             });
 
             return Redirect::back();

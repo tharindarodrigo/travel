@@ -94,7 +94,7 @@ class Booking extends \Eloquent
                 $total += Voucher::getVoucherAmount($voucher);
             }
         }
-         return $total;
+        return $total;
     }
 
     public static function getTotalCancelledVoucherAmount($booking)
@@ -117,25 +117,15 @@ class Booking extends \Eloquent
         $total += TransportPackage::getTotalTransportationAmount($booking);
         $total += ExcursionBooking::getTotalExcursionBookingAmount($booking);
 
-
-        $invoice = Invoice::where('booking_id', $booking->id)->first();
-        if ($invoice) {
-            $invoice->count = ++$invoice->count;
-            $invoice->amount = $total;
-            $invoice->save();
-        } else {
-            $invoiceData = array(
-                'amount'=> $total,
-                'booking_id'=> $booking->id
-            );
-
-//            dd($invoiceData);
-            Invoice::create($invoiceData);
-        }
-
-
         return $total;
 
+    }
+
+    public static function amendBooking($bookingid)
+    {
+        $booking = Booking::findOrFail($bookingid);
+        $booking->count = ++$booking->count;
+        return $booking->save() ? true : false;
     }
 
 

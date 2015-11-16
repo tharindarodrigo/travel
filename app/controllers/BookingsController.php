@@ -189,7 +189,7 @@ class BookingsController extends \BaseController
                     Mail::send('emails/transport-mail', array(
                         'booking' => Booking::find($booking->id)
                     ), function ($message) use ($booking, $ehi_users) {
-                        $message->attach(public_path() . '/temp-files/excursion.pdf')
+                        $message->attach(public_path() . '/temp-files/transport.pdf')
                             ->subject('New Transfer : ' . $booking->reference_number)
                             ->from('transport@srilankahotels.travel', 'SriLankaHotels.Travel')
                             ->bcc('admin@srilankahotels.travel');
@@ -306,7 +306,7 @@ class BookingsController extends \BaseController
                 ), function ($message) use ($booking, $emails, $ehi_users) {
                     $message->attach(public_path() . '/temp-files/booking.pdf')
                         ->subject('New Booking: ' . $booking->reference_number)
-                        ->from('noreply@srilankahotels.com')
+                        ->from('noreply@srilankahotels.com', 'SriLankaHotels.Travel')
                         ->bcc('admin@srilankahotels.travel', 'Admin');
                     foreach ($emails as $emailaddress) {
                         $message->to($emailaddress, 'Admin');

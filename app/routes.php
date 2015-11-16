@@ -263,10 +263,10 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('profile', 'UsersController@getProfile');
 });
 
-
-Route::get('sign-up',function(){
-    return View::make('account.sign-up');
-});
+//
+//Route::get('sign-up',function(){
+//    return View::make('account.sign-up');
+//});
 
 
 Route::group(array('prefix' => 'account'), function () {

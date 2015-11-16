@@ -43,7 +43,7 @@ class HotelsController extends \BaseController
 
         $hotelcategorieslist = HotelCategory::all();
         $hotelcategories = HotelCategory::all();
-        $hotelfacilitieslist = HotelFacility::all();
+        $hotelfacilitieslist = HotelFacility::orderBy('facility','asc')->get();
         $checkedhotelfacilities = array();
         $checkedhotelcategories = array();
 

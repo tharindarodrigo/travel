@@ -53,7 +53,7 @@
 
     <tr style="background: lightgrey">
         <th>Total</th>
-        <td align="right"><strong>USD. <?php echo number_format(TransportPackage::getTotalTransportationAmount($booking),2) ?></strong></td>
+        <td align="right"><strong>USD. <?php echo number_format(ExcursionBooking::getTotalExcursionBookingAmount($booking), 2); ?></strong></td>
     </tr>
 
 </table>

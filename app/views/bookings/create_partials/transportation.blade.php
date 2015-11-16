@@ -55,7 +55,7 @@
                         <td>{{$trip->transportPackage->vehicle->vehicle_type}}</td>
                         {{--                <td>{{$trip->vehicle->vehicle_type}}</td>--}}
                         <td>{{$trip->transportPackage->destinationCity->city}}</td>
-                        <td>{{number_format($trip->transportPackage->rate * $trip->transportPackage->millage, 2)}}</td>
+                        <td>{{number_format($trip->amount, 2)}}</td>
                         <td>{{$trip->val == 1 ? 'Active' : 'Cancelled'}}</td>
 
                         <td>

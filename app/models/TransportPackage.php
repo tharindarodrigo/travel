@@ -42,12 +42,12 @@ class TransportPackage extends \Eloquent
 
     public static function getPredefinedTripTotal($booking)
     {
-        $total = 0;
-        if ($booking->predefinedTrip->count()) {
 
+        if ($booking->predefinedTrip->count()) {
+            $total = 0;
             foreach ($booking->predefinedTrip as $predefinedTrip) {
                 if ($predefinedTrip->val == 1) {
-                    $total += ($predefinedTrip->transportPackage->rate * $predefinedTrip->transportPackage->millage);
+                    $total += ($predefinedTrip->amount);
                 }
             }
             return $total;

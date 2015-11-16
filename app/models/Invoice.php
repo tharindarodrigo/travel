@@ -37,5 +37,29 @@ class Invoice extends \Eloquent
         return $this->belongsTo('Booking');
     }
 
+    public static function amendInvoice($booking)
+    {
+        $total = Booking::getTotalBookingAmount($booking);
+
+        $invoice = Invoice::where('booking_id', $booking->id)->first();
+        if ($invoice) {
+            $invoice->count = ++$invoice->count;
+            $invoice->amount = $total;
+            $invoice->save();
+
+            return true;
+
+        } else {
+            $invoiceData = array(
+                'amount' => $total,
+                'booking_id' => $booking->id
+            );
+
+            Invoice::create($invoiceData);
+
+            return false;
+        }
+
+    }
 
 }

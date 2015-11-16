@@ -131,12 +131,12 @@
                             at <?php echo date('H:i', strtotime($trip->pick_up_date_time)) ?>. Path (Origin to
                             Destination)
                             : <?php echo City::find($trip->transportPackage->origin)->city; ?><?php echo City::find($trip->transportPackage->destination)->city; ?>
-                            @ <?php echo number_format($trip->transportPackage->rate * $trip->transportPackage->millage, 2); ?></p>
+                            @ <?php echo number_format($trip->amount, 2); ?></p>
 
 
                     </td>
                     <td align="right">
-                        <?php echo number_format(TransportPackage::getPredefinedTripTotal($booking), 2); ?>
+                        <?php echo number_format($trip->amount, 2); ?>
 
                     </td>
                 </tr>
