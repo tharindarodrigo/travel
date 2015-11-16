@@ -136,7 +136,7 @@ class HotelsController extends \BaseController
      */
     public function edit($id)
     {
-        if(!User::hasHotelPermission($this->_user,$id)){
+        if(!User::hasHotelPermission($this->_user,$id) || Entrust::can('manage_all_hotels')){
             App::abort(403);
         }
 
