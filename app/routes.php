@@ -109,7 +109,7 @@ Route::group(array('before' => 'auth'), function () {
                 Route::group(array('prefix' => 'agents'), function () {
                     Route::get('/', 'UsersController@getAgents');
                     Route::get('changeMarket', 'UsersController@changeMarket');
-                    Route::patch('{id}/update', 'UsersController');
+                    Route::post('/{id}/update', 'UsersController@updateAgent');
                 });
 
             });

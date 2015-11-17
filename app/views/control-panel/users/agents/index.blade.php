@@ -63,7 +63,7 @@
                                     <td>{{ $agent->user->first_name.' '.$agent->user->last_name }}</td>
                                     <td>{{ $agent->user->email }}</td>
 
-                                    {{Form::model($agent, array('route'=>array('control-panel.agents.update', $agent->id), 'method'=>'patch'))}}
+                                    {{Form::model($agent, array('url'=>'control-panel/users/agents/'.$agent->id.'/update', 'method'=>'post'))}}
                                     <td>
                                         {{Form::select('market_id', Market::lists('market', 'id'),null, array('class' => 'form-control'))}}
                                     </td>
