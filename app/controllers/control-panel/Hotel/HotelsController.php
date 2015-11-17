@@ -19,6 +19,7 @@ class HotelsController extends \BaseController
      *
      * @return Response
      */
+
     public function index()
     {
         if(Entrust::can('manage_all_hotels')){
@@ -43,7 +44,7 @@ class HotelsController extends \BaseController
 
         $hotelcategorieslist = HotelCategory::all();
         $hotelcategories = HotelCategory::all();
-        $hotelfacilitieslist = HotelFacility::orderBy('facility','asc')->get();
+        $hotelfacilitieslist = HotelFacility::orderBy('hotel_facility','asc')->get();
         $checkedhotelfacilities = array();
         $checkedhotelcategories = array();
 
@@ -136,7 +137,7 @@ class HotelsController extends \BaseController
      */
     public function edit($id)
     {
-        if(!User::hasHotelPermission($this->_user,$id) || Entrust::can('manage_all_hotels')){
+        if(!User::hasHotelPermission($this->_user,$id) && !Entrust::can('manage_all_hotels')){
             App::abort(403);
         }
 

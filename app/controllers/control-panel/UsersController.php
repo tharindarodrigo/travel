@@ -137,16 +137,13 @@ class UsersController extends \BaseController
 
     public function getAgents()
     {
-        $agents = User::getAgents();
-
-//        dd($agents);
+        $agents = Agent::getAgents();
 
         return View::make('control-panel.users.agents.index', compact('agents'));
     }
 
     public function getHotelSuggestions()
     {
-//        dd('asdasdasd');
         $hotel_name = Input::get('hotel_name');
         $hotel_list = Hotel::where('name', 'like', $hotel_name)->lists('name', 'id');
 

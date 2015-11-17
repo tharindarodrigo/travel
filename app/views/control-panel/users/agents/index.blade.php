@@ -16,7 +16,7 @@
 
 {{--Breadcrumbs--}}
 @section('bread-crumbs')
-    <li class="active">Users </li>
+    <li class="active">Users</li>
     <li class="active">Agents</li>
 @endsection
 
@@ -49,24 +49,37 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>agent Type</th>
+                                <th>Market</th>
+                                <th>Company</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
 
                             @foreach($agents as $agent)
+
                                 <tr>
                                     <td>{{ $agent->id }}</td>
-                                    <td>{{ $agent->first_name.' '.$agent->last_name }}</td>
-                                    <td>{{ $agent->email }}</td>
+                                    <td>{{ $agent->user->first_name.' '.$agent->user->last_name }}</td>
+                                    <td>{{ $agent->user->email }}</td>
 
+                                    {{Form::model($agent, array('route'=>array('control-panel.agents.update', $agent->id), 'method'=>'patch'))}}
                                     <td>
-                                        {{--@foreach($agent->agent as $a)--}}
-{{--                                            {{dd($agent->agent)}}--}}
-                                        {{--@endforeach--}}
-                                        {{Form::select('agent',array('0'=>'Not Assigned')+Agent::lists('company', 'id'), User::getAgentOfUser($agent->id) or 0, array('class'=> 'form-control'))}}
+                                        {{Form::select('market_id', Market::lists('market', 'id'),null, array('class' => 'form-control'))}}
                                     </td>
+                                    <td>
+                                        {{Form::select('id',array('0'=>'Not Assigned')+Agent::lists('company', 'id'), null, array('class'=> 'form-control'))}}
+                                    </td>
+                                    <td>
+                                        @if($agent->users->first())
+                                            {{Form::submit('Revoke', array('class'=>'btn btn-block btn-danger', 'name'=> 'revoke'))}}
+                                        @else
+                                            {{Form::submit('Confirm', array('class'=>'btn btn-block btn-success', 'name'=>'confirm'))}}
+                                        @endif
+                                    </td>
+                                    {{Form::close()}}
                                 </tr>
+
                             @endforeach
 
                             </tbody>

@@ -112,26 +112,27 @@ class PredefinedTripsController extends \BaseController
             });
 
 
-            //Cancellation email
+            // Cancellation email
 
             Invoice::amendInvoice($booking);
             Booking::amendBooking($bookingid);
 
             // Service Voucher
 
-            $booking = Booking::getTotalBookingAmount($booking);
             $pdf = PDF::loadView('emails/service-voucher', array('booking' => $booking));
-            $pdf->save(public_path() . '/temp-files/service_voucher_' . $booking->id . '.pdf');
+            $pdf->setPaper('a4')->save(public_path() . '/temp-files/service_voucher_' . $booking->id . '.pdf');
 
             $ehi_users = User::getEhiUsers();
-            $booking = Booking::getBookingData($booking->id);
+            //$booking = Booking::getBookingData($booking->id);
+
             Mail::send('emails/service-voucher-mail', array(
                 'booking' => $booking
             ), function ($message) use ($booking, $ehi_users) {
                 $message->attach(public_path() . '/temp-files/service_voucher_' . $booking->id . '.pdf')
-                    ->subject('Amended Booking: ' . $booking->reference_number)
+                    ->subject('Amended Service Voucher: ' . $booking->reference_number)
                     ->from('noreply@srilankahotels.com')
                     ->bcc('admin@srilankahotels.travel', 'Admin');
+
                 $message->to(Auth::user()->email, Auth::user()->first_name);
 
                 if (!empty($ehi_users)) {
@@ -167,7 +168,7 @@ class PredefinedTripsController extends \BaseController
             });
 
             $pdf = PDF::loadView('emails/booking', array('booking' => $booking));
-            $pdf->save(public_path() . '/temp-files/booking_' . $booking->id . '.pdf');
+            $pdf->save(public_path() . '/temp-files/invoice_' . $booking->id . '.pdf');
 
             Mail::send('emails/invoice-mail', array(
                 'booking' => $booking

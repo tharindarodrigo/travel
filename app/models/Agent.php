@@ -17,9 +17,19 @@ class Agent extends \Eloquent
     protected $fillable = ['company', 'address', 'email', 'phone', 'tax', 'tax_type', 'handling_fee', 'handling_fee_type','market_id', 'country_id','user_id'];
 
 
+    public static function getAgents()
+    {
+        return Agent::with(['user', 'market'])->get();
+    }
+
     public function user()
     {
-        return $this->hasMany('User');
+        return $this->belongsTo('User');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('User');
     }
 
     public function market()
