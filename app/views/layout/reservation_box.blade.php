@@ -97,11 +97,21 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
                         <div class="wh90percent textleft left">
                             <span class="opensans size13"><b>Adult</b></span>
                             <select class="form-control mySelectBoxClass">
-                                <option>1</option>
-                                <option selected>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option value="1" {{ Session::get('adult') == 1 ? 'selected' : '' }}>
+                                    1
+                                </option>
+                                <option value="2" {{ Session::get('adult') == 2 ? 'selected' : '' }}>
+                                    2
+                                </option>
+                                <option value="3" {{ Session::get('adult') == 3 ? 'selected' : '' }}>
+                                    3
+                                </option>
+                                <option value="4" {{ Session::get('adult') == 4 ? 'selected' : '' }}>
+                                    4
+                                </option>
+                                <option value="5" {{ Session::get('adult') == 5 ? 'selected' : '' }}>
+                                    5
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -109,17 +119,24 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
                         <div class="wh90percent textleft right ohidden">
                             <span class="opensans size13"><b>Child</b></span>
                             <select class="form-control mySelectBoxClass">
-                                <option>0</option>
-                                <option selected>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option value="0" {{ Session::get('child') == 0 ? 'selected' : '' }}>
+                                    0
+                                </option>
+                                <option value="1" {{ Session::get('child') == 1 ? 'selected' : '' }}>
+                                    1
+                                </option>
+                                <option value="2" {{ Session::get('child') == 2 ? 'selected' : '' }}>
+                                    2
+                                </option>
+                                <option value="3" {{ Session::get('child') == 3 ? 'selected' : '' }}>
+                                    3
+                                </option>
                             </select>
                         </div>
                     </div>
                 </div>
             </div>
+            <input type="hidden" name="city_or_acc_hidden" value="Beach-Hotels"/>
 
             <div class="searchbg">
                 <button type="submit" class="btn-search">Search</button>

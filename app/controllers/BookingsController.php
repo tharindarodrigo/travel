@@ -55,8 +55,64 @@ class BookingsController extends \BaseController
     public function create()
     {
 
+        // For Hotel Booking
+
+        if (Session::has('rate_box_details')) {
+
+            $bookings = Session::get('rate_box_details');
+            $hotel_bookings = [];
+            $rate_keys = array_keys($bookings);
+
+            foreach ($rate_keys as $rate_key) {
+                $hotel_id = explode('_', $rate_key)[2];
+
+                $hotel_bookings[$hotel_id][] = $bookings[$rate_key];
+                $hotel_bookings[$hotel_id]['hotel_name'] = $bookings[$rate_key]['hotel_name'];
+                $hotel_bookings[$hotel_id]['hotel_address'] = $bookings[$rate_key]['hotel_address'];
+                $hotel_bookings[$hotel_id]['room_identity'] = $bookings[$rate_key]['room_identity'];
+            }
+        } else {
+            $hotel_bookings = '';
+        }
+
+
+        // For Create My Trip Transport
+
+        if (Session::has('transport_cart_box')) {
+            $transport_bookings = Session::get('transport_cart_box');
+        } else {
+            $transport_bookings = '';
+        }
+
+
+        // For Predefined Transport
+
+        if (Session::has('predefined_transport')) {
+            $predefined_transports = Session::get('predefined_transport');
+        } else {
+            $predefined_transports = '';
+        }
+
+
+        // For Excursion
+
+        if (Session::has('excursion_cart_details')) {
+            $excursion_cart_details = Session::get('excursion_cart_details');
+        } else {
+            $excursion_cart_details = '';
+        }
+
+
         if (Session::has('rate_box_details') || Session::has('transport_cart_box') || Session::has('predefined_transport') || Session::has('excursion_cart_details'))
-            return View::make('bookings.create');
+            return View::make('bookings.create')
+                ->with(
+                    array(
+                        'hotel_bookings' => $hotel_bookings,
+                        'predefined_transport' => $predefined_transports,
+                        'transport_bookings' => $transport_bookings,
+                        'excursion_cart_details' => $excursion_cart_details,
+                    )
+                );
         return Redirect::to('/');
 
     }

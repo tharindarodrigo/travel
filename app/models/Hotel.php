@@ -59,22 +59,22 @@ class Hotel extends \Eloquent
 
     public function hotelCategory()
     {
-        return $this->belongsToMany('hotelCategory');
+        return $this->belongsToMany('HotelCategory');
     }
 
     public function hotelReview()
     {
-        return $this->hasMany('hotelReview');
+        return $this->hasMany('HotelReview');
     }
 
     public function hotelFacility()
     {
-        return $this->belongsToMany('hotelFacility');
+        return $this->belongsToMany('HotelFacility');
     }
 
     public function roomFacility()
     {
-        return $this->belongsToMany('roomFacility');
+        return $this->belongsToMany('RoomFacility');
     }
 
     public function roomType()

@@ -576,8 +576,8 @@
 
                                             {{ HTML::image('images/user-rating-5.png', '')}}<br/><br/>
 
-                                            @if(!empty($hotel->hotelReview->count()))
-                                                <span class="size11 grey"> {{ $hotel->hotelReview->count(); }}
+                                            @if(($hotel->HotelReview->count()) > 0)
+                                                <span class="size11 grey"> {{ $hotel->HotelReview->count(); }}
                                                     Reviews </span><br/><br/>
                                             @else
                                                 <span class="size11 grey">
@@ -589,7 +589,7 @@
                                             @if(!empty($low_hotel_rate))
                                                 <span class="green size18">
                                             <b>
-                                                 {{ Session::get('currency') . '<br/>' . number_format(($low_hotel_rate * Session::get('currency_rate')), 2, '.', '') }}
+                                                {{ Session::get('currency') . '<br/>' . number_format(($low_hotel_rate * Session::get('currency_rate')), 2, '.', '') }}
                                             </b>
                                             </span>
                                                 <br/>
@@ -638,9 +638,9 @@
                                             @if(Input::has('facility') || Input::has('price_range'))
                                                 <ul class="hotelpreferences">
                                                     <?php
-                                                    $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
+                                                    $hotel_facilities = Hotel::with('HotelFacility')->find($hotel->id);
                                                     ?>
-                                                    @foreach($hotel_facilities->hotelFacility as $hotel_facility)
+                                                    @foreach($hotel_facilities->HotelFacility as $hotel_facility)
                                                         <?php
                                                         //echo public_path();
                                                         $directory = 'public/images/hotel_facilities/';
@@ -656,9 +656,9 @@
                                             @else
                                                 <ul class="hotelpreferences">
                                                     <?php
-                                                    $hotel_facilities = Hotel::with('hotelFacility')->find($hotel->id);
+                                                    $hotel_facilities = Hotel::with('HotelFacility')->find($hotel->id);
                                                     ?>
-                                                    @foreach($hotel_facilities->hotelFacility as $hotel_facility)
+                                                    @foreach($hotel_facilities->HotelFacility as $hotel_facility)
                                                         <?php
                                                         //echo public_path();
                                                         $directory = 'public/images/hotel_facilities/';
@@ -691,7 +691,7 @@
                     <div class="hpadding20" align="right">
                         {{ $hotels->links() }}
                     </div>
-                        <br/><br/>
+                    <br/><br/>
                 </div>
 
                 <div class="clearfix"></div>

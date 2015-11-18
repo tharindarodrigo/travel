@@ -3,7 +3,6 @@
 class TransportPackageController extends \BaseController
 {
 
-
     /**
      *
      * Predefined Transport List
@@ -369,7 +368,7 @@ class TransportPackageController extends \BaseController
 
     public function viewSearch()
     {
-        return View::make('transportpackages.create');
+        return View::make('TransportPackages.create');
 
     }
 

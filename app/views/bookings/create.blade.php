@@ -13,15 +13,13 @@
     <li>{{link_to_route('bookings.index', 'Bookings')}}</li>
     <li>/</li>
     <li>{{link_to_route('bookings.create', 'create')}}</li>
-    @endsection
+@endsection
 
-    @section('body-content')
-            <!-- CONTENT -->
+@section('body-content')
+    <!-- CONTENT -->
     <div class="container">
 
-
         <div class="container mt25 offset-0">
-
 
             <!-- CONTENT -->
             <div class="col-md-8 pagecontainer2 offset-0">
@@ -117,7 +115,8 @@
                         {{----------------------------------------------------------------------------------------------------------------------------------}}
 
                         <div class="col-md-3 textright">
-                            <div class="margtop15"><span class="dark">Passport Number:</span><span class="red">*</span></div>
+                            <div class="margtop15"><span class="dark">Passport Number:</span><span class="red">*</span>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             {{Form::text('passport_number', null, array('class'=> 'form-control'))}}
@@ -132,10 +131,6 @@
                         {{----------------------------------------------------------------------------------------------------------------------------------}}
 
                     @endif
-
-
-
-
 
 
                     {{----------------------------------------------------------------------------------------------------------------------------------}}
@@ -349,138 +344,162 @@
             </div>
             <!-- END CONTENT -->
 
-            {{--<div class="col-md-4">--}}
+            <div class="col-md-4">
 
-                {{--<div class="pagecontainer2 paymentbox grey">--}}
-                    {{--<div class="padding30">--}}
-                        {{--<img src="images/thumb.png" class="left margright20" alt=""/>--}}
-                        {{--<span class="opensans size18 dark bold">Mabely Grand Hotel</span>--}}
-                        {{--<span class="opensans size13 grey">Zakynthos, Greece</span><br/>--}}
-                        {{--<img src="images/bigrating-5.png" alt=""/>--}}
-                    {{--</div>--}}
-                    {{--<div class="line3"></div>--}}
+                <div class="pagecontainer2 paymentbox grey">
+                    <div class="padding30">
+                        <span class="opensans size18 dark bold">Exotic Holidays International (Pvt ) Limited </span><br/>
+                        <span class="opensans size13 grey">No 07, Barnes Avenue, Mount Lavinia, Sri Lanka.</span><br/>
+                    </div>
+                    <div class="line3"></div>
 
-                    {{--<div class="hpadding30 margtop30">--}}
-                        {{--<table class="table table-bordered margbottom20">--}}
-                            {{--<tr>--}}
-                                {{--<td>Guests recommendations</td>--}}
-                                {{--<td class="center green bold">97%</td>--}}
-                            {{--</tr>--}}
-                            {{--<tr>--}}
-                                {{--<td>Guest ratings</td>--}}
-                                {{--<td class="center green bold">4.5</td>--}}
-                            {{--</tr>--}}
-                            {{--<tr>--}}
-                                {{--<td colspan=2><span class="dark">Room 1</span>: Standard Double Room</td>--}}
-                            {{--</tr>--}}
-                            {{--<tr>--}}
-                                {{--<td colspan=2><span class="dark">5 Nights</span>: Sep/10/2013 - Sep/14/2013</td>--}}
-                            {{--</tr>--}}
-                            {{--<tr>--}}
-                                {{--<td>--}}
-                                    {{--<span class="dark">Room 1</span>: 2 Adults<br/>--}}
-                                    {{--5 Nights--}}
-                                    {{--<!-- Collapse 1 -->--}}
-                                    {{--<button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse"--}}
-                                            {{--data-target="#collapse1"></button>--}}
-                                    {{--<div id="collapse1" class="collapse">--}}
-                                        {{--<div class="left size12 lblue">--}}
-                                            {{--Thu Nov 14<br/>--}}
-                                            {{--Fri Nov 15--}}
-                                        {{--</div>--}}
-                                        {{--<div class="right size12 lblue">--}}
-                                            {{--$15.92<br/>--}}
-                                            {{--$20.00--}}
-                                        {{--</div>--}}
-                                        {{--<div class="clearfix"></div>--}}
-                                    {{--</div>--}}
-                                    {{--<!-- End of collapse 1 -->--}}
-                                    {{--<div class="clearfix"></div>--}}
+                    <div class="hpadding30 margtop30">
+                        <table class="table table-bordered margbottom20">
+                            <tr>
+                                <td>Guests recommendations</td>
+                                <td class="center green bold">97%</td>
+                            </tr>
+                            <tr>
+                                <td>Guest ratings</td>
+                                <td class="center green bold">4.5</td>
+                            </tr>
+                        </table>
+
+                        @if(Session::has('rate_box_details'))
+                            <table class="table table-bordered margbottom20">
+                                <tr>
+                                    <td>
+                                        <h5 style="font-weight: 600" class="dark">Hotel Bookings</h5>
+
+                                        <!-- Collapse 1 -->
+                                        <button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse"
+                                                data-target="#collapse1">
+
+                                        </button>
+
+                                        <div id="collapse1" class="collapse">
+                                            <?php
+                                            $x = 0;
+
+                                            if (Session::has('market')) {
+                                                $market = Session::get('market');
+                                            } else {
+                                                $market = 1;
+                                            }
+                                            ?>
+
+                                            @foreach($hotel_bookings as $hotel_booking)
+                                                <div class="size12 lblue">
+                                                    {{ $hotel_booking['hotel_name']  }}
+                                                    <br/>
+                                                    @for($x=0 ; $x < count($hotel_booking)-3; $x++)
+                                                        {{ $hotel_booking[$x]['room_specification'] }} room <br/>
+                                                        @if($market == 1)
+                                                            <span class="green"> {{ Session::get('currency'). '&nbsp;'  . number_format(($hotel_booking[$x]['room_cost'] + ($hotel_booking[$x]['hotel_tax'] + $hotel_booking[$x]['hotel_handling_fee'])), 2, '.', '') }} </span>
+                                                        @else
+                                                           <span class="green">{{ Session::get('currency'). '&nbsp;'  . number_format(($hotel_booking[$x]['room_cost'] ), 2, '.', '') }} </span>
+                                                        @endif
+                                                    @endfor
+                                                </div>
+
+                                                <div class="size12 lblue">
+
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="line3"></div>
+                                            @endforeach
+                                        </div>
+
+                                        <!-- End of collapse 1 -->
+                                        <div class="clearfix"></div>
+                                        Taxes & Fees per night
+
+                                        <!-- Collapse 1 -->
+                                        <button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse"
+                                                data-target="#collapse2"></button>
+                                        <div id="collapse2" class="collapse">
+                                            <div class="left size12 lred">
+                                                Thu Nov 14<br/>
+                                                Fri Nov 15
+                                            </div>
+                                            <div class="right size12 lred">
+                                                $1.51<br/>
+                                                $1.00
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <!-- End of collapse 1 -->
+                                        <div class="clearfix"></div>
+
+                                    </td>
+                                    <td class="center">
+                                        avg./night<br/>
+                                        $35.92<br/>
+                                        $2.51<br/>
+                                    </td>
+                                </tr>
+                            </table>
+                        @endif
 
 
-                                    {{--Taxes & Fees per night--}}
+                    </div>
 
-                                    {{--<!-- Collapse 1 -->--}}
-                                    {{--<button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse"--}}
-                                            {{--data-target="#collapse2"></button>--}}
-                                    {{--<div id="collapse2" class="collapse">--}}
-                                        {{--<div class="left size12 lred">--}}
-                                            {{--Thu Nov 14<br/>--}}
-                                            {{--Fri Nov 15--}}
-                                        {{--</div>--}}
-                                        {{--<div class="right size12 lred">--}}
-                                            {{--$1.51<br/>--}}
-                                            {{--$1.00--}}
-                                        {{--</div>--}}
-                                        {{--<div class="clearfix"></div>--}}
-                                    {{--</div>--}}
-                                    {{--<!-- End of collapse 1 -->--}}
-                                    {{--<div class="clearfix"></div>--}}
+                    <div class="line3"></div>
+                    <div class="padding30">
+                        <span class="left size14 dark">Trip Total:</span>
+                        <span class="right lred2 bold size18">$192.15</span>
 
-                                {{--</td>--}}
-                                {{--<td class="center">--}}
-                                    {{--avg./night<br/>--}}
-                                    {{--$35.92<br/>--}}
-                                    {{--$2.51<br/>--}}
-                                {{--</td>--}}
-                            {{--</tr>--}}
-                        {{--</table>--}}
-                    {{--</div>--}}
-                    {{--<div class="line3"></div>--}}
-                    {{--<div class="padding30">--}}
-                        {{--<span class="left size14 dark">Trip Total:</span>--}}
-                        {{--<span class="right lred2 bold size18">$192.15</span>--}}
-
-                        {{--<div class="clearfix"></div>--}}
-                    {{--</div>--}}
+                        <div class="clearfix"></div>
+                    </div>
 
 
-                {{--</div>--}}
-                {{--<br/>--}}
+                </div>
+                <br/>
 
-                {{--<div class="pagecontainer2 needassistancebox">--}}
-                    {{--<div class="cpadding1">--}}
-                        {{--<span class="icon-help"></span>--}}
+                <div class="pagecontainer2 needassistancebox">
+                    <div class="cpadding1">
+                        <span class="icon-help"></span>
 
-                        {{--<h3 class="opensans">Need Assistance?</h3>--}}
+                        <h3 class="opensans">Need Assistance?</h3>
 
-                        {{--<p class="size14 grey">Our team is 24/7 at your service to help you with your booking issues or--}}
-                            {{--answer any related questions</p>--}}
+                        <p class="size14 grey">Our team is 24/7 at your service to help you with your booking issues or
+                            answer any related questions</p>
 
-                        {{--<p class="opensans size30 lblue xslim">1-866-599-6674</p>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<br/>--}}
+                        <p class="opensans size30 lblue xslim">1-866-599-6674</p>
+                    </div>
+                </div>
+                <br/>
 
-                {{--<div class="pagecontainer2 loginbox">--}}
-                    {{--<div class="cpadding1">--}}
-                        {{--<span class="icon-lockk"></span>--}}
+                <div class="pagecontainer2 loginbox">
+                    <div class="cpadding1">
+                        <span class="icon-lockk"></span>
 
-                        {{--<h3 class="opensans">Log in</h3>--}}
-                        {{--<input type="text" class="form-control logpadding" placeholder="Username">--}}
-                        {{--<br/>--}}
-                        {{--<input type="text" class="form-control logpadding" placeholder="Password">--}}
+                        <h3 class="opensans">Log in</h3>
+                        <input type="text" class="form-control logpadding" placeholder="Username">
+                        <br/>
+                        <input type="text" class="form-control logpadding" placeholder="Password">
 
-                        {{--<div class="margtop20">--}}
-                            {{--<div class="left">--}}
-                                {{--<div class="checkbox padding0">--}}
-                                    {{--<label>--}}
-                                        {{--<input type="checkbox">Remember--}}
-                                    {{--</label>--}}
-                                {{--</div>--}}
-                                {{--<a href="#" class="greylink">Lost password?</a><br/>--}}
-                            {{--</div>--}}
-                            {{--<div class="right">--}}
-                                {{--<button class="btn-search5" type="submit" onclick="errorMessage()">Login</button>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<div class="clearfix"></div>--}}
-                        {{--<br/>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<br/>--}}
+                        <div class="margtop20">
+                            <div class="left">
+                                <div class="checkbox padding0">
+                                    <label>
+                                        <input type="checkbox">Remember
+                                    </label>
+                                </div>
+                                <a href="#" class="greylink">Lost password?</a><br/>
+                            </div>
+                            <div class="right">
+                                <button class="btn-search5" type="submit" onclick="errorMessage()">Login</button>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br/>
+                    </div>
+                </div>
+                <br/>
 
-            {{--</div>--}}
+            </div>
         </div>
 
 

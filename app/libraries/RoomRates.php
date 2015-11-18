@@ -27,7 +27,7 @@ class RoomRates
             ->where('market_id', $market)
             ->min('rate');
 
-        if(!empty($get_low_rate)) {
+        if (!empty($get_low_rate)) {
 
             $get_market_details = Market::where('id', $market)->first();
 
@@ -53,7 +53,7 @@ class RoomRates
             }
 
             return $low_rate;
-        }else{
+        } else {
             $low_rate = 0;
             return $low_rate;
         }
@@ -193,4 +193,53 @@ class RoomRates
 
     }
 
+    public static function supplementRate($hotel_id, $room_type_id, $specification_id, $meal_basis_id, $st_date, $ed_date)
+    {
+
+        $x = 0;
+        $supplement_rates = 0;
+        $supplement_rate = 0;
+
+        if (Session::has('market')) {
+            $market = Session::get('market');
+        } else {
+            $market = 1;
+        }
+
+        $get_market_details = Market::where('id', $market)->first();
+
+        $from_date = date('Y-m-d', strtotime(str_replace('-', '/', $st_date)));
+        $to_date = date('Y-m-d', strtotime(str_replace('-', '/', $ed_date)));
+
+        $dates = (strtotime($ed_date) - strtotime($st_date)) / 86400;
+
+        //dd($market.'/'.$hotel_id.'/'.$room_type_id.'/'.$specification_id.'/'.$meal_basis_id.'/'.$st_date.'/'.$ed_date);
+
+        for ($x = 1; $x <= $dates; $x++) {
+
+            $get_supplement_rates = SupplementRate::where('hotel_id', $hotel_id)
+                ->where('room_type_id', $room_type_id)
+                ->where('room_specification_id', $specification_id)
+                ->where('meal_basis_id', $meal_basis_id)
+                ->where('from', '<=', $from_date)
+                ->where('to', '>=', $from_date)
+                ->where('market_id', $market)
+                ->get();
+
+            foreach ($get_supplement_rates as $get_supplement_rate) {
+
+                $supplement_rate = $get_supplement_rate->rate;
+dd($supplement_rate);
+            }
+
+            $from_date = date('Y-m-d', strtotime($from_date . ' + 1 days'));
+
+            $supplement_rates = $supplement_rates + $supplement_rate;
+
+        }
+
+        $room_supplement_rate = number_format(($supplement_rate / $dates), 2);
+        return ($room_supplement_rate);
+
+    }
 }

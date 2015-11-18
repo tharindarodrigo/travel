@@ -240,7 +240,7 @@ class HotelController extends \BaseController
 
             if (!empty($accommodation_id)) {
 
-                $hotels = Hotel::whereHas('hotelCategory', function ($query) use ($accommodation_id) {
+                $hotels = Hotel::whereHas('HotelCategory', function ($query) use ($accommodation_id) {
                     $query->where('hotel_category_id', $accommodation_id);
                 })
                     ->whereHas('Rate', function ($r) use ($min_rate, $max_rate, $from_date) {
@@ -321,7 +321,7 @@ class HotelController extends \BaseController
 
             if (!empty($accommodation_id)) {
 
-                $hotels = Hotel::whereHas('hotelCategory', function ($query) use ($accommodation_id) {
+                $hotels = Hotel::whereHas('HotelCategory', function ($query) use ($accommodation_id) {
                     $query->where('hotel_category_id', $accommodation_id);
                 })
                     ->whereHas('HotelFacility', function ($q) use ($facility) {
@@ -414,7 +414,7 @@ class HotelController extends \BaseController
 
             if (!empty($accommodation_id)) {
 
-                $hotels = Hotel::whereHas('hotelCategory', function ($query) use ($accommodation_id) {
+                $hotels = Hotel::whereHas('HotelCategory', function ($query) use ($accommodation_id) {
                     $query->where('hotel_category_id', $accommodation_id);
                 })
 //                    ->whereHas('HotelFacility', function ($q) use ($facility) {
@@ -898,6 +898,10 @@ class HotelController extends \BaseController
 
 //dd($room_rate.'/'.$total_tax.'/'.$total_handling_fee);
 
+            $supplement_rate = RoomRates::supplementRate($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
+
+            dd($supplement_rate);
+
             $rate_box_details = array(
                 'hotel_id' => $hotel_id,
                 'hotel_name' => $hotel_name,
@@ -913,6 +917,7 @@ class HotelController extends \BaseController
                 'hotel_handling_fee' => $hotel_handling_fee,
                 'room_count' => $room_count,
                 'unit_price' => $room_rate_with_tax,
+                'hotel_room_price' => $room_rate,
                 'adult' => $adult,
                 'child' => $child,
                 'nights' => $nights,
@@ -1087,7 +1092,7 @@ class HotelController extends \BaseController
         if (!is_null($accommodation)) {
             $accommodation_id = $accommodation->id;
 
-            $get_latitudes_longitudes = Hotel::whereHas('hotelCategory', function ($query) use ($accommodation_id) {
+            $get_latitudes_longitudes = Hotel::whereHas('HotelCategory', function ($query) use ($accommodation_id) {
                 $query->where('hotel_category_id', $accommodation_id);
             })
                 ->select('latitude', 'longitude', 'name')

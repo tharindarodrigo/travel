@@ -242,8 +242,9 @@ class ExcursionController extends \BaseController
             ->where('val', 1)
             ->select('rate')
             ->first();
-
+        dd($get_excursion_price);
         $get_ex_rate = $get_excursion_price->rate;
+
         $ex_rate = Session::get('currency') . '&nbsp;' . number_format(($get_ex_rate * Session::get('currency_rate')), 2, '.', '');
 
         $get_total_rate = $get_ex_rate * $pax;

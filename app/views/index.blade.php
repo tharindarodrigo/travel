@@ -202,7 +202,7 @@
                             <a href="#">
                                 <img src="images/spacer.png" alt=""/>
                             </a>
-                            <span>{{ Session::get('currency') . '&nbsp;' . ( 59.99 * Session::get('currency_rate')); }} </span>
+                            <span>{{ Session::get('currency') . '&nbsp;' . ( (number_format(((RoomRates::lowestHotelRate(993, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', ''))); }} </span>
                         </div>
                     </div>
                 </div>
@@ -223,7 +223,7 @@
                             <a href="#">
                                 <img src="images/spacer.png" alt=""/>
                             </a>
-                            <span>{{ Session::get('currency') . '&nbsp;' . ( 59.99 * Session::get('currency_rate')); }}</span>
+                            <span>{{ Session::get('currency') . '&nbsp;' . ( number_format(((RoomRates::lowestHotelRate(1339, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', '')); }}</span>
                         </div>
                     </div>
                 </div>
@@ -496,7 +496,7 @@
                 </div>
                 <div class="col-md-4">
                     {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">Over 200 Hotels</h4>
+                    <h4 style="display: inline">Over 500 Hotels</h4>
 
                     <p style="font-size: 12px; display: block">Linked with the very finest hotels in the island</p>
 
