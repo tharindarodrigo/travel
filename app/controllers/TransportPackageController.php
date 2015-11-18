@@ -125,7 +125,6 @@ class TransportPackageController extends \BaseController
         $predefined_transport_details = array(
             'check_in_date' => $check_in_date,
             'predefine_id' => $predefined_id,
-
         );
 
         if (Session::has('predefined_transport')) {

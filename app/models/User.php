@@ -21,7 +21,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         'company' => 'required_if:user_role,Agent',
         'phone' => 'required_if:user_role,Agent',
         'agreement' => 'required_if:user_role,Agent',
-
     ];
 
     use HasRole, UserTrait, RemindableTrait;
@@ -122,6 +121,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface
     {
         return $this->hasManyThrough('Market', 'Agent');
     }
+
+//    public function agent()
+//    {
+//        return $this->belongsTo('Agent');
+//    }
 
 
 }

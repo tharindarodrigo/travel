@@ -56,7 +56,6 @@
                         <?php // echo Voucher::getNights($f, $t)->days;?>
                     </p>
 
-
                 <?php } ?>
 
             </td>

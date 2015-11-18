@@ -78,12 +78,13 @@ class ExcursionBookingsController extends \BaseController
     public function update($booking_id, $id)
     {
         $excursionbooking = Excursionbooking::findOrFail($id);
+        $booking = Booking::getBookingData($booking_id);
 
         if (Input::has('val')) {
             if (Input::get('val') == 0) {
                 $excursionbooking->val = 0;
                 $excursionbooking->save();
-                $booking = Booking::find($booking_id);
+
 
                 $ehi_users = User::getEhiUsers();
 
@@ -104,6 +105,87 @@ class ExcursionBookingsController extends \BaseController
                             $message->to($ehi_user->email, $ehi_user->first_name);
                         }
                 });
+
+
+                // Cancellation email
+
+                Invoice::amendInvoice($booking);
+                Booking::amendBooking($booking_id);
+
+                // Service Voucher
+
+                $pdf = PDF::loadView('emails/service-voucher', array('booking' => $booking));
+                $pdf->setPaper('a4')->save(public_path() . '/temp-files/service_voucher_' . $booking->id . '.pdf');
+
+                $ehi_users = User::getEhiUsers();
+                //$booking = Booking::getBookingData($booking->id);
+
+                Mail::send('emails/service-voucher-mail', array(
+                    'booking' => $booking
+                ), function ($message) use ($booking, $ehi_users) {
+                    $message->attach(public_path() . '/temp-files/service_voucher_' . $booking->id . '.pdf')
+                        ->subject('Amended Service Voucher: ' . $booking->reference_number)
+                        ->from('noreply@srilankahotels.com')
+                        ->bcc('admin@srilankahotels.travel', 'Admin');
+
+                    $message->to(Auth::user()->email, Auth::user()->first_name);
+
+                    if (!empty($ehi_users)) {
+                        foreach ($ehi_users as $ehi_user) {
+                            $message->to($ehi_user->email, $ehi_user->first_name);
+                        }
+                    }
+
+                });
+
+                $emails = array('tharinda@exotic-intl.com', 'lahiru@exotic-intl.com', 'umesh@exotic-intl.com');
+
+                $pdf = PDF::loadView('emails/booking', array('booking' => $booking));
+                $pdf->save(public_path() . '/temp-files/booking_' . $booking->id . '.pdf');
+
+                Mail::send('emails/booking-mail', array(
+                    'booking' => $booking
+                ), function ($message) use ($booking, $emails, $ehi_users) {
+                    $message->attach(public_path() . '/temp-files/booking_' . $booking->id . '.pdf')
+                        ->subject('Amended Booking: ' . $booking->reference_number)
+                        ->from('noreply@srilankahotels.com')
+                        ->bcc('admin@srilankahotels.travel', 'Admin');
+//                foreach ($emails as $emailaddress) {
+//                    $message->to($emailaddress, 'Admin');
+//                }
+
+                    if (!empty($ehi_users)) {
+                        foreach ($ehi_users as $ehi_user) {
+                            $message->to($ehi_user->email, $ehi_user->first_name);
+                        }
+                    }
+
+                });
+
+                $pdf = PDF::loadView('emails/invoice', array('booking' => $booking));
+                $pdf->save(public_path() . '/temp-files/invoice_' . $booking->id . '.pdf');
+
+                Mail::send('emails/invoice-mail', array(
+                    'booking' => $booking
+                ), function ($message) use ($booking, $emails, $ehi_users) {
+                    $message->attach(public_path() . '/temp-files/invoice_' . $booking->id . '.pdf')
+                        ->subject('Amended Invoice: ' . $booking->reference_number)
+                        ->from('noreply@srilankahotels.com')
+                        ->bcc('admin@srilankahotels.travel', 'Admin');
+//                foreach ($emails as $emailaddress) {
+//                    $message->bcc($emailaddress, 'SysAdmin');
+//                }
+
+                    if (!empty($ehi_users)) {
+                        foreach ($ehi_users as $ehi_user) {
+                            $message->to($ehi_user->email, $ehi_user->first_name);
+                        }
+                    }
+
+                });
+
+                return Redirect::back();
+
             }
         }
 

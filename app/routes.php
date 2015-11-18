@@ -35,7 +35,7 @@ Route::group(array('before' => 'auth'), function () {
 //            'uses' => 'AccountController@postChangePassword',
 //        ));
 
-    //Change password
+        //Change password
 
     });
 
@@ -94,9 +94,9 @@ Route::group(array('before' => 'auth'), function () {
 
             Route::group(array('prefix' => 'users'), function () {
 
-                Route::get('{id}/activate','AccountController@activateUser');
-                Route::get('{id}/deactivate','AccountController@deactivateUser');
-                Route::get('{id}/send-activation-email','AccountController@sendActivationCode');
+                Route::get('{id}/activate', 'AccountController@activateUser');
+                Route::get('{id}/deactivate', 'AccountController@deactivateUser');
+                Route::get('{id}/send-activation-email', 'AccountController@sendActivationCode');
                 Route::get('hoteliers', 'UsersController@getHoteliers');
                 Route::get('hoteliers/{id}/permissions', 'UsersController@getHotelWithUserPermissions');
                 Route::post('hoteliers/{id}/assign-permissions', 'UsersController@assignHotelPermissions');
@@ -109,6 +109,7 @@ Route::group(array('before' => 'auth'), function () {
                 Route::group(array('prefix' => 'agents'), function () {
                     Route::get('/', 'UsersController@getAgents');
                     Route::get('changeMarket', 'UsersController@changeMarket');
+                    Route::post('/{id}/update', 'UsersController@updateAgent');
                 });
 
             });
@@ -263,10 +264,10 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('profile', 'UsersController@getProfile');
 });
 
-
-Route::get('sign-up',function(){
-    return View::make('account.sign-up');
-});
+//
+//Route::get('sign-up',function(){
+//    return View::make('account.sign-up');
+//});
 
 
 Route::group(array('prefix' => 'account'), function () {

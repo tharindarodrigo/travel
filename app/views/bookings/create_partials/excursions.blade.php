@@ -10,6 +10,7 @@
                 <th>Transport Type</th>
                 <th>Pax</th>
                 <th>Unit Price</th>
+                <th>Status</th>
                 <th>Amount</th>
             </tr>
             </thead>
@@ -22,8 +23,9 @@
                     <td>{{$excursionBooking->date}}</td>
                     <td>{{$excursionBooking->excursionTransportType->transport_type}}</td>
                     <td>{{$excursionBooking->pax}}</td>
-                    <td style="text-align: right"><?php echo number_format($excursionBooking->unit_price, 2) ?></td>
-                    <td style="text-align: right"><?php echo number_format(ExcursionBooking::getTotalExcursionBookingAmount($booking),2) ?></td>
+                    <td style="text-align: right">{{number_format($excursionBooking->unit_price, 2)}}</td>
+                    <td style="text-align: right">{{$excursionBooking->val==1 ? 'Active': 'Cancelled'}}</td>
+                    <td style="text-align: right">{{number_format(ExcursionBooking::getTotalExcursionBookingAmount($booking),2)}}</td>
                     <td>
                         @if($excursionBooking->val == 0)
                             <div class="">

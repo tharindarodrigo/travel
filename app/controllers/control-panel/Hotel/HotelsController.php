@@ -19,6 +19,7 @@ class HotelsController extends \BaseController
      *
      * @return Response
      */
+
     public function index()
     {
         if(Entrust::can('manage_all_hotels')){
@@ -43,7 +44,7 @@ class HotelsController extends \BaseController
 
         $hotelcategorieslist = HotelCategory::all();
         $hotelcategories = HotelCategory::all();
-        $hotelfacilitieslist = HotelFacility::all();
+        $hotelfacilitieslist = HotelFacility::orderBy('hotel_facility','asc')->get();
         $checkedhotelfacilities = array();
         $checkedhotelcategories = array();
 
@@ -81,7 +82,6 @@ class HotelsController extends \BaseController
                         ->save('public/images/hotel_images/' . $hotel->id . '_' .str_random(10). '.jpg');
                 }
             }
-
         }
 
 
@@ -136,7 +136,7 @@ class HotelsController extends \BaseController
      */
     public function edit($id)
     {
-        if(!User::hasHotelPermission($this->_user,$id)){
+        if(!User::hasHotelPermission($this->_user,$id) && !Entrust::can('manage_all_hotels')){
             App::abort(403);
         }
 

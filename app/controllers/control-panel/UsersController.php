@@ -12,7 +12,7 @@ class UsersController extends \BaseController
     public function index()
     {
         $users = User::with('role')->get();
-        $roles = Role::orderBy('id','asc')->lists('name','id');
+        $roles = Role::orderBy('id', 'asc')->lists('name', 'id');
         return View::make('control-panel.users.index', compact('users', 'roles'));
     }
 
@@ -137,16 +137,12 @@ class UsersController extends \BaseController
 
     public function getAgents()
     {
-        $agents = User::getAgents();
-
-//        dd($agents);
-
+        $agents = Agent::getAgents();
         return View::make('control-panel.users.agents.index', compact('agents'));
     }
 
     public function getHotelSuggestions()
     {
-//        dd('asdasdasd');
         $hotel_name = Input::get('hotel_name');
         $hotel_list = Hotel::where('name', 'like', $hotel_name)->lists('name', 'id');
 
@@ -169,8 +165,8 @@ class UsersController extends \BaseController
         $hotelier = User::with('hotel')->find($id);
 
         $permitted_hotels = $hotelier->hotel->lists('id');
-        $hotels = Hotel::select(array('name','id'))->get();
-        return View::make('control-panel.users.hoteliers.hotel-permissions', compact('hotelier', 'hotels','permitted_hotels'));
+        $hotels = Hotel::select(array('name', 'id'))->get();
+        return View::make('control-panel.users.hoteliers.hotel-permissions', compact('hotelier', 'hotels', 'permitted_hotels'));
     }
 
     public function assignHotelPermissions($id)
@@ -178,6 +174,30 @@ class UsersController extends \BaseController
         $hotelIDs = Input::get('hotel_ids');
         $user = User::find($id);
         $user->hotel()->sync($hotelIDs);
+        return Redirect::back();
+    }
+
+    public function updateAgent($id)
+    {
+
+        $input = Input::all();
+        $agent = Agent::find($id);
+        $agent->market_id = $input['market_id'];
+
+        if (Input::has('confirm')) {
+
+            $input = Input::all();
+            $agent = Agent::find($id);
+            $agent->market_id = $input['market_id'];
+
+            $agent->save();
+
+            $agent->users()->attach($agent->user_id);
+
+        } elseif (Input::has('revoke')) {
+            $agent->users()->detach($agent->user_id);
+        }
+
         return Redirect::back();
     }
 
