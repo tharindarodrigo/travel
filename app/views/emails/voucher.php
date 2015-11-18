@@ -185,7 +185,7 @@
                         <?php echo $roomBooking->roomType->room_type ?> <br>
                         <?php echo $roomBooking->mealBasis->meal_basis ?> <br>
                         <?php echo $roomBooking->room_count ?> <br>
-                        USD <?php echo number_format($roomBooking->room_count * $roomBooking->unit_price * Voucher::getNights($voucher->check_in, $voucher->check_out)->days, 2) ?>
+                        USD <?php echo number_format($roomBooking->room_count * $roomBooking->unit_cost_price * Voucher::getNights($voucher->check_in, $voucher->check_out)->days, 2) ?>
                     </td>
 
                 </tr>
@@ -193,7 +193,7 @@
 
             <tr style="background: lightgrey">
                 <th>Total Amount</th>
-                <td>USD <?php echo number_format(Voucher::getVoucherAmount($voucher), 2); ?></td>
+                <td>USD <?php echo number_format(Voucher::getHotelVoucherAmount($voucher), 2); ?></td>
             </tr>
 
 

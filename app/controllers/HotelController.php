@@ -898,10 +898,6 @@ class HotelController extends \BaseController
 
 //dd($room_rate.'/'.$total_tax.'/'.$total_handling_fee);
 
-            $supplement_rate = RoomRates::supplementRate($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
-
-            dd($supplement_rate);
-
             $rate_box_details = array(
                 'hotel_id' => $hotel_id,
                 'hotel_name' => $hotel_name,
@@ -917,7 +913,7 @@ class HotelController extends \BaseController
                 'hotel_handling_fee' => $hotel_handling_fee,
                 'room_count' => $room_count,
                 'unit_price' => $room_rate_with_tax,
-                'hotel_room_price' => $room_rate,
+                'unit_cost_price' => $room_rate,
                 'adult' => $adult,
                 'child' => $child,
                 'nights' => $nights,
