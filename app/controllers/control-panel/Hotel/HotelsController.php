@@ -82,7 +82,6 @@ class HotelsController extends \BaseController
                         ->save('public/images/hotel_images/' . $hotel->id . '_' .str_random(10). '.jpg');
                 }
             }
-
         }
 
 

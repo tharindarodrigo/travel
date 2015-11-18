@@ -122,5 +122,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         return $this->hasManyThrough('Market', 'Agent');
     }
 
+//    public function agent()
+//    {
+//        return $this->belongsTo('Agent');
+//    }
+
 
 }

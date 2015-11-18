@@ -167,7 +167,7 @@ class PredefinedTripsController extends \BaseController
 
             });
 
-            $pdf = PDF::loadView('emails/booking', array('booking' => $booking));
+            $pdf = PDF::loadView('emails/invoice', array('booking' => $booking));
             $pdf->save(public_path() . '/temp-files/invoice_' . $booking->id . '.pdf');
 
             Mail::send('emails/invoice-mail', array(

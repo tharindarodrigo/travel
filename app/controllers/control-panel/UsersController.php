@@ -138,7 +138,6 @@ class UsersController extends \BaseController
     public function getAgents()
     {
         $agents = Agent::getAgents();
-
         return View::make('control-panel.users.agents.index', compact('agents'));
     }
 
@@ -180,14 +179,26 @@ class UsersController extends \BaseController
 
     public function updateAgent($id)
     {
+
+        $input = Input::all();
+        $agent = Agent::find($id);
+        $agent->market_id = $input['market_id'];
+
         if (Input::has('confirm')) {
 
             $input = Input::all();
-            $agent = Agent::findOrFail($id);
-            $agent->market_id = $input->market_id;
+            $agent = Agent::find($id);
+            $agent->market_id = $input['market_id'];
 
+            $agent->save();
 
+            $agent->users()->attach($agent->user_id);
+
+        } elseif (Input::has('revoke')) {
+            $agent->users()->detach($agent->user_id);
         }
+
+        return Redirect::back();
     }
 
 }

@@ -22,6 +22,11 @@ class Agent extends \Eloquent
         return Agent::with(['user', 'market'])->get();
     }
 
+    public static function getUsersWithAgents()
+    {
+
+    }
+
     public function user()
     {
         return $this->belongsTo('User');
