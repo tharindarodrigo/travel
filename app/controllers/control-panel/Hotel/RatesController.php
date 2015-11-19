@@ -26,7 +26,7 @@ class RatesController extends \BaseController
      */
     public function index($hotelid)
     {
-        $rates = Rate::where('hotel_id',$hotelid)->get();
+        $rates = Rate::where('hotel_id',$hotelid)->orderBy('from')->get();
 
         return View::make('control-panel.hotel.rates.index', compact('hotelid', 'rates'));
     }
@@ -115,8 +115,8 @@ class RatesController extends \BaseController
                 $from_date = new DateTime($from);
                 $to_date = new DateTime($to);
 
-                $from_date->sub(new DateInterval('P1D'));
-                $to_date->add(new DateInterval('P1D'));
+                //$from_date->sub(new DateInterval('P1D'));
+                //$to_date->add(new DateInterval('P1D'));
 
                 /*
                  * <------------|------------------|--------------|-------------------|----------------->

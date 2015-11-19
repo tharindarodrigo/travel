@@ -67,17 +67,20 @@ Route::group(array('before' => 'auth'), function () {
         });
 
 
-        Route::group(array('before' => 'admin'), function () {
+        Route::group(array('before' => 'hotelier'), function () {
             /**
              * general
              */
             Route::group(array('prefix' => 'general'), function () {
 
-                Route::resource('cities', 'CitiesController');
                 Route::post('cities/get-cities/{country_id}', 'CitiesController@getCitiesList');
-                Route::resource('markets', 'MarketsController');
-                Route::resource('countries', 'CountriesController');
 
+                Route::group(array('before' => 'admin'), function () {
+                    Route::resource('cities', 'CitiesController');
+                    Route::resource('markets', 'MarketsController');
+                    Route::resource('countries', 'CountriesController');
+
+                });
             });
 
             /**

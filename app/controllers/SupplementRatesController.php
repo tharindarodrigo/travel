@@ -22,7 +22,7 @@ class SupplementRatesController extends \BaseController
      */
     public function index($hotelid)
     {
-        $rates = SupplementRate::where('hotel_id', $hotelid)->get();
+        $rates = SupplementRate::where('hotel_id', $hotelid)->orderBy('from')->get();
 
         return View::make('control-panel.hotel.supplement-rates.index', compact('hotelid', 'rates'));
     }
@@ -109,8 +109,8 @@ class SupplementRatesController extends \BaseController
                 $from_date = new DateTime($from);
                 $to_date = new DateTime($to);
 
-                $from_date->sub(new DateInterval('P1D'));
-                $to_date->add(new DateInterval('P1D'));
+//                $from_date->sub(new DateInterval('P1D'));
+//                $to_date->add(new DateInterval('P1D'));
 
                 /*
                  * <------------|------------------|--------------|-------------------|----------------->
