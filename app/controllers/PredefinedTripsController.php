@@ -130,7 +130,7 @@ class PredefinedTripsController extends \BaseController
             ), function ($message) use ($booking, $ehi_users) {
                 $message->attach(public_path() . '/temp-files/service_voucher_' . $booking->id . '.pdf')
                     ->subject('Amended Service Voucher: ' . $booking->reference_number)
-                    ->from('noreply@srilankahotels.com')
+                    ->from('noreply@srilankahotels.com', 'SriLankaHotels.Travel')
                     ->bcc('admin@srilankahotels.travel', 'Admin');
 
                 $message->to(Auth::user()->email, Auth::user()->first_name);
@@ -153,7 +153,7 @@ class PredefinedTripsController extends \BaseController
             ), function ($message) use ($booking, $emails, $ehi_users) {
                 $message->attach(public_path() . '/temp-files/booking_' . $booking->id . '.pdf')
                     ->subject('Amended Booking: ' . $booking->reference_number)
-                    ->from('noreply@srilankahotels.com')
+                    ->from('noreply@srilankahotels.com', 'SriLankaHotels.Travel')
                     ->bcc('admin@srilankahotels.travel', 'Admin');
 //                foreach ($emails as $emailaddress) {
 //                    $message->to($emailaddress, 'Admin');
@@ -175,7 +175,7 @@ class PredefinedTripsController extends \BaseController
             ), function ($message) use ($booking, $emails, $ehi_users) {
                 $message->attach(public_path() . '/temp-files/invoice_' . $booking->id . '.pdf')
                     ->subject('Amended Invoice: ' . $booking->reference_number)
-                    ->from('noreply@srilankahotels.com')
+                    ->from('noreply@srilankahotels.com', 'SriLankaHotels.Travel')
                     ->bcc('admin@srilankahotels.travel', 'Admin');
 //                foreach ($emails as $emailaddress) {
 //                    $message->bcc($emailaddress, 'SysAdmin');

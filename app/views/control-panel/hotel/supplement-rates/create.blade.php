@@ -112,12 +112,14 @@
 
         $('#room_type_id').change(function(){
 
+
+
+            hotel_id = $('#hotelid').val();
+//            alert(hotel_id);
             hideItems();
 
-            hotel_id = $('#hotelid').val()
-
             $("#change_room").slideDown(200);
-            var url = 'http://'+window.location.host+'/control-panel/hotel/hotels/'+hotelid+'/supplement-rates/get-rates';
+            var url = 'http://'+window.location.host+'/control-panel/hotel/hotels/'+hotel_id+'/supplement-rates/get-rates';
             var formData = new FormData();
             formData.append('room_type_id', $(this).val());
             $.ajax({

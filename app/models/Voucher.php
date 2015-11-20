@@ -54,6 +54,19 @@ class Voucher extends \Eloquent {
         return $voucherAmount;
     }
 
+    public static function getHotelVoucherAmount($voucher)
+    {
+        $voucherAmount = 0.0;
+        $check_in = $voucher->check_in;
+        $check_out = $voucher->check_out;
+        foreach($voucher->roomBooking as $roomBooking){
+            $voucherAmount += $roomBooking->unit_cost_price * $roomBooking->room_count * Voucher::getNights($check_in,$check_out)->days;
+        }
+
+        return $voucherAmount;
+
+    }
+
     public static function getDaysToBooking($voucher)
     {
         $checkIn = new DateTime($voucher->check_in);

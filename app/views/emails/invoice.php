@@ -1,4 +1,5 @@
 <?php require_once('emailStructure/header1.php'); ?>
+
 <style type="text/css">
     th {
         font-size: medium;
@@ -191,5 +192,5 @@ No. 8, Leyden BastianRoad, Colombo 01, Sri Lanka <br>
 <b>Swift Code : MUCBKLC</b>
 <br>
 <br>
-<?php echo include_once('emailStructure/footer.php') ?>
+<?php include_once('emailStructure/footer.php'); ?>
 
