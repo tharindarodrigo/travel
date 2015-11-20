@@ -155,7 +155,9 @@
                             <div class="check-box">
 
                                 {{Form::checkbox('agreement')}}
-                                I accept Agreement
+                                I accept <a href="#">Agreement</a>
+                                {{$errors->first('agreement', '<p class="size12" style="color: red;">:message</p>') }}
+
                             </div>
                         </div>
 

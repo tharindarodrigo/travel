@@ -48,7 +48,8 @@ class Voucher extends \Eloquent {
         $check_in = $voucher->check_in;
         $check_out = $voucher->check_out;
         foreach($voucher->roomBooking as $roomBooking){
-            $voucherAmount += $roomBooking->unit_price * $roomBooking->room_count * Voucher::getNights($check_in,$check_out)->days;
+            $voucherAmount += ($roomBooking->unit_price * $roomBooking->room_count * Voucher::getNights($check_in,$check_out)->days) +
+                $roomBooking->room_count * $roomBooking->unit_supplement_price;
         }
 
         return $voucherAmount;
@@ -60,8 +61,11 @@ class Voucher extends \Eloquent {
         $check_in = $voucher->check_in;
         $check_out = $voucher->check_out;
         foreach($voucher->roomBooking as $roomBooking){
-            $voucherAmount += $roomBooking->unit_cost_price * $roomBooking->room_count * Voucher::getNights($check_in,$check_out)->days;
+            $voucherAmount += ($roomBooking->unit_cost_price * $roomBooking->room_count * Voucher::getNights($check_in,$check_out)->days)+
+                $roomBooking->unit_supplement_price;
         }
+
+
 
         return $voucherAmount;
 

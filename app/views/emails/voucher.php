@@ -169,11 +169,16 @@
                     <?php echo Voucher::getNights($voucher->check_out, $voucher->check_in)->days; ?>
                 </td>
             </tr>
+            <tr>
+                <th>Supplements</th>
+                <td>
+<!--                    --><?php //?>
+                </td>
+            </tr>
             <tr style="background: ">
                 <td colspan="2" style="background: lightgrey">Room Details</td>
             </tr>
             <?php foreach ($voucher->roomBooking as $roomBooking) { ?>
-
                 <tr>
                     <td>
                         Room Type <br>

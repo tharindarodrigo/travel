@@ -392,7 +392,7 @@
 
 {{ HTML::script("control-panel-assets/plugins/slimScroll/jquery.slimScroll.min.js" )}}
         <!-- FastClick -->
-{{ HTML::script("plugins/fastclick/fastclick.min.js" )}}
+{{ HTML::script("/control-panel/plugins/fastclick/fastclick.min.js" )}}
         <!-- AdminLTE App -->
 {{ HTML::script("control-panel-assets/dist/js/app.min.js" )}}
 {{ HTML::script("control-panel-assets/plugins/iCheck/icheck.js" )}}

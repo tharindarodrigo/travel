@@ -26,7 +26,7 @@ class RatesController extends \BaseController
      */
     public function index($hotelid)
     {
-        $rates = Rate::where('hotel_id',$hotelid)->orderBy('from')->get();
+        $rates = Rate::where('hotel_id',$hotelid)->orderBy('room_type_id')->orderBy('from')->get();
 
         return View::make('control-panel.hotel.rates.index', compact('hotelid', 'rates'));
     }

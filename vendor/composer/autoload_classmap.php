@@ -23,6 +23,7 @@ return array(
     'AddColumnsToBookingsTable' => $baseDir . '/app/database/migrations/2015_10_23_103814_add_columns_to_bookings_table.php',
     'AddColumnsToMarketsTable' => $baseDir . '/app/database/migrations/2015_08_21_110008_add_columns_to_markets_table.php',
     'AddColumnsToPaymentsTable' => $baseDir . '/app/database/migrations/2015_11_17_112111_add_columns_to_payments_table.php',
+    'AddColumnsToRoomBookingsTable' => $baseDir . '/app/database/migrations/2015_11_19_133200_add_columns_to_room_bookings_table.php',
     'AddColumnsToTourTypesTable' => $baseDir . '/app/database/migrations/2015_10_15_055003_add_columns_to_tour_types_table.php',
     'AddColumnsToTransportPackagesTable' => $baseDir . '/app/database/migrations/2015_10_13_115103_add_columns_to_transport_packages_table.php',
     'AddColumnsToVehiclesTable' => $baseDir . '/app/database/migrations/2015_10_13_114322_add_columns_to_vehicles_table.php',
