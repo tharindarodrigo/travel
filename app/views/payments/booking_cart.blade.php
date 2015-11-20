@@ -273,13 +273,20 @@ if (Session::has('excursion_cart_details')) {
                                                         fee: </h5>
                                                     <span class="green">{{ Session::get('currency'). '&nbsp;' . number_format((($hotel_booking[$c]['hotel_tax'] + $hotel_booking[$c]['hotel_handling_fee']) * Session::get('currency_rate') ) , 2, '.', '') }}  </span>
                                                     <br/>
-                                                    <h5 style="margin-right: 45px; display: inline"
-                                                        class="bk_room_name">Room Total : </h5> <span
+                                                    @if($hotel_booking[$c]['supplement_rate'] > 0)
+                                                        <h5 style="margin-right: 20px; display: inline"
+                                                            class="bk_room_name"> Supplement Rate </h5> <span
+                                                                style="font-weight: 700"> : </span>
+                                                        <span class="green">  {{ Session::get('currency'). '&nbsp;'  . number_format(($hotel_booking[$c]['supplement_rate'] ), 2, '.', '') }}</span>
+                                                        <br/>
+                                                    @endif
+                                                    <h5 style="margin-right: 56px; display: inline"
+                                                        class="bk_room_name">Room Total </h5> <span
                                                             style="font-weight: 700"> : </span>
-                                                    <span class="green">  {{ Session::get('currency'). '&nbsp;'  . number_format(($hotel_booking[$c]['room_cost'] + ($hotel_booking[$c]['hotel_tax'] + $hotel_booking[$c]['hotel_handling_fee'])), 2, '.', '') }}</span>
+                                                    <span class="green">  {{ Session::get('currency'). '&nbsp;'  . number_format(($hotel_booking[$c]['room_cost'] + ($hotel_booking[$c]['hotel_tax'] + $hotel_booking[$c]['hotel_handling_fee'] + $hotel_booking[$c]['supplement_rate'])), 2, '.', '') }}</span>
                                                     <br/>
                                                     <br/>
-                                                    <?php $total_cost = $total_cost + $hotel_booking[$c]['room_cost'] + ($hotel_booking[$c]['hotel_tax'] + $hotel_booking[$c]['hotel_handling_fee']); ?>
+                                                    <?php $total_cost = $total_cost + $hotel_booking[$c]['room_cost'] + ($hotel_booking[$c]['hotel_tax'] + $hotel_booking[$c]['hotel_handling_fee'] + $hotel_booking[$c]['supplement_rate']); ?>
                                                 @else
                                                     <h5 style="margin-right: 45px; display: inline"
                                                         class="bk_room_name">Room Total : </h5> <span

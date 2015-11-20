@@ -44,7 +44,6 @@
         h4 {
             color: #0099cc !important;
             font-family: "Lato";
-            font-style: italic;
             font-size: 13px;
         }
 
@@ -484,7 +483,7 @@
                                                 @endif
                                             </a>
 
-                                            <div style="padding-top: 5px; padding-left: 20%">
+                                            <div style="padding-top: 8px; padding-left: 20%">
                                                 <a data-toggle="modal" data-target="#myModal{{ $room_id }}"
                                                    class="lred bold" href="">Check Room Details</a>
                                             </div>
@@ -493,14 +492,13 @@
                                         <div class="col-md-8 offset-0">
                                             <div class="col-md-8 mediafix1">
 
-                                                <h4 style="display: inline; !important;"
+                                                <h4 style="font-weight: 900; text-decoration: none !important; display: inline; !important;"
                                                     class="opensans dark bold margtop1 lh1">
                                                     {{ $room->RoomType->room_type }}
                                                 </h4> -
-                                                <h5 style="color: #0099cc !important; display: inline; !important;"> {{ $room->RoomSpecification->room_specification }}
+                                                <h5 style="font-weight: 900; color: #0099cc !important; display: inline; !important;"> {{ $room->RoomSpecification->room_specification }}
                                                     Room
                                                 </h5>
-
 
                                                 <h5>{{ $room->MealBasis->meal_basis_name }}</h5>
                                                 <?php $t = 0;?>
@@ -580,11 +578,22 @@
                                                         </a>
 
                                                     </li>
-                                                    @if($market == 1)
-                                                        <li>Pay at hotel or pay today</li>
-                                                    @endif
+
+                                                    <li>
+                                                        @if($room->MealBasis->id == 1)
+                                                            Room Only
+                                                        @elseif($room->MealBasis->id == 2)
+                                                            Bed & Breakfast
+                                                        @elseif($room->MealBasis->id == 3)
+                                                            Breakfast & Dinner
+                                                        @elseif($room->MealBasis->id == 4)
+                                                            Breakfast , Lunch & Dinner
+                                                        @else
+                                                            <h5> Breakfast , Lunch , Dinner & Liquor </h5>
+                                                        @endif
+                                                    </li>
                                                 </ul>
-                                                <br/>
+                                                <br/><br/>
 
                                                 @if($market == 1)
                                                     <span class="green size12">All Tax 16.7% and 10% service charge Not included</span>
@@ -597,33 +606,31 @@
                                                     @if($low_room_rate > 0 )
                                                         <span class="opensans green size24">  {{ Session::get('currency') . '&nbsp;' . number_format(($low_room_rate * Session::get('currency_rate')), 2, '.', '') }}</span>
                                                         <br/>
-                                                        <span class="opensans lightgrey size12">avg/night</span>
-                                                        <br/>
-                                                        <br/>
                                                         {{ Form::selectRange('number', 1, 10, null, ['class' => 'form-control mySelectBoxClass room_count', 'id' => $room_id.$room->meal_basis_id.$room->room_specification_id]) }}
                                                         <br/>
                                                         <?php
                                                         $allotments = Allotments::allotmentsCount($room_id, Session::get('st_date'), Session::get('ed_date'));
                                                         ?>
                                                         @if(!empty($allotments) && ($allotments > 3))
-                                                            <br/>
                                                             <span class="green size12 bold">{{ $allotments }} Rooms Available</span>
-                                                            <br/><br/>
+                                                            <br/>
                                                         @elseif(!empty($allotments) && ($allotments > 1))
                                                             <br/>
                                                             <span class="lred size12 bold"> Last {{ $allotments }}
                                                                 Rooms</span>
-                                                            <br/><br/>
+                                                            <br/>
                                                         @elseif(!empty($allotments) && ($allotments > 0))
                                                             <br/>
                                                             <span class="red size12 bold"> Only One Left</span>
-                                                            <br/><br/>
+                                                            <br/>
                                                         @else
                                                             <br/>
                                                             <span class="red size12 bold">No Rooms Available</span>
-                                                            <br/><br/>
+                                                            <br/>
                                                         @endif
-
+                                                        <br/>
+                                                        {{ Room::roomTypeImage(Session::get('adult'), Session::get('child')) }}
+                                                        <br/><br/>
                                                         @if(!empty($allotments) && ($allotments > 0))
                                                             {{ Form::hidden('room_meal_id', $room->meal_basis_id , array('class' => 'hidden_room_meal_id') ) }}
                                                             <button id="room_book{{ $x }}"
@@ -663,12 +670,13 @@
                                                         <button type="button" class="close" data-dismiss="modal"
                                                                 aria-label="Close"><span
                                                                     aria-hidden="true">&times;</span></button>
-                                                        <h4 style="display: inline" class="modal-title"
+                                                        <h4 style="font-weight: 900; display: inline"
+                                                            class="modal-title"
                                                             id="myModalLabel">
                                                             {{ Hotel::where('id', $hotel_id)->first()->name }}
                                                         </h4>
                                                         -
-                                                        <h5 style="display: inline">
+                                                        <h5 style="font-weight: 900; display: inline">
                                                             {{ $room->RoomType->room_type }}
                                                         </h5>
                                                     </div>

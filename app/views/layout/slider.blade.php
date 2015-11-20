@@ -1,3 +1,4 @@
+
 <div id="slider_1">
     <ul>
 
@@ -114,7 +115,7 @@
 
         <!-- FADE -->
         <li data-transition="fade" data-slotamount="1" data-masterspeed="300">
-            <img src="images/slider/1.jpg" alt=""/>
+            <img src="images/slider/1_1.jpg" alt=""/>
 
             <!--            <div class="tp-caption scrolleffect sft"
                              data-x="center"
@@ -134,7 +135,7 @@
 
         <!-- FADE -->
         <li data-transition="fade" data-slotamount="1" data-masterspeed="300">
-            <img src="images/slider/2.jpg" alt=""/>
+            <img src="images/slider/1_1.jpg" alt=""/>
 
             <!--            <div class="tp-caption scrolleffect sft"
                              data-x="center"
@@ -155,7 +156,7 @@
         <!-- FADE -->
         <li data-transition="fade" data-slotamount="1" data-masterspeed="300">
 
-            <img src="images/slider/4.jpg" alt=""/>
+            <img src="images/slider/1_1.jpg" alt=""/>
 
             <!--            <div class="tp-caption scrolleffect sft"
                              data-x="center"
@@ -184,7 +185,7 @@
 
         <!-- FADE -->
         <li data-transition="fade" data-slotamount="1" data-masterspeed="300">
-            <img src="images/slider/1.jpg" alt=""/>
+            <img src="images/slider/1_1.jpg" alt=""/>
 
             <!--            <div class="tp-caption scrolleffect sft"
                              data-x="center"
@@ -204,7 +205,7 @@
 
         <!-- FADE -->
         <li data-transition="fade" data-slotamount="1" data-masterspeed="300">
-            <img src="images/slider/2.jpg" alt=""/>
+            <img src="images/slider/1_1.jpg" alt=""/>
 
             <!--            <div class="tp-caption scrolleffect sft"
                              data-x="center"
@@ -225,7 +226,7 @@
         <!-- FADE -->
         <li data-transition="fade" data-slotamount="1" data-masterspeed="300">
 
-            <img src="images/slider/4.jpg" alt=""/>
+            <img src="images/slider/1_1.jpg" alt=""/>
 
             <!--            <div class="tp-caption scrolleffect sft"
                              data-x="center"

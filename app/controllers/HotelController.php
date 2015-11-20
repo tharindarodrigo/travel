@@ -849,7 +849,7 @@ class HotelController extends \BaseController
             $room_rate = RoomRates::lowestRoomRate($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
             $room_rate_with_tax = RoomRates::lowestRoomRateWithTax($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
 
-            $room_cost = number_format(($room_rate_with_tax * $room_count) * $date_count, 2);
+            $room_cost = ($room_rate_with_tax * $room_count) * $date_count;
 
             if (Session::has('market')) {
                 $market = Session::get('market');
@@ -896,11 +896,8 @@ class HotelController extends \BaseController
                 $hotel_handling_fee = $total_handling_fee;
             }
 
-//dd($room_rate.'/'.$total_tax.'/'.$total_handling_fee);
-
             $supplement_rate = RoomRates::supplementRate($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
 
-            dd($supplement_rate);
 
             $rate_box_details = array(
                 'hotel_id' => $hotel_id,
@@ -915,6 +912,7 @@ class HotelController extends \BaseController
                 'room_cost' => $room_cost,
                 'hotel_tax' => $hotel_tax,
                 'hotel_handling_fee' => $hotel_handling_fee,
+                'supplement_rate' => $supplement_rate,
                 'room_count' => $room_count,
                 'unit_price' => $room_rate_with_tax,
                 'hotel_room_price' => $room_rate,

@@ -122,7 +122,9 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
     }
 
     #google_translate_element {
-        height: 40px !important;
+
+        margin-top: 10px !important;
+        height: 30px !important;
     }
 </style>
 
@@ -390,14 +392,74 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                 <tr>
 
                     <th>
+
                         <div id="google_translate_element"></div>
+                        <div id="language"></div>
                         <script type="text/javascript">
                             function googleTranslateElementInit() {
-                                new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+                                new google.translate.TranslateElement({
+                                    pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                                }, 'google_translate_element');
                             }
                         </script>
+
                         <script type="text/javascript"
                                 src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+                        <script>
+                            $('document').ready(function () {
+                                $('#google_translate_element').on("click", function () {
+                                    $("iframe").contents().find(".goog-te-menu2-item div, .goog-te-menu2-item:link div, .goog-te-menu2-item:visited div, .goog-te-menu2-item:active div, .goog-te-menu2 *")
+                                            .css({
+                                                'color': '#006699',
+                                                'font-family': 'Lato'
+                                            });
+                                    $("iframe").contents().find(".goog-te-menu2-item div").hover(function () {
+                                        $(this).css('background-color', '#15262f').find('span.text').css('color', '#DAA520');
+                                    }, function () {
+                                        $(this).css('background-color', 'white').find('span.text').css('color', '#006699');
+                                    });
+                                    $("iframe").contents().find('.goog-te-menu2').css('border', '1px solid #000000');
+                                    $(".goog-te-menu-frame").css({
+                                        '-moz-box-shadow': '0 3px 8px 2px #000000',
+                                        '-webkit-box-shadow': '0 3px 8px 2px #000',
+                                        'box-shadow': '0 3px 8px 2px #666'
+                                    });
+                                });
+                            });
+                        </script>
+                        <script>
+                            $(document).ready(function () {
+                                var imageUrl = 'public/images/site/gold-arrow.png';
+                                setTimeout(function () {
+                                    $(".goog-te-gadget-simple").css({
+                                        'background-color': '#15262f',
+                                        'color': '#fff',
+                                        'border-left': '0',
+                                        'border-right': '0',
+                                        'border-top': '0',
+                                        'border-bottom': '0'
+                                    });
+                                   // $("span").css("color", "#DAA520");
+                                    $('.goog-te-gadget-simple .goog-te-menu-value').css({
+                                        'font-size' : '14px',
+                                        'color' : '#DAA520',
+                                        'font-family' : '"Helvetica Neue", Helvetica, Arial, sans-serif'
+                                    });
+                                    $('.goog-te-gadget img').css({
+                                        'background-image' : 'url(' + imageUrl + ')'
+                                    });
+                                    $('.goog-te-gadget-simple .goog-te-menu-value span').css({
+                                        'color' : '#DAA520',
+                                        'border' : 'none',
+                                        'background-image' : 'url(' + imageUrl + ')'
+                                    });
+
+                                }, 1000);
+
+                            });
+                        </script>
+
                     </th>
 
                     <th>

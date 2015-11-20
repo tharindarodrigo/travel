@@ -11,7 +11,7 @@
 @section('custom_style')
 
     <style type="text/css">
-        .featurette-divider30{
+        .featurette-divider30 {
             border-top: solid 1px #006699 !important;
         }
 
@@ -74,6 +74,54 @@
             width: 20px;
             height: 20px;
         }
+
+        @media only screen and (min-width: 767px) {
+            .hotel_border {
+                border: 2px solid #006699 !important;
+
+            }
+
+            .hotel_border_img {
+                border: 2px solid #006699 !important;
+
+            }
+        }
+
+        @media only screen and (min-width: 480px) {
+            .hotel_border {
+                border: 2px solid #006699 !important;
+
+            }
+
+            .hotel_border_img {
+                border: 2px solid #006699 !important;
+
+            }
+        }
+
+        @media only screen and (min-width: 1280px) {
+            .hotel_border {
+                border: 2px solid #006699 !important;
+                border-left: none !important;
+            }
+
+            .hotel_border_img {
+                border: 2px solid #006699 !important;
+                border-right: none !important;
+            }
+        }
+
+        @media only screen and (min-width: 0px) and (max-width: 479px) {
+            .hotel_border {
+                border: 2px solid #006699 !important;
+            }
+
+            .hotel_border_img {
+                border: 2px solid #006699 !important;
+            }
+        }
+
+
     </style>
 
     <!-- bin/jquery.slider.min.css -->
@@ -528,7 +576,7 @@
 
                             <div class="offset-2">
                                 <div class="col-md-4 offset-0">
-                                    <div class="listitem2">
+                                    <div class="hotel_border_img listitem2">
 
                                         <?php
                                         //echo public_path();
@@ -562,8 +610,8 @@
                                     </div>
                                 </div>
 
-                                <div  class="col-md-8 offset-0">
-                                    <div style="background-color: #f9f9f9" class="itemlabel3">
+                                <div class="col-md-8 offset-0">
+                                    <div style="background-color: #f9f9f9" class="hotel_border itemlabel3">
 
                                         <div style="text-align: center" class="labelright">
                                             <?php
@@ -614,14 +662,21 @@
 
                                             <a href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}"
                                                style="text-decoration: none" target="_blank">
-                                                <h4 style="display: inline;"> {{ $hotel->name }} </h4>
+                                                <h4 style="font-weight: 900; display: inline;"> {{ $hotel->name }} </h4>
                                             </a>
                                             <br/>
 
-                                            <h6 style="display: inline"
-                                                class=""> {{ $hotel->address }} </h6>
-                                            {{ HTML::image('images/google-map-marker.png', '', array('class' => 'single_hotel_map'))}}
-                                            <br/>
+                                            <div class="hidden-lg">
+                                                <h6 style="display: inline"> {{ strip_tags(Str::limit($hotel->address, 50)) }} </h6>
+                                                {{ HTML::image('images/google-map-marker.png', '', array('class' => 'single_hotel_map'))}}
+                                                <br/>
+                                            </div>
+
+                                            <div class="hidden-xs hidden-md">
+                                                <h6 style="display: inline"> {{ $hotel->address }} </h6>
+                                                {{ HTML::image('images/google-map-marker.png', '', array('class' => 'single_hotel_map'))}}
+                                                <br/>
+                                            </div>
 
                                             <div id="dialog{{ $hotel->id }}" style="display: none;">
                                                 <div id="dvMap{{ $hotel->id }}"
@@ -631,12 +686,16 @@
 
                                             <br/>
 
-                                            <p class="grey">
+                                            <p class="hidden-xs hidden-md" style="color: #F9622F">
                                                 {{ strip_tags(Str::limit($hotel->overview, 150)) }}
                                             </p>
 
+                                            <p class="hidden-lg" style="color: #F9622F">
+                                                {{ strip_tags(Str::limit($hotel->overview, 50)) }}
+                                            </p>
+
                                             @if(Input::has('facility') || Input::has('price_range'))
-                                                <ul class="hotelpreferences">
+                                                <ul class="hidden-xs hidden-md hotelpreferences">
                                                     <?php
                                                     $hotel_facilities = Hotel::with('HotelFacility')->find($hotel->id);
                                                     ?>
@@ -654,7 +713,7 @@
                                                     @endforeach
                                                 </ul>
                                             @else
-                                                <ul class="hotelpreferences">
+                                                <ul class="hidden-xs hidden-md hotelpreferences">
                                                     <?php
                                                     $hotel_facilities = Hotel::with('HotelFacility')->find($hotel->id);
                                                     ?>
