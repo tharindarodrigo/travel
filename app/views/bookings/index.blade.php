@@ -11,30 +11,27 @@
 @section('bread-crumbs')
     <li>/</li>
     <li><a href="#" class="active">Bookings</a></li>
-    @endsection
+@endsection
 
-    @section('body-content')
-            <!-- CONTENT -->
+@section('body-content')
+
     <div class="container">
-
 
         <div class="container mt25 offset-0">
 
-            <!-- CONTENT -->
+
             <div class="col-md-12 pagecontainer2 offset-0">
                 <ul class="nav nav-tabs nav-justified" role="tablist">
                     <li role="presentation" class="active">
-                        <a href="#bookings" aria-controls="bookings" role="tab"
-                           data-toggle="tab">Bookings</a>
+                        <a href="#bookings" aria-controls="{{!Session::has('activate_payments_tab') ? 'active' : ''}}" role="tab" data-toggle="tab">Bookings</a>
                     </li>
-                    <li role="presentation" class="">
+                    <li role="presentation" class="{{Session::get('activate_payments_tab')}}">
                         <a href="#payments" aria-controls="payments" role="tab" data-toggle="tab">Payments</a>
                     </li>
                 </ul>
 
                 <div class="tab-content4">
-                    <div role="tabpanel" class="tab-pane "
-                         id="bookings">
+                    <div role="tabpanel" class="tab-pane " id="bookings">
                         <div class="col-md-12">
 
                             <form action="" method="get">
@@ -75,7 +72,7 @@
                                             <td>{{$booking->id}}</td>
                                             <td style="text-align: center">{{$booking->reference_number}}</td>
                                             <td style="text-align: center">{{$booking->arrival_date}}</td>
-                                            <td style="text-align: center">{{$booking->departure_date}}</td>
+                                            <td style="text-align: center">{{date('Y-m-d', strtotime($booking->departure_date))}}</td>
                                             <td style="text-align: right">{{$booking->booking_name}}</td>
                                             <td style="text-align: right">{{$booking->adults}}</td>
                                             <td style="text-align: right">{{$booking->children}}</td>
@@ -149,82 +146,76 @@
 
                     </div>
 
-                    <div role="tabpanel" class="tab-pane"
-                         id="payments">
-                        @if(!empty($bookings))
-                            <div class="hpadding50c">
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Booking</th>
-                                        <th>Name</th>
-                                        <th>Credit</th>
-                                        <th>Debit</th>
-                                        <th>Balance</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody><?php
-                                    $x = 1;
-                                    $y = 0;
-                                    ?>
-                                    @foreach($bookings as $booking)
+                    <div role="tabpanel" class="tab-pane" id="payments">
+                        <div class="col-md-12">
+                            <form action="" class="form-horizontal">
 
+                                <div class="row">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input type="text" name="from_d" class="form-control" placeholder="from"
+                                                   value="{{Input::get('from_d')}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input type="text" name="to_d" class="form-control" placeholder="to"
+                                                   value="{{Input::get('to_d')}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        {{Form::submit('Get payments', array('name'=>'get_payments', 'class'=>'btn btn-primary'))}}
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                        <div class="hpadding50c">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Date</th>
+                                    <th>Detail</th>
+                                    <th>Credit</th>
+                                    <th>Debit</th>
+                                    <th>Credit Balance</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if(!empty($merged_data))
+                                    @for($x= 1; $x< count($merged_data); $x++)
                                         <tr>
-                                            @if($x==1)
-                                                <td>11</td>
-                                                <td>TRS 1212111</td>
-                                                <td>Bank transaction</td>
-                                                <td>-</td>
-
-                                                <td>100000.00</td>
-                                                <td>100000.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{$booking->id}}</td>
-                                            <td>{{$booking->reference_number}}</td>
-                                            <td>{{$booking->booking_name}}</td>
-                                            <td>{{number_format(Booking::getTotalBookingAmount($booking),2)}}</td>
-                                            <?php $y = $y + Booking::getTotalBookingAmount($booking);?>
-                                            <td>-</td>
-
-                                            <td><?php echo number_format(100000.0 -$y,2)?></td>
+                                            <td>{{$x}}</td>
+                                            <td>{{$merged_data[$x]['date']}}</td>
+                                            <td>{{$merged_data[$x]['details']}}</td>
+                                            <td>{{$merged_data[$x]['credit'] or '-'}}</td>
+                                            <td>{{$merged_data[$x]['debit'] or '-'}}</td>
+                                            <td>{{''}}</td>
                                         </tr>
 
+                                    @endfor
+                                @endif
 
-                                            @else
-                                                <tr>
-                                                <td>{{$booking->id}}</td>
-                                                <td>{{$booking->reference_number}}</td>
-                                                <td>{{$booking->booking_name}}</td>
-                                                <td>{{number_format(Booking::getTotalBookingAmount($booking),2)}}</td>
-                                                <?php $y = $y + Booking::getTotalBookingAmount($booking);?>
-                                                <td>-</td>
-
-                                                <td><?php echo number_format(100000.0 -$y,2)?></td>
-                                                    </tr>
-                                            @endif
-                                        <?php $x++; ?>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        @endif
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
+                    {{--@endif--}}
                 </div>
-
-
-                @if(Session::has('sent_emails'))
-                    <div class="callout callout-success">{{Session::pull('sent_emails')}}</div>
-                @endif
-
-                {{--<br>--}}
-                {{--<br>--}}
-
-
             </div>
 
+            @if(Session::has('sent_emails'))
+                <div class="callout callout-success">{{Session::pull('sent_emails')}}</div>
+            @endif
+
+
         </div>
+
+    </div>
 
     </div>
 

@@ -97,7 +97,7 @@ class AccountController extends \BaseController
         return View::make('pages.message');
     }
 
-    public function  getSignIn()
+    public function getSignIn()
     {
         return View::make('account.sign-in');
     }

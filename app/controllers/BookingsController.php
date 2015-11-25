@@ -21,12 +21,33 @@ class BookingsController extends \BaseController
      */
     public function index()
     {
+
+
         if (Auth::check()) {
 
+
             $reference_number = Input::has('reference_number') ? Input::get('reference_number') : '%';
-//        $arrival_date = Input::get('arrival_date') or '%';
-//        $departure_date = Input::get('departure_date') or '%';
-//        $reference_number = 0000000;
+            $user_id = Auth::id();
+
+            $payments_query = Payment::with('user')->with('agent')->select(array('payment_date_time AS date', 'amount AS debit', 'details', 'id'))->where('user_id', $user_id);
+            $invoices_query = Invoice::join('bookings', 'bookings.id', '=', 'invoices.booking_id')
+                ->select(array('amount AS credit', 'arrival_date AS date', 'reference_number as details'))
+                ->where('val', 1);
+
+            if(Input::get('get_payments')){
+
+                Session::flash('activate_payments_tab','active');
+
+                $from_d = Input::get('from_d');
+                $to_d = Input::get('to_d');
+                $payments = $payments_query->whereBetween('payment_date_time',array($from_d,$to_d))->get();
+                $invoices = $invoices_query->whereBetween('arrival_date',array($from_d,$to_d))->get();
+            } else {
+                $payments = $payments_query->get();
+                $invoices = $invoices_query->get();
+            }
+
+            //dd($pay);
             if (Entrust::hasRole('Admin')) {
                 $bookings = Booking::with('user')
                     ->where('reference_number', 'like', '%' . $reference_number . '%')
@@ -41,7 +62,23 @@ class BookingsController extends \BaseController
 //                ->where('departure_date', '=', $departure_date)
                     ->get();
             }
-            return View::make('bookings.index', compact('bookings'));
+
+
+
+            $merged_data = array_merge($payments->toArray(), $invoices->toArray());
+            foreach ($merged_data as $key => $row) {
+                $c[$key] = $row['date'];
+
+            }
+
+            array_multisort($c, SORT_ASC, $merged_data);
+
+//            dd($merged_data);
+
+            if(Input::has('get_payment'))
+                return View::make('bookings.index', compact('bookings', 'payments', 'merged_data'))->withInput();
+
+            return View::make('bookings.index', compact('bookings', 'payments', 'merged_data'));
         }
 
         App::abort(404);

@@ -9,6 +9,7 @@ return array(
     'Absolute_Positioner' => $vendorDir . '/dompdf/dompdf/include/absolute_positioner.cls.php',
     'Abstract_Renderer' => $vendorDir . '/dompdf/dompdf/include/abstract_renderer.cls.php',
     'AccountController' => $baseDir . '/app/controllers/AccountController.php',
+    'AddColumnToAgentsTable' => $baseDir . '/app/database/migrations/2015_11_23_143042_add_column_to_agents_table.php',
     'AddColumnToBookingsTable' => $baseDir . '/app/database/migrations/2015_11_10_083044_add_column_to_bookings_table.php',
     'AddColumnToCountriesTable' => $baseDir . '/app/database/migrations/2015_11_11_125440_add_column_to_countries_table.php',
     'AddColumnToCustomTripsTable' => $baseDir . '/app/database/migrations/2015_11_05_135951_add_column_to_custom_trips_table.php',

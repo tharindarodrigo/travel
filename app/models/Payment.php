@@ -25,8 +25,15 @@ class Payment extends \Eloquent
     ];
 
 
+    public function user()
+    {
+        return $this->belongsTo('User');
+    }    
+    
     public function agent()
     {
-        return $this->belongsTo('agent');
+        return $this->belongsTo('Agent');
     }
+    
+    
 }

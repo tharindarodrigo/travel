@@ -81,6 +81,7 @@ class PaymentsController extends \BaseController
      * @param  int $id
      * @return Response
      */
+
     public function edit($id)
     {
         $payment = Payment::find($id);
