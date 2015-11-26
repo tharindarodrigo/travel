@@ -81,7 +81,7 @@ class AccountController extends \BaseController
     public function activateAccount($code)
     {
         $user = User::where('code', '=', $code)->where('active', '=', 0)->first();
-
+        dd($user);
         if ($user) {
 
             $user->active = 1;
@@ -97,7 +97,7 @@ class AccountController extends \BaseController
         return View::make('pages.message');
     }
 
-    public function  getSignIn()
+    public function getSignIn()
     {
         return View::make('account.sign-in');
     }
@@ -120,6 +120,7 @@ class AccountController extends \BaseController
                 ->withInput();
 
         } else {
+
 
             $remember = (Input::has('remember')) ? true : false;
 
