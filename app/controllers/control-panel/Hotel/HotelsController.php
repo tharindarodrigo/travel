@@ -79,7 +79,7 @@ class HotelsController extends \BaseController
                 foreach($files as $file){
                     Image::make($file)
                         ->encode('jpg')
-                        ->save('public/images/hotel_images/' . $hotel->id . '_' .str_random(10). '.jpg');
+                        ->save('images/hotel_images/' . $hotel->id . '_' .str_random(10). '.jpg');
                 }
             }
         }
@@ -161,7 +161,7 @@ class HotelsController extends \BaseController
         }
 
         $hotelImages = array();
-        $hotelimages = File::glob(public_path().'/images/hotel_images/'.$hotelprofile->id.'_*');
+        $hotelimages = File::glob('/images/hotel_images/'.$hotelprofile->id.'_*');
 
         foreach($hotelimages as $hotelimage){
             $hotelImages[] = basename($hotelimage);
@@ -336,7 +336,7 @@ class HotelsController extends \BaseController
                 foreach($files as $file){
                     Image::make($file)
                         ->encode('jpg')
-                        ->save('public/images/hotel_images/' . $hotel->id . '_' .str_random(10). '.jpg');
+                        ->save('images/hotel_images/' . $hotel->id . '_' .str_random(10). '.jpg');
                 }
             }
         }
@@ -346,7 +346,7 @@ class HotelsController extends \BaseController
             Session::put('manage', 'images');
             $files = Input::get('files_to_delete');
             foreach($files as $file){
-                File::delete('public/images/hotel_images/'.$file);
+                File::delete('images/hotel_images/'.$file);
             }
 
             return Redirect::back();

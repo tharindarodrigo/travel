@@ -103,7 +103,7 @@ class RoomTypesController extends \BaseController
                         ->encode('jpg')
                         ->resize(1000, null, function ($constraint) {
                             $constraint->aspectRatio();
-                        })->save('public/images/room_images/' . $roomType->id . '_' . $x . '.jpg');
+                        })->save('images/room_images/' . $roomType->id . '_' . $x . '.jpg');
                 }
             }
         }
@@ -156,7 +156,7 @@ class RoomTypesController extends \BaseController
         }
 
         $roomImages = array();
-        $roomImageList = File::glob('public/images/room_images/' . $id . '_*');
+        $roomImageList = File::glob('images/room_images/' . $id . '_*');
 //        dd($roomImages);
         foreach ($roomImageList as $roomImage) {
             $roomImages[] = basename($roomImage);
@@ -179,7 +179,7 @@ class RoomTypesController extends \BaseController
 
             $files = Input::get('files_to_delete');
             foreach ($files as $file) {
-                File::delete('public/images/room_images/' . $file);
+                File::delete('images/room_images/' . $file);
             }
 
             return Redirect::back();
@@ -219,7 +219,7 @@ class RoomTypesController extends \BaseController
             foreach ($files as $file) {
                 Image::make($file)
                     ->encode('jpg')
-                    ->save('public/images/room_images/' . $roomtype->id . '_' . str_random(10) . '.jpg');
+                    ->save('images/room_images/' . $roomtype->id . '_' . str_random(10) . '.jpg');
             }
         }
 
@@ -274,11 +274,11 @@ class RoomTypesController extends \BaseController
 
             $delete = RoomType::destroy($id);
 
-            $files = File::glob('public/images/room_images/' . $id . '_*');
+            $files = File::glob('images/room_images/' . $id . '_*');
 
             if (!empty($files)) {
                 foreach ($files as $file) {
-                    File::delete('public/images/room_images/' . $file);
+                    File::delete('images/room_images/' . $file);
                 }
             }
 
