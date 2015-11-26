@@ -161,7 +161,7 @@ class HotelsController extends \BaseController
         }
 
         $hotelImages = array();
-        $hotelimages = File::glob('images/hotel_images/'.$hotelprofile->id.'_*');
+        $hotelimages = File::glob(public_path().'/images/hotel_images/'.$hotelprofile->id.'_*');
 
         foreach($hotelimages as $hotelimage){
             $hotelImages[] = basename($hotelimage);
