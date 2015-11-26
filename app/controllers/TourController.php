@@ -193,9 +193,9 @@ class TourController extends \BaseController
 
         $path = array();
 
-        $tour = Tour::where('id', '=', $tour)->where('val', 1)->get();
+        $tour = Tour::where('id', $tour_id)->where('val', 1)->get();
 
-        $tour_type = TourType::where('tour_id', '=', $tour_id)->where('val', 1)->first();
+        $tour_type = TourType::where('id', $tour_type_id)->where('val', 1)->first();
 
 //        dd(DB::getQueryLog());
 

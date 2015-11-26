@@ -221,14 +221,14 @@ class HotelController extends \BaseController
                     ->whereIn('star_category_id', $star_id)
                     ->paginate(30);
 
-                $min_hot_rate = DB::table('Hotels')
+                $min_hot_rate = DB::table('hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->select('rates.rate')
                     ->where('rates.val', 1)
                     ->where('hotels.city_id', $city_id)
                     ->min('rate');
 
-                $max_hot_rate = DB::table('Hotels')
+                $max_hot_rate = DB::table('hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->select('rates.rate')
                     ->where('rates.val', 1)
@@ -258,7 +258,7 @@ class HotelController extends \BaseController
 
 //dd($hotels->getTotal());
 
-                $min_hot_rate = DB::table('Hotels')
+                $min_hot_rate = DB::table('hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->join('hotel_hotel_category', 'hotel_hotel_category.hotel_id', '=', 'hotels.id')
                     ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
@@ -270,7 +270,7 @@ class HotelController extends \BaseController
                     ->min('rate');
 
 
-                $max_hot_rate = DB::table('Hotels')
+                $max_hot_rate = DB::table('hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->join('hotel_hotel_category', 'hotel_hotel_category.hotel_id', '=', 'hotels.id')
                     ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
@@ -302,14 +302,14 @@ class HotelController extends \BaseController
                     ->whereIn('star_category_id', $star_id)
                     ->paginate(30);
 
-                $min_hot_rate = DB::table('Hotels')
+                $min_hot_rate = DB::table('hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->select('rates.rate')
                     ->where('rates.val', 1)
                     ->where('hotels.city_id', $city_id)
                     ->min('rate');
 
-                $max_hot_rate = DB::table('Hotels')
+                $max_hot_rate = DB::table('hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->select('rates.rate')
                     ->where('rates.val', 1)
@@ -348,7 +348,7 @@ class HotelController extends \BaseController
 
 //dd($hotels->getTotal());
 
-                $min_hot_rate = DB::table('Hotels')
+                $min_hot_rate = DB::table('hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->join('hotel_hotel_category', 'hotel_hotel_category.hotel_id', '=', 'hotels.id')
                     ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
@@ -361,7 +361,7 @@ class HotelController extends \BaseController
                     ->min('rate');
 
 
-                $max_hot_rate = DB::table('Hotels')
+                $max_hot_rate = DB::table('hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->join('hotel_hotel_category', 'hotel_hotel_category.hotel_id', '=', 'hotels.id')
                     ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
@@ -392,14 +392,14 @@ class HotelController extends \BaseController
                     ->whereIn('star_category_id', $star_id)
                     ->paginate(30);
 
-                $min_hot_rate = DB::table('Hotels')
+                $min_hot_rate = DB::table('hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->select('rates.rate')
                     ->where('rates.val', 1)
                     ->where('hotels.city_id', $city_id)
                     ->min('rate');
 
-                $max_hot_rate = DB::table('Hotels')
+                $max_hot_rate = DB::table('hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->select('rates.rate')
                     ->where('rates.val', 1)
@@ -430,7 +430,7 @@ class HotelController extends \BaseController
 
 //dd($hotels->getTotal());
 
-                $min_hot_rate = DB::table('Hotels')
+                $min_hot_rate = DB::table('hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->join('hotel_hotel_category', 'hotel_hotel_category.hotel_id', '=', 'hotels.id')
                     ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
@@ -442,7 +442,7 @@ class HotelController extends \BaseController
                     ->min('rate');
 
 
-                $max_hot_rate = DB::table('Hotels')
+                $max_hot_rate = DB::table('hotels')
                     ->join('rates', 'rates.hotel_id', '=', 'hotels.id')
                     ->join('hotel_hotel_category', 'hotel_hotel_category.hotel_id', '=', 'hotels.id')
                     ->join('hotel_categories', 'hotel_categories.id', '=', 'hotel_hotel_category.hotel_category_id')
@@ -684,7 +684,7 @@ class HotelController extends \BaseController
             $adult = Input::get('adult');
             Session::put('adult', $adult);
         } else {
-            Session::put('adult', 1);
+            Session::put('adult', 2);
         }
 
         if (Input::has('child')) {
@@ -746,7 +746,7 @@ class HotelController extends \BaseController
 
         $path = array();
 
-        $directory = 'public/images/hotel_images/';
+        $directory = 'images/hotel_images/';
 
         $images = glob($directory . $hotel_id . "_" . "*.*");
 
@@ -821,6 +821,7 @@ class HotelController extends \BaseController
             $room_specification_id = Input::get('room_specification_id');
             $room_count = Input::get('room_count');
 
+
             $hotel_name = Hotel::where('id', $hotel_id)->first()->name;
             $hotel_address = Hotel::where('id', $hotel_id)->first()->address;
             $room_name = RoomType::where('id', $room_id)->first()->room_type;
@@ -828,8 +829,9 @@ class HotelController extends \BaseController
             $room_specification = RoomSpecification::where('id', $room_specification_id)->first()->room_specification;
             $meal_basis = MealBasis::where('id', $meal_basis_id)->first()->meal_basis_name;
 
-            $adult = Session::get('adult');
-            $child = Session::get('child');
+
+            $adult = RoomSpecification::where('id', $room_specification_id)->first()->adults;
+            $child = RoomSpecification::where('id', $room_specification_id)->first()->children;
             $nights = Session::get('date_gap');
 
             if (Input::has('check_in_date')) {
@@ -864,6 +866,8 @@ class HotelController extends \BaseController
             $handling_fee_type = $get_market_details->handling_fee_type;
             $handling_fee = $get_market_details->handling_fee;
 
+            $supplement_rate = RoomRates::supplementRate($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
+
             if ($market == 1) {
 
                 if ($tax_type == 0) {
@@ -895,8 +899,6 @@ class HotelController extends \BaseController
                 $hotel_tax = $total_tax;
                 $hotel_handling_fee = $total_handling_fee;
             }
-
-            $supplement_rate = RoomRates::supplementRate($hotel_id, $room_id, $room_specification_id, $meal_basis_id, $st_date, $ed_date);
 
 
             $rate_box_details = array(
@@ -1023,7 +1025,7 @@ class HotelController extends \BaseController
 
                             echo '
                         <div class="auto_complete">
-                            <a href="#" value="' . $city->city . '" category="city">
+                            <a value="' . $city->city . '" category="city">
 
                              <span class="search_thumb">
                             <img class="search_thumb" src="/images/site/location.png" />
@@ -1052,7 +1054,7 @@ class HotelController extends \BaseController
 
                             echo '
                         <div class="auto_complete">
-                            <a href="#" value="' . $hotel->name . '" category="hotel">
+                            <a value="' . $hotel->name . '" category="hotel">
 
                              <span class="search_thumb">
                              <img class="search_thumb" src="/images/site/hotel.png" />

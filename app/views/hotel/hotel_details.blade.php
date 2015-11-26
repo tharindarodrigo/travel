@@ -36,6 +36,11 @@
     {{ HTML::script('assets/js/jquery.v2.0.3.js') }}
 
     <style type="text/css">
+        .hotel_room_img {
+            /*width: 245px;*/
+            height: 159px;
+        }
+
         .smile_img {
             width: 35px;
             height: 35px;
@@ -436,7 +441,7 @@
                         <p class="hpadding20 dark">Room Types</p>
 
                         <div class="line2"></div>
-                        <?php $x = 0; $i = 0; $n = 0; ?>
+                        <?php $x = 0; $i = 0; $n = 0; $adult_arr = array(); $child_arr = array(); ?>
                         @foreach($rooms as $hot_room)
                             <?php
                             $n = $n + 1;
@@ -444,10 +449,67 @@
                             $from_date = date('Y-m-d', strtotime(str_replace('-', '/', $st_date)));
                             $to_date = date('Y-m-d', strtotime(str_replace('-', '/', $ed_date)));
 
+                            if (Session::get('adult') == 1) {
+                                $adult_arr = array(
+                                        '0' => 1
+                                );
+                            } elseif (Session::get('adult') == 2) {
+                                $adult_arr = array(
+                                        '0' => 1,
+                                        '1' => 2
+                                );
+                            } elseif (Session::get('adult') == 3) {
+                                $adult_arr = array(
+                                        '0' => 1,
+                                        '1' => 2,
+                                        '2' => 3
+                                );
+                            } elseif (Session::get('adult') == 4) {
+                                $adult_arr = array(
+                                        '0' => 1,
+                                        '1' => 2,
+                                        '2' => 3,
+                                        '3' => 4
+                                );
+                            } elseif (Session::get('adult') == 5) {
+                                $adult_arr = array(
+                                        '0' => 1,
+                                        '1' => 2,
+                                        '2' => 3,
+                                        '3' => 4,
+                                        '4' => 5
+                                );
+                            }
+
+                            if (Session::get('child') == 0) {
+                                $child_arr = array(
+                                        '0' => 0
+                                );
+                            } elseif (Session::get('child') == 1) {
+                                $child_arr = array(
+                                        '0' => 0,
+                                        '1' => 1
+                                );
+                            } elseif (Session::get('child') == 2) {
+                                $child_arr = array(
+                                        '0' => 0,
+                                        '1' => 1,
+                                        '2' => 2,
+                                );
+                            } elseif (Session::get('child') == 3) {
+                                $child_arr = array(
+                                        '0' => 0,
+                                        '1' => 1,
+                                        '2' => 2,
+                                        '3' => 3
+                                );
+                            }
+
+
                             if (Session::has('st_date')) {
-                                $room_types = Rate::whereHas('RoomSpecification', function ($a) {
-                                    $a->where('adults', 'LIKE', Session::get('adult'));
-                                    $a->where('children', 'LIKE', Session::get('child'));
+                                $room_types = Rate::whereHas('RoomSpecification', function ($a) use ($adult_arr, $child_arr) {
+                                    $a->WhereIn('adults', $adult_arr);
+                                    $a->WhereIn('children', $child_arr);
                                 })
                                         ->where('room_type_id', $room_id)
                                         ->where('market_id', $market)
@@ -455,12 +517,17 @@
                                         ->where('to', '>=', $from_date)
                                         ->get();
                             } else {
-                                $room_types = Rate::with('RoomSpecification')
+                                $room_types = Rate::whereHas('RoomSpecification', function ($a) use ($adult_arr, $child_arr) {
+                                    $a->Where('adults', Session::get('adult'));
+                                    $a->Where('children', Session::get('child'));
+                                })
                                         ->where('room_type_id', '=', $room_id)
+                                        ->where('from', '<=', $from_date)
+                                        ->where('to', '>=', $from_date)
                                         ->get();
                             }
 
-                            $directory = 'public/images/room_images/';
+                            $directory = 'images/room_images/';
                             $images = glob($directory . $room_id . ".*");
                             $img_path = array_shift($images);
                             $img_name = basename($img_path);
@@ -477,7 +544,7 @@
                                         <div class="col-md-4 offset-0">
                                             <a href="#">
                                                 @if(count($img_path)>0)
-                                                    {{ HTML::image('images/room_images/'.$img_name, '', array('class' => 'fwimg'))}}
+                                                    {{ HTML::image('images/room_images/'.$img_name, '', array('class' => 'hotel_room_img'))}}
                                                 @else
                                                     {{ HTML::image('images/no-image.jpg', '', array('class' => 'fwimg')) }}
                                                 @endif
@@ -505,7 +572,7 @@
                                                 @foreach($hot_room->RoomFacility as $facilities)
                                                     <?php
                                                     //echo public_path();
-                                                    $directory1 = 'public/images/room_facilities/';
+                                                    $directory1 = 'images/room_facilities/';
                                                     $images1 = glob($directory1 . $facilities->id . "*");
                                                     $img_path1 = array_shift($images1);
                                                     $img_name1 = basename($img_path1);
@@ -629,7 +696,7 @@
                                                             <br/>
                                                         @endif
                                                         <br/>
-                                                        {{ Room::roomTypeImage(Session::get('adult'), Session::get('child')) }}
+                                                        {{ Room::roomTypeImage($room->RoomSpecification->adults, $room->RoomSpecification->children) }}
                                                         <br/><br/>
                                                         @if(!empty($allotments) && ($allotments > 0))
                                                             {{ Form::hidden('room_meal_id', $room->meal_basis_id , array('class' => 'hidden_room_meal_id') ) }}
@@ -1255,7 +1322,7 @@
                     <div class="padding30">
                         <?php
                         //echo public_path();
-                        $directory = 'public/images/hotel_images/';
+                        $directory = 'images/hotel_images/';
                         $images = glob($directory . $hotel_id . "_*");
                         $img_path = array_shift($images);
                         $img_name = basename($img_path);

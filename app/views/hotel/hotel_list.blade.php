@@ -39,7 +39,7 @@
             opacity: 0.8;
             width: 20px;
             height: 20px;
-            border: #999 double 1px !important;
+            border: #0C969A double 1px !important;
             border-radius: 3px;
             -webkit-transition: all 1s ease;
             -moz-transition: all 1s ease;
@@ -580,7 +580,7 @@
 
                                         <?php
                                         //echo public_path();
-                                        $directory = 'public/images/hotel_images/';
+                                        $directory = 'images/hotel_images/';
                                         $images = glob($directory . $hotel->id . "_*");
                                         $img_path = array_shift($images);
                                         $img_name = basename($img_path);
@@ -695,14 +695,14 @@
                                             </p>
 
                                             @if(Input::has('facility') || Input::has('price_range'))
-                                                <ul class="hidden-xs hidden-md hotelpreferences">
+                                                <ul class=" hotelpreferences">
                                                     <?php
                                                     $hotel_facilities = Hotel::with('HotelFacility')->find($hotel->id);
                                                     ?>
                                                     @foreach($hotel_facilities->HotelFacility as $hotel_facility)
                                                         <?php
                                                         //echo public_path();
-                                                        $directory = 'public/images/hotel_facilities/';
+                                                        $directory = 'images/hotel_facilities/';
                                                         $images = glob($directory . $hotel_facility->id . "*");
                                                         $img_path = array_shift($images);
                                                         $img_name = basename($img_path);
@@ -713,14 +713,14 @@
                                                     @endforeach
                                                 </ul>
                                             @else
-                                                <ul class="hidden-xs hidden-md hotelpreferences">
+                                                <ul class=" hotelpreferences">
                                                     <?php
                                                     $hotel_facilities = Hotel::with('HotelFacility')->find($hotel->id);
                                                     ?>
                                                     @foreach($hotel_facilities->HotelFacility as $hotel_facility)
                                                         <?php
                                                         //echo public_path();
-                                                        $directory = 'public/images/hotel_facilities/';
+                                                        $directory = 'images/hotel_facilities/';
                                                         $images = glob($directory . $hotel_facility->id . "*");
                                                         $img_path = array_shift($images);
                                                         $img_name = basename($img_path);

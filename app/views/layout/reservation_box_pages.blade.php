@@ -1,5 +1,19 @@
 <?php
 
+if (Session::has('st_date')) {
+    $st_date = Session::get('st_date');
+} else {
+    $st_date = date("Y/m/d");
+}
+
+// Session::flush();
+
+if (Session::has('ed_date')) {
+    $ed_date = Session::get('ed_date');
+} else {
+    $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
+}
+
 // Filtering - Hotel
 $hotel_type = DB::table('hotel_categories')->get();
 $hotel_cities = DB::table('cities')->get();
@@ -10,6 +24,25 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
 //$city = City::lists('city', 'id');
 
 ?>
+
+<script type="text/javascript">
+    $(function () {
+
+        $("#datepicker").datepicker({
+
+            onClose: function() {
+                var minValue = $(this).val();
+                minValue = $.datepicker.parseDate("dd/mm/yy", minValue);
+                minValue.setDate(minValue.getDate() + 1);
+
+                $("#datepicker2").datepicker("option", "minDate", minValue);
+                return $("#datepicker2").datepicker("show");
+            }
+
+        });
+
+    });
+</script>
 
 <div class="bookfilters hpadding20">
     <div class="w50percent">

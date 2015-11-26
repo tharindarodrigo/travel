@@ -73,7 +73,7 @@
 
                                     {{--<div class="g-recaptcha" data-sitekey=""></div>--}}
                                     <?php
-                                    require_once('public/recaptcha/recaptchalib.php');
+                                    require_once('recaptcha/recaptchalib.php');
                                     $public_key = "6LeqigQTAAAAAGmq8B4dmzg8G4bHhYNrIU32H9yU"; // you got this from the signup page
                                     echo recaptcha_get_html($public_key);
                                     ?>

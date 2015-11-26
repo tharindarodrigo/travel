@@ -253,7 +253,7 @@
 
                         <?php
                         //echo public_path();
-                        $directory = 'public/images/excursion_images/';
+                        $directory = 'images/excursion_images/';
                         $images = glob($directory . $excursion->id . "*");
                         $img_path = array_shift($images);
                         $img_name = basename($img_path);

@@ -361,6 +361,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 </style>
 
 <script type="text/javascript">
+
     $(function () {
 
         $('#login-form-link').click(function (e) {
@@ -430,7 +431,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                         </script>
                         <script>
                             $(document).ready(function () {
-                                var imageUrl = 'public/images/site/gold-arrow.png';
+                                var imageUrl = 'images/site/gold-arrow.png';
                                 setTimeout(function () {
                                     $(".goog-te-gadget-simple").css({
                                         'background-color': '#15262f',

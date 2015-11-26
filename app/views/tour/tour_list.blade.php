@@ -254,7 +254,7 @@
 
                         <?php
                         //echo public_path();
-                        $directory = 'public/images/tour_images/';
+                        $directory = 'images/tour_images/';
                         $images = glob($directory . $types->id . "*");
                         $img_path = array_shift($images);
                         $img_name = basename($img_path);

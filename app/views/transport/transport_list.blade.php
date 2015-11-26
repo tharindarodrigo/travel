@@ -419,7 +419,7 @@
                                 <div class="center">
                                     <a href="">
                                         <?php
-                                        $directory = 'public/images/transport_images/vehicles/';
+                                        $directory = 'images/transport_images/vehicles/';
                                         $images = glob($directory . $transport_package->Vehicle->id . "*");
                                         $img_path = array_shift($images);
                                         $img_name = basename($img_path);

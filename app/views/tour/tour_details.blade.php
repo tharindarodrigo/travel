@@ -214,7 +214,7 @@
                     <div class="col-md-4 cpdd02">
                         <div class="opensans grey">
                             <?php
-                            $directory = 'public/images/tour_images/tour_types/';
+                            $directory = 'images/tour_images/tour_types/';
                             $images = glob($directory . $tour_type->id . "*");
                             $img_path = array_shift($images);
                             $img_name = basename($img_path);
