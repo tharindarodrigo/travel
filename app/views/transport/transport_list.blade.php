@@ -48,6 +48,14 @@
             width: 207px;
             height: 156px;
         }
+
+        .collapsebtn{
+            height: 50px !important;
+        }
+
+        .filters label{
+            font-size: 12px;
+        }
     </style>
 @endsection
 
@@ -165,7 +173,7 @@
 
                     <!-- HOTELS TAB -->
                     <div class="carstab2 none">
-                        {{ Form::open(array('url' => 'sri-lanka/hotel-search', 'files'=> true, 'id' => 'hotel_search_form', 'method' => 'POST', )) }}
+                        {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'hotel_search_form', 'method' => 'POST', )) }}
 
                         <span class="opensans size13">Where do you want to go?</span>
 
@@ -252,10 +260,6 @@
 
                 </div>
                 <!-- END OF BOOK FILTERS -->
-                <div class="line2"></div>
-
-                <div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
-                <div class="line2"></div>
 
                 <!-- Price range -->
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
@@ -306,9 +310,6 @@
 
                 {{ Form::close() }}
 
-                <div class="line2"></div>
-
-
                 <!-- Transport Type -->
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
                     Transport <span class="collapsearrow"></span>
@@ -339,8 +340,6 @@
                 <!-- End of Transport Type -->
                 {{ Form::close() }}
 
-                <div class="line2"></div>
-
                 <!-- Vehicles -->
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse1">
                     Vehicles <span class="collapsearrow"></span>
@@ -364,8 +363,6 @@
                 </div>
                 <!-- End of Vehicles -->
                 {{ Form::close() }}
-
-                <div class="line2"></div>
 
                 <div class="clearfix"></div>
                 <br/>
@@ -419,7 +416,7 @@
                                 <div class="center">
                                     <a href="">
                                         <?php
-                                        $directory = 'images/transport_images/vehicles/';
+                                        $directory = 'public/images/transport_images/vehicles/';
                                         $images = glob($directory . $transport_package->Vehicle->id . "*");
                                         $img_path = array_shift($images);
                                         $img_name = basename($img_path);

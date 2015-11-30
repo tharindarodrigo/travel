@@ -17,6 +17,11 @@
     {{ HTML::style('plugins/animo/animate+animo.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
     <style type="text/css">
+        .collapsebtn {
+            background: #006699;
+            color: #FFFFFF;
+        }
+
         h1 {
             color: #006699;
             font-family: 'Rokkitt', serif !important;
@@ -87,11 +92,6 @@
                 <!-- Reservation Box -->
                 @include('layout.reservation_box_pages')
                 <!-- End Of Reservation Box -->
-                <div class="line2"></div>
-
-                <div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
-
-                <div class="line2"></div>
 
                 {{ Form::open(array('url' => 'sri-lanka/tour/filter', 'method' => 'POST', 'id'=>'tour_form')) }}
 
@@ -119,7 +119,6 @@
                 <!-- End of Star ratings -->
                 {{ Form::close() }}
 
-                <div class="line2"></div>
 
                 <!-- Cities -->
                 <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse5">
@@ -180,7 +179,7 @@
                 </div>
                 <!-- End of Cities -->
                 {{ Form::close() }}
-                <div class="line2"></div>
+
                 <div class="clearfix"></div>
                 <br/>
                 <br/>
@@ -214,7 +213,7 @@
                     <div class="col-md-4 cpdd02">
                         <div class="opensans grey">
                             <?php
-                            $directory = 'images/tour_images/tour_types/';
+                            $directory = 'public/images/tour_images/tour_types/';
                             $images = glob($directory . $tour_type->id . "*");
                             $img_path = array_shift($images);
                             $img_name = basename($img_path);

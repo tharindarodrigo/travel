@@ -90,8 +90,12 @@
     });
 </script>
 <!-- Jssor Slider Begin -->
+
 <!-- You can move inline styles to css file or css block. -->
-<div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 1366px; height: 535px; overflow: hidden; ">
+
+<!-- slider for desktop -->
+
+<div class="slider_1" style="position: relative; top: 0px; left: 0px; width: 1366px; height: 535px; overflow: hidden; ">
 
     <!-- Loading Screen -->
     <div u="loading" style="position: absolute; top: 0px; left: 0px;">
@@ -104,7 +108,7 @@
     </div>
 
     <!-- Slides Container -->
-    <div id="slider_1" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1366px; height: 535px; overflow: hidden;">
+    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1366px; height: 535px; overflow: hidden;">
         <div>
             <img u="image" src="images/slider/1.jpg" />
         </div>
@@ -119,44 +123,6 @@
         </div>
         <div>
             <img u="image" src="images/slider/5.jpg" />
-        </div>
-
-    </div>
-
-    <div id="slider_2" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1366px; height: 535px; overflow: hidden;">
-        <div>
-            <img u="image" src="images/slider/1.jpg" />
-        </div>
-        <div>
-            <img u="image" src="images/slider/2.jpg" />
-        </div>
-        <div>
-            <img u="image" src="images/slider/3.jpg" />
-        </div>
-        <div>
-            <img u="image" src="images/slider/4.jpg" />
-        </div>
-        <div>
-            <img u="image" src="images/slider/5.jpg" />
-        </div>
-
-    </div>
-
-    <div id="slider_3" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 360px; height: 535px; overflow: hidden;">
-        <div>
-            <img u="image" src="images/slider/1_2.jpg" />
-        </div>
-        <div>
-            <img u="image" src="images/slider/2_2.jpg" />
-        </div>
-        <div>
-            <img u="image" src="images/slider/3_2.jpg" />
-        </div>
-        <div>
-            <img u="image" src="images/slider/4_2.jpg" />
-        </div>
-        <div>
-            <img u="image" src="images/slider/5_2.jpg" />
         </div>
 
     </div>
@@ -243,23 +209,282 @@
         }
     </style>
     <!-- Arrow Left -->
+
         <span u="arrowleft" class="jssora12l" style="width: 30px; height: 46px; top: 200px; left: 2px;">
         </span>
     <!-- Arrow Right -->
-        <span u="arrowright" class="jssora12r" style="width: 30px; height: 46px; top: 200px; left: 272px">
+        <span u="arrowright" class="jssora12r" style="width: 30px; height: 46px; top: 200px; right: 2px">
         </span>
 
 </div>
+
+<!-- slider for tablets -->
+
+<div class="slider_2" style="position: relative; top: 0px; left: 0px; width: 1366px; height: 535px; overflow: hidden; ">
+
+    <!-- Loading Screen -->
+    <div u="loading" style="position: absolute; top: 0px; left: 0px;">
+        <div style="filter: alpha(opacity=70); opacity:0.7; position: absolute; display: block;
+                background-color: #000000; top: 0px; left: 0px;width: 100%;height:100%;">
+        </div>
+        <div style="position: absolute; display: block; background: url(images/loading2.gif) no-repeat center center;
+                top: 0px; left: 0px;width: 100%;height:100%;">
+        </div>
+    </div>
+
+    <!-- Slides Container -->
+    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1366px; height: 535px; overflow: hidden;">
+        <div>
+            <img u="image" src="images/slider/1.jpg" />
+        </div>
+        <div>
+            <img u="image" src="images/slider/2.jpg" />
+        </div>
+        <div>
+            <img u="image" src="images/slider/3.jpg" />
+        </div>
+        <div>
+            <img u="image" src="images/slider/4.jpg" />
+        </div>
+        <div>
+            <img u="image" src="images/slider/5.jpg" />
+        </div>
+
+    </div>
+
+    <!-- Bullet Navigator Skin Begin -->
+    <style>
+        /* jssor slider bullet navigator skin 05 css */
+        /*
+        .jssorb05 div           (normal)
+        .jssorb05 div:hover     (normal mouseover)
+        .jssorb05 .av           (active)
+        .jssorb05 .av:hover     (active mouseover)
+        .jssorb05 .dn           (mousedown)
+        */
+        .jssorb05 div, .jssorb05 div:hover, .jssorb05 .av {
+            background: url(images/b05.png) no-repeat;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .jssorb05 div {
+            background-position: -7px -7px;
+        }
+
+        .jssorb05 div:hover, .jssorb05 .av:hover {
+            background-position: -37px -7px;
+        }
+
+        .jssorb05 .av {
+            background-position: -67px -7px;
+        }
+
+        .jssorb05 .dn, .jssorb05 .dn:hover {
+            background-position: -97px -7px;
+        }
+    </style>
+    <!-- bullet navigator container -->
+    <div u="navigator" class="jssorb05" style="position: absolute; bottom: 16px; right: 6px;">
+        <!-- bullet navigator item prototype -->
+        <div u="prototype" style="POSITION: absolute; WIDTH: 16px; HEIGHT: 16px;"></div>
+    </div>
+    <!-- Bullet Navigator Skin End -->
+    <!-- Arrow Navigator Skin Begin -->
+    <style>
+        /* jssor slider arrow navigator skin 12 css */
+        /*
+        .jssora12l              (normal)
+        .jssora12r              (normal)
+        .jssora12l:hover        (normal mouseover)
+        .jssora12r:hover        (normal mouseover)
+        .jssora12ldn            (mousedown)
+        .jssora12rdn            (mousedown)
+        */
+        .jssora12l, .jssora12r, .jssora12ldn, .jssora12rdn {
+            position: absolute;
+            cursor: pointer;
+            display: block;
+            background: url(images/a12.png) no-repeat;
+            overflow: hidden;
+        }
+
+        .jssora12l {
+            background-position: -16px -37px;
+        }
+
+        .jssora12r {
+            background-position: -75px -37px;
+        }
+
+        .jssora12l:hover {
+            background-position: -136px -37px;
+        }
+
+        .jssora12r:hover {
+            background-position: -195px -37px;
+        }
+
+        .jssora12ldn {
+            background-position: -256px -37px;
+        }
+
+        .jssora12rdn {
+            background-position: -315px -37px;
+        }
+    </style>
+    <!-- Arrow Left -->
+
+        <span u="arrowleft" class="jssora12l" style="width: 30px; height: 46px; top: 200px; left: 2px;">
+        </span>
+    <!-- Arrow Right -->
+        <span u="arrowright" class="jssora12r" style="width: 30px; height: 46px; top: 200px; right: 2px">
+        </span>
+
+</div>
+
+<!-- slider for mobile -->
+
+<div class="slider_3" style="position: relative; top: 0px; left: 0px; width: 360px; height: 480px; overflow: hidden; ">
+
+    <!-- Loading Screen -->
+    <div u="loading" style="position: absolute; top: 0px; left: 0px;">
+        <div style="filter: alpha(opacity=70); opacity:0.7; position: absolute; display: block;
+                background-color: #000000; top: 0px; left: 0px;width: 100%;height:100%;">
+        </div>
+        <div style="position: absolute; display: block; background: url(images/loading2.gif) no-repeat center center;
+                top: 0px; left: 0px;width: 100%;height:100%;">
+        </div>
+    </div>
+
+    <!-- Slides Container -->
+    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 360px; height: 535px; overflow: hidden;">
+        <div>
+            <img u="image" src="images/slider/1_2.jpg" />
+        </div>
+        <div>
+            <img u="image" src="images/slider/2_2.jpg" />
+        </div>
+        {{--<div>--}}
+        {{--<img u="image" src="images/slider/3_2.jpg" />--}}
+        {{--</div>--}}
+        <div>
+            <img u="image" src="images/slider/4_2.jpg" />
+        </div>
+        <div>
+            <img u="image" src="images/slider/5_2.jpg" />
+        </div>
+
+    </div>
+
+
+    <!-- Bullet Navigator Skin Begin -->
+    <style>
+        /* jssor slider bullet navigator skin 05 css */
+        /*
+        .jssorb05 div           (normal)
+        .jssorb05 div:hover     (normal mouseover)
+        .jssorb05 .av           (active)
+        .jssorb05 .av:hover     (active mouseover)
+        .jssorb05 .dn           (mousedown)
+        */
+        .jssorb05 div, .jssorb05 div:hover, .jssorb05 .av {
+            background: url(images/b05.png) no-repeat;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .jssorb05 div {
+            background-position: -7px -7px;
+        }
+
+        .jssorb05 div:hover, .jssorb05 .av:hover {
+            background-position: -37px -7px;
+        }
+
+        .jssorb05 .av {
+            background-position: -67px -7px;
+        }
+
+        .jssorb05 .dn, .jssorb05 .dn:hover {
+            background-position: -97px -7px;
+        }
+    </style>
+    <!-- bullet navigator container -->
+    <div u="navigator" class="jssorb05" style="position: absolute; bottom: 16px; right: 6px;">
+        <!-- bullet navigator item prototype -->
+        <div u="prototype" style="POSITION: absolute; WIDTH: 16px; HEIGHT: 16px;"></div>
+    </div>
+    <!-- Bullet Navigator Skin End -->
+    <!-- Arrow Navigator Skin Begin -->
+    <style>
+        /* jssor slider arrow navigator skin 12 css */
+        /*
+        .jssora12l              (normal)
+        .jssora12r              (normal)
+        .jssora12l:hover        (normal mouseover)
+        .jssora12r:hover        (normal mouseover)
+        .jssora12ldn            (mousedown)
+        .jssora12rdn            (mousedown)
+        */
+        .jssora12l, .jssora12r, .jssora12ldn, .jssora12rdn {
+            position: absolute;
+            cursor: pointer;
+            display: block;
+            background: url(images/a12.png) no-repeat;
+            overflow: hidden;
+        }
+
+        .jssora12l {
+            background-position: -16px -37px;
+        }
+
+        .jssora12r {
+            background-position: -75px -37px;
+        }
+
+        .jssora12l:hover {
+            background-position: -136px -37px;
+        }
+
+        .jssora12r:hover {
+            background-position: -195px -37px;
+        }
+
+        .jssora12ldn {
+            background-position: -256px -37px;
+        }
+
+        .jssora12rdn {
+            background-position: -315px -37px;
+        }
+    </style>
+    <!-- Arrow Left -->
+
+    {{--<span u="arrowleft" class="jssora12l" style="width: 30px; height: 46px; top: 200px; left: 2px;">--}}
+    {{--</span>--}}
+    {{--<!-- Arrow Right -->--}}
+    {{--<span u="arrowright" class="jssora12r" style="width: 30px; height: 46px; top: 200px; right: 2px">--}}
+    {{--</span>--}}
+
+</div>
+
 <!-- Jssor Slider End -->
 
 
 <script type="text/javascript">
     if ($(window).width() > 960) {
-        $('#slider_1').attr("u" , "slides");
+        $('.slider_1').attr("id" , "slider1_container");
+        $(".slider_2").css("display", "none");
+        $(".slider_3").css("display", "none");
     } else if ($(window).width() > 480)    {
-        $('#slider_2').attr("u" , "slides");
+        $('.slider_2').attr("id" , "slider1_container");
+        $(".slider_1").css("display", "none");
+        $(".slider_3").css("display", "none");
     }else if($(window).width() < 480) {
-        $('#slider_3').attr("u" , "slides");
+        $('.slider_3').attr("id" , "slider1_container");
+        $(".slider_1").css("display", "none");
+        $(".slider_2").css("display", "none");
     }
 </script>
 

@@ -396,11 +396,11 @@ class HotelsController extends \BaseController
         try{
             Hotel::destroy($id);
 
-            $files = File::glob('control-panel-assets/images/room-images/'.$id.'_*');
+            $files = File::glob('public/control-panel-assets/images/room-images/'.$id.'_*');
 
             if(!empty($files)){
                 foreach($files as $file){
-                    File::delete('control-panel-assets/images/room-images/'.$file);
+                    File::delete('public/control-panel-assets/images/room-images/'.$file);
                 }
             }
 

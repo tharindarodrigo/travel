@@ -15,7 +15,7 @@ class ContactController extends BaseController
 
     public function postContact()
     {
-        require_once('recaptcha/recaptchalib.php');
+        require_once('public/recaptcha/recaptchalib.php');
         $private_key = "6LeqigQTAAAAAG8dmp7aH1HuPeJqB3lfJ_Fjx3xw";
         $resp = recaptcha_check_answer($private_key,
             $_SERVER["REMOTE_ADDR"],

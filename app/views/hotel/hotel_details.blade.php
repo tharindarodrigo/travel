@@ -527,7 +527,7 @@
                                         ->get();
                             }
 
-                            $directory = 'images/room_images/';
+                            $directory = 'public/images/room_images/';
                             $images = glob($directory . $room_id . ".*");
                             $img_path = array_shift($images);
                             $img_name = basename($img_path);
@@ -572,7 +572,7 @@
                                                 @foreach($hot_room->RoomFacility as $facilities)
                                                     <?php
                                                     //echo public_path();
-                                                    $directory1 = 'images/room_facilities/';
+                                                    $directory1 = 'public/images/room_facilities/';
                                                     $images1 = glob($directory1 . $facilities->id . "*");
                                                     $img_path1 = array_shift($images1);
                                                     $img_name1 = basename($img_path1);
@@ -1322,7 +1322,7 @@
                     <div class="padding30">
                         <?php
                         //echo public_path();
-                        $directory = 'images/hotel_images/';
+                        $directory = 'public/images/hotel_images/';
                         $images = glob($directory . $hotel_id . "_*");
                         $img_path = array_shift($images);
                         $img_name = basename($img_path);

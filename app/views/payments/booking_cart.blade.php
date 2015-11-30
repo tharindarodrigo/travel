@@ -148,7 +148,7 @@ if (Session::has('excursion_cart_details')) {
                                             <a class="thumbnail pull-left" href="#">
                                                 <?php
                                                 $total_cost = 0;
-                                                $directory = 'images/hotel_images/';
+                                                $directory = 'public/images/hotel_images/';
                                                 $img_hotel_id = explode('_', $hotel_booking['room_identity']);
                                                 $images = glob($directory . $img_hotel_id[2] . "_*");
                                                 $img_path = array_shift($images);
@@ -355,7 +355,7 @@ if (Session::has('excursion_cart_details')) {
                                             <a class="thumbnail pull-left" href="#">
                                                 <?php
                                                 $total_cost = 0;
-                                                $directory = 'images/transport_images/vehicles/';
+                                                $directory = 'public/images/transport_images/vehicles/';
                                                 $img_vehicle_id = Vehicle::where('vehicle_type', $transport_booking['vehicle_type'])->first()->id;
                                                 $images = glob($directory . $img_vehicle_id . "*");
                                                 $img_path = array_shift($images);
@@ -478,7 +478,7 @@ if (Session::has('excursion_cart_details')) {
                                             <a class="thumbnail pull-left" href="#">
                                                 <?php
                                                 $total_cost = 0;
-                                                $directory = 'images/transport_images/vehicles/';
+                                                $directory = 'public/images/transport_images/vehicles/';
                                                 $img_vehicle_id = Vehicle::where('id', TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->vehicle_id)->first()->vehicle_id;
                                                 $images = glob($directory . $img_vehicle_id . "*");
                                                 $img_path = array_shift($images);
@@ -572,7 +572,7 @@ if (Session::has('excursion_cart_details')) {
                                             <a class="thumbnail pull-left" href="#">
                                                 <?php
                                                 $total_cost = 0;
-                                                $directory = 'images/excursion_images/';
+                                                $directory = 'public/images/excursion_images/';
                                                 $images = glob($directory . $excursion_cart_detail['excursion'] . "*");
                                                 $img_path = array_shift($images);
                                                 $img_name = basename($img_path);

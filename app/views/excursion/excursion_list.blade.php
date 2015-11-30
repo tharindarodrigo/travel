@@ -136,7 +136,6 @@
                 @include('layout.reservation_box_pages')
                 <!-- End Of Reservation Box -->
 
-                <div class="line2"></div>
 
                 <!-- Excursion -->
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
@@ -161,7 +160,6 @@
                 </div>
                 <!-- End of Accommodations -->
                 {{ Form::close() }}
-                <div class="line2"></div>
 
                 <!-- Cities -->
                 <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse5">
@@ -222,7 +220,7 @@
                 </div>
                 <!-- End of Cities -->
                 {{ Form::close() }}
-                <div class="line2"></div>
+                
                 <div class="clearfix"></div>
                 <br/>
                 <br/>
@@ -253,7 +251,7 @@
 
                         <?php
                         //echo public_path();
-                        $directory = 'images/excursion_images/';
+                        $directory = 'public/images/excursion_images/';
                         $images = glob($directory . $excursion->id . "*");
                         $img_path = array_shift($images);
                         $img_name = basename($img_path);

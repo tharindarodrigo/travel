@@ -154,3 +154,11 @@ div .auto_complete:hover {
     font-family: 'Roboto Slab', serif;
     font-weight: 700
 }
+
+.filters .hpadding20 label{
+    font-size: 12px !important;
+}
+
+.filters .collapsebtn{
+    height: 50px !important;
+}

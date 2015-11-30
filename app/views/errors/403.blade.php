@@ -88,9 +88,7 @@
                 <!-- Reservation Box -->
                 @include('layout.reservation_box_pages')
                 <!-- End Of Reservation Box -->
-                <div class="line2"></div>
 
-                <div class="line2"></div>
                 <div class="clearfix"></div>
                 <br/>
                 <br/>

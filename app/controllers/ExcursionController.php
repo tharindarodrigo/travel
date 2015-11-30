@@ -145,7 +145,7 @@ class ExcursionController extends \BaseController
 
         $path = array();
 
-        $directory = 'images/excursion_images/excursion_types/';
+        $directory = 'public/images/excursion_images/excursion_types/';
 
         $images = glob($directory . $excursion_id . "_" . "*.*");
 
