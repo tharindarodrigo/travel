@@ -431,7 +431,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                         </script>
                         <script>
                             $(document).ready(function () {
-                                var imageUrl = 'images/site/gold-arrow.png';
+                                var imageUrl = 'public/images/site/gold-arrow.png';
                                 setTimeout(function () {
                                     $(".goog-te-gadget-simple").css({
                                         'background-color': '#15262f',
@@ -441,19 +441,19 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                         'border-top': '0',
                                         'border-bottom': '0'
                                     });
-                                   // $("span").css("color", "#DAA520");
+                                    // $("span").css("color", "#DAA520");
                                     $('.goog-te-gadget-simple .goog-te-menu-value').css({
-                                        'font-size' : '14px',
-                                        'color' : '#DAA520',
-                                        'font-family' : '"Helvetica Neue", Helvetica, Arial, sans-serif'
+                                        'font-size': '14px',
+                                        'color': '#DAA520',
+                                        'font-family': '"Helvetica Neue", Helvetica, Arial, sans-serif'
                                     });
                                     $('.goog-te-gadget img').css({
-                                        'background-image' : 'url(' + imageUrl + ')'
+                                        'background-image': 'url(' + imageUrl + ')'
                                     });
                                     $('.goog-te-gadget-simple .goog-te-menu-value span').css({
-                                        'color' : '#DAA520',
-                                        'border' : 'none',
-                                        'background-image' : 'url(' + imageUrl + ')'
+                                        'color': '#DAA520',
+                                        'border': 'none',
+                                        'background-image': 'url(' + imageUrl + ')'
                                     });
 
                                 }, 1000);
@@ -848,7 +848,6 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                             Hotels {{ HTML::image('images/site/white-arrow.png', '', array('class' => 'nav_arrow')) }}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
                         <ul class="dropdown-menu" style="margin-right: -50px; padding: 5px 20px">
-                            <li class="dropdown-header"> Select Accommodation</li>
                             <?php
                             $hotel_type = DB::table('hotel_categories')
                                     ->get();
@@ -866,7 +865,6 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                             Tours {{ HTML::image('images/site/white-arrow.png', '', array('class' => 'nav_arrow')) }}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
                         <ul class="dropdown-menu" style="margin-right: -60px; padding: 5px 20px">
-                            <li class="dropdown-header"> Select Tours</li>
                             <?php
                             $tour_type = DB::table('tours')
                                     ->get();
@@ -883,7 +881,6 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                             Excursions {{ HTML::image('images/site/white-arrow.png', '', array('class' => 'nav_arrow')) }}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
                         <ul class="dropdown-menu" style="margin-right: -30px; padding: 5px 20px">
-                            <li class="dropdown-header"> Select Excursions</li>
                             <?php
                             $excursion_type = DB::table('excursion_types')
                                     ->get();
@@ -1325,7 +1322,6 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                             Hotels {{ HTML::image('images/site/white-arrow.png', '', array('class' => 'nav_arrow')) }}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
                         <ul class="dropdown-menu" style="margin-right: -50px; padding: 5px 20px">
-                            <li class="dropdown-header"> Select Accommodation</li>
                             <?php
                             $hotel_type = DB::table('hotel_categories')
                                     ->get();
@@ -1343,7 +1339,6 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                             Tours {{ HTML::image('images/site/white-arrow.png', '', array('class' => 'nav_arrow')) }}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
                         <ul class="dropdown-menu" style="margin-right: -60px; padding: 5px 20px">
-                            <li class="dropdown-header"> Select Tours</li>
                             <?php
                             $tour_type = DB::table('tours')
                                     ->get();
@@ -1360,7 +1355,6 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                             Excursions {{ HTML::image('images/site/white-arrow.png', '', array('class' => 'nav_arrow')) }}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
                         <ul class="dropdown-menu" style="margin-right: -30px; padding: 5px 20px">
-                            <li class="dropdown-header"> Select Excursions</li>
                             <?php
                             $excursion_type = DB::table('excursion_types')
                                     ->get();

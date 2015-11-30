@@ -37,7 +37,7 @@
         }
 
         .lastminute3_head {
-        {{--            background-image: url('{{ asset('images/site/confideance-background.png') }}');--}} margin-top: -30px;
+        {{--            background-image: url('{{ asset('public/images/site/confideance-background.png') }}');--}} margin-top: -30px;
             background: #006699;
             color: #FFFFFF;
             border-radius: 14px 14px 14px 14px;

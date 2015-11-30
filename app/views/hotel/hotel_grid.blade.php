@@ -163,8 +163,7 @@
 
                 <?php $city_or_acc = Request::segment(4); ?>
 
-                <div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
-                <div class="line2"></div>
+
 
                 <!-- Price range -->
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
@@ -518,7 +517,7 @@
                             <div class="col-md-4">
 
                                 <?php
-                                $directory = 'images/hotel_images/';
+                                $directory = 'public/images/hotel_images/';
                                 $images = glob($directory . $hotel->id . "_*");
                                 $img_path = array_shift($images);
                                 $img_name = basename($img_path);
@@ -617,7 +616,7 @@
                                                 @foreach($hotel_facilities->hotelFacility as $hotel_facility)
                                                     <?php
                                                     //echo public_path();
-                                                    $directory = 'images/hotel_facilities/';
+                                                    $directory = 'public/images/hotel_facilities/';
                                                     $images = glob($directory . $hotel_facility->id . "*");
                                                     $img_path = array_shift($images);
                                                     $img_name = basename($img_path);
@@ -635,7 +634,7 @@
                                                 @foreach($hotel_facilities->hotelFacility as $hotel_facility)
                                                     <?php
                                                     //echo public_path();
-                                                    $directory = 'images/hotel_facilities/';
+                                                    $directory = 'public/images/hotel_facilities/';
                                                     $images = glob($directory . $hotel_facility->id . "*");
                                                     $img_path = array_shift($images);
                                                     $img_name = basename($img_path);

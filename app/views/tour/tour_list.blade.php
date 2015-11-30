@@ -130,12 +130,6 @@
                 @include('layout.reservation_box_pages')
                 <!-- End Of Reservation Box -->
 
-                <div class="line2"></div>
-
-                <div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
-
-                <div class="line2"></div>
-
                 {{ Form::open(array('url' => 'sri-lanka/tour/filter', 'method' => 'POST', 'id'=>'tour_form')) }}
 
                 <!-- Star ratings -->
@@ -162,7 +156,6 @@
                 <!-- End of Star ratings -->
                 {{ Form::close() }}
 
-                <div class="line2"></div>
 
                 <!-- Cities -->
                 <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse5">
@@ -223,7 +216,7 @@
                 </div>
                 <!-- End of Cities -->
                 {{ Form::close() }}
-                <div class="line2"></div>
+
                 <div class="clearfix"></div>
                 <br/>
                 <br/>
@@ -254,7 +247,7 @@
 
                         <?php
                         //echo public_path();
-                        $directory = 'images/tour_images/';
+                        $directory = 'public/images/tour_images/';
                         $images = glob($directory . $types->id . "*");
                         $img_path = array_shift($images);
                         $img_name = basename($img_path);

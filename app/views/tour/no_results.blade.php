@@ -97,11 +97,6 @@
                 <!-- Reservation Box -->
                 @include('layout.reservation_box_pages')
                 <!-- End Of Reservation Box -->
-                <div class="line2"></div>
-
-                <div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
-
-                <div class="line2"></div>
 
                 {{ Form::open(array('url' => 'sri-lanka/tour/filter', 'method' => 'POST', 'id'=>'tour_form')) }}
 
@@ -129,7 +124,6 @@
                 <!-- End of Star ratings -->
                 {{ Form::close() }}
 
-                <div class="line2"></div>
 
                 {{ Form::open(array('url' => 'sri-lanka/tour/filter', 'method' => 'POST', 'id'=>'city_form')) }}
                 <!-- Activities type -->
@@ -154,7 +148,6 @@
 
                 {{ Form::close() }}
 
-                <div class="line2"></div>
                 <div class="clearfix"></div>
                 <br/>
                 <br/>

@@ -194,7 +194,3 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
     <!-- END OF TRANSPORT TAB -->
 
 </div>
-
-<!-- END OF BOOK FILTERS -->
-
-<div class="line2"></div>

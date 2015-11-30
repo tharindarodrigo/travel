@@ -11,6 +11,19 @@
 @section('custom_style')
 
     <style type="text/css">
+        div#submitForm input {
+            background: url("../images/Google-Maps-icon.png") no-repeat scroll 0 0 transparent;
+            color: #000000;
+            cursor: pointer;
+            font-weight: bold;
+            height: 20px;
+            padding-bottom: 2px;
+            width: 75px;
+        }
+    </style>
+
+    <style type="text/css">
+
         .featurette-divider30 {
             border-top: solid 1px #006699 !important;
         }
@@ -121,7 +134,10 @@
             }
         }
 
-
+        .hotel_list_map_view {
+            background-image: url(../images/Google-Maps-icon.png);
+            background-repeat: no-repeat;
+        }
     </style>
 
     <!-- bin/jquery.slider.min.css -->
@@ -188,7 +204,6 @@
 
                 <div class="filtertip">
                     <div class="padding20">
-
                         <p class="size13"><span class="size18 bold ">{{ $hotels->getTotal(); }}</span> Hotels starting
                             at
                         </p>
@@ -208,9 +223,6 @@
                 <!-- End Of Reservation Box -->
 
                 <?php $city_or_acc = Request::segment(2); ?>
-
-                <div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
-                <div class="line2"></div>
 
                 <!-- Price range -->
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
@@ -259,8 +271,6 @@
                 <!-- End of Price range -->
 
                 {{ Form::close() }}
-
-                <div class="line2"></div>
 
                 <!-- Star ratings -->
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse1">
@@ -316,8 +326,6 @@
                 <!-- End of Star ratings -->
                 {{ Form::close() }}
 
-                <div class="line2"></div>
-
                 <!-- Accommodation -->
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
                     Accommodation type <span class="collapsearrow"></span>
@@ -342,7 +350,6 @@
                 </div>
                 <!-- End of Accommodations -->
                 {{ Form::close() }}
-                <div class="line2"></div>
 
                 <!-- Hotel Preferences -->
                 <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse4">
@@ -401,7 +408,6 @@
                 </div>
                 <!-- End of Hotel Preferences -->
                 {{ Form::close() }}
-                <div class="line2"></div>
 
                 <!-- Cities -->
                 <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse5">
@@ -462,7 +468,7 @@
                 </div>
                 <!-- End of Cities -->
                 {{ Form::close() }}
-                <div class="line2"></div>
+
                 <div class="clearfix"></div>
                 <br/>
                 <br/>
@@ -516,55 +522,52 @@
                             </div>
                         </div>
                         <div class="col-md-4 offset-0">
-                            <button class="popularbtn left">Most Popular</button>
+
+                            <div class="hidden-xs hidden-md col-md-8">
+                                <button id="hotel_list_map" style="text-align: right" type="submit"
+                                        class="hotel_list_map_view">View Map
+                                </button>
+
+                                <div id="dialog" style="display: none;">
+                                    <div id="dvMap" style="height: 380px; width: 580px;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="submitForm">
+                                <input type="submit" value="Submit" name="submit">
+                            </div>
+
+
                             <div class="right">
                                 <a class="listbtn {{ Session::get('hot_view') == 1 ? 'active' : '' }}"
                                    href="{{URL::to($list_url)}}"></a>
                                 <a class="gridbtn {{ Session::get('hot_view') == 2 ? 'active' : '' }}"
                                    href="{{URL::to($grid_url)}}"></a>
                             </div>
+
                         </div>
                     </div>
                     <!-- End of topfilters-->
+
                 </div>
                 <!-- End of padding -->
 
                 <div class="itemscontainer offset-1">
 
-                    @if(!empty($city_or_acc))
-
-                        <div class="hidden-xs hidden-md container">
-                            <button id="hotel_list_map" style="text-align: right" type="submit"
-                                    class="bluebtn margtop20 right hotel_list_map_view">View Map
-                            </button>
-
-                            <div id="dialog" style="display: none;">
-                                <div id="dvMap" style="height: 380px; width: 580px;">
-                                </div>
-                            </div>
-                        </div>
-
-                    @else
-
+                    @if(empty($city_or_acc))
                         <div class="hidden-xs hidden-md offset-2">
-                            <div class="">
-                                <div class="col-md-6" style="padding: 0 !important;">
-                                    {{ HTML::image('images/city_images/'.City::where('city', str_replace('-', ' ', Request::segment(2)))->select('id')->first()->id.'.jpg', '', array('class' => 'city_img_1'))}}
+                            <div class="" style="padding: 0 !important;">
+                                {{ HTML::image('images/city_images/'.City::where('city', str_replace('-', ' ', Request::segment(2)))->select('id')->first()->id.'.jpg', '', array('class' => 'city_img_1'))}}
 
-                                    <div class="city_blacklabel">
-                                        <h4 style="color: #FFFFFF">{{ str_replace('-', ' ', Request::segment(2)) }}
-                                            City</h4>
+                                <div class="city_blacklabel">
+                                    <h4 style="color: #FFFFFF">{{ str_replace('-', ' ', Request::segment(2)) }}
+                                        City</h4>
 
-                                        {{ $hotels->getTotal(); }} Hotel
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6" style="padding: 0 !important;">
-                                    <div id="dvMap" style="height: 250px; width: 400px;"></div>
+                                    {{ $hotels->getTotal(); }} Hotel
                                 </div>
                             </div>
                         </div>
-
                     @endif
 
                     <div class="clearfix"></div>
@@ -580,7 +583,7 @@
 
                                         <?php
                                         //echo public_path();
-                                        $directory = 'images/hotel_images/';
+                                        $directory = 'public/images/hotel_images/';
                                         $images = glob($directory . $hotel->id . "_*");
                                         $img_path = array_shift($images);
                                         $img_name = basename($img_path);
@@ -611,7 +614,7 @@
                                 </div>
 
                                 <div class="col-md-8 offset-0">
-                                    <div style="background-color: #f9f9f9" class="hotel_border itemlabel3">
+                                    <div style="background-color: #f2f2f2" class="hotel_border itemlabel3">
 
                                         <div style="text-align: center" class="labelright">
                                             <?php
@@ -644,9 +647,9 @@
                                                 <span class="size11 grey">avg/night</span><br/><br/>
                                             @else
                                                 <span class="green">
-                                                 Rate Not <br/> Available
-                                                <br/><br/>
-                                            </span>
+                                                     Rate Not <br/> Available
+                                                    <br/><br/>
+                                                </span>
                                             @endif
 
                                             <form method="POST" target="_blank"
@@ -686,13 +689,13 @@
 
                                             <br/>
 
-                                            <p class="hidden-xs hidden-md" style="color: #F9622F">
-                                                {{ strip_tags(Str::limit($hotel->overview, 150)) }}
-                                            </p>
+                                            {{--<p class="hidden-xs hidden-md" style="color: #F9622F">--}}
+                                            {{--{{ strip_tags(Str::limit($hotel->overview, 150)) }}--}}
+                                            {{--</p>--}}
 
-                                            <p class="hidden-lg" style="color: #F9622F">
-                                                {{ strip_tags(Str::limit($hotel->overview, 50)) }}
-                                            </p>
+                                            {{--<p class="hidden-lg" style="color: #F9622F">--}}
+                                            {{--{{ strip_tags(Str::limit($hotel->overview, 50)) }}--}}
+                                            {{--</p>--}}
 
                                             @if(Input::has('facility') || Input::has('price_range'))
                                                 <ul class=" hotelpreferences">
@@ -702,7 +705,7 @@
                                                     @foreach($hotel_facilities->HotelFacility as $hotel_facility)
                                                         <?php
                                                         //echo public_path();
-                                                        $directory = 'images/hotel_facilities/';
+                                                        $directory = 'public/images/hotel_facilities/';
                                                         $images = glob($directory . $hotel_facility->id . "*");
                                                         $img_path = array_shift($images);
                                                         $img_name = basename($img_path);
@@ -720,7 +723,7 @@
                                                     @foreach($hotel_facilities->HotelFacility as $hotel_facility)
                                                         <?php
                                                         //echo public_path();
-                                                        $directory = 'images/hotel_facilities/';
+                                                        $directory = 'public/images/hotel_facilities/';
                                                         $images = glob($directory . $hotel_facility->id . "*");
                                                         $img_path = array_shift($images);
                                                         $img_name = basename($img_path);
@@ -739,7 +742,7 @@
                             <div class="clearfix"></div>
 
                             <div class="offset-2">
-                                <hr class="featurette-divider3">
+                                <hr class="" style="margin: 10px 0 10px 0; border: none">
                             </div>
 
                         @endforeach

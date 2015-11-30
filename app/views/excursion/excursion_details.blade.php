@@ -327,7 +327,7 @@
                 <div class="pagecontainer2 paymentbox grey price-box">
                     <div class="padding30">
                         <?php
-                        $directory = 'images/excursion_images/excursion_types/';
+                        $directory = 'public/images/excursion_images/excursion_types/';
                         $images = glob($directory . $excursion->id . "_*");
                         $img_path = array_shift($images);
                         $img_name = basename($img_path);
