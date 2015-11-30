@@ -65,14 +65,18 @@ function generateRoomRateTable(data) {
                     '<div class="clearfix"></div>' +
                     '</div> <br>' +
                     '<div class="clearfix"></div>' +
-                    'Total cost per room : <span class="right green bold">' + currency + '&nbsp;&nbsp;' + (item.room_cost * currency_rate).toFixed(2) +
-                    '</span>' +
-                    '</td>' +
+                    'Total cost per room : <span class="right green bold">' + currency + '&nbsp;&nbsp;' + (item.room_cost * currency_rate).toFixed(2) + '</span>';
+
+                    if (item.supplement_rate > 0) {
+                        table += 'Supplement Rate : <span class="right green bold">' + currency + '&nbsp;&nbsp;' + (item.supplement_rate * currency_rate).toFixed(2) + '</span>' ;
+                    }
+
+                    table += '</td>' +
                     '</tr>';
 
                     y = y + 1;
 
-                    room_total_cost = room_total_cost + +item.room_cost;
+                    room_total_cost = room_total_cost + +item.room_cost + + item.supplement_rate;
                 }
             }
         });

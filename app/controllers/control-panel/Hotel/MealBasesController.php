@@ -133,7 +133,7 @@ class MealBasesController extends \BaseController
         if ($delete = MealBasis::destroy($id)) {
 
             //Delete the icon with respect to the record
-            File::delete('public/control-panel-assets/images/meal-bases/'.$id.'.png');
+            File::delete('control-panel-assets/images/meal-bases/'.$id.'.png');
 
             Session::flash('successful-action', 'Item was deleted Successfully');
         } else {

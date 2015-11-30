@@ -106,7 +106,7 @@
                     <br/><br/>
 
                     <div style="padding: 10%" class="container offset-2" >
-                        {{ HTML::image('images/403.png', '', array('class' => 'no_result'))}}
+                        {{ HTML::image('images/403.png', '', array('class' => 'img-responsive no_result'))}}
                     </div>
                     <div class="clearfix"></div>
                 </div>

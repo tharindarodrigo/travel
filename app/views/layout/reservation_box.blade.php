@@ -1,5 +1,19 @@
 <?php
 
+if (Session::has('st_date')) {
+    $st_date = Session::get('st_date');
+} else {
+    $st_date = date("Y/m/d");
+}
+
+// Session::flush();
+
+if (Session::has('ed_date')) {
+    $ed_date = Session::get('ed_date');
+} else {
+    $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
+}
+
 // Filtering - Hotel
 $hotel_type = DB::table('hotel_categories')->get();
 $hotel_cities = DB::table('cities')->get();
@@ -10,6 +24,29 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
 //$city = City::lists('city', 'id');
 
 ?>
+
+<script type="text/javascript">
+
+    var dpk = jQuery;
+    dpk.noConflict();
+
+    dpk(function () {
+        dpk("#datepicker").datepicker({
+
+            onClose: function() {
+                var minValue = dpk(this).val();
+                minValue = dpk.datepicker.parseDate("dd/mm/yy", minValue);
+                minValue.setDate(minValue.getDate() + 1);
+
+                dpk("#datepicker2").datepicker("option", "minDate", minValue);
+                return dpk("#datepicker2").datepicker("show");
+            }
+
+        });
+
+    });
+</script>
+
 
 <style type="text/css">
     .ac_loading {
@@ -29,7 +66,6 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
         z-index: 102;
     }
 </style>
-
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -63,9 +99,10 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
 
             <br/>
 
+
             <div class="w50percent">
                 <div class="wh90percent textleft">
-                    <span class="opensans size13"><b>Check in date</b></span>
+                    <span class="opensans size13">Check In Date</span>
                     <input type="text" name="check_in_date" class="form-control mySelectCalendar"
                            id="datepicker"
                            value="{{ Session::has('st_date') ? Session::get('st_date') : $st_date }}"/>
@@ -74,12 +111,13 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
 
             <div class="w50percentlast">
                 <div class="wh90percent textleft right">
-                    <span class="opensans size13"><b>Check in date</b></span>
+                    <span class="opensans size13">Check Out Date</span>
                     <input type="text" name="check_out_date" class="form-control mySelectCalendar"
                            id="datepicker2"
                            value="{{ Session::has('ed_date') ? Session::get('ed_date') : $ed_date }}"/>
                 </div>
             </div>
+
 
             <div class="clearfix"></div>
 
@@ -191,24 +229,3 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
 
 </div>
 
-<script type="text/javascript">
-    function lookup(inputString) {
-        if (inputString.length == 0) {
-            $('#suggestions').fadeOut(); // Hide the suggestions box
-        } else {
-            //$( "#suggestions" ).autocomplete({ delay: 0 });
-            $.post("http://" + window.location.host + "/auto-complete", {queryString: "" + inputString + ""}, function (data) { // Do an AJAX call
-                $('#suggestions').fadeIn(); // Show the suggestions box
-                $('#suggestions').html(data); // Fill the suggestions box
-
-                $('a').click(function () {
-                    $value = $(this).attr('value');
-                    $category = $(this).attr('category');
-                    $('#inputString').val($value);
-                    $('#inputString').attr('category', $category);
-                    $('#suggestions').fadeOut();
-                });
-            });
-        }
-    }
-</script>

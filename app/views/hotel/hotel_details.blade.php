@@ -36,6 +36,11 @@
     {{ HTML::script('assets/js/jquery.v2.0.3.js') }}
 
     <style type="text/css">
+        .hotel_room_img {
+            /*width: 245px;*/
+            height: 159px;
+        }
+
         .smile_img {
             width: 35px;
             height: 35px;
@@ -44,7 +49,6 @@
         h4 {
             color: #0099cc !important;
             font-family: "Lato";
-            font-style: italic;
             font-size: 13px;
         }
 
@@ -437,7 +441,7 @@
                         <p class="hpadding20 dark">Room Types</p>
 
                         <div class="line2"></div>
-                        <?php $x = 0; $i = 0; $n = 0; ?>
+                        <?php $x = 0; $i = 0; $n = 0; $adult_arr = array(); $child_arr = array(); ?>
                         @foreach($rooms as $hot_room)
                             <?php
                             $n = $n + 1;
@@ -445,10 +449,67 @@
                             $from_date = date('Y-m-d', strtotime(str_replace('-', '/', $st_date)));
                             $to_date = date('Y-m-d', strtotime(str_replace('-', '/', $ed_date)));
 
+                            if (Session::get('adult') == 1) {
+                                $adult_arr = array(
+                                        '0' => 1
+                                );
+                            } elseif (Session::get('adult') == 2) {
+                                $adult_arr = array(
+                                        '0' => 1,
+                                        '1' => 2
+                                );
+                            } elseif (Session::get('adult') == 3) {
+                                $adult_arr = array(
+                                        '0' => 1,
+                                        '1' => 2,
+                                        '2' => 3
+                                );
+                            } elseif (Session::get('adult') == 4) {
+                                $adult_arr = array(
+                                        '0' => 1,
+                                        '1' => 2,
+                                        '2' => 3,
+                                        '3' => 4
+                                );
+                            } elseif (Session::get('adult') == 5) {
+                                $adult_arr = array(
+                                        '0' => 1,
+                                        '1' => 2,
+                                        '2' => 3,
+                                        '3' => 4,
+                                        '4' => 5
+                                );
+                            }
+
+                            if (Session::get('child') == 0) {
+                                $child_arr = array(
+                                        '0' => 0
+                                );
+                            } elseif (Session::get('child') == 1) {
+                                $child_arr = array(
+                                        '0' => 0,
+                                        '1' => 1
+                                );
+                            } elseif (Session::get('child') == 2) {
+                                $child_arr = array(
+                                        '0' => 0,
+                                        '1' => 1,
+                                        '2' => 2,
+                                );
+                            } elseif (Session::get('child') == 3) {
+                                $child_arr = array(
+                                        '0' => 0,
+                                        '1' => 1,
+                                        '2' => 2,
+                                        '3' => 3
+                                );
+                            }
+
+
                             if (Session::has('st_date')) {
-                                $room_types = Rate::whereHas('RoomSpecification', function ($a) {
-                                    $a->where('adults', 'LIKE', Session::get('adult'));
-                                    $a->where('children', 'LIKE', Session::get('child'));
+                                $room_types = Rate::whereHas('RoomSpecification', function ($a) use ($adult_arr, $child_arr) {
+                                    $a->WhereIn('adults', $adult_arr);
+                                    $a->WhereIn('children', $child_arr);
                                 })
                                         ->where('room_type_id', $room_id)
                                         ->where('market_id', $market)
@@ -456,12 +517,17 @@
                                         ->where('to', '>=', $from_date)
                                         ->get();
                             } else {
-                                $room_types = Rate::with('RoomSpecification')
+                                $room_types = Rate::whereHas('RoomSpecification', function ($a) use ($adult_arr, $child_arr) {
+                                    $a->Where('adults', Session::get('adult'));
+                                    $a->Where('children', Session::get('child'));
+                                })
                                         ->where('room_type_id', '=', $room_id)
+                                        ->where('from', '<=', $from_date)
+                                        ->where('to', '>=', $from_date)
                                         ->get();
                             }
 
-                            $directory = 'public/images/room_images/';
+                            $directory = 'images/room_images/';
                             $images = glob($directory . $room_id . ".*");
                             $img_path = array_shift($images);
                             $img_name = basename($img_path);
@@ -478,13 +544,13 @@
                                         <div class="col-md-4 offset-0">
                                             <a href="#">
                                                 @if(count($img_path)>0)
-                                                    {{ HTML::image('images/room_images/'.$img_name, '', array('class' => 'fwimg'))}}
+                                                    {{ HTML::image('images/room_images/'.$img_name, '', array('class' => 'hotel_room_img'))}}
                                                 @else
                                                     {{ HTML::image('images/no-image.jpg', '', array('class' => 'fwimg')) }}
                                                 @endif
                                             </a>
 
-                                            <div style="padding-top: 5px; padding-left: 20%">
+                                            <div style="padding-top: 8px; padding-left: 20%">
                                                 <a data-toggle="modal" data-target="#myModal{{ $room_id }}"
                                                    class="lred bold" href="">Check Room Details</a>
                                             </div>
@@ -493,21 +559,20 @@
                                         <div class="col-md-8 offset-0">
                                             <div class="col-md-8 mediafix1">
 
-                                                <h4 style="display: inline; !important;"
+                                                <h4 style="font-weight: 900; text-decoration: none !important; display: inline; !important;"
                                                     class="opensans dark bold margtop1 lh1">
                                                     {{ $room->RoomType->room_type }}
                                                 </h4> -
-                                                <h5 style="color: #0099cc !important; display: inline; !important;"> {{ $room->RoomSpecification->room_specification }}
+                                                <h5 style="font-weight: 900; color: #0099cc !important; display: inline; !important;"> {{ $room->RoomSpecification->room_specification }}
                                                     Room
                                                 </h5>
-
 
                                                 <h5>{{ $room->MealBasis->meal_basis_name }}</h5>
                                                 <?php $t = 0;?>
                                                 @foreach($hot_room->RoomFacility as $facilities)
                                                     <?php
                                                     //echo public_path();
-                                                    $directory1 = 'public/images/room_facilities/';
+                                                    $directory1 = 'images/room_facilities/';
                                                     $images1 = glob($directory1 . $facilities->id . "*");
                                                     $img_path1 = array_shift($images1);
                                                     $img_name1 = basename($img_path1);
@@ -580,11 +645,22 @@
                                                         </a>
 
                                                     </li>
-                                                    @if($market == 1)
-                                                        <li>Pay at hotel or pay today</li>
-                                                    @endif
+
+                                                    <li>
+                                                        @if($room->MealBasis->id == 1)
+                                                            Room Only
+                                                        @elseif($room->MealBasis->id == 2)
+                                                            Bed & Breakfast
+                                                        @elseif($room->MealBasis->id == 3)
+                                                            Breakfast & Dinner
+                                                        @elseif($room->MealBasis->id == 4)
+                                                            Breakfast , Lunch & Dinner
+                                                        @else
+                                                            <h5> Breakfast , Lunch , Dinner & Liquor </h5>
+                                                        @endif
+                                                    </li>
                                                 </ul>
-                                                <br/>
+                                                <br/><br/>
 
                                                 @if($market == 1)
                                                     <span class="green size12">All Tax 16.7% and 10% service charge Not included</span>
@@ -597,33 +673,31 @@
                                                     @if($low_room_rate > 0 )
                                                         <span class="opensans green size24">  {{ Session::get('currency') . '&nbsp;' . number_format(($low_room_rate * Session::get('currency_rate')), 2, '.', '') }}</span>
                                                         <br/>
-                                                        <span class="opensans lightgrey size12">avg/night</span>
-                                                        <br/>
-                                                        <br/>
                                                         {{ Form::selectRange('number', 1, 10, null, ['class' => 'form-control mySelectBoxClass room_count', 'id' => $room_id.$room->meal_basis_id.$room->room_specification_id]) }}
                                                         <br/>
                                                         <?php
                                                         $allotments = Allotments::allotmentsCount($room_id, Session::get('st_date'), Session::get('ed_date'));
                                                         ?>
                                                         @if(!empty($allotments) && ($allotments > 3))
-                                                            <br/>
                                                             <span class="green size12 bold">{{ $allotments }} Rooms Available</span>
-                                                            <br/><br/>
+                                                            <br/>
                                                         @elseif(!empty($allotments) && ($allotments > 1))
                                                             <br/>
                                                             <span class="lred size12 bold"> Last {{ $allotments }}
                                                                 Rooms</span>
-                                                            <br/><br/>
+                                                            <br/>
                                                         @elseif(!empty($allotments) && ($allotments > 0))
                                                             <br/>
                                                             <span class="red size12 bold"> Only One Left</span>
-                                                            <br/><br/>
+                                                            <br/>
                                                         @else
                                                             <br/>
                                                             <span class="red size12 bold">No Rooms Available</span>
-                                                            <br/><br/>
+                                                            <br/>
                                                         @endif
-
+                                                        <br/>
+                                                        {{ Room::roomTypeImage($room->RoomSpecification->adults, $room->RoomSpecification->children) }}
+                                                        <br/><br/>
                                                         @if(!empty($allotments) && ($allotments > 0))
                                                             {{ Form::hidden('room_meal_id', $room->meal_basis_id , array('class' => 'hidden_room_meal_id') ) }}
                                                             <button id="room_book{{ $x }}"
@@ -663,12 +737,13 @@
                                                         <button type="button" class="close" data-dismiss="modal"
                                                                 aria-label="Close"><span
                                                                     aria-hidden="true">&times;</span></button>
-                                                        <h4 style="display: inline" class="modal-title"
+                                                        <h4 style="font-weight: 900; display: inline"
+                                                            class="modal-title"
                                                             id="myModalLabel">
                                                             {{ Hotel::where('id', $hotel_id)->first()->name }}
                                                         </h4>
                                                         -
-                                                        <h5 style="display: inline">
+                                                        <h5 style="font-weight: 900; display: inline">
                                                             {{ $room->RoomType->room_type }}
                                                         </h5>
                                                     </div>
@@ -1247,7 +1322,7 @@
                     <div class="padding30">
                         <?php
                         //echo public_path();
-                        $directory = 'public/images/hotel_images/';
+                        $directory = 'images/hotel_images/';
                         $images = glob($directory . $hotel_id . "_*");
                         $img_path = array_shift($images);
                         $img_name = basename($img_path);

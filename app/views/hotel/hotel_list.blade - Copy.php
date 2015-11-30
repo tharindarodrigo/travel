@@ -714,7 +714,7 @@
 
                                     <?php
                                     //echo public_path();
-                                    $directory = 'public/images/hotel_images/';
+                                    $directory = 'images/hotel_images/';
                                     $images = glob($directory . $hotel->id . "_*");
                                     $img_path = array_shift($images);
                                     $img_name = basename($img_path);
@@ -802,7 +802,7 @@
                                             @foreach($hotel_facilities->hotelFacility as $hotel_facility)
                                                 <?php
                                                 //echo public_path();
-                                                $directory = 'public/images/hotel_facilities/';
+                                                $directory = 'images/hotel_facilities/';
                                                 $images = glob($directory . $hotel_facility->id . "*");
                                                 $img_path = array_shift($images);
                                                 $img_name = basename($img_path);
@@ -831,7 +831,7 @@
 
                                         <?php
                                         //echo public_path();
-                                        $directory = 'public/images/hotel_images/';
+                                        $directory = 'images/hotel_images/';
                                         $images = glob($directory . $hotel->id . "_*");
                                         $img_path = array_shift($images);
                                         $img_name = basename($img_path);
@@ -919,7 +919,7 @@
                                                 @foreach($hotel_facilities->hotelFacility as $hotel_facility)
                                                     <?php
                                                     //echo public_path();
-                                                    $directory = 'public/images/hotel_facilities/';
+                                                    $directory = 'images/hotel_facilities/';
                                                     $images = glob($directory . $hotel_facility->id . "*");
                                                     $img_path = array_shift($images);
                                                     $img_name = basename($img_path);

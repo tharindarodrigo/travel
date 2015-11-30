@@ -4,7 +4,44 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - About Us</title>
+    <title> srilankahotel.travel - About Us </title>
+
+    <style type="text/css">
+        .tourism {
+            width: 250px;;
+        }
+
+        strong {
+            font-family: "Lato";
+            font-style: italic;
+            /*display: block;*/
+        }
+
+    </style>
+
+@endsection
+
+@section('custom_style')
+
+    <!-- PIECHART -->
+    {{ HTML::style('assets/css/jquery.easy-pie-chart.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+
+    <!-- Animo css-->
+    {{ HTML::style('plugins/animo/animate+animo.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
+
+    <style type="text/css">
+        h1 {
+            color: #006699;
+            font-family: 'Rokkitt', serif !important;
+        }
+
+        h2 {
+            font-family: 'Arvo', serif;
+        }
+    </style>
+
+    {{--my styles--}}
+    {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
 @endsection
 
@@ -25,7 +62,7 @@
                     <li><a href="{{URL::route('index')}}" class="active">Home </a></li>
                     <li>/</li>
                     <li><a href="{{URL::to('/about')}}"
-                           class="active"> About us </a></li>
+                           class="active"> faq </a></li>
                     <li>/</li>
                 </ul>
             </div>
@@ -37,14 +74,44 @@
     <!-- CONTENT -->
     <div class="container">
 
+        <div class="container pagecontainer offset-0">
 
-        <div class="container mt25 offset-0">
+            <!-- FILTERS -->
+            <div class="col-md-3 filters offset-0">
 
+                <!-- TOP TIP -->
+                <div class="filtertip">
+                    <div class="padding20">
+                        <p class="size13"><b
+                                    class="size30 bold"> </b>
+                            Results Found
 
-            <!-- CONTENT -->
-            <div class="col-md-12 pagecontainer2 offset-0">
+                        <p class="size30 bold"><span class="size13 normal darkblue">In</span>
+
+                        </p>
+
+                    </div>
+                    <div class="tip-arrow"></div>
+                </div>
+
+                <!-- Reservation Box -->
+                @include('layout.reservation_box_pages')
+                <!-- End Of Reservation Box -->
+                <div class="line2"></div>
+
+                <div class="clearfix"></div>
+                <br/>
+                <br/>
+                <br/>
+
+            </div>
+            <!-- END OF FILTERS -->
+
+            <!-- LIST CONTENT-->
+            <div class="rightcontent col-md-9 offset-0">
+
                 <div class="hpadding50c">
-                    <p class="lato size30 slim">Meet the team</p>
+                    <h1> About Us </h1>
 
                     <p class="aboutarrow"></p>
                 </div>
@@ -52,208 +119,83 @@
 
                 <div class="hpadding50c">
 
-                    <p class="lato size22 slim textcenter">
-                        Your online travel agency. As one of the world's leading online travel companies,<br/>
-                        we make it easy to plan your next business or leisure trip
-                    </p>
-                    <br/>
-
-                    <div class="line3"></div>
-                    <br/>
-
                     <!-- LEFT IMG -->
-                    <div class="col-md-8 cpdd01">
-                        <img src="images/about-man.jpg" class="fwimg" alt=""/>
+                    <div class="cpdd01 grey2">
+
+                        <div style="padding-left: 10px;  height:auto;text-align: justify; ">
+
+
+                            <p>&nbsp;</p>
+
+                            <p><img src="images/exotic_logo.jpg" alt=""></p>
+
+                            <p>&nbsp;</p>
+
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong><span style="font-size: large;">W</span></strong>e
+                                at Exotic Holidays International pride ourselves on our reputation and rely on it for
+                                our business. Our dedicated &amp; knowledgeable Travel Professionals who truly care
+                                about our clients take pride in their careers and personal achievements</p>
+
+                            <p>Exotic Holidays International is a private entity with a wealth of experience in
+                                providing quality service in the in-bound travel business.<br><br>&nbsp;We are always
+                                open to forming strategic Alliances with reputed Travel partners in major cities around
+                                the world to facilitate our customer’s and corporate customer requirements.<br><br>We
+                                are a highly motivated and dedicated team of professionals whose prime objective is to
+                                offer an impeccable level of service to all our discerning clients, in keeping with our
+                                Company policy, to go the extra mile in building personal relationships.<br><br>The
+                                Management maintains a hands-on operation in all aspects of the day-to-day operation of
+                                the Company. <br>Exotic Holidays International has positioned itself to serving the
+                                Western, Eastern and Arabian clientele. It is geared to accommodate the prospective and
+                                lucrative premium leisure markets and is ambitious to be a leader in the industry today
+                                and in the future. Therefore, we are constantly looking to new marketing, operational
+                                techniques and new products, with the aim of always being a step ahead of our
+                                competitors at any given time. Our target is also to gain a major premium customer share
+                                in the travel and leisure markets through innovative quality products and services. Our
+                                operations today center on providing value added services to our clients. In this
+                                context, we emphasize on proper planning and implementing strategies now, with a long
+                                term view in this fast changing industry.<br><br>We are willing to work out different
+                                strategies to find the correct combination, to the customers’ requirements, which will
+                                take us to our objective in the shortest possible way, and time. The prime objective of
+                                the management is to continuously improve staff training, skills, automation, product
+                                knowledge, extensive advertising, marketing campaigns and guarantee a personal interface
+                                service with all its customers that will lead Exotic Holidays International to greater
+                                heights in the coming year.<br><br>One of Exotic Holidays International business concept
+                                is to make your concerns our concerns and let our valued customers enjoy their holiday.
+                                We provide 24-hour service and guide our customers through any difficulty they come
+                                across.</p>
+
+                            <p>&nbsp;</p>
+
+                            <p><span style="text-decoration: underline;"><span style="font-size: medium;"><strong>Tourist
+                                            Board registration</strong></span></span></p>
+
+                            <p>&nbsp;</p>
+
+                            <p><a href="images/Tourism.jpg"><img src="images/Tourism.jpg" alt=""></a></p>
+
+                            <p><span style="font-size: small;"><strong>Tourist Board registration No :
+                                        TS/TA/1164</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em><span
+                                                style="text-decoration: underline;">Click hear to view </span></em></span><em><span
+                                            style="text-decoration: underline;"><span
+                                                style="font-size: small;">license</span></span></em></p>
+
+                            <p>&nbsp;</p>
+
+                            <p>Ø</p>
+
+                        </div>
                     </div>
                     <!-- END OF LEFT IMG -->
 
-                    <!-- IMG RIGHT TEXT -->
-                    <div class="col-md-4 cpdd02">
-                        <div class="opensans size18 grey">
-                            <span class="lato dark bold">Company</span><br/>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus feugiat semper tempor.
-                            Nullam commodo varius augue, lobortis dapibus ante fringilla quis.
-                            <br/><br/>
-
-
-                            <span class="lato dark bold">Speciality</span><br/>
-
-                            <div class="progress-about margbtm10">
-                                <div class="progress-bar progress-bar-success pbar1" role="progressbar"
-                                     aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                                    Speciality 1 90%
-                                </div>
-                            </div>
-                            <div class="progress-about margbtm10">
-                                <div class="progress-bar progress-bar-success pbar2" role="progressbar"
-                                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                                    Speciality 2 100%
-                                </div>
-                            </div>
-                            <div class="progress-about margbtm10">
-                                <div class="progress-bar progress-bar-success pbar3" role="progressbar"
-                                     aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                                    Speciality 3 85%
-                                </div>
-                            </div>
-                            <div class="progress-about">
-                                <div class="progress-bar progress-bar-success pbar4" role="progressbar"
-                                     aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                                    Speciality 4 95%
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- END OF IMG RIGHT TEXT -->
                     <div class="clearfix"></div>
                     <br/><br/>
 
-
-                    <span class="lato size18 dark bold">Meet the Team</span><br/><br/>
-
-                    <div class="col-md-4">
-                        <div class="abover ohidden">
-                            <div class="abbg">
-                                <div class="socials-container">
-                                    <a href="#" data-placement="top" title="Twitter" class="left"><span
-                                                class="socials-twitter "></span></a>
-                                    <a href="#" data-placement="top" title="Facebook" class="left"><span
-                                                class="socials-facebook "></span></a>
-                                    <a href="#" data-placement="top" title="Google Plus" class="left"><span
-                                                class="socials-gplus "></span></a>
-                                </div>
-                            </div>
-                            <img src="images/about-women.jpg" class="fwimg" alt=""/>
-
-                            <div class="chart none" data-percent="69"
-                                 style="float:right; margin-top:-60px; right:10px;"><span
-                                        class="countbouncerate">69</span>%
-                            </div>
-                        </div>
-                        <p class="lato lh2 mt10"><b>John Doe</b><br/>
-                            Marketing
-                        </p>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="abover ohidden">
-                            <div class="abbg">
-                                <div class="socials-container">
-                                    <a href="#" data-placement="top" title="Twitter" class="left"><span
-                                                class="socials-twitter "></span></a>
-                                    <a href="#" data-placement="top" title="Facebook" class="left"><span
-                                                class="socials-facebook "></span></a>
-                                    <a href="#" data-placement="top" title="Google Plus" class="left"><span
-                                                class="socials-gplus "></span></a>
-                                </div>
-                            </div>
-                            <img src="images/about-men2.jpg" class="fwimg" alt=""/>
-
-                            <div class="chart2 none" data-percent="69"
-                                 style="float:right; margin-top:-60px; right:10px;"><span
-                                        class="countnewvisits">81</span>%
-                            </div>
-                        </div>
-                        <p class="lato lh2 mt10"><b>John Doe</b><br/>
-                            C.E.O.
-                        </p>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="abover ohidden">
-                            <div class="abbg">
-                                <div class="socials-container">
-                                    <a href="#" data-placement="top" title="Twitter" class="left"><span
-                                                class="socials-twitter "></span></a>
-                                    <a href="#" data-placement="top" title="Facebook" class="left"><span
-                                                class="socials-facebook "></span></a>
-                                    <a href="#" data-placement="top" title="Google Plus" class="left"><span
-                                                class="socials-gplus "></span></a>
-                                </div>
-                            </div>
-                            <img src="images/about-women2.jpg" class="fwimg" alt=""/>
-
-                            <div class="chart3 none" data-percent="69"
-                                 style="float:right; margin-top:-60px; right:10px;"><span
-                                        class="countsearchtrafic">33</span>%
-                            </div>
-                        </div>
-                        <p class="lato lh2 mt10"><b>John Doe</b><br/>
-                            Marketing
-                        </p>
-                    </div>
-                    <div class="clearfix"></div>
-
-                    <br/>
-                    <br/>
-
-
-                    <div class="line3"></div>
-                    <br/>
-                    <br/>
-
-                    <div class="col-md-4">
-                        <div class="opensans grey2">
-                            <span class="gcircle">1</span><span class="lato size18 dark mt6 ml10"><b>Short
-                                    history</b></span><br/><br/>
-                            Suspendisse convallis, est mollis venenatis tristique, nisl lectus eleifend est, id ultrices
-                            diam dui at dolor. Praesent risus quam, sodales cursus cursus in, congue non enim.
-                            Vestibulum tristique mollis neque vitae tempus.
-                            <ul class='checklist2'>
-                                <li>Pellentesque non dolor urna</li>
-                                <li>Tempor nisl et enim sagittis egestas</li>
-                                <li>Aenean a purus vel nisi aliquet ultricies</li>
-                                <li>Ut nunc vivamus at erat ligula suspen</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-
-                        <p class="opensans grey2">
-                            <span class="gcircle">2</span><span class="lato size18 dark mt6 ml10"><b>Our main
-                                    goal</b></span><br/><br/>
-                            Pellentesque non dolor urna. Praesent tempor nisl et enim sagittis egestas. Aenean a purus
-                            vel nisi aliquet ultricies vel ut nunc. Vivamus at erat ligula. Suspendisse bibendum tellus
-                            vitae ipsum malesuada euismod vel nec risus. Aliquam egestas sodales ornare. Pellentesque a
-                            lorem eget turpis venenatis tincidunt quis id magna.
-                            <br/>
-                            <br/>
-                            Nulla faucibus nisl a arcu convallis bibendum at sed nulla. Proin tellus est, scelerisque ut
-                            luctus ut, tincidunt ac neque.
-                            Phasellus lectus enim, convallis quis faucibus eget, mattis eget erat. Aliquam id metus
-                            ligula, vel laoreet lorem. Pellentesque varius dignissim orci eu accumsan.
-                        </p>
-                    </div>
-                    <div class="col-md-4">
-
-                        <p class="opensans grey2">
-                            <span class="gcircle">3</span><span class="lato size18 dark mt6 ml10"><b>Want to join
-                                    us?</b></span><br/><br/>
-                            Pellentesque non dolor urna. Praesent tempor nisl et enim sagittis egestas. Aenean a purus
-                            vel nisi aliquet ultricies vel ut nunc.
-                            <br/>
-                            <br/>
-                            Vivamus at erat ligula. Suspendisse bibendum tellus vitae ipsum malesuada euismod vel nec
-                            risus. Aliquam egestas sodales ornare.
-                            Pellentesque a lorem eget turpis venenatis
-                            tincidunt quis id magna.
-                            <br/>
-                            <button class="btn-search4 caps center margtop20">Apply now</button>
-                        </p>
-                    </div>
-                    <div class="clearfix"></div>
-
-
                 </div>
-
-
-                <div class="clearfix"></div>
-                <br/><br/>
             </div>
-            <!-- END CONTENT -->
-
+            <!-- END OF LIST CONTENT-->
 
         </div>
-
+        <!-- END CONTENT -->
 
     </div>
     <!-- END OF CONTENT -->
@@ -263,13 +205,30 @@
     @section('script')
 
         <!-- Javascript  -->
-        {{ HTML::script('assets/js/js-about.js') }}
+        {{ HTML::script('assets/js/js-blog.js') }}
 
         <!-- Easy Pie Chart  -->
         {{ HTML::script('assets/js/jquery.easy-pie-chart.js') }}
+
+        <!-- Load Animo -->
+        {{ HTML::script('plugins/animo/animo.js') }}
+
+        <!-- Custom Select -->
+        {{ HTML::script('js/lightbox.js') }}
+
+        <!-- Counter -->
+        {{ HTML::script('assets/js/counter.js') }}
+
+        <!-- Javascript -->
+        {{ HTML::script('assets/js/js-list4.js') }}
+
+        <!-- Custom js -->
+        {{ HTML::script('js/my_script.js') }}
+
 
     @endsection
 
     </body>
 
 @stop
+

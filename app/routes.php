@@ -423,7 +423,7 @@ Route::get('/email-check', function () {
 //tourism details download
 
 Route::get('/tdl-download', function () {
-    $file = public_path() . "/images/TDL.jpg";
+    $file = "images/TDL.jpg";
     $headers = array(
         'Content-Type: image/jpeg',
     );
@@ -433,7 +433,7 @@ Route::get('/tdl-download', function () {
 //e-brocher download
 
 Route::get('/ebrocher-download', function () {
-    $file = public_path() . "/images/ebrocher.pdf";
+    $file = "images/ebrocher.pdf";
     $headers = array(
         'Content-Type: application/pdf',
     );

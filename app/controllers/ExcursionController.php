@@ -145,7 +145,7 @@ class ExcursionController extends \BaseController
 
         $path = array();
 
-        $directory = 'public/images/excursion_images/excursion_types/';
+        $directory = 'images/excursion_images/excursion_types/';
 
         $images = glob($directory . $excursion_id . "_" . "*.*");
 
@@ -153,11 +153,11 @@ class ExcursionController extends \BaseController
             $path[] = $image;
         }
 
-        $excursion = Excursion::where('id', '=', $excursion_id)->where('val', 1)->first();
+        $excursion = Excursion::where('id', $excursion_id)->where('val', 1)->first();
 
-        $excursion_type = ExcursionType::where('id', '=', $excursion_type_id)->first();
+        $excursion_type = ExcursionType::where('id', $excursion_type_id)->first();
 
-        $excursion_rate = ExcursionRate::where('excursion_id', '=', $excursion_id)->where('val', 1)->get();
+        $excursion_rate = ExcursionRate::where('excursion_id', $excursion_id)->where('val', 1)->get();
 
 //        dd(DB::getQueryLog());
 
@@ -242,7 +242,7 @@ class ExcursionController extends \BaseController
             ->where('val', 1)
             ->select('rate')
             ->first();
-        //dd($get_excursion_price);
+
         $get_ex_rate = $get_excursion_price->rate;
 
         $ex_rate = Session::get('currency') . '&nbsp;' . number_format(($get_ex_rate * Session::get('currency_rate')), 2, '.', '');
