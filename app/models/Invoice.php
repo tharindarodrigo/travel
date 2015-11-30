@@ -34,8 +34,10 @@ class Invoice extends \Eloquent
 
     public function booking()
     {
-        return $this->belongsTo('Booking');
+        return $this->belongsTo('booking');
     }
+
+
 
     public static function amendInvoice($booking)
     {

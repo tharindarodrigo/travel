@@ -22,17 +22,25 @@ class BookingsController extends \BaseController
     public function index()
     {
 
-
         if (Auth::check()) {
-
 
             $reference_number = Input::has('reference_number') ? Input::get('reference_number') : '%';
             $user_id = Auth::id();
 
-            $payments_query = Payment::with('user')->with('agent')->select(array('payment_date_time AS date', 'amount AS debit', 'details', 'id'))->where('user_id', $user_id);
-            $invoices_query = Invoice::join('bookings', 'bookings.id', '=', 'invoices.booking_id')
-                ->select(array('amount AS credit', 'arrival_date AS date', 'reference_number as details'))
-                ->where('val', 1);
+            $payments_query = Payment::with('user')->with('agent')
+                ->select(array('payment_date_time AS date', 'amount AS debit', 'details', 'id'));
+
+            $invoices_query = Booking::join('invoices', 'invoices.booking_id', '=','bookings.id')
+            ->select(array('arrival_date AS date', 'reference_number AS details', 'amount as credit'))
+
+                ->where('val','=', 1);
+
+            if(!Entrust::hasRole('Admin')){
+                $payments_query->where('user_id',$user_id);
+                $invoices_query->where('user_id',$user_id);
+            }
+
+//            dd($invoices_query->get()->toArray());
 
             if(Input::get('get_payments')){
 
@@ -42,10 +50,12 @@ class BookingsController extends \BaseController
                 $to_d = Input::get('to_d');
                 $payments = $payments_query->whereBetween('payment_date_time',array($from_d,$to_d))->get();
                 $invoices = $invoices_query->whereBetween('arrival_date',array($from_d,$to_d))->get();
+
             } else {
                 $payments = $payments_query->get();
                 $invoices = $invoices_query->get();
             }
+
 
             //dd($pay);
             if (Entrust::hasRole('Admin')) {
@@ -78,7 +88,7 @@ class BookingsController extends \BaseController
             if(Input::has('get_payment'))
                 return View::make('bookings.index', compact('bookings', 'payments', 'merged_data'))->withInput();
 
-            return View::make('bookings.index', compact('bookings', 'payments', 'merged_data'));
+            return View::make('bookings.index', compact('bookings', 'payments', 'merged_data', 'invoice'));
         }
 
         App::abort(404);
@@ -516,7 +526,7 @@ class BookingsController extends \BaseController
         $booking = Booking::findOrFail($id);
 
         if (!Input::has('val')) {
-            $rules = Booking::$rules;
+            $rules = Booking::$agentRules;
         } else {
             $rules = ['val'];
         }

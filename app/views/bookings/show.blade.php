@@ -48,7 +48,7 @@
                                     <br/>
                                     {{----------------------------------------------------------------------------------------------------------------------------------}}
 
-                                    <span class="size12">Tour *</span>
+                                    <span class="size12">Agent Reference Number *</span>
                                     {{Form::text('tour',null,array('class'=> 'form-control'))}}
                                     {{$errors->first('tour', '<span class="size12" style="color: red;">:message</span>') }}
                                     <br/>

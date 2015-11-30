@@ -43,7 +43,7 @@ class VehiclesController extends \BaseController {
 
         Vehicle::create($data);
 
-        return Redirect::route('control-panel.transportation.vehicles');
+        return $this->index();
     }
 
     /**
@@ -72,7 +72,6 @@ class VehiclesController extends \BaseController {
         $vehicles = Vehicle::all();
         Session::put('edit', 'edit');
 
-
         return View::make('control-panel.transportation.vehicles', compact('vehicle','vehicles'));
     }
 
@@ -95,9 +94,7 @@ class VehiclesController extends \BaseController {
 
         $Vehicle->update($data);
 
-        Session::forget('edit');
-
-        return Redirect::route('control-panel..index');
+        return $this->index();
     }
 
     /**

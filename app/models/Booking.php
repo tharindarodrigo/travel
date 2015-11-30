@@ -165,7 +165,7 @@ class Booking extends \Eloquent
 
     public function user()
     {
-        return $this->belongsToMany('user');
+        return $this->belongsTo('User');
     }
 
     public function customTrip()

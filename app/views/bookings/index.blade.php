@@ -191,7 +191,7 @@
                                             <td>{{$x}}</td>
                                             <td>{{$merged_data[$x]['date']}}</td>
                                             <td>{{$merged_data[$x]['details']}}</td>
-                                            <td>{{$merged_data[$x]['credit'] or '-'}}</td>
+                                            <td>{{$merged_data[$x]['amount'] or '-'}}</td>
                                             <td>{{$merged_data[$x]['debit'] or '-'}}</td>
                                             <td>{{''}}</td>
                                         </tr>

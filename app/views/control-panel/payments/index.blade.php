@@ -27,7 +27,7 @@
 
                                 <td>{{$payment->id}}</td>
                                 <td>{{$payment->reference_number}}</td>
-                                <td>{{$payment->agent->company}}</td>
+                                <td>{{$payment->agent->company or 'individual'}}</td>
                                 <td align="center">{{$payment->payment_date_time}}</td>
                                 <td align="right">{{number_format($payment->amount,2)}}</td>
                                 <td>
