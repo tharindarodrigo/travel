@@ -66,6 +66,8 @@
 
     $(document).ready(function(){
 
+        confirmDelete();
+
         $('#date1, #date2, #dob, #date3, #date4').datepicker({
             dateFormat: 'yy-mm-dd',
              changeMonth: true,

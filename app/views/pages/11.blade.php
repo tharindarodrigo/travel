@@ -51,6 +51,8 @@
 
     <body id="top" class="thebg">
 
+    {{Session::get('rate_box_details')}}
+
     <div class="navbar-wrapper2 navbar-fixed-top">
         @include('layout.navbar')
     </div>

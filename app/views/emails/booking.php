@@ -139,7 +139,8 @@
                 <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
                         : <?php echo $booking->reference_number; ?>
                 </td>
-                <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Booking</h2>
+                <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">
+                        Booking</h2>
 
                 </td>
             </tr>
@@ -147,11 +148,15 @@
     <?php } else { ?>
         <table border="0" width="100%" style="margin-top: -11px;">
             <tr>
-                <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
+                <td>
+                    <h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
                         : <?php echo $booking->reference_number . '/' . $booking->count; ?>
+                    </h2>
                 </td>
-                <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Amended
-                        Booking</h2>
+                <td align="right">
+                    <h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Amended
+                        Booking
+                    </h2>
                 </td>
             </tr>
         </table>
@@ -159,7 +164,6 @@
 
 </div>
 <br/>
-
 
 <div>
 
@@ -175,7 +179,7 @@
                     <tr>
                         <th align="left">Booked By</th>
                         <td>
-                            : <?php echo !empty($y = $booking->user->first()) ? $y->first_name . ' ' . $y->last_name : $booking->booking_name; ?>
+                            : <?php echo !empty($y = $booking->user) ? $y->first_name . ' ' . $y->last_name : $booking->booking_name; ?>
                         </td>
                     </tr>
                     <tr>
@@ -391,7 +395,8 @@
                 <?php if ($booking->customTrip->count()) { ?>
                     <?php foreach ($booking->customTrip as $customTrip) { ?>
                         <tr>
-                            <td><?php echo /*$customTrip->reference_number*/ 10000000; ?></td>
+                            <td><?php echo /*$customTrip->reference_number*/
+                                10000000; ?></td>
                             <td><?php echo $customTrip->from ?></td>
                             <td><?php echo $customTrip->vehicle->vehicle_type ?></td>
                             <td><?php str_replace(',', '<br>', $customTrip->locations) ?></td>
@@ -402,7 +407,8 @@
                 <?php if ($booking->predefinedTrip->count()) { ?>
                     <?php foreach ($booking->predefinedTrip as $predefinedTrip) { ?>
                         <tr>
-                            <td><?php echo /*$predefinedTrip->reference_number*/ 10000001 ?></td>
+                            <td><?php echo /*$predefinedTrip->reference_number*/
+                                10000001 ?></td>
                             <td><?php echo $predefinedTrip->pick_up_date_time ?></td>
                             <td><?php echo $predefinedTrip->transportPackage->vehicle->vehicle_type ?></td>
                             <td><?php echo $predefinedTrip->transportPackage->originCity->city ?><br>
@@ -444,7 +450,7 @@
                         <td style="text-align: right"><?php echo $excursionBooking->excursionTransportType->transport_type ?></td>
                         <td style="text-align: right"><?php echo $excursionBooking->pax ?></td>
                         <td style="text-align: right"><?php echo number_format($excursionBooking->unit_price, 2) ?></td>
-                        <td style="text-align: right"><?php echo number_format(ExcursionBooking::getTotalExcursionBookingAmount($booking),2) ?></td>
+                        <td style="text-align: right"><?php echo number_format(ExcursionBooking::getTotalExcursionBookingAmount($booking), 2) ?></td>
                     </tr>
                 <?php } ?>
             </table>

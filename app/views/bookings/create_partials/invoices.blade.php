@@ -12,10 +12,9 @@
 <tbody>
 
 <tr>
-    
-    <td>{{$booking->id}}</td>
+    <td>{{$booking->invoice->id}}</td>
     <td>{{$booking->reference_number}}</td>
-    <td align="right">USD. {{number_format(Booking::getTotalBookingAmount($booking),2)}}</td>
+    <td align="right">USD. {{number_format($booking->inovioce,2)}}</td>
     <td><a class="btn btn-default" href="{{URL::to('invoice/'.$booking->id)}}" target="_blank">View Invoice</a></td>
 </tr>
 
