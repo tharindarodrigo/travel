@@ -126,7 +126,7 @@ class RoomFacilitiesController extends \BaseController
             if(Input::file('icon')){
 
 //                dd('asdasd');
-                File::delete('public/control-panel-assets/images/room-facilities/'.$id.'.png');
+                File::delete(public_path().'/control-panel-assets/images/room-facilities/'.$id.'.png');
 
                 Image::make(Input::file('icon'))
                     ->encode('png')
@@ -154,7 +154,7 @@ class RoomFacilitiesController extends \BaseController
         if ($delete = RoomFacility::destroy($id)) {
 
             //Delete the icon with respect to the record
-            File::delete('public/control-panel-assets/images/room-facilities/'.$id.'.png');
+            File::delete(public_path().'/control-panel-assets/images/room-facilities/'.$id.'.png');
 
             Session::flash('successful-action', 'Item was deleted Successfully');
         } else {

@@ -25,7 +25,7 @@
             color: #006699;
         }
 
-        .no_result{
+        .no_result {
             width: 650px;
             height: 400px;
         }
@@ -36,20 +36,32 @@
     {{ HTML::style('plugins/jslider/css/jslider.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
     {{ HTML::style('plugins/jslider/css/jslider.round.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
-    <!-- bin/jquery.slider.min.js -->
+            <!-- bin/jquery.slider.min.js -->
     {{ HTML::script('plugins/jslider/js/jshashtable-2.1_src.js') }}
     {{ HTML::script('plugins/jslider/js/jquery.numberformatter-1.2.3.js') }}
     {{ HTML::script('plugins/jslider/js/tmpl.js') }}
     {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
     {{ HTML::script('plugins/jslider/js/draggable-0.1.js') }}
     {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
-    <!-- end -->
+            <!-- end -->
 
 @endsection
 
 @section('content')
 
     <body id="top" class="thebg">
+    <?php
+
+    Mail::send('emails/voucher-mail', array(
+            'voucher' => Voucher::find(71)
+    ), function ($message) {
+        $message->attach(public_path() . '/temp-files/71.pdf')
+                ->subject('Booking Voucher : ' . '11111')
+                ->from('reservations@srilankahotels.travel', 'SriLankaHotels.Travel')
+                ->to('tharindarodrigo@gmail.com', 'SriLankaHotels.Travel');
+
+    });
+    ?>
 
     {{Session::get('rate_box_details')}}
 
@@ -89,7 +101,7 @@
 
                 <!-- Reservation Box -->
                 @include('layout.reservation_box_pages')
-                <!-- End Of Reservation Box -->
+                        <!-- End Of Reservation Box -->
                 <div class="line2"></div>
 
                 <div class="line2"></div>
@@ -107,7 +119,7 @@
                 <div class="itemscontainer offset-1">
                     <br/><br/>
 
-                    <div style="padding: 10%" class="container offset-2" >
+                    <div style="padding: 10%" class="container offset-2">
                         <?php
 
                         if (Session::has('st_date')) {
@@ -139,7 +151,7 @@
 
                                 $("#datepicker").datepicker({
 
-                                    onClose: function() {
+                                    onClose: function () {
                                         var minValue = $(this).val();
                                         minValue = $.datepicker.parseDate("dd/mm/yy", minValue);
                                         minValue.setDate(minValue.getDate() + 1);
@@ -184,9 +196,11 @@
 
                             <ul class="nav nav-tabs" id="myTab">
 
-                                <li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#hotel"><span class="hotel"></span>Hotel</a>
+                                <li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#hotel"><span
+                                                class="hotel"></span>Hotel</a>
                                 </li>
-                                <li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#car"><span class="car"></span>Transport</a>
+                                <li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#car"><span
+                                                class="car"></span>Transport</a>
                                 </li>
 
                             </ul>
@@ -198,7 +212,8 @@
                                     {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'searchform', 'method' => 'POST', )) }}
                                     <span class="opensans size18">Where do you want to go?</span>
 
-                                    <input type="text" class="form-control" name="txt-search" id="inputString" category=""
+                                    <input type="text" class="form-control" name="txt-search" id="inputString"
+                                           category=""
                                            onkeyup="lookup(this.value);" autocomplete="off"/>
 
                                     <div id="suggestions"></div>
@@ -209,7 +224,8 @@
                                     <div class="w50percent">
                                         <div class="wh90percent textleft">
                                             <span class="opensans size13">Check In Date</span>
-                                            <input type="text" name="check_in_date" class="form-control mySelectCalendar"
+                                            <input type="text" name="check_in_date"
+                                                   class="form-control mySelectCalendar"
                                                    id="datepicker"
                                                    value="{{ Session::has('st_date') ? Session::get('st_date') : $st_date }}"/>
                                         </div>
@@ -218,7 +234,8 @@
                                     <div class="w50percentlast">
                                         <div class="wh90percent textleft right">
                                             <span class="opensans size13">Check Out Date</span>
-                                            <input type="text" name="check_out_date" class="form-control mySelectCalendar"
+                                            <input type="text" name="check_out_date"
+                                                   class="form-control mySelectCalendar"
                                                    id="datepicker2"
                                                    value="{{ Session::has('ed_date') ? Session::get('ed_date') : $ed_date }}"/>
                                         </div>
@@ -355,54 +372,54 @@
 
     @section('script')
 
-        <!-- Javascript -->
-        {{ HTML::script('assets/js/js-list4.js') }}
+            <!-- Javascript -->
+    {{ HTML::script('assets/js/js-list4.js') }}
 
-        <!-- Custom Select -->
-        {{ HTML::script('js/lightbox.js') }}
+            <!-- Custom Select -->
+    {{ HTML::script('js/lightbox.js') }}
 
-        <!-- Counter -->
-        {{ HTML::script('assets/js/counter.js') }}
+            <!-- Counter -->
+    {{ HTML::script('assets/js/counter.js') }}
 
-        <!-- Picker -->
-        {{ HTML::script('assets/js/jquery-ui.js') }}
+            <!-- Picker -->
+    {{ HTML::script('assets/js/jquery-ui.js') }}
 
 
-        <script type="text/javascript">
-            $('.star_category').click(function () {
-                var star = $('input[name=star_rating]:checked').map(function () {
-                    return $(this).val();
-                }).get();
-                $('#star_rating_form').submit()
-            });
-        </script>
+    <script type="text/javascript">
+        $('.star_category').click(function () {
+            var star = $('input[name=star_rating]:checked').map(function () {
+                return $(this).val();
+            }).get();
+            $('#star_rating_form').submit()
+        });
+    </script>
 
-        <script type="text/javascript">
-            $('.acc_select').click(function () {
-                var accommodation = $('input[name=accommodation]:checked').map(function () {
-                    return $(this).val();
-                }).get();
-                $('#accommodation_form').submit()
-            });
-        </script>
+    <script type="text/javascript">
+        $('.acc_select').click(function () {
+            var accommodation = $('input[name=accommodation]:checked').map(function () {
+                return $(this).val();
+            }).get();
+            $('#accommodation_form').submit()
+        });
+    </script>
 
-        <script type="text/javascript">
-            $('.city_select').click(function () {
-                var city = $('input[name=city]:checked').map(function () {
-                    return $(this).val();
-                }).get();
-                $('#city_form').submit()
-            });
-        </script>
+    <script type="text/javascript">
+        $('.city_select').click(function () {
+            var city = $('input[name=city]:checked').map(function () {
+                return $(this).val();
+            }).get();
+            $('#city_form').submit()
+        });
+    </script>
 
-        <script type="text/javascript">
-            $('.hot_facility').click(function () {
-                var facilities = $('input[name=facility]:checked').map(function () {
-                    return $(this).val();
-                }).get();
-                $('#facility_form').submit()
-            });
-        </script>
+    <script type="text/javascript">
+        $('.hot_facility').click(function () {
+            var facilities = $('input[name=facility]:checked').map(function () {
+                return $(this).val();
+            }).get();
+            $('#facility_form').submit()
+        });
+    </script>
 
     @endsection
 

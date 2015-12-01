@@ -374,7 +374,7 @@ class BookingsController extends \BaseController
 
                         // voucher
                         $pdf = PDF::loadView('emails/voucher', array('voucher' => $created_voucher));
-                        $pdf->save(public_path() . '/temp-files/'.$created_voucher->id.'.pdf');
+                        $pdf->save(public_path() . '/temp-files/voucher'.$created_voucher->id.'.pdf');
 
                         $hotel_users = DB::table('users')->leftJoin('hotel_user', 'users.id', '=', 'hotel_user.user_id')
                             ->where('hotel_user.hotel_id', $created_voucher->hotel_id)

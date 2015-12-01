@@ -161,7 +161,7 @@ class HotelsController extends \BaseController
         }
 
         $hotelImages = array();
-        $hotelimages = File::glob('/images/hotel_images/'.$hotelprofile->id.'_*');
+        $hotelimages = File::glob(public_path().'/images/hotel_images/'.$hotelprofile->id.'_*');
 
         foreach($hotelimages as $hotelimage){
             $hotelImages[] = basename($hotelimage);
@@ -396,11 +396,11 @@ class HotelsController extends \BaseController
         try{
             Hotel::destroy($id);
 
-            $files = File::glob('public/control-panel-assets/images/room-images/'.$id.'_*');
+            $files = File::glob(public_path().'public/control-panel-assets/images/room-images/'.$id.'_*');
 
             if(!empty($files)){
                 foreach($files as $file){
-                    File::delete('public/control-panel-assets/images/room-images/'.$file);
+                    File::delete(public_path().'/control-panel-assets/images/room-images/'.$file);
                 }
             }
 

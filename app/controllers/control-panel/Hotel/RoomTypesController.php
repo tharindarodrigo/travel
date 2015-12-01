@@ -156,7 +156,7 @@ class RoomTypesController extends \BaseController
         }
 
         $roomImages = array();
-        $roomImageList = File::glob('images/room_images/' . $id . '_*');
+        $roomImageList = File::glob(public_path().'images/room_images/' . $id . '_*');
 //        dd($roomImages);
         foreach ($roomImageList as $roomImage) {
             $roomImages[] = basename($roomImage);
@@ -274,7 +274,7 @@ class RoomTypesController extends \BaseController
 
             $delete = RoomType::destroy($id);
 
-            $files = File::glob('images/room_images/' . $id . '_*');
+            $files = File::glob(public_path().'images/room_images/' . $id . '_*');
 
             if (!empty($files)) {
                 foreach ($files as $file) {
