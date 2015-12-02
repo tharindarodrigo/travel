@@ -46,10 +46,8 @@
                 <td align="center">{{$voucher->val ==0 ? 'Cancelled':'Active'}}</td>
                 <td>
 
-                    @if($voucher->val == 0)
+                    @if($voucher->val == 1)
                         {{link_to('vouchers/'.$voucher->id.'/cancel','Cancel',array('class' => 'btn btn-warning', 'onclick'=>'confirmDelete()'))}}
-                    @else
-
                     @endif
 
                     <a href="{{URL::to('voucher/'.$voucher->id)}}" class="btn btn-default"><span

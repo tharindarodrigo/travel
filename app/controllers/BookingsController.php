@@ -40,7 +40,6 @@ class BookingsController extends \BaseController
                 $invoices_query->where('user_id',$user_id);
             }
 
-//            dd($invoices_query->get()->toArray());
 
             if(Input::get('get_payments')){
 
