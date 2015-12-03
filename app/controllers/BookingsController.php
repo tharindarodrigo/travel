@@ -83,11 +83,12 @@ class BookingsController extends \BaseController
             array_multisort($c, SORT_ASC, $merged_data);
 
 //            dd($merged_data);
+            $total = 0;
 
             if(Input::has('get_payment'))
-                return View::make('bookings.index', compact('bookings', 'payments', 'merged_data'))->withInput();
+                return View::make('bookings.index', compact('bookings', 'payments', 'merged_data','total'))->withInput();
 
-            return View::make('bookings.index', compact('bookings', 'payments', 'merged_data', 'invoice'));
+            return View::make('bookings.index', compact('bookings', 'payments', 'merged_data', 'invoice', 'total'));
         }
 
         App::abort(404);
@@ -174,15 +175,20 @@ class BookingsController extends \BaseController
 
         if (Auth::check()) {
             $user = Auth::user();
-            $data['user_id'] = $user->id;
-            $rules = Booking::$agentRules;
+            if(Entrust::hasRole('Agent')){
+
+                $rules = Booking::$agentRules;
+            }
         } else {
             $rules = Booking::$guestRules;
         }
-
-        $validator = Validator::make($data = Input::all(), $rules);
+        $data = Input::all();
+        if(Auth::check())
+            $data['user_id'] = Auth::id();
+        $validator = Validator::make($data, $rules);
 
         if ($validator->fails()) {
+            //dd($validator->errors());
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
@@ -202,6 +208,7 @@ class BookingsController extends \BaseController
         $clients = null;
 
         if (Session::has('rate_box_details') || Session::has('transport_cart_box') || Session::has('predefined_transport') || Session::has('excursion_cart_details')) {
+
 
             if ($booking = Booking::create($data)) {
 
@@ -245,7 +252,6 @@ class BookingsController extends \BaseController
 
                 if (Session::has('transport_cart_box')) {
 
-//                    dd(Session::get('transport_cart_box'));
                     $custom_trips = Session::pull('transport_cart_box');
                     $a++;
 

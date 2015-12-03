@@ -355,6 +355,8 @@ class RatesController extends \BaseController
             Session::flash('unsuccessful-action', 'Hotel Facility update was Unsuccessful');
         }
 
+        return Redirect::back();
+
 
     }
 

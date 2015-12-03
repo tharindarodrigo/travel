@@ -42,6 +42,19 @@
                         {{Form::text('booking_name',null,array('class'=> 'form-control'))}}
                         {{$errors->first('booking_name', '<span class="size12" style="color: red;">:message</span>') }}
                     </div>
+                    <div class="col-md-3 textleft margtop15">
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-3 textright">
+                        <span class="size12">&nbsp;</span>
+
+                        <div class="margtop15"><span class="dark">Ref. No:</span><span class="red">*</span></div>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="size12">Add a reference number for your own convenience</span>
+                        {{Form::text('agent_reference_number',null,array('class'=> 'form-control'))}}
+                        {{$errors->first('agent_reference_number', '<span class="size12" style="color: red;">:message</span>') }}
+                    </div>
 
                     <div class="col-md-3 textleft margtop15">
                     </div>

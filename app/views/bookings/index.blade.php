@@ -19,7 +19,6 @@
 
         <div class="container mt25 offset-0">
 
-
             <div class="col-md-12 pagecontainer2 offset-0">
                 <ul class="nav nav-tabs nav-justified" role="tablist">
                     <li role="presentation" class="active">
@@ -42,7 +41,6 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-
                                     {{Form::submit('Search', array('class'=> 'btn btn-primary'))}}
                                 </div>
 
@@ -171,31 +169,45 @@
 
                             </form>
                         </div>
+
+
                         <div class="hpadding50c">
+                            @if(Entrust::hasRole('Agent'))
+                                <p>Your credit Limit is USD. {{number_format(Agent::getCreditLimit(Auth::id()),2)}}</p>
+                            @else
+                                {{Form::select('agent_id', Agent::lists('company','id'), array(), array('class'=> 'form-control'))}}
+                            @endif
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Date</th>
-                                    <th>Detail</th>
-                                    <th>Credit</th>
-                                    <th>Debit</th>
-                                    <th>Credit Balance</th>
+                                    <th align="center">ID</th>
+                                    <th align="center">Date</th>
+                                    <th align="center">Detail</th>
+                                    <th align="center">Credit</th>
+                                    <th align="center">Debit</th>
+                                    <th align="center">Balance</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
                                 @if(!empty($merged_data))
-                                    @for($x= 1; $x< count($merged_data); $x++)
+                                    @for($x= 0; $x< count($merged_data); $x++)
                                         <tr>
-                                            <td>{{$x}}</td>
-                                            <td>{{$merged_data[$x]['date']}}</td>
+                                            <td>{{$y=$x+1}}</td>
+                                            <td>{{date('Y-m-d',strtotime($merged_data[$x]['date']))}}</td>
                                             <td>{{$merged_data[$x]['details']}}</td>
-                                            <td>{{$merged_data[$x]['amount'] or '-'}}</td>
-                                            <td>{{$merged_data[$x]['debit'] or '-'}}</td>
+                                            <td align="right">{{!empty($merged_data[$x]['credit']) ?  number_format($merged_data[$x]['credit'],2) : '-'}}</td>
+                                            <td align="right">{{!empty($merged_data[$x]['debit']) ? number_format($merged_data[$x]['debit'],2) : '-'}}</td>
 
-                                            <td>
-{{--                                                {{ Agent::getCreditLimit(Auth::id()) - ($c = !empty($merged_data[$x]['amount']) ? $merged_data[$x]['amount'] : 0)}}--}}
+                                            <td align="right">
+                                                <?php
+                                                $crdt = ($x == 0) ? Agent::getCreditLimit(Auth::id()) : 0;
+                                                if (!empty($merged_data[$x]['credit']))
+                                                    $c = $merged_data[$x]['credit'];
+                                                elseif (!empty($merged_data[$x]['debit']))
+                                                    $c = -$merged_data[$x]['debit'];
+                                                ?>
+                                                {{number_format($total += $crdt - $c,2)}}
                                             </td>
                                         </tr>
 
