@@ -23,15 +23,15 @@
             <div class="col-md-12 pagecontainer2 offset-0">
                 <ul class="nav nav-tabs nav-justified" role="tablist">
                     <li role="presentation" class="active">
-                        <a href="#bookings" aria-controls="{{!Session::has('activate_payments_tab') ? 'active' : ''}}" role="tab" data-toggle="tab">Bookings</a>
+                        <a href="#bookings" aria-controls="bookings" role="tab" data-toggle="tab">Bookings</a>
                     </li>
-                    <li role="presentation" class="{{Session::get('activate_payments_tab')}}">
+                    <li role="presentation" class="">
                         <a href="#payments" aria-controls="payments" role="tab" data-toggle="tab">Payments</a>
                     </li>
                 </ul>
 
                 <div class="tab-content4">
-                    <div role="tabpanel" class="tab-pane " id="bookings">
+                    <div role="tabpanel" class="tab-pane active" id="bookings">
                         <div class="col-md-12">
 
                             <form action="" method="get">
@@ -143,7 +143,6 @@
                             <h2>No Bookings Available</h2>
                         @endif
 
-
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="payments">
@@ -185,6 +184,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+
                                 @if(!empty($merged_data))
                                     @for($x= 1; $x< count($merged_data); $x++)
                                         <tr>
@@ -193,7 +193,10 @@
                                             <td>{{$merged_data[$x]['details']}}</td>
                                             <td>{{$merged_data[$x]['amount'] or '-'}}</td>
                                             <td>{{$merged_data[$x]['debit'] or '-'}}</td>
-                                            <td>{{''}}</td>
+
+                                            <td>
+{{--                                                {{ Agent::getCreditLimit(Auth::id()) - ($c = !empty($merged_data[$x]['amount']) ? $merged_data[$x]['amount'] : 0)}}--}}
+                                            </td>
                                         </tr>
 
                                     @endfor

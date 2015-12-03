@@ -43,13 +43,34 @@ class ClientsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-//        dd($data);
-
         $data['booking_id'] =$bookingId;
 
-		if(Client::create($data)){
+		if($bookingdata = Client::create($data)){
+			$booking = Booking::getBookingData($bookingdata->booking_id);
+			$pdf = PDF::loadView('emails/booking', array('booking' => $booking));
+			$pdf->save(public_path() . '/temp-files/booking'.$booking->id.'.pdf');
 
-            Booking::emailBookingDetails($bookingId);
+			$emails = array('tharinda@exotic-intl.com', 'lahiru@exotic-intl.com', 'umesh@exotic-intl.com');
+			$ehi_users = User::getEhiUsers();
+
+			Mail::send('emails/booking-mail', array(
+				'booking' => Booking::getBookingData($booking->id)
+			), function ($message) use ($booking, $emails, $ehi_users) {
+				$message->attach(public_path() . '/temp-files/booking'.$booking->id.'.pdf')
+					->subject('Amended Booking(Client Added): ' . $booking->reference_number)
+					->from('noreply@srilankahotels.com', 'SriLankaHotels.Travel')
+					->bcc('admin@srilankahotels.travel', 'Admin');
+				foreach ($emails as $emailaddress) {
+					$message->to($emailaddress, 'Admin');
+				}
+
+				if (!empty($ehi_users)) {
+					foreach ($ehi_users as $ehi_user) {
+						$message->to($ehi_user->email, $ehi_user->first_name);
+					}
+				}
+
+			});
         }
 
 		return Redirect::route('bookings.show',$bookingId);
@@ -121,7 +142,31 @@ class ClientsController extends \BaseController {
 	{
 
 		if(Client::destroy($id)){
-            Booking::emailBookingDetails($bookingId);
+			$booking = Booking::getBookingData($bookingId);
+			$pdf = PDF::loadView('emails/booking', array('booking' => $booking));
+			$pdf->save(public_path() . '/temp-files/booking'.$booking->id.'.pdf');
+
+			$emails = array('tharinda@exotic-intl.com', 'lahiru@exotic-intl.com', 'umesh@exotic-intl.com');
+			$ehi_users = User::getEhiUsers();
+
+			Mail::send('emails/booking-mail', array(
+				'booking' => Booking::getBookingData($booking->id)
+			), function ($message) use ($booking, $emails, $ehi_users) {
+				$message->attach(public_path() . '/temp-files/booking'.$booking->id.'.pdf')
+					->subject('Amended Booking (Client Removed): ' . $booking->reference_number)
+					->from('noreply@srilankahotels.com', 'SriLankaHotels.Travel')
+					->bcc('admin@srilankahotels.travel', 'Admin');
+				foreach ($emails as $emailaddress) {
+					$message->to($emailaddress, 'Admin');
+				}
+
+				if (!empty($ehi_users)) {
+					foreach ($ehi_users as $ehi_user) {
+						$message->to($ehi_user->email, $ehi_user->first_name);
+					}
+				}
+
+			});
         }
 
 		return Redirect::back();

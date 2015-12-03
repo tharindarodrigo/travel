@@ -27,6 +27,11 @@ class Agent extends \Eloquent
 
     }
 
+    public static function getCreditLimit($agent_id)
+    {
+        return Agent::where('user_id',$agent_id)->first()->credit_limit;
+    }
+
     public function user()
     {
         return $this->belongsTo('User');

@@ -43,21 +43,16 @@
                     @endforeach
                 </td>
                 <td align="right">{{number_format(Voucher::getVoucherAmount($voucher),2)}}</td>
-                <td align="center">{{$voucher->val ==0 ? 'Canclled':'Active'}}</td>
+                <td align="center">{{$voucher->val ==0 ? 'Cancelled':'Active'}}</td>
                 <td>
 
                     @if($voucher->val == 1)
-                        {{link_to('vouchers/'.$voucher->id.'/cancel','',array('class' => 'btn btn-warning glyphicon glyphicon-edit'))}}
-                    @else
-
+                        {{link_to('vouchers/'.$voucher->id.'/cancel','Cancel',array('class' => 'btn btn-warning', 'onclick'=>'confirmDelete()'))}}
                     @endif
 
-                    <button type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span>
-                    </button>
                     <a href="{{URL::to('voucher/'.$voucher->id)}}" class="btn btn-default"><span
                                 class="glyphicon glyphicon-eye-open"></span></a>
                     {{--<button class="btn btn-sm" data-toggle="modal" data-target="#voucherModal_{{$voucher->id}}" ><span class="glyphicon glyphicon-eye-open"></span></button>--}}
-
                 </td>
             </tr>
         @endforeach

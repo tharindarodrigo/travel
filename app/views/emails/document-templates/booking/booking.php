@@ -157,7 +157,7 @@
                     <tr>
                         <th align="left">Booked By</th>
                         <td>
-                            : <?php echo !empty($y = $booking->user->first()) ? $y->first_name . ' ' . $y->last_name : $booking->booking_name; ?>
+                            : <?php echo !empty($y = $booking->user) ? $y->first_name . ' ' . $y->last_name : $booking->booking_name; ?>
                         </td>
                     </tr>
                     <tr>

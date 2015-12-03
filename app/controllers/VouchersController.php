@@ -153,7 +153,7 @@ class VouchersController extends \BaseController
         $voucher->cancellation_amount = $cancellation_amount;
         $voucher->save();
 
-        $agent_user = $voucher->booking->user->first();
+        $agent_user = $voucher->booking->user;
 
         $pdf = PDF::loadView('emails/cancellation-voucher', array('voucher' => $voucher));
         $pdf->save(public_path() . '/temp-files/cancellation-voucher.pdf');
