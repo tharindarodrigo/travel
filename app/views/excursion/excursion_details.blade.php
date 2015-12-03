@@ -150,7 +150,7 @@
             <!-- RIGHT INFO -->
             <div class="col-md-4 detailsright offset-0">
                 <div class="padding20">
-                    <h1 style="color:#006699;"> {{ $excursion->excursion }} </h1>
+                    <h1 style="color:#3498db;"> {{ $excursion->excursion }} </h1>
 
                     {{ HTML::image('images/smallrating-5.png') }}
                 </div>
@@ -327,7 +327,7 @@
                 <div class="pagecontainer2 paymentbox grey price-box">
                     <div class="padding30">
                         <?php
-                        $directory = 'public/images/excursion_images/excursion_types/';
+                        $directory = public_path().'/images/excursion_images/excursion_types/';
                         $images = glob($directory . $excursion->id . "_*");
                         $img_path = array_shift($images);
                         $img_name = basename($img_path);

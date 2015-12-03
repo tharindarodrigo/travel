@@ -22,7 +22,7 @@ background:url('../../../updates/update1/img/bgflights.png') #000 repeat-y;
 .flightsgridmore{
 width:100%;
 height:30px;
-background:#006699;
+background:#3498db;
 color:black;
 text-align:center;
 padding:4px 0px 0px 0px;
@@ -83,7 +83,7 @@ padding:4px 0px 0px 0px;
 	height:20px;
 	float: left;
 	margin-left: 20px;
-	background:#006699;
+	background:#3498db;
 	position:absolute;
 	top:10px;
 	left:-10px;
@@ -101,7 +101,7 @@ a:hover.flightsprev   img {width:8px;height:14px; display:block; background:url(
 	height:20px;
 	float: right;
 	margin-right: 20px;
-	background:#006699;
+	background:#3498db;
 	position:absolute;
 	top:10px;
 	right:-11px;
@@ -226,7 +226,7 @@ li.fch2{height:90px!important; }
 	height:20px;
 	float: left;
 	margin-left: 20px;
-	background:#006699;
+	background:#3498db;
 	position:absolute;
 	top:10px;
 	left:-10px;
@@ -244,7 +244,7 @@ a:hover.flights2prev   img {width:8px;height:14px; display:block; background:url
 	height:20px;
 	float: right;
 	margin-right: 20px;
-	background:#006699;
+	background:#3498db;
 	position:absolute;
 	top:10px;
 	right:-11px;
@@ -272,7 +272,7 @@ a:hover.flights2next   img {width:8px;height:14px; display:block; background:url
 		FLIGHTS
 #####################*/
 .fblueline{
-background:#006699;
+background:#3498db;
 padding:3px 10px 3px 10px;
 color:#fff;
 }
@@ -396,9 +396,9 @@ border-radius: 4px;
 -webkit-transition:.2s;-moz-transition:.2s;transition:.2s
 }
 .selectbtn:hover{
-border:2px solid #006699;
+border:2px solid #3498db;
 padding:5px 10px 5px 10px;
-background:#006699;
+background:#3498db;
 color:#fff;
 }
 .selectbtn:hover.cunvailable{
@@ -630,7 +630,7 @@ margin:6px 0px 0px 4px;
 #################################*/
 
 img.search-logo{margin-bottom:5px; width:130px;}
-.blue{color:#006699;}
+.blue{color:#3498db;}
 
 .login-wrap2{
 width:80%;
@@ -664,7 +664,7 @@ width:40%;
 }
 ul.leftatr li{
 height:50px;
-background:#006699;
+background:#3498db;
 border-bottom:2px solid #e7e7e7;
 text-align:right;
 padding-top:15px;

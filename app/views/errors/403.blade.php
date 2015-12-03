@@ -17,12 +17,12 @@
         }
 
         .collapsebtn {
-            background: #006699;
+            background: #3498db;
             color: #FFFFFF;
         }
 
         h4 {
-            color: #006699;
+            color: #3498db;
         }
 
         .no_result{

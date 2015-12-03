@@ -31,17 +31,17 @@
 
     <style type="text/css">
         .collapsebtn {
-            background: #006699;
+            background: #3498db;
             color: #FFFFFF;
         }
 
         h1 {
-            color: #006699;
+            color: #3498db;
             font-family: 'Rokkitt', serif !important;
         }
 
         h4 {
-            color: #006699;
+            color: #3498db;
         }
 
         .transport_img {
@@ -416,7 +416,7 @@
                                 <div class="center">
                                     <a href="">
                                         <?php
-                                        $directory = 'public/images/transport_images/vehicles/';
+                                        $directory = public_path().'/images/transport_images/vehicles/';
                                         $images = glob($directory . $transport_package->Vehicle->id . "*");
                                         $img_path = array_shift($images);
                                         $img_name = basename($img_path);
@@ -527,7 +527,7 @@
                                     </span>
 
                                     <button data-toggle="modal" data-target="#myModal{{ $transport_package->id }}"
-                                            style="background: #006699; color: #ffffff;"
+                                            style="background: #3498db; color: #ffffff;"
                                             class="bookbtn right">Add To Cart
                                     </button>
 

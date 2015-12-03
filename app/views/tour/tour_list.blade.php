@@ -12,12 +12,12 @@
 
     <style type="text/css">
         .collapsebtn {
-            background: #006699;
+            background: #3498db;
             color: #FFFFFF;
         }
 
         h4 {
-            color: #006699;
+            color: #3498db;
         }
 
         .labelleft2 p {
@@ -230,7 +230,7 @@
 
                 <div class="hpadding20">
 
-                    <h1 style="color: #006699; font-family: 'Cinzel', serif; "> {{ str_replace('-', ' ', Request::segment(3)) }} </h1>
+                    <h1 style="color: #3498db; font-family: 'Cinzel', serif; "> {{ str_replace('-', ' ', Request::segment(3)) }} </h1>
 
                     <div class="line4"></div>
 
@@ -247,7 +247,7 @@
 
                         <?php
                         //echo public_path();
-                        $directory = 'public/images/tour_images/';
+                        $directory = public_path().'/images/tour_images/';
                         $images = glob($directory . $types->id . "*");
                         $img_path = array_shift($images);
                         $img_name = basename($img_path);
@@ -291,7 +291,7 @@
 
                                         {{--<span class="size11 grey"></span><br/><br/><br/>--}}
 
-                                        <a style="background: #006699; color: #FFFFFF" class="bookbtn mt1"
+                                        <a style="background: #3498db; color: #FFFFFF" class="bookbtn mt1"
                                            target="_blank"
                                            href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $types->Tour->tour_title).'/'.str_replace(' ', '-', $types->tour_type_title))}}">
                                             Book
@@ -301,7 +301,7 @@
 
                                         <a target="_blank" href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $types->tour->tour_title).'/'.str_replace(' ', '-', $types->tour_type_title))}}">
                                             <span class="size16">
-                                                <h4 style="color: #006699; font-family: 'Play', sans-serif;">{{ $types->tour_type_title }}</h4>
+                                                <h4 style="color: #3498db; font-family: 'Play', sans-serif;">{{ $types->tour_type_title }}</h4>
                                             </span>
                                         </a>
 

@@ -18,12 +18,12 @@
 
     <style type="text/css">
         .collapsebtn {
-            background: #006699;
+            background: #3498db;
             color: #FFFFFF;
         }
 
         h1 {
-            color: #006699;
+            color: #3498db;
             font-family: 'Rokkitt', serif !important;
         }
 
@@ -213,7 +213,7 @@
                     <div class="col-md-4 cpdd02">
                         <div class="opensans grey">
                             <?php
-                            $directory = 'public/images/tour_images/tour_types/';
+                            $directory = public_path().'/images/tour_images/tour_types/';
                             $images = glob($directory . $tour_type->id . "*");
                             $img_path = array_shift($images);
                             $img_name = basename($img_path);

@@ -32,7 +32,7 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
 
             onClose: function() {
                 var minValue = $(this).val();
-                minValue = $.datepicker.parseDate("dd/mm/yy", minValue);
+                minValue = $.datepicker.parseDate("yy/mm/dd", minValue);
                 minValue.setDate(minValue.getDate() + 1);
 
                 $("#datepicker2").datepicker("option", "minDate", minValue);

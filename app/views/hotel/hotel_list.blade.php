@@ -20,12 +20,17 @@
             padding-bottom: 2px;
             width: 75px;
         }
+
+        .city_blacklabel {
+            position: relative;
+            top: 150px;
+        }
     </style>
 
     <style type="text/css">
 
         .featurette-divider30 {
-            border-top: solid 1px #006699 !important;
+            border-top: solid 1px #3498db !important;
         }
 
         .hotel_img_1 {
@@ -39,12 +44,12 @@
         }
 
         .collapsebtn {
-            background: #006699;
+            background: #3498db;
             color: #FFFFFF;
         }
 
         h4 {
-            color: #006699;
+            color: #3498db;
         }
 
         /*GROW*/
@@ -71,7 +76,7 @@
         }
 
         .ui-widget-header {
-            background: #006699 !important;
+            background: #3498db !important;
         }
 
         .ui-dialog .ui-dialog-titlebar-close span {
@@ -90,47 +95,47 @@
 
         @media only screen and (min-width: 767px) {
             .hotel_border {
-                border: 2px solid #006699 !important;
+                border: 2px solid #3498db !important;
 
             }
 
             .hotel_border_img {
-                border: 2px solid #006699 !important;
+                border: 2px solid #3498db !important;
 
             }
         }
 
         @media only screen and (min-width: 480px) {
             .hotel_border {
-                border: 2px solid #006699 !important;
+                border: 2px solid #3498db !important;
 
             }
 
             .hotel_border_img {
-                border: 2px solid #006699 !important;
+                border: 2px solid #3498db !important;
 
             }
         }
 
         @media only screen and (min-width: 1280px) {
             .hotel_border {
-                border: 2px solid #006699 !important;
+                border: 2px solid #3498db !important;
                 border-left: none !important;
             }
 
             .hotel_border_img {
-                border: 2px solid #006699 !important;
+                border: 2px solid #3498db !important;
                 border-right: none !important;
             }
         }
 
         @media only screen and (min-width: 0px) and (max-width: 479px) {
             .hotel_border {
-                border: 2px solid #006699 !important;
+                border: 2px solid #3498db !important;
             }
 
             .hotel_border_img {
-                border: 2px solid #006699 !important;
+                border: 2px solid #3498db !important;
             }
         }
 
@@ -138,6 +143,49 @@
             background-image: url(../images/Google-Maps-icon.png);
             background-repeat: no-repeat;
         }
+
+    </style>
+
+    <style type="text/css">
+        .popover {
+            display: inline;
+            position: relative;
+        }
+
+        .popover:hover {
+            color: #c00;
+            text-decoration: none;
+        }
+
+        .popover:hover:after {
+            background: #111;
+            background: rgba(0,0,0,.8);
+            border-radius: .5em;
+            bottom: 1.35em;
+            color: #fff;
+            content: attr(title);
+            display: block;
+            left: 1em;
+            padding: .3em 1em;
+            position: absolute;
+            text-shadow: 0 1px 0 #000;
+            white-space: nowrap;
+            z-index: 98;
+        }
+
+        .popover:hover:before {
+            border: solid;
+            border-color: #111 transparent;
+            border-color: rgba(0,0,0,.8) transparent;
+            border-width: .4em .4em 0 .4em;
+            bottom: 1em;
+            content: "";
+            display: block;
+            left: 2em;
+            position: absolute;
+            z-index: 99;
+        }
+
     </style>
 
     <!-- bin/jquery.slider.min.css -->
@@ -524,20 +572,15 @@
                         <div class="col-md-4 offset-0">
 
                             <div class="hidden-xs hidden-md col-md-8">
-                                <button id="hotel_list_map" style="text-align: right" type="submit"
-                                        class="hotel_list_map_view">View Map
-                                </button>
+                                <input id="hotel_list_map" class="hotel_list_map_view" type="image"
+                                       src="../images/Google-Maps-icon.png" border="0" alt="Submit" width="80"
+                                       height="40"/>
 
                                 <div id="dialog" style="display: none;">
                                     <div id="dvMap" style="height: 380px; width: 580px;">
                                     </div>
                                 </div>
                             </div>
-
-                            <div id="submitForm">
-                                <input type="submit" value="Submit" name="submit">
-                            </div>
-
 
                             <div class="right">
                                 <a class="listbtn {{ Session::get('hot_view') == 1 ? 'active' : '' }}"
@@ -557,12 +600,13 @@
 
                     @if(empty($city_or_acc))
                         <div class="hidden-xs hidden-md offset-2">
-                            <div class="" style="padding: 0 !important;">
+                            <div class="" style="padding-top:0px !important;">
                                 {{ HTML::image('images/city_images/'.City::where('city', str_replace('-', ' ', Request::segment(2)))->select('id')->first()->id.'.jpg', '', array('class' => 'city_img_1'))}}
 
-                                <div class="city_blacklabel">
+                                <div style="top: 100px !important; left: 20px" class="city_blacklabel">
                                     <h4 style="color: #FFFFFF">{{ str_replace('-', ' ', Request::segment(2)) }}
-                                        City</h4>
+                                        City
+                                    </h4>
 
                                     {{ $hotels->getTotal(); }} Hotel
                                 </div>
@@ -583,7 +627,7 @@
 
                                         <?php
                                         //echo public_path();
-                                        $directory = 'public/images/hotel_images/';
+                                        $directory = public_path() . '/images/hotel_images/';
                                         $images = glob($directory . $hotel->id . "_*");
                                         $img_path = array_shift($images);
                                         $img_name = basename($img_path);
@@ -652,13 +696,6 @@
                                                 </span>
                                             @endif
 
-                                            <form method="POST" target="_blank"
-                                                  action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
-                                                <button style="background: #006699; color: #ffffff"
-                                                        class="bookbtn mt1"
-                                                        type="submit">Book
-                                                </button>
-                                            </form>
                                         </div>
 
                                         <div class="labelleft2 get_hotel_id" hotel_id="{{ $hotel->id }}">
@@ -677,7 +714,7 @@
 
                                             <div class="hidden-xs hidden-md">
                                                 <h6 style="display: inline"> {{ $hotel->address }} </h6>
-                                                {{ HTML::image('images/google-map-marker.png', '', array('class' => 'single_hotel_map'))}}
+                                                {{--                                                {{ HTML::image('images/google-map-marker.png', '', array('class' => 'single_hotel_map'))}}--}}
                                                 <br/>
                                             </div>
 
@@ -687,8 +724,67 @@
                                                 </div>
                                             </div>
 
-                                            <br/>
+                                            <?php
+                                            $wifi = array(
+                                                    '0' => 26,
+                                                    '1' => 28,
+                                                    '2' => 61,
+                                            );
+                                            $hotel_facilities = DB::table('hotel_hotel_facility')->where('hotel_id', $hotel->id)->whereIn('hotel_facility_id', $wifi)->first();
+                                            ?>
+                                            <script>
+                                                //Popover tooltips
+                                                $(function () {
+                                                    $("#username<?php echo $hotel->id; ?>").popover({
+                                                        container: 'body',
+                                                        placement: 'top',
+                                                        trigger: 'hover',
+                                                        html: true,
+                                                        title: function () {
+                                                            return $('#popover_title_wrapper<?php echo $hotel->id; ?>').html();
+                                                        },
+                                                        content: function () {
+                                                            return $('#popover_content_wrapper<?php echo $hotel->id; ?>').html();
+                                                        }
+                                                    });
+                                                });
+                                            </script>
 
+                                            <div id="popover_title_wrapper{{ $hotel->id }}" style="display: none">
+                                                <h4 style="color: #3498db"> Cancellation Policy </h4>
+                                            </div>
+
+                                            <div id="popover_content_wrapper{{ $hotel->id }}" style="display: none">
+                                                <div>
+
+                                                    <p>
+                                                        <strong style="color:#AF0B63;">You are in the cancellation
+                                                            period. Please refer the cancellation
+                                                            policy</strong>.<br><br>
+
+                                                        Before {{ (CancellationPolicy::where('hotel_id', $hotel->id)->where('percentage_charged', 100)->first()->to) - (CancellationPolicy::where('hotel_id', $hotel->id)->where('percentage_charged', 100)->first()->from) }}
+                                                        days no cancellation.<br><br>
+
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <ul class="checklist2 margtop10">
+                                                @if(!empty($hotel_facilities))
+                                                    <li>
+                                                        FREE Wi-Fi
+                                                    </li>
+                                                @endif
+                                                <li>FREE Cancellation
+                                                    <a href="#"
+                                                       class="popover1 glyphicon glyphicon-info-sign lblue cpointer"
+                                                       rel="popover" id="username{{ $hotel->id }}" data-content=""
+                                                       data-title=""
+                                                       data-original-title="" title="">
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <br/>
                                             {{--<p class="hidden-xs hidden-md" style="color: #F9622F">--}}
                                             {{--{{ strip_tags(Str::limit($hotel->overview, 150)) }}--}}
                                             {{--</p>--}}
@@ -705,7 +801,7 @@
                                                     @foreach($hotel_facilities->HotelFacility as $hotel_facility)
                                                         <?php
                                                         //echo public_path();
-                                                        $directory = 'public/images/hotel_facilities/';
+                                                        $directory = public_path() . '/images/hotel_facilities/';
                                                         $images = glob($directory . $hotel_facility->id . "*");
                                                         $img_path = array_shift($images);
                                                         $img_name = basename($img_path);
@@ -723,7 +819,7 @@
                                                     @foreach($hotel_facilities->HotelFacility as $hotel_facility)
                                                         <?php
                                                         //echo public_path();
-                                                        $directory = 'public/images/hotel_facilities/';
+                                                        $directory = public_path() . '/images/hotel_facilities/';
                                                         $images = glob($directory . $hotel_facility->id . "*");
                                                         $img_path = array_shift($images);
                                                         $img_name = basename($img_path);

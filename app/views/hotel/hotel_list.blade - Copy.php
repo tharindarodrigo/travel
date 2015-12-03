@@ -17,12 +17,12 @@
         }
 
         .collapsebtn {
-            background: #006699;
+            background: #3498db;
             color: #FFFFFF;
         }
 
         h4 {
-            color: #006699;
+            color: #3498db;
         }
 
         /*GROW*/
@@ -713,7 +713,7 @@
 
                                     <?php
                                     //echo public_path();
-                                    $directory = 'public/images/hotel_images/';
+                                    $directory = public_path().'/images/hotel_images/';
                                     $images = glob($directory . $hotel->id . "_*");
                                     $img_path = array_shift($images);
                                     $img_name = basename($img_path);
@@ -801,7 +801,7 @@
                                             @foreach($hotel_facilities->hotelFacility as $hotel_facility)
                                                 <?php
                                                 //echo public_path();
-                                                $directory = 'public/images/hotel_facilities/';
+                                                $directory = public_path().'/images/hotel_facilities/';
                                                 $images = glob($directory . $hotel_facility->id . "*");
                                                 $img_path = array_shift($images);
                                                 $img_name = basename($img_path);
@@ -830,7 +830,7 @@
 
                                         <?php
                                         //echo public_path();
-                                        $directory = 'public/images/hotel_images/';
+                                        $directory = public_path().'/images/hotel_images/';
                                         $images = glob($directory . $hotel->id . "_*");
                                         $img_path = array_shift($images);
                                         $img_name = basename($img_path);
@@ -918,7 +918,7 @@
                                                 @foreach($hotel_facilities->hotelFacility as $hotel_facility)
                                                     <?php
                                                     //echo public_path();
-                                                    $directory = 'public/images/hotel_facilities/';
+                                                    $directory = public_path().'/images/hotel_facilities/';
                                                     $images = glob($directory . $hotel_facility->id . "*");
                                                     $img_path = array_shift($images);
                                                     $img_name = basename($img_path);

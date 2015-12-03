@@ -48,7 +48,7 @@ class HotelFacilitiesController extends \BaseController
                     ->encode('png')
                     ->resize(32, 32, function ($constraint) {
                         $constraint->aspectRatio();
-                    })->save('public/control-panel-assets/images/hotel-facilities/'.$hotelfacility->id.'.png');
+                    })->save(public_path().'/control-panel-assets/images/hotel-facilities/'.$hotelfacility->id.'.png');
             }
 
             Session::flash('successful-action', 'Hotel Facility was created Successfully');
@@ -124,13 +124,13 @@ class HotelFacilitiesController extends \BaseController
             if(Input::file('icon')){
 
 //                dd('asdasd');
-                File::delete('public/control-panel-assets/images/hotel-facilities/'.$id.'.png');
+                File::delete(public_path().'/control-panel-assets/images/hotel-facilities/'.$id.'.png');
 
                 Image::make(Input::file('icon'))
                     ->encode('png')
                     ->resize(32, 32, function ($constraint) {
                         $constraint->aspectRatio();
-                    })->save('public/control-panel-assets/images/hotel-facilities/'.$id.'.png');
+                    })->save(public_path().'/control-panel-assets/images/hotel-facilities/'.$id.'.png');
             }
             Session::flash('successful-action', 'Hotel Facility was updated Successfully');
 
@@ -152,7 +152,7 @@ class HotelFacilitiesController extends \BaseController
         if ($delete = HotelFacility::destroy($id)) {
 
             //Delete the icon with respect to the record
-            File::delete('public/control-panel-assets/images/hotel-facilities/'.$id.'.png');
+            File::delete(public_path().'/control-panel-assets/images/hotel-facilities/'.$id.'.png');
 
             Session::flash('successful-action', 'Item was deleted Successfully');
         } else {

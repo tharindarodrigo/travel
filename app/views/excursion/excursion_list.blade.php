@@ -44,12 +44,12 @@
         }
 
         .collapsebtn {
-            background: #006699;
+            background: #3498db;
             color: #FFFFFF;
         }
 
         h4 {
-            color: #006699;
+            color: #3498db;
         }
 
         .excursion_short p, li {
@@ -234,7 +234,7 @@
 
                 <div class="hpadding20">
 
-                    <h1 style="color: #006699; font-family: 'Cinzel', serif; "> {{ str_replace('-', ' ', Request::segment(3)) }} </h1>
+                    <h1 style="color: #3498db; font-family: 'Cinzel', serif; "> {{ str_replace('-', ' ', Request::segment(3)) }} </h1>
 
                     <div class="line4"></div>
 
@@ -251,7 +251,7 @@
 
                         <?php
                         //echo public_path();
-                        $directory = 'public/images/excursion_images/';
+                        $directory = public_path().'/images/excursion_images/';
                         $images = glob($directory . $excursion->id . "*");
                         $img_path = array_shift($images);
                         $img_name = basename($img_path);
@@ -294,7 +294,7 @@
 
                                         {{--<span class="size11 grey"></span><br/><br/><br/>--}}
 
-                                        <a style="background: #006699; color: #FFFFFF" class="bookbtn mt1" target="_blank"
+                                        <a style="background: #3498db; color: #FFFFFF" class="bookbtn mt1" target="_blank"
                                            href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursion->ExcursionType->excursion_type).'/'.str_replace(' ', '-', $excursion->excursion))}}">
                                             Book
                                         </a>
@@ -304,7 +304,7 @@
 
                                         <a target="_blank" href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursion->ExcursionType->excursion_type).'/'.str_replace(' ', '-', $excursion->excursion))}}">
                                             <span class="size16">
-                                                <h4 style="color: #006699; font-family: 'Play', sans-serif;">{{ $excursion->excursion }}</h4>
+                                                <h4 style="color: #3498db; font-family: 'Play', sans-serif;">{{ $excursion->excursion }}</h4>
                                             </span>
                                         </a>
 

@@ -1,3 +1,24 @@
+<?php
+
+$total_cost = 0;
+$total_cost_transport = 0;
+$total_cost_predefine_transport = 0;
+$total_cost_excursion = 0;
+
+if (Session::has('predefined_transport')) {
+    $predefined_transports = Session::get('predefined_transport');
+} else {
+    $predefined_transports = '';
+}
+
+if (Session::has('excursion_cart_details')) {
+    $excursion_cart_details = Session::get('excursion_cart_details');
+} else {
+    $excursion_cart_details = '';
+}
+
+?>
+
 @extends('bookings.bookings')
 
 @section('styles')
@@ -354,16 +375,6 @@
                     <div class="line3"></div>
 
                     <div class="hpadding30 margtop30">
-                        <table class="table table-bordered margbottom20">
-                            <tr>
-                                <td>Guests recommendations</td>
-                                <td class="center green bold">97%</td>
-                            </tr>
-                            <tr>
-                                <td>Guest ratings</td>
-                                <td class="center green bold">4.5</td>
-                            </tr>
-                        </table>
 
                         @if(Session::has('rate_box_details'))
                             <table class="table table-bordered margbottom20">
@@ -396,8 +407,10 @@
                                                         {{ $hotel_booking[$x]['room_specification'] }} room <br/>
                                                         @if($market == 1)
                                                             <span class="green"> {{ Session::get('currency'). '&nbsp;'  . number_format(($hotel_booking[$x]['room_cost'] + ($hotel_booking[$x]['hotel_tax'] + $hotel_booking[$x]['hotel_handling_fee'])), 2, '.', '') }} </span>
+                                                            <?php $total_cost = $total_cost + $hotel_booking[$x]['room_cost'] + ($hotel_booking[$x]['hotel_tax'] + $hotel_booking[$x]['hotel_handling_fee'] + $hotel_booking[$x]['supplement_rate']); ?>
                                                         @else
-                                                           <span class="green">{{ Session::get('currency'). '&nbsp;'  . number_format(($hotel_booking[$x]['room_cost'] ), 2, '.', '') }} </span>
+                                                            <span class="green">{{ Session::get('currency'). '&nbsp;'  . number_format(($hotel_booking[$x]['room_cost'] ), 2, '.', '') }} </span>
+                                                            <?php $total_cost = $total_cost + $hotel_booking[$x]['room_cost'] ?>
                                                         @endif
                                                     @endfor
                                                 </div>
@@ -405,38 +418,158 @@
                                                 <div class="size12 lblue">
 
                                                 </div>
-
                                                 <div class="clearfix"></div>
                                                 <div class="line3"></div>
                                             @endforeach
                                         </div>
 
-                                        <!-- End of collapse 1 -->
-                                        <div class="clearfix"></div>
-                                        Taxes & Fees per night
+                                    </td>
+                                    <td class="center green">
+                                        Total Cost <br/>
+                                        {{ Session::get('currency') }} <br/>
+                                        {{ number_format(($total_cost * Session::get('currency_rate')), 2, '.', '') }}
+                                        <br/>
+                                    </td>
+                                </tr>
+                            </table>
+                        @endif
+
+                        @if(Session::has('transport_cart_box'))
+                            <table class="table table-bordered margbottom20">
+                                <tr>
+                                    <td>
+                                        <h5 style="font-weight: 600" class="dark">Transport Bookings</h5>
 
                                         <!-- Collapse 1 -->
                                         <button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse"
-                                                data-target="#collapse2"></button>
+                                                data-target="#collapse2">
+
+                                        </button>
+
                                         <div id="collapse2" class="collapse">
-                                            <div class="left size12 lred">
-                                                Thu Nov 14<br/>
-                                                Fri Nov 15
-                                            </div>
-                                            <div class="right size12 lred">
-                                                $1.51<br/>
-                                                $1.00
-                                            </div>
-                                            <div class="clearfix"></div>
+
+                                            @foreach($transport_bookings as $transport_booking)
+                                                <div class="size12 lblue">
+
+                                                    Vehicle - {{ $transport_booking['vehicle_type']  }}
+                                                    <br/>
+
+                                                    From - {{ $transport_booking['origin'] }} <br/>
+                                                    To -  {{ $transport_booking['destination_1'] }}  <br/>
+
+                                                </div>
+
+                                                <span class="green">{{ Session::get('currency'). '&nbsp;'  . number_format(($transport_booking['cost'] ), 2, '.', '') }} </span>
+                                                <?php $total_cost_transport = $total_cost_transport + $transport_booking['cost']; ?>
+                                                <div class="clearfix"></div>
+                                                <div class="line3"></div>
+                                            @endforeach
                                         </div>
-                                        <!-- End of collapse 1 -->
-                                        <div class="clearfix"></div>
 
                                     </td>
-                                    <td class="center">
-                                        avg./night<br/>
-                                        $35.92<br/>
-                                        $2.51<br/>
+                                    <td class="center green">
+                                        Total Cost <br/>
+                                        {{ Session::get('currency') }} <br/>
+                                        {{ number_format(($total_cost_transport * Session::get('currency_rate')), 2, '.', '') }}
+
+                                        <br/>
+                                    </td>
+                                </tr>
+                            </table>
+                        @endif
+
+                        @if(Session::has('predefined_transport'))
+                            <table class="table table-bordered margbottom20">
+                                <tr>
+                                    <td>
+                                        <h5 style="font-weight: 600" class="dark">Predefined Transport Bookings</h5>
+
+                                        <!-- Collapse 1 -->
+                                        <button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse"
+                                                data-target="#collapse3">
+
+                                        </button>
+
+                                        <div id="collapse3" class="collapse">
+
+                                            @foreach($predefined_transports as $predefined_transport)
+                                                <div class="size12 lblue">
+
+                                                    Vehicle
+                                                    - {{ Vehicle::where('id', TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->vehicle_id)->first()->vehicle_type }}
+                                                    <br/>
+
+                                                    From
+                                                    - {{ City::where('id' , TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->origin)->first()->city; }}
+                                                    <br/>
+                                                    To
+                                                    -  {{ City::where('id' , TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->destination)->first()->city; }}
+                                                    <br/>
+
+                                                </div>
+
+                                                <span class="green">{{ Session::get('currency'). '&nbsp;'  . number_format((TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->rate), 2, '.', '') }} </span>
+                                                <?php $total_cost_predefine_transport = $total_cost_predefine_transport + TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->rate; ?>
+                                                <div class="clearfix"></div>
+                                                <div class="line3"></div>
+
+                                            @endforeach
+                                        </div>
+
+                                    </td>
+                                    <td class="center green">
+                                        Total Cost <br/>
+                                        {{ Session::get('currency') }} <br/>
+                                        {{ number_format(($total_cost_predefine_transport * Session::get('currency_rate')), 2, '.', '') }}
+
+                                        <br/>
+                                    </td>
+                                </tr>
+                            </table>
+                        @endif
+
+                        @if(Session::has('excursion_cart_details'))
+                            <table class="table table-bordered margbottom20">
+                                <tr>
+                                    <td>
+                                        <h5 style="font-weight: 600" class="dark">Excursion Bookings</h5>
+
+                                        <!-- Collapse 1 -->
+                                        <button type="button" class="collapsebtn3 collapsed mt-5" data-toggle="collapse"
+                                                data-target="#collapse4">
+
+                                        </button>
+
+                                        <div id="collapse4" class="collapse">
+                                            @foreach($excursion_cart_details as $excursion_cart_detail)
+                                                <div class="size12 lblue">
+
+                                                    {{ Excursion::where('id', $excursion_cart_detail['excursion'])->first()->excursion }}
+                                                    <br/>
+
+                                                    From -
+                                                    {{ $excursion_cart_detail['excursion_city'] }}
+                                                    <br/>
+                                                    Date -
+                                                    {{ $excursion_cart_detail['excursion_date'] }}
+                                                    <br/>
+
+                                                </div>
+
+                                                <span class="green">{{ Session::get('currency'). '&nbsp;'  . number_format((substr($excursion_cart_detail['excursion_total'], 9)), 2, '.', '') }} </span>
+                                                <?php $total_cost_excursion = $total_cost_excursion + substr($excursion_cart_detail['excursion_total'], 9) ?>
+                                                <div class="clearfix"></div>
+                                                <div class="line3"></div>
+                                            @endforeach
+                                        </div>
+
+                                    </td>
+                                    <td class="center green">
+                                        Total Cost <br/>
+                                        {{ Session::get('currency') }} <br/>
+                                        {{ number_format(($total_cost_excursion * Session::get('currency_rate')), 2, '.', '') }}
+
+                                        <br/>
                                     </td>
                                 </tr>
                             </table>
@@ -448,7 +581,11 @@
                     <div class="line3"></div>
                     <div class="padding30">
                         <span class="left size14 dark">Trip Total:</span>
-                        <span class="right lred2 bold size18">$192.15</span>
+
+                        <span class="right lred2 bold size18">
+                            {{ Session::get('currency') }}
+                            {{ number_format(($total_cost + $total_cost_transport + $total_cost_predefine_transport + $total_cost_excursion * Session::get('currency_rate')), 2, '.', '') }}
+                        </span>
 
                         <div class="clearfix"></div>
                     </div>
@@ -467,34 +604,6 @@
                             answer any related questions</p>
 
                         <p class="opensans size30 lblue xslim">1-866-599-6674</p>
-                    </div>
-                </div>
-                <br/>
-
-                <div class="pagecontainer2 loginbox">
-                    <div class="cpadding1">
-                        <span class="icon-lockk"></span>
-
-                        <h3 class="opensans">Log in</h3>
-                        <input type="text" class="form-control logpadding" placeholder="Username">
-                        <br/>
-                        <input type="text" class="form-control logpadding" placeholder="Password">
-
-                        <div class="margtop20">
-                            <div class="left">
-                                <div class="checkbox padding0">
-                                    <label>
-                                        <input type="checkbox">Remember
-                                    </label>
-                                </div>
-                                <a href="#" class="greylink">Lost password?</a><br/>
-                            </div>
-                            <div class="right">
-                                <button class="btn-search5" type="submit" onclick="errorMessage()">Login</button>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <br/>
                     </div>
                 </div>
                 <br/>

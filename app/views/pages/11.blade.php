@@ -4,405 +4,469 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Hotel list </title>
+    <title> srilankahotel.travel - </title>
 
 @endsection
 
 @section('custom_style')
 
     <style type="text/css">
-        .hotel_img_1 {
-            width: 325px;
+        .tour_img_index {
+            width: 60px;
+            height: 60px;
+        }
+
+        .top_destination {
+            width: 200px;
+            height: 180px;
+        }
+
+        .fwimg {
+            width: 797px;
+            height: 107px;
+        }
+
+        .img_home_offer {
+            /*width: 100%;*/
+            height: 100%;
+        }
+
+        .guest_review {
+            width: 330px;
             height: 250px;
         }
 
-        .collapsebtn {
-            background: #006699;
+        .lastminute3_head {
+            height: 42px;
+        {{--            background-image: url('{{ asset(public_path().'/images/site/confideance-background.png') }}');--}} margin-top: -30px;
+            background: #3498db;
             color: #FFFFFF;
+            /*border-radius: 14px 14px 14px 14px;*/
+            /*-moz-border-radius: 14px 14px 14px 14px;*/
+            /*-webkit-border-radius: 14px 14px 14px 14px;*/
+            border: 0px solid #000000;
         }
 
-        h4 {
-            color: #006699;
+        .lastminute3_img {
+            /*margin-left: -50px;*/
         }
 
-        .no_result{
-            width: 650px;
-            height: 400px;
+        .lastminute3_img_2 {
+            /*display: inline;*/
+        }
+
+        #commentbox {
+            background-image: url(images/site/aaaa.png);
+            background-repeat: no-repeat;
+            z-index: 90;
+            height: 50px;
+            width: 90px;
+            text-align: center;
+            box-shadow: 5px 5px 5px #888888;
+        }
+
+        #commentrating {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10px;
+            font-weight: bold;
+            color: #FFF;
+            padding-top: 8px;
+        }
+
+        #commentnums {
+            color: #FFF;
+            font-family: Georgia, "Times New Roman", Times, serif;
+            font-size: 14px;
+            font-weight: bolder;
+        }
+
+        .ddd {
+            margin-top: -10px;
         }
 
     </style>
 
-    <!-- bin/jquery.slider.min.css -->
-    {{ HTML::style('plugins/jslider/css/jslider.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
-    {{ HTML::style('plugins/jslider/css/jslider.round.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
-
-    <!-- bin/jquery.slider.min.js -->
-    {{ HTML::script('plugins/jslider/js/jshashtable-2.1_src.js') }}
-    {{ HTML::script('plugins/jslider/js/jquery.numberformatter-1.2.3.js') }}
-    {{ HTML::script('plugins/jslider/js/tmpl.js') }}
-    {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
-    {{ HTML::script('plugins/jslider/js/draggable-0.1.js') }}
-    {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
-    <!-- end -->
+    {{--my styles--}}
+    {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
 @endsection
 
 @section('content')
 
-    <body id="top" class="thebg">
+    <body id="top">
 
-    <div class="navbar-wrapper2 navbar-fixed-top">
-        @include('layout.navbar')
+    <!-- navbar -->
+    @include('layout.navbar')
+    <!-- / navbar -->
+
+    <!--
+    #################################
+            - THEMEPUNCH BANNER -
+    #################################
+    -->
+
+    <div id="" class="mtslide sliderbg fixed">
+        @include('layout.slider')
     </div>
 
-    <div class="container breadcrub">
-        <div>
-            <a class="homebtn left" href="#"></a>
+    <!--
+    ##############################
+     - ACTIVATE THE BANNER HERE -
+    ##############################
+    -->
 
-            <div class="left">
-                <ul class="bcrumbs">
-                    <li><a href="http://localhost:8888" class="active">Home </a></li>
-                </ul>
-            </div>
-            <a class="backbtn right" href="#"></a>
-        </div>
-        <div class="clearfix"></div>
-        {{--<div class="brlines"></div>--}}
-    </div>
+    <!-- WRAP -->
 
-    <!-- CONTENT -->
-    <div class="container">
-        <div class="container pagecontainer offset-0">
+    <div class="wrap cstyle03">
 
-            <!-- FILTERS -->
-            <div class="col-md-3 filters offset-0">
+        <div style="" id="index_body" class="container mt-200 z-index100">
+            <div class="row">
 
-                <!-- TOP TIP -->
-                <div class="filtertip">
-                    <div class="padding20">
-
-                    </div>
-                    <div class="tip-arrow"></div>
+                <div class="col-md-4">
+                    @include('layout.reservation_box')
                 </div>
 
-                <!-- Reservation Box -->
-                @include('layout.reservation_box_pages')
-                <!-- End Of Reservation Box -->
-                <div class="line2"></div>
+                <div class="col-md-4">
+                    <div class="shadow cstyle05">
+                        <div class="fwi one">
+                            {{ HTML::image('images/site/993_anilana pasikuda1.png', '', array('class' => 'img_home_offer'))}}
+                            <div class="mhover none">
+                                <span class="icon">
+                                    <a href="{{URL::to('sri-lanka/-Passikudah/Anilana-Passikudah')}}">
+                                        <img src="images/spacer.png" alt=""/>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="ctitle" style="font-size: 16px;"> Anilana Pasikuda
+                            <a href="#">
+                                <img src="images/spacer.png" alt=""/>
+                            </a>
+                            <span>{{ Session::get('currency') . '&nbsp;' . ( (number_format(((RoomRates::lowestHotelRate(993, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', ''))); }} </span>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="line2"></div>
-                <div class="clearfix"></div>
-                <br/>
-                <br/>
-                <br/>
+                <div class="col-md-4">
+                    <div class="shadow cstyle05">
+                        <div class="fwi one">
+                            {{ HTML::image('images/site/1339_Serene_Pavilion.png', '', array('class' => 'img_home_offer'))}}
+                            <div class="mhover none">
+                                <span class="icon">
+                                    <a href="{{URL::to('sri-lanka/Wadduwa/Serene-Pavilions')}}">
+                                        <img src="images/spacer.png" alt=""/>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="ctitle" style="font-size: 16px;"> Serene Pavilion
+                            <a href="#">
+                                <img src="images/spacer.png" alt=""/>
+                            </a>
+                            <span>{{ Session::get('currency') . '&nbsp;' . ( number_format(((RoomRates::lowestHotelRate(1339, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', '')); }}</span>
+                        </div>
+                    </div>
+                </div>
 
             </div>
-            <!-- END OF FILTERS -->
+        </div>
 
-            <!-- LIST CONTENT-->
-            <div class="rightcontent col-md-9 offset-0">
+        <!--srilankahotels.travel - tours-->
 
-                <div class="itemscontainer offset-1">
-                    <br/><br/>
+        <div class="deals3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="lbl">
+                            <a href="">
+                                {{ HTML::image('images/tour_images/tour_banner.png', '', array('class' => 'fwimg'))}}
+                            </a>
 
-                    <div style="padding: 10%" class="container offset-2" >
-                        <?php
+                            <div class="smallblacklabel">Tours</div>
+                        </div>
+                        <?php $j = 7; ?>
+                        @foreach($tour as $tours)
+                            <div class="deal">
+                                {{ HTML::image('images/tour_images/index/'.$tours->id.'.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
 
-                        if (Session::has('st_date')) {
-                            $st_date = Session::get('st_date');
-                        } else {
-                            $st_date = date("Y/m/d");
-                        }
+                                <div class="dealtitle">
+                                    <p>
+                                        <a href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $tours->tour_title))}}"
+                                           class="dark">{{ $tours->tour_title }}</a>
+                                    </p>
+                                    {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
 
-                        // Session::flush();
-
-                        if (Session::has('ed_date')) {
-                            $ed_date = Session::get('ed_date');
-                        } else {
-                            $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
-                        }
-
-                        // Filtering - Hotel
-                        $hotel_type = DB::table('hotel_categories')->get();
-                        $hotel_cities = DB::table('cities')->get();
-                        $hotel_facilities = DB::table('hotel_facilities')->get();
-
-                        // Filtering - Transport
-                        $vehicle = Vehicle::lists('vehicle_type', 'id');
-                        //$city = City::lists('city', 'id');
-
-                        ?>
-                        <script type="text/javascript">
-                            $(function () {
-
-                                $("#datepicker").datepicker({
-
-                                    onClose: function() {
-                                        var minValue = $(this).val();
-                                        minValue = $.datepicker.parseDate("dd/mm/yy", minValue);
-                                        minValue.setDate(minValue.getDate() + 1);
-
-                                        $("#datepicker2").datepicker("option", "minDate", minValue);
-                                        return $("#datepicker2").datepicker("show");
-                                    }
-
-                                });
-
-                            });
-                        </script>
-
-                        <style type="text/css">
-                            .ac_loading {
-                                background: white url('images/site/indicator.gif') right center no-repeat;
-                            }
-
-                            #suggestions {
-                                width: 90%;
-                                height: 200px;
-                                position: absolute;
-                                top: 140px;
-                                left: 20px;
-                            }
-
-                            #suggestions {
-                                height: 200px;
-                                z-index: 102;
-                            }
-                        </style>
-
-
-                        <script type="text/javascript">
-                            $(document).ready(function () {
-                                document.getElementById("hotel").style.overflow = "visible";
-//        document.getElementById("suggestions").style.zIndex = 2500;
-                            });
-                        </script>
-
-                        <div class="bs-example bs-example-tabs cstyle04">
-
-                            <ul class="nav nav-tabs" id="myTab">
-
-                                <li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#hotel"><span class="hotel"></span>Hotel</a>
-                                </li>
-                                <li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#car"><span class="car"></span>Transport</a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content3" id="myTabContent">
-
-                                <!-- HOTEL TAB -->
-                                <div id="hotel" class="tab-pane fade active in" style="overflow-y: visible !important;">
-                                    {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'searchform', 'method' => 'POST', )) }}
-                                    <span class="opensans size18">Where do you want to go?</span>
-
-                                    <input type="text" class="form-control" name="txt-search" id="inputString" category=""
-                                           onkeyup="lookup(this.value);" autocomplete="off"/>
-
-                                    <div id="suggestions"></div>
-
-                                    <br/>
-
-
-                                    <div class="w50percent">
-                                        <div class="wh90percent textleft">
-                                            <span class="opensans size13">Check In Date</span>
-                                            <input type="text" name="check_in_date" class="form-control mySelectCalendar"
-                                                   id="datepicker"
-                                                   value="{{ Session::has('st_date') ? Session::get('st_date') : $st_date }}"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right">
-                                            <span class="opensans size13">Check Out Date</span>
-                                            <input type="text" name="check_out_date" class="form-control mySelectCalendar"
-                                                   id="datepicker2"
-                                                   value="{{ Session::has('ed_date') ? Session::get('ed_date') : $ed_date }}"/>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="clearfix"></div>
-
-                                    <div class="room1 margtop15">
-                                        <div class="w50percent">
-                                            <div class="wh90percent textleft">
-                                                <span class="opensans size13"><b>ROOM 1</b></span><br/>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="w50percentlast">
-                                        <div class="wh90percent textleft right ohidden">
-                                            <div class="w50percent">
-                                                <div class="wh90percent textleft left">
-                                                    <span class="opensans size13"><b>Adult</b></span>
-                                                    <select class="form-control mySelectBoxClass">
-                                                        <option value="1" {{ Session::get('adult') == 1 ? 'selected' : '' }}>
-                                                            1
-                                                        </option>
-                                                        <option value="2" {{ Session::get('adult') == 2 ? 'selected' : '' }}>
-                                                            2
-                                                        </option>
-                                                        <option value="3" {{ Session::get('adult') == 3 ? 'selected' : '' }}>
-                                                            3
-                                                        </option>
-                                                        <option value="4" {{ Session::get('adult') == 4 ? 'selected' : '' }}>
-                                                            4
-                                                        </option>
-                                                        <option value="5" {{ Session::get('adult') == 5 ? 'selected' : '' }}>
-                                                            5
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="w50percentlast">
-                                                <div class="wh90percent textleft right ohidden">
-                                                    <span class="opensans size13"><b>Child</b></span>
-                                                    <select class="form-control mySelectBoxClass">
-                                                        <option value="0" {{ Session::get('child') == 0 ? 'selected' : '' }}>
-                                                            0
-                                                        </option>
-                                                        <option value="1" {{ Session::get('child') == 1 ? 'selected' : '' }}>
-                                                            1
-                                                        </option>
-                                                        <option value="2" {{ Session::get('child') == 2 ? 'selected' : '' }}>
-                                                            2
-                                                        </option>
-                                                        <option value="3" {{ Session::get('child') == 3 ? 'selected' : '' }}>
-                                                            3
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="city_or_acc_hidden" value="Beach-Hotels"/>
-
-                                    <div class="searchbg">
-                                        <button type="submit" class="btn-search">Search</button>
-                                    </div>
-                                    {{ Form::close() }}
                                 </div>
-                                <!-- END OF HOTEL TAB -->
 
-                                <!-- TRANSPORT TAB -->
-                                <div id="car" class="tab-pane fade">
-                                    {{ Form::open(array('url' => 'transport-list', 'files'=> true, 'id' => 'transport_search_form', 'method' => 'POST', )) }}
+                                {{--{{ HTML::image('images/site/kk.png', '', array('class' => 'right ddd'))}}--}}
 
-                                    <div class="">
-                                        <div class="wh90percent textleft">
-                                            <span class="opensans size13">Vehicle Type</span>
-                                            {{ Form::select('vehicle', $vehicle, null, array('class' => 'form-control mySelectBoxClass transport_vehicle_select', 'id' => 'transport_vehicle')) }}
+                                <div class="right" style="margin-top: -10px">
+                                    <div id="commentbox">
+                                        <div id="commentrating">Rating</div>
+                                        <div id="commentnums">
+                                            {{ $j }}/7
                                         </div>
                                     </div>
-                                    <div class="clearfix pbottom15"></div>
-
-                                    <div class="">
-                                        <div class="wh90percent textleft">
-                                            <span class="opensans size13">From</span>
-                                            {{ Form::select('from', City::lists('city', 'id'), null, array('class' => 'form-control mySelectBoxClass transport_origin_select_1', 'id' => 'transport_origin_2')) }}
-                                        </div>
-                                    </div>
-                                    <div class="clearfix pbottom15"></div>
-
-                                    <div class="">
-                                        <div class="wh90percent textleft">
-                                            <span class="opensans size13">To</span>
-                                            {{ Form::select('to', City::lists('city', 'id'), null, array('class' => 'form-control mySelectBoxClass transport_destination_select_1', 'id' => 'transport_destination_2')) }}
-                                        </div>
-                                    </div>
-                                    <div class="clearfix pbottom15"></div>
-
-                                    <div class="">
-                                        <div class="wh90percent textleft">
-                                            <span class="opensans size13">Days</span>
-                                            {{ Form::selectRange('transport_days', 1, 10, null, ['class' => 'form-control mySelectBoxClass day_count', 'id' => 'transport_days']) }}
-                                        </div>
-                                    </div>
-                                    <div class="clearfix pbottom15"></div>
-
-                                    <button type="submit" class="btn-search3">Search</button>
-
-                                    {{ Form::close() }}
                                 </div>
-                                <!-- END OF TRANSPORT TAB -->
-
                             </div>
+                            <?php $j = $j - 1?>
+                        @endforeach
+                    </div>
+                    <!-- End of first row-->
 
+                    <div class="col-md-4">
+                        <div class="lbl">
+                            <a href="">
+                                {{ HTML::image('images/excursion_images/excursion_banner.jpg', '', array('class' => 'fwimg'))}}
+                            </a>
+
+                            <div class="smallblacklabel">Excursion</div>
+                        </div>
+                        <?php $i = 7; ?>
+                        @foreach($excursion as $excursions)
+                            <div class="deal">
+                                {{ HTML::image('images/excursion_images/index/'.$excursions->id.'.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
+
+                                <div class="dealtitle">
+                                    <p>
+                                        <a href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursions->excursion_type))}}"
+                                           class="dark">
+                                            {{ $excursions->excursion_type }}
+                                        </a>
+                                    </p>
+                                    {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
+                                </div>
+
+                                <div class="right" style="margin-top: -10px">
+                                    <div id="commentbox">
+                                        <div id="commentrating">Rating</div>
+                                        <div id="commentnums">
+                                            {{ $i }}/7
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php $i = $i - 1; ?>
+                        @endforeach
+
+                    </div>
+                    <!-- End of first row-->
+
+                    <div class="col-md-4">
+
+                        <div class="lbl">
+                            <a href="">
+                                {{ HTML::image('images/top_destination.jpg', '', array('class' => 'fwimg'))}}
+                            </a>
+
+                            <div class="smallblacklabel">Top Destination</div>
                         </div>
 
+                        {{--@foreach($user_review as $reviews)--}}
+                        {{--<div class="deal">--}}
+                        {{--<a href="#">--}}
+                        {{--<img src="images/site/3.png" alt="" class="dealthumb"/>--}}
+                        {{--</a>--}}
+
+                        {{--<div class="dealtitle">--}}
+                        {{--<p>--}}
+                        <?php
+                        // $get_city_id = DB::table('cities')->where('id', $reviews->hotel->id)->first();
+                        //  $city = $get_city_id->city;
+                        ?>
+
+                        {{--<a href="{{URL::to('sri-lanka/'.str_replace(' ', '-', $city).'/'.str_replace(' ', '-', $reviews->hotel->name))}}"--}}
+                        {{--class="dark">{{ $reviews->review }}--}}
+                        {{--- {{ $reviews->hotel->name }}</a>--}}
+
+                        {{--</p>--}}
+                        <?php
+                        //$stars = $reviews->hotel->star_category_id;
+                        // $star = DB::table('star_categoriesgh')->where('id', $stars)->first();
+                        // $hotel_star = $star->stars;
+                        ?>
+
+                        {{--{{ Star::star_loop_blue($hotel_star)}}--}}
+
+                        {{--</div>--}}
+                        {{--<div class="dealprice">--}}
+
+                        <?php //$low_hotel_rate = RoomRates::lowestHotelRate($reviews->hotel_id, $st_date, $ed_date); ?>
+
+                        {{--@if(!empty($low_hotel_rate))--}}
+                        {{--<span class="price">--}}
+                        {{--$ {{ $low_hotel_rate }}--}}
+                        {{--</span>--}}
+                        {{--@else--}}
+                        {{--<span class="price">--}}
+                        {{--No rate--}}
+                        {{--</span>--}}
+                        {{--@endif--}}
+                        {{--</div>--}}
+
+                        {{--<div class="dealtitle">--}}
+
+                        {{--</div>--}}
+                        {{--</div>--}}
+                        {{--@endforeach--}}
+                        {{--{{ HTML::image('images/site/guest_review.png', '', array('class' => 'guest_review'))}}--}}
+
+                        <div class="deal">
+                            {{ HTML::image('images/city_images/index/kandy.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
+
+                            <div class="dealtitle">
+                                <p>
+                                    <a href=""
+                                       class="dark">
+                                        Kandy
+                                    </a>
+                                </p>
+                                {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
+                                <p style="font-size: 10px; margin-top: -7px"> Temple of the Tooth </p>
+                            </div>
+
+                            <div class="right" style="margin-top: -10px">
+                                <div id="commentbox">
+                                    <div id="commentrating">Rating</div>
+                                    <div id="commentnums">
+                                        7/7
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="deal">
+                            {{ HTML::image('images/city_images/index/sigiriya.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
+
+                            <div class="dealtitle">
+                                <p>
+                                    <a href=""
+                                       class="dark">
+                                        Sigiriya
+                                    </a>
+                                </p>
+                                {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
+                                <p style="font-size: 10px; margin-top: -7px"> Sigiriya Rock - Kingdom </p>
+                            </div>
+
+                            <div class="right" style="margin-top: -10px">
+                                <div id="commentbox">
+                                    <div id="commentrating">Rating</div>
+                                    <div id="commentnums">
+                                        6/7
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="deal">
+                            {{ HTML::image('images/city_images/index/pinnawala.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
+
+                            <div class="dealtitle">
+                                <p>
+                                    <a href=""
+                                       class="dark">
+                                        Pinnawala
+                                    </a>
+                                </p>
+                                {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
+                                <p style="font-size: 10px; margin-top: -7px"> Elephant Orphanage </p>
+                            </div>
+
+                            <div class="right" style="margin-top: -10px">
+                                <div id="commentbox">
+                                    <div id="commentrating">Rating</div>
+                                    <div id="commentnums">
+                                        5/7
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
-                    <div class="clearfix"></div>
+                    <!-- End of first row-->
                 </div>
-                <!-- End of offset1-->
-
-
             </div>
-            <!-- END OF LIST CONTENT-->
-
         </div>
-        <!-- END OF container-->
 
+        <!-- END OF srilankahotels.travel - tours -->
+
+        <br/><br/>
+
+        <!-- / WRAP -->
+
+        <div class="lastminute3 container" style="background: #FFFFFF !important;">
+            <div class="hidden-xs hidden-md lastminute3_head">
+                <span>{{ HTML::image('images/site/bookwithconfitxt.png', '', array('class' => 'lastminute3_img'))}}</span>
+                <span style="font-size: 12px; text-align: right"> Rated among the top 5 traveling Sites to Sri Lanka </span>
+            </div>
+
+            <div class="hidden-xs hidden-md lastminute3_content" style="text-align: left !important;">
+                <div class="col-md-4">
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">Low rates</h4>
+
+                    <p style="font-size: 12px; display: block">No booking fees • Save money!</p>
+
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => ''))}}
+                    <h4 style="display: inline">No hidden charges</h4>
+
+                    <p style="font-size: 12px; display: block">What you see is what you get!</p>
+
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">Book 24/7</h4>
+
+                    <p style="font-size: 12px; display: block">Book online or over the telephone 24 hours a day</p>
+                </div>
+                <div class="col-md-4">
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">Instant confirmation</h4>
+
+                    <p style="font-size: 12px; display: block">Booking online or via the telephone</p>
+
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">Satisfied guests</h4>
+
+                    <p style="font-size: 12px; display: block">More than 1000 bookings daily</p>
+
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">Unbiased hotel reviews</h4>
+
+                    <p style="font-size: 12px; display: block">10,000 hotel reviews from real guests</p>
+                </div>
+                <div class="col-md-4">
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">Over 500 Hotels</h4>
+
+                    <p style="font-size: 12px; display: block">Linked with the very finest hotels in the island</p>
+
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">We speak your language</h4>
+
+                    <p style="font-size: 12px; display: block">We cater to all kinds of clients and guests</p>
+
+                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                    <h4 style="display: inline">Unlimited service</h4>
+
+                    <p style="font-size: 12px; display: block">Provide you the best service and guarantee your
+                        satisfaction</p>
+                </div>
+            </div>
+        </div>
+
+        @endsection
     </div>
-    <!-- END OF CONTENT -->
-
-    @endsection
-
     @section('script')
 
-        <!-- Javascript -->
-        {{ HTML::script('assets/js/js-list4.js') }}
+        <!-- This page JS -->
+        {{ HTML::script('assets/js/js-index3.js') }}
 
-        <!-- Custom Select -->
-        {{ HTML::script('js/lightbox.js') }}
-
-        <!-- Counter -->
-        {{ HTML::script('assets/js/counter.js') }}
-
-        <!-- Picker -->
-        {{ HTML::script('assets/js/jquery-ui.js') }}
-
-
-        <script type="text/javascript">
-            $('.star_category').click(function () {
-                var star = $('input[name=star_rating]:checked').map(function () {
-                    return $(this).val();
-                }).get();
-                $('#star_rating_form').submit()
-            });
-        </script>
-
-        <script type="text/javascript">
-            $('.acc_select').click(function () {
-                var accommodation = $('input[name=accommodation]:checked').map(function () {
-                    return $(this).val();
-                }).get();
-                $('#accommodation_form').submit()
-            });
-        </script>
-
-        <script type="text/javascript">
-            $('.city_select').click(function () {
-                var city = $('input[name=city]:checked').map(function () {
-                    return $(this).val();
-                }).get();
-                $('#city_form').submit()
-            });
-        </script>
-
-        <script type="text/javascript">
-            $('.hot_facility').click(function () {
-                var facilities = $('input[name=facility]:checked').map(function () {
-                    return $(this).val();
-                }).get();
-                $('#facility_form').submit()
-            });
-        </script>
+        <!-- Custom js -->
+        {{ HTML::script('js/my_script.js') }}
 
     @endsection
 
     </body>
+
 @stop
+

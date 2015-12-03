@@ -15,6 +15,8 @@ class RoomRates
         $from_date = date('Y-m-d', strtotime(str_replace('-', '/', $st_date)));
         $to_date = date('Y-m-d', strtotime(str_replace('-', '/', $ed_date)));
 
+        //dd($st_date.'*************'.$from_date);
+
         if (Session::has('market')) {
             $market = Session::get('market');
         } else {
@@ -98,8 +100,8 @@ class RoomRates
                 ->where('room_type_id', $room_type_id)
                 ->where('room_specification_id', $specification_id)
                 ->where('meal_basis_id', $meal_basis_id)
-                ->where('from', '<=', $from_date)
-                ->where('to', '>', $from_date)
+                //->where('from', '<=', $from_date)
+                //->where('to', '>', $from_date)
                 ->where('market_id', $market)
                 ->get();
 
@@ -172,8 +174,8 @@ class RoomRates
                 ->where('room_type_id', $room_type_id)
                 ->where('room_specification_id', $specification_id)
                 ->where('meal_basis_id', $meal_basis_id)
-                ->where('from', '<=', $from_date)
-                ->where('to', '>', $from_date)
+               //// ->where('from', '<=', $from_date)
+              //  ->where('to', '>', $from_date)
                 ->where('market_id', $market)
                 ->get();
 

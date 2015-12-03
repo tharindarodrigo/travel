@@ -81,11 +81,11 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
     .currency li {
         cursor: pointer;
         padding: 5px;
-        border-bottom: double 1px #006699;
+        border-bottom: double 1px #3498db;
     }
 
     .currency li:hover {
-        background: #15262f;
+        background: #252525;
     }
 
     .currency li span:hover {
@@ -93,7 +93,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
     }
 
     .blue {
-        color: #006699;
+        color: #3498db;
         padding-right: 8px;
     }
 
@@ -130,14 +130,14 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 
 <style type="text/css">
     .navbar-custom {
-        background: #15262f !important;
+        background: #252525 !important;
         border-color: #005078;
-        background-image: -webkit-gradient(linear, left 0%, left 100%, from(#0088cc), to(#006699));
-        background-image: -webkit-linear-gradient(top, #0088cc 0%, #006699 100%);
-        background-image: -moz-linear-gradient(top, #0088cc 0%, #006699 100%);
-        background-image: linear-gradient(to bottom, #0088cc 0%, #006699 100%);
+        background-image: -webkit-gradient(linear, left 0%, left 100%, from(#0088cc), to(#3498db));
+        background-image: -webkit-linear-gradient(top, #0088cc 0%, #3498db 100%);
+        background-image: -moz-linear-gradient(top, #0088cc 0%, #3498db 100%);
+        background-image: linear-gradient(to bottom, #0088cc 0%, #3498db 100%);
         background-repeat: repeat-x;
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff006699', GradientType=0);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff3498db', GradientType=0);
     }
 
     .navbar-custom .navbar-brand {
@@ -298,11 +298,11 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 
     .navbar-custom-2 a:hover {
         color: #FFFFFF !important;
-        background: #006699 !important;
+        background: #3498db !important;
     }
 
     .navbar-custom li > a:hover {
-        background: #15262f !important;
+        background: #252525 !important;
         color: #FFFFFF !important;
     }
 
@@ -385,7 +385,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 
 {{--Desktop version--}}
 
-<div class="navbar-wrapper2 navbar-fixed-top hidden-xs hidden-md" style="background: #006699;">
+<div class="navbar-wrapper2 navbar-fixed-top hidden-xs hidden-md" style="background: #3498db;">
     <div class="row navbar-custom">
         <div class="col-md-6"></div>
         <div class="col-md-5">
@@ -393,9 +393,9 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                 <tr>
 
                     <th>
-
                         <div id="google_translate_element"></div>
                         <div id="language"></div>
+                        
                         <script type="text/javascript">
                             function googleTranslateElementInit() {
                                 new google.translate.TranslateElement({
@@ -412,13 +412,13 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                 $('#google_translate_element').on("click", function () {
                                     $("iframe").contents().find(".goog-te-menu2-item div, .goog-te-menu2-item:link div, .goog-te-menu2-item:visited div, .goog-te-menu2-item:active div, .goog-te-menu2 *")
                                             .css({
-                                                'color': '#006699',
+                                                'color': '#3498db',
                                                 'font-family': 'Lato'
                                             });
                                     $("iframe").contents().find(".goog-te-menu2-item div").hover(function () {
-                                        $(this).css('background-color', '#15262f').find('span.text').css('color', '#DAA520');
+                                        $(this).css('background-color', '#252525').find('span.text').css('color', '#DAA520');
                                     }, function () {
-                                        $(this).css('background-color', 'white').find('span.text').css('color', '#006699');
+                                        $(this).css('background-color', 'white').find('span.text').css('color', '#3498db');
                                     });
                                     $("iframe").contents().find('.goog-te-menu2').css('border', '1px solid #000000');
                                     $(".goog-te-menu-frame").css({
@@ -429,12 +429,13 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                 });
                             });
                         </script>
+
                         <script>
                             $(document).ready(function () {
                                 var imageUrl = 'public/images/site/gold-arrow.png';
                                 setTimeout(function () {
                                     $(".goog-te-gadget-simple").css({
-                                        'background-color': '#15262f',
+                                        'background-color': '#252525',
                                         'color': '#fff',
                                         'border-left': '0',
                                         'border-right': '0',
@@ -472,7 +473,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                 </a>
 
                                 <ul class="dropdown-menu"
-                                    style="height: 800px; max-height: 800px; min-width: 0px; width: auto; top:30px; left: -300px; right: -300px">
+                                    style="height: 800px; min-width: 0px; width: auto; top:30px; left: -300px; right: -300px">
 
                                     <span style="margin-left: 16px; text-align: center" class="size16 green">Top Currencies</span>
 
@@ -920,7 +921,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 
 {{-- Mobile Version --}}
 
-<div class="navbar-wrapper2 navbar-fixed-top hidden-lg" style="background: #006699;">
+<div class="navbar-wrapper2 navbar-fixed-top hidden-lg" style="background: #3498db;">
     <div class="row navbar-custom">
         <div class="col-md-6"></div>
         <div class="col-md-5">
@@ -1306,7 +1307,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                     <span class="icon-bar"></span>
                 </button>
                 <a href="{{URL::route('index')}}" class="navbar-brand">
-                    {{--                    {{ HTML::image('images/site/logo11.png', '',  array('class' => 'logo')) }}--}}
+                    {{ HTML::image('images/moblie logo.png', '',  array('class' => '')) }}
                 </a>
             </div>
 
@@ -1314,13 +1315,13 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                 <ul class="nav navbar-nav navbar-right">
 
                     <li>
-                        <a href="{{URL::route('index')}}">Home &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</a>
+                        <a href="{{URL::route('index')}}">Home &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
                     </li>
 
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             Hotels {{ HTML::image('images/site/white-arrow.png', '', array('class' => 'nav_arrow')) }}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                         <ul class="dropdown-menu" style="margin-right: -50px; padding: 5px 20px">
                             <?php
                             $hotel_type = DB::table('hotel_categories')
@@ -1337,7 +1338,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             Tours {{ HTML::image('images/site/white-arrow.png', '', array('class' => 'nav_arrow')) }}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                         <ul class="dropdown-menu" style="margin-right: -60px; padding: 5px 20px">
                             <?php
                             $tour_type = DB::table('tours')
@@ -1353,7 +1354,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             Excursions {{ HTML::image('images/site/white-arrow.png', '', array('class' => 'nav_arrow')) }}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                         <ul class="dropdown-menu" style="margin-right: -30px; padding: 5px 20px">
                             <?php
                             $excursion_type = DB::table('excursion_types')
@@ -1370,7 +1371,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             Transportation {{ HTML::image('images/site/white-arrow.png', '', array('class' => 'nav_arrow')) }}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| </a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
                         <ul class="dropdown-menu" style="margin-right: -20px; padding: 5px 20px">
                             <li>
                                 <a href="{{ URL::to('transport-list') }}"> Predefined Packages </a>
@@ -1390,6 +1391,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
             <!-- /Navigation-->
         </div>
     </div>
+
 </div>
 
 <script>
@@ -1420,6 +1422,5 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
         });
 
     });
-
 </script>
 

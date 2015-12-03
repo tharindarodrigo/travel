@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Simple Fade Slideshow Theme - Jssor Slider, Slideshow with Javascript Source Code</title>
-</head>
-<body style="font-family:Arial, Verdana;background-color:#fff;">
+
 <!-- it works the same with all jquery version from 1.x to 2.x -->
 <script type="text/javascript" src="js/js/jquery-1.9.1.min.js"></script>
 <!-- use jssor.slider.mini.js (40KB) or jssor.sliderc.mini.js (32KB, with caption, no slideshow) or jssor.sliders.mini.js (28KB, no caption, no slideshow) instead for release -->
@@ -471,7 +464,6 @@
 
 <!-- Jssor Slider End -->
 
-
 <script type="text/javascript">
     if ($(window).width() > 960) {
         $('.slider_1').attr("id" , "slider1_container");
@@ -487,6 +479,3 @@
         $(".slider_2").css("display", "none");
     }
 </script>
-
-</body>
-</html>

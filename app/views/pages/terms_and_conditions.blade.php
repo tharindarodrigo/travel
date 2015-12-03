@@ -30,7 +30,7 @@
 
     <style type="text/css">
         h1 {
-            color: #006699;
+            color: #3498db;
             font-family: 'Rokkitt', serif !important;
         }
 

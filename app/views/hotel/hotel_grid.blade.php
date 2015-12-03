@@ -61,12 +61,12 @@
         }
 
         .collapsebtn {
-            background: #006699;
+            background: #3498db;
             color: #FFFFFF;
         }
 
         h4 {
-            color: #006699;
+            color: #3498db;
         }
 
         .single_hotel_map {
@@ -82,7 +82,7 @@
         }
 
         .ui-widget-header {
-            background: #006699 !important;
+            background: #3498db !important;
         }
 
         .ui-dialog .ui-dialog-titlebar-close span {
@@ -517,7 +517,7 @@
                             <div class="col-md-4">
 
                                 <?php
-                                $directory = 'public/images/hotel_images/';
+                                $directory = public_path().'/images/hotel_images/';
                                 $images = glob($directory . $hotel->id . "_*");
                                 $img_path = array_shift($images);
                                 $img_name = basename($img_path);
@@ -543,7 +543,7 @@
 
                                 <div class="itemlabel2 get_hotel_id" hotel_id="{{ $hotel->id }}">
                                     <h4 style="display: inline">
-                                        <a style="color: #006699; display: inline"
+                                        <a style="color: #3498db; display: inline"
                                            href="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
                                             &nbsp;&nbsp;&nbsp;&nbsp; {{ Str::limit($hotel->name, 20) }}
                                         </a>
@@ -595,7 +595,7 @@
 
                                         <form method="POST" target="_blank"
                                               action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
-                                            <button style="background: #006699; color: #ffffff"
+                                            <button style="background: #3498db; color: #ffffff"
                                                     class="bookbtn mt1"
                                                     type="submit">Book
                                             </button>
@@ -616,7 +616,7 @@
                                                 @foreach($hotel_facilities->hotelFacility as $hotel_facility)
                                                     <?php
                                                     //echo public_path();
-                                                    $directory = 'public/images/hotel_facilities/';
+                                                    $directory = public_path().'/images/hotel_facilities/';
                                                     $images = glob($directory . $hotel_facility->id . "*");
                                                     $img_path = array_shift($images);
                                                     $img_name = basename($img_path);
@@ -634,7 +634,7 @@
                                                 @foreach($hotel_facilities->hotelFacility as $hotel_facility)
                                                     <?php
                                                     //echo public_path();
-                                                    $directory = 'public/images/hotel_facilities/';
+                                                    $directory = public_path().'/images/hotel_facilities/';
                                                     $images = glob($directory . $hotel_facility->id . "*");
                                                     $img_path = array_shift($images);
                                                     $img_name = basename($img_path);

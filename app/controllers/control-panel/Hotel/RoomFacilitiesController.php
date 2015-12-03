@@ -49,7 +49,7 @@ class RoomFacilitiesController extends \BaseController
                     ->encode('png')
                     ->resize(32, 32, function ($constraint) {
                         $constraint->aspectRatio();
-                    })->save('public/control-panel-assets/images/room-facilities/'.$roomfacility->id.'.png');
+                    })->save(public_path().'/control-panel-assets/images/room-facilities/'.$roomfacility->id.'.png');
             }
 
             Session::flash('successful-action', 'Room Facility was created Successfully');
@@ -126,13 +126,13 @@ class RoomFacilitiesController extends \BaseController
             if(Input::file('icon')){
 
 //                dd('asdasd');
-                File::delete('public/control-panel-assets/images/room-facilities/'.$id.'.png');
+                File::delete(public_path().'/control-panel-assets/images/room-facilities/'.$id.'.png');
 
                 Image::make(Input::file('icon'))
                     ->encode('png')
                     ->resize(32, 32, function ($constraint) {
                         $constraint->aspectRatio();
-                    })->save('public/control-panel-assets/images/room-facilities/'.$id.'.png');
+                    })->save(public_path().'/control-panel-assets/images/room-facilities/'.$id.'.png');
             }
             Session::flash('successful-action', 'Room Facility was updated Successfully');
 
@@ -154,7 +154,7 @@ class RoomFacilitiesController extends \BaseController
         if ($delete = RoomFacility::destroy($id)) {
 
             //Delete the icon with respect to the record
-            File::delete('public/control-panel-assets/images/room-facilities/'.$id.'.png');
+            File::delete(public_path().'/control-panel-assets/images/room-facilities/'.$id.'.png');
 
             Session::flash('successful-action', 'Item was deleted Successfully');
         } else {

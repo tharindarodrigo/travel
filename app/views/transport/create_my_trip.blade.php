@@ -34,17 +34,17 @@
 
     <style type="text/css">
         .collapsebtn {
-            background: #006699;
+            background: #3498db;
             color: #FFFFFF;
         }
 
         h1 {
-            color: #006699;
+            color: #3498db;
             font-family: 'Rokkitt', serif !important;
         }
 
         h4 {
-            color: #006699;
+            color: #3498db;
         }
 
         .transport_img {

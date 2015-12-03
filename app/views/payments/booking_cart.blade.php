@@ -1,4 +1,10 @@
 <?php
+
+$total_hotel_amount = 0;
+$total_cost_transport = 0;
+$total_cost_predefine_transport = 0;
+$total_cost_excursion = 0;
+
 if (Session::has('predefined_transport')) {
     $predefined_transports = Session::get('predefined_transport');
 } else {
@@ -115,14 +121,14 @@ if (Session::has('excursion_cart_details')) {
             </div>
 
             <div class="col-md-3">
-                <h1 style="color: #006699; font-family: 'Cinzel', serif;"> Booking Cart </h1>
+                <h1 style="color: #3498db; font-family: 'Cinzel', serif;"> Booking Cart </h1>
             </div>
 
         </div>
 
         <div class="clearfix"></div>
         <div class="offset-2">
-            <hr class="featurette-divider3">
+            <hr style="height:2px ;background: #3498db"/>
         </div>
 
         @if(Session::has('rate_box_details'))
@@ -130,10 +136,11 @@ if (Session::has('excursion_cart_details')) {
                 <div class="row">
                     <div class="col-sm-12 col-md-10 col-md-offset-1">
                         <span class="opensans size18 dark bold caps"> Hotel Summery </span>
+
                         <br/><br/>
                         <table class="table table-responsive table-hover">
                             <thead>
-                            <tr style="background: #006699">
+                            <tr style="background: #3498db">
                                 <th><h4> Hotel </h4></th>
                                 <th><h4> Rooms </h4></th>
                                 <th><h4> Cost </h4></th>
@@ -148,7 +155,7 @@ if (Session::has('excursion_cart_details')) {
                                             <a class="thumbnail pull-left" href="#">
                                                 <?php
                                                 $total_cost = 0;
-                                                $directory = 'public/images/hotel_images/';
+                                                $directory = public_path() . '/images/hotel_images/';
                                                 $img_hotel_id = explode('_', $hotel_booking['room_identity']);
                                                 $images = glob($directory . $img_hotel_id[2] . "_*");
                                                 $img_path = array_shift($images);
@@ -319,10 +326,14 @@ if (Session::has('excursion_cart_details')) {
                                     {{ Form::close() }}
 
                                 </tr>
+                                <?php $total_hotel_amount = $total_hotel_amount + $total_cost ?>
                             @endforeach
                             </tbody>
                         </table>
+                        <span class="opensans right size18 green bold"> Total Hotel Amount - {{ Session::get('currency') }}
+                            {{ number_format(($total_hotel_amount * Session::get('currency_rate')), 2, '.', '') }} </span>
                     </div>
+
                 </div>
             </div>
             <br/><br/>
@@ -337,7 +348,7 @@ if (Session::has('excursion_cart_details')) {
                         <br/><br/>
                         <table class="table table-responsive table-hover">
                             <thead>
-                            <tr style="background: #006699">
+                            <tr style="background: #3498db">
                                 <th><h4> Vehicle </h4></th>
                                 <th><h4> From </h4></th>
                                 <th><h4> To </h4></th>
@@ -355,7 +366,7 @@ if (Session::has('excursion_cart_details')) {
                                             <a class="thumbnail pull-left" href="#">
                                                 <?php
                                                 $total_cost = 0;
-                                                $directory = 'public/images/transport_images/vehicles/';
+                                                $directory = public_path() . '/images/transport_images/vehicles/';
                                                 $img_vehicle_id = Vehicle::where('vehicle_type', $transport_booking['vehicle_type'])->first()->id;
                                                 $images = glob($directory . $img_vehicle_id . "*");
                                                 $img_path = array_shift($images);
@@ -380,7 +391,6 @@ if (Session::has('excursion_cart_details')) {
                                                 <h5 style="font-size: 12px; color: #72bf66">{{ $transport_booking['destination_2'] }}
                                                     - {{ $transport_booking['destination_3'] }}</h5>
 
-
                                             </div>
                                         </div>
                                     </td>
@@ -395,10 +405,7 @@ if (Session::has('excursion_cart_details')) {
                                         @if(!empty($transport_booking['destination_3']))
                                             <h5 style="display: inline"
                                                 class="bk_room_name"> {{ $transport_booking['destination_2'] }} </h5>
-
                                         @endif
-
-
                                     </td>
 
                                     <td class="col-sm-2 col-md-1.5">
@@ -441,10 +448,13 @@ if (Session::has('excursion_cart_details')) {
                                     </td>
                                     {{ Form::close() }}
                                 </tr>
+                                <?php $total_cost_transport = $total_cost_transport + $transport_booking['cost']; ?>
                             @endforeach
 
                             </tbody>
                         </table>
+                        <span class="opensans right size18 green bold"> Total Transport Amount - {{ Session::get('currency') }}
+                            {{ number_format(($total_cost_transport * Session::get('currency_rate')), 2, '.', '') }} </span>
                     </div>
                 </div>
             </div>
@@ -460,7 +470,7 @@ if (Session::has('excursion_cart_details')) {
                         <br/><br/>
                         <table class="table table-responsive table-hover">
                             <thead>
-                            <tr style="background: #006699">
+                            <tr style="background: #3498db">
                                 <th><h4> Vehicle </h4></th>
                                 <th><h4> From </h4></th>
                                 <th><h4> To </h4></th>
@@ -478,7 +488,7 @@ if (Session::has('excursion_cart_details')) {
                                             <a class="thumbnail pull-left" href="#">
                                                 <?php
                                                 $total_cost = 0;
-                                                $directory = 'public/images/transport_images/vehicles/';
+                                                $directory = public_path() . '/images/transport_images/vehicles/';
                                                 $img_vehicle_id = Vehicle::where('id', TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->vehicle_id)->first()->vehicle_id;
                                                 $images = glob($directory . $img_vehicle_id . "*");
                                                 $img_path = array_shift($images);
@@ -534,10 +544,13 @@ if (Session::has('excursion_cart_details')) {
                                     </td>
                                     {{ Form::close() }}
                                 </tr>
+                                <?php $total_cost_predefine_transport = $total_cost_predefine_transport + TransportPackage::where('id', $predefined_transport['predefine_id'])->first()->rate; ?>
                             @endforeach
 
                             </tbody>
                         </table>
+                        <span class="opensans right size18 green bold"> Total Predefine Transport Amount - {{ Session::get('currency') }}
+                            {{ number_format(($total_cost_predefine_transport * Session::get('currency_rate')), 2, '.', '') }} </span>
                     </div>
                 </div>
             </div>
@@ -553,7 +566,7 @@ if (Session::has('excursion_cart_details')) {
                         <br/><br/>
                         <table class="table table-responsive table-hover">
                             <thead>
-                            <tr style="background: #006699">
+                            <tr style="background: #3498db">
                                 <th><h4> Excursion </h4></th>
                                 <th><h4> From </h4></th>
                                 <th><h4> Transport </h4></th>
@@ -572,7 +585,7 @@ if (Session::has('excursion_cart_details')) {
                                             <a class="thumbnail pull-left" href="#">
                                                 <?php
                                                 $total_cost = 0;
-                                                $directory = 'public/images/excursion_images/';
+                                                $directory = public_path() . '/images/excursion_images/';
                                                 $images = glob($directory . $excursion_cart_detail['excursion'] . "*");
                                                 $img_path = array_shift($images);
                                                 $img_name = basename($img_path);
@@ -634,14 +647,28 @@ if (Session::has('excursion_cart_details')) {
                                     </td>
                                     {{ Form::close() }}
                                 </tr>
+                                <?php $total_cost_excursion = $total_cost_excursion + substr($excursion_cart_detail['excursion_total'], 9) ?>
                             @endforeach
-
                             </tbody>
                         </table>
+                          <span class="opensans right size18 green bold"> Total Excursion Amount - {{ Session::get('currency') }}
+                              {{ number_format(($total_cost_excursion * Session::get('currency_rate')), 2, '.', '') }} </span>
                     </div>
+
                 </div>
+                <hr style="height:2px ;background: #3498db"/>
             </div>
         @endif
+
+        <br/><br/>
+
+        <div class="container row" style="font-size: 22px; text-align: right">
+            <span class="lred2 bold"> Total Amount :  </span>
+        <span class="lred2 bold">
+            {{ Session::get('currency') }}
+            {{ number_format(($total_hotel_amount + $total_cost_transport + $total_cost_predefine_transport + $total_cost_excursion * Session::get('currency_rate')), 2, '.', '') }}
+        </span>
+        </div>
 
         <br/><br/><br/>
 

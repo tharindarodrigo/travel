@@ -11,6 +11,11 @@
 @section('custom_style')
 
     <style type="text/css">
+        .tour_img_index {
+            width: 60px;
+            height: 60px;
+        }
+
         .top_destination {
             width: 200px;
             height: 180px;
@@ -33,6 +38,7 @@
 
         .lastminute3_head {
             height: 42px;
+        {{--            background-image: url('{{ asset(public_path().'/images/site/confideance-background.png') }}');--}} margin-top: -30px;
             background: #3498db;
             color: #FFFFFF;
             /*border-radius: 14px 14px 14px 14px;*/
@@ -42,8 +48,7 @@
         }
 
         .lastminute3_img {
-            margin-top: 7px;
-            margin-left: 20px;
+            /*margin-left: -50px;*/
         }
 
         .lastminute3_img_2 {
@@ -79,48 +84,6 @@
             margin-top: -10px;
         }
 
-        .shadow {
-            background: #4b646f !important;
-            height: 254px !important;
-        }
-
-        .deal{
-            height: 40px !important;
-            min-height: 68px !important;
-            border-radius: 10px 10px 10px 10px;
-            -moz-border-radius: 10px 10px 10px 10px;
-            -webkit-border-radius: 10px 10px 10px 10px;
-            border: 0px solid #000000;
-            background: #FFFFFF;
-            margin: 5px !important;
-            padding-bottom: 0px !important;
-        }
-
-        .fwimg{
-            border-radius: 15px 15px 15px 15px;
-            -moz-border-radius: 15px 15px 15px 15px;
-            -webkit-border-radius: 15px 15px 15px 15px;
-            border: 0px solid #000000;
-            height: 80px;
-        }
-
-        .smallblacklabel{
-            border-radius: 15px 15px 15px 15px;
-            -moz-border-radius: 15px 15px 15px 15px;
-            -webkit-border-radius: 15px 15px 15px 15px;
-            border: 0px solid #000000;
-           /*margin-left: 10px;*/
-        }
-
-        .tour_img_index {
-            border-radius: 15px 15px 15px 15px;
-            -moz-border-radius: 15px 15px 15px 15px;
-            -webkit-border-radius: 15px 15px 15px 15px;
-            border: 0px solid #000000;
-            width: 60px;
-            /*height: 60px;*/
-        }
-
     </style>
 
     {{--my styles--}}
@@ -136,152 +99,117 @@
     @include('layout.navbar')
     <!-- / navbar -->
 
+    <!--
+    #################################
+          - THEME PUNCH BANNER -
+    #################################
+    -->
+
     <div style="position: absolute" class="mtslide sliderbg">
         @include('layout.slider')
     </div>
 
-
-    <div class="container wrap cstyle03">
-        <div class="col-md-4" style="position: absolute; top: -380px;">
-            @include('layout.reservation_box')
+    <div id="index_body" style="position: fixed; top: 200px" class="container z-index100">
+        <div class="row">
+            <div class="col-md-4">
+                @include('layout.reservation_box')
+            </div>
         </div>
+    </div>
 
-        <div class="col-md-4 hidden-xs hidden-md" style="position: absolute; top: -380px; left: 400px;">
-            <div class="shadow ">
-                <div class="fwi one" style="background: #FFFFFF">
-                    {{ HTML::image('images/site/993_anilana pasikuda1.png', '', array('class' => 'img_home_offer'))}}
-                    <div class="mhover none">
+    <div class="wrap cstyle03">
+
+        <div class="container">
+
+            <div class="col-md-3">
+                <div class="shadow cstyle05">
+                    <div class="fwi one">
+                        {{ HTML::image('images/site/993_anilana pasikuda1.png', '', array('class' => 'img_home_offer'))}}
+                        <div class="mhover none">
                                 <span class="icon">
                                     <a href="{{URL::to('sri-lanka/-Passikudah/Anilana-Passikudah')}}">
                                         <img src="images/spacer.png" alt=""/>
                                     </a>
                                 </span>
+                        </div>
+                    </div>
+                    <div class="ctitle" style="font-size: 16px;"> Anilana Pasikuda
+                        <a href="#">
+                            <img src="images/spacer.png" alt=""/>
+                        </a>
+                        <span>{{ Session::get('currency') . '&nbsp;' . ( (number_format(((RoomRates::lowestHotelRate(993, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', ''))); }} </span>
                     </div>
                 </div>
-                <div class="ctitle" style="font-size: 16px;"> Anilana Pasikuda
-                    <a href="#">
-                        <img src="images/spacer.png" alt=""/>
-                    </a>
-                    <span>{{ Session::get('currency') . '&nbsp;' . ( (number_format(((RoomRates::lowestHotelRate(993, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', ''))); }} </span>
-                </div>
             </div>
-        </div>
 
-        <div class="col-md-4 hidden-xs hidden-md" style="position: absolute; top: -380px; left: 780px;">
-            <div class="shadow ">
-                <div class="fwi one" style="background: #FFFFFF">
-                    {{ HTML::image('images/site/1339_Serene_Pavilion.png', '', array('class' => 'img_home_offer'))}}
-                    <div class="mhover none">
+            <div class="col-md-3">
+                <div class="shadow cstyle05">
+                    <div class="fwi one">
+                        {{ HTML::image('images/site/1339_Serene_Pavilion.png', '', array('class' => 'img_home_offer'))}}
+                        <div class="mhover none">
                                 <span class="icon">
                                     <a href="{{URL::to('sri-lanka/Wadduwa/Serene-Pavilions')}}">
                                         <img src="images/spacer.png" alt=""/>
                                     </a>
                                 </span>
+                        </div>
+                    </div>
+                    <div class="ctitle" style="font-size: 16px;"> Serene Pavilion
+                        <a href="#">
+                            <img src="images/spacer.png" alt=""/>
+                        </a>
+                        <span>{{ Session::get('currency') . '&nbsp;' . ( number_format(((RoomRates::lowestHotelRate(1339, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', '')); }}</span>
                     </div>
                 </div>
-                <div class="ctitle" style="font-size: 16px;"> Serene Pavilion
-                    <a href="#">
-                        <img src="images/spacer.png" alt=""/>
-                    </a>
-                    <span>{{ Session::get('currency') . '&nbsp;' . ( number_format(((RoomRates::lowestHotelRate(1339, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', '')); }}</span>
+            </div>
+
+            <div class="col-md-3">
+                <div class="shadow cstyle05">
+                    <div class="fwi one">
+                        {{ HTML::image('images/site/993_anilana pasikuda1.png', '', array('class' => 'img_home_offer'))}}
+                        <div class="mhover none">
+                                <span class="icon">
+                                    <a href="{{URL::to('sri-lanka/-Passikudah/Anilana-Passikudah')}}">
+                                        <img src="images/spacer.png" alt=""/>
+                                    </a>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="ctitle" style="font-size: 16px;"> Anilana Pasikuda
+                        <a href="#">
+                            <img src="images/spacer.png" alt=""/>
+                        </a>
+                        <span>{{ Session::get('currency') . '&nbsp;' . ( (number_format(((RoomRates::lowestHotelRate(993, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', ''))); }} </span>
+                    </div>
                 </div>
             </div>
+
+            <div class="col-md-3">
+                <div class="shadow cstyle05">
+                    <div class="fwi one">
+                        {{ HTML::image('images/site/1339_Serene_Pavilion.png', '', array('class' => 'img_home_offer'))}}
+                        <div class="mhover none">
+                                <span class="icon">
+                                    <a href="{{URL::to('sri-lanka/Wadduwa/Serene-Pavilions')}}">
+                                        <img src="images/spacer.png" alt=""/>
+                                    </a>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="ctitle" style="font-size: 16px;"> Serene Pavilion
+                        <a href="#">
+                            <img src="images/spacer.png" alt=""/>
+                        </a>
+                        <span>{{ Session::get('currency') . '&nbsp;' . ( number_format(((RoomRates::lowestHotelRate(1339, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', '')); }}</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
-
-    </div>
-
-    <div style="margin-top: -30px !important;" class="wrap cstyle03">
-
-        <div style="padding-left: 0px; padding-right: 0px" class="container">
-            <div class="col-md-3">
-                <div class="shadow cstyle05">
-                    <div class="fwi one" style="background: #fcf2f2">
-                        {{ HTML::image('images/special offers/1.jpg', '', array('class' => 'img_home_offer'))}}
-                        {{--<div class="mhover none">--}}
-                                {{--<span class="icon">--}}
-                                    {{--<a href="{{URL::to('sri-lanka/-Passikudah/Anilana-Passikudah')}}">--}}
-                                        {{--<img src="images/spacer.png" alt=""/>--}}
-                                    {{--</a>--}}
-                                {{--</span>--}}
-                        {{--</div>--}}
-                    </div>
-                    {{--<div class="ctitle" style="font-size: 16px;"> Anilana Pasikuda--}}
-                        {{--<a href="#">--}}
-                            {{--<img src="images/spacer.png" alt=""/>--}}
-                        {{--</a>--}}
-                        {{--<span>{{ Session::get('currency') . '&nbsp;' . ( (number_format(((RoomRates::lowestHotelRate(993, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', ''))); }} </span>--}}
-                    {{--</div>--}}
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="shadow cstyle05">
-                    <div class="fwi one" style="background: #fcf2f2">
-                        {{ HTML::image('images/special offers/2.jpg', '', array('class' => 'img_home_offer'))}}
-                        {{--<div class="mhover none">--}}
-                                {{--<span class="icon">--}}
-                                    {{--<a href="{{URL::to('sri-lanka/Wadduwa/Serene-Pavilions')}}">--}}
-                                        {{--<img src="images/spacer.png" alt=""/>--}}
-                                    {{--</a>--}}
-                                {{--</span>--}}
-                        {{--</div>--}}
-                    </div>
-                    {{--<div class="ctitle" style="font-size: 16px;"> Serene Pavilion--}}
-                        {{--<a href="#">--}}
-                            {{--<img src="images/spacer.png" alt=""/>--}}
-                        {{--</a>--}}
-                        {{--<span>{{ Session::get('currency') . '&nbsp;' . ( number_format(((RoomRates::lowestHotelRate(1339, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', '')); }}</span>--}}
-                    {{--</div>--}}
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="shadow cstyle05">
-                    <div class="fwi one" style="background: #fcf2f2">
-                        {{ HTML::image('images/special offers/3.jpg', '', array('class' => 'img_home_offer'))}}
-                        {{--<div class="mhover none">--}}
-                                {{--<span class="icon">--}}
-                                    {{--<a href="{{URL::to('sri-lanka/-Passikudah/Anilana-Passikudah')}}">--}}
-                                        {{--<img src="images/spacer.png" alt=""/>--}}
-                                    {{--</a>--}}
-                                {{--</span>--}}
-                        {{--</div>--}}
-                    </div>
-                    {{--<div class="ctitle" style="font-size: 16px;"> Anilana Pasikuda--}}
-                        {{--<a href="#">--}}
-                            {{--<img src="images/spacer.png" alt=""/>--}}
-                        {{--</a>--}}
-                        {{--<span>{{ Session::get('currency') . '&nbsp;' . ( (number_format(((RoomRates::lowestHotelRate(993, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', ''))); }} </span>--}}
-                    {{--</div>--}}
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="shadow cstyle05">
-                    <div class="fwi one" style="background: #fcf2f2">
-                        {{ HTML::image('images/special offers/4.jpg', '', array('class' => 'img_home_offer'))}}
-                        {{--<div class="mhover none">--}}
-                                {{--<span class="icon">--}}
-                                    {{--<a href="{{URL::to('sri-lanka/Wadduwa/Serene-Pavilions')}}">--}}
-                                        {{--<img src="images/spacer.png" alt=""/>--}}
-                                    {{--</a>--}}
-                                {{--</span>--}}
-                        {{--</div>--}}
-                    </div>
-                    {{--<div class="ctitle" style="font-size: 16px;"> Serene Pavilion--}}
-                        {{--<a href="#">--}}
-                            {{--<img src="images/spacer.png" alt=""/>--}}
-                        {{--</a>--}}
-                        {{--<span>{{ Session::get('currency') . '&nbsp;' . ( number_format(((RoomRates::lowestHotelRate(1339, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', '')); }}</span>--}}
-                    {{--</div>--}}
-                </div>
-            </div>
-        </div>
-        <br/><br/>
 
         <div class="container">
             <div class="row">
-                <div style="background: #efefef" class="col-md-3">
+                <div class="col-md-3">
                     <div class="lbl">
                         <a href="">
                             {{ HTML::image('images/tour_images/tour_banner.png', '', array('class' => 'fwimg'))}}
@@ -291,7 +219,7 @@
                     </div>
                     <?php $j = 7; ?>
                     @foreach($tour as $tours)
-                        <div class="deal" >
+                        <div class="deal">
                             {{ HTML::image('images/tour_images/index/'.$tours->id.'.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
 
                             <div class="dealtitle">
@@ -305,14 +233,14 @@
 
                             {{--{{ HTML::image('images/site/kk.png', '', array('class' => 'right ddd'))}}--}}
 
-                            {{--<div class="right" style="margin-top: -10px">--}}
-                                {{--<div id="commentbox">--}}
-                                    {{--<div id="commentrating">Rating</div>--}}
-                                    {{--<div id="commentnums">--}}
-                                        {{--{{ $j }}/7--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
+                            <div class="right" style="margin-top: -10px">
+                                <div id="commentbox">
+                                    <div id="commentrating">Rating</div>
+                                    <div id="commentnums">
+                                        {{ $j }}/7
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <?php $j = $j - 1?>
                     @endforeach
@@ -342,14 +270,14 @@
                                 {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
                             </div>
 
-                            {{--<div class="right" style="margin-top: -10px">--}}
-                                {{--<div id="commentbox">--}}
-                                    {{--<div id="commentrating">Rating</div>--}}
-                                    {{--<div id="commentnums">--}}
-                                        {{--{{ $i }}/7--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
+                            <div class="right" style="margin-top: -10px">
+                                <div id="commentbox">
+                                    <div id="commentrating">Rating</div>
+                                    <div id="commentnums">
+                                        {{ $i }}/7
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <?php $i = $i - 1; ?>
                     @endforeach
@@ -430,14 +358,14 @@
                             <p style="font-size: 10px; margin-top: -7px"> Temple of the Tooth </p>
                         </div>
 
-                        {{--<div class="right" style="margin-top: -10px">--}}
-                            {{--<div id="commentbox">--}}
-                                {{--<div id="commentrating">Rating</div>--}}
-                                {{--<div id="commentnums">--}}
-                                    {{--7/7--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <div class="right" style="margin-top: -10px">
+                            <div id="commentbox">
+                                <div id="commentrating">Rating</div>
+                                <div id="commentnums">
+                                    7/7
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="deal">
@@ -454,14 +382,14 @@
                             <p style="font-size: 10px; margin-top: -7px"> Sigiriya Rock - Kingdom </p>
                         </div>
 
-                        {{--<div class="right" style="margin-top: -10px">--}}
-                            {{--<div id="commentbox">--}}
-                                {{--<div id="commentrating">Rating</div>--}}
-                                {{--<div id="commentnums">--}}
-                                    {{--6/7--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <div class="right" style="margin-top: -10px">
+                            <div id="commentbox">
+                                <div id="commentrating">Rating</div>
+                                <div id="commentnums">
+                                    6/7
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="deal">
@@ -478,14 +406,14 @@
                             <p style="font-size: 10px; margin-top: -7px"> Elephant Orphanage </p>
                         </div>
 
-                        {{--<div class="right" style="margin-top: -10px">--}}
-                            {{--<div id="commentbox">--}}
-                                {{--<div id="commentrating">Rating</div>--}}
-                                {{--<div id="commentnums">--}}
-                                    {{--5/7--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <div class="right" style="margin-top: -10px">
+                            <div id="commentbox">
+                                <div id="commentrating">Rating</div>
+                                <div id="commentnums">
+                                    5/7
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -564,14 +492,14 @@
                             <p style="font-size: 10px; margin-top: -7px"> Temple of the Tooth </p>
                         </div>
 
-                        {{--<div class="right" style="margin-top: -10px">--}}
-                            {{--<div id="commentbox">--}}
-                                {{--<div id="commentrating">Rating</div>--}}
-                                {{--<div id="commentnums">--}}
-                                    {{--7/7--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <div class="right" style="margin-top: -10px">
+                            <div id="commentbox">
+                                <div id="commentrating">Rating</div>
+                                <div id="commentnums">
+                                    7/7
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="deal">
@@ -588,14 +516,14 @@
                             <p style="font-size: 10px; margin-top: -7px"> Sigiriya Rock - Kingdom </p>
                         </div>
 
-                        {{--<div class="right" style="margin-top: -10px">--}}
-                            {{--<div id="commentbox">--}}
-                                {{--<div id="commentrating">Rating</div>--}}
-                                {{--<div id="commentnums">--}}
-                                    {{--6/7--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <div class="right" style="margin-top: -10px">
+                            <div id="commentbox">
+                                <div id="commentrating">Rating</div>
+                                <div id="commentnums">
+                                    6/7
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="deal">
@@ -612,28 +540,27 @@
                             <p style="font-size: 10px; margin-top: -7px"> Elephant Orphanage </p>
                         </div>
 
-                        {{--<div class="right" style="margin-top: -10px">--}}
-                            {{--<div id="commentbox">--}}
-                                {{--<div id="commentrating">Rating</div>--}}
-                                {{--<div id="commentnums">--}}
-                                    {{--5/7--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <div class="right" style="margin-top: -10px">
+                            <div id="commentbox">
+                                <div id="commentrating">Rating</div>
+                                <div id="commentnums">
+                                    5/7
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
                 <!-- End of first row-->
             </div>
         </div>
-        <br/><br/><br/>
 
         <div class="container" style="background: #FFFFFF !important;">
             <div class="hidden-xs hidden-md lastminute3_head">
-                <span style="margin-left: 20px;">{{ HTML::image('images/site/bookwithconfitxt.png', '', array('class' => 'lastminute3_img'))}}</span>
-                <span style="font-size: 12px; text-align: right;"> Rated among the top 5 traveling Sites to Sri Lanka </span>
+                <span>{{ HTML::image('images/site/bookwithconfitxt.png', '', array('class' => 'lastminute3_img'))}}</span>
+                <span style="font-size: 12px; text-align: right"> Rated among the top 5 traveling Sites to Sri Lanka </span>
             </div>
-            <br/><br/>
+
             <div class="hidden-xs hidden-md lastminute3_content" style="text-align: left !important;">
                 <div class="col-md-4">
                     {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
@@ -688,7 +615,6 @@
         </div>
 
     </div>
-
 
     @endsection
 

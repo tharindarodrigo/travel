@@ -4,7 +4,7 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - About Us</title>
+    <title> srilankahotel.travel - Contact Us</title>
 
     <style type="text/css">
 
@@ -73,7 +73,7 @@
 
                                     {{--<div class="g-recaptcha" data-sitekey=""></div>--}}
                                     <?php
-                                    require_once('public/recaptcha/recaptchalib.php');
+                                    require_once(public_path().'/recaptcha/recaptchalib.php');
                                     $public_key = "6LeqigQTAAAAAGmq8B4dmzg8G4bHhYNrIU32H9yU"; // you got this from the signup page
                                     echo recaptcha_get_html($public_key);
                                     ?>
@@ -83,14 +83,10 @@
                                     @endif
 
                                     <button type="submit" class="btn-search mr20">Send Email</button>
-
                             </form>
 
                         </div>
-
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -118,12 +114,14 @@
                         <div class="col-md-6" style="font-size: 10px;">
                             <h3 style="color: #0099cc">Contact</h3>
 
-                            <p class="opensans size30 lblue xslim" style="color: #000000;">+ 94 (0) 11 4324221<br>+
-                                94 (0) 11 2719047</p>
+                            <p class="opensans size30 lblue xslim" style="color: #000000;">
+                                + 94 (0) 11 5235872<br>
+                                + 94 (0) 11 4324221
+                            </p>
 
                             <h3 style="color: #0099cc">Fax</h3>
 
-                            <p class="opensans size30 lblue xslim" style="color: #000000;">+ 94 (0) 11 4443726</p>
+                            <p class="opensans size30 lblue xslim" style="color: #000000;">+  94 (0) 11 2719047</p>
 
                         </div>
 

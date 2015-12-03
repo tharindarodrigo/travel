@@ -35,7 +35,7 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
 
             onClose: function() {
                 var minValue = dpk(this).val();
-                minValue = dpk.datepicker.parseDate("dd/mm/yy", minValue);
+                minValue = dpk.datepicker.parseDate("yy/mm/dd", minValue);
                 minValue.setDate(minValue.getDate() + 1);
 
                 dpk("#datepicker2").datepicker("option", "minDate", minValue);

@@ -37,7 +37,7 @@
 
     <style type="text/css">
         .hotel_room_img {
-            /*width: 245px;*/
+            width: 245px;
             height: 159px;
         }
 
@@ -226,7 +226,7 @@
             <div class="col-md-4 detailsright offset-0">
                 <div class="padding20">
 
-                    <h2 class="" style="color: #006699">{{ $details->name }}</h2>
+                    <h2 class="" style="color: #3498db">{{ $details->name }}</h2>
                     <span class="size14 grey"> {{ $details->address }} </span>
                     <br/>
                     <?php
@@ -527,7 +527,7 @@
                                         ->get();
                             }
 
-                            $directory = 'public/images/room_images/';
+                            $directory = public_path().'/images/room_images/';
                             $images = glob($directory . $room_id . ".*");
                             $img_path = array_shift($images);
                             $img_name = basename($img_path);
@@ -572,7 +572,7 @@
                                                 @foreach($hot_room->RoomFacility as $facilities)
                                                     <?php
                                                     //echo public_path();
-                                                    $directory1 = 'public/images/room_facilities/';
+                                                    $directory1 = public_path().'/images/room_facilities/';
                                                     $images1 = glob($directory1 . $facilities->id . "*");
                                                     $img_path1 = array_shift($images1);
                                                     $img_name1 = basename($img_path1);
@@ -604,7 +604,7 @@
                                                 </script>
 
                                                 <div id="popover_title_wrapper{{ $x }}" style="display: none">
-                                                    <h4 style="color: #006699"> Cancellation Policy </h4>
+                                                    <h4 style="color: #3498db"> Cancellation Policy </h4>
                                                 </div>
 
                                                 <div id="popover_content_wrapper{{ $x }}" style="display: none">
@@ -1322,7 +1322,7 @@
                     <div class="padding30">
                         <?php
                         //echo public_path();
-                        $directory = 'public/images/hotel_images/';
+                        $directory = public_path().'/images/hotel_images/';
                         $images = glob($directory . $hotel_id . "_*");
                         $img_path = array_shift($images);
                         $img_name = basename($img_path);

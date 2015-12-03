@@ -17,12 +17,12 @@
         }
 
         .collapsebtn {
-            background: #006699;
+            background: #3498db;
             color: #FFFFFF;
         }
 
         h4 {
-            color: #006699;
+            color: #3498db;
         }
 
         .no_result {
@@ -172,7 +172,7 @@
                     <br/><br/>
 
                     <div style="padding: 10%" class="container offset-2">
-                        {{ HTML::image('images/no-result.png', '', array('class' => 'no_result'))}}
+                        {{ HTML::image('images/no-result.png', '', array('class' => 'img-responsive no_result'))}}
                     </div>
                     <div class="clearfix"></div>
                 </div>

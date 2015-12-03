@@ -64,7 +64,7 @@
                         <div class="cpdd01 grey2">
 
                             <a href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursion->ExcursionType->excursion_type).'/'.str_replace(' ', '-', $excursion->excursion))}}">
-                                <h1 style="color:#006699;">{{ $excursion->excursion }}</h1>
+                                <h1 style="color:#3498db;">{{ $excursion->excursion }}</h1>
                             </a>
 
                             <div class="line4"></div>
