@@ -1,112 +1,112 @@
 <?php
 
-class TransportPackagesController extends \BaseController {
+class TransportPackagesController extends \BaseController
+{
 
-	/**
-	 * Display a listing of transportpackages
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
+    /**
+     * Display a listing of TransportPackages
+     *
+     * @return Response
+     */
+    public function index()
+    {
         Session::forget('edit');
-		$packages = Transportpackage::all();
-		return View::make('control-panel.transportation.packages',compact('packages'));
-	}
+        $packages = TransportPackage::all();
+        return View::make('control-panel.transportation.packages', compact('packages'));
+    }
 
-	/**
-	 * Show the form for creating a new transportpackage
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
+    /**
+     * Show the form for creating a new TransportPackage
+     *
+     * @return Response
+     */
+    public function create()
+    {
         return View::make('');
-	}
+    }
 
-	/**
-	 * Store a newly created transportpackage in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), Transportpackage::$rules);
+    /**
+     * Store a newly created TransportPackage in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        $validator = Validator::make($data = Input::all(), TransportPackage::$rules);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+        if ($validator->fails()) {
+            //dd($validator->errors());
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-		Transportpackage::create($data);
+        TransportPackage::create($data);
 
-		return Redirect::route('control-panel.transportpackages.index');
-	}
+        return self::index();
+    }
 
-	/**
-	 * Display the specified transportpackage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-        $packages = Transportpackage::findOrFail($id);
+    /**
+     * Display the specified TransportPackage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        //$packages = TransportPackage::findOrFail($id);
 
-		return View::make('transportpackages.show', compact('packages'));
-	}
+        return self::index();
+    }
 
-	/**
-	 * Show the form for editing the specified transportpackage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
+    /**
+     * Show the form for editing the specified TransportPackage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
 
-		$transportpackage = Transportpackage::findOrFail($id);
-		$packages = Transportpackage::with('originCity')->with('destinationCity')->get();
+        $transportpackage = TransportPackage::findOrFail($id);
+        $packages = TransportPackage::with('originCity')->with('destinationCity')->get();
         Session::put('edit', 'edit');
 
-        return View::make('control-panel.transportation.packages', compact('transportpackage','packages'));
-	}
+        return View::make('control-panel.transportation.packages', compact('transportpackage', 'packages'));
+    }
 
-	/**
-	 * Update the specified transportpackage in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
+    /**
+     * Update the specified TransportPackage in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
         $transportpackage = TransportPackage::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Transportpackage::$rules);
+        $validator = Validator::make($data = Input::all(), TransportPackage::$rules);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
 
-		$transportpackage->update($data);
+        $transportpackage->update($data);
 
         Session::forget('edit');
 
-		return Redirect::route('control-panel..index');
-	}
+        return self::index();
+    }
 
-	/**
-	 * Remove the specified transportpackage from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Transportpackage::destroy($id);
+    /**
+     * Remove the specified TransportPackage from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        TransportPackage::destroy($id);
 
-		return Redirect::route('transportpackages.index');
-	}
+        return self::index();
+    }
 
 }

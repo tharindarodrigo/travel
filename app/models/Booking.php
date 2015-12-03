@@ -11,6 +11,7 @@ class Booking extends \Eloquent
         'departure_date' => 'required|after:arrival_date',
         'adults' => 'required|numeric',
         'children' => 'required|numeric',
+        'user_id'=> 'required',
         'email' => 'email'
     ];
 
@@ -30,7 +31,7 @@ class Booking extends \Eloquent
 
     // Don't forget to fill this array
     protected $fillable = [
-        'reference_number', 'arrival_date', 'departure_date', 'booking_name', 'adults', 'children', 'val', 'remarks', 'email', 'phone', 'passport_number'
+        'reference_number', 'arrival_date', 'departure_date', 'booking_name', 'adults', 'children', 'val', 'remarks', 'email', 'phone', 'passport_number', 'user_id'
     ];
 
     /**

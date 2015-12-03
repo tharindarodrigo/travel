@@ -7,7 +7,7 @@
                 <h3 class="box-title"> Create Payments</h3>
             </div>
             <div class="box-body">
-                {{Form::model($payment, array('route'=>array('control-panel.payments.store')))}}
+                {{Form::model($payment, array('route'=>array('control-panel.payments.update',$payment->id), 'method'=>'patch'))}}
                 <div class="form-group">
                     <label for="amount">Agent</label>
                     {{Form::select('agent_id', [''=> 'Select agent']+Agent::orderBy('company')->lists('company','id'), null, array('class'=> 'form-control'))}}

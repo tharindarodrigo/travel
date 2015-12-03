@@ -38,7 +38,7 @@
             <div class="box box-primary ">
                 <div class="box-header">
                     <h3 class="box-title">
-                        Create Market
+                        Create Vehicle
                     </h3>
                 </div>
                 @if(!Session::has('edit'))
@@ -175,10 +175,11 @@
 
 @section('scripts')
 {{ HTML::script('control-panel-assets/plugins/datepicker/bootstrap-datepicker.js')}}
-
+{{ HTML::script("control-panel-assets/ajax/js/commonFunctions.js" )}}
 
     <script type="text/javascript">
         $(function () {
+            confirmDeleteItem();
             $("#vehicles-table").dataTable(function(){
                 confirmDeleteItem();
             });

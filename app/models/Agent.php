@@ -7,14 +7,14 @@ class Agent extends \Eloquent
     public static $rules = [
         'company' => 'required',
         'address' => 'required',
-        'email'=>'required',
-        'fax'=>'required',
-        'tax'=>'required|numeric',
-        'handling_fee'=>'required|numeric'
+        'email' => 'required',
+        'fax' => 'required',
+        'tax' => 'required|numeric',
+        'handling_fee' => 'required|numeric'
     ];
 
     // Don't forget to fill this array
-    protected $fillable = ['company', 'address', 'email', 'phone', 'tax', 'tax_type', 'handling_fee', 'handling_fee_type','market_id', 'country_id','user_id'];
+    protected $fillable = ['company', 'address', 'email', 'phone', 'tax', 'tax_type', 'handling_fee', 'handling_fee_type', 'market_id', 'country_id', 'user_id'];
 
 
     public static function getAgents()
@@ -29,7 +29,12 @@ class Agent extends \Eloquent
 
     public static function getCreditLimit($agent_id)
     {
-        return Agent::where('user_id',$agent_id)->first()->credit_limit;
+        if (Entrust::hasRole('Agent')) {
+
+            return Agent::where('user_id', $agent_id)->first()->credit_limit;
+        }
+        return false;
+
     }
 
     public function user()
