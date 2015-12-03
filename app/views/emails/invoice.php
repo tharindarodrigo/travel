@@ -127,10 +127,10 @@
                 <tr>
                     <td>
                         <p>Trip By <?php echo $trip->transportPackage->vehicle->vehicle_type ?>, picked up
-                            on <?php echo date('Y-m-d', strtotime($trip->transportPackage->start_date)); ?>
+                            on <?php echo date('Y-m-d', strtotime($trip->pick_up_date_time)); ?>
                             at <?php echo date('H:i', strtotime($trip->pick_up_date_time)) ?>. Path (Origin to
                             Destination)
-                            : <?php echo City::find($trip->transportPackage->origin)->city; ?><?php echo City::find($trip->transportPackage->destination)->city; ?>
+                            : <?php echo City::find($trip->transportPackage->origin)->city; ?>, <?php echo City::find($trip->transportPackage->destination)->city; ?>
                             @ <?php echo number_format($trip->amount, 2); ?></p>
 
 
