@@ -8317,10 +8317,16 @@ $.extend(Datepicker.prototype, {
 		}
 		if (!$.datepicker._pos) { // position below input
 			$.datepicker._pos = $.datepicker._findPos(input);
-			$.datepicker._pos[1] += input.offsetHeight; // add the height
+			$.datepicker._pos[1] += input.offsetHeight ; // add the height
 		}
 
 		isFixed = false;
+
+        if (isFixed /*&& $.browser.opera*/) { // correction when fixed and scrolled
+            $.datepicker._pos[0] -= document.documentElement.scrollLeft;
+            $.datepicker._pos[1] -= document.documentElement.scrollTop;
+        }
+
 		$(input).parents().each(function() {
 			isFixed |= $(this).css("position") === "fixed";
 			return !isFixed;

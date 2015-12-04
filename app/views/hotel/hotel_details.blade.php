@@ -6,6 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> srilankahotel.travel - Hotel Details </title>
 
+    <style type="text/css">
+        @media only screen and (min-width: 767px) and (max-width: 1366px) {
+            #ui-datepicker-div{
+                top : 810px !important;
+            }
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 767px) {
+            #ui-datepicker-div{
+                top : 810px !important;
+            }
+        }
+
+        @media only screen and (min-width: 0px) and (max-width: 479px) {
+            #ui-datepicker-div{
+                top : 1450px !important;
+            }
+        }
+
+    </style>
+
 @endsection
 
 @section('custom_style')
@@ -132,6 +153,8 @@
 
     <script type="text/javascript">
         $(function () {
+            $.extend($.datepicker,{_checkOffset:function(inst,offset,isFixed){return offset}});
+
             $("#datepicker").datepicker({
 
                 onClose: function (selectedDate) {
@@ -147,6 +170,21 @@
             });
         });
 
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#datepicker").datepicker({
+                onClose: function() {
+                    var minValue = $(this).val();
+                    minValue = $.datepicker.parseDate("yy/mm/dd", minValue);
+                    minValue.setDate(minValue.getDate() + 1);
+
+                    $("#datepicker2").datepicker("option", "minDate", minValue);
+                    return $("#datepicker2").datepicker("show");
+                }
+            });
+        });
     </script>
 
 @endsection

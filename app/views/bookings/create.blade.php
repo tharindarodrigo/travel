@@ -26,6 +26,10 @@ if (Session::has('excursion_cart_details')) {
         th {
             text-align: center;
         }
+
+        .table{
+            margin-bottom: 10px !important;
+        }
     </style>
 @endsection
 
@@ -390,7 +394,7 @@ if (Session::has('excursion_cart_details')) {
                     <div class="hpadding30 margtop30">
 
                         @if(Session::has('rate_box_details'))
-                            <table class="table table-bordered margbottom20">
+                            <table class="table table-bordered ">
                                 <tr>
                                     <td>
                                         <h5 style="font-weight: 600" class="dark">Hotel Bookings</h5>
@@ -448,7 +452,7 @@ if (Session::has('excursion_cart_details')) {
                         @endif
 
                         @if(Session::has('transport_cart_box'))
-                            <table class="table table-bordered margbottom20">
+                            <table class="table table-bordered ">
                                 <tr>
                                     <td>
                                         <h5 style="font-weight: 600" class="dark">Transport Bookings</h5>
@@ -492,7 +496,7 @@ if (Session::has('excursion_cart_details')) {
                         @endif
 
                         @if(Session::has('predefined_transport'))
-                            <table class="table table-bordered margbottom20">
+                            <table class="table table-bordered ">
                                 <tr>
                                     <td>
                                         <h5 style="font-weight: 600" class="dark">Predefined Transport Bookings</h5>
@@ -542,7 +546,7 @@ if (Session::has('excursion_cart_details')) {
                         @endif
 
                         @if(Session::has('excursion_cart_details'))
-                            <table class="table table-bordered margbottom20">
+                            <table class="table table-bordered ">
                                 <tr>
                                     <td>
                                         <h5 style="font-weight: 600" class="dark">Excursion Bookings</h5>
@@ -581,28 +585,25 @@ if (Session::has('excursion_cart_details')) {
                                         Total Cost <br/>
                                         {{ Session::get('currency') }} <br/>
                                         {{ number_format(($total_cost_excursion * Session::get('currency_rate')), 2, '.', '') }}
-
                                         <br/>
                                     </td>
                                 </tr>
                             </table>
                         @endif
 
-
                     </div>
 
                     <div class="line3"></div>
                     <div class="padding30">
-                        <span class="left size14 dark">Trip Total:</span>
+                        <span class="lred2 bold size20"> Total Amount </span>
 
-                        <span class="right lred2 bold size18">
+                        <span class="right lred2 bold size20"> :
                             {{ Session::get('currency') }}
                             {{ number_format(($total_cost + $total_cost_transport + $total_cost_predefine_transport + $total_cost_excursion * Session::get('currency_rate')), 2, '.', '') }}
                         </span>
 
                         <div class="clearfix"></div>
                     </div>
-
 
                 </div>
                 <br/>
@@ -616,7 +617,7 @@ if (Session::has('excursion_cart_details')) {
                         <p class="size14 grey">Our team is 24/7 at your service to help you with your booking issues or
                             answer any related questions</p>
 
-                        <p class="opensans size30 lblue xslim">1-866-599-6674</p>
+                        <p class="opensans size30 lblue xslim">+ 94 (0) 11 5235872</p>
                     </div>
                 </div>
                 <br/>

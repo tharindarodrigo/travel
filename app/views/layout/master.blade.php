@@ -76,7 +76,6 @@
 
 <!-- Javascript -->
 
-<!-- This page JS --02>
 
 <!-- Custom functions -->
 {{ HTML::script('assets/js/functions.js') }}

@@ -163,8 +163,6 @@
 
                 <?php $city_or_acc = Request::segment(4); ?>
 
-
-
                 <!-- Price range -->
                 <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
                     Price range <span class="collapsearrow"></span>
