@@ -66,7 +66,7 @@
 
     $(document).ready(function(){
 
-        confirmDelete();
+        confirmDeleteItem();
 
         $('#date1, #date2, #date3, #date4').datepicker({
             dateFormat: 'yy-mm-dd',
@@ -82,12 +82,29 @@
             maxDate: new Date(),
             numberOfMonths: 1
         });
+        $('.payment-date-control').datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            minDate: new Date(1900),
+            numberOfMonths: 1
+        });
+
+//        $('.my_dob').datepicker({
+//            dateFormat: 'yy-mm-dd',
+//            changeMonth: true,
+//            changeYear: true,
+//            minDate: new Date(1900),
+//            maxDate: new Date(),
+//            numberOfMonths: 1
+//        });
 
         $('.date-control').datepicker({
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true
         });
+
         $('.time-control').timepicker();
         $('#time1, #time2').timepicker();
         $('.update_client').hide();
@@ -116,9 +133,6 @@
             });
             $(this).closest('tr').css('background','#B9F097').fadeIn(200);
         });
-
-
-
     });
 
     $('#add_client_btn').click(function(){
@@ -133,8 +147,6 @@
         formData.append('gender', gender.trim());
         formData.append('dob', dob.trim());
         formData.append('passport_number', passport_number.trim());
-
-
 
 //        alert(name+' '+passport_number+' '+dob+' '+gender);
         var url = 'http://'+window.location.host+'/bookings/create-client';

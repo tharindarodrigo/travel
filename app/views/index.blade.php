@@ -168,7 +168,7 @@
 
     <!-- navbar -->
     @include('layout.navbar')
-    <!-- / navbar -->
+            <!-- / navbar -->
 
     <div style="position: absolute" class="mtslide sliderbg">
         @include('layout.slider')
@@ -591,20 +591,28 @@
                                 <div class="deal">
                                     {{ HTML::image('images/transport_images/vehicles/'.$transport_package->vehicle_id.'.jpg', '', array('class' => 'tour_img_index1 left'))}}
 
-                                    <div class="dealtitle">
+                                    <div class="dealtitle" style="width: 100%">
 
                                         {{--{{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}--}}
-                                        <div class="col-md-6">
 
-                                            <span style="font-size: 12px; margin-top: -10px"> {{ City::where('id', $transport_package->origin)->first()->city }} </span>
+                                        <table width="100%">
+                                            <tr>
+                                                <td>
 
-                                            <span style="font-size: 12px; margin-top: -10px"> {{ City::where('id', $transport_package->destination)->first()->city }} </span>
-                                        </div>
+                                                    <span style="font-size: 12px; margin-top: -10px"> {{ City::where('id', $transport_package->origin)->first()->city }} </span>
+                                                    <br>
+                                                    <span style="font-size: 12px; margin-top: -10px"> {{ City::where('id', $transport_package->destination)->first()->city }} </span>
+                                                </td>
+                                                <td align="right" class="green">
+                                                    {{ Session::get('currency') }}<br>
+                                                    {{ number_format(($transport_package->rate ), 2, '.', '') }}
+                                                </td>
+                                            </tr>
+                                        </table>
 
-                                        <div style="left: 30px" class="green col-md-6 size12">
-                                            {{ Session::get('currency') }}<br/>
-                                            {{ number_format(($transport_package->rate ), 2, '.', '') }}
-                                        </div>
+
+                                        {{--<div style="" class="green  size12">--}}
+                                        {{--</div>--}}
 
                                     </div>
                                 </div>
@@ -687,11 +695,11 @@
 
     @section('script')
 
-        <!-- This page JS -->
-        {{ HTML::script('assets/js/js-index3.js') }}
+            <!-- This page JS -->
+    {{ HTML::script('assets/js/js-index3.js') }}
 
-        <!-- Custom js -->
-        {{ HTML::script('js/my_script.js') }}
+            <!-- Custom js -->
+    {{ HTML::script('js/my_script.js') }}
 
     @endsection
 

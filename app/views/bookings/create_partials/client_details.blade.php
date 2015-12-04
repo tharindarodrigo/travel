@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="">DoB</label>
-                                        {{Form::text('dob_'.$client->id,$client->dob,array('class'=>'form-control date-control'))}}
+                                        {{Form::text('dob_'.$client->id,$client->dob,array('class'=>'form-control my_dob'))}}
                                     </div>
                                     <div class="form-group">
                                         <label for="">Dob</label>
@@ -59,7 +59,6 @@
                                     {{Form::submit('Save Changes', array('class'=>'btn btn-primary'))}}
                                 </div>
                                 {{Form::close()}}
-
                             </div>
                         </div>
                     </div>
@@ -79,7 +78,7 @@
                 {{$errors->first('passport_number', '<span class="size12" style="color: red;">:message</span>') }}
             </td>
             <td>
-                {{Form::text('dob',null,array('class'=>'form-control date-control', 'placeholder'=> 'Date of Birth'))}}
+                {{Form::text('dob',null,array('class'=>'form-control', 'placeholder'=> 'Date of Birth', 'id'=>'dob'))}}
                 {{$errors->first('dob', '<span class="size12" style="color: red;">:message</span>') }}
             </td>
             <td>
@@ -95,6 +94,3 @@
 
 </div>
 
-@section('scripts')
-
-@endsection

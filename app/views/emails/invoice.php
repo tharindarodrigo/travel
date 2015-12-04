@@ -110,8 +110,6 @@
                         at <?php echo date('H:i', strtotime($trip->from)) ?>. Path (Origin to Destination)
                         : <?php echo $trip->locations ?></p>
                 <?php } ?>
-
-
             </td>
             <td align="right">
                 <?php echo number_format(TransportPackage::getCustomTripTotal($booking), 2); ?>

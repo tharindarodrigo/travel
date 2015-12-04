@@ -48,7 +48,7 @@
                                     <br/>
                                     {{----------------------------------------------------------------------------------------------------------------------------------}}
 
-                                    @if(Entrust::)
+                                    @if(Entrust::hasRole('Agent'))
                                     <span class="size12">Agent Reference Number *</span>
                                     {{Form::text('tour',null,array('class'=> 'form-control'))}}
                                     {{$errors->first('tour', '<span class="size12" style="color: red;">:message</span>') }}
@@ -161,7 +161,6 @@
                         <div role="tabpanel" class="tab-pane {{!Session::has('bookings_show_tabs')? 'active': '' }}"
                              id="client_details">
                             <div class="container">
-
                                 @include('bookings.create_partials.client_details')
                             </div>
 

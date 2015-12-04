@@ -259,7 +259,7 @@ class AllotmentsController extends \BaseController {
         $allotments = Allotment::all();
 
         try{
-            $allotment = Allotment::findOrFail($id);
+            $allotment = Allotment::where('hotel_id',$hotelid)->get();
         } catch (ModelNotFoundException $e){
             return Redirect::to('control-panel/errors/404');
         }

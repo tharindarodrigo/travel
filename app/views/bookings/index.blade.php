@@ -21,16 +21,16 @@
 
             <div class="col-md-12 pagecontainer2 offset-0">
                 <ul class="nav nav-tabs nav-justified" role="tablist">
-                    <li role="presentation" class="active">
+                    <li role="presentation" class="{{Session::has('activate_payments_tab') ? '' : 'active'}}">
                         <a href="#bookings" aria-controls="bookings" role="tab" data-toggle="tab">Bookings</a>
                     </li>
-                    <li role="presentation" class="">
+                    <li role="presentation" class="{{Session::get('activate_payments_tab')}}">
                         <a href="#payments" aria-controls="payments" role="tab" data-toggle="tab">Payments</a>
                     </li>
                 </ul>
 
                 <div class="tab-content4">
-                    <div role="tabpanel" class="tab-pane active" id="bookings">
+                    <div role="tabpanel" class="tab-pane {{Session::has('activate_payments_tab') ? '' : 'active'}}" id="bookings">
                         <div class="col-md-12">
 
                             <form action="" method="get">
@@ -143,7 +143,7 @@
 
                     </div>
 
-                    <div role="tabpanel" class="tab-pane" id="payments">
+                    <div role="tabpanel" class="tab-pane {{Session::get('activate_payments_tab')}}" id="payments">
                         <div class="col-md-12">
                             <form action="" class="form-horizontal">
 
@@ -151,13 +151,13 @@
                                     <div class="col-md-3"></div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <input type="text" name="from_d" class="form-control" placeholder="from"
+                                            <input type="text" class="form-control payment-date-control" name="from_d" placeholder="from"
                                                    value="{{Input::get('from_d')}}">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <input type="text" name="to_d" class="form-control" placeholder="to"
+                                            <input type="text" name="to_d" class="form-control payment-date-control" placeholder="to"
                                                    value="{{Input::get('to_d')}}">
                                         </div>
                                     </div>
@@ -166,10 +166,8 @@
                                     </div>
                                 </div>
 
-
                             </form>
                         </div>
-
 
                         <div class="hpadding50c">
                             @if(Entrust::hasRole('Agent'))
@@ -232,7 +230,7 @@
 
     </div>
 
-    </div>
+
 
     <div class="clearfix"></div>
     <br/><br/>
@@ -243,13 +241,7 @@
 
 @endsection
 
-@section('script')
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#agent-bookings').dataTable();
-        });
-    </script>
-@stop
+
 
 
 

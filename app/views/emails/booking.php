@@ -347,7 +347,7 @@
 
         <div style="background: #0099cc; padding: 1px; padding-left: 20px;">
             <h4>Flight Details</h4>
-        </div>2
+        </div>
         <br/>
 
         <div class="CSSTableGenerator">
