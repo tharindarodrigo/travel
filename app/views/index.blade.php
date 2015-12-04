@@ -4,7 +4,8 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - </title>
+    <title> srilankahotel.travel |Sri Lanka Hotels|Sri Lanka Holidays|Hotels in Sri Lanka|Travel & Tous Sri
+        Lanka </title>
 
 @endsection
 
@@ -84,9 +85,10 @@
             height: 254px !important;
         }
 
-        .deal{
-            height: 40px !important;
-            min-height: 68px !important;
+        .deal {
+            padding: 0px !important;
+            height: 30px !important;
+            min-height: 50px !important;
             border-radius: 10px 10px 10px 10px;
             -moz-border-radius: 10px 10px 10px 10px;
             -webkit-border-radius: 10px 10px 10px 10px;
@@ -96,7 +98,13 @@
             padding-bottom: 0px !important;
         }
 
-        .fwimg{
+        .dealtitle {
+            padding-top: 10px;
+            font-size: 14px;
+            line-height: 14px !important;
+        }
+
+        .fwimg {
             border-radius: 15px 15px 15px 15px;
             -moz-border-radius: 15px 15px 15px 15px;
             -webkit-border-radius: 15px 15px 15px 15px;
@@ -104,23 +112,49 @@
             height: 80px;
         }
 
-        .smallblacklabel{
+        .smallblacklabel {
             border-radius: 15px 15px 15px 15px;
             -moz-border-radius: 15px 15px 15px 15px;
             -webkit-border-radius: 15px 15px 15px 15px;
             border: 0px solid #000000;
-           /*margin-left: 10px;*/
+            /*margin-left: 10px;*/
         }
 
         .tour_img_index {
             border-radius: 15px 15px 15px 15px;
             -moz-border-radius: 15px 15px 15px 15px;
             -webkit-border-radius: 15px 15px 15px 15px;
-            border: 0px solid #000000;
-            width: 60px;
-            /*height: 60px;*/
+            border: 2px solid #3498db;
+            width: 50px;
+            height: 50px;
         }
 
+        .tour_img_index1 {
+            border-radius: 15px 15px 15px 15px;
+            -moz-border-radius: 15px 15px 15px 15px;
+            -webkit-border-radius: 15px 15px 15px 15px;
+            width: 50px;
+            height: 50px;
+        }
+
+        .categorylayer {
+            padding: 2px;
+            border-radius: 15px 15px 15px 15px;
+            -moz-border-radius: 15px 15px 15px 15px;
+            -webkit-border-radius: 15px 15px 15px 15px;
+            background: #EAE7E7;
+        }
+
+        .cstyle05 {
+            height: auto !important;
+        }
+
+        .lastminute3_content_bac {
+            border-radius: 15px 15px 15px 15px;
+            -moz-border-radius: 15px 15px 15px 15px;
+            -webkit-border-radius: 15px 15px 15px 15px;
+            background: #EAE7E7 !important;
+        }
     </style>
 
     {{--my styles--}}
@@ -194,495 +228,454 @@
 
         <div style="padding-left: 0px; padding-right: 0px" class="container">
             <div class="col-md-3">
-                <div class="shadow cstyle05">
+                <div class=" cstyle05">
                     <div class="fwi one" style="background: #fcf2f2">
                         {{ HTML::image('images/special offers/1.jpg', '', array('class' => 'img_home_offer'))}}
                         {{--<div class="mhover none">--}}
-                                {{--<span class="icon">--}}
-                                    {{--<a href="{{URL::to('sri-lanka/-Passikudah/Anilana-Passikudah')}}">--}}
-                                        {{--<img src="images/spacer.png" alt=""/>--}}
-                                    {{--</a>--}}
-                                {{--</span>--}}
+                        {{--<span class="icon">--}}
+                        {{--<a href="{{URL::to('sri-lanka/-Passikudah/Anilana-Passikudah')}}">--}}
+                        {{--<img src="images/spacer.png" alt=""/>--}}
+                        {{--</a>--}}
+                        {{--</span>--}}
                         {{--</div>--}}
                     </div>
                     {{--<div class="ctitle" style="font-size: 16px;"> Anilana Pasikuda--}}
-                        {{--<a href="#">--}}
-                            {{--<img src="images/spacer.png" alt=""/>--}}
-                        {{--</a>--}}
-                        {{--<span>{{ Session::get('currency') . '&nbsp;' . ( (number_format(((RoomRates::lowestHotelRate(993, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', ''))); }} </span>--}}
+                    {{--<a href="#">--}}
+                    {{--<img src="images/spacer.png" alt=""/>--}}
+                    {{--</a>--}}
+                    {{--<span>{{ Session::get('currency') . '&nbsp;' . ( (number_format(((RoomRates::lowestHotelRate(993, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', ''))); }} </span>--}}
                     {{--</div>--}}
                 </div>
             </div>
 
             <div class="col-md-3">
-                <div class="shadow cstyle05">
+                <div class=" cstyle05">
                     <div class="fwi one" style="background: #fcf2f2">
                         {{ HTML::image('images/special offers/2.jpg', '', array('class' => 'img_home_offer'))}}
                         {{--<div class="mhover none">--}}
-                                {{--<span class="icon">--}}
-                                    {{--<a href="{{URL::to('sri-lanka/Wadduwa/Serene-Pavilions')}}">--}}
-                                        {{--<img src="images/spacer.png" alt=""/>--}}
-                                    {{--</a>--}}
-                                {{--</span>--}}
+                        {{--<span class="icon">--}}
+                        {{--<a href="{{URL::to('sri-lanka/Wadduwa/Serene-Pavilions')}}">--}}
+                        {{--<img src="images/spacer.png" alt=""/>--}}
+                        {{--</a>--}}
+                        {{--</span>--}}
                         {{--</div>--}}
                     </div>
                     {{--<div class="ctitle" style="font-size: 16px;"> Serene Pavilion--}}
-                        {{--<a href="#">--}}
-                            {{--<img src="images/spacer.png" alt=""/>--}}
-                        {{--</a>--}}
-                        {{--<span>{{ Session::get('currency') . '&nbsp;' . ( number_format(((RoomRates::lowestHotelRate(1339, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', '')); }}</span>--}}
+                    {{--<a href="#">--}}
+                    {{--<img src="images/spacer.png" alt=""/>--}}
+                    {{--</a>--}}
+                    {{--<span>{{ Session::get('currency') . '&nbsp;' . ( number_format(((RoomRates::lowestHotelRate(1339, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', '')); }}</span>--}}
                     {{--</div>--}}
                 </div>
             </div>
 
             <div class="col-md-3">
-                <div class="shadow cstyle05">
+                <div class=" cstyle05">
                     <div class="fwi one" style="background: #fcf2f2">
                         {{ HTML::image('images/special offers/3.jpg', '', array('class' => 'img_home_offer'))}}
                         {{--<div class="mhover none">--}}
-                                {{--<span class="icon">--}}
-                                    {{--<a href="{{URL::to('sri-lanka/-Passikudah/Anilana-Passikudah')}}">--}}
-                                        {{--<img src="images/spacer.png" alt=""/>--}}
-                                    {{--</a>--}}
-                                {{--</span>--}}
+                        {{--<span class="icon">--}}
+                        {{--<a href="{{URL::to('sri-lanka/-Passikudah/Anilana-Passikudah')}}">--}}
+                        {{--<img src="images/spacer.png" alt=""/>--}}
+                        {{--</a>--}}
+                        {{--</span>--}}
                         {{--</div>--}}
                     </div>
                     {{--<div class="ctitle" style="font-size: 16px;"> Anilana Pasikuda--}}
-                        {{--<a href="#">--}}
-                            {{--<img src="images/spacer.png" alt=""/>--}}
-                        {{--</a>--}}
-                        {{--<span>{{ Session::get('currency') . '&nbsp;' . ( (number_format(((RoomRates::lowestHotelRate(993, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', ''))); }} </span>--}}
+                    {{--<a href="#">--}}
+                    {{--<img src="images/spacer.png" alt=""/>--}}
+                    {{--</a>--}}
+                    {{--<span>{{ Session::get('currency') . '&nbsp;' . ( (number_format(((RoomRates::lowestHotelRate(993, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', ''))); }} </span>--}}
                     {{--</div>--}}
                 </div>
             </div>
 
             <div class="col-md-3">
-                <div class="shadow cstyle05">
+                <div class=" cstyle05">
                     <div class="fwi one" style="background: #fcf2f2">
                         {{ HTML::image('images/special offers/4.jpg', '', array('class' => 'img_home_offer'))}}
                         {{--<div class="mhover none">--}}
-                                {{--<span class="icon">--}}
-                                    {{--<a href="{{URL::to('sri-lanka/Wadduwa/Serene-Pavilions')}}">--}}
-                                        {{--<img src="images/spacer.png" alt=""/>--}}
-                                    {{--</a>--}}
-                                {{--</span>--}}
+                        {{--<span class="icon">--}}
+                        {{--<a href="{{URL::to('sri-lanka/Wadduwa/Serene-Pavilions')}}">--}}
+                        {{--<img src="images/spacer.png" alt=""/>--}}
+                        {{--</a>--}}
+                        {{--</span>--}}
                         {{--</div>--}}
                     </div>
                     {{--<div class="ctitle" style="font-size: 16px;"> Serene Pavilion--}}
-                        {{--<a href="#">--}}
-                            {{--<img src="images/spacer.png" alt=""/>--}}
-                        {{--</a>--}}
-                        {{--<span>{{ Session::get('currency') . '&nbsp;' . ( number_format(((RoomRates::lowestHotelRate(1339, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', '')); }}</span>--}}
+                    {{--<a href="#">--}}
+                    {{--<img src="images/spacer.png" alt=""/>--}}
+                    {{--</a>--}}
+                    {{--<span>{{ Session::get('currency') . '&nbsp;' . ( number_format(((RoomRates::lowestHotelRate(1339, $st_date, $ed_date)) * Session::get('currency_rate')), 2, '.', '')); }}</span>--}}
                     {{--</div>--}}
                 </div>
             </div>
         </div>
-        <br/><br/>
+        <br/>
 
         <div class="container">
             <div class="row">
-                <div style="background: #efefef" class="col-md-3">
+                <div class="col-md-3">
                     <div class="lbl">
                         <a href="">
-                            {{ HTML::image('images/tour_images/tour_banner.png', '', array('class' => 'fwimg'))}}
+                            {{ HTML::image('images/tour.jpg', '', array('class' => 'fwimg'))}}
                         </a>
 
-                        <div class="smallblacklabel">Tours</div>
+                        {{--<div class="smallblacklabel">Tours</div>--}}
                     </div>
                     <?php $j = 7; ?>
-                    @foreach($tour as $tours)
-                        <div class="deal" >
-                            {{ HTML::image('images/tour_images/index/'.$tours->id.'.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
+                    <div class="categorylayer">
+                        @foreach($tour as $tours)
+                            <div class="deal">
+                                {{ HTML::image('images/tour_images/index/'.$tours->id.'.png', '', array('class' => 'tour_img_index left', 'style' => 'border: none !important'))}}
 
-                            <div class="dealtitle">
-                                <p>
-                                    <a href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $tours->tour_title))}}"
-                                       class="dark">{{ $tours->tour_title }}</a>
-                                </p>
-                                {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
+                                <div class="dealtitle">
+                                    <p>
+                                        <a href="{{URL::to('tour/sri-lanka/'.str_replace(' ', '-', $tours->tour_title))}}"
+                                           target="_blank" class="dark">{{ $tours->tour_title }}</a>
+                                    </p>
+                                    {{--                                    {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}--}}
 
-                            </div>
+                                </div>
 
-                            {{--{{ HTML::image('images/site/kk.png', '', array('class' => 'right ddd'))}}--}}
+                                {{--{{ HTML::image('images/site/kk.png', '', array('class' => 'right ddd'))}}--}}
 
-                            {{--<div class="right" style="margin-top: -10px">--}}
+                                {{--<div class="right" style="margin-top: -10px">--}}
                                 {{--<div id="commentbox">--}}
-                                    {{--<div id="commentrating">Rating</div>--}}
-                                    {{--<div id="commentnums">--}}
-                                        {{--{{ $j }}/7--}}
-                                    {{--</div>--}}
+                                {{--<div id="commentrating">Rating</div>--}}
+                                {{--<div id="commentnums">--}}
+                                {{--{{ $j }}/7--}}
                                 {{--</div>--}}
-                            {{--</div>--}}
-                        </div>
-                        <?php $j = $j - 1?>
-                    @endforeach
+                                {{--</div>--}}
+                                {{--</div>--}}
+                            </div>
+                            <?php $j = $j - 1?>
+                        @endforeach
+                    </div>
                 </div>
                 <!-- End of first row-->
 
                 <div class="col-md-3">
                     <div class="lbl">
                         <a href="">
-                            {{ HTML::image('images/excursion_images/excursion_banner.jpg', '', array('class' => 'fwimg'))}}
+                            {{ HTML::image('images/excursion.jpg', '', array('class' => 'fwimg'))}}
                         </a>
 
-                        <div class="smallblacklabel">Excursion</div>
+                        {{--<div class="smallblacklabel">Excursion</div>--}}
                     </div>
                     <?php $i = 7; ?>
-                    @foreach($excursion as $excursions)
+                    <div class="categorylayer">
+                        @foreach($excursion as $excursions)
+                            <div class="deal">
+                                {{ HTML::image('images/excursion_images/index/'.$excursions->id.'.jpg', '', array('class' => 'tour_img_index left'))}}
+
+                                <div class="dealtitle">
+                                    <p>
+                                        <a href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursions->ExcursionType->excursion_type).'/'.str_replace(' ', '-', $excursions->excursion))}}"
+                                           target="_blank" class="dark">
+                                            {{ $excursions->excursion }}
+                                        </a>
+                                    </p>
+                                    {{--                                    {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}--}}
+                                </div>
+
+                                {{--<div class="right" style="margin-top: -10px">--}}
+                                {{--<div id="commentbox">--}}
+                                {{--<div id="commentrating">Rating</div>--}}
+                                {{--<div id="commentnums">--}}
+                                {{--{{ $i }}/7--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                            </div>
+                            <?php $i = $i - 1; ?>
+                        @endforeach
+                    </div>
+                </div>
+                <!-- End of first row-->
+
+                <div class="col-md-3">
+                    <div class="lbl">
+                        <a href="">
+                            {{ HTML::image('images/destination.jpg', '', array('class' => 'fwimg'))}}
+                        </a>
+
+                        {{--<div class="smallblacklabel">Top Destination</div>--}}
+                    </div>
+
+                    {{--@foreach($user_review as $reviews)--}}
+                    {{--<div class="deal">--}}
+                    {{--<a href="#">--}}
+                    {{--<img src="images/site/3.png" alt="" class="dealthumb"/>--}}
+                    {{--</a>--}}
+
+                    {{--<div class="dealtitle">--}}
+                    {{--<p>--}}
+                    <?php
+                    // $get_city_id = DB::table('cities')->where('id', $reviews->hotel->id)->first();
+                    //  $city = $get_city_id->city;
+                    ?>
+
+                    {{--<a href="{{URL::to('sri-lanka/'.str_replace(' ', '-', $city).'/'.str_replace(' ', '-', $reviews->hotel->name))}}"--}}
+                    {{--class="dark">{{ $reviews->review }}--}}
+                    {{--- {{ $reviews->hotel->name }}</a>--}}
+
+                    {{--</p>--}}
+                    <?php
+                    //$stars = $reviews->hotel->star_category_id;
+                    // $star = DB::table('star_categoriesgh')->where('id', $stars)->first();
+                    // $hotel_star = $star->stars;
+                    ?>
+
+                    {{--{{ Star::star_loop_blue($hotel_star)}}--}}
+
+                    {{--</div>--}}
+                    {{--<div class="dealprice">--}}
+
+                    <?php //$low_hotel_rate = RoomRates::lowestHotelRate($reviews->hotel_id, $st_date, $ed_date); ?>
+
+                    {{--@if(!empty($low_hotel_rate))--}}
+                    {{--<span class="price">--}}
+                    {{--$ {{ $low_hotel_rate }}--}}
+                    {{--</span>--}}
+                    {{--@else--}}
+                    {{--<span class="price">--}}
+                    {{--No rate--}}
+                    {{--</span>--}}
+                    {{--@endif--}}
+                    {{--</div>--}}
+
+                    {{--<div class="dealtitle">--}}
+
+                    {{--</div>--}}
+                    {{--</div>--}}
+                    {{--@endforeach--}}
+                    {{--{{ HTML::image('images/site/guest_review.png', '', array('class' => 'guest_review'))}}--}}
+                    <div class="categorylayer">
+
+                        {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'kandy_city', 'method' => 'POST', 'target' => '_blank' )) }}
                         <div class="deal">
-                            {{ HTML::image('images/excursion_images/index/'.$excursions->id.'.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
+
+                            {{ HTML::image('images/city_images/index/kandy.jpg', '', array('class' => 'tour_img_index left'))}}
 
                             <div class="dealtitle">
                                 <p>
-                                    <a href="{{URL::to('excursion/sri-lanka/'.str_replace(' ', '-', $excursions->excursion_type))}}"
-                                       class="dark">
-                                        {{ $excursions->excursion_type }}
+                                    <a style="cursor: pointer" class="kandy dark">
+                                        Kandy
                                     </a>
                                 </p>
-                                {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
+                                {{--                                {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}--}}
+                                <p style="font-size: 10px; margin-top: -7px"> Temple of the Tooth </p>
                             </div>
 
-                            {{--<div class="right" style="margin-top: -10px">--}}
-                                {{--<div id="commentbox">--}}
-                                    {{--<div id="commentrating">Rating</div>--}}
-                                    {{--<div id="commentnums">--}}
-                                        {{--{{ $i }}/7--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        </div>
-                        <?php $i = $i - 1; ?>
-                    @endforeach
+                            <input type="hidden" name="city_or_acc_hidden" value="Kandy"/>
+                            <script type="text/javascript">
+                                $('.kandy').click(function () {
+                                    $('#kandy_city').submit();
+                                });
+                            </script>
 
+                        </div>
+                        {{ Form::close() }}
+
+                        {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'sigiriya_city', 'method' => 'POST', 'target' => '_blank' )) }}
+                        <div class="deal">
+                            {{ HTML::image('images/city_images/index/sigiriya.jpg', '', array('class' => 'tour_img_index left'))}}
+
+                            <div class="dealtitle">
+                                <p>
+                                    <a style="cursor: pointer" class="sigiriya dark">
+                                        Sigiriya
+                                    </a>
+                                </p>
+                                {{--                                {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}--}}
+                                <p style="font-size: 10px; margin-top: -7px"> Sigiriya Rock - Kingdom </p>
+                            </div>
+
+                            <input type="hidden" name="city_or_acc_hidden" value="Sigiriya"/>
+                            <script type="text/javascript">
+                                $('.sigiriya').click(function () {
+                                    $('#sigiriya_city').submit();
+                                });
+                            </script>
+
+                        </div>
+                        {{ Form::close() }}
+
+                        {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'pinnawala_city', 'method' => 'POST', 'target' => '_blank' )) }}
+                        <div class="deal">
+                            {{ HTML::image('images/city_images/index/pinnawala.jpg', '', array('class' => 'tour_img_index left'))}}
+
+                            <div class="dealtitle">
+                                <p>
+                                    <a style="cursor: pointer" class="pinnawala dark">
+                                        Pinnawala
+                                    </a>
+                                </p>
+                                {{--                                {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}--}}
+                                <p style="font-size: 10px; margin-top: -7px"> Elephant Orphanage </p>
+                            </div>
+
+                            <input type="hidden" name="city_or_acc_hidden" value="Pinnawala"/>
+                            <script type="text/javascript">
+                                $('.pinnawala').click(function () {
+                                    $('#pinnawala_city').submit();
+                                });
+                            </script>
+
+                        </div>
+                        {{ Form::close() }}
+
+                        {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'pasikuda_city', 'method' => 'POST', 'target' => '_blank' )) }}
+                        <div class="deal">
+                            {{ HTML::image('images/city_images/index/pasikuda.jpg', '', array('class' => 'tour_img_index left'))}}
+
+                            <div class="dealtitle">
+                                <p>
+                                    <a style="cursor: pointer" class="pasikuda dark">
+                                        Pasikuda
+                                    </a>
+                                </p>
+                                {{--                                {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}--}}
+                                <p style="font-size: 10px; margin-top: -7px"> Nice Weather </p>
+                            </div>
+
+                            <input type="hidden" name="city_or_acc_hidden" value="Pasikuda"/>
+                            <script type="text/javascript">
+                                $('.pasikuda').click(function () {
+                                    $('#pasikuda_city').submit();
+                                });
+                            </script>
+
+                        </div>
+                        {{ Form::close() }}
+
+                        {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'bentota_city', 'method' => 'POST', 'target' => '_blank' )) }}
+                        <div class="deal">
+                            {{ HTML::image('images/city_images/index/bentota.jpg', '', array('class' => 'tour_img_index left'))}}
+
+                            <div class="dealtitle">
+                                <p>
+                                    <a style="cursor: pointer" class="bentota dark">
+                                        Bentota
+                                    </a>
+                                </p>
+                                {{--{{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}--}}
+                                <p style="font-size: 10px; margin-top: -7px"> Beautiful Beach </p>
+                            </div>
+
+                            <input type="hidden" name="city_or_acc_hidden" value="Bentota"/>
+                            <script type="text/javascript">
+                                $('.bentota').click(function () {
+                                    $('#bentota_city').submit();
+                                });
+                            </script>
+                        </div>
+                        {{ Form::close() }}
+                    </div>
                 </div>
                 <!-- End of first row-->
 
                 <div class="col-md-3">
-
                     <div class="lbl">
                         <a href="">
-                            {{ HTML::image('images/top_destination.jpg', '', array('class' => 'fwimg'))}}
+                            {{ HTML::image('images/transport.jpg', '', array('class' => 'fwimg'))}}
                         </a>
 
-                        <div class="smallblacklabel">Top Destination</div>
+                        {{--<div class="smallblacklabel">Top Destination</div>--}}
                     </div>
 
-                    {{--@foreach($user_review as $reviews)--}}
-                    {{--<div class="deal">--}}
-                    {{--<a href="#">--}}
-                    {{--<img src="images/site/3.png" alt="" class="dealthumb"/>--}}
-                    {{--</a>--}}
+                    <div class="categorylayer">
+                        @foreach($transport_packages as $transport_package)
+                            <a href="{{ URL::to('transport-list') }}">
+                                <div class="deal">
+                                    {{ HTML::image('images/transport_images/vehicles/'.$transport_package->vehicle_id.'.jpg', '', array('class' => 'tour_img_index1 left'))}}
 
-                    {{--<div class="dealtitle">--}}
-                    {{--<p>--}}
-                    <?php
-                    // $get_city_id = DB::table('cities')->where('id', $reviews->hotel->id)->first();
-                    //  $city = $get_city_id->city;
-                    ?>
+                                    <div class="dealtitle">
 
-                    {{--<a href="{{URL::to('sri-lanka/'.str_replace(' ', '-', $city).'/'.str_replace(' ', '-', $reviews->hotel->name))}}"--}}
-                    {{--class="dark">{{ $reviews->review }}--}}
-                    {{--- {{ $reviews->hotel->name }}</a>--}}
+                                        {{--{{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}--}}
+                                        <div class="col-md-6">
 
-                    {{--</p>--}}
-                    <?php
-                    //$stars = $reviews->hotel->star_category_id;
-                    // $star = DB::table('star_categoriesgh')->where('id', $stars)->first();
-                    // $hotel_star = $star->stars;
-                    ?>
+                                            <span style="font-size: 12px; margin-top: -10px"> {{ City::where('id', $transport_package->origin)->first()->city }} </span>
 
-                    {{--{{ Star::star_loop_blue($hotel_star)}}--}}
+                                            <span style="font-size: 12px; margin-top: -10px"> {{ City::where('id', $transport_package->destination)->first()->city }} </span>
+                                        </div>
 
-                    {{--</div>--}}
-                    {{--<div class="dealprice">--}}
+                                        <div style="left: 30px" class="green col-md-6 size12">
+                                            {{ Session::get('currency') }}<br/>
+                                            {{ number_format(($transport_package->rate ), 2, '.', '') }}
+                                        </div>
 
-                    <?php //$low_hotel_rate = RoomRates::lowestHotelRate($reviews->hotel_id, $st_date, $ed_date); ?>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
 
-                    {{--@if(!empty($low_hotel_rate))--}}
-                    {{--<span class="price">--}}
-                    {{--$ {{ $low_hotel_rate }}--}}
-                    {{--</span>--}}
-                    {{--@else--}}
-                    {{--<span class="price">--}}
-                    {{--No rate--}}
-                    {{--</span>--}}
-                    {{--@endif--}}
-                    {{--</div>--}}
-
-                    {{--<div class="dealtitle">--}}
-
-                    {{--</div>--}}
-                    {{--</div>--}}
-                    {{--@endforeach--}}
-                    {{--{{ HTML::image('images/site/guest_review.png', '', array('class' => 'guest_review'))}}--}}
-
-                    <div class="deal">
-                        {{ HTML::image('images/city_images/index/kandy.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
-
-                        <div class="dealtitle">
-                            <p>
-                                <a href=""
-                                   class="dark">
-                                    Kandy
-                                </a>
-                            </p>
-                            {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
-                            <p style="font-size: 10px; margin-top: -7px"> Temple of the Tooth </p>
-                        </div>
-
-                        {{--<div class="right" style="margin-top: -10px">--}}
-                            {{--<div id="commentbox">--}}
-                                {{--<div id="commentrating">Rating</div>--}}
-                                {{--<div id="commentnums">--}}
-                                    {{--7/7--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
                     </div>
-
-                    <div class="deal">
-                        {{ HTML::image('images/city_images/index/sigiriya.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
-
-                        <div class="dealtitle">
-                            <p>
-                                <a href=""
-                                   class="dark">
-                                    Sigiriya
-                                </a>
-                            </p>
-                            {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
-                            <p style="font-size: 10px; margin-top: -7px"> Sigiriya Rock - Kingdom </p>
-                        </div>
-
-                        {{--<div class="right" style="margin-top: -10px">--}}
-                            {{--<div id="commentbox">--}}
-                                {{--<div id="commentrating">Rating</div>--}}
-                                {{--<div id="commentnums">--}}
-                                    {{--6/7--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    </div>
-
-                    <div class="deal">
-                        {{ HTML::image('images/city_images/index/pinnawala.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
-
-                        <div class="dealtitle">
-                            <p>
-                                <a href=""
-                                   class="dark">
-                                    Pinnawala
-                                </a>
-                            </p>
-                            {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
-                            <p style="font-size: 10px; margin-top: -7px"> Elephant Orphanage </p>
-                        </div>
-
-                        {{--<div class="right" style="margin-top: -10px">--}}
-                            {{--<div id="commentbox">--}}
-                                {{--<div id="commentrating">Rating</div>--}}
-                                {{--<div id="commentnums">--}}
-                                    {{--5/7--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    </div>
-
-                </div>
-                <!-- End of first row-->
-
-                <div class="col-md-3">
-
-                    <div class="lbl">
-                        <a href="">
-                            {{ HTML::image('images/top_destination.jpg', '', array('class' => 'fwimg'))}}
-                        </a>
-
-                        <div class="smallblacklabel">Top Destination</div>
-                    </div>
-
-                    {{--@foreach($user_review as $reviews)--}}
-                    {{--<div class="deal">--}}
-                    {{--<a href="#">--}}
-                    {{--<img src="images/site/3.png" alt="" class="dealthumb"/>--}}
-                    {{--</a>--}}
-
-                    {{--<div class="dealtitle">--}}
-                    {{--<p>--}}
-                    <?php
-                    // $get_city_id = DB::table('cities')->where('id', $reviews->hotel->id)->first();
-                    //  $city = $get_city_id->city;
-                    ?>
-
-                    {{--<a href="{{URL::to('sri-lanka/'.str_replace(' ', '-', $city).'/'.str_replace(' ', '-', $reviews->hotel->name))}}"--}}
-                    {{--class="dark">{{ $reviews->review }}--}}
-                    {{--- {{ $reviews->hotel->name }}</a>--}}
-
-                    {{--</p>--}}
-                    <?php
-                    //$stars = $reviews->hotel->star_category_id;
-                    // $star = DB::table('star_categoriesgh')->where('id', $stars)->first();
-                    // $hotel_star = $star->stars;
-                    ?>
-
-                    {{--{{ Star::star_loop_blue($hotel_star)}}--}}
-
-                    {{--</div>--}}
-                    {{--<div class="dealprice">--}}
-
-                    <?php //$low_hotel_rate = RoomRates::lowestHotelRate($reviews->hotel_id, $st_date, $ed_date); ?>
-
-                    {{--@if(!empty($low_hotel_rate))--}}
-                    {{--<span class="price">--}}
-                    {{--$ {{ $low_hotel_rate }}--}}
-                    {{--</span>--}}
-                    {{--@else--}}
-                    {{--<span class="price">--}}
-                    {{--No rate--}}
-                    {{--</span>--}}
-                    {{--@endif--}}
-                    {{--</div>--}}
-
-                    {{--<div class="dealtitle">--}}
-
-                    {{--</div>--}}
-                    {{--</div>--}}
-                    {{--@endforeach--}}
-                    {{--{{ HTML::image('images/site/guest_review.png', '', array('class' => 'guest_review'))}}--}}
-
-                    <div class="deal">
-                        {{ HTML::image('images/city_images/index/kandy.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
-
-                        <div class="dealtitle">
-                            <p>
-                                <a href=""
-                                   class="dark">
-                                    Kandy
-                                </a>
-                            </p>
-                            {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
-                            <p style="font-size: 10px; margin-top: -7px"> Temple of the Tooth </p>
-                        </div>
-
-                        {{--<div class="right" style="margin-top: -10px">--}}
-                            {{--<div id="commentbox">--}}
-                                {{--<div id="commentrating">Rating</div>--}}
-                                {{--<div id="commentnums">--}}
-                                    {{--7/7--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    </div>
-
-                    <div class="deal">
-                        {{ HTML::image('images/city_images/index/sigiriya.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
-
-                        <div class="dealtitle">
-                            <p>
-                                <a href=""
-                                   class="dark">
-                                    Sigiriya
-                                </a>
-                            </p>
-                            {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
-                            <p style="font-size: 10px; margin-top: -7px"> Sigiriya Rock - Kingdom </p>
-                        </div>
-
-                        {{--<div class="right" style="margin-top: -10px">--}}
-                            {{--<div id="commentbox">--}}
-                                {{--<div id="commentrating">Rating</div>--}}
-                                {{--<div id="commentnums">--}}
-                                    {{--6/7--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    </div>
-
-                    <div class="deal">
-                        {{ HTML::image('images/city_images/index/pinnawala.jpg', '', array('class' => 'mt-10 tour_img_index left'))}}
-
-                        <div class="dealtitle">
-                            <p>
-                                <a href=""
-                                   class="dark">
-                                    Pinnawala
-                                </a>
-                            </p>
-                            {{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}
-                            <p style="font-size: 10px; margin-top: -7px"> Elephant Orphanage </p>
-                        </div>
-
-                        {{--<div class="right" style="margin-top: -10px">--}}
-                            {{--<div id="commentbox">--}}
-                                {{--<div id="commentrating">Rating</div>--}}
-                                {{--<div id="commentnums">--}}
-                                    {{--5/7--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    </div>
-
                 </div>
                 <!-- End of first row-->
             </div>
         </div>
-        <br/><br/><br/>
+        <br/>
 
-        <div class="container" style="background: #FFFFFF !important;">
+        <div class="container">
             <div class="hidden-xs hidden-md lastminute3_head">
                 <span style="margin-left: 20px;">{{ HTML::image('images/site/bookwithconfitxt.png', '', array('class' => 'lastminute3_img'))}}</span>
                 <span style="font-size: 12px; text-align: right;"> Rated among the top 5 traveling Sites to Sri Lanka </span>
             </div>
-            <br/><br/>
-            <div class="hidden-xs hidden-md lastminute3_content" style="text-align: left !important;">
-                <div class="col-md-4">
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">Low rates</h4>
+            <br/>
 
-                    <p style="font-size: 12px; display: block">No booking fees • Save money!</p>
+            <div class="hidden-xs hidden-md lastminute3_content_bac" style="text-align: left !important;">
+                <div class="lastminute3_content_bac">
+                    <div class="col-md-4">
+                        {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                        <h4 style="display: inline">Low rates</h4>
 
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => ''))}}
-                    <h4 style="display: inline">No hidden charges</h4>
+                        <p style="font-size: 12px; display: block">No booking fees • Save money!</p>
 
-                    <p style="font-size: 12px; display: block">What you see is what you get!</p>
+                        {{ HTML::image('images/site/rightmark.png', '', array('class' => ''))}}
+                        <h4 style="display: inline">No hidden charges</h4>
 
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">Book 24/7</h4>
+                        <p style="font-size: 12px; display: block">What you see is what you get!</p>
 
-                    <p style="font-size: 12px; display: block">Book online or over the telephone 24 hours a day</p>
-                </div>
-                <div class="col-md-4">
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">Instant confirmation</h4>
+                        {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                        <h4 style="display: inline">Book 24/7</h4>
 
-                    <p style="font-size: 12px; display: block">Booking online or via the telephone</p>
+                        <p style="font-size: 12px; display: block">Book online or over the telephone 24 hours a day</p>
+                    </div>
+                    <div class="col-md-4">
+                        {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                        <h4 style="display: inline">Instant confirmation</h4>
 
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">Satisfied guests</h4>
+                        <p style="font-size: 12px; display: block">Booking online or via the telephone</p>
 
-                    <p style="font-size: 12px; display: block">More than 1000 bookings daily</p>
+                        {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                        <h4 style="display: inline">Satisfied guests</h4>
 
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">Unbiased hotel reviews</h4>
+                        <p style="font-size: 12px; display: block">More than 1000 bookings daily</p>
 
-                    <p style="font-size: 12px; display: block">10,000 hotel reviews from real guests</p>
-                </div>
-                <div class="col-md-4">
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">Over 500 Hotels</h4>
+                        {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                        <h4 style="display: inline">Unbiased hotel reviews</h4>
 
-                    <p style="font-size: 12px; display: block">Linked with the very finest hotels in the island</p>
+                        <p style="font-size: 12px; display: block">10,000 hotel reviews from real guests</p>
+                    </div>
+                    <div class="col-md-4">
+                        {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                        <h4 style="display: inline">Over 500 Hotels</h4>
 
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">We speak your language</h4>
+                        <p style="font-size: 12px; display: block">Linked with the very finest hotels in the island</p>
 
-                    <p style="font-size: 12px; display: block">We cater to all kinds of clients and guests</p>
+                        {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                        <h4 style="display: inline">We speak your language</h4>
 
-                    {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
-                    <h4 style="display: inline">Unlimited service</h4>
+                        <p style="font-size: 12px; display: block">We cater to all kinds of clients and guests</p>
 
-                    <p style="font-size: 12px; display: block">Provide you the best service and guarantee your
-                        satisfaction</p>
+                        {{ HTML::image('images/site/rightmark.png', '', array('class' => 'lastminute3_img_2'))}}
+                        <h4 style="display: inline">Unlimited service</h4>
+
+                        <p style="font-size: 12px; display: block">Provide you the best service and guarantee your
+                            satisfaction</p>
+                    </div>
                 </div>
             </div>
         </div>

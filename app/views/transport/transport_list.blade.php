@@ -583,13 +583,13 @@
                 toastr.options.positionClass = 'toast-top-right';
 
                 $('.date_pick').datepicker({
-                    dateFormat: 'yy-mm-dd'
+                    dateFormat: 'yy/mm/dd'
                 });
 
                 $('.predefined_book').click(function () {
 
                     var predefine_id = $(this).attr('predefine_id');
-                    var check_in = $('.chk_in').datepicker({dateFormat: 'yy-mm-dd'}).val();
+                    var check_in = $('.chk_in').datepicker({dateFormat: 'yy/mm/dd'}).val();
 
                     var url = 'http://' + window.location.host + '/sri-lanka/predefined_transport_add_to_cart';
 
@@ -628,7 +628,7 @@
 
             $('.mySelectCalendar').datepicker({
 
-                dateFormat: 'yy-mm-dd', minDate: new Date,
+                dateFormat: 'yy/mm/dd', minDate: new Date,
                 beforeShow: function (input) {
                     $(input).css({
                         "position": "relative",
@@ -638,8 +638,8 @@
 
             });
             $(function () {
-                $("#datepicker").datepicker({dateFormat: "yy-mm-dd"});
-                $("#datepicker2").datepicker({dateFormat: "yy-mm-dd"});
+                $("#datepicker").datepicker({dateFormat: "yy/mm/dd"});
+                $("#datepicker2").datepicker({dateFormat: "yy/mm/dd"});
             });
 
         </script>

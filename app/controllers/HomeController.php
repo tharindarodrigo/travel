@@ -34,9 +34,10 @@ class HomeController extends BaseController
         }
 
 
-        $tour = Tour::take(3)->get();
-        $excursion = ExcursionType::take(3)->get();
+        $tour = Tour::take(5)->get();
+        $excursion = Excursion::take(5)->get();
         $user_review = HotelReview::take(3)->get();
+        $transport_packages = TransportPackage::take(5)->get();
 
         return View::make('index')
             ->with(
@@ -46,6 +47,7 @@ class HomeController extends BaseController
                     'user_review' => $user_review,
                     'st_date' => $st_date,
                     'ed_date' => $ed_date,
+                    'transport_packages' => $transport_packages,
 
                 )
             );
