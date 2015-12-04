@@ -94,7 +94,7 @@
 @section('content')
 
     <body id="top">
-
+{{dd(Booking::find(Booking::max('id'))->reference_number)}}
     <!-- navbar -->
     @include('layout.navbar')
     <!-- / navbar -->

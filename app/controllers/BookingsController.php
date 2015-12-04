@@ -199,7 +199,7 @@ class BookingsController extends \BaseController
 
         $data['val'] = 1;
 
-        if ($x = Payment::find(Booking::max('id'))) {
+        if ($x = Booking::find(Booking::max('id'))) {
             $data['reference_number'] = ++$x->reference_number;
         } else {
             $data['reference_number'] = 10000000;
