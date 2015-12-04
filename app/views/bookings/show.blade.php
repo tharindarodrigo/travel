@@ -48,10 +48,12 @@
                                     <br/>
                                     {{----------------------------------------------------------------------------------------------------------------------------------}}
 
+                                    @if(Entrust::)
                                     <span class="size12">Agent Reference Number *</span>
                                     {{Form::text('tour',null,array('class'=> 'form-control'))}}
                                     {{$errors->first('tour', '<span class="size12" style="color: red;">:message</span>') }}
                                     <br/>
+                                    @endif
 
                                     <span class="size12">Remark *</span>
                                     {{Form::textarea('remarks', null, array('class'=> 'form-control', 'rows'=>3))}}

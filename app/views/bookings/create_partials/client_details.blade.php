@@ -94,3 +94,7 @@
     </table>
 
 </div>
+
+@section('scripts')
+
+@endsection

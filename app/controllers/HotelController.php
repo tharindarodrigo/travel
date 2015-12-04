@@ -924,6 +924,7 @@ class HotelController extends \BaseController
                 'room_identity' => $room_identity,
                 'check_in' => $st_date,
                 'check_out' => $ed_date,
+                'unit_cost_price' => (double)$hotel_tax+ (double)$room_cost
             );
 
             if (Session::has('rate_box_details_' . $hotel_id)) {
@@ -932,6 +933,7 @@ class HotelController extends \BaseController
             } else {
                 $data = [];
                 $data[$room_identity] = $rate_box_details;
+
             }
 
             //$data['total_cost'] = $total_cost;

@@ -10,7 +10,7 @@ class ExcursionBookingsController extends \BaseController
      */
     public function index()
     {
-        $excursionbookings = Excursionbooking::all();
+        $excursionbookings = ExcursionBooking::all();
 
         return View::make('excursionbookings.index', compact('excursionbookings'));
     }
@@ -32,13 +32,13 @@ class ExcursionBookingsController extends \BaseController
      */
     public function store()
     {
-        $validator = Validator::make($data = Input::all(), Excursionbooking::$rules);
+        $validator = Validator::make($data = Input::all(), ExcursionBooking::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        Excursionbooking::create($data);
+        ExcursionBooking::create($data);
 
         return Redirect::route('excursionbookings.index');
     }
@@ -51,7 +51,7 @@ class ExcursionBookingsController extends \BaseController
      */
     public function show($id)
     {
-        $excursionbooking = Excursionbooking::findOrFail($id);
+        $excursionbooking = ExcursionBooking::findOrFail($id);
 
         return View::make('excursionbookings.show', compact('excursionbooking'));
     }
@@ -64,7 +64,7 @@ class ExcursionBookingsController extends \BaseController
      */
     public function edit($id)
     {
-        $excursionbooking = Excursionbooking::find($id);
+        $excursionbooking = ExcursionBooking::find($id);
 
         return View::make('excursionbookings.edit', compact('excursionbooking'));
     }
@@ -77,7 +77,7 @@ class ExcursionBookingsController extends \BaseController
      */
     public function update($booking_id, $id)
     {
-        $excursionbooking = Excursionbooking::findOrFail($id);
+        $excursionbooking = ExcursionBooking::findOrFail($id);
         $booking = Booking::getBookingData($booking_id);
 
         if (Input::has('val')) {
@@ -189,7 +189,7 @@ class ExcursionBookingsController extends \BaseController
             }
         }
 
-        $validator = Validator::make($data = Input::all(), Excursionbooking::$rules);
+        $validator = Validator::make($data = Input::all(), ExcursionBooking::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
@@ -208,7 +208,7 @@ class ExcursionBookingsController extends \BaseController
      */
     public function destroy($id)
     {
-        Excursionbooking::destroy($id);
+        ExcursionBooking::destroy($id);
 
         return Redirect::route('excursionbookings.index');
     }
