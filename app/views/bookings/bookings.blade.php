@@ -68,10 +68,19 @@
 
         confirmDelete();
 
-        $('#date1, #date2, #dob, #date3, #date4').datepicker({
+        $('#date1, #date2, #date3, #date4').datepicker({
             dateFormat: 'yy-mm-dd',
              changeMonth: true,
              changeYear: true
+        });
+
+        $('#dob').datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            minDate: new Date(1900),
+            maxDate: new Date(),
+            numberOfMonths: 1
         });
 
         $('.date-control').datepicker({

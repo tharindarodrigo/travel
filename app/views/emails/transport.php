@@ -67,7 +67,7 @@
                     <td align="right">
                         <?php echo $trip->reference_number ?> <br>
                         <?php echo $trip->transportPackage->vehicle->vehicle_type ?><br>
-                        <?php echo date('Y-m-d', strtotime($trip->transportPackage->start_date)) ?><br>
+                        <?php echo $trip->pick_up_date_time ?><br>
                         <?php echo date('H:i', strtotime($trip->pick_up_date_time)) ?><br>
                         <?php echo City::find($trip->transportPackage->origin)->city; ?>, <?php echo City::find($trip->transportPackage->destination)->city; ?>
                         <br>
