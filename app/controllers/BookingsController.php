@@ -291,7 +291,7 @@ class BookingsController extends \BaseController
                 //Send Transportation Email to All EHI users
 
                 $pdf = PDF::loadView('emails/transport', array('booking' => $booking));
-                $pdf->save(public_path() . '/temp-files/transport.pdf');
+                $pdf->save(public_path() . '/temp-files/transport'.$booking->id.'.pdf');
 
                 if ($a > 0) {
                     Mail::send('emails/transport-mail', array(
@@ -438,7 +438,7 @@ class BookingsController extends \BaseController
 
                 //Invoice
                 $pdf = PDF::loadView('emails/invoice', array('booking' => $booking));
-                $pdf->save(public_path() . '/temp-files/invoice.pdf');
+                $pdf->save(public_path() . '/temp-files/invoice'.$b.'.pdf');
                 $pdf = PDF::loadView('emails/service-voucher', array('booking' => $booking));
                 $pdf->save(public_path() . '/temp-files/service-voucher.pdf');
 
@@ -465,7 +465,7 @@ class BookingsController extends \BaseController
                     ), function ($message) use ($booking, $emails) {
                         $message->to($booking->email, $booking->name)
                             ->subject('Booking Created : ' . $booking->reference_number)
-                            ->attach(public_path() . '/temp-files/invoice.pdf');
+                            ->attach(public_path() . '/temp-files/invoice'.$booking->id.'.pdf');
                         $message->to('accounts@srilankahotels.travel', 'Accounts');
                         if (!empty($ehi_users)) {
                             foreach ($ehi_users as $ehi_user) {

@@ -256,10 +256,10 @@ class AllotmentsController extends \BaseController {
 	 */
 	public function edit($hotelid,$id)
 	{
-        $allotments = Allotment::all();
+        $allotments = Allotment::where('hotel_id', $hotelid)->get();
 
         try{
-            $allotment = Allotment::where('hotel_id',$hotelid)->get();
+            $allotment = Allotment::findOrFail($id);
         } catch (ModelNotFoundException $e){
             return Redirect::to('control-panel/errors/404');
         }
@@ -476,7 +476,7 @@ class AllotmentsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($hotel_id,$id)
 	{
 		Allotment::destroy($id);
         return Redirect::back();

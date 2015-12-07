@@ -66,7 +66,6 @@
                           <input name="room_type_id" value="{{$allotment->room_type_id}}" type="hidden"/>
 
                        @endif
-
                    </div>
                    {{ $errors->first('room_type_id', '<div class="form-group text-red">:message</div>') }}
 
