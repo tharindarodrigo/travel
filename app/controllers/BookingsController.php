@@ -426,7 +426,6 @@ class BookingsController extends \BaseController
                             $message->to($ehi_user->email, $ehi_user->first_name);
                         }
                     }
-
                 });
 
                 Invoice::create(
