@@ -13,15 +13,15 @@
 
             <div class="row ">
 
-            {{Form::open(array('url'=>array('account/sign-in')))}}
+            {{Form::open(array('url'=>array('account/recover-account',$code), 'method'=>'post'))}}
             <div class="login-c1">
                 <div class="cpadding50">
                     <p>{{Session::get('global')}}</p>
-                    {{Form::text('email', null, array('class'=> 'form-control logpadding', 'placeholder'=>'email'))}}
-                    {{$errors->first('email', '<span class="size12" style="color: red;">:message</span>') }}
-                    <br/>
                     {{Form::password('password', array('class'=> 'form-control logpadding', 'placeholder'=>'password'))}}
                     {{$errors->first('password', '<span class="size12" style="color: red;">:message</span>') }}
+                    <br/>
+                    {{Form::password('confirm_password', array('class'=> 'form-control logpadding', 'placeholder'=>'confirm password'))}}
+                    {{$errors->first('confirm_password', '<span class="size12" style="color: red;">:message</span>') }}
 
                     <span class="size12" style="color: red;">{{ Session::get('global') }}</span>
                 </div>
@@ -30,26 +30,16 @@
                 <div class="logmargfix">
                     <div class="chpadding50">
                         <div class="alignbottom">
-                            <button type="submit" class="btn-search4">Sign In</button>
+                            <button type="submit" class="btn-search4">Change Password</button>
                         </div>
-                        <div class="alignbottom2">
-                            <div class="checkbox">
-                                <label>
-                                    {{Form::checkbox('remember')}} Remember Me
-                                </label>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
             <div class="login-c3">
                 <div class="left"><a href="{{URL::to('/')}}" class="whitelink"><span></span>Website</a></div>
-                <div class="right"><a class="whitelink" href="{{URL::to('account/forgot-password')}}">
-                        Forgot Password ?
-                    </a></div>
             </div>
             {{Form::close()}}
-
 
         </div>
 

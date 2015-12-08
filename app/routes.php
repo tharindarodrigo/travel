@@ -282,6 +282,7 @@ Route::group(array('prefix' => 'account'), function () {
     Route::get('forgot-password', 'AccountController@getForgotPassword');
     Route::post('forgot-password', 'AccountController@postForgotPassword');
     Route::get('recover/{code}', 'AccountController@recoverAccount');
+    Route::post('recover-account/{code}', 'AccountController@postRecoverPassword');
 });
 
 

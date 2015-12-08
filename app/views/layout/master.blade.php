@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <!-- Meta -->
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @yield('title')
 
     <!-- Bootstrap -->

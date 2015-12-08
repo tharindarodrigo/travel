@@ -30,7 +30,8 @@
                 </ul>
 
                 <div class="tab-content4">
-                    <div role="tabpanel" class="tab-pane {{Session::has('activate_payments_tab') ? '' : 'active'}}" id="bookings">
+                    <div role="tabpanel" class="tab-pane {{Session::has('activate_payments_tab') ? '' : 'active'}}"
+                         id="bookings">
                         <div class="col-md-12">
 
                             <form action="" method="get">
@@ -148,21 +149,33 @@
                             <form action="" class="form-horizontal">
 
                                 <div class="row">
-                                    <div class="col-md-3"></div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control payment-date-control" name="from_d" placeholder="from"
-                                                   value="{{Input::get('from_d')}}">
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control payment-date-control"
+                                                       name="from_d" placeholder="from"
+                                                       value="{{Input::get('from_d')}}">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" name="to_d" class="form-control payment-date-control" placeholder="to"
-                                                   value="{{Input::get('to_d')}}">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <input type="text" name="to_d" class="form-control payment-date-control"
+                                                       placeholder="to"
+                                                       value="{{Input::get('to_d')}}">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        {{Form::submit('Get payments', array('name'=>'get_payments', 'class'=>'btn btn-primary'))}}
+                                        <div class="col-md-4">
+                                            {{Form::submit('Get payments', array('name'=>'get_payments', 'class'=>'btn btn-primary'))}}
+                                        </div>
+                                        <div class="col-md-4">
+                                            @if(Entrust::hasRole('Agent'))
+                                                <h4>Your credit Limit is USD. {{number_format(Agent::getCreditLimit(Auth::id()),2)}}</h4>
+                                            @else
+                                                {{Form::select('agent_id', Agent::lists('company','id'), array(), array('class'=> 'form-control'))}}
+                                            @endif
+                                        </div>
+
                                     </div>
                                 </div>
 
@@ -170,14 +183,10 @@
                         </div>
 
                         <div class="hpadding50c">
-                            @if(Entrust::hasRole('Agent'))
-                                <p>Your credit Limit is USD. {{number_format(Agent::getCreditLimit(Auth::id()),2)}}</p>
-                            @else
-                                {{Form::select('agent_id', Agent::lists('company','id'), array(), array('class'=> 'form-control'))}}
-                            @endif
-                            <table class="table">
+
+                            <table class="table table-striped" border="1px">
                                 <thead>
-                                <tr>
+                                <tr bgcolor="#a9a9a9" style="color:#FFFFFF">
                                     <th align="center">ID</th>
                                     <th align="center">Date</th>
                                     <th align="center">Detail</th>

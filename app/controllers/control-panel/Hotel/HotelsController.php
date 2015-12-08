@@ -98,7 +98,6 @@ class HotelsController extends \BaseController
             }
         }
 
-
         $facilities = Input::get('hotel_facility_id');
         if(!empty($facilities)){
             foreach ($facilities as $facility_id) {
@@ -407,7 +406,7 @@ class HotelsController extends \BaseController
             return Redirect::back();
         } catch (Exception $e){
 
-            Session::flash('error-msg','You are not allowed to delete this Record. Instead You can deactivate the record');
+            Session::flash('error-msg','You are not allowed to delete this Record. Instead You can deactivate the record '.$e);
             return Redirect::back();
         }
     }

@@ -177,8 +177,8 @@
                                         <td>{{ $package->millage }}</td>
                                         <td>{{ $package->days }}</td>
                                         <td>{{ $package->nights }}</td>
-                                        <td>{{ $package->origin}}</td>
-                                        <td>{{ $package->destination}}</td>
+                                        <td>{{ $package->originCity->city}}</td>
+                                        <td>{{ $package->destinationCity->city}}</td>
                                         <td>{{ $package->start_date }}</td>
                                         <td>{{ $package->end_date }}</td>
                                         <td>
