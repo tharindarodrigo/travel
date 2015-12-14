@@ -81,7 +81,6 @@ class AccountController extends \BaseController
     public function activateAccount($code)
     {
         $user = User::where('code', '=', $code)->where('active', '=', 0)->first();
-        dd($user);
         if ($user) {
 
             $user->active = 1;
@@ -89,7 +88,7 @@ class AccountController extends \BaseController
 
             if ($user->save()) {
                 Session::flash('global', 'Your account is activated..! Now you can sign in..!');
-                return View::make('pages.message');
+                return View::make('account/lo');
             }
         }
 
@@ -130,6 +129,8 @@ class AccountController extends \BaseController
                 'active' => 1
             ), $remember);
 
+            self::writeLog('Sign In: ' . date('Y-m-s H:i:s') . ' User ID: ' . Auth::id(), '- from' . Request::getClientIp());
+
             if ($auth) {
 
                 if (Entrust::hasRole('Agent')) {
@@ -143,8 +144,9 @@ class AccountController extends \BaseController
             } else {
                 return Redirect::back()
                     ->with('global', 'check your username and password');
-
             }
+
+
         }
 
     }
@@ -158,8 +160,8 @@ class AccountController extends \BaseController
         });
 
 
-            Session::flash('global', 'Email Sent to <b>'. $user->email.'</b>' );
-            return Redirect::back();
+        Session::flash('global', 'Email Sent to <b>' . $user->email . '</b>');
+        return Redirect::back();
 
     }
 
@@ -167,6 +169,7 @@ class AccountController extends \BaseController
     {
         Session::forget('market');
         //Session::forget();
+        self::writeLog('Sign Out: ' . date('Y-m-s H:i:s') . ' User ID: ' . Auth::id() . '- from: ' . Request::getClientIp());
         Auth::logout();
         return Redirect::route('index');
     }
@@ -261,17 +264,17 @@ class AccountController extends \BaseController
 
                 // Generate a new code and password
                 $code = str_random(60);
-                $password = str_random(10);
+//                $password = str_random(10);
 
                 $user->code = $code;
-                $user->password_temp = Hash::make($password);
+                //$user->password_temp = Hash::make($password);
 
                 if ($user->save()) {
-                    Mail::send('emails.auth.forgot', array('link' => URL::to('account/recover', $code), 'first_name' => $user->first_name, 'password' => $password), function ($message) use ($user) {
-                        $message->to($user->email, $user->first_name)->subject('Your new password');
+                    Mail::send('emails.auth.forgot', array('link' => URL::to('account/recover', $code), 'first_name' => $user->first_name), function ($message) use ($user) {
+                        $message->to($user->email, $user->first_name)->subject('Acount Recovery Request');
                     });
 
-                    Session::flash('global', 'we have sent you a new password by email');
+                    Session::flash('global', 'we have sent you an email');
                     return View::make('pages.message');
                 }
             }
@@ -283,24 +286,58 @@ class AccountController extends \BaseController
 
     public function recoverAccount($code)
     {
-        $user = User::where('code', '=', $code)
-            ->where('password_temp', '!=', '');
+        $user = User::where('code', '=', $code);
 
         if ($user->count()) {
-            $user = $user->first();
 
-            $user->password = $user->password_temp;
-            $user->password_temp = '';
-            $user->code = '';
+            //dd($user->first());
 
-            if ($user->save()) {
-                Session::flash('global', 'Your account has been recovered and you can sign in with your new password we emailed you just now');
-                return View::make('pages.message');
-            }
+            Session::put('my-account', $user->first());
 
-            return Redirect::route('account/sign-in')
-                ->with('global', 'Could not recover your account.');
+            return View::make('account.recover',compact('code'));
+
+
         }
+
+        return App::abort(404);
+    }
+
+    public function postRecoverPassword($code)
+    {
+//        dd($code);
+
+        if (Session::has('my-account')) {
+            $user = Session::pull('my-account');
+            if ($user->code == $code) {
+
+                $input = Input::all();
+
+                $validator = Validator::make(Input::all(), array(
+                    'password' => 'min:6',
+                    'confirm_password' => 'same:password',
+                ));
+                if ($validator->fails()) {
+                    return Redirect::back()->withErrors($validator);
+                }
+
+
+                $user->password = Hash::make($input['password']);
+                $user->code = '';
+
+                if ($user->save()) {
+                    Session::flash('global', 'Your account has been recovered and you can sign in with your new password');
+                    return View::make('pages.message');
+                }
+
+                return Redirect::route('account/sign-in')
+                    ->with('global', 'Could not recover your account.');
+            }
+        }
+
+        return Redirect::route('account/sign-in')
+            ->with('global', 'Could not recover your account.');
+
+
     }
 
     public function activateUser($id)
@@ -320,6 +357,10 @@ class AccountController extends \BaseController
 
     }
 
+    private function writeLog($content)
+    {
+        File::append(public_path() . '/user-log.txt', $content . "\n");
+    }
 
 
 }

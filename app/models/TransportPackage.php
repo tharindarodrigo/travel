@@ -68,12 +68,12 @@ class TransportPackage extends \Eloquent
 
     public function originCity()
     {
-        return $this->belongsTo('City', 'origin');
+        return $this->belongsTo('City', 'origin','city_id');
     }
 
     public function destinationCity()
     {
-        return $this->belongsTo('City', 'destination');
+        return $this->belongsTo('City', 'destination', 'city_id');
     }
 
 

@@ -80,9 +80,11 @@ class BookingsController extends \BaseController
 
             }
 
-            array_multisort($c, SORT_ASC, $merged_data);
+            if(!empty($merged_data)){
+                array_multisort($c, SORT_ASC, $merged_data);
+            }
 
-//            dd($merged_data);
+
             $total = 0;
 
             if(Input::has('get_payment'))
@@ -264,7 +266,7 @@ class BookingsController extends \BaseController
                         $custom_trip['to'] = date('Y-m-d H:i', strtotime($custom_trip['drop_off_date'] . ' ' . $custom_trip['drop_off_time_hour'] . ':' . $custom_trip['drop_off_time_minutes']));
                         $custom_trip['reference_number'] = 'TR' . ($booking->reference_number * 1000 + $x++);
                         $custom_trip['booking_id'] = $booking->id;
-                        $custom_trip['locations'] = $custom_trip['destination_1'];
+                        $custom_trip['locations'] = $custom_trip['destination_1'].','.$custom_trip['destination_2'] or ''.','.$custom_trip['destination_3'];
                         $custom_trip['amount'] = rand(100, 200);
 
                         CustomTrip::create($custom_trip);
