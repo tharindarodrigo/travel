@@ -124,7 +124,7 @@
 
                 <!-- Reservation Box -->
                 @include('layout.reservation_box_pages')
-                <!-- End Of Reservation Box -->F
+                <!-- End Of Reservation Box -->
 
 
                 <br/><br/>

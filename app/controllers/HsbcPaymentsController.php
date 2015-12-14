@@ -407,6 +407,7 @@ class HsbcPaymentsController extends \BaseController
             $txnResponseCode = HsbcPayment::null2unknown($_GET["vpc_TxnResponseCode"]);
 
 
+
             $verType = array_key_exists("vpc_VerType", $_GET) ? $_GET["vpc_VerType"] : "No Value Returned";
 
             $verStatus = array_key_exists("vpc_VerStatus", $_GET) ? $_GET["vpc_VerStatus"] : "No Value Returned";
@@ -422,6 +423,7 @@ class HsbcPaymentsController extends \BaseController
             $acqECI = array_key_exists("vpc_3DSECI", $_GET) ? $_GET["vpc_3DSECI"] : "No Value Returned";
 
             $authStatus = array_key_exists("vpc_3DSstatus", $_GET) ? $_GET["vpc_3DSstatus"] : "No Value Returned";
+
 
 
             $payment_info = HsbcPayment::where('HSBC_payment_id', $merchTxnRef);

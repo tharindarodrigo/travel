@@ -2,10 +2,16 @@
 
 @section('title')
 
+    <title>Sri Lanka Hotels|Accommodation In Sri Lanka</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel |Sri Lanka Hotels|Sri Lanka Holidays|Hotels in Sri Lanka|Travel & Tous Sri
-        Lanka </title>
+    <meta name="keywords"
+          content="Sri lanka Hotels,Hotels In Sri Lanka,Sri Lanka Accommodation,Accommodation In Sri Lanka,
+          Sri Lanka Tours,Business Hotels In Sri Lanka,Comfort Hotels In Sri Lanka,One Day Excursion Sri Lanka
+          Beach Hotels In Sri Lanka,Cheap Hotels In Sri Lanka,Budget Hotels In Sri Lanka,Book Hotels Online Sri Lanka,
+          Online Hotel Booking,5 Star Hotels In Sri Lanka,">
+
+
 
 @endsection
 
@@ -232,8 +238,8 @@
                 <div class=" cstyle05">
                     <div class="fwi one" style="background: #fcf2f2">
                         <a href="{{URL::to('sri-lanka/Bentota/Centara-Ceysands-Resort-&-Spa')}}">
-                        {{ HTML::image('images/special offers/1.png', '', array('class' => 'img_home_offer'))}}
-                            </a>
+                            {{ HTML::image('images/special offers/1.png', '', array('class' => 'img_home_offer'))}}
+                        </a>
                         {{--<div class="mhover none">--}}
                         {{--<span class="icon">--}}
                         {{--<a href="{{URL::to('sri-lanka/-Passikudah/Anilana-Passikudah')}}">--}}
@@ -255,7 +261,7 @@
                 <div class=" cstyle05">
                     <div class="fwi one" style="background: #fcf2f2">
                         <a href="{{URL::to('sri-lanka/Bentota/Eden-Resort-&-Spa')}}">
-                        {{ HTML::image('images/special offers/2.png', '', array('class' => 'img_home_offer'))}}
+                            {{ HTML::image('images/special offers/2.png', '', array('class' => 'img_home_offer'))}}
                         </a>
                         {{--<div class="mhover none">--}}
                         {{--<span class="icon">--}}
@@ -278,8 +284,8 @@
                 <div class=" cstyle05">
                     <div class="fwi one" style="background: #fcf2f2">
                         <a href="{{URL::to('sri-lanka/Wadduwa/The-Blue-Water')}}">
-                        {{ HTML::image('images/special offers/3.png', '', array('class' => 'img_home_offer'))}}
-                            </a>
+                            {{ HTML::image('images/special offers/3.png', '', array('class' => 'img_home_offer'))}}
+                        </a>
                         {{--<div class="mhover none">--}}
                         {{--<span class="icon">--}}
                         {{--<a href="{{URL::to('sri-lanka/-Passikudah/Anilana-Passikudah')}}">--}}
@@ -301,8 +307,8 @@
                 <div class=" cstyle05">
                     <div class="fwi one" style="background: #fcf2f2">
                         <a href="{{URL::to('sri-lanka/Beruwela/The-Palms')}}">
-                        {{ HTML::image('images/special offers/4.png', '', array('class' => 'img_home_offer'))}}
-                            </a>
+                            {{ HTML::image('images/special offers/4.png', '', array('class' => 'img_home_offer'))}}
+                        </a>
                         {{--<div class="mhover none">--}}
                         {{--<span class="icon">--}}
                         {{--<a href="{{URL::to('sri-lanka/Wadduwa/Serene-Pavilions')}}">--}}
