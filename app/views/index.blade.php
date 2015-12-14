@@ -23,6 +23,7 @@
         }
 
         .img_home_offer {
+            background: #efefef;
             /*width: 100%;*/
             height: 100%;
         }
@@ -168,7 +169,7 @@
 
     <!-- navbar -->
     @include('layout.navbar')
-            <!-- / navbar -->
+    <!-- / navbar -->
 
     <div style="position: absolute" class="mtslide sliderbg">
         @include('layout.slider')
@@ -176,11 +177,11 @@
 
 
     <div class="container wrap cstyle03">
-        <div class="col-md-4" style="position: absolute; top: -380px;">
+        <div class="col-md-4" style="position: absolute; top: -280px;">
             @include('layout.reservation_box')
         </div>
 
-        <div class="col-md-4 hidden-xs hidden-md" style="position: absolute; top: -380px; left: 400px;">
+        <div class="col-md-4 hidden-xs hidden-md" style="position: absolute; top: -280px; left: 400px;">
             <div class="shadow ">
                 <div class="fwi one" style="background: #FFFFFF">
                     {{ HTML::image('images/site/993_anilana pasikuda1.png', '', array('class' => 'img_home_offer'))}}
@@ -201,7 +202,7 @@
             </div>
         </div>
 
-        <div class="col-md-4 hidden-xs hidden-md" style="position: absolute; top: -380px; left: 780px;">
+        <div class="col-md-4 hidden-xs hidden-md" style="position: absolute; top: -280px; left: 780px;">
             <div class="shadow ">
                 <div class="fwi one" style="background: #FFFFFF">
                     {{ HTML::image('images/site/1339_Serene_Pavilion.png', '', array('class' => 'img_home_offer'))}}
@@ -224,13 +225,15 @@
 
     </div>
 
-    <div style="margin-top: -30px !important;" class="wrap cstyle03">
+    <div style="margin-top: 60px !important;" class="wrap cstyle03">
 
         <div style="padding-left: 0px; padding-right: 0px" class="container">
             <div class="col-md-3">
                 <div class=" cstyle05">
                     <div class="fwi one" style="background: #fcf2f2">
-                        {{ HTML::image('images/special offers/1.jpg', '', array('class' => 'img_home_offer'))}}
+                        <a href="{{URL::to('sri-lanka/Bentota/Centara-Ceysands-Resort-&-Spa')}}">
+                        {{ HTML::image('images/special offers/1.png', '', array('class' => 'img_home_offer'))}}
+                            </a>
                         {{--<div class="mhover none">--}}
                         {{--<span class="icon">--}}
                         {{--<a href="{{URL::to('sri-lanka/-Passikudah/Anilana-Passikudah')}}">--}}
@@ -251,7 +254,9 @@
             <div class="col-md-3">
                 <div class=" cstyle05">
                     <div class="fwi one" style="background: #fcf2f2">
-                        {{ HTML::image('images/special offers/2.jpg', '', array('class' => 'img_home_offer'))}}
+                        <a href="{{URL::to('sri-lanka/Bentota/Eden-Resort-&-Spa')}}">
+                        {{ HTML::image('images/special offers/2.png', '', array('class' => 'img_home_offer'))}}
+                        </a>
                         {{--<div class="mhover none">--}}
                         {{--<span class="icon">--}}
                         {{--<a href="{{URL::to('sri-lanka/Wadduwa/Serene-Pavilions')}}">--}}
@@ -272,7 +277,9 @@
             <div class="col-md-3">
                 <div class=" cstyle05">
                     <div class="fwi one" style="background: #fcf2f2">
-                        {{ HTML::image('images/special offers/3.jpg', '', array('class' => 'img_home_offer'))}}
+                        <a href="{{URL::to('sri-lanka/Wadduwa/The-Blue-Water')}}">
+                        {{ HTML::image('images/special offers/3.png', '', array('class' => 'img_home_offer'))}}
+                            </a>
                         {{--<div class="mhover none">--}}
                         {{--<span class="icon">--}}
                         {{--<a href="{{URL::to('sri-lanka/-Passikudah/Anilana-Passikudah')}}">--}}
@@ -293,7 +300,9 @@
             <div class="col-md-3">
                 <div class=" cstyle05">
                     <div class="fwi one" style="background: #fcf2f2">
-                        {{ HTML::image('images/special offers/4.jpg', '', array('class' => 'img_home_offer'))}}
+                        <a href="{{URL::to('sri-lanka/Beruwela/The-Palms')}}">
+                        {{ HTML::image('images/special offers/4.png', '', array('class' => 'img_home_offer'))}}
+                            </a>
                         {{--<div class="mhover none">--}}
                         {{--<span class="icon">--}}
                         {{--<a href="{{URL::to('sri-lanka/Wadduwa/Serene-Pavilions')}}">--}}
@@ -591,30 +600,22 @@
                                 <div class="deal">
                                     {{ HTML::image('images/transport_images/vehicles/'.$transport_package->vehicle_id.'.jpg', '', array('class' => 'tour_img_index1 left'))}}
 
-                                    <div class="dealtitle" style="width: 100%">
-
-                                        {{--{{ HTML::image('images/user-rating-5.png', '', array('class' => 'mt-10'))}}--}}
-
-                                        <table width="100%">
+                                    <div class="dealtitle1" style="width: 100%; padding: 0px !important;">
+                                        <table>
                                             <tr>
-                                                <td>
-
+                                                <td style="font-size: 10px">
                                                     <span style="font-size: 12px; margin-top: -10px"> {{ City::where('id', $transport_package->origin)->first()->city }} </span>
-                                                    <br>
+                                                    <br/>
                                                     <span style="font-size: 12px; margin-top: -10px"> {{ City::where('id', $transport_package->destination)->first()->city }} </span>
                                                 </td>
-                                                <td align="right" class="green">
-                                                    {{ Session::get('currency') }}<br>
+                                                <td class="green" style="right: -30px">
+                                                    {{ Session::get('currency') }}<br/>
                                                     {{ number_format(($transport_package->rate ), 2, '.', '') }}
                                                 </td>
                                             </tr>
                                         </table>
-
-
-                                        {{--<div style="" class="green  size12">--}}
-                                        {{--</div>--}}
-
                                     </div>
+
                                 </div>
                             </a>
                         @endforeach
@@ -695,11 +696,11 @@
 
     @section('script')
 
-            <!-- This page JS -->
-    {{ HTML::script('assets/js/js-index3.js') }}
+        <!-- This page JS -->
+        {{ HTML::script('assets/js/js-index3.js') }}
 
-            <!-- Custom js -->
-    {{ HTML::script('js/my_script.js') }}
+        <!-- Custom js -->
+        {{ HTML::script('js/my_script.js') }}
 
     @endsection
 

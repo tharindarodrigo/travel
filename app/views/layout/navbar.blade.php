@@ -384,7 +384,6 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 </script>
 
 {{--Desktop version--}}
-
 <div class="navbar-wrapper2 navbar-fixed-top hidden-xs hidden-md" style="background: #3498db;">
     <div class="row navbar-custom">
         <div class="col-md-6"></div>
@@ -395,13 +394,14 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                     <th>
                         <div id="google_translate_element"></div>
                         <div id="language"></div>
-                        
+
                         <script type="text/javascript">
-                            function googleTranslateElementInit() {
-                                new google.translate.TranslateElement({
-                                    pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-                                }, 'google_translate_element');
-                            }
+                            if ($(window).width() > 960) {
+                                $(window).load(function googleTranslateElementInit() {
+                                    new google.translate.TranslateElement({
+                                        pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                                    }, 'google_translate_element');
+                                })}
                         </script>
 
                         <script type="text/javascript"
@@ -457,11 +457,10 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                         'background-image': 'url(' + imageUrl + ')'
                                     });
 
-                                }, 1000);
+                                }, 4000);
 
                             });
                         </script>
-
                     </th>
 
                     <th>
@@ -758,6 +757,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                             </a>
                         @endif
                     </th>
+
                     <th>
                         <div class="basket right">
                             <a href="{{URL::to('/booking-cart')}}">
@@ -920,7 +920,6 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 </div>
 
 {{-- Mobile Version --}}
-
 <div class="navbar-wrapper2 navbar-fixed-top hidden-lg" style="background: #3498db;">
     <div class="row navbar-custom">
         <div class="col-md-6"></div>
@@ -931,12 +930,14 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                     <th>
                         {{--<div class="hidden-lg" id="google_translate_element"></div>--}}
                         {{--<script type="text/javascript">--}}
-                        {{--function googleTranslateElementInit() {--}}
-                        {{--new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');--}}
-                        {{--}--}}
+                            {{--$(window).unload(function googleTranslateElementInit() {--}}
+                                {{--new google.translate.TranslateElement({--}}
+                                    {{--pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE--}}
+                                {{--}, 'google_translate_element');--}}
+                            {{--})--}}
                         {{--</script>--}}
                         {{--<script type="text/javascript"--}}
-                        {{--src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>--}}
+                                {{--src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>--}}
                     </th>
 
                     <th>
@@ -1307,7 +1308,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                     <span class="icon-bar"></span>
                 </button>
                 <a href="{{URL::route('index')}}" class="navbar-brand">
-                    {{ HTML::image('images/moblie logo.png', '',  array('class' => '')) }}
+                    {{ HTML::image('images/mobile logo.png', '',  array('class' => '')) }}
                 </a>
             </div>
 
@@ -1423,4 +1424,6 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 
     });
 </script>
+
+
 

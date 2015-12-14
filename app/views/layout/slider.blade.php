@@ -1,4 +1,3 @@
-
 <!-- it works the same with all jquery version from 1.x to 2.x -->
 <script type="text/javascript" src="js/js/jquery-1.9.1.min.js"></script>
 <!-- use jssor.slider.mini.js (40KB) or jssor.sliderc.mini.js (32KB, with caption, no slideshow) or jssor.sliders.mini.js (28KB, no caption, no slideshow) instead for release -->
@@ -11,7 +10,7 @@
 
         var _SlideshowTransitions = [
             //Fade
-            { $Duration: 1200, $Opacity: 2 }
+            {$Duration: 1200, $Opacity: 2}
         ];
 
         var options = {
@@ -101,21 +100,22 @@
     </div>
 
     <!-- Slides Container -->
-    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1366px; height: 535px; overflow: hidden;">
+    <div u="slides"
+         style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1366px; height: 535px; overflow: hidden;">
         <div>
-            <img u="image" src="images/slider/1.jpg" />
+            <img u="image" src="images/slider/1.jpg"/>
         </div>
         <div>
-            <img u="image" src="images/slider/2.jpg" />
+            <img u="image" src="images/slider/2.jpg"/>
         </div>
         <div>
-            <img u="image" src="images/slider/3.jpg" />
+            <img u="image" src="images/slider/3.jpg"/>
         </div>
         <div>
-            <img u="image" src="images/slider/4.jpg" />
+            <img u="image" src="images/slider/4.jpg"/>
         </div>
         <div>
-            <img u="image" src="images/slider/5.jpg" />
+            <img u="image" src="images/slider/5.jpg"/>
         </div>
 
     </div>
@@ -226,21 +226,22 @@
     </div>
 
     <!-- Slides Container -->
-    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1366px; height: 535px; overflow: hidden;">
+    <div u="slides"
+         style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1366px; height: 535px; overflow: hidden;">
         <div>
-            <img u="image" src="images/slider/1.jpg" />
+            <img u="image" src="images/slider/1.jpg"/>
         </div>
         <div>
-            <img u="image" src="images/slider/2.jpg" />
+            <img u="image" src="images/slider/2.jpg"/>
         </div>
         <div>
-            <img u="image" src="images/slider/3.jpg" />
+            <img u="image" src="images/slider/3.jpg"/>
         </div>
         <div>
-            <img u="image" src="images/slider/4.jpg" />
+            <img u="image" src="images/slider/4.jpg"/>
         </div>
         <div>
-            <img u="image" src="images/slider/5.jpg" />
+            <img u="image" src="images/slider/5.jpg"/>
         </div>
 
     </div>
@@ -351,21 +352,22 @@
     </div>
 
     <!-- Slides Container -->
-    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 360px; height: 535px; overflow: hidden;">
+    <div u="slides"
+         style="cursor: move; position: absolute; left: 0px; top: 0px; width: 360px; height: 535px; overflow: hidden;">
         <div>
-            <img u="image" src="images/slider/1_2.jpg" />
+            <img u="image" src="images/slider/1_2.jpg"/>
         </div>
         <div>
-            <img u="image" src="images/slider/2_2.jpg" />
-        </div>
-        {{--<div>--}}
-        {{--<img u="image" src="images/slider/3_2.jpg" />--}}
-        {{--</div>--}}
-        <div>
-            <img u="image" src="images/slider/4_2.jpg" />
+            <img u="image" src="images/slider/2_2.jpg"/>
         </div>
         <div>
-            <img u="image" src="images/slider/5_2.jpg" />
+            <img u="image" src="images/slider/3_2.jpg"/>
+        </div>
+        <div>
+            <img u="image" src="images/slider/4_2.jpg"/>
+        </div>
+        <div>
+            <img u="image" src="images/slider/5_2.jpg"/>
         </div>
 
     </div>
@@ -464,17 +466,19 @@
 
 <!-- Jssor Slider End -->
 
+
+
 <script type="text/javascript">
     if ($(window).width() > 960) {
-        $('.slider_1').attr("id" , "slider1_container");
+        $('.slider_1').attr("id", "slider1_container");
         $(".slider_2").css("display", "none");
         $(".slider_3").css("display", "none");
-    } else if ($(window).width() > 480)    {
-        $('.slider_2').attr("id" , "slider1_container");
+    } else if ($(window).width() > 480) {
+        $('.slider_2').attr("id", "slider1_container");
         $(".slider_1").css("display", "none");
         $(".slider_3").css("display", "none");
-    }else if($(window).width() < 480) {
-        $('.slider_3').attr("id" , "slider1_container");
+    } else if ($(window).width() < 480) {
+        $('.slider_3').attr("id", "slider1_container");
         $(".slider_1").css("display", "none");
         $(".slider_2").css("display", "none");
     }

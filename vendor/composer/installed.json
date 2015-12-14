@@ -2221,82 +2221,18 @@
         ]
     },
     {
-        "name": "intervention/image",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Intervention/image.git",
-            "reference": "2d8de6577b86c8b3bf49b6578d659ba9ee21fcc1"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Intervention/image/zipball/2d8de6577b86c8b3bf49b6578d659ba9ee21fcc1",
-            "reference": "2d8de6577b86c8b3bf49b6578d659ba9ee21fcc1",
-            "shasum": ""
-        },
-        "require": {
-            "ext-fileinfo": "*",
-            "guzzlehttp/psr7": "~1.1",
-            "php": ">=5.4.0"
-        },
-        "require-dev": {
-            "mockery/mockery": "~0.9.2",
-            "phpunit/phpunit": "3.*"
-        },
-        "suggest": {
-            "ext-gd": "to use GD library based image processing.",
-            "ext-imagick": "to use Imagick based image processing.",
-            "intervention/imagecache": "Caching extension for the Intervention Image library"
-        },
-        "time": "2015-11-05 18:30:26",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Intervention\\Image\\": "src/Intervention/Image"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Oliver Vogel",
-                "email": "oliver@olivervogel.net",
-                "homepage": "http://olivervogel.net/"
-            }
-        ],
-        "description": "Image handling and manipulation library with support for Laravel integration",
-        "homepage": "http://image.intervention.io/",
-        "keywords": [
-            "gd",
-            "image",
-            "imagick",
-            "laravel",
-            "thumbnail",
-            "watermark"
-        ]
-    },
-    {
         "name": "filp/whoops",
-        "version": "1.1.9",
-        "version_normalized": "1.1.9.0",
+        "version": "1.1.10",
+        "version_normalized": "1.1.10.0",
         "source": {
             "type": "git",
             "url": "https://github.com/filp/whoops.git",
-            "reference": "c9abab430c5a019724425b57093fc4c853cf716a"
+            "reference": "72538eeb70bbfb11964412a3d098d109efd012f7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/filp/whoops/zipball/c9abab430c5a019724425b57093fc4c853cf716a",
-            "reference": "c9abab430c5a019724425b57093fc4c853cf716a",
+            "url": "https://api.github.com/repos/filp/whoops/zipball/72538eeb70bbfb11964412a3d098d109efd012f7",
+            "reference": "72538eeb70bbfb11964412a3d098d109efd012f7",
             "shasum": ""
         },
         "require": {
@@ -2305,7 +2241,7 @@
         "require-dev": {
             "mockery/mockery": "0.9.*"
         },
-        "time": "2015-11-22 19:20:15",
+        "time": "2015-06-29 05:42:04",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2346,30 +2282,30 @@
     },
     {
         "name": "symfony/class-loader",
-        "version": "v2.7.7",
-        "version_normalized": "2.7.7.0",
+        "version": "v2.8.0",
+        "version_normalized": "2.8.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/class-loader.git",
-            "reference": "9d8359ca865621ba7f43ac6a3455d064d064bed7"
+            "reference": "51f83451bf0ddfc696e47e4642d6cd10fcfce160"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/class-loader/zipball/9d8359ca865621ba7f43ac6a3455d064d064bed7",
-            "reference": "9d8359ca865621ba7f43ac6a3455d064d064bed7",
+            "url": "https://api.github.com/repos/symfony/class-loader/zipball/51f83451bf0ddfc696e47e4642d6cd10fcfce160",
+            "reference": "51f83451bf0ddfc696e47e4642d6cd10fcfce160",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.9"
         },
         "require-dev": {
-            "symfony/finder": "~2.0,>=2.0.5"
+            "symfony/finder": "~2.0,>=2.0.5|~3.0.0"
         },
-        "time": "2015-10-30 20:10:21",
+        "time": "2015-11-26 07:00:59",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.7-dev"
+                "dev-master": "2.8-dev"
             }
         },
         "installation-source": "dist",
@@ -2400,17 +2336,17 @@
     },
     {
         "name": "symfony/event-dispatcher",
-        "version": "v2.7.7",
-        "version_normalized": "2.7.7.0",
+        "version": "v2.8.0",
+        "version_normalized": "2.8.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/event-dispatcher.git",
-            "reference": "7e2f9c31645680026c2372edf66f863fc7757af5"
+            "reference": "a5eb815363c0388e83247e7e9853e5dbc14999cc"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/7e2f9c31645680026c2372edf66f863fc7757af5",
-            "reference": "7e2f9c31645680026c2372edf66f863fc7757af5",
+            "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/a5eb815363c0388e83247e7e9853e5dbc14999cc",
+            "reference": "a5eb815363c0388e83247e7e9853e5dbc14999cc",
             "shasum": ""
         },
         "require": {
@@ -2418,20 +2354,20 @@
         },
         "require-dev": {
             "psr/log": "~1.0",
-            "symfony/config": "~2.0,>=2.0.5",
-            "symfony/dependency-injection": "~2.6",
-            "symfony/expression-language": "~2.6",
-            "symfony/stopwatch": "~2.3"
+            "symfony/config": "~2.0,>=2.0.5|~3.0.0",
+            "symfony/dependency-injection": "~2.6|~3.0.0",
+            "symfony/expression-language": "~2.6|~3.0.0",
+            "symfony/stopwatch": "~2.3|~3.0.0"
         },
         "suggest": {
             "symfony/dependency-injection": "",
             "symfony/http-kernel": ""
         },
-        "time": "2015-10-30 20:10:21",
+        "time": "2015-10-30 20:15:42",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.7-dev"
+                "dev-master": "2.8-dev"
             }
         },
         "installation-source": "dist",
@@ -2462,27 +2398,27 @@
     },
     {
         "name": "symfony/filesystem",
-        "version": "v2.7.7",
-        "version_normalized": "2.7.7.0",
+        "version": "v2.8.0",
+        "version_normalized": "2.8.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/filesystem.git",
-            "reference": "8e173509d7fdbbba3cf34d6d072f2073c0210c1d"
+            "reference": "3e661a0d521ac67496515fa6e6704bd61bcfff60"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/filesystem/zipball/8e173509d7fdbbba3cf34d6d072f2073c0210c1d",
-            "reference": "8e173509d7fdbbba3cf34d6d072f2073c0210c1d",
+            "url": "https://api.github.com/repos/symfony/filesystem/zipball/3e661a0d521ac67496515fa6e6704bd61bcfff60",
+            "reference": "3e661a0d521ac67496515fa6e6704bd61bcfff60",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.9"
         },
-        "time": "2015-11-18 13:41:01",
+        "time": "2015-11-23 10:19:46",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.7-dev"
+                "dev-master": "2.8-dev"
             }
         },
         "installation-source": "dist",
@@ -2510,5 +2446,69 @@
         ],
         "description": "Symfony Filesystem Component",
         "homepage": "https://symfony.com"
+    },
+    {
+        "name": "intervention/image",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Intervention/image.git",
+            "reference": "e6acb1609ce89f2c1ec7864fbbda0a20a3eeca70"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Intervention/image/zipball/e6acb1609ce89f2c1ec7864fbbda0a20a3eeca70",
+            "reference": "e6acb1609ce89f2c1ec7864fbbda0a20a3eeca70",
+            "shasum": ""
+        },
+        "require": {
+            "ext-fileinfo": "*",
+            "guzzlehttp/psr7": "~1.1",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9.2",
+            "phpunit/phpunit": "3.*"
+        },
+        "suggest": {
+            "ext-gd": "to use GD library based image processing.",
+            "ext-imagick": "to use Imagick based image processing.",
+            "intervention/imagecache": "Caching extension for the Intervention Image library"
+        },
+        "time": "2015-12-04 17:09:36",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Intervention\\Image\\": "src/Intervention/Image"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Oliver Vogel",
+                "email": "oliver@olivervogel.net",
+                "homepage": "http://olivervogel.net/"
+            }
+        ],
+        "description": "Image handling and manipulation library with support for Laravel integration",
+        "homepage": "http://image.intervention.io/",
+        "keywords": [
+            "gd",
+            "image",
+            "imagick",
+            "laravel",
+            "thumbnail",
+            "watermark"
+        ]
     }
 ]

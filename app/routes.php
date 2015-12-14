@@ -382,6 +382,31 @@ Route::get('/', array(
     'uses' => 'HomeController@index'
 ));
 
+
+// Online Hotel Payments
+
+Route::any('/payments-send', array(
+    'as' => 'online-hotel-payments',
+    'uses' => 'HsbcPaymentsController@sendPayment'
+));
+
+
+Route::get('/online-hotel-payments', function () {
+    return View::make('payment_send');
+});
+
+
+Route::any('/send-payment-gateway', array(
+    'as' => 'send-payment-gateway',
+    'uses' => 'HsbcPaymentsController@sendToPaymentGateway'
+));
+
+Route::any('/payment-get', array(
+    'as' => '/payment-get',
+    'uses' => 'HsbcPaymentsController@paymentGet'
+));
+
+
 // currency rate create
 
 Route::post('/sri-lanka/get-currency-rate', 'HomeController@createCurrency');
@@ -784,13 +809,3 @@ Route::any('/{country?}/{city_name?}/{hotel_name?}/{asd?}', array(
 //=====================================================================================================================|
 
 
-// Online Hotel Payments
-
-Route::any('/online-hotel-payments', array(
-    'as' => 'online-hotel-payments',
-    'uses' => 'HotelController@hotelDetail'
-));
-
-Route::get('/online-hotel-payments', function () {
-    return View::make('payment.hotel_payment');
-});

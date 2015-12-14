@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="SriLanka">
+  <component name="PublishConfigData">
     <serverData>
-      <paths name="srilankaonline">
+      <paths name="srilankahotels">
         <serverdata>
           <mappings>
             <mapping deploy="/laravel/app" local="$PROJECT_DIR$/app" web="/" />

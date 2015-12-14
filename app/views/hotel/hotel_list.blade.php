@@ -159,7 +159,7 @@
 
         .popover:hover:after {
             background: #111;
-            background: rgba(0,0,0,.8);
+            background: rgba(0, 0, 0, .8);
             border-radius: .5em;
             bottom: 1.35em;
             color: #fff;
@@ -176,7 +176,7 @@
         .popover:hover:before {
             border: solid;
             border-color: #111 transparent;
-            border-color: rgba(0,0,0,.8) transparent;
+            border-color: rgba(0, 0, 0, .8) transparent;
             border-width: .4em .4em 0 .4em;
             bottom: 1em;
             content: "";
@@ -696,6 +696,14 @@
                                                 </span>
                                             @endif
 
+                                            <form method="POST" target="_blank"
+                                                  action="{{URL::to('sri-lanka/'.$city.'/'.str_replace(' ', '-', $hotel->name))}}">
+                                                <button style="background: #006699; color: #ffffff"
+                                                        class="bookbtn mt1"
+                                                        type="submit">Book
+                                                </button>
+                                            </form>
+
                                         </div>
 
                                         <div class="labelleft2 get_hotel_id" hotel_id="{{ $hotel->id }}">
@@ -714,7 +722,7 @@
 
                                             <div class="hidden-xs hidden-md">
                                                 <h6 style="display: inline"> {{ $hotel->address }} </h6>
-                                                {{--                                                {{ HTML::image('images/google-map-marker.png', '', array('class' => 'single_hotel_map'))}}--}}
+                                                {{-- {{ HTML::image('images/google-map-marker.png', '', array('class' => 'single_hotel_map'))}}--}}
                                                 <br/>
                                             </div>
 
@@ -731,43 +739,47 @@
                                                     '2' => 61,
                                             );
                                             $hotel_facilities = DB::table('hotel_hotel_facility')->where('hotel_id', $hotel->id)->whereIn('hotel_facility_id', $wifi)->first();
+                                            $cancellation_policy = CancellationPolicy::where('hotel_id', $hotel->id)->first();
                                             ?>
-                                            <script>
-                                                //Popover tooltips
-                                                $(function () {
-                                                    $("#username<?php echo $hotel->id; ?>").popover({
-                                                        container: 'body',
-                                                        placement: 'top',
-                                                        trigger: 'hover',
-                                                        html: true,
-                                                        title: function () {
-                                                            return $('#popover_title_wrapper<?php echo $hotel->id; ?>').html();
-                                                        },
-                                                        content: function () {
-                                                            return $('#popover_content_wrapper<?php echo $hotel->id; ?>').html();
-                                                        }
+
+                                            @if(!empty($cancellation_policy))
+                                                <script>
+                                                    //Popover tooltips
+                                                    $(function () {
+                                                        $("#username<?php echo $hotel->id; ?>").popover({
+                                                            container: 'body',
+                                                            placement: 'top',
+                                                            trigger: 'hover',
+                                                            html: true,
+                                                            title: function () {
+                                                                return $('#popover_title_wrapper<?php echo $hotel->id; ?>').html();
+                                                            },
+                                                            content: function () {
+                                                                return $('#popover_content_wrapper<?php echo $hotel->id; ?>').html();
+                                                            }
+                                                        });
                                                     });
-                                                });
-                                            </script>
+                                                </script>
 
-                                            <div id="popover_title_wrapper{{ $hotel->id }}" style="display: none">
-                                                <h4 style="color: #3498db"> Cancellation Policy </h4>
-                                            </div>
-
-                                            <div id="popover_content_wrapper{{ $hotel->id }}" style="display: none">
-                                                <div>
-
-                                                    <p>
-                                                        <strong style="color:#AF0B63;">You are in the cancellation
-                                                            period. Please refer the cancellation
-                                                            policy</strong>.<br><br>
-
-                                                        Before {{ (CancellationPolicy::where('hotel_id', $hotel->id)->where('percentage_charged', 100)->first()->to) - (CancellationPolicy::where('hotel_id', $hotel->id)->where('percentage_charged', 100)->first()->from) }}
-                                                        days no cancellation.<br><br>
-
-                                                    </p>
+                                                <div id="popover_title_wrapper{{ $hotel->id }}" style="display: none">
+                                                    <h4 style="color: #3498db"> Cancellation Policy </h4>
                                                 </div>
-                                            </div>
+
+                                                <div id="popover_content_wrapper{{ $hotel->id }}" style="display: none">
+                                                    <div>
+
+                                                        <p>
+                                                            <strong style="color:#AF0B63;">You are in the cancellation
+                                                                period. Please refer the cancellation
+                                                                policy</strong>.<br><br>
+                                                            @if((!empty(CancellationPolicy::where('hotel_id', $hotel->id)->where('percentage_charged', 100)->first()->to)) && (!empty(CancellationPolicy::where('hotel_id', $hotel->id)->where('percentage_charged', 100)->first()->from)))
+                                                                Before {{ (CancellationPolicy::where('hotel_id', $hotel->id)->where('percentage_charged', 100)->first()->to) - (CancellationPolicy::where('hotel_id', $hotel->id)->where('percentage_charged', 100)->first()->from) }}
+                                                                days no cancellation.<br><br>
+                                                            @endif
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            @endif
 
                                             <ul class="checklist2 margtop10">
                                                 @if(!empty($hotel_facilities))
@@ -775,16 +787,19 @@
                                                         FREE Wi-Fi
                                                     </li>
                                                 @endif
-                                                <li>FREE Cancellation
-                                                    <a href="#"
-                                                       class="popover1 glyphicon glyphicon-info-sign lblue cpointer"
-                                                       rel="popover" id="username{{ $hotel->id }}" data-content=""
-                                                       data-title=""
-                                                       data-original-title="" title="">
-                                                    </a>
-                                                </li>
+                                                @if(!empty($cancellation_policy))
+                                                    <li>FREE Cancellation
+                                                        <a href="#"
+                                                           class="popover1 glyphicon glyphicon-info-sign lblue cpointer"
+                                                           rel="popover" id="username{{ $hotel->id }}" data-content=""
+                                                           data-title=""
+                                                           data-original-title="" title="">
+                                                        </a>
+                                                    </li>
+                                                @endif
                                             </ul>
                                             <br/>
+
                                             {{--<p class="hidden-xs hidden-md" style="color: #F9622F">--}}
                                             {{--{{ strip_tags(Str::limit($hotel->overview, 150)) }}--}}
                                             {{--</p>--}}

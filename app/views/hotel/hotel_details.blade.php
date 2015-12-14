@@ -8,20 +8,20 @@
 
     <style type="text/css">
         @media only screen and (min-width: 767px) and (max-width: 1366px) {
-            #ui-datepicker-div{
-                top : 810px !important;
+            #ui-datepicker-div {
+                top: 810px !important;
             }
         }
 
         @media only screen and (min-width: 480px) and (max-width: 767px) {
-            #ui-datepicker-div{
-                top : 810px !important;
+            #ui-datepicker-div {
+                top: 810px !important;
             }
         }
 
         @media only screen and (min-width: 0px) and (max-width: 479px) {
-            #ui-datepicker-div{
-                top : 1450px !important;
+            #ui-datepicker-div {
+                top: 1450px !important;
             }
         }
 
@@ -153,7 +153,11 @@
 
     <script type="text/javascript">
         $(function () {
-            $.extend($.datepicker,{_checkOffset:function(inst,offset,isFixed){return offset}});
+            $.extend($.datepicker, {
+                _checkOffset: function (inst, offset, isFixed) {
+                    return offset
+                }
+            });
 
             $("#datepicker").datepicker({
 
@@ -175,7 +179,7 @@
     <script type="text/javascript">
         $(function () {
             $("#datepicker").datepicker({
-                onClose: function() {
+                onClose: function () {
                     var minValue = $(this).val();
                     minValue = $.datepicker.parseDate("yy/mm/dd", minValue);
                     minValue.setDate(minValue.getDate() + 1);
@@ -565,7 +569,7 @@
                                         ->get();
                             }
 
-                            $directory = public_path().'/images/room_images/';
+                            $directory = public_path() . '/images/room_images/';
                             $images = glob($directory . $room_id . ".*");
                             $img_path = array_shift($images);
                             $img_name = basename($img_path);
@@ -610,10 +614,11 @@
                                                 @foreach($hot_room->RoomFacility as $facilities)
                                                     <?php
                                                     //echo public_path();
-                                                    $directory1 = public_path().'/images/room_facilities/';
+                                                    $directory1 = public_path() . '/images/room_facilities/';
                                                     $images1 = glob($directory1 . $facilities->id . "*");
                                                     $img_path1 = array_shift($images1);
                                                     $img_name1 = basename($img_path1);
+                                                    $cancellation_policy = CancellationPolicy::where('hotel_id', $hotel_id)->first();
                                                     ?>
 
                                                     @if($t<11)
@@ -623,66 +628,72 @@
                                                     <?php $t = $t + 1; ?>
                                                 @endforeach
 
-                                                <script>
-                                                    //Popover tooltips
-                                                    $(function () {
-                                                        $("#username<?php echo $x; ?>").popover({
-                                                            container: 'body',
-                                                            placement: 'top',
-                                                            trigger: 'hover',
-                                                            html: true,
-                                                            title: function () {
-                                                                return $('#popover_title_wrapper<?php echo $x; ?>').html();
-                                                            },
-                                                            content: function () {
-                                                                return $('#popover_content_wrapper<?php echo $x; ?>').html();
-                                                            }
+                                                @if(!empty($cancellation_policy))
+
+                                                    <script>
+                                                        //Popover tooltips
+                                                        $(function () {
+                                                            $("#username<?php echo $x; ?>").popover({
+                                                                container: 'body',
+                                                                placement: 'top',
+                                                                trigger: 'hover',
+                                                                html: true,
+                                                                title: function () {
+                                                                    return $('#popover_title_wrapper<?php echo $x; ?>').html();
+                                                                },
+                                                                content: function () {
+                                                                    return $('#popover_content_wrapper<?php echo $x; ?>').html();
+                                                                }
+                                                            });
                                                         });
-                                                    });
-                                                </script>
+                                                    </script>
 
-                                                <div id="popover_title_wrapper{{ $x }}" style="display: none">
-                                                    <h4 style="color: #3498db"> Cancellation Policy </h4>
-                                                </div>
-
-                                                <div id="popover_content_wrapper{{ $x }}" style="display: none">
-                                                    <div>
-
-                                                        <p>
-                                                            <strong style="color:#AF0B63;">You are in
-                                                                the cancellation
-                                                                period. Please refer the cancellation
-                                                                policy</strong>.<br><br>
-
-                                                            Before {{ (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->to) - (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->from) }}
-                                                            days no cancellation.<br><br>
-                                                            Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->from; }}
-                                                            - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->to; }}
-                                                            days 50% cancellation of the total invoice value.
-                                                            <br/><br>
-                                                            Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->from; }}
-                                                            - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->to; }}
-                                                            days 25% cancellation of the total invoice value.<br><br>
-                                                            Less
-                                                            than {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 0)->first()->from; }}
-                                                            days 100 % cancellation of the total invoice value.<br><br>
-                                                            No shows &amp; early departures 100% cancellation of the
-                                                            total invoice value.
-
-                                                        </p>
+                                                    <div id="popover_title_wrapper{{ $x }}" style="display: none">
+                                                        <h4 style="color: #3498db"> Cancellation Policy </h4>
                                                     </div>
-                                                </div>
+
+                                                    <div id="popover_content_wrapper{{ $x }}" style="display: none">
+                                                        <div>
+
+                                                            <p>
+                                                                <strong style="color:#AF0B63;">You are in
+                                                                    the cancellation
+                                                                    period. Please refer the cancellation
+                                                                    policy</strong>.<br><br>
+
+                                                                Before {{ (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->to) - (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->from) }}
+                                                                days no cancellation.<br><br>
+                                                                Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->from; }}
+                                                                - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->to; }}
+                                                                days 50% cancellation of the total invoice value.
+                                                                <br/><br>
+                                                                Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->from; }}
+                                                                - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->to; }}
+                                                                days 25% cancellation of the total invoice
+                                                                value.<br><br>
+                                                                Less
+                                                                than {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 0)->first()->from; }}
+                                                                days 100 % cancellation of the total invoice
+                                                                value.<br><br>
+                                                                No shows &amp; early departures 100% cancellation of the
+                                                                total invoice value.
+
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                @endif
 
                                                 <div class="clearfix"></div>
                                                 <ul class="checklist2 margtop10">
-                                                    <li>FREE Cancellation
-                                                        <a href="#"
-                                                           class="popover1 glyphicon glyphicon-info-sign lblue cpointer"
-                                                           rel="popover" id="username{{ $x }}"
-                                                           data-content="" data-title="">
-                                                        </a>
-
-                                                    </li>
+                                                    @if(!empty($cancellation_policy))
+                                                        <li>FREE Cancellation
+                                                            <a href="#"
+                                                               class="popover1 glyphicon glyphicon-info-sign lblue cpointer"
+                                                               rel="popover" id="username{{ $x }}"
+                                                               data-content="" data-title="">
+                                                            </a>
+                                                        </li>
+                                                    @endif
 
                                                     <li>
                                                         @if($room->MealBasis->id == 1)
@@ -843,38 +854,38 @@
                                                                 <div class="offset-2">
                                                                     <hr class="featurette-divider3">
                                                                 </div>
+                                                                @if(!empty($cancellation_policy))
+                                                                    <div>
+                                                                        <h5>Cancellation Policy </h5>
 
-                                                                <div>
-                                                                    <h5>Cancellation Policy </h5>
+                                                                        <p>
+                                                                            <strong style="color:#AF0B63;">You are
+                                                                                in
+                                                                                the cancellation
+                                                                                period. Please refer the
+                                                                                cancellation
+                                                                                policy</strong>.<br><br>
 
-                                                                    <p>
-                                                                        <strong style="color:#AF0B63;">You are
-                                                                            in
-                                                                            the cancellation
-                                                                            period. Please refer the
-                                                                            cancellation
-                                                                            policy</strong>.<br><br>
+                                                                            Before {{ (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->to) - (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->from) }}
+                                                                            days no cancellation.<br>
+                                                                            Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->from; }}
+                                                                            - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->to; }}
+                                                                            days 50% cancellation of the
+                                                                            <br/>
+                                                                            Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->from; }}
+                                                                            - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->to; }}
+                                                                            days 25% cancellation of the
+                                                                            total invoice value.<br>
+                                                                            Less
+                                                                            than {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 0)->first()->from; }}
+                                                                            days 100 % cancellation of the
+                                                                            total invoice value.<br>
+                                                                            No shows &amp; early departures 100%
+                                                                            cancellation of the total invoice value.
 
-                                                                        Before {{ (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->to) - (CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 100)->first()->from) }}
-                                                                        days no cancellation.<br>
-                                                                        Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->from; }}
-                                                                        - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 50)->first()->to; }}
-                                                                        days 50% cancellation of the
-                                                                        <br/>
-                                                                        Between {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->from; }}
-                                                                        - {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 25)->first()->to; }}
-                                                                        days 25% cancellation of the
-                                                                        total invoice value.<br>
-                                                                        Less
-                                                                        than {{ CancellationPolicy::where('hotel_id', $hotel_id)->where('percentage_charged', 0)->first()->from; }}
-                                                                        days 100 % cancellation of the
-                                                                        total invoice value.<br>
-                                                                        No shows &amp; early departures 100%
-                                                                        cancellation of the total invoice value.
-
-                                                                    </p>
-                                                                </div>
-
+                                                                        </p>
+                                                                    </div>
+                                                                @endif
                                                                 <div class="offset-2">
                                                                     <hr class="featurette-divider3">
                                                                 </div>
@@ -1360,7 +1371,7 @@
                     <div class="padding30">
                         <?php
                         //echo public_path();
-                        $directory = public_path().'/images/hotel_images/';
+                        $directory = public_path() . '/images/hotel_images/';
                         $images = glob($directory . $hotel_id . "_*");
                         $img_path = array_shift($images);
                         $img_name = basename($img_path);

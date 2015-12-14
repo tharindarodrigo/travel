@@ -143,7 +143,6 @@ class HotelController extends \BaseController
             $max_rate = 10000000;
         }
 
-
         // Filtering - Hotel
         $hotel_type = DB::table('hotel_categories')->where('val', 1)->get();
         $hotel_cities = DB::table('cities')->where('val', 1)->get();
