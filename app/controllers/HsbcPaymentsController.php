@@ -17,7 +17,7 @@ class HsbcPaymentsController extends \BaseController
 
 
         $data = array(
-            'details' => 'thilina',
+            'details' => 'thilina', //payments table
             'ip_address' => $_SERVER['REMOTE_ADDR'],
             //'reference_number' => $reference_number,
             'amount' => 0.1,
@@ -76,7 +76,7 @@ class HsbcPaymentsController extends \BaseController
         $total_price_all_hsbc = 0.1 * 100;
         // $last_res_resid = 101;
 
-        // dd($hsbc_payment_id.'/'.$currency.'/'.$total_price_all_hsbc.'/'.$last_res_resid);
+         dd($hsbc_payment_id.'/'.$currency.'/'.$total_price_all_hsbc.'/'.$last_res_resid);
 
         HsbcPayment::goto_hsbc_gateway($hsbc_payment_id, $currency, $total_price_all_hsbc, $last_res_resid);
 

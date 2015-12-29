@@ -27,22 +27,22 @@ if (Session::has('excursion_cart_details')) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> srilankahotel.travel - Booking Cart </title>
 
-@endsection
+    @endsection
 
-@section('custom_style')
+    @section('custom_style')
 
-    <!-- bin/jquery.slider.min.css -->
+            <!-- bin/jquery.slider.min.css -->
     {{ HTML::style('plugins/jslider/css/jslider.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
     {{ HTML::style('plugins/jslider/css/jslider.round.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
 
-    <!-- bin/jquery.slider.min.js -->
+            <!-- bin/jquery.slider.min.js -->
     {{ HTML::script('plugins/jslider/js/jshashtable-2.1_src.js') }}
     {{ HTML::script('plugins/jslider/js/jquery.numberformatter-1.2.3.js') }}
     {{ HTML::script('plugins/jslider/js/tmpl.js') }}
     {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
     {{ HTML::script('plugins/jslider/js/draggable-0.1.js') }}
     {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
-    <!-- end -->
+            <!-- end -->
 
     {{--my styles--}}
     {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
@@ -209,7 +209,7 @@ if (Session::has('excursion_cart_details')) {
                                                 <br/>
                                                 {{ Form::close() }}
 
-                                                <!-- Collapse 1 -->
+                                                        <!-- Collapse 1 -->
 
                                                 <div id="collapse{{ $hotel_booking[$c]['room_identity']  }}"
                                                      class="collapse">
@@ -666,7 +666,12 @@ if (Session::has('excursion_cart_details')) {
             <span class="lred2 bold"> Total Amount :  </span>
         <span class="lred2 bold">
             {{ Session::get('currency') }}
-            {{ number_format(($total_hotel_amount + $total_cost_transport + $total_cost_predefine_transport + $total_cost_excursion * Session::get('currency_rate')), 2, '.', '') }}
+            <?php
+            $myTotalBookingAmount = $total_hotel_amount + $total_cost_transport + $total_cost_predefine_transport + $total_cost_excursion;
+            Session::put('the_total_booking_amount', $myTotalBookingAmount); ?>
+            {{ number_format((Session::get('the_total_booking_amount') * Session::get('currency_rate')), 2, '.', '') }}
+
+            {{--{{dd(Session::get('the_total_booking_amount'))}}--}}
         </span>
         </div>
 
@@ -706,21 +711,21 @@ if (Session::has('excursion_cart_details')) {
 
     @section('script')
 
-        <!-- Javascript -->
-        {{ HTML::script('assets/js/js-list3.js') }}
+            <!-- Javascript -->
+    {{ HTML::script('assets/js/js-list3.js') }}
 
-        <!-- Counter -->
-        {{ HTML::script('assets/js/counter.js') }}
+            <!-- Counter -->
+    {{ HTML::script('assets/js/counter.js') }}
 
-        <!-- Custom js -->
-        {{ HTML::script('js/my_script.js') }}
-        {{ HTML::script('js/booking_cart.js') }}
+            <!-- Custom js -->
+    {{ HTML::script('js/my_script.js') }}
+    {{ HTML::script('js/booking_cart.js') }}
 
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#clear_button').click()
-            })
-        </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#clear_button').click()
+        })
+    </script>
 
 
     @endsection
