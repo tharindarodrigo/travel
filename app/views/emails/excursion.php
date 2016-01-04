@@ -44,7 +44,7 @@
                         <?php echo date('Y-m-d', strtotime($excursionBooking->date)); ?> <br>
                         <?php echo number_format($excursionBooking->unit_price, 2); ?> <br>
                         <?php echo $excursionBooking->pax; ?> <br>
-                        <?php echo number_format(ExcursionBooking::getTotalExcursionBookingAmount($booking), 2); ?>
+                        <?php echo number_format($excursionBooking->unit_price * $excursionBooking->pax, 2); ?>
                     </td>
                 </tr>
             <?php } ?>

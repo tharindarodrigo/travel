@@ -26,7 +26,6 @@ class HsbcPaymentsController extends \BaseController
         );
         $reserv_id = Payment::create($data);
 
-
         $data_tab_HSBC_payment = array(
             'currency' => 'USD',
             // 'reference_number' => $reference_number,
@@ -64,7 +63,6 @@ class HsbcPaymentsController extends \BaseController
                         'HSBC_payment_id' => $hsbc_payment_id
                     )
                 );
-
         }
 
 
@@ -76,7 +74,7 @@ class HsbcPaymentsController extends \BaseController
         $total_price_all_hsbc = 0.1 * 100;
         // $last_res_resid = 101;
 
-         dd($hsbc_payment_id.'/'.$currency.'/'.$total_price_all_hsbc.'/'.$last_res_resid);
+        //dd($hsbc_payment_id.'/'.$currency.'/'.$total_price_all_hsbc.'/'.$last_res_resid);
 
         HsbcPayment::goto_hsbc_gateway($hsbc_payment_id, $currency, $total_price_all_hsbc, $last_res_resid);
 

@@ -44,4 +44,5 @@ class ExcursionBooking extends \Eloquent
         return $total;
     }
 
+
 }
