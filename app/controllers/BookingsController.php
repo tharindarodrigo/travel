@@ -22,6 +22,8 @@ class BookingsController extends \BaseController
     public function index()
     {
 
+
+
         if (Auth::check()) {
 
             $reference_number = Input::has('reference_number') ? Input::get('reference_number') : '%';
@@ -30,25 +32,24 @@ class BookingsController extends \BaseController
             $payments_query = Payment::with('user')->with('agent')
                 ->select(array('payment_date_time AS date', 'amount AS debit', 'details', 'id'));
 
-            $invoices_query = Booking::join('invoices', 'invoices.booking_id', '=','bookings.id')
-            ->select(array('arrival_date AS date', 'reference_number AS details', 'amount as credit'))
+            $invoices_query = Booking::join('invoices', 'invoices.booking_id', '=', 'bookings.id')
+                ->select(array('arrival_date AS date', 'reference_number AS details', 'amount as credit'))
+                ->where('val', '=', 1);
 
-                ->where('val','=', 1);
-
-            if(!Entrust::hasRole('Admin')){
-                $payments_query->where('user_id',$user_id);
-                $invoices_query->where('user_id',$user_id);
+            if (!Entrust::hasRole('Admin')) {
+                $payments_query->where('user_id', $user_id);
+                $invoices_query->where('user_id', $user_id);
             }
 
 
-            if(Input::get('get_payments')){
+            if (Input::get('get_payments')) {
 
-                Session::flash('activate_payments_tab','active');
+                Session::flash('activate_payments_tab', 'active');
 
                 $from_d = Input::get('from_d');
                 $to_d = Input::get('to_d');
-                $payments = $payments_query->whereBetween('payment_date_time',array($from_d,$to_d))->get();
-                $invoices = $invoices_query->whereBetween('arrival_date',array($from_d,$to_d))->get();
+                $payments = $payments_query->whereBetween('payment_date_time', array($from_d, $to_d))->get();
+                $invoices = $invoices_query->whereBetween('arrival_date', array($from_d, $to_d))->get();
 
             } else {
                 $payments = $payments_query->get();
@@ -73,22 +74,21 @@ class BookingsController extends \BaseController
             }
 
 
-
             $merged_data = array_merge($payments->toArray(), $invoices->toArray());
             foreach ($merged_data as $key => $row) {
                 $c[$key] = $row['date'];
 
             }
 
-            if(!empty($merged_data)){
+            if (!empty($merged_data)) {
                 array_multisort($c, SORT_ASC, $merged_data);
             }
 
 
             $total = 0;
 
-            if(Input::has('get_payment'))
-                return View::make('bookings.index', compact('bookings', 'payments', 'merged_data','total'))->withInput();
+            if (Input::has('get_payment'))
+                return View::make('bookings.index', compact('bookings', 'payments', 'merged_data', 'total'))->withInput();
 
             return View::make('bookings.index', compact('bookings', 'payments', 'merged_data', 'invoice', 'total'));
         }
@@ -103,6 +103,8 @@ class BookingsController extends \BaseController
      */
     public function create()
     {
+
+
 
         // For Hotel Booking
 
@@ -174,10 +176,11 @@ class BookingsController extends \BaseController
      */
     public function store()
     {
+//        dd(Session::get('the_total_booking_amount'));
 
         if (Auth::check()) {
             $user = Auth::user();
-            if(Entrust::hasRole('Agent')){
+            if (Entrust::hasRole('Agent')) {
 
                 $rules = Booking::$agentRules;
             }
@@ -187,7 +190,7 @@ class BookingsController extends \BaseController
 
         $data = Input::all();
 
-        if(Auth::check())
+        if (Auth::check())
             $data['user_id'] = Auth::id();
         $validator = Validator::make($data, $rules);
 
@@ -209,7 +212,80 @@ class BookingsController extends \BaseController
             $data['reference_number'] = 10000000;
         }
 
+        Session::put('MyBookingData', $data);
+
         $clients = null;
+
+        $data = array(
+            'details' => 'thilina', //payments table
+            'ip_address' => $_SERVER['REMOTE_ADDR'],
+            //'reference_number' => $reference_number,
+            'amount' => 0.1,
+            'payment_status' => 0,
+            'my_booking' => 2,
+        );
+        $reserv_id = Payment::create($data);
+
+        $data_tab_HSBC_payment = array(
+            'currency' => 'USD',
+            // 'reference_number' => $reference_number,
+        );
+        $tab_HSBC_payment_id = HsbcPayment::create($data_tab_HSBC_payment);
+
+
+        $stamp = strtotime("now");
+
+        $payment_id = Payment::orderBy('created_at', 'desc')->first()->id;
+        $orderid = "$stamp" . 'B' . "$payment_id";
+        $last_res_resid = str_replace(".", "", $orderid);
+
+        $hsbc_id = HsbcPayment::orderBy('created_at', 'desc')->first()->id;
+        $hsbc_payment_id_pre = "$stamp" . 'HSBC' . "$hsbc_id";
+        $hsbc_payment_id = str_replace(".", "", $hsbc_payment_id_pre);
+
+
+        if ($last_res_resid) {
+
+            $payment = DB::table('payments')
+                ->where('id', $payment_id)
+                ->update(
+                    array(
+                        'reference_number' => $last_res_resid,
+                        'HSBC_payment_id' => $hsbc_payment_id
+                    )
+                );
+
+
+            $data_tab_HSBC_payment = DB::table('hsbc_payments')
+                ->where('id', $hsbc_id)
+                ->update(
+                    array(
+                        'HSBC_payment_id' => $hsbc_payment_id
+                    )
+                );
+        }
+
+        $amount = Input::get('amount');
+        Session::put('payment_amount', $amount);
+        $x = round(Session::get('the_total_booking_amount'),2);
+
+        // $hsbc_payment_id = 1000;
+        $currency = 'USD';
+        $total_price_all_hsbc = $x * 100;
+        // $last_res_resid = 101;
+//dd($total_price_all_hsbc);
+//        dd($hsbc_payment_id . '/' . $currency . '/' . $total_price_all_hsbc . '/' . $last_res_resid);
+
+        HsbcPayment::goto_hsbc_gateway($hsbc_payment_id, $currency, $total_price_all_hsbc, $last_res_resid);
+//dd($a);
+
+//        return $this->storeAllDataAndSendEmails();
+    }
+
+    public function storeAllDataAndSendEmails()
+    {
+
+        $data = Session::pull('MyBookingData');
 
         if (Session::has('rate_box_details') || Session::has('transport_cart_box') || Session::has('predefined_transport') || Session::has('excursion_cart_details')) {
 
@@ -266,7 +342,7 @@ class BookingsController extends \BaseController
                         $custom_trip['to'] = date('Y-m-d H:i', strtotime($custom_trip['drop_off_date'] . ' ' . $custom_trip['drop_off_time_hour'] . ':' . $custom_trip['drop_off_time_minutes']));
                         $custom_trip['reference_number'] = 'TR' . ($booking->reference_number * 1000 + $x++);
                         $custom_trip['booking_id'] = $booking->id;
-                        $custom_trip['locations'] = $custom_trip['destination_1'].','.$custom_trip['destination_2'] or ''.','.$custom_trip['destination_3'];
+                        $custom_trip['locations'] = $custom_trip['destination_1'] . ',' . $custom_trip['destination_2'] or '' . ',' . $custom_trip['destination_3'];
                         $custom_trip['amount'] = rand(100, 200);
 
                         CustomTrip::create($custom_trip);

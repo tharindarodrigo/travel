@@ -406,7 +406,6 @@ Route::any('/payment-get', array(
     'uses' => 'HsbcPaymentsController@paymentGet'
 ));
 
-
 // currency rate create
 
 Route::post('/sri-lanka/get-currency-rate', 'HomeController@createCurrency');
