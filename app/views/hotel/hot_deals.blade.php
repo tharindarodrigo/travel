@@ -21,6 +21,11 @@
             color: #FFFFFF;
         }
 
+        h1 {
+            color: #3498db;
+            font-family: 'Rokkitt', serif !important;
+        }
+
         h4 {
             color: #3498db;
         }
@@ -28,6 +33,11 @@
         .no_result {
             width: 650px;
             height: 400px;
+        }
+
+        .offer_img {
+            width: 250px;
+            height: 250px;
         }
 
     </style>
@@ -110,74 +120,47 @@
             <!-- LIST CONTENT-->
             <div class="rightcontent col-md-9 offset-0">
 
-                <div class="hpadding20">
+                <div class="hpadding50c">
+                    <h1 style="color: #3498db"> Special Offers </h1>
 
-                    <!-- Top filters -->
-                    <div class="topsortby">
-                        <div class="col-md-4 offset-0">
-
-                            <div class="left mt7"><b>Sort by:</b></div>
-
-                            <div class="right wh70percent">
-                                <select class="form-control mySelectBoxClass ">
-                                    <option selected>Guest rating</option>
-                                    <option>5 stars</option>
-                                    <option>4 stars</option>
-                                    <option>3 stars</option>
-                                    <option>2 stars</option>
-                                    <option>1 stars</option>
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="col-md-4">
-                            <div class="w50percent">
-                                <div class="wh90percent">
-                                    <select class="form-control mySelectBoxClass ">
-                                        <option selected>Name</option>
-                                        <option>A to Z</option>
-                                        <option>Z to A</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="w50percentlast">
-                                <div class="wh90percent">
-                                    <select class="form-control mySelectBoxClass ">
-                                        <option selected>Price</option>
-                                        <option>Ascending</option>
-                                        <option>Descending</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 offset-0">
-                            <button class="popularbtn left">Most Popular</button>
-                            <div class="right">
-                                <a class="listbtn active" href="{{URL::to('home')}}"></a>
-                                <a class="gridbtn" href="{{URL::to('home')}}"></a>
-                                {{--<button class="listbtn active" onclick="location.href='http://google.com';">&nbsp;</button>--}}
-                                {{--<button class="gridbtn" onclick="location.href='http://google.com';"">&nbsp;</button>--}}
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End of topfilters-->
+                    <p class="aboutarrow"></p>
                 </div>
+                <div class="line3"></div>
                 <!-- End of padding -->
-
-                <br/><br/>
 
                 <div class="clearfix"></div>
 
                 <div class="itemscontainer offset-1">
                     <br/><br/>
 
-                    <div style="padding: 10%" class="container offset-2">
-                        {{ HTML::image('images/no-result.png', '', array('class' => 'img-responsive no_result'))}}
-                    </div>
+                    <?php
+                    $directory = public_path() . '/images/special_offers/deals/';
+                    $images = glob($directory . "*");
+
+                    $img_path = array_shift($images);
+                    $img_name = basename($img_path);
+                    ?>
+
+                    @foreach($images as $image)
+                        <?php
+                        $get_hotel_name = preg_replace('/[^a-zA-Z0-9_ %\[\]\.\(\)%&-]/s', '', glob($directory . "*"));
+                        $hotel_name = strtok(substr(implode(" ", $get_hotel_name), 45), '.');
+
+                        $hotel_city_id = Hotel::where('name', $hotel_name)->first()->city_id;
+                        $hotel_city = City::where('id', $hotel_city_id)->first()->city;
+                        ?>
+                        <div class="col-md-4">
+                            @if(count($images)>0)
+                                <a target="_blank" href="{{URL::to('sri-lanka/'.$hotel_city.'/'.str_replace(' ', '-', $hotel_name))}}">
+                                    {{ HTML::image('images/special_offers/deals/'.basename($image), '', array('class' => 'offer_img'))}}
+                                </a>
+                            @endif
+                        </div>
+                    @endforeach
+
                     <div class="clearfix"></div>
                 </div>
                 <!-- End of offset1-->
-
 
             </div>
             <!-- END OF LIST CONTENT-->

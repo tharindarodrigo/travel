@@ -61,7 +61,7 @@ function generateTransportTable(data) {
                 '</tr>';
 
                 y = y + 1;
-                transport_total_cost = transport_total_cost + item.cost ;
+                transport_total_cost = transport_total_cost + + item.cost ;
 
             }
 

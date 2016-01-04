@@ -1,13 +1,13 @@
-@extends('layout.master')
+]@extends('layout.master')
 
 @section('title')
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="Tourism In Sri Lanka">
+    <meta name="keywords" content="">
     <meta name="description"
-          content="While tourism is considered to be one of the key industries in Sri Lanka, its geographical setting allows tourists to choose from beaches, heritage sites, thick jungles or cooler climes in the hill country all within a short distance of each other.">
-    <title> Tourism In Srilanka - Sri Lanka Hotels </title>
+          content="">
+    <title></title>
 
     <style type="text/css">
         .tourism {
@@ -17,7 +17,9 @@
         strong {
             font-family: "Lato";
             font-style: italic;
+            /*display: block;*/
         }
+
     </style>
 
 @endsection
@@ -62,8 +64,8 @@
                 <ul class="bcrumbs">
                     <li><a href="{{URL::route('index')}}" class="active">Home </a></li>
                     <li>/</li>
-                    <li><a href="{{URL::to('/tourism-in-sri-lanka')}}"
-                           class="active"> Tourism In Sri Lanka </a></li>
+                    <li><a href="{{URL::to('/about')}}"
+                           class="active"> faq </a></li>
                     <li>/</li>
                 </ul>
             </div>
@@ -112,7 +114,7 @@
             <div class="rightcontent col-md-9 offset-0">
 
                 <div class="hpadding50c">
-                    <h1> Tourism in Sri Lanka </h1>
+                    <h1> Link Page </h1>
 
                     <p class="aboutarrow"></p>
                 </div>
@@ -121,42 +123,24 @@
                 <div class="hpadding50c">
 
                     <!-- LEFT IMG -->
-                    <div class="col-md-8 cpdd01 grey2">
+                    <div class="cpdd01 grey2">
 
-                        <P>
-                            While tourism is considered to be one of the key industries in Sri Lanka, its geographical
-                            setting allows tourists to choose from beaches, heritage sites, thick jungles or cooler
-                            climes in the hill country all within a short distance of each other.
-                        </p>
+                        <div style="padding-left: 10px;  height:auto;text-align: justify; ">
 
-                        <p>
-                            The island's beautiful beaches in the south and the eastern part of the island are a major
-                            tourist attraction, while the majority of tourists are from Europe and the surrounding Asian
-                            countries. Home to eight world heritage sites which include Kandy, Galle, Anuradhapura,
-                            Sigirya, Polonnaruwa, Dambulla, Nuwara Eliya and the Sinharaja tropical forest, there's
-                            plenty to experience in this miracle of Asia.
-                        </p>
+                            <?php
+                            $links = HotelCategory::get();
+                            ?>
 
-                        <p>
-                            Kotte is the capital of the country, but Colombo is the island's 'Commercial Capital.' While
-                            the beaches and the sunny weather attract tourists especially during the European winter
-                            months, the National parks of Sri Lanka draw visitors who are eager to catch a glimpse of
-                            elephants and endemic species in the wild. According to the Kuoni poll conducted in the UK
-                            in January 2012, Sri Lanka was named as one of the top five destinations to visit. In
-                            addition, the island maintained the number one slot for destination weddings in the poll.
-                        </P>
-                        <br/><br/>
+                            @foreach($links as $link)
+                                <a href="">
+                                    <h4>{{ $link->hotel_category }}</h4>
+                                </a>
+                            @endforeach
 
+                        </div>
                     </div>
                     <!-- END OF LEFT IMG -->
 
-                    <!-- IMG RIGHT TEXT -->
-                    <div class="col-md-4 cpdd02">
-                        <div class="opensans grey">
-                            {{ HTML::image('images/tourism_in_srilanka.jpg', '', array('class' => 'tourism'))}}
-                        </div>
-                    </div>
-                    <!-- END OF IMG RIGHT TEXT -->
                     <div class="clearfix"></div>
                     <br/><br/>
 

@@ -1,14 +1,15 @@
 <?php
 
-class pageController extends \BaseController {
+class pageController extends \BaseController
+{
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function tourismInSrilanka()
-	{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function tourismInSrilanka()
+    {
         if (Session::has('st_date')) {
             $st_date = Session::get('st_date');
         } else {
@@ -44,8 +45,7 @@ class pageController extends \BaseController {
 
                 )
             );
-	}
-
+    }
 
     public function srilankaAdvance()
     {
@@ -230,8 +230,6 @@ class pageController extends \BaseController {
         return View::make('pages.privacy_policy')
             ->with(
                 array(
-
-
                     'path' => $path,
                     'st_date' => $st_date,
                     'ed_date' => $ed_date,
@@ -242,6 +240,32 @@ class pageController extends \BaseController {
             );
     }
 
+    public function pageLink()
+    {
 
+        if (Session::has('st_date')) {
+            $st_date = Session::get('st_date');
+        } else {
+            $st_date = date("Y/m/d");
+        }
+
+        //Session::flush();
+
+        if (Session::has('ed_date')) {
+            $ed_date = Session::get('ed_date');
+        } else {
+            $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
+        }
+
+
+        return View::make('pages.page_link')
+            ->with(
+                array(
+                    'st_date' => $st_date,
+                    'ed_date' => $ed_date,
+
+                )
+            );
+    }
 
 }

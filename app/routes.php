@@ -13,7 +13,6 @@
 
 /*------------------------------ Sign in & Register --------------------------------*/
 
-
 /*-------------------------Authenticated group-------------------------------*/
 
 Route::group(array('before' => 'auth'), function () {
@@ -783,8 +782,20 @@ Route::post('/star_rating', array(
     'uses' => 'HotelController@hotelList'
 ));
 
+Route::any('sri-lanka/hot-details', array(
+    'as' => 'hot-details',
+    'uses' => 'HotelController@hotDetails'
+));
 
-// Hotel ListR
+
+// Page links
+
+Route::get('/page-link', array(
+    'as' => 'page-link',
+    'uses' => 'PageController@pageLink'
+));
+
+// Hotel List
 
 Route::any('/{country?}/{city_name_OR_accommodation?}', array(
     'as' => 'hotel-list',

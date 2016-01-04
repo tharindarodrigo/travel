@@ -3,9 +3,7 @@
 class HotelController extends \BaseController
 {
 
-    /*
-    Hotel grid page redirect page
-   */
+    /* Hotel grid page redirect page */
 
     public function gridView($country = '', $city_or_accommodation = '')
     {
@@ -23,9 +21,7 @@ class HotelController extends \BaseController
     }
 
 
-    /*
-     Hotel list page redirect page
-    */
+    /* Hotel list page redirect page */
 
     public function hotelList($country = '', $city_or_accommodation = '')
     {
@@ -46,9 +42,7 @@ class HotelController extends \BaseController
         }
     }
 
-    /*
-     Hotel list making page
-    */
+    /* Hotel list making page */
 
     public function viewHotelList($country = '', $city_or_accommodation = '')
     {
@@ -484,9 +478,8 @@ class HotelController extends \BaseController
 
     }
 
-    /*
-     *no result page
-     */
+    /* No result page */
+
     public function viewNoResult()
     {
 
@@ -520,9 +513,8 @@ class HotelController extends \BaseController
             );
     }
 
-    /*
-     *no result page
-     */
+    /* View Search page */
+
     public function viewSearch()
     {
 
@@ -606,9 +598,9 @@ class HotelController extends \BaseController
 
     }
 
-    /*
-     * Filter Page
-     */
+
+    /* Filter Page */
+
     public function viewFilter()
     {
 
@@ -654,12 +646,9 @@ class HotelController extends \BaseController
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
+
+    /* Hotel Details */
+
     public function hotelDetail($country = '', $city = '', $hotel_name)
     {
 
@@ -745,12 +734,11 @@ class HotelController extends \BaseController
 
         $path = array();
 
-        $directory = public_path().'/images/hotel_images/';
+        $directory = public_path() . '/images/hotel_images/';
 
         $images = glob($directory . $hotel_id . "_" . "*.*");
 
         foreach ($images as $image) {
-
             $path[] = $image;
         }
 
@@ -783,6 +771,22 @@ class HotelController extends \BaseController
     }
 
 
+    /* Hot Details */
+
+    public function hotDetails()
+    {
+
+
+        return View::make('hotel.hot_deals')
+            ->with(
+                array(
+                    'hotel' => 's',
+                )
+            );
+
+    }
+
+
     /* To Load The Map */
 
     public function getMap()
@@ -797,12 +801,6 @@ class HotelController extends \BaseController
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int $id
-     * @return Response
-     */
     /* To Load The Map */
 
     public function getRoomRateBox()
@@ -923,7 +921,7 @@ class HotelController extends \BaseController
                 'room_identity' => $room_identity,
                 'check_in' => $st_date,
                 'check_out' => $ed_date,
-                'unit_cost_price' => (double)$hotel_tax+ (double)$room_cost
+                'unit_cost_price' => (double)$hotel_tax + (double)$room_cost
             );
 
             if (Session::has('rate_box_details_' . $hotel_id)) {
@@ -967,7 +965,7 @@ class HotelController extends \BaseController
 
     }
 
-    // room rates destroy
+    /*  room rates destroy */
 
     public function roomRateBoxDestroy()
     {
@@ -993,9 +991,7 @@ class HotelController extends \BaseController
 
     }
 
-    /*
-    *For the auto complete option
-    */
+    /* For the auto complete option */
 
     public function autoComplete()
     {
@@ -1081,7 +1077,7 @@ class HotelController extends \BaseController
     }
 
 
-    // get hotel list full map
+    /* get hotel list full map */
 
     public function hotelListFullMap()
     {
@@ -1113,7 +1109,7 @@ class HotelController extends \BaseController
 
     }
 
-    // get hotel list full map
+    /* get hotel list full map */
 
     public function hotelListSingleMap()
     {

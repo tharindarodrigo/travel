@@ -4,7 +4,9 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Hotel Details </title>
+    <meta name="keywords" content="{{ Hotel::where('id', $hotel_id)->first()->search_keywords }}">
+    <meta name="description" content="{{ Hotel::where('id', $hotel_id)->first()->search_description }}">
+    <title> {{ Hotel::where('id', $hotel_id)->first()->name . '-' . Request::segment(2) . '-Sri Lanka'; }} </title>
 
     <style type="text/css">
         @media only screen and (min-width: 767px) and (max-width: 1366px) {

@@ -4,7 +4,9 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Transport List </title>
+    <title> Book Transportation Packages Online Sri Lanka </title>
+    <meta name="keywords" content="Online Book Transportation Packages Sri Lanka,">
+    <meta name="description" content="Online Book Transportation Packages Sri Lanka, Sri Lanka Tours, Sri Lanka Excursions, Sri Lanka Vehicles For Tourism,Tourist Vehicle,Tourist Van,Tourist Car,Tourist Bus">
 
 @endsection
 
@@ -49,11 +51,11 @@
             height: 156px;
         }
 
-        .collapsebtn{
+        .collapsebtn {
             height: 50px !important;
         }
 
-        .filters label{
+        .filters label {
             font-size: 12px;
         }
     </style>
@@ -416,7 +418,7 @@
                                 <div class="center">
                                     <a href="">
                                         <?php
-                                        $directory = public_path().'/images/transport_images/vehicles/';
+                                        $directory = public_path() . '/images/transport_images/vehicles/';
                                         $images = glob($directory . $transport_package->Vehicle->id . "*");
                                         $img_path = array_shift($images);
                                         $img_name = basename($img_path);
@@ -445,8 +447,8 @@
                                         Additional Chargers Per KM
                                         <span class="green">{{ Session::get('currency') . '&nbsp;' . number_format((Vehicle::where('id', $transport_package->vehicle_id)->first()->additional_charge_per_km * Session::get('currency_rate')), 2, '.', ''); }}</span>
                                         <br/>
-                                        Additional Chargers Per Day
-                                        <span class="green">{{ Session::get('currency') . '&nbsp;' . number_format((Vehicle::where('id', $transport_package->vehicle_id)->first()->additional_charge_per_day * Session::get('currency_rate')), 2, '.', ''); }}</span>
+                                        {{--Additional Chargers Per Day--}}
+                                        {{--<span class="green">{{ Session::get('currency') . '&nbsp;' . number_format((Vehicle::where('id', $transport_package->vehicle_id)->first()->additional_charge_per_day * Session::get('currency_rate')), 2, '.', ''); }}</span>--}}
                                     </div>
 
                                     <h4> {{ $transport_package->Vehicle->vehicle_type }}</h4>
@@ -484,11 +486,12 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
-                                                                    aria-hidden="true">&times;</span>
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
                                                         </button>
                                                         <h4 class="modal-title" id="myModalLabel"> Select Your
-                                                            Date </h4>
+                                                            Date
+                                                        </h4>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="w50percent">
@@ -521,6 +524,7 @@
 
                                     </div>
                                 </div>
+
                                 <div class="purchasecontainer">
                                     <span class="predefine_rate size18 bold green mt5">
                                         {{ Session::get('currency') . '&nbsp;' . number_format(($transport_package->rate * Session::get('currency_rate')), 2, '.', ''); }}

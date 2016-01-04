@@ -4,7 +4,9 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - FAQ </title>
+    <meta name="keywords" content="Srilankahotels.travel FAQ">
+    <meta name="description" content="Srilankahotels.travel FAQ">
+    <title> Sri Lanka Hotels - FAQ </title>
 
     <style type="text/css">
         .tourism {

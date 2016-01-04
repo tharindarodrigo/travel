@@ -4,7 +4,9 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Tour List </title>
+    <title>{{ Tour::where('id', $tour_id)->first()->meta_title }}</title>
+    <meta name="keywords" content="{{ Tour::where('id', $tour_id)->first()->meta_keywords }}">
+    <meta name="description" content="{{ Tour::where('id', $tour_id)->first()->meta_description }}">
 
 @endsection
 

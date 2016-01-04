@@ -34,22 +34,6 @@
     <div class="container">
 
         <div class="row">
-            {{--<div class="col-md-2">--}}
-            {{--<span class="ftitleblack">Let's socialize</span>--}}
-            {{--<div class="scont">--}}
-            {{--<a href="#" class="social1b"><img src="images/icon-facebook.png" alt=""/></a>--}}
-            {{--<a href="#" class="social2b"><img src="images/icon-twitter.png" alt=""/></a>--}}
-            {{--<a href="#" class="social3b"><img src="images/icon-gplus.png" alt=""/></a>--}}
-            {{--<a href="#" class="social4b"><img src="images/icon-youtube.png" alt=""/></a>--}}
-            {{--<br/><br/><br/>--}}
-            {{--<a href="#"><img src="images/logosmal2.png" alt="" /></a><br/>--}}
-            {{--<span class="grey2">&copy; 2013  |  <a href="#">Privacy Policy</a><br/>--}}
-            {{--All Rights Reserved </span>--}}
-            {{--<br/><br/>--}}
-
-            {{--</div>--}}
-            {{--</div>--}}
-            <!-- End of column 1-->
 
             <div class="col-md-2">
                 <?php
@@ -88,15 +72,22 @@
             <!-- End of column 2-->
 
             <div class="col-md-2">
-                <span class="ftitleblack"> Top Destinations </span>
+                <span class="ftitleblack"> Sri Lanka Excursion </span>
                 <br/><br/>
                 <ul class="footerlistblack">
-                    <li><a href="#">Weddings</a></li>
-                    <li><a href="#">Accessible Travel</a></li>
-                    <li><a href="#">Disney Parks</a></li>
-                    <li><a href="#">Cruises</a></li>
-                    <li><a href="#">Round the World</a></li>
-                    <li><a href="#">First Class Flights</a></li>
+                    <?php
+                    $excursion_type = DB::table('excursions')
+                            ->where('val', 1)
+                            ->take(8)
+                            ->get();
+                    ?>
+                    @foreach($excursion_type as $excursion_types)
+                        <li>
+                            <a href="{{URL::to('excursion/sri-lanka/'.'Day-Excursion/'.str_replace(' ', '-', $excursion_types->excursion))}}">
+                                {{ $excursion_types->excursion }}
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
             <!-- End of column 3-->
@@ -105,9 +96,9 @@
                 <span class="ftitleblack"> Information </span>
                 <br/><br/>
                 <ul class="footerlistblack">
-                    <li><a href="{{URL::to('/tourism-in-srilanka') }}">Tourism in Sri Lanka</a></li>
+                    <li><a href="{{URL::to('/tourism-in-sri-lanka') }}">Tourism in Sri Lanka</a></li>
                     <li><a href="{{URL::to('/sri-lanka-advice') }}">Sri Lankan Advice</a></li>
-                    <li><a href="{{URL::to('/about-srilanka') }}">About Sri lanka</a></li>
+                    <li><a href="{{URL::to('/about-sri-lanka') }}">About Sri lanka</a></li>
                     <li><a href="{{URL::to('/faq    ') }}">FAQ</a></li>
                     <li><a href="{{URL::to('/terms-and-conditions   ') }}">Terms & Conditions</a></li>
                     <li><a href="{{URL::to('/privacy-and-policy') }}">Privacy And Policy</a></li>
@@ -117,13 +108,11 @@
             <!-- End of column 4-->
 
             <div class="col-md-2">
-                <span class="ftitleblack"> Bookings </span>
+                <span class="ftitleblack"> Transport Packages </span>
                 <br/><br/>
                 <ul class="footerlistblack">
-                    <li><a href="#"> Make My Trip </a></li>
-                    <li><a href="#"> Special Offers </a></li>
-                    <li><a href="#"> My Booking </a></li>
-                    <li><a href="#"> Transportaion </a></li>
+                    <li><a href="{{ URL::to('create-my-trip') }}"> Make My Trip </a></li>
+                    <li><a href="{{ URL::to('transport-list') }}"> Predefined Packages </a></li>
                 </ul>
 
                 <br/>
@@ -168,7 +157,7 @@
 
             <a href="{{URL::to('/tdl-download') }}">
                 <div class="col-md-4">
-                    {{ HTML::image('images/tourism.jpg', '', array('class' => '')) }}
+                    {{ HTML::image('images/Tourism.jpg', '', array('class' => '')) }}
                 </div>
 
                 <div class="col-md-8">
@@ -187,7 +176,6 @@
                 <a href="#top" class="gotop scroll">{{ HTML::image('images/spacer.png', '', array('class' => '')) }}</a>
             </div>
         </div>
-
 
         <div class="col-md-3">
             <span>

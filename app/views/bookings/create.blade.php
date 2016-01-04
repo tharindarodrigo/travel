@@ -287,8 +287,7 @@ if (Session::has('excursion_cart_details')) {
                         <div class="clearfix"></div>
                         <br/>
                         {{----------------------------------------------------------------------------------------------------------------------------------}}
-
-
+                    
                         <div class="col-md-3 textright">
                             <div class="margtop15"><span class="dark">Date:</span><span class="red"></span></div>
                         </div>

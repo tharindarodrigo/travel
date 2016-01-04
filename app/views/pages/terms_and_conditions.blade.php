@@ -4,7 +4,11 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Terms And Conditions </title>
+    <meta name="keywords"
+          content="srilankahotels.travel Terms And Conditions">
+    <meta name="description"
+          content="These terms and conditions, as may be amended from time to time, apply to all our services directly or indirectly (through distributors) made available online, through any mobile device, by email or by telephone. By accessing, browsing and using our website or any of our applications through whatever platform">
+    <title> srilankahotels.travel - Terms And Conditions </title>
 
     <style type="text/css">
         .tourism {

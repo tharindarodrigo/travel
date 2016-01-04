@@ -2,9 +2,26 @@
 
 @section('title')
 
+    <?php
+    $city_acc = City::where('city', Request::segment(2))->first();
+    if (!empty($city_acc)) {
+        $city_id = City::where('city', Request::segment(2))->first()->id;
+            } else {
+        $acc = HotelCategory::where('hotel_category', str_replace('-', ' ', Request::segment(2)))->first()->id;
+    }
+    ?>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Hotel list </title>
+    @if(!empty($city_id))
+        <title>{{ City::where('id', $city_id)->first()->meta_title }}</title>
+        <meta name="keywords" content="{{ City::where('id', $city_id)->first()->meta_keywords }}">
+        <meta name="description" content="{{ City::where('id', $city_id)->first()->meta_description }}">
+    @else
+        <title>{{ HotelCategory::where('id', $acc)->first()->meta_title }}</title>
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+    @endif
 
 @endsection
 

@@ -4,7 +4,11 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Privacy And Policy </title>
+    <meta name="keywords"
+          content="Privacy And Policy srilankahotels.travel,srilankahotels.travel Feedback,srilankahotels.travel Governing Law,srilankahotels.travel The Principles of Data Protection,srilankahotels.travel Information on data protection,srilankahotels.travel Cookies">
+    <meta name="description"
+          content="Exotic Holidays International (Pvt) Limited is using a secured Web Site for transaction of personal data communicated. We do not capture personal information without your knowledge or your permission. You will only be asked to provide personal information when you are taking advantage of this site's interactive products and services. Your credit card information is only acquired by the secure encrypted Internet payment gateway page of the bank our booking system is linked with. Exotic Holidays does not acquire or store your credit card information.">
+    <title> Sri Lanka Hotels - Privacy And Policy </title>
 
     <style type="text/css">
         .tourism {

@@ -4,7 +4,10 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - About Us </title>
+    <meta name="keywords" content="Srilankahotels.travel About us">
+    <meta name="description"
+          content="We at Exotic Holidays International pride ourselves on our reputation and rely on it for our business. Our dedicated & knowledgeable Travel Professionals who truly care about our clients take pride in their careers and personal achievements">
+    <title> Srilankahotels.travel - About us </title>
 
     <style type="text/css">
         .tourism {

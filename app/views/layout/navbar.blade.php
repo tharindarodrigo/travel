@@ -322,6 +322,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 </style>
 
 <style type="text/css">
+
     .line21 {
         background: #72bf66;
     }
@@ -361,6 +362,11 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
 </style>
 
 <script type="text/javascript">
+    $(function(){
+        $(window).resize(function(){
+            $('ul').css('max-height', ($(window).height() - $('ul').offset().top) + 'px');
+        });
+    });
 
     $(function () {
 
@@ -471,7 +477,7 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
                                 </a>
 
-                                <ul class="dropdown-menu"
+                                <ul class="dropdown-menu scrollable-menu"
                                     style="height: 800px; min-width: 0px; width: auto; top:30px; left: -300px; right: -300px">
 
                                     <span style="margin-left: 16px; text-align: center" class="size16 green">Top Currencies</span>

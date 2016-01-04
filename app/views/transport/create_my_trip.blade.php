@@ -4,7 +4,10 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Transport List </title>
+    <title> Book Transportation Packages Online Sri Lanka </title>
+    <meta name="keywords" content="Online Book Transportation Packages Sri Lanka,">
+    <meta name="description" content="Online Book Transportation Packages Sri Lanka, Sri Lanka Tours, Sri Lanka Excursions, Sri Lanka Vehicles For Tourism,Tourist Vehicle,Tourist Van,Tourist Car,Tourist Bus">
+
 
 @endsection
 

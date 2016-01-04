@@ -4,7 +4,11 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Sri Lankan Advice </title>
+    <meta name="keywords"
+          content="Sri Lankan Advice,Sri lanka Climate,Sri lanka Customs,Sri lanka Festivals,Sri Lanka Clothing,Sri Lanka Photography,Sri Lanka SportsF">
+    <meta name="description"
+          content="Visitors to Sri Lanka will be completely fascinated by the unusual climate of the country. It is possible to come across hot and humid tropical weather, cool and misty conditions and dry, parched areas all within the same day.">
+    <title> Sri Lankan Advice - Sri Lanka Hotels </title>
 
     <style type="text/css">
         .tourism {

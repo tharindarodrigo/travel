@@ -4,7 +4,10 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - About Sri Lanka </title>
+    <meta name="keywords" content="About Sri Lanka">
+    <meta name="description"
+          content="The island of Ceylon, as it was known by its colonial rulers, has fascinated many generations of travellers, and has captured the imagination of explorers who have kept returning to its shores in awe of its natural beauty and curious inhabitants.">
+    <title> About Sri Lanka - Sri Lanka Hotels </title>
 
     <style type="text/css">
         .tourism {

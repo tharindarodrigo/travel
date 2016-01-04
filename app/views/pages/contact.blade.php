@@ -4,7 +4,9 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Contact Us</title>
+    <meta name="keywords" content="Srilankahotels.travel,Srilankahotels.travel Contact Us,Sri lanka Hotels,Sri lanka Tours,Sri lanka Excursions">
+    <meta name="description" content="Srilankahotels.travel,Srilankahotels.travel Contact Us,Sri lanka Hotels,Sri lanka Tours,Sri lanka Excursions,Online Hotel Bookings,Online Transportation Bookings,Online Excursion Bookings">
+    <title> Srilankahotels.travel - Contact Us </title>
 
     <style type="text/css">
 
