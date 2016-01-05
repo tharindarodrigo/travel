@@ -44,6 +44,8 @@ class CartController extends \BaseController
 //dd($hotel_bookings);
 
         if ((Session::has('rate_box_details')) || (Session::has('transport_cart_box')) || (Session::has('predefined_transport')) || (Session::has('excursion_cart_details'))) {
+//            dd('<pre>',Session::get('rate_box_details'),'</pre>');
+
             return View::make('payments.booking_cart')
                 ->with(
                     array(
@@ -168,7 +170,6 @@ class CartController extends \BaseController
 
     }
 
-
     public function transportCartDelete()
     {
 
@@ -177,7 +178,7 @@ class CartController extends \BaseController
         if (Session::has('transport_cart_box')) {
             $data = Session::get('transport_cart_box');
             //dd($data[$deletable]);
-            // dd($data[$hotel_id]);
+            //dd($data[$hotel_id]);
             unset($data[$deletable]);
 
             if (!empty($data)) {

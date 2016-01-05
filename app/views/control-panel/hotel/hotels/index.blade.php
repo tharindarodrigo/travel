@@ -27,7 +27,7 @@
                         <th>Star Category</th>
                         <th>Hotel Category</th>
                         <th>City</th>
-                        <th>Created By</th>
+                        {{--<th>Created By</th>--}}
                         <th style="width:60px;">Status</th>
                         <th>Manage</th>
                     </tr>
@@ -48,9 +48,9 @@
                     <td>
                         {{ $hotel->city->city }}
                     </td>
-                    <td>
+                    {{--<td>--}}
                         {{--{{ $hotel->users->first_name.' '.$hotel->users->last_name }}--}}
-                    </td>
+                    {{--</td>--}}
                     <td>{{ $hotel->val== 0 ? 'Inactive' : 'Active' }}</td>
 
                         <td style="width: 170px">
