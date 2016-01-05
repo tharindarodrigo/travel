@@ -7,14 +7,13 @@
 <table border="0" width="100%" style="margin-top: -11px;">
     <tr>
         <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
-                : <?php echo $booking->reference_number?>
+                : <?php echo $booking->reference_number; ?>
         </td>
         <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">New Transport
         </td>
     </tr>
 </table>
 <hr/>
-
 
 <table class="table" border="1px" cellpadding="10" cellspacing="0" width="100%" style="font-size: medium">
 
@@ -53,7 +52,7 @@
 
             <?php if ($trip->val == 1) { ?>
                 <tr style="background: lightgrey;">
-                    <th align="left" colspan="2"> Reference No : <?php echo $trip->reference_number ?> </th>
+                    <th align="left" colspan="2"> Reference No : <?php echo $trip->reference_number; ?> </th>
                 </tr>
                 <tr>
                     <td>
