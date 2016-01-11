@@ -29,6 +29,13 @@ function lookup(inputString) {
 }
 /**************************************** END OF AUTO COMPLETE ******************************************************************/
 
+// change rate to local rate
+
+$('.srilanka_rate').click(function () {
+    $('#srilanka_rate_form').submit();
+});
+
+
 
 /**************************************** HOTEL LIST ******************************************************************/
 
@@ -249,6 +256,104 @@ $('.vehicle_select').click(function () {
         return $(this).val();
     }).get();
     $('#vehicle_select_form').submit();
+});
+
+
+$('.transport_type_select').click(function () {
+    $('#predefined_form').submit();
+});
+
+$('.wedding_type_select').click(function () {
+    $('#wedding_form').submit();
+});
+
+$('.create_my_trip_type_select').click(function () {
+    $('#create_my_trip_form').submit();
+});
+
+
+// for transport search
+
+$(document).ready(function () {
+
+    $('.transport_package_select').on('change', function () {
+        if ($(".transport_package_select").val() == 2) {
+            $('.transport_hours_show').show();
+            $('.transport_origin_show').hide();
+            $('.transport_destination_show').hide();
+            $('.predefined_method_show').hide();
+        }else{
+            $('.transport_hours_show').hide();
+            $('.vehicle_type_show').hide();
+            $('.predefined_method_show').show();
+
+        }
+    });
+
+    $('.predefined_method_select').on('change', function () {
+        //alert($(".predefined_method_select").val());
+        if ($(".predefined_method_select").val() == 1) {
+            $('.transport_origin_show').show();
+            $('.transport_destination_show').show();
+            $('.transport_days_show').hide();
+        }else if($(".predefined_method_select").val() == 2){
+            $('.transport_days_show').show();
+            $('.transport_origin_show').hide();
+            $('.transport_destination_show').hide();
+        }else{
+            $('.transport_days_show').hide();
+            $('.transport_origin_show').hide();
+            $('.transport_destination_show').hide();
+        }
+    });
+
+    $('.vehicle_type_show').hide();
+    $('.transport_hours_show').hide();
+    $('.transport_origin_show').hide();
+    $('.transport_destination_show').hide();
+    $('.transport_days_show').hide();
+
+
+    $('.transport_vehicle_select').on('change', function () {
+
+        var vehicle = $(this).val();
+
+        var url = 'http://' + window.location.host + '/sri-lanka/wedding_select_vehicle_type';
+
+        var formData = new FormData();
+
+        formData.append('vehicle', vehicle);
+
+        $.ajax({
+            url: url,
+            method: 'post',
+            processData: false,
+            contentType: false,
+            cache: false,
+            dataType: 'json',
+            data: formData,
+            success: function (data) {
+                var vehicle_type = '';
+                if ($(".transport_package_select").val() == 2) {
+
+                    $.each(data, function (index, item) {
+                        vehicle_type += "<option value='" + index + "'>" + item + "</option>";
+                    });
+
+                    $("#vehicle_select").html(vehicle_type);
+                    $('.vehicle_type_show').show();
+
+                } else {
+                    $('.vehicle_type_show').hide();
+                }
+
+            },
+
+            error: function () {
+                //alert('There was an error signing In');
+            }
+        });
+    });
 });
 
 

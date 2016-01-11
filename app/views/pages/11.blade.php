@@ -1,159 +1,69 @@
+<?php
 
 
+if (Session::has('currency')) {
+    if (Session::get('currency') == 'LKR') {
+        $from_currency = 'LKR';
+    } else {
+        $from_currency = Session::get('currency');
+    }
+} else {
+    $from_currency = 'USD';
+}
 
-@extends('layout.master')
 
-@section('title')
+public function createCurrency()
+{
+    function converCurrency($from, $to, $amount)
+    {
+        $url = "https://www.google.com/finance/converter?a=$amount&from=$from&to=$to";
+        $request = curl_init();
+        $timeOut = 0;
+        curl_setopt($request, CURLOPT_URL, $url);
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($request, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)");
+        curl_setopt($request, CURLOPT_CONNECTTIMEOUT, $timeOut);
+        $response = curl_exec($request);
+        curl_close($request);
+        return $response;
+    }
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> srilankahotel.travel - Tour List </title>
+    if (Input::has('sri_lankan')) {
 
-@endsection
+        Session::put('market', 4);
 
-@section('custom_style')
+        $from_currency = 'USD';
+        $to_currency = 'LKR';
+        $amount = 1;
 
-    <style type="text/css">
-        .collapsebtn {
-            background: #3498db;
-            color: #FFFFFF;
+    } else {
+
+        if (Session::has('market')) {
+            if (Session::get('market') == 4) {
+                Session::forget('market');
+            }
         }
 
-        h4 {
-            color: #3498db;
-        }
+        $from_currency = 'USD';
+        $to_currency = $_POST['currency'];
+        $amount = 1;
+    }
 
-        .labelleft2 p {
-            color: #999;
-        }
+    dd($from_currency.'/'.$to_currency.'/'.$amount);
 
-        .labelleft2 p:hover {
-            color: #333333;
-        }
+    $results = converCurrency($from_currency, $to_currency, $amount);
 
-        .labelleft2 li {
-            color: #333333 !important;
-        }
+    $regularExpression = '#\<span class=bld\>(.+?)\<\/span\>#s';
+    preg_match($regularExpression, $results, $finalData);
+    $finalData[1];
+    $str = $finalData[1];
+    $rr = (explode(" ", $str));
 
-        #commentbox {
-            background-image: url(../../images/site/ratings.png);
-            background-repeat: no-repeat;
-            z-index: 90;
-            height: 92px;
-            width: 88px;
-            position: absolute;
-            top: 150px;
-            right: 90px;
-            text-align: center;
-        }
+    Session::put('currency', $rr[1]);
+    Session::put('currency_rate', $rr[0]);
 
-        #commentrating {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 10px;
-            font-weight: bold;
-            color: #999;
-            padding-top: 28px;
-        }
+    return Response::json(true);
 
-        #commentnums {
-            color: #999;
-            font-family: Georgia, "Times New Roman", Times, serif;
-            font-size: 14px;
-            font-weight: bolder;
-        }
-    </style>
+}
 
-    <!-- bin/jquery.slider.min.css -->
-    {{ HTML::style('plugins/jslider/css/jslider.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
-    {{ HTML::style('plugins/jslider/css/jslider.round.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
-
-    <!-- bin/jquery.slider.min.js -->
-    {{ HTML::script('plugins/jslider/js/jshashtable-2.1_src.js') }}
-    {{ HTML::script('plugins/jslider/js/jquery.numberformatter-1.2.3.js') }}
-    {{ HTML::script('plugins/jslider/js/tmpl.js') }}
-    {{ HTML::script('plugins/jslider/js/jquery.dependClass-0.1.js') }}
-    {{ HTML::script('plugins/jslider/js/draggable-0.1.js') }}
-    {{ HTML::script('plugins/jslider/js/jquery.slider.js') }}
-    <!-- end -->
-
-    {{--my styles--}}
-    {{ HTML::style('css/my_style.css' , array('rel' => 'stylesheet' , 'media' => 'screen')) }}
-
-@endsection
-
-@section('content')
-
-    <body id="top" class="thebg">
-
-    <!-- navbar -->
-    @include('layout.navbar')
-    <!-- / navbar -->
-
-    <div class="container breadcrub">
-        <div>
-            <a class="homebtn left" href="#"></a>
-
-            <div class="left">
-                <ul class="bcrumbs">
-                    <li><a href="{{URL::route('index')}}" class="active">Home </a></li>
-                    <li>/</li>
-                    <li><a href="{{URL::to('tour/sri-lanka/'.Request::segment(3) )}}"
-                           class="active">{{ str_replace('-', ' ', Request::segment(3)) }} </a></li>
-                    <li>/</li>
-                </ul>
-            </div>
-            <a class="backbtn right" href="#"></a>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-
-    <!-- CONTENT -->
-    <div class="container">
-        <div class="container pagecontainer offset-0">
-
-
-            <!-- LIST CONTENT-->
-            <div class="rightcontent col-md-9 offset-0">
-
-
-                <!-- End of padding -->
-
-                <br/><br/>
-
-                <div class="clearfix"></div>
-
-                <!-- Reservation Box -->
-                @include('layout.reservation_box_pages')
-                <!-- End Of Reservation Box -->
-
-
-                <br/><br/>
-            </div>
-            <!-- END OF LIST CONTENT-->
-
-        </div>
-        <!-- END OF container-->
-
-    </div>
-    <!-- END OF CONTENT -->
-
-    @endsection
-
-    @section('script')
-
-        <!-- Javascript -->
-        {{ HTML::script('assets/js/js-list4.js') }}
-
-        <!-- Custom Select -->
-        {{ HTML::script('js/lightbox.js') }}
-
-        <!-- Counter -->
-        {{ HTML::script('assets/js/counter.js') }}
-
-        <!-- Custom js -->
-        {{ HTML::script('js/my_script.js') }}
-
-    @endsection
-
-    </body>
-@stop
+?>

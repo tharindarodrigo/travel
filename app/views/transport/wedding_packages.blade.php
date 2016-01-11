@@ -59,6 +59,10 @@
         .filters label {
             font-size: 12px;
         }
+
+        .transport_package_select {
+            /*font-size: 10px !important;*/
+        }
     </style>
 @endsection
 
@@ -78,7 +82,7 @@
                 <ul class="bcrumbs">
                     <li><a href="{{URL::route('index')}}" class="active">Home </a></li>
                     <li>/</li>
-                    <li><a href="{{ URL::to('transport-list') }}"
+                    <li><a href="{{ URL::to('wedding-packages') }}"
                            class="active">{{ str_replace('-', ' ', Request::segment(1)) }} </a></li>
                     <li>/</li>
                 </ul>
@@ -165,7 +169,7 @@
                         <div class="predefined_method_show">
                             <div class="wh90percent textleft">
                                 <span class="opensans size13"> Cities/Days </span>
-                                {{ Form::select('predefined_method', ['Select','City', 'Days'], null, array('class' => 'form-control mySelectBoxClass predefined_method_select', 'id' => 'predefined_method')) }}
+                                {{ Form::select('predefined_method_name', ['Select','City', 'Days'], null, array('class' => 'form-control mySelectBoxClass predefined_method_select', 'id' => 'predefined_method')) }}
                             </div>
                             <div class="clearfix pbottom15"></div>
                         </div>
@@ -197,7 +201,7 @@
                         <div class="transport_days_show">
                             <div class="wh90percent textleft">
                                 <span class="opensans size13"> Days </span>
-                                {{ Form::select('days', ['1'=>1, '2'=>2, '3'=>3], null, array('class' => 'form-control mySelectBoxClass transport_days_select', 'id' => 'transport_days')) }}
+                                {{ Form::select('days', [1, 2, 3], null, array('class' => 'form-control mySelectBoxClass transport_days_select', 'id' => 'transport_days')) }}
                             </div>
                             <div class="clearfix pbottom15"></div>
                         </div>
@@ -354,7 +358,7 @@
 
                 <div id="collapse3" class="collapse in">
                     <div class="hpadding20">
-                        {{ Form::open(array('url' => '/sri-lanka/transport-search', 'method' => 'POST', 'id'=>'predefined_form')) }}
+                        {{ Form::open(array('url' => '/transport-list', 'method' => 'POST', 'id'=>'predefined_form')) }}
                         <div class="radio">
                             <label>
                                 <input type="radio" name="transport_type" id="predefine_transport"
@@ -388,30 +392,6 @@
                 </div>
                 <!-- End of Transport Type -->
 
-                <!-- Vehicles -->
-                <button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse1">
-                    Vehicles <span class="collapsearrow"></span>
-                </button>
-                {{ Form::open(array('url' => '/transport-list', 'method' => 'POST', 'id'=>'vehicle_select_form')) }}
-                <div id="collapse1" class="collapse in">
-                    <div class="hpadding20">
-                        <?php  $t = 0; ?>
-                        @foreach($vehicles as $vehicle)
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="{{ $vehicle->id }}" name="vehicle_filter[]"
-                                           class="vehicle_select">
-                                    {{ $vehicle->vehicle_type }}
-                                </label>
-                            </div>
-                            <?php  $t = $t + 1; ?>
-                        @endforeach
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <!-- End of Vehicles -->
-                {{ Form::close() }}
-
                 <div class="clearfix"></div>
                 <br/>
                 <br/>
@@ -424,7 +404,7 @@
             <div class="rightcontent col-md-9 offset-0">
 
                 <div class="hpadding50c">
-                    <h1> Predefined Packages </h1>
+                    <h1>Wedding Packages </h1>
 
                     <p class="aboutarrow"></p>
                 </div>
@@ -439,24 +419,25 @@
 
                     <?php $r = 0; ?>
                     @foreach($transport_packages as $transport_package)
-                        @if($r < 3)
-                            <script>
-                                //Popover tooltips
-                                $(function () {
-                                    $("#username<?php echo $transport_package->id ?>").popover({
-                                        container: 'body',
-                                        placement: 'top',
-                                        trigger: 'hover',
-                                        html: true,
-                                        title: function () {
-                                            return $('#popover_title_wrapper<?php echo $transport_package->id; ?>').html();
-                                        },
-                                        content: function () {
-                                            return $('#popover_content_wrapper<?php echo $transport_package->id; ?>').html();
-                                        }
-                                    });
+
+                        <script>
+                            //Popover tooltips
+                            $(function () {
+                                $("#username<?php echo $transport_package->id ?>").popover({
+                                    container: 'body',
+                                    placement: 'top',
+                                    trigger: 'hover',
+                                    html: true,
+                                    title: function () {
+                                        return $('#popover_title_wrapper<?php echo $transport_package->id; ?>').html();
+                                    },
+                                    content: function () {
+                                        return $('#popover_content_wrapper<?php echo $transport_package->id; ?>').html();
+                                    }
                                 });
-                            </script>
+                            });
+                        </script>
+                        @if($r < 3)
                             <div class="col-md-4 border">
                                 <!-- CONTAINER-->
                                 <div class="carscontainer">
@@ -499,28 +480,15 @@
                                             {{--<span class="green">{{ Session::get('currency') . '&nbsp;' . number_format((Vehicle::where('id', $transport_package->vehicle_id)->first()->additional_charge_per_day * Session::get('currency_rate')), 2, '.', ''); }}</span>--}}
                                         </div>
 
-                                        <h4> {{ $transport_package->Vehicle->vehicle_type }}</h4>
+                                        <h4> {{ $transport_package->Vehicle->vehicle_type }}
+                                            - {{ VehicleType::where('id', $transport_package->vehicle_type_id)->first()->vehicle }}</h4>
 
                                         <div class="size13 grey">
 
                                             <table>
-                                                @if(TransportPackage::where('id', $transport_package->id)->first()->origin != '')
-                                                    <tr>
-                                                        <td class="dark bold" valign="top">From</td>
-                                                        <td class="predefine_origin">
-                                                            : {{ City::where('id', $transport_package->origin)->first()->city }}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="dark bold" valign="top"> To</td>
-                                                        <td class="predefine_destination">
-                                                            : {{ City::where('id', $transport_package->destination)->first()->city }}
-                                                        </td>
-                                                    </tr>
-                                                @endif
                                                 <tr>
-                                                    <td class="dark bold" valign="top">Days</td>
-                                                    <td>: {{ $transport_package->days }}</td>
+                                                    <td class="dark bold" valign="top"> Hours</td>
+                                                    <td>: {{ $transport_package->days }} hrs</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="dark bold" valign="top"> Maximum KM</td>
@@ -596,9 +564,10 @@
                             <div class="offset-2">
                                 <hr class="featurette-divider3">
                             </div>
-                            <?php $r = $r - 4; ?>
+                            <?php $r = -1;  ?>
                         @endif
                         <?php $r = $r + 1; ?>
+
                     @endforeach
 
                     <div class="clearfix"></div>
@@ -639,6 +608,7 @@
 
         {{ HTML::script('js/toastr.js') }}
         {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js') }}
+
 
         <script type="text/javascript">
             $(function () {
@@ -706,6 +676,7 @@
             });
 
         </script>
+
 
     @endsection
 

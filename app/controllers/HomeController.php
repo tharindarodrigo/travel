@@ -101,7 +101,7 @@ class HomeController extends BaseController
     {
         function converCurrency($from, $to, $amount)
         {
-            $url = "http://www.google.com/finance/converter?a=$amount&from=$from&to=$to";
+            $url = "https://www.google.com/finance/converter?a=$amount&from=$from&to=$to";
             $request = curl_init();
             $timeOut = 0;
             curl_setopt($request, CURLOPT_URL, $url);
@@ -113,9 +113,29 @@ class HomeController extends BaseController
             return $response;
         }
 
-        $from_currency = 'USD';
-        $to_currency = $_POST['currency'];
-        $amount = 1;
+        if (Input::has('sri_lankan')) {
+
+            Session::put('market', 4);
+
+            $from_currency = 'USD';
+            $to_currency = 'LKR';
+            $amount = 1;
+
+        } else {
+
+            if (Session::has('market')) {
+                if (Session::get('market') == 4) {
+                    Session::forget('market');
+                }
+            }
+
+            $from_currency = 'USD';
+            $to_currency = $_POST['currency'];
+            $amount = 1;
+        }
+
+        // dd($from_currency.'/'.$to_currency.'/'.$amount);
+
         $results = converCurrency($from_currency, $to_currency, $amount);
 
         $regularExpression = '#\<span class=bld\>(.+?)\<\/span\>#s';

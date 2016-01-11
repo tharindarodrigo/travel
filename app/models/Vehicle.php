@@ -18,4 +18,9 @@ class Vehicle extends \Eloquent
         return $this->hasMany('TransportPackage');
     }
 
+    public function vehicleType()
+    {
+        return $this->hasMany('vehicleType');
+    }
+
 }

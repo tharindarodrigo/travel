@@ -8,6 +8,7 @@ class pageController extends \BaseController
      *
      * @return Response
      */
+
     public function tourismInSrilanka()
     {
         if (Session::has('st_date')) {
@@ -267,5 +268,6 @@ class pageController extends \BaseController
                 )
             );
     }
+
 
 }

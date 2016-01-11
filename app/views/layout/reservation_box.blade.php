@@ -19,34 +19,13 @@ $hotel_type = DB::table('hotel_categories')->get();
 $hotel_cities = DB::table('cities')->get();
 $hotel_facilities = DB::table('hotel_facilities')->get();
 
+
 // Filtering - Transport
-$vehicle = Vehicle::lists('vehicle_type', 'id');
-//$city = City::lists('city', 'id');
+$vehicle = array('0' => 'Select') + Vehicle::lists('vehicle_type', 'id');
+$package = TransportCategory::lists('transport_category', 'id');
+$city1 = City::lists('city', 'id');
 
 ?>
-
-<script type="text/javascript">
-
-    var dpk = jQuery;
-    dpk.noConflict();
-
-    dpk(function () {
-        dpk("#datepicker").datepicker({
-
-            onClose: function() {
-                var minValue = dpk(this).val();
-                minValue = dpk.datepicker.parseDate("yy/mm/dd", minValue);
-                minValue.setDate(minValue.getDate() + 1);
-
-                dpk("#datepicker2").datepicker("option", "minDate", minValue);
-                return dpk("#datepicker2").datepicker("show");
-            }
-
-        });
-
-    });
-</script>
-
 
 <style type="text/css">
     .ac_loading {
@@ -89,15 +68,63 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
 
         <!-- HOTEL TAB -->
         <div id="hotel" class="tab-pane fade active in" style="overflow-y: visible !important;">
+            {{ Form::open(array('url' => '/sri-lanka/get-currency-rate', 'files'=> true, 'id' => 'srilanka_rate_form', 'method' => 'POST', )) }}
+
+            {{--<script>--}}
+            {{--//Popover tooltips--}}
+            {{--var pof = jQuery;--}}
+            {{--pof.noConflict();--}}
+
+            {{--pof(function () {--}}
+            {{--$("#username").popover({placement: 'top', trigger: 'hover'});--}}
+            {{--});--}}
+            {{--</script>--}}
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="sri_lankan" class="srilanka_rate">
+                    <span class="opensans size18"> I am A Sri Lankan </span>
+                    <span class="glyphicon glyphicon-info-sign right lblue cpointer" rel="popover" id="username"
+                          data-content="This field is mandatory"
+                          data-original-title="Here you can add additional information about the car">
+                    </span>
+                </label>
+            </div>
+
+            {{ Form::close() }}
+
+
             {{ Form::open(array('url' => 'sri-lanka/search', 'files'=> true, 'id' => 'searchform', 'method' => 'POST', )) }}
+
+            <script type="text/javascript">
+
+                var dpk = jQuery;
+                dpk.noConflict();
+
+                dpk(function () {
+                    dpk("#datepicker").datepicker({
+
+                        onClose: function () {
+                            var minValue = dpk(this).val();
+                            minValue = dpk.datepicker.parseDate("yy/mm/dd", minValue);
+                            minValue.setDate(minValue.getDate() + 1);
+
+                            dpk("#datepicker2").datepicker("option", "minDate", minValue);
+                            return dpk("#datepicker2").datepicker("show");
+                        }
+
+                    });
+
+                });
+            </script>
+
+
             <span class="opensans size18">Where do you want to go?</span>
 
             <input type="text" class="form-control" name="txt-search" id="inputString" category=""
                    onkeyup="lookup(this.value);" autocomplete="off"/>
 
             <div id="suggestions"></div>
-
-            <br/>
 
 
             <div class="w50percent">
@@ -183,45 +210,80 @@ $vehicle = Vehicle::lists('vehicle_type', 'id');
         </div>
         <!-- END OF HOTEL TAB -->
 
+
         <!-- TRANSPORT TAB -->
         <div id="car" class="tab-pane fade">
-            {{ Form::open(array('url' => 'transport-list', 'files'=> true, 'id' => 'transport_search_form', 'method' => 'POST', )) }}
+            {{ Form::open(array('url' => 'sri-lanka/transport-search', 'files'=> true, 'id' => 'transport_search_form', 'method' => 'POST', )) }}
+
+            <div class="">
+                <div class="wh90percent textleft">
+                    <span class="opensans size13">Package</span>
+                    {{ Form::select('package', $package, null, array('class' => 'form-control mySelectBoxClass transport_package_select', 'id' => 'transport_package')) }}
+                </div>
+                <div class="clearfix pbottom15"></div>
+            </div>
 
             <div class="">
                 <div class="wh90percent textleft">
                     <span class="opensans size13">Vehicle Type</span>
                     {{ Form::select('vehicle', $vehicle, null, array('class' => 'form-control mySelectBoxClass transport_vehicle_select', 'id' => 'transport_vehicle')) }}
                 </div>
+                <div class="clearfix pbottom15"></div>
             </div>
-            <div class="clearfix pbottom15"></div>
 
-            <div class="">
+            <div class="vehicle_type_show">
+                <div class="wh90percent textleft">
+                    <span class="opensans size13"> Vehicle </span>
+                    <select class="form-control mySelectBoxClass" id="vehicle_select" data-shadow="true"
+                            name="vehicle_type" data-mini="true">
+                    </select>
+                </div>
+                <div class="clearfix pbottom15"></div>
+            </div>
+
+            <div class="predefined_method_show">
+                <div class="wh90percent textleft">
+                    <span class="opensans size13"> Cities/Days </span>
+                    {{ Form::select('number', ['Select','City', 'Days'], null, array('class' => 'form-control mySelectBoxClass predefined_method_select', 'id' => 'predefined_method')) }}
+                </div>
+                <div class="clearfix pbottom15"></div>
+            </div>
+
+            <div class="transport_origin_show">
                 <div class="wh90percent textleft">
                     <span class="opensans size13">From</span>
-                    {{ Form::select('from', City::lists('city', 'id'), null, array('class' => 'form-control mySelectBoxClass transport_origin_select_1', 'id' => 'transport_origin_2')) }}
+                    {{ Form::select('from', $city1, null, array('class' => 'form-control mySelectBoxClass transport_origin_select', 'id' => 'transport_origin')) }}
                 </div>
+                <div class="clearfix pbottom15"></div>
             </div>
-            <div class="clearfix pbottom15"></div>
 
-            <div class="">
+            <div class="transport_destination_show">
                 <div class="wh90percent textleft">
                     <span class="opensans size13">To</span>
-                    {{ Form::select('to', City::lists('city', 'id'), null, array('class' => 'form-control mySelectBoxClass transport_destination_select_1', 'id' => 'transport_destination_2')) }}
+                    {{ Form::select('to', $city1, null, array('class' => 'form-control mySelectBoxClass transport_destination_select', 'id' => 'transport_destination')) }}
                 </div>
+                <div class="clearfix pbottom15"></div>
             </div>
-            <div class="clearfix pbottom15"></div>
 
-            <div class="">
+            <div class="transport_hours_show">
                 <div class="wh90percent textleft">
-                    <span class="opensans size13">Days</span>
-                    {{ Form::selectRange('transport_days', 1, 10, null, ['class' => 'form-control mySelectBoxClass day_count', 'id' => 'transport_days']) }}
+                    <span class="opensans size13"> Hours </span>
+                    {{ Form::select('hours', [4, 8], null, array('class' => 'form-control mySelectBoxClass transport_hours_select', 'id' => 'transport_hours')) }}
                 </div>
+                <div class="clearfix pbottom15"></div>
             </div>
-            <div class="clearfix pbottom15"></div>
+
+            <div class="transport_days_show">
+                <div class="wh90percent textleft">
+                    <span class="opensans size13"> Days </span>
+                    {{ Form::select('days', [1, 2, 3], null, array('class' => 'form-control mySelectBoxClass transport_days_select', 'id' => 'transport_days')) }}
+                </div>
+                <div class="clearfix pbottom15"></div>
+            </div>
 
             <button type="submit" class="btn-search3">Search</button>
 
-            {{ Form::close() }}
+            {{Form::close()}}
         </div>
         <!-- END OF TRANSPORT TAB -->
 

@@ -108,6 +108,9 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 {{ HTML::script('dist/js/bootstrap.min.js') }}
 
+<!-- Custom js -->
+{{ HTML::script('js/my_script.js') }}
+
 <!-- Jquery Confirm -->
 {{--{{ HTML::script('jquery-confirm/demo/demo.min.js') }}--}}
 

@@ -616,7 +616,7 @@
                                                 </td>
                                                 <td class="green" style="right: -30px">
                                                     {{ Session::get('currency') }}<br/>
-                                                    {{ number_format(($transport_package->rate ), 2, '.', '') }}
+                                                    {{ number_format(($transport_package->rate * Session::get('currency_rate')), 2, '.', '') }}
                                                 </td>
                                             </tr>
                                         </table>

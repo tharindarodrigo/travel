@@ -647,6 +647,17 @@ Route::any('transport-list', array(
     'uses' => 'TransportPackageController@transportList'
 ));
 
+//wedding packages
+
+Route::any('wedding-packages', array(
+    'as' => 'wedding-packages',
+    'uses' => 'TransportPackageController@weddingPackages'
+));
+
+// get wedding package vehicle list
+
+Route::post('/sri-lanka/wedding_select_vehicle_type', 'TransportPackageController@getVehicleList');
+
 // transport search
 
 Route::any('sri-lanka/transport-search', array(
@@ -749,6 +760,14 @@ Route::any('sri-lanka/search', array(
     'as' => 'hotel-search',
     'uses' => 'HotelController@viewSearch'
 ));
+
+// change to local rate
+
+Route::any('sri-lanka/set_local_rate', array(
+    'as' => 'set-local-rate',
+    'uses' => 'PageController@setLocalRate'
+));
+
 
 // Filtering part
 

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData">
+  <component name="PublishConfigData" showNewOnSourceInSync="false" showNewOnTargetInSync="false">
     <serverData>
-      <paths name="srilankaonline">
+      <paths name="srilankahotels">
         <serverdata>
           <mappings>
-            <mapping deploy="/laravel/app" local="$PROJECT_DIR$/app" web="/" />
-            <mapping deploy="/public_html" local="$PROJECT_DIR$/public" web="/" />
+            <mapping deploy="/laravel/app" local="$PROJECT_DIR$/app" web="" />
           </mappings>
         </serverdata>
       </paths>

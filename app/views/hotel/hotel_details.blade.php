@@ -722,7 +722,15 @@
                                                 <?php $low_room_rate = RoomRates::lowestRoomRateWithTax($hotel_id, $room_id, $room->room_specification_id, $room->meal_basis_id, $st_date, $ed_date); ?>
                                                 <div class="col-md-4 center bordertype4">
                                                     @if($low_room_rate > 0 )
-                                                        <span class="opensans green size24">  {{ Session::get('currency') . '&nbsp;' . number_format(($low_room_rate * Session::get('currency_rate')), 2, '.', '') }}</span>
+                                                        @if(Session::get('market') == 4)
+                                                            <span class="opensans green size24">
+                                                              {{ Session::get('currency') . '&nbsp;'  . $low_room_rate }}
+                                                            </span>
+                                                        @else
+                                                            <span class="opensans green size24">
+                                                            {{ Session::get('currency') . '&nbsp;' . number_format(($low_room_rate * Session::get('currency_rate')), 2, '.', '') }}
+                                                            </span>
+                                                        @endif
                                                         <br/>
                                                         {{ Form::selectRange('number', 1, 10, null, ['class' => 'form-control mySelectBoxClass room_count', 'id' => $room_id.$room->meal_basis_id.$room->room_specification_id]) }}
                                                         <br/>
@@ -814,7 +822,11 @@
                                                                 @if(Session::has('st_date'))
                                                                     <div class="green"
                                                                          style="font-size: 20px; padding: 10px; text-align: center">
+                                                                        @if(Session::get('market') == 4)
+                                                                            {{ Session::get('currency') . '&nbsp;' . number_format(($low_room_rate * 1), 2, '.', '') }}
+                                                                        @else asd
                                                                         {{ Session::get('currency') . '&nbsp;' . number_format(($low_room_rate * Session::get('currency_rate')), 2, '.', '') }}
+                                                                        @endif
                                                                     </div>
                                                                 @else
                                                                     <div class="green"

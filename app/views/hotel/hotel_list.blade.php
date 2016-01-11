@@ -6,7 +6,7 @@
     $city_acc = City::where('city', Request::segment(2))->first();
     if (!empty($city_acc)) {
         $city_id = City::where('city', Request::segment(2))->first()->id;
-            } else {
+    } else {
         $acc = HotelCategory::where('hotel_category', str_replace('-', ' ', Request::segment(2)))->first()->id;
     }
     ?>
@@ -701,7 +701,11 @@
                                             @if(!empty($low_hotel_rate))
                                                 <span class="green size18">
                                             <b>
-                                                {{ Session::get('currency') . '<br/>' . number_format(($low_hotel_rate * Session::get('currency_rate')), 2, '.', '') }}
+                                                @if(Session::get('market') == 4)
+                                                    {{ Session::get('currency') . '<br/>' . number_format(($low_hotel_rate), 2, '.', '') }}
+                                                @else
+                                                    {{ Session::get('currency') . '<br/>' . number_format(($low_hotel_rate * Session::get('currency_rate')), 2, '.', '') }}
+                                                @endif
                                             </b>
                                             </span>
                                                 <br/>

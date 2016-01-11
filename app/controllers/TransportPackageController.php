@@ -10,14 +10,14 @@ class TransportPackageController extends \BaseController
      */
     public function transportList()
     {
-
         $vehicle_id = array();
 
         $vehicles = Vehicle::where('val', 1)->get();
 
         // filtering
-        $vehicle = Vehicle::lists('vehicle_type', 'id');
-        $city = array('76' => 'Any') + City::lists('city', 'id');
+        $vehicle = array('0' => 'Select') + Vehicle::lists('vehicle_type', 'id');
+        $package = TransportCategory::lists('transport_category', 'id');
+        $city = City::lists('city', 'id');
         //$city['%'] = 'Any';
 
         if (Session::has('st_date')) {
@@ -32,10 +32,13 @@ class TransportPackageController extends \BaseController
             $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
         }
 
-        if (Input::has('vehicle')) {
-            $get_vehicle = Input::get('vehicle');
 
-            $vehicle_id[] = $get_vehicle;
+        if (Input::has('get_vehicle_id')) {
+            $get_vehicle_id = Input::get('get_vehicle_id');
+            $vehicle_id[] = $get_vehicle_id;
+        } else if (Input::has('vehicle_filter')) {
+            $get_vehicle_id = Input::get('vehicle_filter');
+            $vehicle_id[] = $get_vehicle_id;
         } else {
             $get_vehicle_ids = Vehicle::select('id')->get();
 
@@ -43,6 +46,10 @@ class TransportPackageController extends \BaseController
                 $vehicle_id[] = $get_vehicle_id->id;
             }
         }
+
+        $from = Input::get('get_from');
+        $to = Input::get('get_to');
+        $days = Input::get('get_days');
 
         if (Input::has('price_range_transport')) {
             $price_range_array = Input::get('price_range_transport');
@@ -61,38 +68,39 @@ class TransportPackageController extends \BaseController
             $max_trans_rate = TransportPackage::max('rate');
         }
 
-        if (Input::has('from')) {
-            $from = Input::get('from');
-        } else {
-            $from = '%';
-        }
-
-        if (Input::has('from')) {
-            $to = Input::get('to');
-        } else {
-            $to = '%';
-        }
-
-       // dd($from.'/'.$to);
-
-        if (Input::has('transport_days')) {
-            $days = Input::get('transport_days');
-        } else {
-            $days = '%';
-        }
-
 //dd($min_rate.'/'.$max_rate);
 
-        $transport_packages = TransportPackage::WhereHas('Vehicle', function ($r) use ($vehicle_id) {
-            $r->whereIn('id', $vehicle_id);
-        })
-            ->where('val', 1)
-            ->where('rate', '>=', $min_rate)
-            ->where('rate', '<=', $max_rate)
-            ->where('origin', 'LIKE', $from)
-            ->where('destination', 'LIKE', $to)
-            ->where('days', 'LIKE', $days)
-            ->paginate(9);
+        if (Input::has('get_from') ) {
+
+            $transport_packages = TransportPackage::WhereHas('Vehicle', function ($r) use ($vehicle_id) {
+                $r->whereIn('id', $vehicle_id);
+            })
+                ->where('val', 1)
+                ->where('rate', '>=', $min_rate)
+                ->where('rate', '<=', $max_rate)
+                ->where('origin', 'LIKE', $from)
+                ->where('destination', 'LIKE', $to)
+                ->where('days', 'LIKE', $days)
+                ->where('transport_category_id', 1)
+                //->orderBy('id', 'desc')
+                ->paginate(12);
+
+        } else {
+
+            $transport_packages = TransportPackage::WhereHas('Vehicle', function ($r) use ($vehicle_id) {
+                $r->whereIn('id', $vehicle_id);
+            })
+                ->where('val', 1)
+                ->where('rate', '>=', $min_rate)
+                ->where('rate', '<=', $max_rate)
+                //->where('origin', 'LIKE', $from)
+                //->where('destination', 'LIKE', $to)
+                ->where('days', 'LIKE', $days)
+                ->where('transport_category_id', 1)
+                ->orderBy('id', 'desc')
+                ->paginate(12);
+
+        }
 
 
         return View::make('transport.transport_list')
@@ -104,6 +112,7 @@ class TransportPackageController extends \BaseController
                     'vehicle' => $vehicle,
                     'city' => $city,
                     'vehicles' => $vehicles,
+                    'package' => $package,
                     'st_date' => $st_date,
                     'ed_date' => $ed_date,
                 )
@@ -146,6 +155,176 @@ class TransportPackageController extends \BaseController
     // delete predefined transport cart item
 
     public function predefinedTransportCartItemDelete()
+    {
+
+        $deletable = Input::get('predefined_transport_cart_item_delete');
+
+        if (Session::has('predefined_transport')) {
+            $data = Session::get('predefined_transport');
+            //dd($data);
+            unset($data[$deletable]);
+
+            if (!empty($data)) {
+                Session::put('predefined_transport', $data);
+            } else {
+                Session::forget('predefined_transport');
+            }
+        }
+
+        return Redirect::to('/booking-cart');
+
+    }
+
+
+    /**
+     *
+     * Predefined Transport List
+     *
+     */
+    public function weddingPackages()
+    {
+        $vehicle_id = array();
+
+        $vehicles = Vehicle::where('val', 1)->get();
+
+        // filtering
+        $vehicle = array('0' => 'Select') + Vehicle::lists('vehicle_type', 'id');
+        $package = TransportCategory::lists('transport_category', 'id');
+        $city = City::lists('city', 'id');
+
+
+        if (Session::has('st_date')) {
+            $st_date = Session::get('st_date');
+        } else {
+            $st_date = date("Y/m/d");
+        }
+
+        if (Session::has('ed_date')) {
+            $ed_date = Session::get('ed_date');
+        } else {
+            $ed_date = date("Y/m/d", strtotime($st_date . ' + 2 days'));
+        }
+
+
+        if (Input::has('get_vehicle_id')) {
+            $get_vehicle_id = Input::get('get_vehicle_id');
+            $vehicle_id[] = $get_vehicle_id;
+        } else {
+            $get_vehicle_ids = Vehicle::select('id')->get();
+            foreach ($get_vehicle_ids as $get_vehicle_id) {
+                $vehicle_id[] = $get_vehicle_id->id;
+            }
+        }
+
+        if (Input::has('vehicle_filter')) {
+            $get_vehicle_id = Input::get('vehicle_filter');
+            $vehicle_id[] = $get_vehicle_id;
+        } else {
+            $get_vehicle_ids = Vehicle::select('id')->get();
+            foreach ($get_vehicle_ids as $get_vehicle_id) {
+                $vehicle_id[] = $get_vehicle_id->id;
+            }
+        }
+
+        $vehicle_type_id = Input::get('get_vehicle_type_id');
+        $hours = Input::get('get_hours');
+
+        if (Input::has('price_range_transport')) {
+            $price_range_array = Input::get('price_range_transport');
+            $price_range = explode(';', $price_range_array);
+
+            $min_rate = $price_range[0];
+            $max_rate = $price_range[1];
+
+            $min_trans_rate = $min_rate;
+            $max_trans_rate = $max_rate;
+        } else {
+            $min_rate = 0;
+            $max_rate = 10000000;
+
+            $min_trans_rate = TransportPackage::where('transport_category_id', 2)->min('rate');
+            $max_trans_rate = TransportPackage::where('transport_category_id', 2)->max('rate');
+        }
+
+
+        $transport_packages = TransportPackage::WhereHas('Vehicle', function ($r) use ($vehicle_id) {
+            $r->whereIn('id', $vehicle_id);
+        })
+            ->where('val', 1)
+            ->where('rate', '>=', $min_rate)
+            ->where('rate', '<=', $max_rate)
+            ->where('days', 'LIKE', $hours)
+            ->where('vehicle_type_id', 'LIKE', $vehicle_type_id)
+            ->where('transport_category_id', 2)
+            ->paginate(12);
+
+
+        return View::make('transport.wedding_packages')
+            ->with(
+                array(
+                    'transport_packages' => $transport_packages,
+                    'min_trans_rate' => $min_trans_rate,
+                    'max_trans_rate' => $max_trans_rate,
+                    'vehicle' => $vehicle,
+                    'vehicles' => $vehicles,
+                    'package' => $package,
+                    'city' => $city,
+                    'st_date' => $st_date,
+                    'ed_date' => $ed_date,
+                )
+            );
+    }
+
+    // get vehicle list
+
+    public function getVehicleList()
+    {
+
+        $vehicle_type = Input::get('vehicle');
+
+        $vehicle = VehicleType::where('vehicle_id', $vehicle_type)->lists('vehicle', 'id');
+
+        return Response::json($vehicle);
+
+    }
+
+
+    // Predefined Transport Cart Create
+
+    public function weddingPackagesCartCreate()
+    {
+
+//        Session::forget('predefined_transport');
+
+        $predefined_id = Input::get('predefine_id');
+        $check_in_date = date("Y-m-d", strtotime(Input::get('check_in')));
+
+        $predefined_key = $predefined_id;
+
+        $predefined_transport_details = array(
+            'check_in_date' => $check_in_date,
+            'predefine_id' => $predefined_id,
+        );
+
+        if (Session::has('predefined_transport')) {
+            $data = Session::get('predefined_transport');
+            $data[$predefined_key] = $predefined_transport_details;
+        } else {
+            $data = [];
+            $data[$predefined_key] = $predefined_transport_details;
+        }
+
+        //$data['total_cost'] = $total_cost;
+
+        Session::put('predefined_transport', $data);
+
+        return Response::json(Session::get('predefined_transport'));
+
+    }
+
+    // delete predefined transport cart item
+
+    public function weddingPackagesCartItemDelete()
     {
 
         $deletable = Input::get('predefined_transport_cart_item_delete');
@@ -367,7 +546,89 @@ class TransportPackageController extends \BaseController
 
     public function viewSearch()
     {
-        return View::make('TransportPackages.create');
+
+        $package = Input::get('package');
+
+        if ($package == 1) {
+
+            if (Input::has('vehicle')) {
+                $get_vehicle_id = Input::get('vehicle');
+            }
+
+            if (Input::get('predefined_method') == 1) {
+
+                if (Input::has('from')) {
+                    $get_from = Input::get('from');
+                } else {
+                    $get_from = '%';
+                }
+
+                if (Input::has('to')) {
+                    $get_to = Input::get('to');
+                } else {
+                    $get_to = '%';
+                }
+
+                $get_days = '%';
+
+            } else if (Input::get('predefined_method') == 2) {
+                $get_from = '%';
+                $get_to = '%';
+
+                if (Input::has('days')) {
+                    $get_days = Input::get('days');
+                } else {
+                    $get_days = '%';
+                }
+
+            } else {
+                $get_from = '%';
+                $get_to = '%';
+                $get_days = '%';
+            }
+
+
+            return Redirect::route('transport-list',
+                array(
+                    'get_vehicle_id' => $get_vehicle_id,
+                    'get_from' => $get_from,
+                    'get_to' => $get_to,
+                    'get_days' => $get_days,
+                )
+            );
+
+        } else {
+
+            if (Input::has('vehicle')) {
+                $get_vehicle_id = Input::get('vehicle');
+            }
+
+
+            if (Input::has('vehicle_type')) {
+                $get_vehicle_type_id = Input::get('vehicle_type');
+            } else {
+                $get_vehicle_type_id = '%';
+            }
+
+            if (Input::has('hours')) {
+                if (Input::get('hours') == 1) {
+                    $get_hours = 4;
+                } else {
+                    $get_hours = 8;
+                }
+            } else {
+                $get_hours = '%';
+            }
+
+            return Redirect::route('wedding-packages',
+                array(
+                    'get_vehicle_id' => $get_vehicle_id,
+                    'get_vehicle_type_id' => $get_vehicle_type_id,
+                    'get_hours' => $get_hours,
+                )
+            );
+
+        }
 
     }
 
