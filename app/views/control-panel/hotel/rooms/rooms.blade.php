@@ -26,7 +26,7 @@
 
 {{--Sub Title--}}
 @section('control-sub-title')
-    {{'Profile'}}
+
 @endsection
 
 {{--Breadcrumbs--}}

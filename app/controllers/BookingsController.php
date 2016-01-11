@@ -581,7 +581,6 @@ class BookingsController extends \BaseController
             return Redirect::to('/404');
         }
 
-
         return View::make('bookings.show', compact('booking', 'clients', 'flightDetails', 'vouchers'));
     }
 
