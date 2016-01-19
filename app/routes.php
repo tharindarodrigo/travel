@@ -121,6 +121,7 @@ Route::group(array('before' => 'auth'), function () {
             Route::resource('payments', 'PaymentsController');
 
 
+
             /**
              * -------------------------------------------------------------------------------------------------------------
              *  control-panel/agents
@@ -167,6 +168,10 @@ Route::group(array('before' => 'auth'), function () {
 
 
             });
+
+
+
+
         });
 
 
@@ -177,7 +182,7 @@ Route::group(array('before' => 'auth'), function () {
          */
         Route::group(array('before' => 'hotelier'), function () {
 
-
+            Route::get('hotel-bookings','BookingsController@getHotelBookings');
             Route::group(array('prefix' => 'hotel'), function () {
 
                 /**

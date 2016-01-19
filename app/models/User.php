@@ -127,5 +127,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface
 //        return $this->belongsTo('Agent');
 //    }
 
+    public static function getHotelsOfUser()
+    {
+
+        return $hotels = Hotel::whereHas('user',function($q){
+            $q->where('users.id',Auth::id());
+        })->with(array('hotelCategory', 'starCategory','city'))->select('name','val','id','star_category_id','city_id')->get();
+
+    }
 
 }

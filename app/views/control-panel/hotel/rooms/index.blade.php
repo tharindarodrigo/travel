@@ -25,7 +25,7 @@
 
                 <table class="table table-bordered table-striped" id="rooms-table">
                 <thead>
-                    <tr>
+                    <tr>2
                         <th>ID</th>
                         <th>Room Type</th>
                         <th>Controls</th>
