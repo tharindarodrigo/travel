@@ -1,3 +1,4 @@
+
 <?php
 $rate = 1;
 
@@ -1252,7 +1253,6 @@ if (Session::has('currency') && (Session::has('currency_rate'))) {
                                         {{ HTML::image('images/site/icon-cart.png', '',  array('class' => 'icon-cart')) }}
                                     @endif
                                 </div>
-
 
                                 <div style="display: inline;" class="total-price-basket">
                                     {{--<span class="sign">$</span>--}}

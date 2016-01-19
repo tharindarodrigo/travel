@@ -801,7 +801,7 @@ class HotelController extends \BaseController
     }
 
 
-    /* To Load The Map */
+    /* To Add Cart */
 
     public function getRoomRateBox()
     {
