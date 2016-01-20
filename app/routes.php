@@ -183,6 +183,11 @@ Route::group(array('before' => 'auth'), function () {
         Route::group(array('before' => 'hotelier'), function () {
 
             Route::get('hotel-bookings','BookingsController@getHotelBookings');
+
+
+            Route::resource('inquiries/rate-inquiries', 'RateInquiriesController');
+            Route::resource('inquiries/allotment-inquiries', 'AllotmentInquiriesController');
+
             Route::group(array('prefix' => 'hotel'), function () {
 
                 /**

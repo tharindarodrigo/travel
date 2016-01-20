@@ -9,13 +9,22 @@
     <div class="login-fullwidith">
 
         <!-- Login Wrap  -->
-        <div class="login-wrap1">
+        <div class="">
 
-            {{Form::open(array('url'=>array('account/sign-in')))}}
-            <div class="login-c1-s">
+            {{Form::open(array('url'=>array('account/create')))}}
+            <div class="">
                 <div class="cpadding50">
 
-                    <div class="">
+                    <br>
+                    <br>
+                    <br>
+
+
+
+
+                    <div class="col-md-offset-4 col-md-4">
+
+                        <h2>Sign Up</h2>
 
                         {{Form::open(array('url'=>array('account/create')))}}
 
@@ -36,7 +45,6 @@
 
                             </div>
                             <div class="col-xs-6">
-
                                 <div class="form-group">
                                     {{Form::text('last_name', null, array('class'=> 'form-control', 'placeholder'=>'Last Name'))}}
                                     {{$errors->first('last_name', '<span class="size12" style="color: red;">:message</span>') }}
@@ -67,87 +75,75 @@
                             {{$errors->first('user_role', '<span class="size12" style="color: red;">:message</span>') }}
 
                         </div>
-                    </div>
-                    <div class="" id="agent_details">
-                        <div class="">
+                        <div class="" id="agent_details">
                             <div class="">
-                                <div class="form-group">
-                                    {{Form::select('country',Country::lists('country','id'), null, array('class'=> 'form-control', 'placeholder'=>'Country'))}}
-                                    {{$errors->first('country', '<span class="size12" style="color: red;">:message</span>') }}
+                                <div class="">
+                                    <div class="form-group">
+                                        {{Form::select('country',Country::lists('country','id'), null, array('class'=> 'form-control', 'placeholder'=>'Country'))}}
+                                        {{$errors->first('country', '<span class="size12" style="color: red;">:message</span>') }}
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="">
                             <div class="">
-                                <div class="form-group">
-                                    {{Form::text('company', null, array('class'=> 'form-control', 'placeholder'=>'Company Name'))}}
-                                    {{$errors->first('company', '<span class="size12" style="color: red;">:message</span>') }}
+                                <div class="">
+                                    <div class="form-group">
+                                        {{Form::text('company', null, array('class'=> 'form-control', 'placeholder'=>'Company Name'))}}
+                                        {{$errors->first('company', '<span class="size12" style="color: red;">:message</span>') }}
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="">
                             <div class="">
+                                <div class="">
 
-                                <div class="form-group">
-                                    {{Form::text('phone', null, array('class'=> 'form-control', 'placeholder'=>'Telephone'))}}
-                                    {{$errors->first('phone', '<span class="size12" style="color: red;">:message</span>') }}
+                                    <div class="form-group">
+                                        {{Form::text('phone', null, array('class'=> 'form-control', 'placeholder'=>'Telephone'))}}
+                                        {{$errors->first('phone', '<span class="size12" style="color: red;">:message</span>') }}
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="">
                             <div class="">
-                                <div class="form-group">
-                                    {{Form::text('fax', null, array('class'=> 'form-control', 'placeholder'=>'Fax'))}}
-                                    {{$errors->first('fax', '<span class="size12" style="color: red;">:message</span>') }}
+                                <div class="">
+                                    <div class="form-group">
+                                        {{Form::text('fax', null, array('class'=> 'form-control', 'placeholder'=>'Fax'))}}
+                                        {{$errors->first('fax', '<span class="size12" style="color: red;">:message</span>') }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="">
                             <div class="">
-                                <div class="form-group">
-                                    <div class="check-box">
+                                <div class="">
+                                    <div class="form-group">
+                                        <div class="check-box">
 
-                                        {{Form::checkbox('agreement')}}
-                                        I accept <a href="#">Agreement</a>
-                                        {{$errors->first('agreement', '<p class="size12" style="color: red;">:message</p>') }}
+                                            {{Form::checkbox('agreement')}}
+                                            I accept <a href="#">Agreement</a>
+                                            {{$errors->first('agreement', '<p class="size12" style="color: red;">:message</p>') }}
 
+                                        </div>
                                     </div>
                                 </div>
 
                             </div>
-
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn-search4">Sign Up</button>
                         </div>
                     </div>
+
 
                     {{Form::close()}}
 
                 </div>
             </div>
         </div>
-        <div class="login-c2-s">
-            <div class="logmargfix">
-                <div class="chpadding50">
-                    <div class="alignbottom">
-                        <button type="submit" class="btn-search4">Sign Up</button>
-                    </div>
 
-                </div>
-            </div>
-        </div>
-        <div class="login-c3-s">
-            <div class="left"><a href="{{URL::to('/')}}" class="whitelink"><span></span>Website</a></div>
-            <div class="right"><a class="whitelink" href="{{URL::to('account/forgot-password')}}">
-                    Forgot Password ?
-                </a></div>
-        </div>
         {{Form::close()}}
     </div>
-    </div>
+
 
 @endsection
 

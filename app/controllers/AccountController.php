@@ -14,6 +14,7 @@ class AccountController extends \BaseController
 
     public function createAccount()
     {
+
         $validator = Validator::make($data = Input::all(), User::$rules);
 
         if ($validator->fails()) {
@@ -22,7 +23,8 @@ class AccountController extends \BaseController
         }
 
         $data['role'] = Input::get('user_role');
-        $data['country_id'] = Input::get('country');
+        $data['country_id'] = Input::get('country');        dd('asdasd');
+
         $data['password'] = Hash::make($data['password']);
         $data['code'] = str_random(60); //Activation code
 
@@ -88,7 +90,7 @@ class AccountController extends \BaseController
 
             if ($user->save()) {
                 Session::flash('global', 'Your account is activated..! Now you can sign in..!');
-                return View::make('account/lo');
+                return View::make('pages.message');
             }
         }
 
