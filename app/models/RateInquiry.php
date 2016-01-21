@@ -33,6 +33,7 @@ class RateInquiry extends \Eloquent
 
     public static function rateIsAvailable($rateinquiry)
     {
+//        dd($rateinquiry->room_specification_id);
 
         $rate = Rate::where('hotel_id', $rateinquiry->hotel_id)
             ->where('room_type_id', $rateinquiry->room_type_id)
@@ -40,7 +41,8 @@ class RateInquiry extends \Eloquent
             ->where('room_specification_id', $rateinquiry->room_specification_id)
             ->where('from','<=',$rateinquiry->from)
             ->where('to','>=',$rateinquiry->to)
-            ->get();
+            ->first();
+//        dd('<pre>',$rate,'</pre>');
 
         return $rate->count() > 0;
     }

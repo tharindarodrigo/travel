@@ -83,7 +83,9 @@ class RateInquiriesController extends \BaseController
      */
     public function update($id)
     {
+
         $rateinquiry = Rateinquiry::findOrFail($id);
+
 
         $validator = Validator::make($data = Input::all(), Rateinquiry::$rules);
 
@@ -92,13 +94,12 @@ class RateInquiriesController extends \BaseController
         }
 
         if (RateInquiry::rateIsAvailable($rateinquiry)) {
-            //Send email
+            dd('done');
 
         } else {
+            dd(':(');
             //Enter Rates
         }
-
-
 
         $rateinquiry->update($data);
 

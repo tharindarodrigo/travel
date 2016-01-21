@@ -92,9 +92,9 @@ class AllotmentInquiriesController extends \BaseController
         }
 
         if (AllotmentInquiry::allotmentIsAvailable($allotmentinquiry)) {
-
+            dd('done');
         } else {
-
+            dd(':(');
         }
 
         $allotmentinquiry->update($data);

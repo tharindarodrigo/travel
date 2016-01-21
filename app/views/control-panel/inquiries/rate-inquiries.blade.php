@@ -58,13 +58,13 @@
                                 <td>{{$rateinquiry->id}}</td>
                                 <td>{{$rateinquiry->from}}</td>
                                 <td>{{$rateinquiry->to}}</td>
-                                <td>{{$rateinquiry->hotel->hotel}}</td>
+                                <td>{{$rateinquiry->hotel->name}}</td>
                                 <td>{{$rateinquiry->roomtype->room_type}}</td>
                                 <td>{{$rateinquiry->roomSpecification->room_specification}}</td>
                                 <td>{{$rateinquiry->mealBasis->meal_basis}}</td>
                                 <td>
                                     {{Form::open(array('route'=>array('control-panel.inquiries.rate-inquiries.update',$rateinquiry->id), 'method'=>'Patch'))}}
-                                        <button class="btn btn-success btn-block" type="submit" value="1" name="confirm">Confirm</button>
+                                        <button class="btn btn-success btn-block" type="submit" value="1" name="status">Confirm</button>
                                     {{Form::close()}}
                                 </td>
                             </tr>
