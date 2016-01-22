@@ -19,9 +19,6 @@
                     <br>
                     <br>
 
-
-
-
                     <div class="col-md-offset-4 col-md-4">
 
                         <h2>Sign Up</h2>

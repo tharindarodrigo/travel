@@ -423,6 +423,20 @@ Route::any('/payment-get', array(
     'uses' => 'HsbcPaymentsController@paymentGet'
 ));
 
+
+// Pay Online Payments (Agents)
+
+Route::get('/pay-online', array(
+    'as' => 'pay-online-get',
+    'uses' => 'PageController@getpayOnline'
+));
+
+
+Route::post('/pay-online', array(
+    'as' => 'pay-online-post',
+    'uses' => 'PageController@payOnline'
+));
+
 // currency rate create
 
 Route::post('/sri-lanka/get-currency-rate', 'HomeController@createCurrency');
@@ -504,7 +518,7 @@ Route::get('/about', function () {
 
 Route::get('/tourism-in-sri-lanka', array(
     'as' => 'tourism-in-sri-lanka',
-    'uses' => 'PageController@tourismInSrilanka'
+    'uses' => 'pay-online@tourismInSrilanka'
 ));
 
 /****** Route srilanka advice ******/
