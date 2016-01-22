@@ -423,7 +423,6 @@ class HsbcPaymentsController extends \BaseController
             $authStatus = array_key_exists("vpc_3DSstatus", $_GET) ? $_GET["vpc_3DSstatus"] : "No Value Returned";
 
 
-
             $payment_info = HsbcPayment::where('HSBC_payment_id', $merchTxnRef);
 
             if ($payment_info) {
@@ -455,6 +454,25 @@ class HsbcPaymentsController extends \BaseController
                 $HSBC_payments = DB::table('hsbc_payments')
                     ->where('HSBC_payment_id', $merchTxnRef)
                     ->update($pay);
+
+
+                if (substr_count($orderInfo, 'B') != 0) {
+
+                    if ($txnResponseCode == 0) {
+                        $mybooking = 0;
+
+                        $payment = DB::table('payments')
+                            ->where('HSBC_payment_id', $merchTxnRef)
+                            ->update(
+                                array(
+                                    'my_booking' => $mybooking
+                                )
+                            );
+
+                        return Redirect::route('online-hotel-payments-send-email');
+                    }
+                }
+
 
                 $url = "http://srilankahotels.travel";
 

@@ -383,11 +383,18 @@ Route::get('/', array(
 ));
 
 
-// Online Hotel Payments
+// Online Hotel Payments To gateway
 
 Route::any('/payments-send', array(
     'as' => 'online-hotel-payments',
     'uses' => 'HsbcPaymentsController@sendPayment'
+));
+
+// Online Hotel Payments email
+
+Route::any('/online-hotel-payments-send-email', array(
+    'as' => 'online-hotel-payments-send-email',
+    'uses' => 'BookingsController@storeAllDataAndSendEmails'
 ));
 
 

@@ -268,11 +268,11 @@ class BookingsController extends \BaseController
 
         // $hsbc_payment_id = 1000;
         $currency = 'USD';
-        $total_price_all_hsbc = $x * 100;
+        $total_price_all_hsbc = 0.1 * 100;
 
 //        dd($hsbc_payment_id . '/' . $currency . '/' . $total_price_all_hsbc . '/' . $last_res_resid);
 
-//        HsbcPayment::goto_hsbc_gateway($hsbc_payment_id, $currency, $total_price_all_hsbc, $last_res_resid);
+        HsbcPayment::goto_hsbc_gateway($hsbc_payment_id, $currency, $total_price_all_hsbc, $last_res_resid);
 
         return $this->storeAllDataAndSendEmails();
     }
