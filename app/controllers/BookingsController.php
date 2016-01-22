@@ -687,4 +687,27 @@ class BookingsController extends \BaseController
         return Redirect::to('/');
     }
 
+
+    /**
+     * Hoteliers bookings
+     */
+
+    public function getHotelBookings()
+    {
+        $user_hotels = DB::table('hotel_user')->where('user_id',Auth::id())->get();
+        $hotel_ids = [];
+
+        foreach($user_hotels as $user_hotel){
+            $hotel_ids[] = $user_hotel->hotel_id;
+        }
+
+        $bookings = Booking::whereHas('voucher', function($q) use ($hotel_ids){
+            $q->whereIn('hotel_id',$hotel_ids);
+        })->get();
+
+//        dd($hotelbookings->count());
+
+        return View::make('control-panel.hotel-bookings.index', compact('bookings'));
+
+    }
 }

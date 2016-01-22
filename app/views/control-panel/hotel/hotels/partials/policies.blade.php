@@ -41,7 +41,6 @@
                         <th>From</th>
                         <th>To</th>
                         <th>% Charged</th>
-                        <th style="width:60px;">Status</th>
                         <th style="width:120px;"></th>
                     </tr>
                 </thead>
@@ -51,8 +50,7 @@
                             <td>{{ $hotelpolicy->id }}</td>
                             <td>{{ $hotelpolicy->from }}</td>
                             <td>{{ $hotelpolicy->to }}</td>
-                            <td>{{ $hotelpolicy->percentage_charged }}</td>
-                            <td style="text-align: center;">{{ $hotelpolicy->val == 0 ? 'Inactive' : 'Active' }}</td>
+                            <td align="right">{{ $hotelpolicy->percentage_charged }}</td>
 
                             <td>
                             <div class="">

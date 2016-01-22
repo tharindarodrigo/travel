@@ -9,7 +9,7 @@
             <div class="nav-tabs-custom">
                 <div class="box">
                     <div class="box-header with-border box-primary">
-                        <h3 class="box-title">Room Specification</h3>
+                        <h3 class="box-title">Room Details</h3>
                         <div class="box-tools pull-right">
                             <button data-original-title="Collapse" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title=""><i class="fa fa-minus"></i></button>
                             {{--<button data-original-title="Remove" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title=""><i class="fa fa-times"></i></button>--}}
@@ -46,7 +46,7 @@
                     <div class="row">
 
                     @foreach($roomfacilities as $roomfacility)
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="">
                             {{ Form::checkbox('room_facility_id[]', $roomfacility->id) }}
                             {{ $roomfacility->room_facility }}
@@ -61,7 +61,7 @@
             <div class="nav-tabs-custom">
                 <div class="box">
                     <div class="box-header with-border box-primary">
-                        <h3 class="box-title">Room Details</h3>
+                        <h3 class="box-title">Room Specification</h3>
                         <div class="box-tools pull-right">
                             <button data-original-title="Collapse" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title=""><i class="fa fa-minus"></i></button>
                             {{--<button data-original-title="Remove" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title=""><i class="fa fa-times"></i></button>--}}
@@ -92,25 +92,11 @@
                             </tbody>
                         </table>
                     </div>
-                    <div style="display: block;" class="box-footer">
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <select class="form-control" id="room_spec" name="room_spec" id="">
 
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <button id="add_room_spec" class="btn btn-primary btn-block" value="">Add Room Spec</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-md-6">
+            </div>
+
             <div class="nav-tabs-custom">
                 <div class="box">
                     <div class="box-header with-border box-primary">
@@ -121,14 +107,14 @@
                         </div>
                     </div>
                     <div style="display: block;" class="box-body">
-                            <div id="images-to-upload" class="row">
+                        <div id="images-to-upload" class="row">
 
-                            </div>
-                            <div class="form-group">
-                                {{ Form::file('images[]', array('multiple'=>true, 'id'=>'images')) }}
-                                {{--<input type="file" name="images[]" multiple/>--}}
+                        </div>
+                        <div class="form-group">
+                            {{ Form::file('images[]', array('multiple'=>true, 'id'=>'images')) }}
+                            {{--<input type="file" name="images[]" multiple/>--}}
 
-                            </div>
+                        </div>
 
                     </div><!-- /.box-body -->
                     <div style="display: block;" class="box-footer">
@@ -138,6 +124,9 @@
                 </div>
             </div>
         </div>
+
+
+
     {{Form::close()}}
     </div>
 

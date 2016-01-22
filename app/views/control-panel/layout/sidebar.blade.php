@@ -134,7 +134,7 @@
     <li class="treeview @yield('active-reservations')">
         <a href="#">
             <i class="fa fa-users"></i>
-            <span>Reservations</span>
+            <span>Inquiries</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
