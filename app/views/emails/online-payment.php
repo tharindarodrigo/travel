@@ -28,7 +28,7 @@
             </tr>
             <tr>
                 <th>Phone</th>
-                <td> <?php echo $booking->email; ?></td>
+                <td> <?php echo $booking->phone; ?></td>
             </tr>
             <tr>
                 <th>Remark</th>

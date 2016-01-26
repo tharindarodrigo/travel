@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" showNewOnSourceInSync="false" showNewOnTargetInSync="false" />
+  <component name="PublishConfigData" showNewOnSourceInSync="false" showNewOnTargetInSync="false">
+    <serverData>
+      <paths name="SriLanka">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/app" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="srilankaonline">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/laravel/app" local="$PROJECT_DIR$/app" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
 </project>
