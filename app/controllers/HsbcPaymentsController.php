@@ -485,7 +485,7 @@ class HsbcPaymentsController extends \BaseController
                                 )
                             );
 
-                        $booking = Booking::where('payment_reference_number')->first();
+                        $booking = Booking::where('payment_reference_number', $orderInfo)->first();
 
                         Mail::send('emails/transport-mail', array(
                             'payment' => $payment,
