@@ -501,6 +501,9 @@ class HsbcPaymentsController extends \BaseController
                         return View::make('pages.message');
 
                     }
+
+                    Session::flash('global', 'Sorry Your Payment was unsuccessful!');
+                    return View::make('pages.message');
                 }
 
 
