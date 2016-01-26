@@ -13,8 +13,6 @@ class AllotmentInquiry extends \Eloquent
 
     public function allotmentIsAvailable($allotmentinquiry)
     {
-
-
         $rate = Rate::where('hotel_id', $allotmentinquiry->hotel_id)
             ->where('room_type_id', $allotmentinquiry->room_type_id)
             ->where('from', '<=', $allotmentinquiry->from)
@@ -23,4 +21,20 @@ class AllotmentInquiry extends \Eloquent
 
         return $rate->count() > 0;
     }
+
+    public function hotel()
+    {
+        return $this->belongsTo('Hotel');
+    }
+
+    public function roomSpecification()
+    {
+        return $this->belongsTo('roomSpecification');
+    }
+
+    public function market()
+    {
+        return $this->belongsTo('market');
+    }
+
 }

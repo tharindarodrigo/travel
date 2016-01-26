@@ -405,7 +405,6 @@ class HsbcPaymentsController extends \BaseController
             $txnResponseCode = HsbcPayment::null2unknown($_GET["vpc_TxnResponseCode"]);
 
 
-
             $verType = array_key_exists("vpc_VerType", $_GET) ? $_GET["vpc_VerType"] : "No Value Returned";
 
             $verStatus = array_key_exists("vpc_VerStatus", $_GET) ? $_GET["vpc_VerStatus"] : "No Value Returned";
@@ -486,7 +485,20 @@ class HsbcPaymentsController extends \BaseController
                                 )
                             );
 
-                        return Redirect::route('online-agent-payments-send-email');
+                        $booking = Booking::where('payment_reference_number')->first();
+
+                        Mail::send('emails/transport-mail', array(
+                            'payment' => $payment,
+                            'booking' => $booking
+                        ), function ($message) use ($booking) {
+                            $message->subject('Online Payment Receipt : ' . $booking->reference_number)
+                                ->from('transport@srilankahotels.travel', 'SriLankaHotels.Travel')
+                                ->bcc('admin@srilankahotels.travel')
+                                ->to($booking->email);
+
+                        });
+
+                        //return Redirect::route('online-agent-payments-send-email');
                     }
                 }
 
