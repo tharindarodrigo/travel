@@ -12,7 +12,7 @@ class Booking extends \Eloquent
         'adults' => 'required|numeric',
         'children' => 'required|numeric',
         'user_id'=> 'required',
-        'email' => 'email'
+        'email' => 'email',
     ];
 
     public static $userRules = [
@@ -31,7 +31,7 @@ class Booking extends \Eloquent
 
     // Don't forget to fill this array
     protected $fillable = [
-        'reference_number', 'arrival_date', 'departure_date', 'booking_name', 'adults', 'children', 'val', 'remarks', 'email', 'phone', 'passport_number', 'user_id','agent_reference_number'
+        'reference_number', 'arrival_date', 'departure_date', 'booking_name', 'adults', 'children', 'val', 'remarks', 'email', 'phone', 'passport_number', 'user_id','agent_reference_number','payment_reference_number'
     ];
 
     /**

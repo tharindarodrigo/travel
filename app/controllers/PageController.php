@@ -304,6 +304,7 @@ class pageController extends \BaseController
             $phone = Input::get('phone');
             $amount = Input::get('amount');
 
+
             $data = array(
                 'details' => $name,
                 'ip_address' => $_SERVER['REMOTE_ADDR'],
@@ -351,6 +352,16 @@ class pageController extends \BaseController
                             'HSBC_payment_id' => $hsbc_payment_id
                         )
                     );
+
+                $client = array(
+                    'booking_name' => $name,
+                    'email' => $email,
+                    'phone' => $phone,
+                    'val' => 0,
+                    'payment_reference_number' => $last_res_resid
+                );
+                $client_payment_id = Booking::create($client);
+
             }
 
 
@@ -361,7 +372,7 @@ class pageController extends \BaseController
 
             HsbcPayment::goto_hsbc_gateway($hsbc_payment_id, $currency, $total_price_all_hsbc, $last_res_resid);
 
-          //  return $this->storeAllDataAndSendEmails();
+            //  return $this->storeAllDataAndSendEmails();
 
         }
 
