@@ -487,7 +487,7 @@ class HsbcPaymentsController extends \BaseController
 
                         $booking = Booking::where('payment_reference_number', $orderInfo)->first();
 
-                        Mail::send('emails/transport-mail', array(
+                        Mail::send('emails/online-payment', array(
                             'payment' => $payment,
                             'booking' => $booking
                         ), function ($message) use ($booking) {
@@ -495,10 +495,11 @@ class HsbcPaymentsController extends \BaseController
                                 ->from('transport@srilankahotels.travel', 'SriLankaHotels.Travel')
                                 ->bcc('admin@srilankahotels.travel')
                                 ->to($booking->email);
-
                         });
 
-                        //return Redirect::route('online-agent-payments-send-email');
+                        Session::flash('global', 'Thank you for paying online. </br> We have emailed you the online payment invoice');
+                        return View::make('pages.message');
+
                     }
                 }
 
