@@ -407,6 +407,11 @@ Route::any('/online-hotel-payments-send-email', array(
     'uses' => 'BookingsController@storeAllDataAndSendEmails'
 ));
 
+Route::any('/online-agent-payments-send-email', array(
+    'as' => 'online-agent-payments-send-email',
+    'uses' => 'PageController@storeAllDataAndSendEmails'
+));
+
 
 Route::get('/online-hotel-payments', function () {
     return View::make('payment_send');

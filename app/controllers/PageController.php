@@ -378,5 +378,12 @@ class pageController extends \BaseController
 
     }
 
+    public function storeAllDataAndSendEmails()
+    {
+
+        dd('done');
+
+    }
+
 
 }

@@ -473,6 +473,23 @@ class HsbcPaymentsController extends \BaseController
                     }
                 }
 
+                if (substr_count($orderInfo, 'A') != 0) {
+
+                    if ($txnResponseCode == 0) {
+                        $mybooking = 0;
+
+                        $payment = DB::table('payments')
+                            ->where('HSBC_payment_id', $merchTxnRef)
+                            ->update(
+                                array(
+                                    'my_booking' => $mybooking
+                                )
+                            );
+
+                        return Redirect::route('online-agent-payments-send-email');
+                    }
+                }
+
 
                 $url = "http://srilankahotels.travel";
 
