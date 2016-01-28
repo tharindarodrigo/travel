@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <th>Name</th>
-                <td> <?php echo $booking->name; ?></td>
+                <td> <?php echo $booking->booking_name; ?></td>
             </tr>
             <tr>
                 <th>Email</th>

@@ -23,7 +23,7 @@ class AccountController extends \BaseController
         }
 
         $data['role'] = Input::get('user_role');
-        $data['country_id'] = Input::get('country');        dd('asdasd');
+        $data['country_id'] = Input::get('country');
 
         $data['password'] = Hash::make($data['password']);
         $data['code'] = str_random(60); //Activation code
