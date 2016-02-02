@@ -3,7 +3,7 @@
 <table border="0" width="100%"   style="margin-top: -11px;">
     <tr>
         <td><h2 align="left" style="background: #00517e; padding: 10px; color: #FFFFFF ">Reference No
-                : <?php echo $booking->reference_number ?>
+                : <?php echo $booking->payment_reference_number ?>
         </td>
         <td align="right"><h2 align="right" style="background: #00517e; padding: 10px; color: #FFFFFF ">Online Payment
 
@@ -32,11 +32,11 @@
             </tr>
             <tr>
                 <th>Remark</th>
-                <td> <?php echo $booking->remark; ?></td>
+                <td> <?php echo $booking->remarks; ?></td>
             </tr>
             <tr>
                 <th>Amount</th>
-                <td> <?php echo number_format($payment->amount); ?></td>
+                <td> <?php echo number_format($payment->amount,2); ?></td>
             </tr>
 
         </table>
