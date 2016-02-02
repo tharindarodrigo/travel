@@ -199,12 +199,47 @@
                                             <br/>
 
                                             <div class="col-md-3 textright">
+                                                <div class="margtop15"><span class="dark"> Currency : </span><span
+                                                            class="red">*</span></div>
+                                            </div>
+
+                                            <div style="margin-top:10px" class="col-md-6">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optradio" checked>USD
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optradio" disabled>LKR
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div class="col-md-3 textleft margtop15">
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <br/>
+
+                                            <div class="col-md-3 textright">
                                                 <div class="margtop15"><span class="dark"> Amount : </span><span
                                                             class="red">*</span></div>
                                             </div>
                                             <div class="col-md-6">
                                                 {{Form::text('amount', null, array('class'=> 'form-control'))}}
                                                 {{$errors->first('amount', '<span class="size12" style="color: red;">:message</span>') }}
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div class="col-md-3 textleft margtop15">
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <br/>
+
+                                            <div class="col-md-3 textright">
+                                                <div class="margtop15"><span class="dark"> Remark : </span></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                {{Form::textarea('remark', null, array('class'=> 'form-control', 'size' => '30x5'))}}
                                             </div>
                                         </div>
 
@@ -220,7 +255,7 @@
                                         <div class="col-md-6">
                                             <div class="right">
                                                 <button type="submit" class="bluebtn"
-                                                   id="pat_online"> Send Payment
+                                                        id="pat_online"> Send Payment
                                                 </button>
                                             </div>
                                         </div>

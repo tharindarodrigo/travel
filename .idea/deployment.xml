@@ -2,17 +2,10 @@
 <project version="4">
   <component name="PublishConfigData" showNewOnSourceInSync="false" showNewOnTargetInSync="false">
     <serverData>
-      <paths name="SriLanka">
+      <paths name="srilankahotels">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$/app" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="srilankaonline">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/laravel/app" local="$PROJECT_DIR$/app" web="/" />
+            <mapping deploy="/laravel/app" local="$PROJECT_DIR$/app" web="" />
           </mappings>
         </serverdata>
       </paths>

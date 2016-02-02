@@ -270,7 +270,6 @@ class pageController extends \BaseController
 
     public function getpayOnline()
     {
-        //dd('ssaa');
         return View::make('pages.pay_online');
 
     }
@@ -303,6 +302,7 @@ class pageController extends \BaseController
             $email = Input::get('email');
             $phone = Input::get('phone');
             $amount = Input::get('amount');
+            $remark = Input::get('remark');
 
 
             $data = array(
@@ -357,6 +357,7 @@ class pageController extends \BaseController
                     'booking_name' => $name,
                     'email' => $email,
                     'phone' => $phone,
+                    'remarks' => $remark,
                     'val' => 0,
                     'payment_reference_number' => $last_res_resid
                 );
@@ -368,7 +369,7 @@ class pageController extends \BaseController
             $currency = 'USD';
             $total_price_all_hsbc = $amount * 100;
 
-//        dd($hsbc_payment_id . '/' . $currency . '/' . $total_price_all_hsbc . '/' . $last_res_resid);
+//       f dd($hsbc_payment_id . '/' . $currency . '/' . $total_price_all_hsbc . '/' . $last_res_resid);
 
             HsbcPayment::goto_hsbc_gateway($hsbc_payment_id, $currency, $total_price_all_hsbc, $last_res_resid);
 
