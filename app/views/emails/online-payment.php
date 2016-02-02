@@ -36,12 +36,11 @@
             </tr>
             <tr>
                 <th>Amount</th>
-                <td> <?php echo number_format($payment->amount,2); ?></td>
+                <td>USD <?php echo number_format($payment->amount,2); ?></td>
             </tr>
 
         </table>
     </div>
-
 </div>
 <br/>
 <?php require_once('emailStructure/footer.php'); ?>

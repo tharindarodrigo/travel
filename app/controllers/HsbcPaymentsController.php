@@ -501,6 +501,8 @@ class HsbcPaymentsController extends \BaseController
 //                                ->to('tharindarodrigo@gmail.com');
 //                        });
 
+
+
                         Mail::send('emails/online-payment', array(
                             'booking' => $booking,
                             'payment' => $payment
@@ -512,15 +514,15 @@ class HsbcPaymentsController extends \BaseController
                         });
 
                         Session::flash('global', 'Thank you for paying online. </br> We have emailed you the online payment invoice');
-                        return View::make('pages.message');
+                        //return View::make('pages.message');
 
                     }
 
                     Session::flash('global', 'Sorry Your Payment was unsuccessful!');
-                    return View::make('pages.message');
+                    //return View::make('pages.message');
                 }
 
-                $url = "http://srilankahotels.travel";
+                $url = "http://srilankahotels.travel/message";
 
                 header("Location: $url");
                 exit;
