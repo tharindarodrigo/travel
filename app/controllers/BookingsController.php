@@ -324,6 +324,7 @@ class BookingsController extends \BaseController
                 /**
                  *  transport - custom trips
                  */
+
                 $a = 0;
 
                 if (Session::has('transport_cart_box')) {
