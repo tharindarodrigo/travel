@@ -304,7 +304,6 @@ class pageController extends \BaseController
             $amount = Input::get('amount');
             $remark = Input::get('remark');
 
-
             $data = array(
                 'details' => $name,
                 'ip_address' => $_SERVER['REMOTE_ADDR'],
