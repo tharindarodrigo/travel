@@ -263,6 +263,8 @@
                                         <!-- END OF LEFT IMG -->
 
                                         <div class="clearfix"></div>
+                                        <br>
+                                        <div class="red"> <p>Pleas note that 3.7% of the total Amount will be charged for online payment services by the Bank</p></div>
                                         <br/><br/>
                                         {{ Form::close() }}
                                     </div>

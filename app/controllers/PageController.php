@@ -282,7 +282,7 @@ class pageController extends \BaseController
             array(
                 'name' => 'required',
                 'email' => 'required|email',
-                'phone' => 'required|numeric',
+                'phone' => 'required',
                 'amount' => 'required|numeric',
             )
         );
@@ -367,7 +367,8 @@ class pageController extends \BaseController
 
 
             $currency = 'USD';
-            $total_price_all_hsbc = $amount * 100;
+            $x =$amount * 100 * 1.037;
+            $total_price_all_hsbc = round($x ,2);
 
 //       f dd($hsbc_payment_id . '/' . $currency . '/' . $total_price_all_hsbc . '/' . $last_res_resid);
 
