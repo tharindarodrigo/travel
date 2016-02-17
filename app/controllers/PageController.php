@@ -324,7 +324,7 @@ class pageController extends \BaseController
             $stamp = strtotime("now");
 
             $payment_id = Payment::orderBy('created_at', 'desc')->first()->id;
-            $orderid = "$stamp" . 'A' . "$payment_id";
+            $orderid = "$stamp" . 'O' . "$payment_id";
             $last_res_resid = str_replace(".", "", $orderid);
 
             $hsbc_id = HsbcPayment::orderBy('created_at', 'desc')->first()->id;
@@ -366,10 +366,10 @@ class pageController extends \BaseController
 
 
             $currency = 'USD';
-            $x =$amount * 100 * 1.037;
+            $x = $amount * 100 * 1.037;
             $total_price_all_hsbc = round($x ,2);
 
-//       f dd($hsbc_payment_id . '/' . $currency . '/' . $total_price_all_hsbc . '/' . $last_res_resid);
+//        dd($hsbc_payment_id . '/' . $currency . '/' . $total_price_all_hsbc . '/' . $last_res_resid);
 
             HsbcPayment::goto_hsbc_gateway($hsbc_payment_id, $currency, $total_price_all_hsbc, $last_res_resid);
 

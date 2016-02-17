@@ -2,12 +2,12 @@
 
 {{--Title--}}
 @section('control-title')
-    {{'General'}}
+    {{'Inquiries'}}
 @endsection
 
 {{--Sub Title--}}
 @section('control-sub-title')
-    {{'Cities'}}
+    {{'Allotment Inquiries'}}
 @endsection
 
 {{--Breadcrumbs--}}
@@ -17,15 +17,20 @@
 @endsection
 
 {{--Active Main Menu Item--}}
-@section('active-general')
+@section('active-reservations')
     {{ 'active' }}
 @endsection
 
 {{--Active Sub menu Item--}}
-@section('active-general-cities')
+@section('allotment-Inquiries')
     {{ 'active' }}
 @endsection
 
+<style type="text/css">
+    .table th{
+        text-align: center !important;
+    }
+</style>
 
 @section('content')
 
@@ -46,8 +51,7 @@
                             <th>To</th>
                             <th>Hotel</th>
                             <th>Room</th>
-                            <th>Room Spec</th>
-                            <th>Meal</th>
+                            <th>Controls</th>
                         </tr>
                         </thead>
 
@@ -57,7 +61,7 @@
                                 <td>{{$allotmentinquiry->id}}</td>
                                 <td>{{$allotmentinquiry->from}}</td>
                                 <td>{{$allotmentinquiry->to}}</td>
-                                <td>{{$allotmentinquiry->hotel->hotel}}</td>
+                                <td>{{$allotmentinquiry->hotel->name}}</td>
                                 <td>{{$allotmentinquiry->roomtype->room_type}}</td>
                                 <td>
                                     {{Form::open(array('route'=>array('control-panel.inquiries.allotment-inquiries.update',$allotmentinquiry->id), 'method'=>'Patch'))}}
@@ -71,7 +75,6 @@
                         </tbody>
                     </table>
                 </div>
-
 
             </div>
         </div>

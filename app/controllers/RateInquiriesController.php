@@ -13,9 +13,14 @@ class RateInquiriesController extends \BaseController
         if (Entrust::hasRole('Admin')) {
             $rateinquiries = RateInquiry::orderBy('created_at', 'desc')->get();
         } else {
-            $hotel_ids = DB::table('hotel_user')->select('hotel_id')->where('user_id', Auth::id())->get();
-            $hotel_ids = array_values($hotel_ids);
+            $ids = DB::table('hotel_user')->select('hotel_id')->where('user_id', Auth::id())->get();
+
+            foreach($ids as $id){
+                $hotel_ids[] = $id->hotel_id;
+            }
+
             $rateinquiries = RateInquiry::whereIn('hotel_id', $hotel_ids)->get();
+            //dd($rateinquiries);
         }
 
         return View::make('control-panel.inquiries.rate-inquiries', compact('rateinquiries'));

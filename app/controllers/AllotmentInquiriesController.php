@@ -10,12 +10,17 @@ class AllotmentInquiriesController extends \BaseController
      */
     public function index()
     {
-        if (Entrust::hasRole('Admin')) {
+        if (Entrust::hasRole('Admin'))  {
             $allotmentinquiries = AllotmentInquiry::orderBy('created_at', 'desc')->get();
         } else {
-            $hotel_ids = DB::table('hotel_user')->select('hotel_id')->where('user_id', Auth::id())->get();
-            $hotel_ids = array_values($hotel_ids);
+            $ids = DB::table('hotel_user')->select('hotel_id')->where('user_id', Auth::id())->get();
+
+            foreach($ids as $id){
+                $hotel_ids[] = $id->hotel_id;
+            }
+
             $allotmentinquiries = AllotmentInquiry::whereIn('hotel_id', $hotel_ids)->orderBy('created_at', 'desc')->get();
+            //dd($allotmentinquiries);
         }
 
         return View::make('control-panel.inquiries.allotment-inquiries', compact('allotmentinquiries'));
