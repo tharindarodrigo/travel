@@ -18,22 +18,22 @@ class RateInquiry extends \Eloquent
 
     public function roomSpecification()
     {
-        return $this->belongsTo('roomSpecification');
+        return $this->belongsTo('RoomSpecification');
     }
 
     public function market()
     {
-        return $this->belongsTo('market');
+        return $this->belongsTo('Market');
     }
 
     public function mealBasis()
     {
-        return $this->belongsTo('mealBasis');
+        return $this->belongsTo('MealBasis');
     }
     
     public function roomType()
     {
-        return $this->belongsTo('roomType');
+        return $this->belongsTo('RoomType');
     }
 
     public static function rateIsAvailable($rateinquiry)
@@ -43,10 +43,10 @@ class RateInquiry extends \Eloquent
         $rate = Rate::where('hotel_id', $rateinquiry->hotel_id)
             ->where('room_type_id', $rateinquiry->room_type_id)
             ->where('meal_basis_id', $rateinquiry->meal_basis_id)
+            ->where('market_id', $rateinquiry->market_id)
             ->where('room_specification_id', $rateinquiry->room_specification_id)
             ->where('from','<=',$rateinquiry->from)
-            ->where('to','>=',$rateinquiry->to)
-            ->first();
+            ->where('to','>=',$rateinquiry->to);
 //        dd('<pre>',$rate,'</pre>');
 
         return $rate->count() > 0;

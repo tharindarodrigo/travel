@@ -38,13 +38,13 @@ class RateInquiriesController extends \BaseController
      */
     public function store()
     {
-        $validator = Validator::make($data = Input::all(), Rateinquiry::$rules);
+        $validator = Validator::make($data = Input::all(), RateInquiry::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        Rateinquiry::create($data);
+        RateInquiry::create($data);
 
         return Redirect::route('rateinquiries.index');
     }
@@ -57,7 +57,7 @@ class RateInquiriesController extends \BaseController
      */
     public function show($id)
     {
-        $rateinquiry = Rateinquiry::findOrFail($id);
+        $rateinquiry = RateInquiry::findOrFail($id);
 
         return View::make('rateinquiries.show', compact('rateinquiry'));
     }
@@ -70,7 +70,7 @@ class RateInquiriesController extends \BaseController
      */
     public function edit($id)
     {
-        $rateinquiry = Rateinquiry::find($id);
+        $rateinquiry = RateInquiry::find($id);
 
         return View::make('rateinquiries.edit', compact('rateinquiry'));
     }
@@ -84,26 +84,25 @@ class RateInquiriesController extends \BaseController
     public function update($id)
     {
 
-        $rateinquiry = Rateinquiry::findOrFail($id);
+        $rateinquiry = RateInquiry::findOrFail($id);
 
-
-        $validator = Validator::make($data = Input::all(), Rateinquiry::$rules);
+        $validator = Validator::make($data = Input::all(), RateInquiry::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
         if (RateInquiry::rateIsAvailable($rateinquiry)) {
-            dd('done');
+            $rateinquiry->update(array('status'=>1, 'viewed'=>0));
 
         } else {
-            dd(':(');
+            Session::flash('global', 'Sorry You have not ');
             //Enter Rates
         }
 
-        $rateinquiry->update($data);
+        //$rateinquiry->update($data);
 
-        return Redirect::route('rateinquiries.index');
+        return Redirect::back();
     }
 
     /**
@@ -114,7 +113,7 @@ class RateInquiriesController extends \BaseController
      */
     public function destroy($id)
     {
-        Rateinquiry::destroy($id);
+        RateInquiry::destroy($id);
 
         return Redirect::route('rateinquiries.index');
     }

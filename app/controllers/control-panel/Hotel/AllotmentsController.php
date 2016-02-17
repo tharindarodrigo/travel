@@ -477,9 +477,9 @@ class AllotmentsController extends \BaseController {
 	 * @return Response
 	 */
 	public function destroy($hotel_id,$id)
-	{
-		Allotment::destroy($id);
+    {
+        Allotment::destroy($id);
         return Redirect::back();
-	}
+    }
 
 }

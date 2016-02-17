@@ -5,6 +5,51 @@
             <i class="fa fa-dashboard "></i> <span>Dashboard</span>
         </a>
     </li>
+    {{--General--}}
+    @if(Entrust::hasRole('Admin'))
+        <li class="treeview @yield('active-general')">
+            <a href="#">
+                <i class="fa fa-arrows-alt"></i>
+                <span>General</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li class="@yield('active-general-cities')"><a
+                            href="{{ Url::route('control-panel.general.cities.index') }}"><i
+                                class="fa fa-circle-o"></i> Cities</a>
+                </li>
+                <li class="@yield('active-general-countries')"><a
+                            href="{{ Url::route('control-panel.general.countries.index') }}"><i
+                                class="fa fa-circle-o"></i> Countries</a>
+                </li>
+                <li class="@yield('active-general-markets')"><a
+                            href="{{ Url::route('control-panel.general.markets.index') }}"><i
+                                class="fa fa-circle-o"></i> Markets</a>
+                </li>
+            </ul>
+        </li>
+    @endif
+    {{--Hotels--}}
+    @if(Entrust::hasRole('Hotelier'))
+        <li class="treeview @yield('active-reservations')">
+            <a href="#">
+                <i class="fa fa-users"></i>
+                <span>Inquiries</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li class="@yield('room-Inquiries')"><a
+                            href="#"><i class="fa fa-circle-o"></i>
+                        Room Inquiries</a>
+                </li>
+                <li class="@yield('active-users-hoteliers')"><a
+                            href="#"><i
+                                class="fa fa-circle-o"></i>
+                        Allotment Inquiries</a></li>
+            </ul>
+        </li>
+    @endif
+
     <li class="treeview @yield('active-hotels')">
         <a href="#">
             <i class="fa fa-cutlery"></i>
@@ -39,58 +84,39 @@
     </li>
     @if(Entrust::hasRole('Admin'))
 
-        <li class="treeview @yield('active-payments')">
-            <a href="#">
-                <i class="fa fa-users"></i>
-                <span>Payments</span>
-                <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="treeview-menu">
-                <li class="@yield('active-all-payments')">
-                    <a href="{{URL::route('control-panel.payments.index')}}">
-                        <i class="fa fa-circle-o"></i> All Payment </a></li>
-                <li class="@yield('active-payments-create')">
-                    <a href="{{URL::route('control-panel.payments.create')}}">
-                        <i class="fa fa-circle-o"></i> New Payment </a></li>
-            </ul>
-        </li>
+        {{--<li class="treeview @yield('active-payments')">--}}
+        {{--<a href="#">--}}
+        {{--<i class="fa fa-users"></i>--}}
+        {{--<span>Payments</span>--}}
+        {{--<i class="fa fa-angle-left pull-right"></i>--}}
+        {{--</a>--}}
+        {{--<ul class="treeview-menu">--}}
+        {{--<li class="@yield('active-all-payments')">--}}
+        {{--<a href="{{URL::route('control-panel.payments.index')}}">--}}
+        {{--<i class="fa fa-circle-o"></i> All Payment </a></li>--}}
+        {{--<li class="@yield('active-payments-create')">--}}
+        {{--<a href="{{URL::route('control-panel.payments.create')}}">--}}
+        {{--<i class="fa fa-circle-o"></i> New Payment </a></li>--}}
+        {{--</ul>--}}
+        {{--</li>--}}
 
-        <li class="treeview @yield('active-general')">
-            <a href="#">
-                <i class="fa fa-arrows-alt"></i>
-                <span>General</span>
-                <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="treeview-menu">
-                <li class="@yield('active-general-cities')"><a
-                            href="{{ Url::route('control-panel.general.cities.index') }}"><i
-                                class="fa fa-circle-o"></i> Cities</a>
-                </li>
-                <li class="@yield('active-general-countries')"><a
-                            href="{{ Url::route('control-panel.general.countries.index') }}"><i
-                                class="fa fa-circle-o"></i> Countries</a>
-                </li>
-                <li class="@yield('active-general-markets')"><a
-                            href="{{ Url::route('control-panel.general.markets.index') }}"><i
-                                class="fa fa-circle-o"></i> Markets</a>
-                </li>
-            </ul>
-        </li>
-        <li class="treeview @yield('active-agents')">
-            <a href="#">
-                <i class="fa fa-user"></i>
-                <span>Agents</span>
-                <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="treeview-menu">
-                <li class="@yield('active-agent-users')"><a href="#"><i class="fa fa-circle-o"></i>
-                        Agents</a></li>
-                <li class="@yield('active-agent-list')"><a href="#"><i class="fa fa-circle-o"></i> Companies</a>
-                </li>
-                <li class="@yield('active-agent-create')"><a href="#"><i class="fa fa-circle-o"></i> Create
-                        Company</a></li>
-            </ul>
-        </li>
+
+        {{--<li class="treeview @yield('active-agents')">--}}
+        {{--<a href="#">--}}
+        {{--<i class="fa fa-user"></i>--}}
+        {{--<span>Agents</span>--}}
+        {{--<i class="fa fa-angle-left pull-right"></i>--}}
+        {{--</a>--}}
+        {{--<ul class="treeview-menu">--}}
+        {{--<li class="@yield('active-agent-users')"><a href="#"><i class="fa fa-circle-o"></i>--}}
+        {{--Agents</a></li>--}}
+        {{--<li class="@yield('active-agent-list')"><a href="#"><i class="fa fa-circle-o"></i> Companies</a>--}}
+        {{--</li>--}}
+        {{--<li class="@yield('active-agent-create')"><a href="#"><i class="fa fa-circle-o"></i> Create--}}
+        {{--Company</a></li>--}}
+        {{--</ul>--}}
+        {{--</li>--}}
+
         <li class="treeview @yield('active-transportation')">
             <a href="#">
                 <i class="fa fa-car"></i>
@@ -131,23 +157,7 @@
     @if(Entrust::hasRole('Agent'))
 
     @endif
-    <li class="treeview @yield('active-reservations')">
-        <a href="#">
-            <i class="fa fa-users"></i>
-            <span>Inquiries</span>
-            <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-            <li class="@yield('room-Inquiries')"><a
-                        href="#"><i class="fa fa-circle-o"></i>
-                    Room Inquiries</a>
-            </li>
-            <li class="@yield('active-users-hoteliers')"><a
-                        href="#"><i
-                            class="fa fa-circle-o"></i>
-                    Allotment Inquiries</a></li>
-        </ul>
-    </li>
+
     <li class="treeview @yield('active-accounts')">
         <a href="#">
             <i class="fa fa-users"></i>

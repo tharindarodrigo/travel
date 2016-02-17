@@ -48,6 +48,7 @@
                             <th>Room</th>
                             <th>Room Spec</th>
                             <th>Meal</th>
+                            <th>Market</th>
                             <th>Controls</th>
                         </tr>
                         </thead>
@@ -62,18 +63,25 @@
                                 <td>{{$rateinquiry->roomtype->room_type}}</td>
                                 <td>{{$rateinquiry->roomSpecification->room_specification}}</td>
                                 <td>{{$rateinquiry->mealBasis->meal_basis}}</td>
+                                <td>{{$rateinquiry->market->market}}</td>
                                 <td>
-                                    {{Form::open(array('route'=>array('control-panel.inquiries.rate-inquiries.update',$rateinquiry->id), 'method'=>'Patch'))}}
-                                        <button class="btn btn-success btn-block" type="submit" value="1" name="status">Confirm</button>
-                                    {{Form::close()}}
+                                    @if(RateInquiry::rateIsAvailable($rateinquiry))
+                                        {{Form::open(array('route'=>array('control-panel.inquiries.rate-inquiries.update',$rateinquiry->id), 'method'=>'Patch'))}}
+                                        <button class="btn btn-success btn-block" type="submit" value="1" name="status">
+                                            Confirm
+                                        </button>
+                                        {{Form::close()}}
+                                    @else
+                                        <a href="{{URL::route('control-panel.hotel.hotels.rates.create',$rateinquiry->hotel_id)}}"
+                                           class="btn btn-warning">Enter Rate</a>
+                                    @endif
+
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
-
-
             </div>
         </div>
 
