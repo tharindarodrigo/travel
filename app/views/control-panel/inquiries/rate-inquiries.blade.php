@@ -63,9 +63,22 @@
                                 <td>{{$rateinquiry->roomSpecification->room_specification}}</td>
                                 <td>{{$rateinquiry->mealBasis->meal_basis}}</td>
                                 <td>
-                                    {{Form::open(array('route'=>array('control-panel.inquiries.rate-inquiries.update',$rateinquiry->id), 'method'=>'Patch'))}}
-                                        <button class="btn btn-success btn-block" type="submit" value="1" name="status">Confirm</button>
-                                    {{Form::close()}}
+                                    @if(RateInquiry::rateIsAvailable($rateinquiry))
+                                        @if($rateinquiry->status == 1)
+                                            <button class="btn btn-success btn-block" value="1" name="confirm">
+                                                Confirmed
+                                            </button>
+                                        @else
+                                        {{Form::open(array('route'=>array('control-panel.inquiries.rate-inquiries.update',$rateinquiry->id), 'method'=>'Patch'))}}
+                                        <button class="btn btn-success btn-block" type="submit" value="1" name="status">
+                                            Confirm
+                                        </button>
+                                        {{Form::close()}}
+                                        @endif
+                                    @else
+                                        <a href="{{URL::route('control-panel.hotel.hotels.rates.create',$rateinquiry->hotel_id)}}"
+                                           class="btn btn-warning">Enter Rate</a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

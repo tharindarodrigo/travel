@@ -241,6 +241,7 @@ class HotelController extends \BaseController
                         $r->where('rate', '<=', $max_rate);
                         $r->where('from', '<=', $from_date);
                         $r->where('to', '>=', $from_date);
+                        $r->orderBy('rate', 'desc');
                     })
                     ->where('val', 1)
 //                    ->whereHas('HotelFacility', function ($q) use ($facility) {
@@ -383,6 +384,7 @@ class HotelController extends \BaseController
 //                })
                     ->where('val', 1)
                     ->whereIn('star_category_id', $star_id)
+                    //->orderBy('rate', 'DESC')
                     ->paginate(30);
 
                 $min_hot_rate = DB::table('hotels')

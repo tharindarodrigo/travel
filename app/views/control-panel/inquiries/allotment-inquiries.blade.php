@@ -27,7 +27,7 @@
 @endsection
 
 <style type="text/css">
-    .table th{
+    .table th {
         text-align: center !important;
     }
 </style>
@@ -64,11 +64,20 @@
                                 <td>{{$allotmentinquiry->hotel->name}}</td>
                                 <td>{{$allotmentinquiry->roomtype->room_type}}</td>
                                 <td>
-                                    {{Form::open(array('route'=>array('control-panel.inquiries.allotment-inquiries.update',$allotmentinquiry->id), 'method'=>'Patch'))}}
-                                    <button class="btn btn-success btn-block" type="submit" value="1" name="confirm">
-                                        Confirm
-                                    </button>
-                                    {{Form::close()}}
+                                    @if(AllotmentInquiry::allotmentIsAvailable($allotmentinquiry))
+                                        @if($allotmentinquiry->status == 1)
+                                            <button class="btn btn-success btn-block" value="1" name="confirm">
+                                                Confirmed
+                                            </button>
+                                        @else
+                                            {{Form::open(array('route'=>array('control-panel.inquiries.allotment-inquiries.update',$allotmentinquiry->id), 'method'=>'Patch'))}}
+                                            <button class="btn btn-success btn-block" type="submit" value="1"
+                                                    name="confirm">
+                                                Confirm
+                                            </button>
+                                            {{Form::close()}}
+                                        @endif
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

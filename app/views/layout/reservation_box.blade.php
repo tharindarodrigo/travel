@@ -36,7 +36,7 @@ $city1 = City::lists('city', 'id');
         width: 90%;
         height: 200px;
         position: absolute;
-        top: 140px;
+        top: 135px;
         left: 20px;
     }
 
@@ -80,16 +80,16 @@ $city1 = City::lists('city', 'id');
             {{--});--}}
             {{--</script>--}}
 
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="sri_lankan" class="srilanka_rate">
-                    <span class="opensans size18"> I am A Sri Lankan </span>
-                    <span class="glyphicon glyphicon-info-sign right lblue cpointer" rel="popover" id="username"
-                          data-content="This field is mandatory"
-                          data-original-title="Here you can add additional information about the car">
-                    </span>
-                </label>
-            </div>
+            {{--<div class="checkbox">--}}
+                {{--<label>--}}
+                    {{--<input type="checkbox" name="sri_lankan" class="srilanka_rate">--}}
+                    {{--<span class="opensans size18"> I am A Sri Lankan </span>--}}
+                    {{--<span class="glyphicon glyphicon-info-sign right lblue cpointer" rel="popover" id="username"--}}
+                          {{--data-content="This field is mandatory"--}}
+                          {{--data-original-title="Here you can add additional information about the car">--}}
+                    {{--</span>--}}
+                {{--</label>--}}
+            {{--</div>--}}
 
             {{ Form::close() }}
 

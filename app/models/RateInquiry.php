@@ -9,7 +9,7 @@ class RateInquiry extends \Eloquent
     ];
 
     // Don't forget to fill this array
-    protected $fillable = ['hotel_id', 'room_type_id','meal_basis_id','status', 'room_specification_id','from','to'];
+    protected $fillable = ['hotel_id', 'room_type_id', 'meal_basis_id', 'status', 'room_specification_id', 'from', 'to'];
 
     public function hotel()
     {
@@ -30,7 +30,7 @@ class RateInquiry extends \Eloquent
     {
         return $this->belongsTo('MealBasis');
     }
-    
+
     public function roomType()
     {
         return $this->belongsTo('RoomType');
@@ -45,11 +45,13 @@ class RateInquiry extends \Eloquent
             ->where('meal_basis_id', $rateinquiry->meal_basis_id)
             ->where('market_id', $rateinquiry->market_id)
             ->where('room_specification_id', $rateinquiry->room_specification_id)
-            ->where('from','<=',$rateinquiry->from)
-            ->where('to','>=',$rateinquiry->to);
+            ->where('from', '<=', $rateinquiry->from)
+            ->where('to', '>=', $rateinquiry->to);
 //        dd('<pre>',$rate,'</pre>');
 
-        return $rate->count() > 0;
+        if ($rate) {
+            return $rate->count() > 0;
+        }
     }
 
 }

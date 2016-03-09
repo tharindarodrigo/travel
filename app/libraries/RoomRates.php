@@ -100,8 +100,8 @@ class RoomRates
                 ->where('room_type_id', $room_type_id)
                 ->where('room_specification_id', $specification_id)
                 ->where('meal_basis_id', $meal_basis_id)
-                //->where('from', '<=', $from_date)
-                //->where('to', '>', $from_date)
+                ->where('from', '<=', $from_date)
+                ->where('to', '>', $from_date)
                 ->where('market_id', $market)
                 ->get();
 
@@ -174,8 +174,8 @@ class RoomRates
                 ->where('room_type_id', $room_type_id)
                 ->where('room_specification_id', $specification_id)
                 ->where('meal_basis_id', $meal_basis_id)
-               //// ->where('from', '<=', $from_date)
-              //  ->where('to', '>', $from_date)
+                ->where('from', '<=', $from_date)
+                ->where('to', '>', $from_date)
                 ->where('market_id', $market)
                 ->get();
 

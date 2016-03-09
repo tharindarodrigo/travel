@@ -10,6 +10,7 @@ class AllotmentInquiriesController extends \BaseController
      */
     public function index()
     {
+
         if (Entrust::hasRole('Admin'))  {
             $allotmentinquiries = AllotmentInquiry::orderBy('created_at', 'desc')->get();
         } else {
@@ -43,13 +44,13 @@ class AllotmentInquiriesController extends \BaseController
      */
     public function store()
     {
-        $validator = Validator::make($data = Input::all(), Allotmentinquiry::$rules);
+        $validator = Validator::make($data = Input::all(), AllotmentInquiry::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        Allotmentinquiry::create($data);
+        AllotmentInquiry::create($data);
 
         return Redirect::route('allotmentinquiries.index');
     }
@@ -62,7 +63,7 @@ class AllotmentInquiriesController extends \BaseController
      */
     public function show($id)
     {
-        $allotmentinquiry = Allotmentinquiry::findOrFail($id);
+        $allotmentinquiry = AllotmentInquiry::findOrFail($id);
 
         return View::make('allotmentinquiries.show', compact('allotmentinquiry'));
     }
@@ -75,7 +76,7 @@ class AllotmentInquiriesController extends \BaseController
      */
     public function edit($id)
     {
-        $allotmentinquiry = Allotmentinquiry::find($id);
+        $allotmentinquiry = AllotmentInquiry::find($id);
 
         return View::make('allotmentinquiries.edit', compact('allotmentinquiry'));
     }
@@ -88,23 +89,25 @@ class AllotmentInquiriesController extends \BaseController
      */
     public function update($id)
     {
-        $allotmentinquiry = Allotmentinquiry::findOrFail($id);
+        $allotmentinquiry = AllotmentInquiry::findOrFail($id);
 
-        $validator = Validator::make($data = Input::all(), Allotmentinquiry::$rules);
+        $validator = Validator::make($data = Input::all(), AllotmentInquiry::$rules);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
         if (AllotmentInquiry::allotmentIsAvailable($allotmentinquiry)) {
-            dd('done');
+            $allotmentinquiry->update(array('status'=>1, 'viewed'=>0));
         } else {
-            dd(':(');
+            Session::flash('global', 'Sorry You have not ');
+            //Enter Rates
         }
 
-        $allotmentinquiry->update($data);
+       // $allotmentinquiry->update($data);
+       // return Redirect::route('allotmentinquiries.index');
 
-        return Redirect::route('allotmentinquiries.index');
+        return Redirect::back();
     }
 
     /**
@@ -115,7 +118,7 @@ class AllotmentInquiriesController extends \BaseController
      */
     public function destroy($id)
     {
-        Allotmentinquiry::destroy($id);
+        AllotmentInquiry::destroy($id);
 
         return Redirect::route('allotmentinquiries.index');
     }

@@ -11,7 +11,7 @@ class AllotmentInquiry extends \Eloquent
     // Don't forget to fill this array
     protected $fillable = ['hotel_id', 'room_type_id', 'status', 'room_specification_id', 'from', 'to'];
 
-    public function allotmentIsAvailable($allotmentinquiry)
+    public static function allotmentIsAvailable($allotmentinquiry)
     {
         $rate = Rate::where('hotel_id', $allotmentinquiry->hotel_id)
             ->where('room_type_id', $allotmentinquiry->room_type_id)

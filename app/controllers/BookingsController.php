@@ -264,7 +264,7 @@ class BookingsController extends \BaseController
 
         $amount = Input::get('amount');
         Session::put('payment_amount', $amount);
-        $x = round(Session::get('the_total_booking_amount'),2);
+        $x = round(Session::get('the_total_booking_amount') ,2);
         // $hsbc_payment_id = 1000;
         $currency = 'USD';
         $total_price_all_hsbc = 0.1 * 100;

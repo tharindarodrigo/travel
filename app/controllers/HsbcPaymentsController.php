@@ -490,17 +490,6 @@ class HsbcPaymentsController extends \BaseController
                         $booking = Booking::where('payment_reference_number', $orderInfo)->first();
                         $payment = Payment::where('reference_number', $orderInfo)->first();
 
-                        //dd($booking->email);
-
-//                        Mail::send('emails/online-payment', array(
-//                            'payment' => $payment,
-//                            'booking' => $booking
-//                        ), function ($message) use ($booking) {
-//                            $message->subject('Online Payment Receipt : ' . $booking->reference_number)
-//                                ->from('noreply@srilankahotels.travel', 'SriLankaHotels.Travel')
-//                                ->bcc('admin@srilankahotels.travel')
-//                                ->to('tharindarodrigo@gmail.com');
-//                        });
 
                         Mail::send('emails/online-payment', array(
                             'booking' => $booking,
