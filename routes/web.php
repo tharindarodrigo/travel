@@ -47,17 +47,3 @@ Route::middleware('auth')->group(function () {
         'profile.destroy'
     );
 });
-
-Route::prefix('/')
-    ->middleware('auth')
-    ->group(function () {
-        Route::resource('users', UserController::class);
-        Route::resource('hotels', HotelController::class);
-        Route::resource('hotel-categories', HotelCategoryController::class);
-        Route::resource('images', ImageController::class);
-        Route::resource('rooms', RoomController::class);
-        Route::resource('rates', RateController::class);
-        Route::resource('hotel-amenities', HotelAmenityController::class);
-        Route::resource('hotel-services', HotelServiceController::class);
-        Route::resource('vehicles', VehicleController::class);
-    });

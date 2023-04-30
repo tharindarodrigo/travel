@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->bigIncrements('id');
             $table->unsignedSmallInteger('adults')->default(1);
             $table->unsignedSmallInteger('children')->default(0);
-            $table->enum('basis', ['RO', 'BB', 'HB', 'FB', 'Ai']);
+            $table->string('basis');
             $table->date('from');
             $table->date('to');
             $table->decimal('price');

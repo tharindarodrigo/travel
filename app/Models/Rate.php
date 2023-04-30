@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Scopes\Searchable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -25,8 +26,8 @@ class Rate extends Model
     protected $searchableFields = ['*'];
 
     protected $casts = [
-        'from' => 'date',
-        'to' => 'date',
+        'from' => 'date:Y-m-d',
+        'to' => 'date:Y-m-d',
     ];
 
     public function hotel()

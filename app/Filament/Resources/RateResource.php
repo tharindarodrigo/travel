@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Models\Rate;
+use App\Rules\RateRule;
 use Filament\{Tables, Forms};
 use Filament\Resources\{Form, Table, Resource};
 use Filament\Forms\Components\Grid;
@@ -49,7 +50,7 @@ class RateResource extends Resource
                         ]),
 
                     Select::make('basis')
-                        ->rules(['required', 'in:ro,bb,hb,fb,ai'])
+                        ->rules(['required'])
                         ->searchable()
                         ->options([
                             'RO' => 'RO',
@@ -66,7 +67,7 @@ class RateResource extends Resource
                         ]),
 
                     DatePicker::make('from')
-                        ->rules(['required', 'date'])
+                        ->rules(['required', 'date', new RateRule])
                         ->placeholder('From')
                         ->columnSpan([
                             'default' => 12,
@@ -106,6 +107,7 @@ class RateResource extends Resource
 
                     BelongsToSelect::make('room_id')
                         ->rules(['required', 'exists:rooms,id'])
+
                         ->relationship('room', 'name')
                         ->searchable()
                         ->placeholder('Room')
