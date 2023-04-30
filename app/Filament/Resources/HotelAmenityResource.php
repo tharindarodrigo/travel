@@ -17,7 +17,8 @@ class HotelAmenityResource extends Resource
 {
     protected static ?string $model = HotelAmenity::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    //icon for a hotel
+    protected static ?string $navigationIcon = 'heroicon-o-sparkles';
 
     protected static ?string $recordTitleAttribute = 'name';
 

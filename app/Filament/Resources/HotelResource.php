@@ -18,7 +18,7 @@ class HotelResource extends Resource
 {
     protected static ?string $model = Hotel::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-office-building';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -132,8 +132,6 @@ class HotelResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->limit(50),
-                Tables\Columns\TextColumn::make('address_line_1')->limit(50),
-                Tables\Columns\TextColumn::make('address_line_2')->limit(50),
                 Tables\Columns\TextColumn::make('city')->limit(50),
                 Tables\Columns\TextColumn::make('country')->limit(50),
                 Tables\Columns\TextColumn::make('longitude'),

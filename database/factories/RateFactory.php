@@ -27,7 +27,7 @@ class RateFactory extends Factory
             'adults' => $this->faker->numberBetween(1, 3),
             'children' => $this->faker->numberBetween(0, 2),
             'basis' => $this->faker->randomElement(['AI', 'FB', 'HB', 'BB', 'RO']),
-            'from' => $date = $this->faker->date,
+            'from' => $date = now()->addMonths($this->faker->numberBetween(-2, 3))->format('Y-m-d'),
             'to' => Carbon::make($date)->addMonths($this->faker->numberBetween(1, 6))->format('Y-m-d'),
             'price' => $this->faker->numberBetween(50,200),
             'hotel_id' => \App\Models\Hotel::factory(),

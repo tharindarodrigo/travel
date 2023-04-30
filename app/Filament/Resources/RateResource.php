@@ -3,8 +3,10 @@
 namespace App\Filament\Resources;
 
 use App\Models\Rate;
+use App\Models\Room;
 use App\Rules\RateRule;
-use Filament\{Tables, Forms};
+use Illuminate\Database\Eloquent\Collection;
+use Filament\{Tables, Forms, Tables\Actions\BulkAction, Tables\Filters\SelectFilter};
 use Filament\Resources\{Form, Table, Resource};
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Card;
@@ -20,7 +22,7 @@ class RateResource extends Resource
 {
     protected static ?string $model = Rate::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
 
     protected static ?string $recordTitleAttribute = 'from';
 
@@ -107,7 +109,6 @@ class RateResource extends Resource
 
                     BelongsToSelect::make('room_id')
                         ->rules(['required', 'exists:rooms,id'])
-
                         ->relationship('room', 'name')
                         ->searchable()
                         ->placeholder('Room')
@@ -141,46 +142,60 @@ class RateResource extends Resource
                 Tables\Columns\TextColumn::make('room.name')->limit(50),
             ])
             ->filters([
-                Tables\Filters\Filter::make('created_at')
+                Tables\Filters\Filter::make('available')
                     ->form([
-                        Forms\Components\DatePicker::make('created_from'),
-                        Forms\Components\DatePicker::make('created_until'),
+                        Forms\Components\DatePicker::make('from'),
+                        Forms\Components\DatePicker::make('to'),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
                             ->when(
-                                $data['created_from'],
+                                $data['from'],
                                 fn(
                                     Builder $query,
-                                    $date
-                                ): Builder => $query->whereDate(
-                                    'created_at',
-                                    '>=',
-                                    $date
-                                )
+                                            $date
+                                ): Builder => $query
+                                    ->whereDate('from', '<=', $date)
+                                    ->whereDate('to', '>=', $date)
                             )
                             ->when(
-                                $data['created_until'],
+                                $data['to'],
                                 fn(
                                     Builder $query,
-                                    $date
-                                ): Builder => $query->whereDate(
-                                    'created_at',
-                                    '<=',
-                                    $date
-                                )
+                                            $date
+                                ): Builder => $query
+                                    ->orWhereDate('to', '>=', $date)
+                                    ->whereDate('from', '<=', $date)
+
                             );
                     }),
 
-                MultiSelectFilter::make('hotel_id')->relationship(
+                SelectFilter::make('hotel_id')->relationship(
                     'hotel',
-                    'name'
-                ),
+                    'name',
+                    function () {
+                        return \App\Models\Hotel::whereHas('rooms');
+                    }
+                )->searchable(),
 
-                MultiSelectFilter::make('room_id')->relationship(
+                SelectFilter::make('room_id')->relationship(
                     'room',
                     'name'
                 ),
+            ])
+            ->bulkActions([
+                BulkAction::make('Reserve')
+                    ->form([
+                        //Add form fields for from and To
+                        Forms\Components\DatePicker::make('from'),
+                        Forms\Components\DatePicker::make('to'),
+                    ])->action(function (Collection $records, array $data) {
+                        $records->each(function (Rate $rate) use ($data) {
+                            $rate->room->reserve($data['from'], $data['to']);
+                        });
+                    })
+                ->deselectRecordsAfterCompletion(),
+
             ]);
     }
 

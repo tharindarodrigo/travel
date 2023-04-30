@@ -19,7 +19,7 @@ class HotelServiceResource extends Resource
 {
     protected static ?string $model = HotelService::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-list';
 
     protected static ?string $recordTitleAttribute = 'name';
 

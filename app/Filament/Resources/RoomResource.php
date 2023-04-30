@@ -3,7 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Models\Room;
-use Filament\{Tables, Forms};
+use Illuminate\Database\Eloquent\Collection;
+use Filament\{Tables, Forms, Tables\Actions\BulkAction};
 use Filament\Resources\{Form, Table, Resource};
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Card;
@@ -20,7 +21,7 @@ class RoomResource extends Resource
 {
     protected static ?string $model = Room::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-view-grid';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -93,33 +94,21 @@ class RoomResource extends Resource
             ->filters([
                 Tables\Filters\Filter::make('created_at')
                     ->form([
-                        Forms\Components\DatePicker::make('created_from'),
-                        Forms\Components\DatePicker::make('created_until'),
+                        Forms\Components\DatePicker::make('from'),
+                        Forms\Components\DatePicker::make('to'),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
-                        return $query
-                            ->when(
-                                $data['created_from'],
-                                fn(
-                                    Builder $query,
-                                    $date
-                                ): Builder => $query->whereDate(
-                                    'created_at',
-                                    '>=',
-                                    $date
-                                )
-                            )
-                            ->when(
-                                $data['created_until'],
-                                fn(
-                                    Builder $query,
-                                    $date
-                                ): Builder => $query->whereDate(
-                                    'created_at',
-                                    '<=',
-                                    $date
-                                )
+                        return
+                            $query->when(
+                                $data['from'],
+                                fn(Builder $query, $from) => $query->whereHas('rates',
+                                    fn(Builder $query) => $query->whereDate('from', '<=', $from))
+                            )->when(
+                                $data['to'],
+                                fn(Builder $query, $to) => $query->whereHas('rates',
+                                    fn(Builder $query) => $query->whereDate('to', '>=', $to))
                             );
+
                     }),
 
                 MultiSelectFilter::make('hotel_id')->relationship(

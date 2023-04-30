@@ -17,7 +17,8 @@ class HotelServiceSeeder extends Seeder
 
         Hotel::query()->each(function(Hotel $hotel) {
             $hotel->hotelServices()->saveMany(
-                HotelService::factory()->count(5)->make()
+                HotelService::factory(['hotel_id'=> $hotel->id])
+                    ->count(5)->make()
             );
         });
     }

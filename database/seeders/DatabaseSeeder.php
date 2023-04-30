@@ -19,13 +19,13 @@ class DatabaseSeeder extends Seeder
                 'password' => \Hash::make('admin'),
             ]);
 
-        $this->call(HotelSeeder::class);
         $this->call(HotelAmenitySeeder::class);
         $this->call(HotelCategorySeeder::class);
+        $this->call(HotelSeeder::class);
+        $this->call(RoomSeeder::class);
         $this->call(HotelServiceSeeder::class);
         $this->call(ImageSeeder::class);
         $this->call(RateSeeder::class);
-        $this->call(RoomSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(VehicleSeeder::class);
     }
