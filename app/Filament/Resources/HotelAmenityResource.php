@@ -36,7 +36,7 @@ class HotelAmenityResource extends Resource
                         ->unique(
                             'hotel_amenities',
                             'name',
-                            fn (?Model $record) => $record
+                            fn(?Model $record) => $record
                         )
                         ->placeholder('Name')
                         ->columnSpan([
@@ -61,39 +61,31 @@ class HotelAmenityResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->limit(50),
+                Tables\Columns\TextColumn::make('name')->searchable()->limit(50),
                 Tables\Columns\BooleanColumn::make('active'),
             ])
             ->filters([
                 Tables\Filters\Filter::make('created_at')
                     ->form([
-                        Forms\Components\DatePicker::make('created_from'),
-                        Forms\Components\DatePicker::make('created_until'),
+                        Forms\Components\Select::make('active')
+                            ->options([
+                                '1' => 'Active',
+                                'o' => 'Inactive',
+                            ])
                     ])
                     ->query(function (Builder $query, array $data): Builder {
-                        return $query
-                            ->when(
-                                $data['created_from'],
-                                fn (
-                                    Builder $query,
-                                    $date
-                                ): Builder => $query->whereDate(
-                                    'created_at',
-                                    '>=',
-                                    $date
-                                )
+                        $query->when(
+                            $data['active'],
+                            fn(
+                                Builder $query,
+                                        $active
+                            ): Builder => $query->where(
+                                'active',
+                                $active
                             )
-                            ->when(
-                                $data['created_until'],
-                                fn (
-                                    Builder $query,
-                                    $date
-                                ): Builder => $query->whereDate(
-                                    'created_at',
-                                    '<=',
-                                    $date
-                                )
-                            );
+                        );
+
+                        return $query;
                     }),
             ]);
     }

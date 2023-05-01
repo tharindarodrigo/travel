@@ -22,6 +22,8 @@ class RoomResource extends Resource
 {
     protected static ?string $model = Room::class;
 
+    protected static ?string $navigationGroup = 'Hotel Management';
+
     protected static ?string $navigationIcon = 'heroicon-o-view-grid';
 
     protected static ?string $recordTitleAttribute = 'name';

@@ -21,7 +21,6 @@ class RateRule implements DataAwareRule, ValidationRule
     #[NoReturn]
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        //hotel_id, room_id, adults, children should be combined unique and from and to should not overlap
         $hotelId = $this->data['hotel_id'];
         $roomId = $this->data['room_id'];
         $from = $this->data['from'];
@@ -39,8 +38,8 @@ class RateRule implements DataAwareRule, ValidationRule
             ->where('adults', $adults)
             ->where('children', $children);
 
-        if ($id = $this->data['id']) {
-            $rate = $rate->where('id', '!=', $id);
+        if (!empty($this->data['id'])) {
+            $rate = $rate->where('id', '!=', $this->data['id']);
         }
 
         $rate = $rate->first();
@@ -49,7 +48,7 @@ class RateRule implements DataAwareRule, ValidationRule
             $from = $rate->from->format('Y-m-d');
             $to = $rate->to->format('Y-m-d');
 
-            $fail("Rate already exists for this hotel, room, adults, children and overlapping the dates {$from} and {$to}");
+            $fail("Rate already exists for this Hotel, Room, Basis, Adults, Children and overlapping the dates {$from} and {$to}");
         }
     }
 

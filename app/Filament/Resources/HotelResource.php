@@ -21,6 +21,8 @@ class HotelResource extends Resource
 {
     protected static ?string $model = Hotel::class;
 
+    protected static ?string $navigationGroup = 'Hotel Management';
+
     protected static ?string $navigationIcon = 'heroicon-o-office-building';
 
     protected static ?string $recordTitleAttribute = 'name';
@@ -67,8 +69,8 @@ class HotelResource extends Resource
                         ->placeholder('City')
                         ->columnSpan([
                             'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
+                            'md' => 6,
+                            'lg' => 6,
                         ]),
 
                     TextInput::make('country')
@@ -76,8 +78,8 @@ class HotelResource extends Resource
                         ->placeholder('Country')
                         ->columnSpan([
                             'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
+                            'md' => 6,
+                            'lg' => 6,
                         ]),
 
                     TextInput::make('longitude')
@@ -86,8 +88,8 @@ class HotelResource extends Resource
                         ->placeholder('Longitude')
                         ->columnSpan([
                             'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
+                            'md' => 6,
+                            'lg' => 6,
                         ]),
 
                     TextInput::make('latitude')
@@ -96,8 +98,8 @@ class HotelResource extends Resource
                         ->placeholder('Latitude')
                         ->columnSpan([
                             'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
+                            'md' => 6,
+                            'lg' => 6,
                         ]),
 
                     RichEditor::make('description')
@@ -134,8 +136,8 @@ class HotelResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->limit(50),
-                Tables\Columns\TextColumn::make('city')->limit(50),
+                Tables\Columns\TextColumn::make('name')->searchable()->limit(50),
+                Tables\Columns\TextColumn::make('city')->searchable()->limit(50),
                 Tables\Columns\TextColumn::make('country')->limit(50),
                 Tables\Columns\TextColumn::make('longitude'),
                 Tables\Columns\TextColumn::make('latitude'),
@@ -146,9 +148,24 @@ class HotelResource extends Resource
                     ->form([
                         Forms\Components\DatePicker::make('created_from'),
                         Forms\Components\DatePicker::make('created_until'),
+                        Forms\Components\Select::make('active')
+                            ->options([
+                                '1' => 'Active',
+                                '0' => 'Inactive',
+                            ]),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
+                            ->when(
+                                $data['active'],
+                                fn (
+                                    Builder $query,
+                                    $active
+                                ): Builder => $query->where(
+                                    'active',
+                                    $active
+                                )
+                            )
                             ->when(
                                 $data['created_from'],
                                 fn (

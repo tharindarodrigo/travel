@@ -21,6 +21,8 @@ class ImageResource extends Resource
 {
     protected static ?string $model = Image::class;
 
+    protected static ?string $navigationGroup = 'Hotel Management';
+
     protected static ?string $navigationIcon = 'heroicon-o-photograph';
 
     protected static ?string $recordTitleAttribute = 'image';
@@ -74,9 +76,9 @@ class ImageResource extends Resource
                         return $query
                             ->when(
                                 $data['created_from'],
-                                fn (
+                                fn(
                                     Builder $query,
-                                    $date
+                                            $date
                                 ): Builder => $query->whereDate(
                                     'created_at',
                                     '>=',
@@ -85,9 +87,9 @@ class ImageResource extends Resource
                             )
                             ->when(
                                 $data['created_until'],
-                                fn (
+                                fn(
                                     Builder $query,
-                                    $date
+                                            $date
                                 ): Builder => $query->whereDate(
                                     'created_at',
                                     '<=',

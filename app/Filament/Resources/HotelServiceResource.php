@@ -79,9 +79,8 @@ class HotelServiceResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('hotel.name')->limit(50),
-                Tables\Columns\TextColumn::make('name')->limit(50),
-                Tables\Columns\TextColumn::make('description')->limit(50),
+                Tables\Columns\TextColumn::make('hotel.name')->searchable()->limit(50),
+                Tables\Columns\TextColumn::make('name')->searchable()->limit(50),
                 Tables\Columns\TextColumn::make('price'),
             ])
             ->filters([

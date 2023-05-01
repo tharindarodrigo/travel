@@ -3,7 +3,9 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\RateResource\Pages;
+use App\Models\Hotel;
 use App\Models\Rate;
+use App\Models\Room;
 use App\Rules\RateRule;
 use Filament\Forms;
 use Filament\Forms\Components\BelongsToSelect;
@@ -25,6 +27,8 @@ class RateResource extends Resource
 {
     protected static ?string $model = Rate::class;
 
+    protected static ?string $navigationGroup = 'Hotel Management';
+
     protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
 
     protected static ?string $recordTitleAttribute = 'from';
@@ -34,6 +38,30 @@ class RateResource extends Resource
         return $form->schema([
             Card::make()->schema([
                 Grid::make(['default' => 0])->schema([
+                    Select::make('hotel_id')
+                        ->label('Hotel')
+                        ->rules(['required', 'exists:hotels,id'])
+                        ->options(Hotel::all()->pluck('name', 'id'))
+                        ->searchable()
+                        ->preload()
+                        ->placeholder('Hotel')
+                        ->reactive()
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 6,
+                            'lg' => 6,
+                        ]),
+
+                    Select::make('room_id')
+                        ->label('Room')
+                        ->rules(['required', 'exists:rooms,id'])
+                        ->options(function(callable $get) {
+                            return Room::where('hotel_id', $get('hotel_id'))->pluck('name', 'id');
+                        })->columnSpan([
+                            'default' => 12,
+                            'md' => 6,
+                            'lg' => 6,
+                        ]),
                     TextInput::make('adults')
                         ->rules(['required', 'max:255'])
                         ->placeholder('Adults')
@@ -72,7 +100,7 @@ class RateResource extends Resource
                         ]),
 
                     DatePicker::make('from')
-                        ->rules(['required', 'date', new RateRule])
+                        ->rules(['required', 'date'])
                         ->placeholder('From')
                         ->columnSpan([
                             'default' => 12,
@@ -90,31 +118,9 @@ class RateResource extends Resource
                         ]),
 
                     TextInput::make('price')
-                        ->rules(['required', 'numeric'])
+                        ->rules(['required', 'numeric', new RateRule])
                         ->numeric()
                         ->placeholder('Price')
-                        ->columnSpan([
-                            'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
-                        ]),
-
-                    BelongsToSelect::make('hotel_id')
-                        ->rules(['required', 'exists:hotels,id'])
-                        ->relationship('hotel', 'name')
-                        ->searchable()
-                        ->placeholder('Hotel')
-                        ->columnSpan([
-                            'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
-                        ]),
-
-                    BelongsToSelect::make('room_id')
-                        ->rules(['required', 'exists:rooms,id'])
-                        ->relationship('room', 'name')
-                        ->searchable()
-                        ->placeholder('Room')
                         ->columnSpan([
                             'default' => 12,
                             'md' => 12,
@@ -154,18 +160,18 @@ class RateResource extends Resource
                         return $query
                             ->when(
                                 $data['from'],
-                                fn (
+                                fn(
                                     Builder $query,
-                                    $date
+                                            $date
                                 ): Builder => $query
                                     ->whereDate('from', '<=', $date)
                                     ->whereDate('to', '>=', $date)
                             )
                             ->when(
                                 $data['to'],
-                                fn (
+                                fn(
                                     Builder $query,
-                                    $date
+                                            $date
                                 ): Builder => $query
                                     ->orWhereDate('to', '>=', $date)
                                     ->whereDate('from', '<=', $date)
