@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\VehicleResource\Pages;
 
-use Filament\Resources\Pages\EditRecord;
 use App\Filament\Resources\VehicleResource;
+use Filament\Resources\Pages\EditRecord;
 
 class EditVehicle extends EditRecord
 {

@@ -3,13 +3,14 @@
 namespace App\Filament\Resources\HotelResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Tables;
-use Filament\Resources\{Form, Table};
 use Filament\Forms\Components\Grid;
-use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
+use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\BelongsToManyRelationManager;
+use Filament\Resources\Table;
+use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class HotelCategoriesRelationManager extends BelongsToManyRelationManager
 {
@@ -26,7 +27,7 @@ class HotelCategoriesRelationManager extends BelongsToManyRelationManager
                     ->unique(
                         'hotel_categories',
                         'name',
-                        fn(?Model $record) => $record
+                        fn (?Model $record) => $record
                     )
                     ->placeholder('Name')
                     ->columnSpan([
@@ -52,7 +53,7 @@ class HotelCategoriesRelationManager extends BelongsToManyRelationManager
                         return $query
                             ->when(
                                 $data['created_from'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(
@@ -63,7 +64,7 @@ class HotelCategoriesRelationManager extends BelongsToManyRelationManager
                             )
                             ->when(
                                 $data['created_until'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(

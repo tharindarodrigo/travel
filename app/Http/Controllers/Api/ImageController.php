@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ImageStoreRequest;
+use App\Http\Requests\ImageUpdateRequest;
+use App\Http\Resources\ImageCollection;
+use App\Http\Resources\ImageResource;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\ImageResource;
-use App\Http\Resources\ImageCollection;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\ImageStoreRequest;
-use App\Http\Requests\ImageUpdateRequest;
 
 class ImageController extends Controller
 {

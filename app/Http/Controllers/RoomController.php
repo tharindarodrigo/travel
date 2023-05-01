@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Room;
-use App\Models\Hotel;
-use Illuminate\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\RoomStoreRequest;
 use App\Http\Requests\RoomUpdateRequest;
+use App\Models\Hotel;
+use App\Models\Room;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class RoomController extends Controller
 {

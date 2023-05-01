@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\HotelStoreRequest;
+use App\Http\Requests\HotelUpdateRequest;
+use App\Http\Resources\HotelCollection;
+use App\Http\Resources\HotelResource;
 use App\Models\Hotel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\HotelResource;
-use App\Http\Resources\HotelCollection;
-use App\Http\Requests\HotelStoreRequest;
-use App\Http\Requests\HotelUpdateRequest;
 
 class HotelController extends Controller
 {

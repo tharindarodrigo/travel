@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Hotel;
-use Illuminate\Http\Request;
-use App\Http\Resources\RoomResource;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\RoomCollection;
+use App\Http\Resources\RoomResource;
+use App\Models\Hotel;
+use Illuminate\Http\Request;
 
 class HotelRoomsController extends Controller
 {

@@ -3,13 +3,14 @@
 namespace App\Filament\Resources\RoomResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Tables;
-use Filament\Resources\{Form, Table};
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\FileUpload;
-use Illuminate\Database\Eloquent\Builder;
+use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\MorphManyRelationManager;
+use Filament\Resources\Table;
+use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
 
 class ImagesRelationManager extends MorphManyRelationManager
 {
@@ -70,7 +71,7 @@ class ImagesRelationManager extends MorphManyRelationManager
                         return $query
                             ->when(
                                 $data['created_from'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(
@@ -81,7 +82,7 @@ class ImagesRelationManager extends MorphManyRelationManager
                             )
                             ->when(
                                 $data['created_until'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(

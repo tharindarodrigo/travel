@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Models\HotelCategory;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\HotelCategoryResource;
-use App\Http\Resources\HotelCategoryCollection;
 use App\Http\Requests\HotelCategoryStoreRequest;
 use App\Http\Requests\HotelCategoryUpdateRequest;
+use App\Http\Resources\HotelCategoryCollection;
+use App\Http\Resources\HotelCategoryResource;
+use App\Models\HotelCategory;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class HotelCategoryController extends Controller
 {

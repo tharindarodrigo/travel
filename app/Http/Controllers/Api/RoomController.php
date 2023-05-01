@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\RoomStoreRequest;
+use App\Http\Requests\RoomUpdateRequest;
+use App\Http\Resources\RoomCollection;
+use App\Http\Resources\RoomResource;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Resources\RoomResource;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\RoomCollection;
-use App\Http\Requests\RoomStoreRequest;
-use App\Http\Requests\RoomUpdateRequest;
 
 class RoomController extends Controller
 {

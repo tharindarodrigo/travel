@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\HotelAmenityResource\Pages;
 
-use Filament\Resources\Pages\ListRecords;
 use App\Filament\Resources\HotelAmenityResource;
+use Filament\Resources\Pages\ListRecords;
 
 class ListHotelAmenities extends ListRecords
 {

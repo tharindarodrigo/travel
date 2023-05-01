@@ -3,14 +3,15 @@
 namespace App\Filament\Resources\HotelResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Tables;
-use Filament\Resources\{Form, Table};
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Toggle;
-use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\Toggle;
+use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\BelongsToManyRelationManager;
+use Filament\Resources\Table;
+use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class HotelAmenitiesRelationManager extends BelongsToManyRelationManager
 {
@@ -27,7 +28,7 @@ class HotelAmenitiesRelationManager extends BelongsToManyRelationManager
                     ->unique(
                         'hotel_amenities',
                         'name',
-                        fn(?Model $record) => $record
+                        fn (?Model $record) => $record
                     )
                     ->placeholder('Name')
                     ->columnSpan([
@@ -64,7 +65,7 @@ class HotelAmenitiesRelationManager extends BelongsToManyRelationManager
                         return $query
                             ->when(
                                 $data['created_from'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(
@@ -75,7 +76,7 @@ class HotelAmenitiesRelationManager extends BelongsToManyRelationManager
                             )
                             ->when(
                                 $data['created_until'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(

@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\HotelResource\Pages;
 
-use Filament\Resources\Pages\EditRecord;
 use App\Filament\Resources\HotelResource;
+use Filament\Resources\Pages\EditRecord;
 
 class EditHotel extends EditRecord
 {

@@ -2,17 +2,20 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\ImageResource\Pages;
 use App\Models\Hotel;
 use App\Models\Image;
 use App\Models\Room;
-use Filament\{Forms\Components\MorphToSelect, Tables, Forms};
-use Filament\Resources\{Form, Table, Resource};
-use Filament\Forms\Components\Grid;
+use Filament\Forms;
 use Filament\Forms\Components\Card;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\MorphToSelect;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
+use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\ImageResource\Pages;
 
 class ImageResource extends Resource
 {
@@ -48,7 +51,6 @@ class ImageResource extends Resource
                             'lg' => 12,
                         ]),
 
-
                 ]),
             ]),
         ]);
@@ -72,7 +74,7 @@ class ImageResource extends Resource
                         return $query
                             ->when(
                                 $data['created_from'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(
@@ -83,7 +85,7 @@ class ImageResource extends Resource
                             )
                             ->when(
                                 $data['created_until'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(

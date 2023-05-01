@@ -3,15 +3,16 @@
 namespace App\Filament\Resources\HotelAmenityResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Tables;
-use Filament\Resources\{Form, Table};
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Toggle;
-use Illuminate\Database\Eloquent\Model;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
-use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\BelongsToManyRelationManager;
+use Filament\Resources\Table;
+use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class HotelsRelationManager extends BelongsToManyRelationManager
 {
@@ -25,7 +26,7 @@ class HotelsRelationManager extends BelongsToManyRelationManager
             Grid::make(['default' => 0])->schema([
                 TextInput::make('name')
                     ->rules(['required', 'max:255', 'string'])
-                    ->unique('hotels', 'name', fn(?Model $record) => $record)
+                    ->unique('hotels', 'name', fn (?Model $record) => $record)
                     ->placeholder('Name')
                     ->columnSpan([
                         'default' => 12,
@@ -123,8 +124,6 @@ class HotelsRelationManager extends BelongsToManyRelationManager
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->limit(50),
-                Tables\Columns\TextColumn::make('address_line_1')->limit(50),
-                Tables\Columns\TextColumn::make('address_line_2')->limit(50),
                 Tables\Columns\TextColumn::make('city')->limit(50),
                 Tables\Columns\TextColumn::make('country')->limit(50),
                 Tables\Columns\TextColumn::make('longitude'),
@@ -141,7 +140,7 @@ class HotelsRelationManager extends BelongsToManyRelationManager
                         return $query
                             ->when(
                                 $data['created_from'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(
@@ -152,7 +151,7 @@ class HotelsRelationManager extends BelongsToManyRelationManager
                             )
                             ->when(
                                 $data['created_until'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(

@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Models\Scopes\Searchable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
@@ -49,7 +49,7 @@ class Room extends Model
             'room_id' => $this->id,
             'adults' => $adults,
             'children' => $children,
-            'price' => $this->calculatePrice($from, $to)
+            'price' => $this->calculatePrice($from, $to),
         ]);
     }
 
@@ -72,11 +72,13 @@ class Room extends Model
                     ->where('to', '>=', $date)->first();
                 $price += $rate->price;
             }
+
             return $price * $quantity;
         }
 
         //If there is only one rate, calculate the price for the given period
         $days = $from->diffInDays($to);
+
         return $this->price * $days * $quantity;
     }
 }

@@ -2,21 +2,24 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\RateResource\Pages;
 use App\Models\Rate;
-use App\Models\Room;
 use App\Rules\RateRule;
-use Illuminate\Database\Eloquent\Collection;
-use Filament\{Tables, Forms, Tables\Actions\BulkAction, Tables\Filters\SelectFilter};
-use Filament\Resources\{Form, Table, Resource};
-use Filament\Forms\Components\Grid;
+use Filament\Forms;
+use Filament\Forms\Components\BelongsToSelect;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\DatePicker;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
+use Filament\Tables;
+use Filament\Tables\Actions\BulkAction;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\RateResource\Pages;
-use Filament\Forms\Components\BelongsToSelect;
-use Filament\Tables\Filters\MultiSelectFilter;
+use Illuminate\Database\Eloquent\Collection;
 
 class RateResource extends Resource
 {
@@ -151,18 +154,18 @@ class RateResource extends Resource
                         return $query
                             ->when(
                                 $data['from'],
-                                fn(
+                                fn (
                                     Builder $query,
-                                            $date
+                                    $date
                                 ): Builder => $query
                                     ->whereDate('from', '<=', $date)
                                     ->whereDate('to', '>=', $date)
                             )
                             ->when(
                                 $data['to'],
-                                fn(
+                                fn (
                                     Builder $query,
-                                            $date
+                                    $date
                                 ): Builder => $query
                                     ->orWhereDate('to', '>=', $date)
                                     ->whereDate('from', '<=', $date)
@@ -194,7 +197,7 @@ class RateResource extends Resource
                             $rate->room->reserve($data['from'], $data['to']);
                         });
                     })
-                ->deselectRecordsAfterCompletion(),
+                    ->deselectRecordsAfterCompletion(),
 
             ]);
     }

@@ -1,12 +1,13 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
-use App\Models\Hotel;
-use Illuminate\Http\Request;
-use App\Models\HotelAmenity;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\HotelAmenityCollection;
+use App\Models\Hotel;
+use App\Models\HotelAmenity;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class HotelHotelAmenitiesController extends Controller
 {

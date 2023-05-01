@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Rate;
 use Carbon\Carbon;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RateFactory extends Factory
@@ -29,7 +28,7 @@ class RateFactory extends Factory
             'basis' => $this->faker->randomElement(['AI', 'FB', 'HB', 'BB', 'RO']),
             'from' => $date = now()->addMonths($this->faker->numberBetween(-2, 3))->format('Y-m-d'),
             'to' => Carbon::make($date)->addMonths($this->faker->numberBetween(1, 6))->format('Y-m-d'),
-            'price' => $this->faker->numberBetween(50,200),
+            'price' => $this->faker->numberBetween(50, 200),
             'hotel_id' => \App\Models\Hotel::factory(),
             'room_id' => \App\Models\Room::factory(),
         ];

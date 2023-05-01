@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\HotelServiceResource\Pages;
 
-use Filament\Resources\Pages\ListRecords;
 use App\Filament\Resources\HotelServiceResource;
+use Filament\Resources\Pages\ListRecords;
 
 class ListHotelServices extends ListRecords
 {

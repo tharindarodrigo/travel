@@ -2,21 +2,23 @@
 
 namespace App\Http\Livewire\Selects;
 
+use App\Models\Hotel;
 use App\Models\Rate;
 use App\Models\Room;
-use App\Models\Hotel;
-use Livewire\Component;
-use Illuminate\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\View\View;
+use Livewire\Component;
 
 class HotelIdRoomIdDependentSelect extends Component
 {
     use AuthorizesRequests;
 
     public $allHotels;
+
     public $allRooms;
 
     public $selectedHotelId;
+
     public $selectedRoomId;
 
     protected $rules = [
@@ -54,7 +56,7 @@ class HotelIdRoomIdDependentSelect extends Component
 
     public function fillAllRooms(): void
     {
-        if (!$this->selectedHotelId) {
+        if (! $this->selectedHotelId) {
             return;
         }
 

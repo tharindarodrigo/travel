@@ -3,17 +3,16 @@
 namespace App\Filament\Resources\HotelResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Tables;
-use Filament\Resources\{Form, Table};
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\BelongsToSelect;
-use Filament\Tables\Filters\MultiSelectFilter;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\HasManyRelationManager;
+use Filament\Resources\Table;
+use Filament\Tables;
+use Filament\Tables\Filters\MultiSelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 class RoomsRelationManager extends HasManyRelationManager
 {
@@ -84,7 +83,7 @@ class RoomsRelationManager extends HasManyRelationManager
                         return $query
                             ->when(
                                 $data['created_from'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(
@@ -95,7 +94,7 @@ class RoomsRelationManager extends HasManyRelationManager
                             )
                             ->when(
                                 $data['created_until'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(

@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use Illuminate\Support\Str;
 use App\Models\HotelService;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -35,8 +34,9 @@ class HotelServiceFactory extends Factory
             ['name' => 'Pet services such as dog walking or pet sitting'],
             ['name' => 'Bike or equipment rental'],
             ['name' => 'Gift shop or convenience store'],
-            ['name' => 'Banquet or event facilities']
+            ['name' => 'Banquet or event facilities'],
         ];
+
         return [
             'name' => $this->faker->randomElement($chargeableServices)['name'],
             'description' => $this->faker->sentence(15),

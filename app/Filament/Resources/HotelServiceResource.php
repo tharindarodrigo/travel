@@ -2,24 +2,28 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\HotelServiceResource\Pages;
 use App\Models\HotelService;
-use Filament\{Tables, Forms};
-use Filament\Resources\{Form, Table, Resource};
-use Filament\Forms\Components\Grid;
+use Filament\Forms;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\RichEditor;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\BelongsToSelect;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
+use Filament\Tables;
 use Filament\Tables\Filters\MultiSelectFilter;
-use App\Filament\Resources\HotelServiceResource\Pages;
+use Illuminate\Database\Eloquent\Builder;
 
 class HotelServiceResource extends Resource
 {
     protected static ?string $model = HotelService::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-clipboard-list';
+    protected static ?string $navigationGroup = 'Hotel Configurations';
+
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-check';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -28,7 +32,7 @@ class HotelServiceResource extends Resource
         return $form->schema([
             Card::make()->schema([
                 Grid::make(['default' => 0])->schema([
-                    BelongsToSelect::make('hotel_id')
+                    Select::make('hotel_id')
                         ->rules(['required', 'exists:hotels,id'])
                         ->relationship('hotel', 'name')
                         ->searchable()
@@ -90,7 +94,7 @@ class HotelServiceResource extends Resource
                         return $query
                             ->when(
                                 $data['created_from'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(
@@ -101,7 +105,7 @@ class HotelServiceResource extends Resource
                             )
                             ->when(
                                 $data['created_until'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(

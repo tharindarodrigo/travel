@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\ImageResource\Pages;
 
-use Filament\Resources\Pages\EditRecord;
 use App\Filament\Resources\ImageResource;
+use Filament\Resources\Pages\EditRecord;
 
 class EditImage extends EditRecord
 {

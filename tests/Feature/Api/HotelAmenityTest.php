@@ -2,12 +2,10 @@
 
 namespace Tests\Feature\Api;
 
-use App\Models\User;
 use App\Models\HotelAmenity;
-
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
 class HotelAmenityTest extends TestCase
 {

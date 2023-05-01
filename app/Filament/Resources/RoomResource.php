@@ -2,20 +2,21 @@
 
 namespace App\Filament\Resources;
 
-use App\Models\Room;
-use Illuminate\Database\Eloquent\Collection;
-use Filament\{Tables, Forms, Tables\Actions\BulkAction};
-use Filament\Resources\{Form, Table, Resource};
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\RichEditor;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\RoomResource\Pages;
+use App\Models\Room;
+use Filament\Forms;
 use Filament\Forms\Components\BelongsToSelect;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
+use Filament\Tables;
 use Filament\Tables\Filters\MultiSelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 class RoomResource extends Resource
 {
@@ -101,12 +102,12 @@ class RoomResource extends Resource
                         return
                             $query->when(
                                 $data['from'],
-                                fn(Builder $query, $from) => $query->whereHas('rates',
-                                    fn(Builder $query) => $query->whereDate('from', '<=', $from))
+                                fn (Builder $query, $from) => $query->whereHas('rates',
+                                    fn (Builder $query) => $query->whereDate('from', '<=', $from))
                             )->when(
                                 $data['to'],
-                                fn(Builder $query, $to) => $query->whereHas('rates',
-                                    fn(Builder $query) => $query->whereDate('to', '>=', $to))
+                                fn (Builder $query, $to) => $query->whereHas('rates',
+                                    fn (Builder $query) => $query->whereDate('to', '>=', $to))
                             );
 
                     }),

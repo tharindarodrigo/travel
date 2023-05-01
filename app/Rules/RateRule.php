@@ -6,8 +6,6 @@ use App\Models\Rate;
 use Closure;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Routing\Route;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Translation\PotentiallyTranslatedString;
 use JetBrains\PhpStorm\NoReturn;
 
@@ -18,9 +16,7 @@ class RateRule implements DataAwareRule, ValidationRule
     /**
      * Run the validation rule.
      *
-     * @param string $attribute
-     * @param mixed $value
-     * @param Closure(string): PotentiallyTranslatedString $fail
+     * @param  Closure(string): PotentiallyTranslatedString  $fail
      */
     #[NoReturn]
     public function validate(string $attribute, mixed $value, Closure $fail): void
@@ -60,7 +56,7 @@ class RateRule implements DataAwareRule, ValidationRule
     public function setData(array $data): static
     {
         $this->data = $data['data'];
+
         return $this;
     }
-
 }

@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\HotelCategoryResource\Pages;
 
-use Filament\Resources\Pages\CreateRecord;
 use App\Filament\Resources\HotelCategoryResource;
+use Filament\Resources\Pages\CreateRecord;
 
 class CreateHotelCategory extends CreateRecord
 {

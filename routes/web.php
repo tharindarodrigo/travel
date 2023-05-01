@@ -1,17 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\RoomController;
-use App\Http\Controllers\RateController;
-use App\Http\Controllers\HotelController;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\HotelAmenityController;
-use App\Http\Controllers\HotelServiceController;
-use App\Http\Controllers\HotelCategoryController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +24,7 @@ Route::middleware(['auth'])
     })
     ->name('dashboard');
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name(

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\RateStoreRequest;
+use App\Http\Requests\RateUpdateRequest;
+use App\Http\Resources\RateCollection;
+use App\Http\Resources\RateResource;
 use App\Models\Rate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Resources\RateResource;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\RateCollection;
-use App\Http\Requests\RateStoreRequest;
-use App\Http\Requests\RateUpdateRequest;
 
 class RateController extends Controller
 {
